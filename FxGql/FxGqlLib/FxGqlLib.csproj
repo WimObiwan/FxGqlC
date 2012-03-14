@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{86880209-911D-45B0-8544-80CD33346BA4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>FxGqlLib</RootNamespace>
+    <AssemblyName>FxGqlLib</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f">
+      <HintPath>Parser\AntlrRuntime\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Parser\GqlParser.cs" />
+    <Compile Include="Expressions\Expression.cs" />
+    <Compile Include="Expressions\ConstExpression.cs" />
+    <Compile Include="Expressions\ConvertExpression.cs" />
+    <Compile Include="Expressions\ConvertToStringExpression.cs" />
+    <Compile Include="GqlEngine.cs" />
+    <Compile Include="IGqlCommand.cs" />
+    <Compile Include="Parser\GqlAntlrOutput\output\gqlLexer.cs" />
+    <Compile Include="Parser\GqlAntlrOutput\output\gqlParser.cs" />
+    <Compile Include="Providers\IProvider.cs" />
+    <Compile Include="Providers\FileProvider.cs">
+      <DeployService-Deploy>true</DeployService-Deploy>
+    </Compile>
+    <Compile Include="GqlQueryState.cs" />
+    <Compile Include="SystemVars\LineSystemVars.cs" />
+    <Compile Include="SystemVars\FileNameSystemVar.cs" />
+    <Compile Include="SystemVars\TotalLineNoSystemVar.cs" />
+    <Compile Include="SystemVars\LineNoSystemVar.cs" />
+    <Compile Include="Expressions\ExpressionHelper.cs" />
+    <Compile Include="Functions\SubstringFunction.cs" />
+    <Compile Include="GqlQueryCommand.cs" />
+    <Compile Include="Providers\NullProvider.cs" />
+    <Compile Include="Providers\TopProvider.cs" />
+    <Compile Include="Providers\MergeProvider.cs" />
+    <Compile Include="Functions\MatchRegexFunction.cs" />
+    <Compile Include="Providers\DistinctProvider.cs" />
+    <Compile Include="Providers\SelectProvider.cs" />
+    <Compile Include="Providers\FilterProvider.cs" />
+    <Compile Include="Operators\MatchOperator.cs" />
+    <Compile Include="Operators\LikeOperator.cs" />
+    <Compile Include="Functions\ReplaceFunction.cs" />
+    <Compile Include="Providers\OrderbyProvider.cs" />
+    <Compile Include="Providers\FormatSelectProvider.cs" />
+    <Compile Include="Providers\IntoProvider.cs" />
+    <Compile Include="Functions\FormatListFunction.cs" />
+    <Compile Include="Functions\FormatColumnListFunction.cs" />
+    <Compile Include="Providers\MultiFileProvider.cs" />
+    <Compile Include="Providers\ZipFileProvider.cs" />
+    <Compile Include="Providers\FileProviderFactory.cs" />
+    <Compile Include="Functions\ReplaceRegexFunction.cs" />
+    <Compile Include="Expressions\BinaryExpression.cs" />
+    <Compile Include="Expressions\UnaryExpression.cs" />
+    <Compile Include="Expressions\TernaryExpression.cs" />
+    <Compile Include="Operators\AnyListOperator.cs" />
+    <Compile Include="Operators\AnySubqueryOperator.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="Parser\AntlrRuntime\Antlr3.Runtime.dll" />
+    <None Include="Parser\AntlrRuntime\Antlr3.Runtime.pdb" />
+    <None Include="Parser\GqlAntlrOutput\gql.g" />
+    <None Include="Parser\GqlAntlrOutput\output\gql.tokens" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Parser\" />
+    <Folder Include="..\" />
+    <Folder Include="Expressions\" />
+    <Folder Include="Providers\" />
+    <Folder Include="SystemVars\" />
+    <Folder Include="Functions\" />
+    <Folder Include="Operators\" />
+  </ItemGroup>
+</Project>
