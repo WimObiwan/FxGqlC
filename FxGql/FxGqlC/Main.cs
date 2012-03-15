@@ -2,6 +2,7 @@ using System;
 using FxGqlLib;
 using System.IO;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace FxGqlC
 {
@@ -56,10 +57,18 @@ namespace FxGqlC
 			}
 						
 			if (!nologo) {
-				Console.WriteLine ("===========================================================================");
-				Console.WriteLine ("FxGqlC - Fox Innovations Grep Query Language for Console");
-				Console.WriteLine ("(c) Copyright 2006-2012 Fox Innovations / Wim Devos");
-				Console.WriteLine ("===========================================================================");
+				var info = System.Diagnostics.FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+				string type;
+				switch (info.FileBuildPart) {
+				case 0: type = "alpha"; break;
+				case 1: type = "beta"; break;
+				case 2: type = "rc"; break;
+				case 3: type = "r"; break;
+				default: type = ""; break;
+				}
+				Console.WriteLine ();
+				Console.WriteLine ("{0} - v{1}.{2}-{3}{4} - {5}", info.FileDescription, info.FileMajorPart, info.FileMinorPart, type, info.FilePrivatePart, info.Comments);
+				Console.WriteLine (info.LegalCopyright);
 			}
 							
 			if (license) {
@@ -78,17 +87,15 @@ namespace FxGqlC
 				Console.WriteLine ();
 				Console.WriteLine ("FxGqlC depends on (and/or contains redistributables of) these open source");
 				Console.WriteLine ("products:");
-				Console.WriteLine ("  * SharpZipLib, licensed under GPLv2, Copyright 2001-2010 Mike Krueger, ");
-				Console.WriteLine ("      John Reilly.");
-				Console.WriteLine ("  * Antlr v3, Antlr3 license (BSD), Copyright (c) 2010 Terence Parr.");
+				Console.WriteLine ("* SharpZipLib, licensed under GPLv2, Copyright 2001-2010 Mike Krueger, ");
+				Console.WriteLine ("  John Reilly.");
+				Console.WriteLine ("* Antlr v3, Antlr3 license (BSD), Copyright (c) 2010 Terence Parr.");
 				Console.WriteLine ();
 				Console.WriteLine ("Contact Information: Wim Devos, wim AT obiwan DOT be");
 				Console.WriteLine ("===========================================================================");
+				return;
 			} else if (!nologo) {
-				Console.WriteLine ("This program is free software: you can redistribute it and/or modify");
-				Console.WriteLine ("it under the terms of the GNU General Public License as published by");
-				Console.WriteLine ("the Free Software Foundation, either version 3 of the License, or");
-				Console.WriteLine ("any later version.  Run FxGqlC.exe -license for more information.");
+				Console.WriteLine ("Distributed under GPLv3.  Run FxGqlC.exe -license for more information.");
 				Console.WriteLine ("===========================================================================");
 			}
 			
@@ -117,9 +124,11 @@ namespace FxGqlC
 					ShowHelp ();
 				}
 			} finally {
-				gqlEngine.LogStream.Close ();
-				gqlEngine.LogStream.Dispose ();
-				gqlEngine.LogStream = null;
+				if (gqlEngine.LogStream != null) {
+					gqlEngine.LogStream.Close ();
+					gqlEngine.LogStream.Dispose ();
+					gqlEngine.LogStream = null;
+				}
 			}			
 		}
 
@@ -132,7 +141,7 @@ namespace FxGqlC
 			Console.WriteLine ("   -command <command>  Run a single command (usefull when running FxGqlC in");
 			Console.WriteLine ("                         scripts)  Alternative: -c <command>");
 			Console.WriteLine ("   -gqlfile <file>     Run the commands from a file");
-			Console.WriteLine ("   -logfile <file>     Outputs all commands and output to a file");
+			Console.WriteLine ("   -logfile <file>     Outputs all GQL commands and query output to a file");
 			//Console.WriteLine ("   -loglevel <#>")
 			Console.WriteLine ("===========================================================================");
 		}

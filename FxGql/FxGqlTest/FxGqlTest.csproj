@@ -9,6 +9,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>FxGqlTest</RootNamespace>
     <AssemblyName>FxGqlTest</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

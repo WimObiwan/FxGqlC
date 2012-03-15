@@ -8,7 +8,8 @@ namespace FxGqlLib
 		IProvider provider;
 		SortedSet<Key> recordList;
 		ProviderRecord record;
-		IComparer<string> comparer;
+		// TODO: Support for Distinct case insensitive
+		//IComparer<string> comparer;
 
 		class Key : IComparable<Key>
 		{
@@ -31,7 +32,7 @@ namespace FxGqlLib
 		public DistinctProvider (IProvider provider, IComparer<string> comparer)
 		{
 			this.provider = provider;
-			this.comparer = comparer;
+			//this.comparer = comparer;
 		}
 
 		#region IProvider implementation

@@ -530,7 +530,7 @@ namespace FxGqlLib
 				
 		IExpression ParseExpressionFunctionCall_0 (CommonTree functionCallTree, string functionName)
 		{
-			IExpression result;
+			//IExpression result;
 			
 			switch (functionName.ToUpperInvariant ()) {
 			default:
@@ -538,7 +538,7 @@ namespace FxGqlLib
 					functionCallTree);
 			}
 			
-			return result;
+			//return result;
 		}
 
 		IExpression ParseExpressionFunctionCall_1 (CommonTree functionCallTree, string functionName)
@@ -706,7 +706,6 @@ namespace FxGqlLib
 
 		IProvider ParseFileProvider (CommonTree fileProvider)
 		{
-			string fileName;
 			FileOptions fileOptions = ParseFile (fileProvider);
 			
 			IProvider provider = FileProviderFactory.Get (fileOptions);

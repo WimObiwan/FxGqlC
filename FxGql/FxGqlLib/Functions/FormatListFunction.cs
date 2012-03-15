@@ -7,8 +7,10 @@ namespace FxGqlLib
 		IExpression[] expression;
 		string separator;
 		
-		public FormatListFunction (IExpression[] expressions, string separator)
+		public FormatListFunction (IExpression[] expression, string separator)
 		{
+			this.expression = expression;
+			this.separator = separator;
 		}
 				
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
