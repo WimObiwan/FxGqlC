@@ -14,7 +14,7 @@ namespace FxGqlLib
 		}
 
 		#region IGqlCommand implementation
-		public void Execute (TextWriter outputStream)
+		public void Execute (TextWriter outputStream, TextWriter logStream)
 		{
 			using (SelectProvider provider = new SelectProvider (
 					new List<IExpression> () { new FormatColumnListFunction ("\t") },
@@ -23,7 +23,10 @@ namespace FxGqlLib
 				provider.Initialize ();
 					
 				while (provider.GetNextRecord()) {
-					outputStream.WriteLine (provider.Record.Columns [0].ToString ());
+					string text = provider.Record.Columns [0].ToString ();
+					outputStream.WriteLine (text);
+					if (logStream != null)
+						logStream.WriteLine (text);
 				}
 				
 				provider.Uninitialize ();

@@ -7,25 +7,33 @@ namespace FxGqlLib
 	public class GqlEngine
 	{
 		TextWriter outputStream;
+		TextWriter logStream;
 		
-		public TextWriter OutputStream
-		{
+		public TextWriter OutputStream {
 			get { return outputStream; }
 			set { outputStream = value; }
+		}
+
+		public TextWriter LogStream {
+			get { return logStream; }
+			set { logStream = value; }
 		}
 		
 		public GqlEngine ()
 		{
 		}
 	
-		public void Execute(string commandsText)
+		public void Execute (string commandsText)
 		{
-			GqlParser parser = new GqlParser(commandsText);
-			IList<IGqlCommand> commands = parser.Parse();
+			if (logStream != null) {
+				logStream.WriteLine ("===========================================================================");				
+				logStream.WriteLine ("Gql> {0}", commandsText);
+			}
+			GqlParser parser = new GqlParser (commandsText);
+			IList<IGqlCommand> commands = parser.Parse ();
 			
-			foreach (IGqlCommand command in commands)
-			{
-				command.Execute(outputStream);
+			foreach (IGqlCommand command in commands) {
+				command.Execute (outputStream, logStream);
 			}
 		}
 	}

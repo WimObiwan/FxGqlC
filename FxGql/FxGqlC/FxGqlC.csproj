@@ -35,8 +35,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="CommandLineParser.cs" />
-    <Compile Include="CommandLineSwitchAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -46,7 +44,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="License GNU GPLv3.txt">
+    <None Include="FxGqlC License %28GNU GPLv3%29.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
