@@ -5,7 +5,7 @@ namespace FxGqlLib
 {
 	public interface IGqlCommand
 	{
-		void Execute(TextWriter outputStream);
+		void Execute (TextWriter outputStream, TextWriter logStream);
 	}
 }
 
