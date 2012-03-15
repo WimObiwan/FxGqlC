@@ -383,6 +383,34 @@ namespace FxGqlTest
 			         "7FC755FADC1B31A6696B8ED57C69D2BFC37F5457735C8FCFAE31FCBD7BBA97D5");
 			TestGql ("select 12 not in (select top 10 $lineno from [SampleFiles/AirportCodes.csv])",
 			         "A9AC0C3AC83C40E1B4C3416066D63D324EE9F8C144641DFEED72D140B6557245");
+			TestGql ("select 5 = ANY (select top 10 $lineno from [SampleFiles/AirportCodes.csv])",
+			         "A9AC0C3AC83C40E1B4C3416066D63D324EE9F8C144641DFEED72D140B6557245");
+			TestGql ("select 12 = ANY (select top 10 $lineno from [SampleFiles/AirportCodes.csv])",
+			         "7FC755FADC1B31A6696B8ED57C69D2BFC37F5457735C8FCFAE31FCBD7BBA97D5");
+			TestGql ("select 5 = SOME (select top 10 $lineno from [SampleFiles/AirportCodes.csv])",
+			         "A9AC0C3AC83C40E1B4C3416066D63D324EE9F8C144641DFEED72D140B6557245");
+			TestGql ("select 12 = SOME (select top 10 $lineno from [SampleFiles/AirportCodes.csv])",
+			         "7FC755FADC1B31A6696B8ED57C69D2BFC37F5457735C8FCFAE31FCBD7BBA97D5");
+			TestGql ("select 5 = ALL (select top 10 5 from [SampleFiles/AirportCodes.csv])",
+			         "A9AC0C3AC83C40E1B4C3416066D63D324EE9F8C144641DFEED72D140B6557245");
+			TestGql ("select 5 = ALL (select top 10 $lineno from [SampleFiles/AirportCodes.csv])",
+			         "7FC755FADC1B31A6696B8ED57C69D2BFC37F5457735C8FCFAE31FCBD7BBA97D5");
+			TestGql ("select 5 < ANY (select top 10 $lineno from [SampleFiles/AirportCodes.csv])",
+			         "A9AC0C3AC83C40E1B4C3416066D63D324EE9F8C144641DFEED72D140B6557245");
+			TestGql ("select 12 < ANY (select top 10 $lineno from [SampleFiles/AirportCodes.csv])",
+			         "7FC755FADC1B31A6696B8ED57C69D2BFC37F5457735C8FCFAE31FCBD7BBA97D5");
+			TestGql ("select 5 < SOME (select top 10 $lineno from [SampleFiles/AirportCodes.csv])",
+			         "A9AC0C3AC83C40E1B4C3416066D63D324EE9F8C144641DFEED72D140B6557245");
+			TestGql ("select 12 < SOME (select top 10 $lineno from [SampleFiles/AirportCodes.csv])",
+			         "7FC755FADC1B31A6696B8ED57C69D2BFC37F5457735C8FCFAE31FCBD7BBA97D5");
+			TestGql ("select 4 < ALL (select top 10 5 from [SampleFiles/AirportCodes.csv])",
+			         "A9AC0C3AC83C40E1B4C3416066D63D324EE9F8C144641DFEED72D140B6557245");
+			TestGql ("select 4 < ALL (select top 10 $lineno from [SampleFiles/AirportCodes.csv])",
+			         "7FC755FADC1B31A6696B8ED57C69D2BFC37F5457735C8FCFAE31FCBD7BBA97D5");
+			TestGql ("select exists (select * from ['SampleFiles/AirportCodes.csv'] where contains($line, 'belgium'))", 
+				"A9AC0C3AC83C40E1B4C3416066D63D324EE9F8C144641DFEED72D140B6557245");
+			TestGql ("select exists (select * from ['SampleFiles/AirportCodes.csv'] where contains($line, 'torhout'))", 
+				"7FC755FADC1B31A6696B8ED57C69D2BFC37F5457735C8FCFAE31FCBD7BBA97D5");
 			
 			// WHERE clause
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv'] where contains($line, 'belgium')", 
@@ -526,8 +554,8 @@ namespace FxGqlTest
 		{
 			// TODO: group by
 			// TODO: aggregates
-			// TODO: ALL, ANY, SOME			
-		}
+			
+			}
 	}
 }
 

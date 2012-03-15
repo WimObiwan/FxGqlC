@@ -9,14 +9,14 @@ namespace FxGqlLib
 		Func<T, R> functor;
 		Expression<T> arg;
 		
-		public UnaryExpression (System.Linq.Expressions.Expression<Func<T, R>> functor, IExpression arg)
+		public UnaryExpression (Func<T, R> functor, IExpression arg)
 			: this (functor, ExpressionHelper.ConvertIfNeeded<T>(arg)) 
 		{
 		}
 		
-		public UnaryExpression (System.Linq.Expressions.Expression<Func<T, R>> functor, Expression<T> arg)
+		public UnaryExpression (Func<T, R> functor, Expression<T> arg)
 		{
-			this.functor = functor.Compile();
+			this.functor = functor;
 			this.arg = arg;
 		}
 		

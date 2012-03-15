@@ -59,6 +59,7 @@ tokens
 	T_IN;
 	T_NOTIN;
 	T_ANY;
+	T_EXISTS;
 }
 
 @parser::namespace { FxGqlLib }
@@ -190,8 +191,8 @@ expression_7 //: expression_6 (WS op_5 WS expression_6)*
 	op_7 WS b=expression_6 -> ^(T_OP_BINARY op_7 $expression_7 $b)
 	| IN WS? '(' WS? expression_list_or_select_command WS? ')' -> ^(T_OP_BINARY T_IN $expression_7 expression_list_or_select_command)
 	| NOT WS IN WS? '(' WS? (expression_list_or_select_command) WS? ')' -> ^(T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command)
-	| op_4 WS? (SOME | ANY) WS? '(' select_command ')' -> ^(T_OP_BINARY T_ANY $expression_7 select_command)
-	| op_4 WS? ALL WS? '(' select_command ')' -> ^(T_OP_BINARY T_ALL $expression_7 select_command)
+	| op_4 WS? (SOME | ANY) WS? '(' expression_list_or_select_command ')' -> ^(T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command)
+	| op_4 WS? ALL WS? '(' expression_list_or_select_command ')' -> ^(T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command)
 	))*
 	;
 
@@ -279,6 +280,7 @@ expression_atom
 	| '(' expression ')' -> expression
 	| functioncall 
 	| conversion
+	| EXISTS WS? '(' WS? select_command WS? ')' -> ^(T_EXISTS select_command)
 	;
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -326,6 +328,7 @@ BETWEEN	: B E T W E E N;
 IN	: I N;
 ANY	: A N Y;
 SOME	: S O M E;
+EXISTS 	: E X I S T S;
 
 TOKEN
 	: ('A'..'Z' | 'a'..'z' | '_') ('A'..'Z' | 'a'..'z' | '_' | '0'..'9')*

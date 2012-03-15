@@ -11,14 +11,14 @@ namespace FxGqlLib
 		Expression<T1> arg1;
 		Expression<T2> arg2;
 
-		public BinaryExpression (System.Linq.Expressions.Expression<Func<T1, T2, R>> functor, IExpression arg1, IExpression arg2)
+		public BinaryExpression (Func<T1, T2, R> functor, IExpression arg1, IExpression arg2)
 			: this (functor, ExpressionHelper.ConvertIfNeeded<T1>(arg1), ExpressionHelper.ConvertIfNeeded<T2>(arg2)) 
 		{
 		}
 		
-		public BinaryExpression (System.Linq.Expressions.Expression<Func<T1, T2, R>> functor, Expression<T1> arg1, Expression<T2> arg2)
+		public BinaryExpression (Func<T1, T2, R> functor, Expression<T1> arg1, Expression<T2> arg2)
 		{
-			this.functor = functor.Compile();
+			this.functor = functor;
 			this.arg1 = arg1;
 			this.arg2 = arg2;
 		}

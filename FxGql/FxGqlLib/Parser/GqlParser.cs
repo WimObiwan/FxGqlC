@@ -432,6 +432,9 @@ namespace FxGqlLib
 			case "T_OP_BINARY":
 				expression = ParseExpressionOperatorBinary (expressionTree);
 				break;
+			case "T_EXISTS":
+				expression = ParseExpressionExists (expressionTree);
+				break;
 			default:
 				throw new UnexpectedTokenAntlrException (expressionTree);
 			}
@@ -770,19 +773,21 @@ namespace FxGqlLib
 
 		IExpression ParseExpressionOperatorBinary (CommonTree operatorTree)
 		{
-			AssertAntlrToken (operatorTree, "T_OP_BINARY", 3);
+			AssertAntlrToken (operatorTree, "T_OP_BINARY", 3, 4);
 			
 			string operatorText = operatorTree.Children [0].Text;
 			if (operatorText == "T_BETWEEN") {
 				return ParseExpressionBetween ((CommonTree)operatorTree);
 			} else if (operatorText == "T_NOTBETWEEN") {
 				return new UnaryExpression<bool, bool> ((a) => !a, ParseExpressionBetween ((CommonTree)operatorTree));
-			} else if (operatorText == "T_IN") {
-				return ParseExpressionIn ((CommonTree)operatorTree);
+			} else if (operatorText == "T_IN" || operatorText == "T_ANY" || operatorText == "T_ALL") {
+				return ParseExpressionInSomeAnyAll ((CommonTree)operatorTree);
 			} else if (operatorText == "T_NOTIN") {
-				return new UnaryExpression<bool, bool> ((a) => !a, ParseExpressionIn ((CommonTree)operatorTree));
-			}
+				return new UnaryExpression<bool, bool> ((a) => !a, ParseExpressionInSomeAnyAll ((CommonTree)operatorTree));
+			} 
 			
+			AssertAntlrToken (operatorTree, "T_OP_BINARY", 3);
+
 			IExpression arg1 = ParseExpression ((CommonTree)operatorTree.Children [1]);			
 			IExpression arg2 = ParseExpression ((CommonTree)operatorTree.Children [2]);			
 			IExpression result;
@@ -805,34 +810,6 @@ namespace FxGqlLib
 				break;
 			case "T_NOTLIKE":
 				result = new UnaryExpression<bool, bool> ((a) => !a, new LikeOperator (arg1, arg2, caseInsensitive));
-				break;
-			case "T_EQUAL":
-				{
-					if (arg1 is Expression<string> || arg2 is Expression<string>)
-						result = new BinaryExpression<string, string, bool> ((a, b) => string.Compare (a, b, stringComparison) == 0, arg1, arg2);
-					else if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, bool> ((a, b) => a == b, arg1, arg2);
-					else {
-						throw new ParserException (
-							string.Format ("Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
-							operatorTree);
-					}
-				}
-				break;
-			case "T_NOTEQUAL":
-				{
-					if (arg1 is Expression<string> || arg2 is Expression<string>)
-						result = new BinaryExpression<string, string, bool> ((a, b) => string.Compare (a, b, stringComparison) != 0, arg1, arg2);
-					else if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, bool> ((a, b) => a != b, arg1, arg2);
-					else {
-						throw new ParserException (
-							string.Format ("Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
-							operatorTree);
-					}
-				}
 				break;
 			case "T_PLUS":
 				{
@@ -932,52 +909,25 @@ namespace FxGqlLib
 					}
 				}
 				break;
+			case "T_EQUAL":
+			case "T_NOTEQUAL":
 			case "T_LESS":
-				{
-					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, bool> ((a, b) => a < b, arg1, arg2);
-					else {
-						throw new ParserException (
-							string.Format ("Binary operator 'LESS' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
-							operatorTree);
-					}
-				}
-				break;
 			case "T_GREATER":
-				{
-					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, bool> ((a, b) => a > b, arg1, arg2);
-					else {
-						throw new ParserException (
-							string.Format ("Binary operator 'LESS' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
-							operatorTree);
-					}
-				}
-				break;
 			case "T_NOTLESS":
-				{
-					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, bool> ((a, b) => a >= b, arg1, arg2);
-					else {
-						throw new ParserException (
-							string.Format ("Binary operator 'NOT LESS' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
-							operatorTree);
-					}
-				}
-				break;
 			case "T_NOTGREATER":
-				{
-					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, bool> ((a, b) => a <= b, arg1, arg2);
-					else {
-						throw new ParserException (
-							string.Format ("Binary operator 'NOT GREATER' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
-							operatorTree);
-					}
+				if (arg1 is Expression<string> || arg2 is Expression<string>)
+					result = 
+						new BinaryExpression<string, string, bool> (OperatorHelper.GetStringComparer(operatorText, false, stringComparison),
+							arg1, arg2);
+				else if (arg1 is Expression<long>)
+					result = 
+						new BinaryExpression<long, long, bool> (OperatorHelper.GetLongComparer(operatorText, false),
+							arg1, arg2);
+				else {
+					throw new ParserException (
+						string.Format ("Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
+				               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
+						operatorTree);
 				}
 				break;
 			default:
@@ -1017,48 +967,63 @@ namespace FxGqlLib
 			return result;
 		}
 
-		IExpression ParseExpressionIn (CommonTree inTree)
+		IExpression ParseExpressionInSomeAnyAll (CommonTree inTree)
 		{
-			AssertAntlrToken (inTree, "T_OP_BINARY", 3);
-			//AssertAntlrToken (inTree.Children [0], "T_IN"); or T_NOTIN
+			AssertAntlrToken (inTree, "T_OP_BINARY", 3, 4);
+			//AssertAntlrToken (inTree.Children [0], "T_IN"); or T_NOTIN, T_ANY, T_ALL
 			
-			IExpression arg2 = ParseExpression ((CommonTree)inTree.Children [1]);
-			CommonTree inTarget = (CommonTree)inTree.Children [2];
-			
-			IExpression result;
-			if (inTarget.Text == "T_EXPRESSIONLIST") {
-				IExpression[] expressionList = ParseExpressionList (inTarget);
-				if (arg2 is Expression<string>)
-					result = new AnyListOperator<string> ((Expression<string>)arg2, expressionList,
-					                                      (a, b) => string.Compare (a, b, stringComparison) == 0);
-				else if (arg2 is Expression<long>)
-					result = new AnyListOperator<long> ((Expression<long>)arg2, expressionList,
-					                                      (a, b) => a == b);
-				else
-					throw new ParserException (
-						string.Format ("Binary operator 'IN' cannot be used with datatype {0}",
-				               inTarget.Text),
-						inTarget);
-			} else if (inTarget.Text == "T_SELECT") {
-				IProvider provider = ParseCommandSelect (inTarget);
-				if (arg2 is Expression<string>)
-					result = new AnySubqueryOperator<string> ((Expression<string>)arg2, provider,
-					                                      (a, b) => string.Compare (a, b, stringComparison) == 0);
-				else if (arg2 is Expression<long>)
-					result = new AnySubqueryOperator<long> ((Expression<long>)arg2, provider,
-					                                      (a, b) => a == b);
-				else
-					throw new ParserException (
-						string.Format ("Binary operator 'IN' cannot be used with datatype {0}",
-				               inTarget.Text),
-						inTarget);
-			} else {
-				throw new ParserException (
-					string.Format ("Binary operator 'IN' cannot be used with argument {0}",
-			               arg2.GetResultType ().ToString ()),
-					inTarget);
+			IExpression arg2;
+			CommonTree target;			
+			bool all;
+			string op;
+			switch (inTree.Children[0].Text) {
+			case "T_IN":
+			case "T_NOTIN":
+				arg2 = ParseExpression ((CommonTree)inTree.Children [1]);
+				target = (CommonTree)inTree.Children [2];
+				all = false;
+				op = "T_EQUAL";
+				break;
+			case "T_ANY":
+				arg2 = ParseExpression ((CommonTree)inTree.Children [2]);
+				target = (CommonTree)inTree.Children [3];
+				all = false;
+				op = inTree.Children [1].Text;
+				break;
+			case "T_ALL":
+				arg2 = ParseExpression ((CommonTree)inTree.Children [2]);
+				target = (CommonTree)inTree.Children [3];
+				all = true;
+				op = inTree.Children [1].Text;
+				break;
+			default:
+				throw new ParserException(string.Format("Unexpected token {0}", inTree.Children[0].Text), inTree.Children[0]);
 			}
-			
+						
+			Expression<bool> result;
+			if (target.Text == "T_EXPRESSIONLIST") {
+				IExpression[] expressionList = ParseExpressionList (target);
+				if (arg2 is Expression<string>)
+					result = new AnyListOperator<string> ((Expression<string>)arg2, expressionList, OperatorHelper.GetStringComparer(op, all, stringComparison));
+				else if (arg2 is Expression<long>)
+					result = new AnyListOperator<long> ((Expression<long>)arg2, expressionList, OperatorHelper.GetLongComparer(op, all));
+				else
+					throw new ParserException (string.Format ("Binary operator '{0}' cannot be used with datatype {1}", inTree.Children[0].Text, target.Text), target);
+			} else if (target.Text == "T_SELECT") {
+				IProvider provider = ParseCommandSelect (target);
+				if (arg2 is Expression<string>)
+					result = new AnySubqueryOperator<string> ((Expression<string>)arg2, provider, OperatorHelper.GetStringComparer(op, all, stringComparison));
+				else if (arg2 is Expression<long>)
+					result = new AnySubqueryOperator<long> ((Expression<long>)arg2, provider, OperatorHelper.GetLongComparer(op, all));
+				else
+					throw new ParserException (string.Format ("Binary operator '{0}' cannot be used with datatype {1}", inTree.Children[0].Text, target.Text), target);
+			} else {
+				throw new ParserException (string.Format ("Binary operator '{0}' cannot be used with argument {1}", inTree.Children[0].Text, arg2.GetResultType ().ToString ()), target);
+			}
+		
+			if (all)
+				result = new UnaryExpression<bool, bool>(a => !a, result);
+					
 			return result;
 		}
 
@@ -1072,6 +1037,18 @@ namespace FxGqlLib
 			}			
 			
 			return result;
+		}
+
+		IExpression ParseExpressionExists (CommonTree expressionTree)
+		{
+			AssertAntlrToken (expressionTree, "T_EXISTS", 1, 1);
+			
+			return new AnySubqueryOperator<long>(
+				new ConstExpression<long>(1),
+				new SelectProvider(new IExpression[] { new ConstExpression<long>(1) }, 
+					new TopProvider(ParseCommandSelect((CommonTree)expressionTree.Children[0]), new ConstExpression<long>(1))),
+				(a, b) => a == b);
+			;
 		}
 	}
 }
