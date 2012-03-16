@@ -440,15 +440,15 @@ namespace FxGqlTest
 			TestGql ("select top 10 * from (select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"') order by $line",
 				"9FBCD5AA7183396C32D0398480C376BD5A4CCF627C9B4896BE30AF993F603E1A");
 			TestGql ("select top 15 * from (select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"') order by $line desc",
-				"B5C1AB92460AA52216BACD873A135D16C4A3F0E2F7674DB43479BA20DEA3AB71");
+				"676A6FAADD62BEE23D765B8D8F84D9A7A1BEDE4444F05096C8E202E23024341D");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"'), $line desc",
-				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
+				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by 1, 2 desc",
-				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
+				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by 1, $line desc",
-				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
+				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"'), 2 desc",
-				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
+				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
 			
 			//TestFile("zippedfile.zip", "8F7422A7F2189623D9DB98FB6C583F276806891545AF3BD92530B98098AA6C0A");
 			//TestGql("select * from [smallfile.log]", null);
@@ -521,21 +521,21 @@ namespace FxGqlTest
 						+ "where $line match ', (.*?) (?:- .*)?\"' -- this is a single line comment" + Environment.NewLine
 						+ "-- this is another single line comment" + Environment.NewLine
 						+ "order by 1, 2 desc",
-				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
+				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"'), 2 desc",
-				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
+				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), *" + Environment.NewLine
 						+ "from ['SampleFiles/AirportCodes.csv'] " + Environment.NewLine
 						+ "where $line match ', (.*?) (?:- .*)?\"' -- this is a single line comment" + Environment.NewLine
 						+ "-- this is another single line comment" + Environment.NewLine
 						+ "order by 1, 2 desc",
-				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
+				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), *" + Environment.NewLine
 						+ "from ['SampleFiles/AirportCodes.csv'] " + Environment.NewLine
 						+ "where $line match ', (.*?) (?:- .*)?\"' -- this is a single line comment" + Environment.NewLine
 						+ "-- this is another single line comment" + Environment.NewLine
 						+ "order by 1, 2 desc -- final single line comment",
-				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
+				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
 
 			//TestGql ("select /*block comment*/ 17", 
 			//	"54183F4323F377B737433A1E98229EAD0FDC686F93BAB057ECB612DAA94002B5");

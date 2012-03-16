@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace FxGqlLib
 {
-	class ColumnsComparer : IComparer<Key>
+	class ColumnsComparer<K> : IComparer<K> where K : ColumnsComparerKey
 	{
 		IComparer[] comparers;
 			
@@ -23,7 +23,7 @@ namespace FxGqlLib
 		}
 			
 			#region IComparer[IComparable] implementation
-		public int Compare (Key x, Key y)
+		public int Compare (K x, K y)
 		{
 			for (int i = 0; i < comparers.Length; i++) {
 				int result = comparers [i].Compare (x.Members [i], y.Members [i]);
@@ -35,12 +35,12 @@ namespace FxGqlLib
 			#endregion
 	}
 			
-	class Key : IComparable<Key>
+	class ColumnsComparerKey : IComparable<ColumnsComparerKey>
 	{
 		public IComparable[] Members { get; set; }
 			
 			#region IComparable[Key] implementation
-		public int CompareTo (Key other)
+		public int CompareTo (ColumnsComparerKey other)
 		{
 			for (int i = 0; i < Members.Length; i++) {
 				int result = this.Members [i].CompareTo (other.Members [i]);

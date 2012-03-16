@@ -18,10 +18,8 @@ namespace FxGqlLib
 			public IExpression Expression { get; set; }
 		}
 			
-		class Key : IComparable<Key>
+		class Key : ColumnsComparerKey
 		{
-			public IComparable[] Members { get; set; }
-
 			public IComparable[] OriginalColumns { get; set; }
 
 			public long LineNo { get; set; }
@@ -31,37 +29,21 @@ namespace FxGqlLib
 			public IComparable[] Columns { get; set; }
 
 			public bool[] Desc { get; set; }
-			
-			#region IComparable[Key] implementation
-			public int CompareTo (Key other)
-			{
-				for (int i = 0; i < Members.Length; i++) {
-					int result = this.Members [i].CompareTo (other.Members [i]);
-					if (result != 0) {
-						if (this.Desc [i])
-							return -result;
-						else
-							return result;
-					}
-				}
-				
-				return 0;
-			}
-			#endregion
 		}
 		
 		IProvider provider;
 		IList<Column> orderbyColumns;
+		StringComparer stringComparer;
 		bool dataRetrieved;
 		List<Key> data;
 		int currentRecord;
 		ProviderRecord record = new ProviderRecord ();
 		
-		public OrderbyProvider (IProvider provider, IList<Column> orderbyColumns)
+		public OrderbyProvider (IProvider provider, IList<Column> orderbyColumns, StringComparer stringComparer)
 		{
-			//TODO: Support for case insensitive ORDER BY by using ColumnsComparer
 			this.provider = provider;
 			this.orderbyColumns = orderbyColumns;
+			this.stringComparer = stringComparer;
 		}
 
 		#region IProvider implementation
@@ -130,13 +112,16 @@ namespace FxGqlLib
 			}
 			
 			int[] fixedColumns = new int[orderbyColumns.Count];
+			Type[] types = new Type[orderbyColumns.Count];
 			for (int i = 0; i < orderbyColumns.Count; i++) {
 				if (orderbyColumns [i].Expression is ConstExpression<long>) {
 					fixedColumns [i] = (int)((ConstExpression<long>)orderbyColumns [i].Expression).Evaluate (null) - 1;
 					if (fixedColumns [i] < 0)
 						throw new Exception (string.Format ("Negative order by column ordinal ({0}) is not allowed", fixedColumns [i] + 1));
+					types [i] = provider.GetColumnTypes () [fixedColumns [i]];
 				} else {
 					fixedColumns [i] = -1;
+					types [i] = orderbyColumns [i].Expression.GetResultType ();
 				}
 			}
 				
@@ -161,7 +146,9 @@ namespace FxGqlLib
 				}
 				data.Add (key);
 			}
-			data.Sort ();
+			
+			ColumnsComparer<Key > columnsComparer = new ColumnsComparer<Key> (types, stringComparer);
+			data.Sort (columnsComparer);
 		}
 	}
 }

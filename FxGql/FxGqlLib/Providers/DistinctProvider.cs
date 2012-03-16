@@ -7,7 +7,7 @@ namespace FxGqlLib
 	public class DistinctProvider : IProvider
 	{
 		IProvider provider;
-		SortedSet<Key> recordList;
+		SortedSet<ColumnsComparerKey> recordList;
 		ProviderRecord record;
 		StringComparer stringComparer;
 		
@@ -26,15 +26,15 @@ namespace FxGqlLib
 		public void Initialize ()
 		{
 			provider.Initialize ();
-			ColumnsComparer columnsComparer = new ColumnsComparer (provider.GetColumnTypes (), stringComparer);
-			recordList = new SortedSet<Key> (columnsComparer);
+			ColumnsComparer<ColumnsComparerKey > columnsComparer = new ColumnsComparer<ColumnsComparerKey> (provider.GetColumnTypes (), stringComparer);
+			recordList = new SortedSet<ColumnsComparerKey> (columnsComparer);
 		}
 
 		public bool GetNextRecord ()
 		{
 			while (provider.GetNextRecord()) {
 				ProviderRecord record = provider.Record;
-				Key key = new Key ();
+				ColumnsComparerKey key = new ColumnsComparerKey ();
 				key.Members = provider.Record.Columns;
 				if (!recordList.Contains (key)) {
 					recordList.Add (key);
