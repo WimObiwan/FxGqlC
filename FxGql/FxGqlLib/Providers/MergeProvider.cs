@@ -9,10 +9,17 @@ namespace FxGqlLib
 		
 		public MergeProvider (IProvider[] providers)
 		{
+			//TODO: Check if providers have compatible Column Types
+			//TODO: Check if at least 1 provider is present
 			this.providers = providers;
 		}
 		
 		#region IProvider implementation
+		public Type[] GetColumnTypes()
+		{
+			return providers[0].GetColumnTypes();
+		}
+		
 		public void Initialize ()
 		{
 			currentProvider = 0;

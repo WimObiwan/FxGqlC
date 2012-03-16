@@ -19,6 +19,11 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+		public Type[] GetColumnTypes()
+		{
+			return new Type[] { typeof(string) };
+		}
+		
 		public void Initialize ()
 		{
 			string path = Path.GetDirectoryName(fileMask);

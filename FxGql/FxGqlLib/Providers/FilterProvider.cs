@@ -15,6 +15,11 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+		public Type[] GetColumnTypes()
+		{
+			return provider.GetColumnTypes();
+		}
+		
 		public void Initialize ()
 		{
 			provider.Initialize ();

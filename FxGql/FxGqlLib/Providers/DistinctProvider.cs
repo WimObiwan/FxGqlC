@@ -10,7 +10,7 @@ namespace FxGqlLib
 		ProviderRecord record;
 		// TODO: Support for Distinct case insensitive
 		//IComparer<string> comparer;
-
+		
 		class Key : IComparable<Key>
 		{
 			public IComparable[] Members { get; set; }
@@ -36,6 +36,11 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+		public Type[] GetColumnTypes()
+		{
+			return provider.GetColumnTypes();
+		}
+		
 		public void Initialize ()
 		{
 			provider.Initialize();

@@ -15,6 +15,11 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+		public Type[] GetColumnTypes()
+		{
+			return new Type[] { typeof(string) };
+		}
+		
 		public void Initialize ()
 		{
 			streamReader = new StreamReader (fileName);

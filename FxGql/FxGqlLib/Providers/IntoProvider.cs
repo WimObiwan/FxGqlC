@@ -18,11 +18,16 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+		public Type[] GetColumnTypes()
+		{
+			return new Type[] { };
+		}
+		
 		public void Initialize ()
 		{
 			record = new ProviderRecord ();
-			record.Columns = new IComparable[] {""};
-			record.OriginalColumns = new IComparable[] {""};
+			record.Columns = new IComparable[] { };
+			record.OriginalColumns = new IComparable[] { };
 			record.LineNo = 1;
 		}
 

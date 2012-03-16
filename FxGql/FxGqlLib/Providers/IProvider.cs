@@ -16,6 +16,8 @@ namespace FxGqlLib
 	
 	public interface IProvider : IDisposable
 	{
+		Type[] GetColumnTypes();
+		
 		void Initialize ();
 
 		bool GetNextRecord ();

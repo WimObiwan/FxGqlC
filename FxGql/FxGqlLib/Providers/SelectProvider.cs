@@ -19,6 +19,17 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+		public Type[] GetColumnTypes()
+		{
+			Type[] types = new Type[outputList.Count];
+			
+			for (int i = 0; i < outputList.Count; i++) {
+				types[i] = outputList[i].GetResultType();
+			}
+			
+			return types;
+		}
+
 		public void Initialize ()
 		{
 			provider.Initialize ();
