@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace FxGqlLib
 {
@@ -8,55 +9,35 @@ namespace FxGqlLib
 		IProvider provider;
 		SortedSet<Key> recordList;
 		ProviderRecord record;
-		// TODO: Support for Distinct case insensitive
-		//IComparer<string> comparer;
+		StringComparer stringComparer;
 		
-		class Key : IComparable<Key>
-		{
-			public IComparable[] Members { get; set; }
-			
-			#region IComparable[Key] implementation
-			public int CompareTo (Key other)
-			{
-				for (int i = 0; i < Members.Length; i++)
-				{
-					int result = this.Members[i].CompareTo(other.Members[i]);
-					if (result != 0) return result;
-				}
-				
-				return 0;
-			}
-			#endregion
-		}
-		
-		public DistinctProvider (IProvider provider, IComparer<string> comparer)
+		public DistinctProvider (IProvider provider, StringComparer stringComparer)
 		{
 			this.provider = provider;
-			//this.comparer = comparer;
+			this.stringComparer = stringComparer;
 		}
 
 		#region IProvider implementation
-		public Type[] GetColumnTypes()
+		public Type[] GetColumnTypes ()
 		{
-			return provider.GetColumnTypes();
+			return provider.GetColumnTypes ();
 		}
 		
 		public void Initialize ()
 		{
-			provider.Initialize();
-			recordList = new SortedSet<Key>();
+			provider.Initialize ();
+			ColumnsComparer columnsComparer = new ColumnsComparer (provider.GetColumnTypes (), stringComparer);
+			recordList = new SortedSet<Key> (columnsComparer);
 		}
 
 		public bool GetNextRecord ()
 		{
-			while (provider.GetNextRecord())
-			{
+			while (provider.GetNextRecord()) {
 				ProviderRecord record = provider.Record;
-				Key key = new Key();
+				Key key = new Key ();
 				key.Members = provider.Record.Columns;
-				if (!recordList.Contains(key))
-				{
-					recordList.Add(key);
+				if (!recordList.Contains (key)) {
+					recordList.Add (key);
 					this.record = record;
 					return true;
 				}
@@ -66,7 +47,7 @@ namespace FxGqlLib
 
 		public void Uninitialize ()
 		{
-			provider.Uninitialize();
+			provider.Uninitialize ();
 			recordList = null;
 		}
 
@@ -75,12 +56,13 @@ namespace FxGqlLib
 				return record;
 			}
 		}
+
 		#endregion
 
 		#region IDisposable implementation
 		public void Dispose ()
 		{
-			provider.Dispose();
+			provider.Dispose ();
 		}
 		#endregion
 	}

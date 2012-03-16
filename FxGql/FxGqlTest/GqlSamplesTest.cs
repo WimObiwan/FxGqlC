@@ -180,8 +180,10 @@ namespace FxGqlTest
 				"A2D73DC9E4603A0BFAE02DF9245C1EECA79D50F5EC5A844F8A1357D26EFB78B9");
 			
 			// DISTINCT clause
-			TestGql ("select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv']",
-				"B79082D49C0118122F0D16FA1500D1349D08233CBC42DE088519FA83078AC927");
+			TestGql ("select * from (select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv']) where contains($line, 'Canada')",
+				"68ED9EB7F6C5973ED46F3C15CBC48607501042BF4A85E675D563EF1759FBCF80");
+			TestGql ("select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where contains($line, 'Canada')",
+				"68ED9EB7F6C5973ED46F3C15CBC48607501042BF4A85E675D563EF1759FBCF80");
 			TestGql ("select distinct top 15 matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv']",
 				"94E49AD9A9C243EE66D101AC953C0BBEBCC58EEC07662A72E8E8F91689EEB4A4");
 			
@@ -430,15 +432,13 @@ namespace FxGqlTest
 
 			// ORDER BY clause
 			TestGql ("select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"')",
-			    "B3593243301A7D3DCC31AA7EE1328B87F12D7CE71CCAE3CBDB1FA29744851523");
+			    "9F7AB835C218FD8C696470805224AEB3570F929AE1179B3D69D50099649BFEBF");
 			TestGql ("select * from (select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"') order by $line",
-			    "B3593243301A7D3DCC31AA7EE1328B87F12D7CE71CCAE3CBDB1FA29744851523");
+			    "9F7AB835C218FD8C696470805224AEB3570F929AE1179B3D69D50099649BFEBF");
 			TestGql ("select distinct top 10 matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"')",
 				"9FBCD5AA7183396C32D0398480C376BD5A4CCF627C9B4896BE30AF993F603E1A");
 			TestGql ("select top 10 * from (select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"') order by $line",
 				"9FBCD5AA7183396C32D0398480C376BD5A4CCF627C9B4896BE30AF993F603E1A");
-			TestGql ("select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"')",
-			    "B3593243301A7D3DCC31AA7EE1328B87F12D7CE71CCAE3CBDB1FA29744851523");
 			TestGql ("select top 15 * from (select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"') order by $line desc",
 				"B5C1AB92460AA52216BACD873A135D16C4A3F0E2F7674DB43479BA20DEA3AB71");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"'), $line desc",
@@ -554,8 +554,6 @@ namespace FxGqlTest
 		{
 			// TODO: group by
 			// TODO: aggregates
-			
-			}
+		}
 	}
 }
-

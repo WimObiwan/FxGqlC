@@ -59,14 +59,15 @@ namespace FxGqlLib
 		
 		public OrderbyProvider (IProvider provider, IList<Column> orderbyColumns)
 		{
+			//TODO: Support for case insensitive ORDER BY by using ColumnsComparer
 			this.provider = provider;
 			this.orderbyColumns = orderbyColumns;
 		}
 
 		#region IProvider implementation
-		public Type[] GetColumnTypes()
+		public Type[] GetColumnTypes ()
 		{
-			return provider.GetColumnTypes();
+			return provider.GetColumnTypes ();
 		}
 		
 		public void Initialize ()
@@ -107,6 +108,7 @@ namespace FxGqlLib
 				return record;
 			}
 		}
+
 		#endregion
 
 		#region IDisposable implementation
@@ -114,6 +116,7 @@ namespace FxGqlLib
 		{
 			provider.Dispose ();
 		}
+
 		#endregion
 
 		private void RetrieveData ()

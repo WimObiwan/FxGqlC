@@ -86,6 +86,7 @@
     <Compile Include="Operators\AnyListOperator.cs" />
     <Compile Include="Operators\AnySubqueryOperator.cs" />
     <Compile Include="Operators\OperatorHelper.cs" />
+    <Compile Include="Providers\ColumnsComparer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
