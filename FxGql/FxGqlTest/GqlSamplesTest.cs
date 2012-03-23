@@ -557,6 +557,8 @@ namespace FxGqlTest
 				"39B397F3BBB3FC582683C41C0D73826995E7BDB6D68B2DC4E4AC7D81E0C5B59F");
 			TestGql ("select [FieldB], [FieldA] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv'])",
 				"145DA47A1E9E308A0A501B6A24509A94943CF72F642347331D3E7B900E4740E2");
+			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) where contains([FieldA], 'b') order by [FieldB]",
+				"F5C19EBA4EB529C014CC94E538B7C9E1ED36DFE73C0F1EF37BA65285A32CC58C");
 						
 			
 			Console.WriteLine ();
@@ -570,9 +572,13 @@ namespace FxGqlTest
 			// TODO: default column names
 			// TODO: output columns as column headings
 			// TODO: create file columns on regular expression
+			// TODO: create "view" or "function"
+			// TODO: skip clause (select top 10 skip 2 from ...
 			// 
+			// TODO: New release with column titles
 			// TODO: Documentation for -FirstLine
 			// TODO: Documentation for column title
+
 		}
 	}
 }
