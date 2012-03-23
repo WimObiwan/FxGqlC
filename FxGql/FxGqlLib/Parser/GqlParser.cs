@@ -254,7 +254,7 @@ namespace FxGqlLib
 					provider = new FilterProvider (provider, whereExpression);
 				}
 				
-				IList<IExpression > outputColumns;
+				IList<Column > outputColumns;
 				outputColumns = ParseColumnList (fromProvider, columnListEnumerator);
 
 				provider = new SelectProvider (outputColumns, provider);
@@ -286,7 +286,7 @@ namespace FxGqlLib
 				if (enumerator.Current != null && enumerator.Current.Text == "T_ORDERBY")
 					throw new ParserException ("ORDER BY clause not allowed without a FROM clause.", selectTree);
 
-				IList<IExpression > outputColumns;
+				IList<Column > outputColumns;
 				outputColumns = ParseColumnList (provider, columnListEnumerator);
 
 				provider = new SelectProvider (outputColumns, provider);
@@ -303,22 +303,32 @@ namespace FxGqlLib
 			CommonTree tree = GetSingleChild (topClauseTree);
 			return ExpressionHelper.ConvertIfNeeded<long> (ParseExpression (null, tree));
 		}
-
-		IList<IExpression> ParseColumnList (IProvider provider, CommonTree outputListTree)
+		
+		IList<Column> ParseColumnList (IProvider provider, CommonTree outputListTree)
 		{
-			List<IExpression > outputColumnExpressions = new List<IExpression> ();
+			List<Column > outputColumnExpressions = new List<Column> ();
 			AssertAntlrToken (outputListTree, "T_COLUMNLIST", 1, -1);
 			foreach (CommonTree outputColumnTree in outputListTree.Children) {
-				IExpression columnExpression = ParseColumn (provider, outputColumnTree);
-				outputColumnExpressions.Add (columnExpression);
+				Column column = ParseColumn (provider, outputColumnTree);
+				outputColumnExpressions.Add (column);
 			}
 			
 			return outputColumnExpressions;
 		}
 
-		IExpression ParseColumn (IProvider provider, CommonTree outputColumnTree)
+		Column ParseColumn (IProvider provider, CommonTree outputColumnTree)
 		{
-			return ParseExpression (provider, outputColumnTree);
+			AssertAntlrToken (outputColumnTree, "T_COLUMN", 1, 2);
+			
+			Column column = new Column();
+			column.Expression = ParseExpression (provider, (CommonTree)outputColumnTree.Children[0]);
+			if (outputColumnTree.Children.Count == 2) {
+				column.Name = ParseColumnName((CommonTree)outputColumnTree.Children[1]);
+			} else {
+				column.Name = null;
+			}
+			
+			return column; 
 		}
 
 		FileOptions ParseIntoClause (CommonTree intoClauseTree)
@@ -1070,10 +1080,18 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (expressionTree, "T_COLUMN", 1, 1);
 			
-			string column = expressionTree.Children [0].Text;
+			string column = ParseColumnName((CommonTree)expressionTree.Children [0]);
+			return new ColumnExpression (provider, column);
+		}
+		
+		string ParseColumnName(CommonTree columnNameTree)
+		{
+			string column = columnNameTree.Text;
+			
 			if (column.StartsWith ("[") && column.EndsWith ("]"))
 				column = column.Substring (1, column.Length - 2);
-			return new ColumnExpression (provider, column);
+			
+			return column;
 		}
 	}
 }

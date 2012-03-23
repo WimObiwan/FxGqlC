@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// $ANTLR 3.4 /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g 2012-03-17 22:59:56
+// $ANTLR 3.4 /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g 2012-03-23 22:56:49
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -1113,19 +1113,19 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = STRING;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:300:2: ( '\\'' ( (~ ( '\\'' ) | '\\'' '\\'' )* ) '\\'' )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:301:2: ( '\\'' ( (~ ( '\\'' ) | '\\'' '\\'' )* ) '\\'' )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:300:4: '\\'' ( (~ ( '\\'' ) | '\\'' '\\'' )* ) '\\''
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:301:4: '\\'' ( (~ ( '\\'' ) | '\\'' '\\'' )* ) '\\''
     		{
-    		DebugLocation(300, 4);
+    		DebugLocation(301, 4);
     		Match('\''); 
-    		DebugLocation(300, 9);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:300:9: ( (~ ( '\\'' ) | '\\'' '\\'' )* )
+    		DebugLocation(301, 9);
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:301:9: ( (~ ( '\\'' ) | '\\'' '\\'' )* )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:300:11: (~ ( '\\'' ) | '\\'' '\\'' )*
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:301:11: (~ ( '\\'' ) | '\\'' '\\'' )*
     		{
-    		DebugLocation(300, 11);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:300:11: (~ ( '\\'' ) | '\\'' '\\'' )*
+    		DebugLocation(301, 11);
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:301:11: (~ ( '\\'' ) | '\\'' '\\'' )*
     		try { DebugEnterSubRule(1);
     		while (true)
     		{
@@ -1155,9 +1155,9 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:300:12: ~ ( '\\'' )
+    				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:301:12: ~ ( '\\'' )
     				{
-    				DebugLocation(300, 12);
+    				DebugLocation(301, 12);
     				input.Consume();
 
 
@@ -1165,11 +1165,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     				break;
     			case 2:
     				DebugEnterAlt(2);
-    				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:300:20: '\\'' '\\''
+    				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:301:20: '\\'' '\\''
     				{
-    				DebugLocation(300, 20);
+    				DebugLocation(301, 20);
     				Match('\''); 
-    				DebugLocation(300, 24);
+    				DebugLocation(301, 24);
     				Match('\''); 
 
     				}
@@ -1188,7 +1188,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 
     		}
 
-    		DebugLocation(300, 33);
+    		DebugLocation(301, 33);
     		Match('\''); 
 
     		}
@@ -1221,14 +1221,14 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = SIMPLE_FILE;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:304:2: ( '[' (~ ( '\\'' | ']' ) )* ']' )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:305:2: ( '[' (~ ( '\\'' | ']' ) )* ']' )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:304:4: '[' (~ ( '\\'' | ']' ) )* ']'
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:305:4: '[' (~ ( '\\'' | ']' ) )* ']'
     		{
-    		DebugLocation(304, 4);
+    		DebugLocation(305, 4);
     		Match('['); 
-    		DebugLocation(304, 8);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:304:8: (~ ( '\\'' | ']' ) )*
+    		DebugLocation(305, 8);
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:305:8: (~ ( '\\'' | ']' ) )*
     		try { DebugEnterSubRule(2);
     		while (true)
     		{
@@ -1249,7 +1249,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     				DebugEnterAlt(1);
     				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     				{
-    				DebugLocation(304, 8);
+    				DebugLocation(305, 8);
     				input.Consume();
 
 
@@ -1266,7 +1266,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 
     		} finally { DebugExitSubRule(2); }
 
-    		DebugLocation(304, 21);
+    		DebugLocation(305, 21);
     		Match(']'); 
 
     		}
@@ -1299,21 +1299,21 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = SELECT;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:308:9: ( S E L E C T )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:309:9: ( S E L E C T )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:308:11: S E L E C T
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:309:11: S E L E C T
     		{
-    		DebugLocation(308, 11);
+    		DebugLocation(309, 11);
     		mS(); 
-    		DebugLocation(308, 13);
+    		DebugLocation(309, 13);
     		mE(); 
-    		DebugLocation(308, 15);
+    		DebugLocation(309, 15);
     		mL(); 
-    		DebugLocation(308, 17);
+    		DebugLocation(309, 17);
     		mE(); 
-    		DebugLocation(308, 19);
+    		DebugLocation(309, 19);
     		mC(); 
-    		DebugLocation(308, 21);
+    		DebugLocation(309, 21);
     		mT(); 
 
     		}
@@ -1346,15 +1346,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = ALL;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:309:5: ( A L L )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:310:5: ( A L L )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:309:7: A L L
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:310:7: A L L
     		{
-    		DebugLocation(309, 7);
+    		DebugLocation(310, 7);
     		mA(); 
-    		DebugLocation(309, 9);
+    		DebugLocation(310, 9);
     		mL(); 
-    		DebugLocation(309, 11);
+    		DebugLocation(310, 11);
     		mL(); 
 
     		}
@@ -1387,25 +1387,25 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = DISTINCT;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:311:2: ( D I S T I N C T )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:312:2: ( D I S T I N C T )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:311:4: D I S T I N C T
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:312:4: D I S T I N C T
     		{
-    		DebugLocation(311, 4);
+    		DebugLocation(312, 4);
     		mD(); 
-    		DebugLocation(311, 6);
+    		DebugLocation(312, 6);
     		mI(); 
-    		DebugLocation(311, 8);
+    		DebugLocation(312, 8);
     		mS(); 
-    		DebugLocation(311, 10);
+    		DebugLocation(312, 10);
     		mT(); 
-    		DebugLocation(311, 12);
+    		DebugLocation(312, 12);
     		mI(); 
-    		DebugLocation(311, 14);
+    		DebugLocation(312, 14);
     		mN(); 
-    		DebugLocation(311, 16);
+    		DebugLocation(312, 16);
     		mC(); 
-    		DebugLocation(311, 18);
+    		DebugLocation(312, 18);
     		mT(); 
 
     		}
@@ -1438,15 +1438,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = TOP;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:312:5: ( T O P )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:313:5: ( T O P )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:312:7: T O P
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:313:7: T O P
     		{
-    		DebugLocation(312, 7);
+    		DebugLocation(313, 7);
     		mT(); 
-    		DebugLocation(312, 9);
+    		DebugLocation(313, 9);
     		mO(); 
-    		DebugLocation(312, 11);
+    		DebugLocation(313, 11);
     		mP(); 
 
     		}
@@ -1479,17 +1479,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = INTO;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:313:6: ( I N T O )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:314:6: ( I N T O )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:313:8: I N T O
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:314:8: I N T O
     		{
-    		DebugLocation(313, 8);
+    		DebugLocation(314, 8);
     		mI(); 
-    		DebugLocation(313, 10);
+    		DebugLocation(314, 10);
     		mN(); 
-    		DebugLocation(313, 12);
+    		DebugLocation(314, 12);
     		mT(); 
-    		DebugLocation(313, 14);
+    		DebugLocation(314, 14);
     		mO(); 
 
     		}
@@ -1522,17 +1522,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = FROM;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:314:7: ( F R O M )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:315:7: ( F R O M )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:314:9: F R O M
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:315:9: F R O M
     		{
-    		DebugLocation(314, 9);
+    		DebugLocation(315, 9);
     		mF(); 
-    		DebugLocation(314, 11);
+    		DebugLocation(315, 11);
     		mR(); 
-    		DebugLocation(314, 13);
+    		DebugLocation(315, 13);
     		mO(); 
-    		DebugLocation(314, 15);
+    		DebugLocation(315, 15);
     		mM(); 
 
     		}
@@ -1565,19 +1565,19 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = WHERE;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:315:8: ( W H E R E )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:316:8: ( W H E R E )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:315:10: W H E R E
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:316:10: W H E R E
     		{
-    		DebugLocation(315, 10);
+    		DebugLocation(316, 10);
     		mW(); 
-    		DebugLocation(315, 12);
+    		DebugLocation(316, 12);
     		mH(); 
-    		DebugLocation(315, 14);
+    		DebugLocation(316, 14);
     		mE(); 
-    		DebugLocation(315, 16);
+    		DebugLocation(316, 16);
     		mR(); 
-    		DebugLocation(315, 18);
+    		DebugLocation(316, 18);
     		mE(); 
 
     		}
@@ -1610,15 +1610,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = NOT;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:317:6: ( N O T )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:318:6: ( N O T )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:317:8: N O T
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:318:8: N O T
     		{
-    		DebugLocation(317, 8);
+    		DebugLocation(318, 8);
     		mN(); 
-    		DebugLocation(317, 10);
+    		DebugLocation(318, 10);
     		mO(); 
-    		DebugLocation(317, 12);
+    		DebugLocation(318, 12);
     		mT(); 
 
     		}
@@ -1651,15 +1651,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = AND;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:318:6: ( A N D )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:319:6: ( A N D )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:318:8: A N D
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:319:8: A N D
     		{
-    		DebugLocation(318, 8);
+    		DebugLocation(319, 8);
     		mA(); 
-    		DebugLocation(318, 10);
+    		DebugLocation(319, 10);
     		mN(); 
-    		DebugLocation(318, 12);
+    		DebugLocation(319, 12);
     		mD(); 
 
     		}
@@ -1692,13 +1692,13 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = OR;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:319:5: ( O R )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:320:5: ( O R )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:319:7: O R
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:320:7: O R
     		{
-    		DebugLocation(319, 7);
+    		DebugLocation(320, 7);
     		mO(); 
-    		DebugLocation(319, 9);
+    		DebugLocation(320, 9);
     		mR(); 
 
     		}
@@ -1731,17 +1731,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = LIKE;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:320:6: ( L I K E )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:321:6: ( L I K E )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:320:8: L I K E
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:321:8: L I K E
     		{
-    		DebugLocation(320, 8);
+    		DebugLocation(321, 8);
     		mL(); 
-    		DebugLocation(320, 10);
+    		DebugLocation(321, 10);
     		mI(); 
-    		DebugLocation(320, 12);
+    		DebugLocation(321, 12);
     		mK(); 
-    		DebugLocation(320, 14);
+    		DebugLocation(321, 14);
     		mE(); 
 
     		}
@@ -1774,19 +1774,19 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = MATCH;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:321:7: ( M A T C H )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:322:7: ( M A T C H )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:321:9: M A T C H
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:322:9: M A T C H
     		{
-    		DebugLocation(321, 9);
+    		DebugLocation(322, 9);
     		mM(); 
-    		DebugLocation(321, 11);
+    		DebugLocation(322, 11);
     		mA(); 
-    		DebugLocation(321, 13);
+    		DebugLocation(322, 13);
     		mT(); 
-    		DebugLocation(321, 15);
+    		DebugLocation(322, 15);
     		mC(); 
-    		DebugLocation(321, 17);
+    		DebugLocation(322, 17);
     		mH(); 
 
     		}
@@ -1819,19 +1819,19 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = ORDER;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:322:7: ( O R D E R )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:323:7: ( O R D E R )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:322:9: O R D E R
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:323:9: O R D E R
     		{
-    		DebugLocation(322, 9);
+    		DebugLocation(323, 9);
     		mO(); 
-    		DebugLocation(322, 11);
+    		DebugLocation(323, 11);
     		mR(); 
-    		DebugLocation(322, 13);
+    		DebugLocation(323, 13);
     		mD(); 
-    		DebugLocation(322, 15);
+    		DebugLocation(323, 15);
     		mE(); 
-    		DebugLocation(322, 17);
+    		DebugLocation(323, 17);
     		mR(); 
 
     		}
@@ -1864,13 +1864,13 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = BY;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:323:4: ( B Y )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:324:4: ( B Y )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:323:6: B Y
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:324:6: B Y
     		{
-    		DebugLocation(323, 6);
+    		DebugLocation(324, 6);
     		mB(); 
-    		DebugLocation(323, 8);
+    		DebugLocation(324, 8);
     		mY(); 
 
     		}
@@ -1903,15 +1903,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = ASC;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:324:5: ( A S C )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:325:5: ( A S C )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:324:7: A S C
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:325:7: A S C
     		{
-    		DebugLocation(324, 7);
+    		DebugLocation(325, 7);
     		mA(); 
-    		DebugLocation(324, 9);
+    		DebugLocation(325, 9);
     		mS(); 
-    		DebugLocation(324, 11);
+    		DebugLocation(325, 11);
     		mC(); 
 
     		}
@@ -1944,17 +1944,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = DESC;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:325:6: ( D E S C )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:326:6: ( D E S C )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:325:8: D E S C
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:326:8: D E S C
     		{
-    		DebugLocation(325, 8);
+    		DebugLocation(326, 8);
     		mD(); 
-    		DebugLocation(325, 10);
+    		DebugLocation(326, 10);
     		mE(); 
-    		DebugLocation(325, 12);
+    		DebugLocation(326, 12);
     		mS(); 
-    		DebugLocation(325, 14);
+    		DebugLocation(326, 14);
     		mC(); 
 
     		}
@@ -1987,23 +1987,23 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = CONVERT;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:326:9: ( C O N V E R T )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:327:9: ( C O N V E R T )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:326:11: C O N V E R T
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:327:11: C O N V E R T
     		{
-    		DebugLocation(326, 11);
+    		DebugLocation(327, 11);
     		mC(); 
-    		DebugLocation(326, 13);
+    		DebugLocation(327, 13);
     		mO(); 
-    		DebugLocation(326, 15);
+    		DebugLocation(327, 15);
     		mN(); 
-    		DebugLocation(326, 17);
+    		DebugLocation(327, 17);
     		mV(); 
-    		DebugLocation(326, 19);
+    		DebugLocation(327, 19);
     		mE(); 
-    		DebugLocation(326, 21);
+    		DebugLocation(327, 21);
     		mR(); 
-    		DebugLocation(326, 23);
+    		DebugLocation(327, 23);
     		mT(); 
 
     		}
@@ -2036,17 +2036,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = CAST;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:327:7: ( C A S T )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:328:7: ( C A S T )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:327:9: C A S T
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:328:9: C A S T
     		{
-    		DebugLocation(327, 9);
+    		DebugLocation(328, 9);
     		mC(); 
-    		DebugLocation(327, 11);
+    		DebugLocation(328, 11);
     		mA(); 
-    		DebugLocation(327, 13);
+    		DebugLocation(328, 13);
     		mS(); 
-    		DebugLocation(327, 15);
+    		DebugLocation(328, 15);
     		mT(); 
 
     		}
@@ -2079,13 +2079,13 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = AS;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:328:9: ( A S )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:329:9: ( A S )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:328:11: A S
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:329:11: A S
     		{
-    		DebugLocation(328, 11);
+    		DebugLocation(329, 11);
     		mA(); 
-    		DebugLocation(328, 13);
+    		DebugLocation(329, 13);
     		mS(); 
 
     		}
@@ -2118,23 +2118,23 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = BETWEEN;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:329:9: ( B E T W E E N )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:330:9: ( B E T W E E N )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:329:11: B E T W E E N
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:330:11: B E T W E E N
     		{
-    		DebugLocation(329, 11);
+    		DebugLocation(330, 11);
     		mB(); 
-    		DebugLocation(329, 13);
+    		DebugLocation(330, 13);
     		mE(); 
-    		DebugLocation(329, 15);
+    		DebugLocation(330, 15);
     		mT(); 
-    		DebugLocation(329, 17);
+    		DebugLocation(330, 17);
     		mW(); 
-    		DebugLocation(329, 19);
+    		DebugLocation(330, 19);
     		mE(); 
-    		DebugLocation(329, 21);
+    		DebugLocation(330, 21);
     		mE(); 
-    		DebugLocation(329, 23);
+    		DebugLocation(330, 23);
     		mN(); 
 
     		}
@@ -2167,13 +2167,13 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = IN;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:330:4: ( I N )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:331:4: ( I N )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:330:6: I N
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:331:6: I N
     		{
-    		DebugLocation(330, 6);
+    		DebugLocation(331, 6);
     		mI(); 
-    		DebugLocation(330, 8);
+    		DebugLocation(331, 8);
     		mN(); 
 
     		}
@@ -2206,15 +2206,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = ANY;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:331:5: ( A N Y )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:332:5: ( A N Y )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:331:7: A N Y
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:332:7: A N Y
     		{
-    		DebugLocation(331, 7);
+    		DebugLocation(332, 7);
     		mA(); 
-    		DebugLocation(331, 9);
+    		DebugLocation(332, 9);
     		mN(); 
-    		DebugLocation(331, 11);
+    		DebugLocation(332, 11);
     		mY(); 
 
     		}
@@ -2247,17 +2247,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = SOME;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:332:6: ( S O M E )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:333:6: ( S O M E )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:332:8: S O M E
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:333:8: S O M E
     		{
-    		DebugLocation(332, 8);
+    		DebugLocation(333, 8);
     		mS(); 
-    		DebugLocation(332, 10);
+    		DebugLocation(333, 10);
     		mO(); 
-    		DebugLocation(332, 12);
+    		DebugLocation(333, 12);
     		mM(); 
-    		DebugLocation(332, 14);
+    		DebugLocation(333, 14);
     		mE(); 
 
     		}
@@ -2290,21 +2290,21 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = EXISTS;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:333:9: ( E X I S T S )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:334:9: ( E X I S T S )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:333:11: E X I S T S
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:334:11: E X I S T S
     		{
-    		DebugLocation(333, 11);
+    		DebugLocation(334, 11);
     		mE(); 
-    		DebugLocation(333, 13);
+    		DebugLocation(334, 13);
     		mX(); 
-    		DebugLocation(333, 15);
+    		DebugLocation(334, 15);
     		mI(); 
-    		DebugLocation(333, 17);
+    		DebugLocation(334, 17);
     		mS(); 
-    		DebugLocation(333, 19);
+    		DebugLocation(334, 19);
     		mT(); 
-    		DebugLocation(333, 21);
+    		DebugLocation(334, 21);
     		mS(); 
 
     		}
@@ -2337,11 +2337,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = TOKEN;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:336:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:337:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:336:4: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:337:4: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
     		{
-    		DebugLocation(336, 4);
+    		DebugLocation(337, 4);
     		if ((input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z'))
     		{
     			input.Consume();
@@ -2354,8 +2354,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     			throw mse;
     		}
 
-    		DebugLocation(336, 32);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:336:32: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
+    		DebugLocation(337, 32);
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:337:32: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
     		try { DebugEnterSubRule(3);
     		while (true)
     		{
@@ -2376,7 +2376,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     				DebugEnterAlt(1);
     				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     				{
-    				DebugLocation(336, 32);
+    				DebugLocation(337, 32);
     				input.Consume();
 
 
@@ -2424,13 +2424,13 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = SYSTEMVAR;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:340:2: ( '$' TOKEN )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:341:2: ( '$' TOKEN )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:340:4: '$' TOKEN
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:341:4: '$' TOKEN
     		{
-    		DebugLocation(340, 4);
+    		DebugLocation(341, 4);
     		Match('$'); 
-    		DebugLocation(340, 8);
+    		DebugLocation(341, 8);
     		mTOKEN(); 
 
     		}
@@ -2463,12 +2463,12 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = NUMBER;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:344:2: ( ( DIGIT )+ )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:345:2: ( ( DIGIT )+ )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:344:4: ( DIGIT )+
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:345:4: ( DIGIT )+
     		{
-    		DebugLocation(344, 4);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:344:4: ( DIGIT )+
+    		DebugLocation(345, 4);
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:345:4: ( DIGIT )+
     		int cnt4=0;
     		try { DebugEnterSubRule(4);
     		while (true)
@@ -2490,7 +2490,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     				DebugEnterAlt(1);
     				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     				{
-    				DebugLocation(344, 4);
+    				DebugLocation(345, 4);
     				input.Consume();
 
 
@@ -2543,15 +2543,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = COMMENT_LINE;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:349:2: ( '--' ( . )* ( ( '\\r' '\\n' ) | '\\r' | '\\n' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:350:2: ( '--' ( . )* ( ( '\\r' '\\n' ) | '\\r' | '\\n' ) )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:349:4: '--' ( . )* ( ( '\\r' '\\n' ) | '\\r' | '\\n' )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:350:4: '--' ( . )* ( ( '\\r' '\\n' ) | '\\r' | '\\n' )
     		{
-    		DebugLocation(349, 4);
+    		DebugLocation(350, 4);
     		Match("--"); 
 
-    		DebugLocation(349, 9);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:349:9: ( . )*
+    		DebugLocation(350, 9);
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:350:9: ( . )*
     		try { DebugEnterSubRule(5);
     		while (true)
     		{
@@ -2578,9 +2578,9 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:349:9: .
+    				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:350:9: .
     				{
-    				DebugLocation(349, 9);
+    				DebugLocation(350, 9);
     				MatchAny(); 
 
     				}
@@ -2596,8 +2596,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 
     		} finally { DebugExitSubRule(5); }
 
-    		DebugLocation(349, 12);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:349:12: ( ( '\\r' '\\n' ) | '\\r' | '\\n' )
+    		DebugLocation(350, 12);
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:350:12: ( ( '\\r' '\\n' ) | '\\r' | '\\n' )
     		int alt6=3;
     		try { DebugEnterSubRule(6);
     		try { DebugEnterDecision(6, decisionCanBacktrack[6]);
@@ -2631,16 +2631,16 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		case 1:
     			DebugEnterAlt(1);
-    			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:349:13: ( '\\r' '\\n' )
+    			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:350:13: ( '\\r' '\\n' )
     			{
-    			DebugLocation(349, 13);
-    			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:349:13: ( '\\r' '\\n' )
+    			DebugLocation(350, 13);
+    			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:350:13: ( '\\r' '\\n' )
     			DebugEnterAlt(1);
-    			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:349:14: '\\r' '\\n'
+    			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:350:14: '\\r' '\\n'
     			{
-    			DebugLocation(349, 14);
+    			DebugLocation(350, 14);
     			Match('\r'); 
-    			DebugLocation(349, 19);
+    			DebugLocation(350, 19);
     			Match('\n'); 
 
     			}
@@ -2650,18 +2650,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     			break;
     		case 2:
     			DebugEnterAlt(2);
-    			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:349:27: '\\r'
+    			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:350:27: '\\r'
     			{
-    			DebugLocation(349, 27);
+    			DebugLocation(350, 27);
     			Match('\r'); 
 
     			}
     			break;
     		case 3:
     			DebugEnterAlt(3);
-    			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:349:34: '\\n'
+    			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:350:34: '\\n'
     			{
-    			DebugLocation(349, 34);
+    			DebugLocation(350, 34);
     			Match('\n'); 
 
     			}
@@ -2670,7 +2670,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		}
     		} finally { DebugExitSubRule(6); }
 
-    		DebugLocation(349, 40);
+    		DebugLocation(350, 40);
     		 Skip(); 
 
     		}
@@ -2703,12 +2703,12 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = WS;
     		int _channel = DefaultTokenChannel;
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:358:2: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:359:2: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
     		DebugEnterAlt(1);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:358:4: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:359:4: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
     		{
-    		DebugLocation(358, 4);
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:358:4: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+    		DebugLocation(359, 4);
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:359:4: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
     		int cnt7=0;
     		try { DebugEnterSubRule(7);
     		while (true)
@@ -2730,7 +2730,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     				DebugEnterAlt(1);
     				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     				{
-    				DebugLocation(358, 4);
+    				DebugLocation(359, 4);
     				input.Consume();
 
 
@@ -2781,11 +2781,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("DIGIT", 56);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:363:16: ( '0' .. '9' )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:364:16: ( '0' .. '9' )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(363, 16);
+    		DebugLocation(364, 16);
     		if ((input.LA(1)>='0' && input.LA(1)<='9'))
     		{
     			input.Consume();
@@ -2825,11 +2825,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("A", 57);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:365:11: ( ( 'a' | 'A' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:366:11: ( ( 'a' | 'A' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(365, 11);
+    		DebugLocation(366, 11);
     		if (input.LA(1)=='A'||input.LA(1)=='a')
     		{
     			input.Consume();
@@ -2869,11 +2869,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("B", 58);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:366:11: ( ( 'b' | 'B' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:367:11: ( ( 'b' | 'B' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(366, 11);
+    		DebugLocation(367, 11);
     		if (input.LA(1)=='B'||input.LA(1)=='b')
     		{
     			input.Consume();
@@ -2913,11 +2913,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("C", 59);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:367:11: ( ( 'c' | 'C' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:368:11: ( ( 'c' | 'C' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(367, 11);
+    		DebugLocation(368, 11);
     		if (input.LA(1)=='C'||input.LA(1)=='c')
     		{
     			input.Consume();
@@ -2957,11 +2957,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("D", 60);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:368:11: ( ( 'd' | 'D' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:369:11: ( ( 'd' | 'D' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(368, 11);
+    		DebugLocation(369, 11);
     		if (input.LA(1)=='D'||input.LA(1)=='d')
     		{
     			input.Consume();
@@ -3001,11 +3001,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("E", 61);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:369:11: ( ( 'e' | 'E' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:370:11: ( ( 'e' | 'E' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(369, 11);
+    		DebugLocation(370, 11);
     		if (input.LA(1)=='E'||input.LA(1)=='e')
     		{
     			input.Consume();
@@ -3045,11 +3045,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("F", 62);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:370:11: ( ( 'f' | 'F' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:371:11: ( ( 'f' | 'F' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(370, 11);
+    		DebugLocation(371, 11);
     		if (input.LA(1)=='F'||input.LA(1)=='f')
     		{
     			input.Consume();
@@ -3089,11 +3089,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("G", 63);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:371:11: ( ( 'g' | 'G' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:372:11: ( ( 'g' | 'G' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(371, 11);
+    		DebugLocation(372, 11);
     		if (input.LA(1)=='G'||input.LA(1)=='g')
     		{
     			input.Consume();
@@ -3133,11 +3133,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("H", 64);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:372:11: ( ( 'h' | 'H' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:373:11: ( ( 'h' | 'H' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(372, 11);
+    		DebugLocation(373, 11);
     		if (input.LA(1)=='H'||input.LA(1)=='h')
     		{
     			input.Consume();
@@ -3177,11 +3177,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("I", 65);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:373:11: ( ( 'i' | 'I' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:374:11: ( ( 'i' | 'I' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(373, 11);
+    		DebugLocation(374, 11);
     		if (input.LA(1)=='I'||input.LA(1)=='i')
     		{
     			input.Consume();
@@ -3221,11 +3221,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("J", 66);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:374:11: ( ( 'j' | 'J' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:375:11: ( ( 'j' | 'J' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(374, 11);
+    		DebugLocation(375, 11);
     		if (input.LA(1)=='J'||input.LA(1)=='j')
     		{
     			input.Consume();
@@ -3265,11 +3265,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("K", 67);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:375:11: ( ( 'k' | 'K' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:376:11: ( ( 'k' | 'K' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(375, 11);
+    		DebugLocation(376, 11);
     		if (input.LA(1)=='K'||input.LA(1)=='k')
     		{
     			input.Consume();
@@ -3309,11 +3309,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("L", 68);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:376:11: ( ( 'l' | 'L' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:377:11: ( ( 'l' | 'L' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(376, 11);
+    		DebugLocation(377, 11);
     		if (input.LA(1)=='L'||input.LA(1)=='l')
     		{
     			input.Consume();
@@ -3353,11 +3353,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("M", 69);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:377:11: ( ( 'm' | 'M' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:378:11: ( ( 'm' | 'M' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(377, 11);
+    		DebugLocation(378, 11);
     		if (input.LA(1)=='M'||input.LA(1)=='m')
     		{
     			input.Consume();
@@ -3397,11 +3397,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("N", 70);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:378:11: ( ( 'n' | 'N' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:379:11: ( ( 'n' | 'N' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(378, 11);
+    		DebugLocation(379, 11);
     		if (input.LA(1)=='N'||input.LA(1)=='n')
     		{
     			input.Consume();
@@ -3441,11 +3441,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("O", 71);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:379:11: ( ( 'o' | 'O' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:380:11: ( ( 'o' | 'O' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(379, 11);
+    		DebugLocation(380, 11);
     		if (input.LA(1)=='O'||input.LA(1)=='o')
     		{
     			input.Consume();
@@ -3485,11 +3485,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("P", 72);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:380:11: ( ( 'p' | 'P' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:381:11: ( ( 'p' | 'P' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(380, 11);
+    		DebugLocation(381, 11);
     		if (input.LA(1)=='P'||input.LA(1)=='p')
     		{
     			input.Consume();
@@ -3529,11 +3529,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("Q", 73);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:381:11: ( ( 'q' | 'Q' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:382:11: ( ( 'q' | 'Q' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(381, 11);
+    		DebugLocation(382, 11);
     		if (input.LA(1)=='Q'||input.LA(1)=='q')
     		{
     			input.Consume();
@@ -3573,11 +3573,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("R", 74);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:382:11: ( ( 'r' | 'R' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:383:11: ( ( 'r' | 'R' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(382, 11);
+    		DebugLocation(383, 11);
     		if (input.LA(1)=='R'||input.LA(1)=='r')
     		{
     			input.Consume();
@@ -3617,11 +3617,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("S", 75);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:383:11: ( ( 's' | 'S' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:384:11: ( ( 's' | 'S' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(383, 11);
+    		DebugLocation(384, 11);
     		if (input.LA(1)=='S'||input.LA(1)=='s')
     		{
     			input.Consume();
@@ -3661,11 +3661,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("T", 76);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:384:11: ( ( 't' | 'T' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:385:11: ( ( 't' | 'T' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(384, 11);
+    		DebugLocation(385, 11);
     		if (input.LA(1)=='T'||input.LA(1)=='t')
     		{
     			input.Consume();
@@ -3705,11 +3705,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("U", 77);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:385:11: ( ( 'u' | 'U' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:386:11: ( ( 'u' | 'U' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(385, 11);
+    		DebugLocation(386, 11);
     		if (input.LA(1)=='U'||input.LA(1)=='u')
     		{
     			input.Consume();
@@ -3749,11 +3749,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("V", 78);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:386:11: ( ( 'v' | 'V' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:387:11: ( ( 'v' | 'V' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(386, 11);
+    		DebugLocation(387, 11);
     		if (input.LA(1)=='V'||input.LA(1)=='v')
     		{
     			input.Consume();
@@ -3793,11 +3793,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("W", 79);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:387:11: ( ( 'w' | 'W' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:388:11: ( ( 'w' | 'W' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(387, 11);
+    		DebugLocation(388, 11);
     		if (input.LA(1)=='W'||input.LA(1)=='w')
     		{
     			input.Consume();
@@ -3837,11 +3837,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("X", 80);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:388:11: ( ( 'x' | 'X' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:389:11: ( ( 'x' | 'X' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(388, 11);
+    		DebugLocation(389, 11);
     		if (input.LA(1)=='X'||input.LA(1)=='x')
     		{
     			input.Consume();
@@ -3881,11 +3881,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("Y", 81);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:389:11: ( ( 'y' | 'Y' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:390:11: ( ( 'y' | 'Y' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(389, 11);
+    		DebugLocation(390, 11);
     		if (input.LA(1)=='Y'||input.LA(1)=='y')
     		{
     			input.Consume();
@@ -3925,11 +3925,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("Z", 82);
     		try
     		{
-    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:390:11: ( ( 'z' | 'Z' ) )
+    		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:391:11: ( ( 'z' | 'Z' ) )
     		DebugEnterAlt(1);
     		// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
     		{
-    		DebugLocation(390, 11);
+    		DebugLocation(391, 11);
     		if (input.LA(1)=='Z'||input.LA(1)=='z')
     		{
     			input.Consume();

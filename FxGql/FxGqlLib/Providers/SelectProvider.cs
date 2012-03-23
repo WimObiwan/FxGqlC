@@ -1,35 +1,53 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace FxGqlLib
 {
+	public class Column
+	{ 
+		public IExpression Expression { get; set; }
+		public string Name { get; set; }
+	}
+	
 	public class SelectProvider : IProvider
 	{
-		IList<IExpression> outputList;
+		IExpression[] outputList;
+		string[] columnNameList;
 		IProvider provider;
 		GqlQueryState gqlQueryState;
 		ProviderRecord record;
 		
 		public SelectProvider (IList<IExpression> outputList, IProvider provider)
 		{
-			this.outputList = outputList;
+			this.outputList = outputList.ToArray();
+			// TODO: Support default columnNames
+			this.provider = provider;
+		}
+
+		public SelectProvider (IList<Column> outputList, IProvider provider)
+		{
+			this.outputList = outputList.Select(a => a.Expression).ToArray();
+			this.columnNameList = outputList.Select(a => a.Name).ToArray();
 			this.provider = provider;
 		}
 
 		#region IProvider implementation
 		public int GetColumnOrdinal(string columnName)
 		{
-			// TODO: Support column names
-			throw new NotImplementedException();
+			if (columnNameList == null)
+				throw new NotSupportedException(string.Format("Column name '{0}' not found", columnName));
+			
+			return Array.FindIndex(columnNameList, a => string.Compare(a, columnName, StringComparison.InvariantCultureIgnoreCase) == 0);
 		}
 		
 		public Type[] GetColumnTypes()
 		{
-			Type[] types = new Type[outputList.Count];
+			Type[] types = new Type[outputList.Length];
 			
-			for (int i = 0; i < outputList.Count; i++) {
+			for (int i = 0; i < outputList.Length; i++) {
 				types[i] = outputList[i].GetResultType();
 			}
 			
@@ -53,8 +71,8 @@ namespace FxGqlLib
 			gqlQueryState.Record = provider.Record;
 			gqlQueryState.TotalLineNumber++;
 			
-			record.Columns = new IComparable[outputList.Count];
-			for (int i = 0; i < outputList.Count; i++) {
+			record.Columns = new IComparable[outputList.Length];
+			for (int i = 0; i < outputList.Length; i++) {
 				record.Columns [i] = outputList [i].EvaluateAsComparable (gqlQueryState);
 			}
 			

@@ -551,6 +551,12 @@ namespace FxGqlTest
 				"E55E5D72E548200133B381F911E02E57CA2032C42394C544492FE569C8DA9646");
 			TestGql ("select distinct [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine]",
 				"BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+			TestGql ("select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']",
+				"39B397F3BBB3FC582683C41C0D73826995E7BDB6D68B2DC4E4AC7D81E0C5B59F");
+			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv'])",
+				"39B397F3BBB3FC582683C41C0D73826995E7BDB6D68B2DC4E4AC7D81E0C5B59F");
+			TestGql ("select [FieldB], [FieldA] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv'])",
+				"145DA47A1E9E308A0A501B6A24509A94943CF72F642347331D3E7B900E4740E2");
 						
 			
 			Console.WriteLine ();
@@ -561,7 +567,12 @@ namespace FxGqlTest
 		{
 			// TODO: group by
 			// TODO: aggregates
+			// TODO: default column names
+			// TODO: output columns as column headings
+			// TODO: create file columns on regular expression
 			// 
+			// TODO: Documentation for -FirstLine
+			// TODO: Documentation for column title
 		}
 	}
 }

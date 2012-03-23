@@ -116,7 +116,8 @@ column_list
 	;
 	
 column
-	: '*' | expression
+	: '*' -> ^(T_COLUMN '*') 
+	| expression (WS SIMPLE_FILE)? -> ^(T_COLUMN expression SIMPLE_FILE?)
 	;
 into_clause
 	: INTO WS file -> ^(T_INTO file)
