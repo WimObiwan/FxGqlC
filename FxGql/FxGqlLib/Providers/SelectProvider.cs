@@ -19,6 +19,12 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+		public int GetColumnOrdinal(string columnName)
+		{
+			// TODO: Support column names
+			throw new NotImplementedException();
+		}
+		
 		public Type[] GetColumnTypes()
 		{
 			Type[] types = new Type[outputList.Count];

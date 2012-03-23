@@ -67,5 +67,8 @@
     <None Include="SampleFiles\AirportCodesTwice.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="SampleFiles\Tennis-ATP-2011.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

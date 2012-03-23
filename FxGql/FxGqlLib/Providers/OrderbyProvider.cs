@@ -47,6 +47,11 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+		public int GetColumnOrdinal(string columnName)
+		{
+			return provider.GetColumnOrdinal(columnName);
+		}
+		
 		public Type[] GetColumnTypes ()
 		{
 			return provider.GetColumnTypes ();

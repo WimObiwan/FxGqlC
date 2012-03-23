@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// $ANTLR 3.4 /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g 2012-03-10 21:01:52
+// $ANTLR 3.4 /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g 2012-03-17 22:59:56
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -40,10 +40,9 @@ namespace  FxGqlLib
 public partial class gqlParser : Antlr.Runtime.Parser
 {
 	internal static readonly string[] tokenNames = new string[] {
-		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "A", "ALL", "AND", "ANY", "AS", "ASC", "B", "BETWEEN", "BY", "C", "CAST", "COMMENT_LINE", "CONVERT", "D", "DESC", "DIGIT", "DISTINCT", "E", "EXISTS", "F", "FROM", "G", "H", "I", "IN", "INTO", "J", "K", "L", "LIKE", "M", "MATCH", "N", "NOT", "NUMBER", "O", "OR", "ORDER", "P", "Q", "R", "S", "SELECT", "SIMPLE_FILE", "SOME", "STRING", "SYSTEMVAR", "T", "TOKEN", "TOP", "T_ALL", "T_AND", "T_ANY", "T_BETWEEN", "T_BITWISE_AND", "T_BITWISE_NOT", "T_BITWISE_OR", "T_BITWISE_XOR", "T_COLUMNLIST", "T_CONVERT", "T_DISTINCT", "T_DIVIDE", "T_EQUAL", "T_EXISTS", "T_EXPRESSIONLIST", "T_FILE", "T_FILEOPTION", "T_FROM", "T_FUNCTIONCALL", "T_GREATER", "T_IN", "T_INTEGER", "T_INTO", "T_LESS", "T_LIKE", "T_MATCH", "T_MINUS", "T_MODULO", "T_NOT", "T_NOTBETWEEN", "T_NOTEQUAL", "T_NOTGREATER", "T_NOTIN", "T_NOTLESS", "T_NOTLIKE", "T_NOTMATCH", "T_OP_BINARY", "T_OP_UNARY", "T_OR", "T_ORDERBY", "T_ORDERBY_ASC", "T_ORDERBY_COLUMN", "T_ORDERBY_DESC", "T_PLUS", "T_PRODUCT", "T_ROOT", "T_SELECT", "T_STRING", "T_SUBQUERY", "T_SYSTEMVAR", "T_TOP", "T_WHERE", "U", "V", "W", "WHERE", "WS", "X", "Y", "Z", "'!<'", "'!='", "'!>'", "'%'", "'&'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'/'", "';'", "'<'", "'<='", "'<>'", "'='", "'>'", "'>='", "'['", "']'", "'^'", "'|'", "'~'"
+		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "A", "ALL", "AND", "ANY", "AS", "ASC", "B", "BETWEEN", "BY", "C", "CAST", "COMMENT_LINE", "CONVERT", "D", "DESC", "DIGIT", "DISTINCT", "E", "EXISTS", "F", "FROM", "G", "H", "I", "IN", "INTO", "J", "K", "L", "LIKE", "M", "MATCH", "N", "NOT", "NUMBER", "O", "OR", "ORDER", "P", "Q", "R", "S", "SELECT", "SIMPLE_FILE", "SOME", "STRING", "SYSTEMVAR", "T", "TOKEN", "TOP", "T_ALL", "T_AND", "T_ANY", "T_BETWEEN", "T_BITWISE_AND", "T_BITWISE_NOT", "T_BITWISE_OR", "T_BITWISE_XOR", "T_COLUMN", "T_COLUMNLIST", "T_CONVERT", "T_DISTINCT", "T_DIVIDE", "T_EQUAL", "T_EXISTS", "T_EXPRESSIONLIST", "T_FILE", "T_FILEOPTION", "T_FROM", "T_FUNCTIONCALL", "T_GREATER", "T_IN", "T_INTEGER", "T_INTO", "T_LESS", "T_LIKE", "T_MATCH", "T_MINUS", "T_MODULO", "T_NOT", "T_NOTBETWEEN", "T_NOTEQUAL", "T_NOTGREATER", "T_NOTIN", "T_NOTLESS", "T_NOTLIKE", "T_NOTMATCH", "T_OP_BINARY", "T_OP_UNARY", "T_OR", "T_ORDERBY", "T_ORDERBY_ASC", "T_ORDERBY_COLUMN", "T_ORDERBY_DESC", "T_PLUS", "T_PRODUCT", "T_ROOT", "T_SELECT", "T_STRING", "T_SUBQUERY", "T_SYSTEMVAR", "T_TOP", "T_WHERE", "U", "V", "W", "WHERE", "WS", "X", "Y", "Z", "'!<'", "'!='", "'!>'", "'%'", "'&'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'/'", "';'", "'<'", "'<='", "'<>'", "'='", "'>'", "'>='", "'['", "']'", "'^'", "'|'", "'~'"
 	};
 	public const int EOF=-1;
-	public const int T__114=114;
 	public const int T__115=115;
 	public const int T__116=116;
 	public const int T__117=117;
@@ -67,6 +66,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	public const int T__135=135;
 	public const int T__136=136;
 	public const int T__137=137;
+	public const int T__138=138;
 	public const int A=4;
 	public const int ALL=5;
 	public const int AND=6;
@@ -125,58 +125,59 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	public const int T_BITWISE_NOT=59;
 	public const int T_BITWISE_OR=60;
 	public const int T_BITWISE_XOR=61;
-	public const int T_COLUMNLIST=62;
-	public const int T_CONVERT=63;
-	public const int T_DISTINCT=64;
-	public const int T_DIVIDE=65;
-	public const int T_EQUAL=66;
-	public const int T_EXISTS=67;
-	public const int T_EXPRESSIONLIST=68;
-	public const int T_FILE=69;
-	public const int T_FILEOPTION=70;
-	public const int T_FROM=71;
-	public const int T_FUNCTIONCALL=72;
-	public const int T_GREATER=73;
-	public const int T_IN=74;
-	public const int T_INTEGER=75;
-	public const int T_INTO=76;
-	public const int T_LESS=77;
-	public const int T_LIKE=78;
-	public const int T_MATCH=79;
-	public const int T_MINUS=80;
-	public const int T_MODULO=81;
-	public const int T_NOT=82;
-	public const int T_NOTBETWEEN=83;
-	public const int T_NOTEQUAL=84;
-	public const int T_NOTGREATER=85;
-	public const int T_NOTIN=86;
-	public const int T_NOTLESS=87;
-	public const int T_NOTLIKE=88;
-	public const int T_NOTMATCH=89;
-	public const int T_OP_BINARY=90;
-	public const int T_OP_UNARY=91;
-	public const int T_OR=92;
-	public const int T_ORDERBY=93;
-	public const int T_ORDERBY_ASC=94;
-	public const int T_ORDERBY_COLUMN=95;
-	public const int T_ORDERBY_DESC=96;
-	public const int T_PLUS=97;
-	public const int T_PRODUCT=98;
-	public const int T_ROOT=99;
-	public const int T_SELECT=100;
-	public const int T_STRING=101;
-	public const int T_SUBQUERY=102;
-	public const int T_SYSTEMVAR=103;
-	public const int T_TOP=104;
-	public const int T_WHERE=105;
-	public const int U=106;
-	public const int V=107;
-	public const int W=108;
-	public const int WHERE=109;
-	public const int WS=110;
-	public const int X=111;
-	public const int Y=112;
-	public const int Z=113;
+	public const int T_COLUMN=62;
+	public const int T_COLUMNLIST=63;
+	public const int T_CONVERT=64;
+	public const int T_DISTINCT=65;
+	public const int T_DIVIDE=66;
+	public const int T_EQUAL=67;
+	public const int T_EXISTS=68;
+	public const int T_EXPRESSIONLIST=69;
+	public const int T_FILE=70;
+	public const int T_FILEOPTION=71;
+	public const int T_FROM=72;
+	public const int T_FUNCTIONCALL=73;
+	public const int T_GREATER=74;
+	public const int T_IN=75;
+	public const int T_INTEGER=76;
+	public const int T_INTO=77;
+	public const int T_LESS=78;
+	public const int T_LIKE=79;
+	public const int T_MATCH=80;
+	public const int T_MINUS=81;
+	public const int T_MODULO=82;
+	public const int T_NOT=83;
+	public const int T_NOTBETWEEN=84;
+	public const int T_NOTEQUAL=85;
+	public const int T_NOTGREATER=86;
+	public const int T_NOTIN=87;
+	public const int T_NOTLESS=88;
+	public const int T_NOTLIKE=89;
+	public const int T_NOTMATCH=90;
+	public const int T_OP_BINARY=91;
+	public const int T_OP_UNARY=92;
+	public const int T_OR=93;
+	public const int T_ORDERBY=94;
+	public const int T_ORDERBY_ASC=95;
+	public const int T_ORDERBY_COLUMN=96;
+	public const int T_ORDERBY_DESC=97;
+	public const int T_PLUS=98;
+	public const int T_PRODUCT=99;
+	public const int T_ROOT=100;
+	public const int T_SELECT=101;
+	public const int T_STRING=102;
+	public const int T_SUBQUERY=103;
+	public const int T_SYSTEMVAR=104;
+	public const int T_TOP=105;
+	public const int T_WHERE=106;
+	public const int U=107;
+	public const int V=108;
+	public const int W=109;
+	public const int WHERE=110;
+	public const int WS=111;
+	public const int X=112;
+	public const int Y=113;
+	public const int Z=114;
 
 	#if ANTLR_DEBUG
 		private static readonly bool[] decisionCanBacktrack =
@@ -192,7 +193,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				false, false, false, false, false, false, false, false, false, false, 
 				false, false, false, false, false, false, false, false, false, false, 
 				false, false, false, false, false, false, false, false, false, false, 
-				false, false, false
+				false, false, false, false
 			};
 	#else
 		private static readonly bool[] decisionCanBacktrack = new bool[0];
@@ -222,7 +223,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	}
 
 	public override string[] TokenNames { get { return gqlParser.tokenNames; } }
-	public override string GrammarFileName { get { return "/home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g"; } }
+	public override string GrammarFileName { get { return "/home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g"; } }
 
 
 	[Conditional("ANTLR_TRACE")]
@@ -240,7 +241,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_parse() {}
 
 	// $ANTLR start "parse"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:83:1: parse : ( WS )? ( commands ( WS )? )? EOF -> ^( T_ROOT ( commands )? ) ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:84:1: parse : ( WS )? ( commands ( WS )? )? EOF -> ^( T_ROOT ( commands )? ) ;
 	[GrammarRule("parse")]
 	private AstParserRuleReturnScope<object, IToken> parse()
 	{
@@ -264,15 +265,15 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleITokenStream stream_EOF=new RewriteRuleITokenStream(adaptor,"token EOF");
 	    RewriteRuleSubtreeStream stream_commands=new RewriteRuleSubtreeStream(adaptor,"rule commands");
 		try { DebugEnterRule(GrammarFileName, "parse");
-		DebugLocation(83, 1);
+		DebugLocation(84, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:84:2: ( ( WS )? ( commands ( WS )? )? EOF -> ^( T_ROOT ( commands )? ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:85:2: ( ( WS )? ( commands ( WS )? )? EOF -> ^( T_ROOT ( commands )? ) )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:84:4: ( WS )? ( commands ( WS )? )? EOF
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:85:4: ( WS )? ( commands ( WS )? )? EOF
 			{
-			DebugLocation(84, 4);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:84:4: ( WS )?
+			DebugLocation(85, 4);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:85:4: ( WS )?
 			int alt1=2;
 			try { DebugEnterSubRule(1);
 			try { DebugEnterDecision(1, decisionCanBacktrack[1]);
@@ -287,10 +288,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:84:4: WS
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:85:4: WS
 				{
-				DebugLocation(84, 4);
-				WS1=(IToken)Match(input,WS,Follow._WS_in_parse288);  
+				DebugLocation(85, 4);
+				WS1=(IToken)Match(input,WS,Follow._WS_in_parse292);  
 				stream_WS.Add(WS1);
 
 
@@ -300,8 +301,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			}
 			} finally { DebugExitSubRule(1); }
 
-			DebugLocation(84, 8);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:84:8: ( commands ( WS )? )?
+			DebugLocation(85, 8);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:85:8: ( commands ( WS )? )?
 			int alt3=2;
 			try { DebugEnterSubRule(3);
 			try { DebugEnterDecision(3, decisionCanBacktrack[3]);
@@ -316,16 +317,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:84:9: commands ( WS )?
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:85:9: commands ( WS )?
 				{
-				DebugLocation(84, 9);
-				PushFollow(Follow._commands_in_parse292);
+				DebugLocation(85, 9);
+				PushFollow(Follow._commands_in_parse296);
 				commands2=commands();
 				PopFollow();
 
 				stream_commands.Add(commands2.Tree);
-				DebugLocation(84, 18);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:84:18: ( WS )?
+				DebugLocation(85, 18);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:85:18: ( WS )?
 				int alt2=2;
 				try { DebugEnterSubRule(2);
 				try { DebugEnterDecision(2, decisionCanBacktrack[2]);
@@ -340,10 +341,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:84:18: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:85:18: WS
 					{
-					DebugLocation(84, 18);
-					WS3=(IToken)Match(input,WS,Follow._WS_in_parse294);  
+					DebugLocation(85, 18);
+					WS3=(IToken)Match(input,WS,Follow._WS_in_parse298);  
 					stream_WS.Add(WS3);
 
 
@@ -360,8 +361,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			}
 			} finally { DebugExitSubRule(3); }
 
-			DebugLocation(84, 24);
-			EOF4=(IToken)Match(input,EOF,Follow._EOF_in_parse299);  
+			DebugLocation(85, 24);
+			EOF4=(IToken)Match(input,EOF,Follow._EOF_in_parse303);  
 			stream_EOF.Add(EOF4);
 
 
@@ -378,20 +379,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 85:2: -> ^( T_ROOT ( commands )? )
+			// 86:2: -> ^( T_ROOT ( commands )? )
 			{
-				DebugLocation(85, 5);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:85:5: ^( T_ROOT ( commands )? )
+				DebugLocation(86, 5);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:86:5: ^( T_ROOT ( commands )? )
 				{
 				object root_1 = (object)adaptor.Nil();
-				DebugLocation(85, 7);
+				DebugLocation(86, 7);
 				root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_ROOT, "T_ROOT"), root_1);
 
-				DebugLocation(85, 14);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:85:14: ( commands )?
+				DebugLocation(86, 14);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:86:14: ( commands )?
 				if (stream_commands.HasNext)
 				{
-					DebugLocation(85, 14);
+					DebugLocation(86, 14);
 					adaptor.AddChild(root_1, stream_commands.NextTree());
 
 				}
@@ -426,7 +427,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("parse", 1);
 			LeaveRule_parse();
 	    }
-	 	DebugLocation(86, 1);
+	 	DebugLocation(87, 1);
 		} finally { DebugExitRule(GrammarFileName, "parse"); }
 		return retval;
 
@@ -440,7 +441,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_commands() {}
 
 	// $ANTLR start "commands"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:88:1: commands : command ( ( WS )? ( ';' ( WS )? )? command )* -> ( command )+ ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:89:1: commands : command ( ( WS )? ( ';' ( WS )? )? command )* -> ( command )+ ;
 	[GrammarRule("commands")]
 	private AstParserRuleReturnScope<object, IToken> commands()
 	{
@@ -461,25 +462,25 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS6_tree = default(object);
 	    object char_literal7_tree = default(object);
 	    object WS8_tree = default(object);
-	    RewriteRuleITokenStream stream_126=new RewriteRuleITokenStream(adaptor,"token 126");
+	    RewriteRuleITokenStream stream_127=new RewriteRuleITokenStream(adaptor,"token 127");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleSubtreeStream stream_command=new RewriteRuleSubtreeStream(adaptor,"rule command");
 		try { DebugEnterRule(GrammarFileName, "commands");
-		DebugLocation(88, 1);
+		DebugLocation(89, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:89:2: ( command ( ( WS )? ( ';' ( WS )? )? command )* -> ( command )+ )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:90:2: ( command ( ( WS )? ( ';' ( WS )? )? command )* -> ( command )+ )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:89:4: command ( ( WS )? ( ';' ( WS )? )? command )*
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:90:4: command ( ( WS )? ( ';' ( WS )? )? command )*
 			{
-			DebugLocation(89, 4);
-			PushFollow(Follow._command_in_commands322);
+			DebugLocation(90, 4);
+			PushFollow(Follow._command_in_commands326);
 			command5=command();
 			PopFollow();
 
 			stream_command.Add(command5.Tree);
-			DebugLocation(89, 12);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:89:12: ( ( WS )? ( ';' ( WS )? )? command )*
+			DebugLocation(90, 12);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:90:12: ( ( WS )? ( ';' ( WS )? )? command )*
 			try { DebugEnterSubRule(7);
 			while (true)
 			{
@@ -491,14 +492,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA7_1 = input.LA(2);
 
-					if ((LA7_1==SELECT||LA7_1==126))
+					if ((LA7_1==SELECT||LA7_1==127))
 					{
 						alt7 = 1;
 					}
 
 
 				}
-				else if ((LA7_0==SELECT||LA7_0==126))
+				else if ((LA7_0==SELECT||LA7_0==127))
 				{
 					alt7 = 1;
 				}
@@ -509,10 +510,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:89:13: ( WS )? ( ';' ( WS )? )? command
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:90:13: ( WS )? ( ';' ( WS )? )? command
 					{
-					DebugLocation(89, 13);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:89:13: ( WS )?
+					DebugLocation(90, 13);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:90:13: ( WS )?
 					int alt4=2;
 					try { DebugEnterSubRule(4);
 					try { DebugEnterDecision(4, decisionCanBacktrack[4]);
@@ -527,10 +528,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:89:13: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:90:13: WS
 						{
-						DebugLocation(89, 13);
-						WS6=(IToken)Match(input,WS,Follow._WS_in_commands325);  
+						DebugLocation(90, 13);
+						WS6=(IToken)Match(input,WS,Follow._WS_in_commands329);  
 						stream_WS.Add(WS6);
 
 
@@ -540,14 +541,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(4); }
 
-					DebugLocation(89, 17);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:89:17: ( ';' ( WS )? )?
+					DebugLocation(90, 17);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:90:17: ( ';' ( WS )? )?
 					int alt6=2;
 					try { DebugEnterSubRule(6);
 					try { DebugEnterDecision(6, decisionCanBacktrack[6]);
 					int LA6_0 = input.LA(1);
 
-					if ((LA6_0==126))
+					if ((LA6_0==127))
 					{
 						alt6 = 1;
 					}
@@ -556,14 +557,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:89:18: ';' ( WS )?
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:90:18: ';' ( WS )?
 						{
-						DebugLocation(89, 18);
-						char_literal7=(IToken)Match(input,126,Follow._126_in_commands329);  
-						stream_126.Add(char_literal7);
+						DebugLocation(90, 18);
+						char_literal7=(IToken)Match(input,127,Follow._127_in_commands333);  
+						stream_127.Add(char_literal7);
 
-						DebugLocation(89, 22);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:89:22: ( WS )?
+						DebugLocation(90, 22);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:90:22: ( WS )?
 						int alt5=2;
 						try { DebugEnterSubRule(5);
 						try { DebugEnterDecision(5, decisionCanBacktrack[5]);
@@ -578,10 +579,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 						case 1:
 							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:89:22: WS
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:90:22: WS
 							{
-							DebugLocation(89, 22);
-							WS8=(IToken)Match(input,WS,Follow._WS_in_commands331);  
+							DebugLocation(90, 22);
+							WS8=(IToken)Match(input,WS,Follow._WS_in_commands335);  
 							stream_WS.Add(WS8);
 
 
@@ -598,8 +599,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(6); }
 
-					DebugLocation(89, 28);
-					PushFollow(Follow._command_in_commands336);
+					DebugLocation(90, 28);
+					PushFollow(Follow._command_in_commands340);
 					command9=command();
 					PopFollow();
 
@@ -632,16 +633,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 90:2: -> ( command )+
+			// 91:2: -> ( command )+
 			{
-				DebugLocation(90, 5);
+				DebugLocation(91, 5);
 				if (!(stream_command.HasNext))
 				{
 					throw new RewriteEarlyExitException();
 				}
 				while ( stream_command.HasNext )
 				{
-					DebugLocation(90, 5);
+					DebugLocation(91, 5);
 					adaptor.AddChild(root_0, stream_command.NextTree());
 
 				}
@@ -673,7 +674,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("commands", 2);
 			LeaveRule_commands();
 	    }
-	 	DebugLocation(91, 1);
+	 	DebugLocation(92, 1);
 		} finally { DebugExitRule(GrammarFileName, "commands"); }
 		return retval;
 
@@ -687,7 +688,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_command() {}
 
 	// $ANTLR start "command"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:93:1: command : select_command ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:94:1: command : select_command ;
 	[GrammarRule("command")]
 	private AstParserRuleReturnScope<object, IToken> command()
 	{
@@ -703,17 +704,17 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 
 		try { DebugEnterRule(GrammarFileName, "command");
-		DebugLocation(93, 1);
+		DebugLocation(94, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:94:2: ( select_command )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:95:2: ( select_command )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:94:4: select_command
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:95:4: select_command
 			{
 			root_0 = (object)adaptor.Nil();
 
-			DebugLocation(94, 4);
-			PushFollow(Follow._select_command_in_command356);
+			DebugLocation(95, 4);
+			PushFollow(Follow._select_command_in_command360);
 			select_command10=select_command();
 			PopFollow();
 
@@ -740,7 +741,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("command", 3);
 			LeaveRule_command();
 	    }
-	 	DebugLocation(95, 1);
+	 	DebugLocation(96, 1);
 		} finally { DebugExitRule(GrammarFileName, "command"); }
 		return retval;
 
@@ -754,7 +755,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_select_command() {}
 
 	// $ANTLR start "select_command"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:97:1: select_command : SELECT ( WS distinct_clause )? ( WS top_clause )? WS column_list ( WS into_clause )? ( WS from_clause )? ( WS where_clause )? ( WS orderby_clause )? -> ^( T_SELECT ( distinct_clause )? ( top_clause )? column_list ( into_clause )? ( from_clause )? ( where_clause )? ( orderby_clause )? ) ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:1: select_command : SELECT ( WS distinct_clause )? ( WS top_clause )? WS column_list ( WS into_clause )? ( WS from_clause )? ( WS where_clause )? ( WS orderby_clause )? -> ^( T_SELECT ( distinct_clause )? ( top_clause )? column_list ( into_clause )? ( from_clause )? ( where_clause )? ( orderby_clause )? ) ;
 	[GrammarRule("select_command")]
 	private AstParserRuleReturnScope<object, IToken> select_command()
 	{
@@ -800,19 +801,19 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleSubtreeStream stream_top_clause=new RewriteRuleSubtreeStream(adaptor,"rule top_clause");
 	    RewriteRuleSubtreeStream stream_orderby_clause=new RewriteRuleSubtreeStream(adaptor,"rule orderby_clause");
 		try { DebugEnterRule(GrammarFileName, "select_command");
-		DebugLocation(97, 1);
+		DebugLocation(98, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:2: ( SELECT ( WS distinct_clause )? ( WS top_clause )? WS column_list ( WS into_clause )? ( WS from_clause )? ( WS where_clause )? ( WS orderby_clause )? -> ^( T_SELECT ( distinct_clause )? ( top_clause )? column_list ( into_clause )? ( from_clause )? ( where_clause )? ( orderby_clause )? ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:2: ( SELECT ( WS distinct_clause )? ( WS top_clause )? WS column_list ( WS into_clause )? ( WS from_clause )? ( WS where_clause )? ( WS orderby_clause )? -> ^( T_SELECT ( distinct_clause )? ( top_clause )? column_list ( into_clause )? ( from_clause )? ( where_clause )? ( orderby_clause )? ) )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:4: SELECT ( WS distinct_clause )? ( WS top_clause )? WS column_list ( WS into_clause )? ( WS from_clause )? ( WS where_clause )? ( WS orderby_clause )?
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:4: SELECT ( WS distinct_clause )? ( WS top_clause )? WS column_list ( WS into_clause )? ( WS from_clause )? ( WS where_clause )? ( WS orderby_clause )?
 			{
-			DebugLocation(98, 4);
-			SELECT11=(IToken)Match(input,SELECT,Follow._SELECT_in_select_command367);  
+			DebugLocation(99, 4);
+			SELECT11=(IToken)Match(input,SELECT,Follow._SELECT_in_select_command371);  
 			stream_SELECT.Add(SELECT11);
 
-			DebugLocation(98, 11);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:11: ( WS distinct_clause )?
+			DebugLocation(99, 11);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:11: ( WS distinct_clause )?
 			int alt8=2;
 			try { DebugEnterSubRule(8);
 			try { DebugEnterDecision(8, decisionCanBacktrack[8]);
@@ -832,14 +833,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:12: WS distinct_clause
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:12: WS distinct_clause
 				{
-				DebugLocation(98, 12);
-				WS12=(IToken)Match(input,WS,Follow._WS_in_select_command370);  
+				DebugLocation(99, 12);
+				WS12=(IToken)Match(input,WS,Follow._WS_in_select_command374);  
 				stream_WS.Add(WS12);
 
-				DebugLocation(98, 15);
-				PushFollow(Follow._distinct_clause_in_select_command372);
+				DebugLocation(99, 15);
+				PushFollow(Follow._distinct_clause_in_select_command376);
 				distinct_clause13=distinct_clause();
 				PopFollow();
 
@@ -851,8 +852,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			}
 			} finally { DebugExitSubRule(8); }
 
-			DebugLocation(98, 33);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:33: ( WS top_clause )?
+			DebugLocation(99, 33);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:33: ( WS top_clause )?
 			int alt9=2;
 			try { DebugEnterSubRule(9);
 			try { DebugEnterDecision(9, decisionCanBacktrack[9]);
@@ -872,14 +873,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:34: WS top_clause
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:34: WS top_clause
 				{
-				DebugLocation(98, 34);
-				WS14=(IToken)Match(input,WS,Follow._WS_in_select_command377);  
+				DebugLocation(99, 34);
+				WS14=(IToken)Match(input,WS,Follow._WS_in_select_command381);  
 				stream_WS.Add(WS14);
 
-				DebugLocation(98, 37);
-				PushFollow(Follow._top_clause_in_select_command379);
+				DebugLocation(99, 37);
+				PushFollow(Follow._top_clause_in_select_command383);
 				top_clause15=top_clause();
 				PopFollow();
 
@@ -891,18 +892,18 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			}
 			} finally { DebugExitSubRule(9); }
 
-			DebugLocation(98, 50);
-			WS16=(IToken)Match(input,WS,Follow._WS_in_select_command383);  
+			DebugLocation(99, 50);
+			WS16=(IToken)Match(input,WS,Follow._WS_in_select_command387);  
 			stream_WS.Add(WS16);
 
-			DebugLocation(98, 53);
-			PushFollow(Follow._column_list_in_select_command385);
+			DebugLocation(99, 53);
+			PushFollow(Follow._column_list_in_select_command389);
 			column_list17=column_list();
 			PopFollow();
 
 			stream_column_list.Add(column_list17.Tree);
-			DebugLocation(98, 65);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:65: ( WS into_clause )?
+			DebugLocation(99, 65);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:65: ( WS into_clause )?
 			int alt10=2;
 			try { DebugEnterSubRule(10);
 			try { DebugEnterDecision(10, decisionCanBacktrack[10]);
@@ -922,14 +923,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:66: WS into_clause
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:66: WS into_clause
 				{
-				DebugLocation(98, 66);
-				WS18=(IToken)Match(input,WS,Follow._WS_in_select_command388);  
+				DebugLocation(99, 66);
+				WS18=(IToken)Match(input,WS,Follow._WS_in_select_command392);  
 				stream_WS.Add(WS18);
 
-				DebugLocation(98, 69);
-				PushFollow(Follow._into_clause_in_select_command390);
+				DebugLocation(99, 69);
+				PushFollow(Follow._into_clause_in_select_command394);
 				into_clause19=into_clause();
 				PopFollow();
 
@@ -941,8 +942,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			}
 			} finally { DebugExitSubRule(10); }
 
-			DebugLocation(98, 83);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:83: ( WS from_clause )?
+			DebugLocation(99, 83);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:83: ( WS from_clause )?
 			int alt11=2;
 			try { DebugEnterSubRule(11);
 			try { DebugEnterDecision(11, decisionCanBacktrack[11]);
@@ -962,14 +963,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:84: WS from_clause
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:84: WS from_clause
 				{
-				DebugLocation(98, 84);
-				WS20=(IToken)Match(input,WS,Follow._WS_in_select_command395);  
+				DebugLocation(99, 84);
+				WS20=(IToken)Match(input,WS,Follow._WS_in_select_command399);  
 				stream_WS.Add(WS20);
 
-				DebugLocation(98, 87);
-				PushFollow(Follow._from_clause_in_select_command397);
+				DebugLocation(99, 87);
+				PushFollow(Follow._from_clause_in_select_command401);
 				from_clause21=from_clause();
 				PopFollow();
 
@@ -981,8 +982,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			}
 			} finally { DebugExitSubRule(11); }
 
-			DebugLocation(98, 101);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:101: ( WS where_clause )?
+			DebugLocation(99, 101);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:101: ( WS where_clause )?
 			int alt12=2;
 			try { DebugEnterSubRule(12);
 			try { DebugEnterDecision(12, decisionCanBacktrack[12]);
@@ -1002,14 +1003,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:102: WS where_clause
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:102: WS where_clause
 				{
-				DebugLocation(98, 102);
-				WS22=(IToken)Match(input,WS,Follow._WS_in_select_command402);  
+				DebugLocation(99, 102);
+				WS22=(IToken)Match(input,WS,Follow._WS_in_select_command406);  
 				stream_WS.Add(WS22);
 
-				DebugLocation(98, 105);
-				PushFollow(Follow._where_clause_in_select_command404);
+				DebugLocation(99, 105);
+				PushFollow(Follow._where_clause_in_select_command408);
 				where_clause23=where_clause();
 				PopFollow();
 
@@ -1021,8 +1022,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			}
 			} finally { DebugExitSubRule(12); }
 
-			DebugLocation(98, 120);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:120: ( WS orderby_clause )?
+			DebugLocation(99, 120);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:120: ( WS orderby_clause )?
 			int alt13=2;
 			try { DebugEnterSubRule(13);
 			try { DebugEnterDecision(13, decisionCanBacktrack[13]);
@@ -1042,14 +1043,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:98:121: WS orderby_clause
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:121: WS orderby_clause
 				{
-				DebugLocation(98, 121);
-				WS24=(IToken)Match(input,WS,Follow._WS_in_select_command409);  
+				DebugLocation(99, 121);
+				WS24=(IToken)Match(input,WS,Follow._WS_in_select_command413);  
 				stream_WS.Add(WS24);
 
-				DebugLocation(98, 124);
-				PushFollow(Follow._orderby_clause_in_select_command411);
+				DebugLocation(99, 124);
+				PushFollow(Follow._orderby_clause_in_select_command415);
 				orderby_clause25=orderby_clause();
 				PopFollow();
 
@@ -1065,7 +1066,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: distinct_clause, orderby_clause, where_clause, into_clause, column_list, from_clause, top_clause
+			// elements: from_clause, into_clause, top_clause, orderby_clause, distinct_clause, where_clause, column_list
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -1075,67 +1076,67 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 99:3: -> ^( T_SELECT ( distinct_clause )? ( top_clause )? column_list ( into_clause )? ( from_clause )? ( where_clause )? ( orderby_clause )? )
+			// 100:3: -> ^( T_SELECT ( distinct_clause )? ( top_clause )? column_list ( into_clause )? ( from_clause )? ( where_clause )? ( orderby_clause )? )
 			{
-				DebugLocation(99, 6);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:6: ^( T_SELECT ( distinct_clause )? ( top_clause )? column_list ( into_clause )? ( from_clause )? ( where_clause )? ( orderby_clause )? )
+				DebugLocation(100, 6);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:100:6: ^( T_SELECT ( distinct_clause )? ( top_clause )? column_list ( into_clause )? ( from_clause )? ( where_clause )? ( orderby_clause )? )
 				{
 				object root_1 = (object)adaptor.Nil();
-				DebugLocation(99, 8);
+				DebugLocation(100, 8);
 				root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_SELECT, "T_SELECT"), root_1);
 
-				DebugLocation(99, 17);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:17: ( distinct_clause )?
+				DebugLocation(100, 17);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:100:17: ( distinct_clause )?
 				if (stream_distinct_clause.HasNext)
 				{
-					DebugLocation(99, 17);
+					DebugLocation(100, 17);
 					adaptor.AddChild(root_1, stream_distinct_clause.NextTree());
 
 				}
 				stream_distinct_clause.Reset();
-				DebugLocation(99, 34);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:34: ( top_clause )?
+				DebugLocation(100, 34);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:100:34: ( top_clause )?
 				if (stream_top_clause.HasNext)
 				{
-					DebugLocation(99, 34);
+					DebugLocation(100, 34);
 					adaptor.AddChild(root_1, stream_top_clause.NextTree());
 
 				}
 				stream_top_clause.Reset();
-				DebugLocation(99, 46);
+				DebugLocation(100, 46);
 				adaptor.AddChild(root_1, stream_column_list.NextTree());
-				DebugLocation(99, 58);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:58: ( into_clause )?
+				DebugLocation(100, 58);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:100:58: ( into_clause )?
 				if (stream_into_clause.HasNext)
 				{
-					DebugLocation(99, 58);
+					DebugLocation(100, 58);
 					adaptor.AddChild(root_1, stream_into_clause.NextTree());
 
 				}
 				stream_into_clause.Reset();
-				DebugLocation(99, 71);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:71: ( from_clause )?
+				DebugLocation(100, 71);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:100:71: ( from_clause )?
 				if (stream_from_clause.HasNext)
 				{
-					DebugLocation(99, 71);
+					DebugLocation(100, 71);
 					adaptor.AddChild(root_1, stream_from_clause.NextTree());
 
 				}
 				stream_from_clause.Reset();
-				DebugLocation(99, 84);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:84: ( where_clause )?
+				DebugLocation(100, 84);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:100:84: ( where_clause )?
 				if (stream_where_clause.HasNext)
 				{
-					DebugLocation(99, 84);
+					DebugLocation(100, 84);
 					adaptor.AddChild(root_1, stream_where_clause.NextTree());
 
 				}
 				stream_where_clause.Reset();
-				DebugLocation(99, 98);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:99:98: ( orderby_clause )?
+				DebugLocation(100, 98);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:100:98: ( orderby_clause )?
 				if (stream_orderby_clause.HasNext)
 				{
-					DebugLocation(99, 98);
+					DebugLocation(100, 98);
 					adaptor.AddChild(root_1, stream_orderby_clause.NextTree());
 
 				}
@@ -1170,7 +1171,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("select_command", 4);
 			LeaveRule_select_command();
 	    }
-	 	DebugLocation(100, 1);
+	 	DebugLocation(101, 1);
 		} finally { DebugExitRule(GrammarFileName, "select_command"); }
 		return retval;
 
@@ -1184,7 +1185,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_distinct_clause() {}
 
 	// $ANTLR start "distinct_clause"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:102:1: distinct_clause : ( DISTINCT -> T_DISTINCT | ALL -> T_ALL );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:103:1: distinct_clause : ( DISTINCT -> T_DISTINCT | ALL -> T_ALL );
 	[GrammarRule("distinct_clause")]
 	private AstParserRuleReturnScope<object, IToken> distinct_clause()
 	{
@@ -1205,10 +1206,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleITokenStream stream_ALL=new RewriteRuleITokenStream(adaptor,"token ALL");
 
 		try { DebugEnterRule(GrammarFileName, "distinct_clause");
-		DebugLocation(102, 1);
+		DebugLocation(103, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:103:2: ( DISTINCT -> T_DISTINCT | ALL -> T_ALL )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:104:2: ( DISTINCT -> T_DISTINCT | ALL -> T_ALL )
 			int alt14=2;
 			try { DebugEnterDecision(14, decisionCanBacktrack[14]);
 			int LA14_0 = input.LA(1);
@@ -1232,10 +1233,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:103:4: DISTINCT
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:104:4: DISTINCT
 				{
-				DebugLocation(103, 4);
-				DISTINCT26=(IToken)Match(input,DISTINCT,Follow._DISTINCT_in_distinct_clause453);  
+				DebugLocation(104, 4);
+				DISTINCT26=(IToken)Match(input,DISTINCT,Follow._DISTINCT_in_distinct_clause457);  
 				stream_DISTINCT.Add(DISTINCT26);
 
 
@@ -1252,9 +1253,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 103:13: -> T_DISTINCT
+				// 104:13: -> T_DISTINCT
 				{
-					DebugLocation(103, 16);
+					DebugLocation(104, 16);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_DISTINCT, "T_DISTINCT"));
 
 				}
@@ -1266,10 +1267,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:104:4: ALL
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:105:4: ALL
 				{
-				DebugLocation(104, 4);
-				ALL27=(IToken)Match(input,ALL,Follow._ALL_in_distinct_clause462);  
+				DebugLocation(105, 4);
+				ALL27=(IToken)Match(input,ALL,Follow._ALL_in_distinct_clause466);  
 				stream_ALL.Add(ALL27);
 
 
@@ -1286,9 +1287,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 104:8: -> T_ALL
+				// 105:8: -> T_ALL
 				{
-					DebugLocation(104, 11);
+					DebugLocation(105, 11);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_ALL, "T_ALL"));
 
 				}
@@ -1319,7 +1320,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("distinct_clause", 5);
 			LeaveRule_distinct_clause();
 	    }
-	 	DebugLocation(105, 1);
+	 	DebugLocation(106, 1);
 		} finally { DebugExitRule(GrammarFileName, "distinct_clause"); }
 		return retval;
 
@@ -1333,7 +1334,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_top_clause() {}
 
 	// $ANTLR start "top_clause"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:107:1: top_clause : TOP WS expression -> ^( T_TOP expression ) ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:108:1: top_clause : TOP WS expression -> ^( T_TOP expression ) ;
 	[GrammarRule("top_clause")]
 	private AstParserRuleReturnScope<object, IToken> top_clause()
 	{
@@ -1355,23 +1356,23 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleITokenStream stream_TOP=new RewriteRuleITokenStream(adaptor,"token TOP");
 	    RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 		try { DebugEnterRule(GrammarFileName, "top_clause");
-		DebugLocation(107, 1);
+		DebugLocation(108, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:108:2: ( TOP WS expression -> ^( T_TOP expression ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:109:2: ( TOP WS expression -> ^( T_TOP expression ) )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:108:4: TOP WS expression
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:109:4: TOP WS expression
 			{
-			DebugLocation(108, 4);
-			TOP28=(IToken)Match(input,TOP,Follow._TOP_in_top_clause478);  
+			DebugLocation(109, 4);
+			TOP28=(IToken)Match(input,TOP,Follow._TOP_in_top_clause482);  
 			stream_TOP.Add(TOP28);
 
-			DebugLocation(108, 8);
-			WS29=(IToken)Match(input,WS,Follow._WS_in_top_clause480);  
+			DebugLocation(109, 8);
+			WS29=(IToken)Match(input,WS,Follow._WS_in_top_clause484);  
 			stream_WS.Add(WS29);
 
-			DebugLocation(108, 11);
-			PushFollow(Follow._expression_in_top_clause482);
+			DebugLocation(109, 11);
+			PushFollow(Follow._expression_in_top_clause486);
 			expression30=expression();
 			PopFollow();
 
@@ -1390,16 +1391,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 109:2: -> ^( T_TOP expression )
+			// 110:2: -> ^( T_TOP expression )
 			{
-				DebugLocation(109, 5);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:109:5: ^( T_TOP expression )
+				DebugLocation(110, 5);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:110:5: ^( T_TOP expression )
 				{
 				object root_1 = (object)adaptor.Nil();
-				DebugLocation(109, 7);
+				DebugLocation(110, 7);
 				root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_TOP, "T_TOP"), root_1);
 
-				DebugLocation(109, 13);
+				DebugLocation(110, 13);
 				adaptor.AddChild(root_1, stream_expression.NextTree());
 
 				adaptor.AddChild(root_0, root_1);
@@ -1431,7 +1432,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("top_clause", 6);
 			LeaveRule_top_clause();
 	    }
-	 	DebugLocation(110, 1);
+	 	DebugLocation(111, 1);
 		} finally { DebugExitRule(GrammarFileName, "top_clause"); }
 		return retval;
 
@@ -1445,7 +1446,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_column_list() {}
 
 	// $ANTLR start "column_list"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:112:1: column_list : column ( ( WS )? ',' ( WS )? column )* -> ^( T_COLUMNLIST ( column )* ) ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:113:1: column_list : column ( ( WS )? ',' ( WS )? column )* -> ^( T_COLUMNLIST ( column )* ) ;
 	[GrammarRule("column_list")]
 	private AstParserRuleReturnScope<object, IToken> column_list()
 	{
@@ -1467,24 +1468,24 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal33_tree = default(object);
 	    object WS34_tree = default(object);
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
-	    RewriteRuleITokenStream stream_123=new RewriteRuleITokenStream(adaptor,"token 123");
+	    RewriteRuleITokenStream stream_124=new RewriteRuleITokenStream(adaptor,"token 124");
 	    RewriteRuleSubtreeStream stream_column=new RewriteRuleSubtreeStream(adaptor,"rule column");
 		try { DebugEnterRule(GrammarFileName, "column_list");
-		DebugLocation(112, 1);
+		DebugLocation(113, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:113:2: ( column ( ( WS )? ',' ( WS )? column )* -> ^( T_COLUMNLIST ( column )* ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:114:2: ( column ( ( WS )? ',' ( WS )? column )* -> ^( T_COLUMNLIST ( column )* ) )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:113:4: column ( ( WS )? ',' ( WS )? column )*
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:114:4: column ( ( WS )? ',' ( WS )? column )*
 			{
-			DebugLocation(113, 4);
-			PushFollow(Follow._column_in_column_list504);
+			DebugLocation(114, 4);
+			PushFollow(Follow._column_in_column_list508);
 			column31=column();
 			PopFollow();
 
 			stream_column.Add(column31.Tree);
-			DebugLocation(113, 11);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:113:11: ( ( WS )? ',' ( WS )? column )*
+			DebugLocation(114, 11);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:114:11: ( ( WS )? ',' ( WS )? column )*
 			try { DebugEnterSubRule(17);
 			while (true)
 			{
@@ -1496,14 +1497,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA17_1 = input.LA(2);
 
-					if ((LA17_1==123))
+					if ((LA17_1==124))
 					{
 						alt17 = 1;
 					}
 
 
 				}
-				else if ((LA17_0==123))
+				else if ((LA17_0==124))
 				{
 					alt17 = 1;
 				}
@@ -1514,10 +1515,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:113:12: ( WS )? ',' ( WS )? column
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:114:12: ( WS )? ',' ( WS )? column
 					{
-					DebugLocation(113, 12);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:113:12: ( WS )?
+					DebugLocation(114, 12);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:114:12: ( WS )?
 					int alt15=2;
 					try { DebugEnterSubRule(15);
 					try { DebugEnterDecision(15, decisionCanBacktrack[15]);
@@ -1532,10 +1533,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:113:12: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:114:12: WS
 						{
-						DebugLocation(113, 12);
-						WS32=(IToken)Match(input,WS,Follow._WS_in_column_list507);  
+						DebugLocation(114, 12);
+						WS32=(IToken)Match(input,WS,Follow._WS_in_column_list511);  
 						stream_WS.Add(WS32);
 
 
@@ -1545,12 +1546,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(15); }
 
-					DebugLocation(113, 16);
-					char_literal33=(IToken)Match(input,123,Follow._123_in_column_list510);  
-					stream_123.Add(char_literal33);
+					DebugLocation(114, 16);
+					char_literal33=(IToken)Match(input,124,Follow._124_in_column_list514);  
+					stream_124.Add(char_literal33);
 
-					DebugLocation(113, 20);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:113:20: ( WS )?
+					DebugLocation(114, 20);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:114:20: ( WS )?
 					int alt16=2;
 					try { DebugEnterSubRule(16);
 					try { DebugEnterDecision(16, decisionCanBacktrack[16]);
@@ -1565,10 +1566,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:113:20: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:114:20: WS
 						{
-						DebugLocation(113, 20);
-						WS34=(IToken)Match(input,WS,Follow._WS_in_column_list512);  
+						DebugLocation(114, 20);
+						WS34=(IToken)Match(input,WS,Follow._WS_in_column_list516);  
 						stream_WS.Add(WS34);
 
 
@@ -1578,8 +1579,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(16); }
 
-					DebugLocation(113, 24);
-					PushFollow(Follow._column_in_column_list515);
+					DebugLocation(114, 24);
+					PushFollow(Follow._column_in_column_list519);
 					column35=column();
 					PopFollow();
 
@@ -1612,20 +1613,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 114:2: -> ^( T_COLUMNLIST ( column )* )
+			// 115:2: -> ^( T_COLUMNLIST ( column )* )
 			{
-				DebugLocation(114, 5);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:114:5: ^( T_COLUMNLIST ( column )* )
+				DebugLocation(115, 5);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:115:5: ^( T_COLUMNLIST ( column )* )
 				{
 				object root_1 = (object)adaptor.Nil();
-				DebugLocation(114, 7);
+				DebugLocation(115, 7);
 				root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_COLUMNLIST, "T_COLUMNLIST"), root_1);
 
-				DebugLocation(114, 20);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:114:20: ( column )*
+				DebugLocation(115, 20);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:115:20: ( column )*
 				while ( stream_column.HasNext )
 				{
-					DebugLocation(114, 20);
+					DebugLocation(115, 20);
 					adaptor.AddChild(root_1, stream_column.NextTree());
 
 				}
@@ -1660,7 +1661,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("column_list", 7);
 			LeaveRule_column_list();
 	    }
-	 	DebugLocation(115, 1);
+	 	DebugLocation(116, 1);
 		} finally { DebugExitRule(GrammarFileName, "column_list"); }
 		return retval;
 
@@ -1674,7 +1675,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_column() {}
 
 	// $ANTLR start "column"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:117:1: column : ( '*' | expression );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:118:1: column : ( '*' | expression );
 	[GrammarRule("column")]
 	private AstParserRuleReturnScope<object, IToken> column()
 	{
@@ -1692,19 +1693,19 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal36_tree = default(object);
 
 		try { DebugEnterRule(GrammarFileName, "column");
-		DebugLocation(117, 1);
+		DebugLocation(118, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:118:2: ( '*' | expression )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:119:2: ( '*' | expression )
 			int alt18=2;
 			try { DebugEnterDecision(18, decisionCanBacktrack[18]);
 			int LA18_0 = input.LA(1);
 
-			if ((LA18_0==121))
+			if ((LA18_0==122))
 			{
 				alt18 = 1;
 			}
-			else if ((LA18_0==CAST||LA18_0==CONVERT||LA18_0==EXISTS||(LA18_0>=NOT && LA18_0<=NUMBER)||(LA18_0>=STRING && LA18_0<=SYSTEMVAR)||LA18_0==TOKEN||LA18_0==119))
+			else if ((LA18_0==CAST||LA18_0==CONVERT||LA18_0==EXISTS||(LA18_0>=NOT && LA18_0<=NUMBER)||LA18_0==SIMPLE_FILE||(LA18_0>=STRING && LA18_0<=SYSTEMVAR)||LA18_0==TOKEN||LA18_0==120))
 			{
 				alt18 = 2;
 			}
@@ -1719,12 +1720,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:118:4: '*'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:119:4: '*'
 				{
 				root_0 = (object)adaptor.Nil();
 
-				DebugLocation(118, 4);
-				char_literal36=(IToken)Match(input,121,Follow._121_in_column539); 
+				DebugLocation(119, 4);
+				char_literal36=(IToken)Match(input,122,Follow._122_in_column543); 
 				char_literal36_tree = (object)adaptor.Create(char_literal36);
 				adaptor.AddChild(root_0, char_literal36_tree);
 
@@ -1733,12 +1734,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:118:10: expression
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:119:10: expression
 				{
 				root_0 = (object)adaptor.Nil();
 
-				DebugLocation(118, 10);
-				PushFollow(Follow._expression_in_column543);
+				DebugLocation(119, 10);
+				PushFollow(Follow._expression_in_column547);
 				expression37=expression();
 				PopFollow();
 
@@ -1767,7 +1768,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("column", 8);
 			LeaveRule_column();
 	    }
-	 	DebugLocation(119, 1);
+	 	DebugLocation(120, 1);
 		} finally { DebugExitRule(GrammarFileName, "column"); }
 		return retval;
 
@@ -1781,7 +1782,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_into_clause() {}
 
 	// $ANTLR start "into_clause"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:120:1: into_clause : INTO WS file -> ^( T_INTO file ) ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:121:1: into_clause : INTO WS file -> ^( T_INTO file ) ;
 	[GrammarRule("into_clause")]
 	private AstParserRuleReturnScope<object, IToken> into_clause()
 	{
@@ -1803,23 +1804,23 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleITokenStream stream_INTO=new RewriteRuleITokenStream(adaptor,"token INTO");
 	    RewriteRuleSubtreeStream stream_file=new RewriteRuleSubtreeStream(adaptor,"rule file");
 		try { DebugEnterRule(GrammarFileName, "into_clause");
-		DebugLocation(120, 1);
+		DebugLocation(121, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:121:2: ( INTO WS file -> ^( T_INTO file ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:122:2: ( INTO WS file -> ^( T_INTO file ) )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:121:4: INTO WS file
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:122:4: INTO WS file
 			{
-			DebugLocation(121, 4);
-			INTO38=(IToken)Match(input,INTO,Follow._INTO_in_into_clause553);  
+			DebugLocation(122, 4);
+			INTO38=(IToken)Match(input,INTO,Follow._INTO_in_into_clause557);  
 			stream_INTO.Add(INTO38);
 
-			DebugLocation(121, 9);
-			WS39=(IToken)Match(input,WS,Follow._WS_in_into_clause555);  
+			DebugLocation(122, 9);
+			WS39=(IToken)Match(input,WS,Follow._WS_in_into_clause559);  
 			stream_WS.Add(WS39);
 
-			DebugLocation(121, 12);
-			PushFollow(Follow._file_in_into_clause557);
+			DebugLocation(122, 12);
+			PushFollow(Follow._file_in_into_clause561);
 			file40=file();
 			PopFollow();
 
@@ -1838,16 +1839,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 121:17: -> ^( T_INTO file )
+			// 122:17: -> ^( T_INTO file )
 			{
-				DebugLocation(121, 20);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:121:20: ^( T_INTO file )
+				DebugLocation(122, 20);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:122:20: ^( T_INTO file )
 				{
 				object root_1 = (object)adaptor.Nil();
-				DebugLocation(121, 22);
+				DebugLocation(122, 22);
 				root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_INTO, "T_INTO"), root_1);
 
-				DebugLocation(121, 29);
+				DebugLocation(122, 29);
 				adaptor.AddChild(root_1, stream_file.NextTree());
 
 				adaptor.AddChild(root_0, root_1);
@@ -1879,7 +1880,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("into_clause", 9);
 			LeaveRule_into_clause();
 	    }
-	 	DebugLocation(122, 1);
+	 	DebugLocation(123, 1);
 		} finally { DebugExitRule(GrammarFileName, "into_clause"); }
 		return retval;
 
@@ -1893,7 +1894,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_from_clause() {}
 
 	// $ANTLR start "from_clause"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:124:1: from_clause : FROM WS from_clause_item ( ( WS )? ',' ( WS )? from_clause_item )* -> ^( T_FROM ( from_clause_item )* ) ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:125:1: from_clause : FROM WS from_clause_item ( ( WS )? ',' ( WS )? from_clause_item )* -> ^( T_FROM ( from_clause_item )* ) ;
 	[GrammarRule("from_clause")]
 	private AstParserRuleReturnScope<object, IToken> from_clause()
 	{
@@ -1919,33 +1920,33 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal45_tree = default(object);
 	    object WS46_tree = default(object);
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
-	    RewriteRuleITokenStream stream_123=new RewriteRuleITokenStream(adaptor,"token 123");
+	    RewriteRuleITokenStream stream_124=new RewriteRuleITokenStream(adaptor,"token 124");
 	    RewriteRuleITokenStream stream_FROM=new RewriteRuleITokenStream(adaptor,"token FROM");
 	    RewriteRuleSubtreeStream stream_from_clause_item=new RewriteRuleSubtreeStream(adaptor,"rule from_clause_item");
 		try { DebugEnterRule(GrammarFileName, "from_clause");
-		DebugLocation(124, 1);
+		DebugLocation(125, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:125:2: ( FROM WS from_clause_item ( ( WS )? ',' ( WS )? from_clause_item )* -> ^( T_FROM ( from_clause_item )* ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:126:2: ( FROM WS from_clause_item ( ( WS )? ',' ( WS )? from_clause_item )* -> ^( T_FROM ( from_clause_item )* ) )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:125:4: FROM WS from_clause_item ( ( WS )? ',' ( WS )? from_clause_item )*
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:126:4: FROM WS from_clause_item ( ( WS )? ',' ( WS )? from_clause_item )*
 			{
-			DebugLocation(125, 4);
-			FROM41=(IToken)Match(input,FROM,Follow._FROM_in_from_clause577);  
+			DebugLocation(126, 4);
+			FROM41=(IToken)Match(input,FROM,Follow._FROM_in_from_clause581);  
 			stream_FROM.Add(FROM41);
 
-			DebugLocation(125, 9);
-			WS42=(IToken)Match(input,WS,Follow._WS_in_from_clause579);  
+			DebugLocation(126, 9);
+			WS42=(IToken)Match(input,WS,Follow._WS_in_from_clause583);  
 			stream_WS.Add(WS42);
 
-			DebugLocation(125, 12);
-			PushFollow(Follow._from_clause_item_in_from_clause581);
+			DebugLocation(126, 12);
+			PushFollow(Follow._from_clause_item_in_from_clause585);
 			from_clause_item43=from_clause_item();
 			PopFollow();
 
 			stream_from_clause_item.Add(from_clause_item43.Tree);
-			DebugLocation(125, 29);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:125:29: ( ( WS )? ',' ( WS )? from_clause_item )*
+			DebugLocation(126, 29);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:126:29: ( ( WS )? ',' ( WS )? from_clause_item )*
 			try { DebugEnterSubRule(21);
 			while (true)
 			{
@@ -1957,14 +1958,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA21_1 = input.LA(2);
 
-					if ((LA21_1==123))
+					if ((LA21_1==124))
 					{
 						alt21 = 1;
 					}
 
 
 				}
-				else if ((LA21_0==123))
+				else if ((LA21_0==124))
 				{
 					alt21 = 1;
 				}
@@ -1975,10 +1976,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:125:30: ( WS )? ',' ( WS )? from_clause_item
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:126:30: ( WS )? ',' ( WS )? from_clause_item
 					{
-					DebugLocation(125, 30);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:125:30: ( WS )?
+					DebugLocation(126, 30);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:126:30: ( WS )?
 					int alt19=2;
 					try { DebugEnterSubRule(19);
 					try { DebugEnterDecision(19, decisionCanBacktrack[19]);
@@ -1993,10 +1994,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:125:30: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:126:30: WS
 						{
-						DebugLocation(125, 30);
-						WS44=(IToken)Match(input,WS,Follow._WS_in_from_clause584);  
+						DebugLocation(126, 30);
+						WS44=(IToken)Match(input,WS,Follow._WS_in_from_clause588);  
 						stream_WS.Add(WS44);
 
 
@@ -2006,12 +2007,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(19); }
 
-					DebugLocation(125, 34);
-					char_literal45=(IToken)Match(input,123,Follow._123_in_from_clause587);  
-					stream_123.Add(char_literal45);
+					DebugLocation(126, 34);
+					char_literal45=(IToken)Match(input,124,Follow._124_in_from_clause591);  
+					stream_124.Add(char_literal45);
 
-					DebugLocation(125, 38);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:125:38: ( WS )?
+					DebugLocation(126, 38);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:126:38: ( WS )?
 					int alt20=2;
 					try { DebugEnterSubRule(20);
 					try { DebugEnterDecision(20, decisionCanBacktrack[20]);
@@ -2026,10 +2027,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:125:38: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:126:38: WS
 						{
-						DebugLocation(125, 38);
-						WS46=(IToken)Match(input,WS,Follow._WS_in_from_clause589);  
+						DebugLocation(126, 38);
+						WS46=(IToken)Match(input,WS,Follow._WS_in_from_clause593);  
 						stream_WS.Add(WS46);
 
 
@@ -2039,8 +2040,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(20); }
 
-					DebugLocation(125, 42);
-					PushFollow(Follow._from_clause_item_in_from_clause592);
+					DebugLocation(126, 42);
+					PushFollow(Follow._from_clause_item_in_from_clause596);
 					from_clause_item47=from_clause_item();
 					PopFollow();
 
@@ -2073,20 +2074,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 125:61: -> ^( T_FROM ( from_clause_item )* )
+			// 126:61: -> ^( T_FROM ( from_clause_item )* )
 			{
-				DebugLocation(125, 64);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:125:64: ^( T_FROM ( from_clause_item )* )
+				DebugLocation(126, 64);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:126:64: ^( T_FROM ( from_clause_item )* )
 				{
 				object root_1 = (object)adaptor.Nil();
-				DebugLocation(125, 66);
+				DebugLocation(126, 66);
 				root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_FROM, "T_FROM"), root_1);
 
-				DebugLocation(125, 73);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:125:73: ( from_clause_item )*
+				DebugLocation(126, 73);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:126:73: ( from_clause_item )*
 				while ( stream_from_clause_item.HasNext )
 				{
-					DebugLocation(125, 73);
+					DebugLocation(126, 73);
 					adaptor.AddChild(root_1, stream_from_clause_item.NextTree());
 
 				}
@@ -2121,7 +2122,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("from_clause", 10);
 			LeaveRule_from_clause();
 	    }
-	 	DebugLocation(126, 1);
+	 	DebugLocation(127, 1);
 		} finally { DebugExitRule(GrammarFileName, "from_clause"); }
 		return retval;
 
@@ -2135,7 +2136,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_from_clause_item() {}
 
 	// $ANTLR start "from_clause_item"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:128:1: from_clause_item : ( STRING -> ^( T_FILE STRING ) | file | '(' ( WS )? select_command ( WS )? ')' -> ^( T_SUBQUERY select_command ) );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:129:1: from_clause_item : ( STRING -> ^( T_FILE STRING ) | file | '(' ( WS )? select_command ( WS )? ')' -> ^( T_SUBQUERY select_command ) );
 	[GrammarRule("from_clause_item")]
 	private AstParserRuleReturnScope<object, IToken> from_clause_item()
 	{
@@ -2160,16 +2161,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS51_tree = default(object);
 	    object WS53_tree = default(object);
 	    object char_literal54_tree = default(object);
+	    RewriteRuleITokenStream stream_121=new RewriteRuleITokenStream(adaptor,"token 121");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleITokenStream stream_120=new RewriteRuleITokenStream(adaptor,"token 120");
 	    RewriteRuleITokenStream stream_STRING=new RewriteRuleITokenStream(adaptor,"token STRING");
-	    RewriteRuleITokenStream stream_119=new RewriteRuleITokenStream(adaptor,"token 119");
 	    RewriteRuleSubtreeStream stream_select_command=new RewriteRuleSubtreeStream(adaptor,"rule select_command");
 		try { DebugEnterRule(GrammarFileName, "from_clause_item");
-		DebugLocation(128, 1);
+		DebugLocation(129, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:129:2: ( STRING -> ^( T_FILE STRING ) | file | '(' ( WS )? select_command ( WS )? ')' -> ^( T_SUBQUERY select_command ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:130:2: ( STRING -> ^( T_FILE STRING ) | file | '(' ( WS )? select_command ( WS )? ')' -> ^( T_SUBQUERY select_command ) )
 			int alt24=3;
 			try { DebugEnterDecision(24, decisionCanBacktrack[24]);
 			switch (input.LA(1))
@@ -2180,12 +2181,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				break;
 			case SIMPLE_FILE:
-			case 133:
+			case 134:
 				{
 				alt24 = 2;
 				}
 				break;
-			case 119:
+			case 120:
 				{
 				alt24 = 3;
 				}
@@ -2203,10 +2204,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:129:4: STRING
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:130:4: STRING
 				{
-				DebugLocation(129, 4);
-				STRING48=(IToken)Match(input,STRING,Follow._STRING_in_from_clause_item615);  
+				DebugLocation(130, 4);
+				STRING48=(IToken)Match(input,STRING,Follow._STRING_in_from_clause_item619);  
 				stream_STRING.Add(STRING48);
 
 
@@ -2223,16 +2224,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 129:11: -> ^( T_FILE STRING )
+				// 130:11: -> ^( T_FILE STRING )
 				{
-					DebugLocation(129, 14);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:129:14: ^( T_FILE STRING )
+					DebugLocation(130, 14);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:130:14: ^( T_FILE STRING )
 					{
 					object root_1 = (object)adaptor.Nil();
-					DebugLocation(129, 16);
+					DebugLocation(130, 16);
 					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_FILE, "T_FILE"), root_1);
 
-					DebugLocation(129, 23);
+					DebugLocation(130, 23);
 					adaptor.AddChild(root_1, stream_STRING.NextNode());
 
 					adaptor.AddChild(root_0, root_1);
@@ -2247,12 +2248,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:130:4: file
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:131:4: file
 				{
 				root_0 = (object)adaptor.Nil();
 
-				DebugLocation(130, 4);
-				PushFollow(Follow._file_in_from_clause_item628);
+				DebugLocation(131, 4);
+				PushFollow(Follow._file_in_from_clause_item632);
 				file49=file();
 				PopFollow();
 
@@ -2262,14 +2263,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 3:
 				DebugEnterAlt(3);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:131:4: '(' ( WS )? select_command ( WS )? ')'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:132:4: '(' ( WS )? select_command ( WS )? ')'
 				{
-				DebugLocation(131, 4);
-				char_literal50=(IToken)Match(input,119,Follow._119_in_from_clause_item633);  
-				stream_119.Add(char_literal50);
+				DebugLocation(132, 4);
+				char_literal50=(IToken)Match(input,120,Follow._120_in_from_clause_item637);  
+				stream_120.Add(char_literal50);
 
-				DebugLocation(131, 8);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:131:8: ( WS )?
+				DebugLocation(132, 8);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:132:8: ( WS )?
 				int alt22=2;
 				try { DebugEnterSubRule(22);
 				try { DebugEnterDecision(22, decisionCanBacktrack[22]);
@@ -2284,10 +2285,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:131:8: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:132:8: WS
 					{
-					DebugLocation(131, 8);
-					WS51=(IToken)Match(input,WS,Follow._WS_in_from_clause_item635);  
+					DebugLocation(132, 8);
+					WS51=(IToken)Match(input,WS,Follow._WS_in_from_clause_item639);  
 					stream_WS.Add(WS51);
 
 
@@ -2297,14 +2298,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(22); }
 
-				DebugLocation(131, 12);
-				PushFollow(Follow._select_command_in_from_clause_item638);
+				DebugLocation(132, 12);
+				PushFollow(Follow._select_command_in_from_clause_item642);
 				select_command52=select_command();
 				PopFollow();
 
 				stream_select_command.Add(select_command52.Tree);
-				DebugLocation(131, 27);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:131:27: ( WS )?
+				DebugLocation(132, 27);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:132:27: ( WS )?
 				int alt23=2;
 				try { DebugEnterSubRule(23);
 				try { DebugEnterDecision(23, decisionCanBacktrack[23]);
@@ -2319,10 +2320,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:131:27: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:132:27: WS
 					{
-					DebugLocation(131, 27);
-					WS53=(IToken)Match(input,WS,Follow._WS_in_from_clause_item640);  
+					DebugLocation(132, 27);
+					WS53=(IToken)Match(input,WS,Follow._WS_in_from_clause_item644);  
 					stream_WS.Add(WS53);
 
 
@@ -2332,9 +2333,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(23); }
 
-				DebugLocation(131, 31);
-				char_literal54=(IToken)Match(input,120,Follow._120_in_from_clause_item643);  
-				stream_120.Add(char_literal54);
+				DebugLocation(132, 31);
+				char_literal54=(IToken)Match(input,121,Follow._121_in_from_clause_item647);  
+				stream_121.Add(char_literal54);
 
 
 
@@ -2350,16 +2351,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 131:35: -> ^( T_SUBQUERY select_command )
+				// 132:35: -> ^( T_SUBQUERY select_command )
 				{
-					DebugLocation(131, 38);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:131:38: ^( T_SUBQUERY select_command )
+					DebugLocation(132, 38);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:132:38: ^( T_SUBQUERY select_command )
 					{
 					object root_1 = (object)adaptor.Nil();
-					DebugLocation(131, 40);
+					DebugLocation(132, 40);
 					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_SUBQUERY, "T_SUBQUERY"), root_1);
 
-					DebugLocation(131, 51);
+					DebugLocation(132, 51);
 					adaptor.AddChild(root_1, stream_select_command.NextTree());
 
 					adaptor.AddChild(root_0, root_1);
@@ -2393,7 +2394,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("from_clause_item", 11);
 			LeaveRule_from_clause_item();
 	    }
-	 	DebugLocation(132, 1);
+	 	DebugLocation(133, 1);
 		} finally { DebugExitRule(GrammarFileName, "from_clause_item"); }
 		return retval;
 
@@ -2407,7 +2408,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_file() {}
 
 	// $ANTLR start "file"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:134:1: file : ( '[' ( WS )? STRING ( WS file_option )* ( WS )? ']' -> ^( T_FILE STRING ( file_option )* ) | SIMPLE_FILE -> ^( T_FILE SIMPLE_FILE ) );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:135:1: file : ( '[' ( WS )? STRING ( WS file_option )* ( WS )? ']' -> ^( T_FILE STRING ( file_option )* ) | SIMPLE_FILE -> ^( T_FILE SIMPLE_FILE ) );
 	[GrammarRule("file")]
 	private AstParserRuleReturnScope<object, IToken> file()
 	{
@@ -2436,21 +2437,21 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal61_tree = default(object);
 	    object SIMPLE_FILE62_tree = default(object);
 	    RewriteRuleITokenStream stream_134=new RewriteRuleITokenStream(adaptor,"token 134");
-	    RewriteRuleITokenStream stream_133=new RewriteRuleITokenStream(adaptor,"token 133");
+	    RewriteRuleITokenStream stream_135=new RewriteRuleITokenStream(adaptor,"token 135");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleITokenStream stream_SIMPLE_FILE=new RewriteRuleITokenStream(adaptor,"token SIMPLE_FILE");
 	    RewriteRuleITokenStream stream_STRING=new RewriteRuleITokenStream(adaptor,"token STRING");
 	    RewriteRuleSubtreeStream stream_file_option=new RewriteRuleSubtreeStream(adaptor,"rule file_option");
 		try { DebugEnterRule(GrammarFileName, "file");
-		DebugLocation(134, 39);
+		DebugLocation(135, 39);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:135:2: ( '[' ( WS )? STRING ( WS file_option )* ( WS )? ']' -> ^( T_FILE STRING ( file_option )* ) | SIMPLE_FILE -> ^( T_FILE SIMPLE_FILE ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:136:2: ( '[' ( WS )? STRING ( WS file_option )* ( WS )? ']' -> ^( T_FILE STRING ( file_option )* ) | SIMPLE_FILE -> ^( T_FILE SIMPLE_FILE ) )
 			int alt28=2;
 			try { DebugEnterDecision(28, decisionCanBacktrack[28]);
 			int LA28_0 = input.LA(1);
 
-			if ((LA28_0==133))
+			if ((LA28_0==134))
 			{
 				alt28 = 1;
 			}
@@ -2469,14 +2470,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:135:4: '[' ( WS )? STRING ( WS file_option )* ( WS )? ']'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:136:4: '[' ( WS )? STRING ( WS file_option )* ( WS )? ']'
 				{
-				DebugLocation(135, 4);
-				char_literal55=(IToken)Match(input,133,Follow._133_in_file662);  
-				stream_133.Add(char_literal55);
+				DebugLocation(136, 4);
+				char_literal55=(IToken)Match(input,134,Follow._134_in_file666);  
+				stream_134.Add(char_literal55);
 
-				DebugLocation(135, 8);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:135:8: ( WS )?
+				DebugLocation(136, 8);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:136:8: ( WS )?
 				int alt25=2;
 				try { DebugEnterSubRule(25);
 				try { DebugEnterDecision(25, decisionCanBacktrack[25]);
@@ -2491,10 +2492,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:135:8: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:136:8: WS
 					{
-					DebugLocation(135, 8);
-					WS56=(IToken)Match(input,WS,Follow._WS_in_file664);  
+					DebugLocation(136, 8);
+					WS56=(IToken)Match(input,WS,Follow._WS_in_file668);  
 					stream_WS.Add(WS56);
 
 
@@ -2504,12 +2505,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(25); }
 
-				DebugLocation(135, 12);
-				STRING57=(IToken)Match(input,STRING,Follow._STRING_in_file667);  
+				DebugLocation(136, 12);
+				STRING57=(IToken)Match(input,STRING,Follow._STRING_in_file671);  
 				stream_STRING.Add(STRING57);
 
-				DebugLocation(135, 19);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:135:19: ( WS file_option )*
+				DebugLocation(136, 19);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:136:19: ( WS file_option )*
 				try { DebugEnterSubRule(26);
 				while (true)
 				{
@@ -2521,7 +2522,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 						int LA26_1 = input.LA(2);
 
-						if ((LA26_1==124))
+						if ((LA26_1==125))
 						{
 							alt26 = 1;
 						}
@@ -2535,14 +2536,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:135:20: WS file_option
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:136:20: WS file_option
 						{
-						DebugLocation(135, 20);
-						WS58=(IToken)Match(input,WS,Follow._WS_in_file670);  
+						DebugLocation(136, 20);
+						WS58=(IToken)Match(input,WS,Follow._WS_in_file674);  
 						stream_WS.Add(WS58);
 
-						DebugLocation(135, 23);
-						PushFollow(Follow._file_option_in_file672);
+						DebugLocation(136, 23);
+						PushFollow(Follow._file_option_in_file676);
 						file_option59=file_option();
 						PopFollow();
 
@@ -2561,8 +2562,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				} finally { DebugExitSubRule(26); }
 
-				DebugLocation(135, 37);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:135:37: ( WS )?
+				DebugLocation(136, 37);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:136:37: ( WS )?
 				int alt27=2;
 				try { DebugEnterSubRule(27);
 				try { DebugEnterDecision(27, decisionCanBacktrack[27]);
@@ -2577,10 +2578,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:135:37: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:136:37: WS
 					{
-					DebugLocation(135, 37);
-					WS60=(IToken)Match(input,WS,Follow._WS_in_file676);  
+					DebugLocation(136, 37);
+					WS60=(IToken)Match(input,WS,Follow._WS_in_file680);  
 					stream_WS.Add(WS60);
 
 
@@ -2590,15 +2591,15 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(27); }
 
-				DebugLocation(135, 41);
-				char_literal61=(IToken)Match(input,134,Follow._134_in_file679);  
-				stream_134.Add(char_literal61);
+				DebugLocation(136, 41);
+				char_literal61=(IToken)Match(input,135,Follow._135_in_file683);  
+				stream_135.Add(char_literal61);
 
 
 
 				{
 				// AST REWRITE
-				// elements: file_option, STRING
+				// elements: STRING, file_option
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -2608,22 +2609,22 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 135:45: -> ^( T_FILE STRING ( file_option )* )
+				// 136:45: -> ^( T_FILE STRING ( file_option )* )
 				{
-					DebugLocation(135, 48);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:135:48: ^( T_FILE STRING ( file_option )* )
+					DebugLocation(136, 48);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:136:48: ^( T_FILE STRING ( file_option )* )
 					{
 					object root_1 = (object)adaptor.Nil();
-					DebugLocation(135, 50);
+					DebugLocation(136, 50);
 					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_FILE, "T_FILE"), root_1);
 
-					DebugLocation(135, 57);
+					DebugLocation(136, 57);
 					adaptor.AddChild(root_1, stream_STRING.NextNode());
-					DebugLocation(135, 64);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:135:64: ( file_option )*
+					DebugLocation(136, 64);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:136:64: ( file_option )*
 					while ( stream_file_option.HasNext )
 					{
-						DebugLocation(135, 64);
+						DebugLocation(136, 64);
 						adaptor.AddChild(root_1, stream_file_option.NextTree());
 
 					}
@@ -2641,10 +2642,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:136:4: SIMPLE_FILE
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:137:4: SIMPLE_FILE
 				{
-				DebugLocation(136, 4);
-				SIMPLE_FILE62=(IToken)Match(input,SIMPLE_FILE,Follow._SIMPLE_FILE_in_file696);  
+				DebugLocation(137, 4);
+				SIMPLE_FILE62=(IToken)Match(input,SIMPLE_FILE,Follow._SIMPLE_FILE_in_file700);  
 				stream_SIMPLE_FILE.Add(SIMPLE_FILE62);
 
 
@@ -2661,16 +2662,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 136:16: -> ^( T_FILE SIMPLE_FILE )
+				// 137:16: -> ^( T_FILE SIMPLE_FILE )
 				{
-					DebugLocation(136, 19);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:136:19: ^( T_FILE SIMPLE_FILE )
+					DebugLocation(137, 19);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:137:19: ^( T_FILE SIMPLE_FILE )
 					{
 					object root_1 = (object)adaptor.Nil();
-					DebugLocation(136, 21);
+					DebugLocation(137, 21);
 					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_FILE, "T_FILE"), root_1);
 
-					DebugLocation(136, 28);
+					DebugLocation(137, 28);
 					adaptor.AddChild(root_1, stream_SIMPLE_FILE.NextNode());
 
 					adaptor.AddChild(root_0, root_1);
@@ -2704,7 +2705,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("file", 12);
 			LeaveRule_file();
 	    }
-	 	DebugLocation(136, 39);
+	 	DebugLocation(137, 39);
 		} finally { DebugExitRule(GrammarFileName, "file"); }
 		return retval;
 
@@ -2718,7 +2719,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_file_option() {}
 
 	// $ANTLR start "file_option"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:138:1: file_option : '-' file_option_name ( ( WS )? '=' ( WS )? file_option_value )? -> ^( T_FILEOPTION file_option_name ( file_option_value )? ) ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:139:1: file_option : '-' file_option_name ( ( WS )? '=' ( WS )? file_option_value )? -> ^( T_FILEOPTION file_option_name ( file_option_value )? ) ;
 	[GrammarRule("file_option")]
 	private AstParserRuleReturnScope<object, IToken> file_option()
 	{
@@ -2741,31 +2742,31 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS65_tree = default(object);
 	    object char_literal66_tree = default(object);
 	    object WS67_tree = default(object);
+	    RewriteRuleITokenStream stream_125=new RewriteRuleITokenStream(adaptor,"token 125");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
-	    RewriteRuleITokenStream stream_124=new RewriteRuleITokenStream(adaptor,"token 124");
-	    RewriteRuleITokenStream stream_130=new RewriteRuleITokenStream(adaptor,"token 130");
+	    RewriteRuleITokenStream stream_131=new RewriteRuleITokenStream(adaptor,"token 131");
 	    RewriteRuleSubtreeStream stream_file_option_name=new RewriteRuleSubtreeStream(adaptor,"rule file_option_name");
 	    RewriteRuleSubtreeStream stream_file_option_value=new RewriteRuleSubtreeStream(adaptor,"rule file_option_value");
 		try { DebugEnterRule(GrammarFileName, "file_option");
-		DebugLocation(138, 1);
+		DebugLocation(139, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:139:2: ( '-' file_option_name ( ( WS )? '=' ( WS )? file_option_value )? -> ^( T_FILEOPTION file_option_name ( file_option_value )? ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:140:2: ( '-' file_option_name ( ( WS )? '=' ( WS )? file_option_value )? -> ^( T_FILEOPTION file_option_name ( file_option_value )? ) )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:139:4: '-' file_option_name ( ( WS )? '=' ( WS )? file_option_value )?
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:140:4: '-' file_option_name ( ( WS )? '=' ( WS )? file_option_value )?
 			{
-			DebugLocation(139, 4);
-			char_literal63=(IToken)Match(input,124,Follow._124_in_file_option713);  
-			stream_124.Add(char_literal63);
+			DebugLocation(140, 4);
+			char_literal63=(IToken)Match(input,125,Follow._125_in_file_option717);  
+			stream_125.Add(char_literal63);
 
-			DebugLocation(139, 8);
-			PushFollow(Follow._file_option_name_in_file_option715);
+			DebugLocation(140, 8);
+			PushFollow(Follow._file_option_name_in_file_option719);
 			file_option_name64=file_option_name();
 			PopFollow();
 
 			stream_file_option_name.Add(file_option_name64.Tree);
-			DebugLocation(139, 25);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:139:25: ( ( WS )? '=' ( WS )? file_option_value )?
+			DebugLocation(140, 25);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:140:25: ( ( WS )? '=' ( WS )? file_option_value )?
 			int alt31=2;
 			try { DebugEnterSubRule(31);
 			try { DebugEnterDecision(31, decisionCanBacktrack[31]);
@@ -2775,12 +2776,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 				int LA31_1 = input.LA(2);
 
-				if ((LA31_1==130))
+				if ((LA31_1==131))
 				{
 					alt31 = 1;
 				}
 			}
-			else if ((LA31_0==130))
+			else if ((LA31_0==131))
 			{
 				alt31 = 1;
 			}
@@ -2789,10 +2790,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:139:27: ( WS )? '=' ( WS )? file_option_value
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:140:27: ( WS )? '=' ( WS )? file_option_value
 				{
-				DebugLocation(139, 27);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:139:27: ( WS )?
+				DebugLocation(140, 27);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:140:27: ( WS )?
 				int alt29=2;
 				try { DebugEnterSubRule(29);
 				try { DebugEnterDecision(29, decisionCanBacktrack[29]);
@@ -2807,10 +2808,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:139:27: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:140:27: WS
 					{
-					DebugLocation(139, 27);
-					WS65=(IToken)Match(input,WS,Follow._WS_in_file_option719);  
+					DebugLocation(140, 27);
+					WS65=(IToken)Match(input,WS,Follow._WS_in_file_option723);  
 					stream_WS.Add(WS65);
 
 
@@ -2820,12 +2821,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(29); }
 
-				DebugLocation(139, 31);
-				char_literal66=(IToken)Match(input,130,Follow._130_in_file_option722);  
-				stream_130.Add(char_literal66);
+				DebugLocation(140, 31);
+				char_literal66=(IToken)Match(input,131,Follow._131_in_file_option726);  
+				stream_131.Add(char_literal66);
 
-				DebugLocation(139, 35);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:139:35: ( WS )?
+				DebugLocation(140, 35);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:140:35: ( WS )?
 				int alt30=2;
 				try { DebugEnterSubRule(30);
 				try { DebugEnterDecision(30, decisionCanBacktrack[30]);
@@ -2840,10 +2841,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:139:35: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:140:35: WS
 					{
-					DebugLocation(139, 35);
-					WS67=(IToken)Match(input,WS,Follow._WS_in_file_option724);  
+					DebugLocation(140, 35);
+					WS67=(IToken)Match(input,WS,Follow._WS_in_file_option728);  
 					stream_WS.Add(WS67);
 
 
@@ -2853,8 +2854,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(30); }
 
-				DebugLocation(139, 39);
-				PushFollow(Follow._file_option_value_in_file_option727);
+				DebugLocation(140, 39);
+				PushFollow(Follow._file_option_value_in_file_option731);
 				file_option_value68=file_option_value();
 				PopFollow();
 
@@ -2870,7 +2871,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: file_option_name, file_option_value
+			// elements: file_option_value, file_option_name
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -2880,22 +2881,22 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 139:59: -> ^( T_FILEOPTION file_option_name ( file_option_value )? )
+			// 140:59: -> ^( T_FILEOPTION file_option_name ( file_option_value )? )
 			{
-				DebugLocation(139, 62);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:139:62: ^( T_FILEOPTION file_option_name ( file_option_value )? )
+				DebugLocation(140, 62);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:140:62: ^( T_FILEOPTION file_option_name ( file_option_value )? )
 				{
 				object root_1 = (object)adaptor.Nil();
-				DebugLocation(139, 64);
+				DebugLocation(140, 64);
 				root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_FILEOPTION, "T_FILEOPTION"), root_1);
 
-				DebugLocation(139, 77);
+				DebugLocation(140, 77);
 				adaptor.AddChild(root_1, stream_file_option_name.NextTree());
-				DebugLocation(139, 94);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:139:94: ( file_option_value )?
+				DebugLocation(140, 94);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:140:94: ( file_option_value )?
 				if (stream_file_option_value.HasNext)
 				{
-					DebugLocation(139, 94);
+					DebugLocation(140, 94);
 					adaptor.AddChild(root_1, stream_file_option_value.NextTree());
 
 				}
@@ -2930,7 +2931,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("file_option", 13);
 			LeaveRule_file_option();
 	    }
-	 	DebugLocation(140, 1);
+	 	DebugLocation(141, 1);
 		} finally { DebugExitRule(GrammarFileName, "file_option"); }
 		return retval;
 
@@ -2944,7 +2945,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_file_option_name() {}
 
 	// $ANTLR start "file_option_name"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:142:1: file_option_name : TOKEN ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:143:1: file_option_name : TOKEN ;
 	[GrammarRule("file_option_name")]
 	private AstParserRuleReturnScope<object, IToken> file_option_name()
 	{
@@ -2961,17 +2962,17 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object TOKEN69_tree = default(object);
 
 		try { DebugEnterRule(GrammarFileName, "file_option_name");
-		DebugLocation(142, 1);
+		DebugLocation(143, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:143:2: ( TOKEN )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:144:2: ( TOKEN )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:143:4: TOKEN
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:144:4: TOKEN
 			{
 			root_0 = (object)adaptor.Nil();
 
-			DebugLocation(143, 4);
-			TOKEN69=(IToken)Match(input,TOKEN,Follow._TOKEN_in_file_option_name751); 
+			DebugLocation(144, 4);
+			TOKEN69=(IToken)Match(input,TOKEN,Follow._TOKEN_in_file_option_name755); 
 			TOKEN69_tree = (object)adaptor.Create(TOKEN69);
 			adaptor.AddChild(root_0, TOKEN69_tree);
 
@@ -2997,7 +2998,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("file_option_name", 14);
 			LeaveRule_file_option_name();
 	    }
-	 	DebugLocation(144, 1);
+	 	DebugLocation(145, 1);
 		} finally { DebugExitRule(GrammarFileName, "file_option_name"); }
 		return retval;
 
@@ -3011,7 +3012,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_file_option_value() {}
 
 	// $ANTLR start "file_option_value"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:146:1: file_option_value : ( TOKEN | STRING | NUMBER );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:147:1: file_option_value : ( TOKEN | STRING | NUMBER );
 	[GrammarRule("file_option_value")]
 	private AstParserRuleReturnScope<object, IToken> file_option_value()
 	{
@@ -3028,16 +3029,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object set70_tree = default(object);
 
 		try { DebugEnterRule(GrammarFileName, "file_option_value");
-		DebugLocation(146, 1);
+		DebugLocation(147, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:147:2: ( TOKEN | STRING | NUMBER )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:148:2: ( TOKEN | STRING | NUMBER )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:
 			{
 			root_0 = (object)adaptor.Nil();
 
-			DebugLocation(147, 2);
+			DebugLocation(148, 2);
 
 			set70=(IToken)input.LT(1);
 			if (input.LA(1)==NUMBER||input.LA(1)==STRING||input.LA(1)==TOKEN)
@@ -3075,7 +3076,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("file_option_value", 15);
 			LeaveRule_file_option_value();
 	    }
-	 	DebugLocation(148, 1);
+	 	DebugLocation(149, 1);
 		} finally { DebugExitRule(GrammarFileName, "file_option_value"); }
 		return retval;
 
@@ -3089,7 +3090,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_where_clause() {}
 
 	// $ANTLR start "where_clause"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:150:1: where_clause : WHERE WS expression -> ^( T_WHERE expression ) ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:151:1: where_clause : WHERE WS expression -> ^( T_WHERE expression ) ;
 	[GrammarRule("where_clause")]
 	private AstParserRuleReturnScope<object, IToken> where_clause()
 	{
@@ -3111,23 +3112,23 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 		try { DebugEnterRule(GrammarFileName, "where_clause");
-		DebugLocation(150, 1);
+		DebugLocation(151, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:151:2: ( WHERE WS expression -> ^( T_WHERE expression ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:152:2: ( WHERE WS expression -> ^( T_WHERE expression ) )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:151:4: WHERE WS expression
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:152:4: WHERE WS expression
 			{
-			DebugLocation(151, 4);
-			WHERE71=(IToken)Match(input,WHERE,Follow._WHERE_in_where_clause783);  
+			DebugLocation(152, 4);
+			WHERE71=(IToken)Match(input,WHERE,Follow._WHERE_in_where_clause787);  
 			stream_WHERE.Add(WHERE71);
 
-			DebugLocation(151, 10);
-			WS72=(IToken)Match(input,WS,Follow._WS_in_where_clause785);  
+			DebugLocation(152, 10);
+			WS72=(IToken)Match(input,WS,Follow._WS_in_where_clause789);  
 			stream_WS.Add(WS72);
 
-			DebugLocation(151, 13);
-			PushFollow(Follow._expression_in_where_clause787);
+			DebugLocation(152, 13);
+			PushFollow(Follow._expression_in_where_clause791);
 			expression73=expression();
 			PopFollow();
 
@@ -3146,16 +3147,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 152:2: -> ^( T_WHERE expression )
+			// 153:2: -> ^( T_WHERE expression )
 			{
-				DebugLocation(152, 5);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:152:5: ^( T_WHERE expression )
+				DebugLocation(153, 5);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:153:5: ^( T_WHERE expression )
 				{
 				object root_1 = (object)adaptor.Nil();
-				DebugLocation(152, 7);
+				DebugLocation(153, 7);
 				root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_WHERE, "T_WHERE"), root_1);
 
-				DebugLocation(152, 15);
+				DebugLocation(153, 15);
 				adaptor.AddChild(root_1, stream_expression.NextTree());
 
 				adaptor.AddChild(root_0, root_1);
@@ -3187,7 +3188,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("where_clause", 16);
 			LeaveRule_where_clause();
 	    }
-	 	DebugLocation(153, 1);
+	 	DebugLocation(154, 1);
 		} finally { DebugExitRule(GrammarFileName, "where_clause"); }
 		return retval;
 
@@ -3201,7 +3202,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_orderby_clause() {}
 
 	// $ANTLR start "orderby_clause"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:155:1: orderby_clause : ORDER WS BY WS orderby_column_list -> ^( T_ORDERBY orderby_column_list ) ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:156:1: orderby_clause : ORDER WS BY WS orderby_column_list -> ^( T_ORDERBY orderby_column_list ) ;
 	[GrammarRule("orderby_clause")]
 	private AstParserRuleReturnScope<object, IToken> orderby_clause()
 	{
@@ -3228,31 +3229,31 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleITokenStream stream_ORDER=new RewriteRuleITokenStream(adaptor,"token ORDER");
 	    RewriteRuleSubtreeStream stream_orderby_column_list=new RewriteRuleSubtreeStream(adaptor,"rule orderby_column_list");
 		try { DebugEnterRule(GrammarFileName, "orderby_clause");
-		DebugLocation(155, 1);
+		DebugLocation(156, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:156:2: ( ORDER WS BY WS orderby_column_list -> ^( T_ORDERBY orderby_column_list ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:157:2: ( ORDER WS BY WS orderby_column_list -> ^( T_ORDERBY orderby_column_list ) )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:156:4: ORDER WS BY WS orderby_column_list
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:157:4: ORDER WS BY WS orderby_column_list
 			{
-			DebugLocation(156, 4);
-			ORDER74=(IToken)Match(input,ORDER,Follow._ORDER_in_orderby_clause808);  
+			DebugLocation(157, 4);
+			ORDER74=(IToken)Match(input,ORDER,Follow._ORDER_in_orderby_clause812);  
 			stream_ORDER.Add(ORDER74);
 
-			DebugLocation(156, 10);
-			WS75=(IToken)Match(input,WS,Follow._WS_in_orderby_clause810);  
+			DebugLocation(157, 10);
+			WS75=(IToken)Match(input,WS,Follow._WS_in_orderby_clause814);  
 			stream_WS.Add(WS75);
 
-			DebugLocation(156, 13);
-			BY76=(IToken)Match(input,BY,Follow._BY_in_orderby_clause812);  
+			DebugLocation(157, 13);
+			BY76=(IToken)Match(input,BY,Follow._BY_in_orderby_clause816);  
 			stream_BY.Add(BY76);
 
-			DebugLocation(156, 16);
-			WS77=(IToken)Match(input,WS,Follow._WS_in_orderby_clause814);  
+			DebugLocation(157, 16);
+			WS77=(IToken)Match(input,WS,Follow._WS_in_orderby_clause818);  
 			stream_WS.Add(WS77);
 
-			DebugLocation(156, 19);
-			PushFollow(Follow._orderby_column_list_in_orderby_clause816);
+			DebugLocation(157, 19);
+			PushFollow(Follow._orderby_column_list_in_orderby_clause820);
 			orderby_column_list78=orderby_column_list();
 			PopFollow();
 
@@ -3271,16 +3272,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 157:2: -> ^( T_ORDERBY orderby_column_list )
+			// 158:2: -> ^( T_ORDERBY orderby_column_list )
 			{
-				DebugLocation(157, 5);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:157:5: ^( T_ORDERBY orderby_column_list )
+				DebugLocation(158, 5);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:158:5: ^( T_ORDERBY orderby_column_list )
 				{
 				object root_1 = (object)adaptor.Nil();
-				DebugLocation(157, 7);
+				DebugLocation(158, 7);
 				root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_ORDERBY, "T_ORDERBY"), root_1);
 
-				DebugLocation(157, 17);
+				DebugLocation(158, 17);
 				adaptor.AddChild(root_1, stream_orderby_column_list.NextTree());
 
 				adaptor.AddChild(root_0, root_1);
@@ -3312,7 +3313,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("orderby_clause", 17);
 			LeaveRule_orderby_clause();
 	    }
-	 	DebugLocation(158, 1);
+	 	DebugLocation(159, 1);
 		} finally { DebugExitRule(GrammarFileName, "orderby_clause"); }
 		return retval;
 
@@ -3326,7 +3327,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_orderby_column_list() {}
 
 	// $ANTLR start "orderby_column_list"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:160:1: orderby_column_list : orderby_column ( ( WS )? ',' ( WS )? orderby_column )* -> ( orderby_column )* ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:161:1: orderby_column_list : orderby_column ( ( WS )? ',' ( WS )? orderby_column )* -> ( orderby_column )* ;
 	[GrammarRule("orderby_column_list")]
 	private AstParserRuleReturnScope<object, IToken> orderby_column_list()
 	{
@@ -3348,24 +3349,24 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal81_tree = default(object);
 	    object WS82_tree = default(object);
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
-	    RewriteRuleITokenStream stream_123=new RewriteRuleITokenStream(adaptor,"token 123");
+	    RewriteRuleITokenStream stream_124=new RewriteRuleITokenStream(adaptor,"token 124");
 	    RewriteRuleSubtreeStream stream_orderby_column=new RewriteRuleSubtreeStream(adaptor,"rule orderby_column");
 		try { DebugEnterRule(GrammarFileName, "orderby_column_list");
-		DebugLocation(160, 1);
+		DebugLocation(161, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:161:2: ( orderby_column ( ( WS )? ',' ( WS )? orderby_column )* -> ( orderby_column )* )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:162:2: ( orderby_column ( ( WS )? ',' ( WS )? orderby_column )* -> ( orderby_column )* )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:161:4: orderby_column ( ( WS )? ',' ( WS )? orderby_column )*
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:162:4: orderby_column ( ( WS )? ',' ( WS )? orderby_column )*
 			{
-			DebugLocation(161, 4);
-			PushFollow(Follow._orderby_column_in_orderby_column_list837);
+			DebugLocation(162, 4);
+			PushFollow(Follow._orderby_column_in_orderby_column_list841);
 			orderby_column79=orderby_column();
 			PopFollow();
 
 			stream_orderby_column.Add(orderby_column79.Tree);
-			DebugLocation(161, 19);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:161:19: ( ( WS )? ',' ( WS )? orderby_column )*
+			DebugLocation(162, 19);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:162:19: ( ( WS )? ',' ( WS )? orderby_column )*
 			try { DebugEnterSubRule(34);
 			while (true)
 			{
@@ -3377,14 +3378,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA34_1 = input.LA(2);
 
-					if ((LA34_1==123))
+					if ((LA34_1==124))
 					{
 						alt34 = 1;
 					}
 
 
 				}
-				else if ((LA34_0==123))
+				else if ((LA34_0==124))
 				{
 					alt34 = 1;
 				}
@@ -3395,10 +3396,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:161:20: ( WS )? ',' ( WS )? orderby_column
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:162:20: ( WS )? ',' ( WS )? orderby_column
 					{
-					DebugLocation(161, 20);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:161:20: ( WS )?
+					DebugLocation(162, 20);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:162:20: ( WS )?
 					int alt32=2;
 					try { DebugEnterSubRule(32);
 					try { DebugEnterDecision(32, decisionCanBacktrack[32]);
@@ -3413,10 +3414,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:161:20: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:162:20: WS
 						{
-						DebugLocation(161, 20);
-						WS80=(IToken)Match(input,WS,Follow._WS_in_orderby_column_list840);  
+						DebugLocation(162, 20);
+						WS80=(IToken)Match(input,WS,Follow._WS_in_orderby_column_list844);  
 						stream_WS.Add(WS80);
 
 
@@ -3426,12 +3427,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(32); }
 
-					DebugLocation(161, 24);
-					char_literal81=(IToken)Match(input,123,Follow._123_in_orderby_column_list843);  
-					stream_123.Add(char_literal81);
+					DebugLocation(162, 24);
+					char_literal81=(IToken)Match(input,124,Follow._124_in_orderby_column_list847);  
+					stream_124.Add(char_literal81);
 
-					DebugLocation(161, 28);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:161:28: ( WS )?
+					DebugLocation(162, 28);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:162:28: ( WS )?
 					int alt33=2;
 					try { DebugEnterSubRule(33);
 					try { DebugEnterDecision(33, decisionCanBacktrack[33]);
@@ -3446,10 +3447,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:161:28: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:162:28: WS
 						{
-						DebugLocation(161, 28);
-						WS82=(IToken)Match(input,WS,Follow._WS_in_orderby_column_list845);  
+						DebugLocation(162, 28);
+						WS82=(IToken)Match(input,WS,Follow._WS_in_orderby_column_list849);  
 						stream_WS.Add(WS82);
 
 
@@ -3459,8 +3460,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(33); }
 
-					DebugLocation(161, 32);
-					PushFollow(Follow._orderby_column_in_orderby_column_list848);
+					DebugLocation(162, 32);
+					PushFollow(Follow._orderby_column_in_orderby_column_list852);
 					orderby_column83=orderby_column();
 					PopFollow();
 
@@ -3493,13 +3494,13 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 162:2: -> ( orderby_column )*
+			// 163:2: -> ( orderby_column )*
 			{
-				DebugLocation(162, 5);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:162:5: ( orderby_column )*
+				DebugLocation(163, 5);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:163:5: ( orderby_column )*
 				while ( stream_orderby_column.HasNext )
 				{
-					DebugLocation(162, 5);
+					DebugLocation(163, 5);
 					adaptor.AddChild(root_0, stream_orderby_column.NextTree());
 
 				}
@@ -3531,7 +3532,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("orderby_column_list", 18);
 			LeaveRule_orderby_column_list();
 	    }
-	 	DebugLocation(163, 1);
+	 	DebugLocation(164, 1);
 		} finally { DebugExitRule(GrammarFileName, "orderby_column_list"); }
 		return retval;
 
@@ -3545,7 +3546,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_orderby_column() {}
 
 	// $ANTLR start "orderby_column"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:165:1: orderby_column : expression ( WS orderby_direction )? -> ^( T_ORDERBY_COLUMN expression ( orderby_direction )? ) ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:166:1: orderby_column : expression ( WS orderby_direction )? -> ^( T_ORDERBY_COLUMN expression ( orderby_direction )? ) ;
 	[GrammarRule("orderby_column")]
 	private AstParserRuleReturnScope<object, IToken> orderby_column()
 	{
@@ -3566,21 +3567,21 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 	    RewriteRuleSubtreeStream stream_orderby_direction=new RewriteRuleSubtreeStream(adaptor,"rule orderby_direction");
 		try { DebugEnterRule(GrammarFileName, "orderby_column");
-		DebugLocation(165, 1);
+		DebugLocation(166, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:166:2: ( expression ( WS orderby_direction )? -> ^( T_ORDERBY_COLUMN expression ( orderby_direction )? ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:167:2: ( expression ( WS orderby_direction )? -> ^( T_ORDERBY_COLUMN expression ( orderby_direction )? ) )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:166:4: expression ( WS orderby_direction )?
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:167:4: expression ( WS orderby_direction )?
 			{
-			DebugLocation(166, 4);
-			PushFollow(Follow._expression_in_orderby_column868);
+			DebugLocation(167, 4);
+			PushFollow(Follow._expression_in_orderby_column872);
 			expression84=expression();
 			PopFollow();
 
 			stream_expression.Add(expression84.Tree);
-			DebugLocation(166, 15);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:166:15: ( WS orderby_direction )?
+			DebugLocation(167, 15);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:167:15: ( WS orderby_direction )?
 			int alt35=2;
 			try { DebugEnterSubRule(35);
 			try { DebugEnterDecision(35, decisionCanBacktrack[35]);
@@ -3600,14 +3601,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:166:16: WS orderby_direction
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:167:16: WS orderby_direction
 				{
-				DebugLocation(166, 16);
-				WS85=(IToken)Match(input,WS,Follow._WS_in_orderby_column871);  
+				DebugLocation(167, 16);
+				WS85=(IToken)Match(input,WS,Follow._WS_in_orderby_column875);  
 				stream_WS.Add(WS85);
 
-				DebugLocation(166, 19);
-				PushFollow(Follow._orderby_direction_in_orderby_column873);
+				DebugLocation(167, 19);
+				PushFollow(Follow._orderby_direction_in_orderby_column877);
 				orderby_direction86=orderby_direction();
 				PopFollow();
 
@@ -3623,7 +3624,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: expression, orderby_direction
+			// elements: orderby_direction, expression
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -3633,22 +3634,22 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 166:39: -> ^( T_ORDERBY_COLUMN expression ( orderby_direction )? )
+			// 167:39: -> ^( T_ORDERBY_COLUMN expression ( orderby_direction )? )
 			{
-				DebugLocation(166, 42);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:166:42: ^( T_ORDERBY_COLUMN expression ( orderby_direction )? )
+				DebugLocation(167, 42);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:167:42: ^( T_ORDERBY_COLUMN expression ( orderby_direction )? )
 				{
 				object root_1 = (object)adaptor.Nil();
-				DebugLocation(166, 44);
+				DebugLocation(167, 44);
 				root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_ORDERBY_COLUMN, "T_ORDERBY_COLUMN"), root_1);
 
-				DebugLocation(166, 61);
+				DebugLocation(167, 61);
 				adaptor.AddChild(root_1, stream_expression.NextTree());
-				DebugLocation(166, 72);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:166:72: ( orderby_direction )?
+				DebugLocation(167, 72);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:167:72: ( orderby_direction )?
 				if (stream_orderby_direction.HasNext)
 				{
-					DebugLocation(166, 72);
+					DebugLocation(167, 72);
 					adaptor.AddChild(root_1, stream_orderby_direction.NextTree());
 
 				}
@@ -3683,7 +3684,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("orderby_column", 19);
 			LeaveRule_orderby_column();
 	    }
-	 	DebugLocation(167, 1);
+	 	DebugLocation(168, 1);
 		} finally { DebugExitRule(GrammarFileName, "orderby_column"); }
 		return retval;
 
@@ -3697,7 +3698,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_orderby_direction() {}
 
 	// $ANTLR start "orderby_direction"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:169:1: orderby_direction : ( ASC -> T_ORDERBY_ASC | DESC -> T_ORDERBY_DESC );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:170:1: orderby_direction : ( ASC -> T_ORDERBY_ASC | DESC -> T_ORDERBY_DESC );
 	[GrammarRule("orderby_direction")]
 	private AstParserRuleReturnScope<object, IToken> orderby_direction()
 	{
@@ -3718,10 +3719,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleITokenStream stream_ASC=new RewriteRuleITokenStream(adaptor,"token ASC");
 
 		try { DebugEnterRule(GrammarFileName, "orderby_direction");
-		DebugLocation(169, 1);
+		DebugLocation(170, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:170:2: ( ASC -> T_ORDERBY_ASC | DESC -> T_ORDERBY_DESC )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:171:2: ( ASC -> T_ORDERBY_ASC | DESC -> T_ORDERBY_DESC )
 			int alt36=2;
 			try { DebugEnterDecision(36, decisionCanBacktrack[36]);
 			int LA36_0 = input.LA(1);
@@ -3745,10 +3746,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:170:4: ASC
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:171:4: ASC
 				{
-				DebugLocation(170, 4);
-				ASC87=(IToken)Match(input,ASC,Follow._ASC_in_orderby_direction898);  
+				DebugLocation(171, 4);
+				ASC87=(IToken)Match(input,ASC,Follow._ASC_in_orderby_direction902);  
 				stream_ASC.Add(ASC87);
 
 
@@ -3765,9 +3766,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 170:8: -> T_ORDERBY_ASC
+				// 171:8: -> T_ORDERBY_ASC
 				{
-					DebugLocation(170, 11);
+					DebugLocation(171, 11);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_ORDERBY_ASC, "T_ORDERBY_ASC"));
 
 				}
@@ -3779,10 +3780,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:171:4: DESC
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:172:4: DESC
 				{
-				DebugLocation(171, 4);
-				DESC88=(IToken)Match(input,DESC,Follow._DESC_in_orderby_direction907);  
+				DebugLocation(172, 4);
+				DESC88=(IToken)Match(input,DESC,Follow._DESC_in_orderby_direction911);  
 				stream_DESC.Add(DESC88);
 
 
@@ -3799,9 +3800,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 171:9: -> T_ORDERBY_DESC
+				// 172:9: -> T_ORDERBY_DESC
 				{
-					DebugLocation(171, 12);
+					DebugLocation(172, 12);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_ORDERBY_DESC, "T_ORDERBY_DESC"));
 
 				}
@@ -3832,7 +3833,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("orderby_direction", 20);
 			LeaveRule_orderby_direction();
 	    }
-	 	DebugLocation(172, 1);
+	 	DebugLocation(173, 1);
 		} finally { DebugExitRule(GrammarFileName, "orderby_direction"); }
 		return retval;
 
@@ -3846,7 +3847,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_expression_list() {}
 
 	// $ANTLR start "expression_list"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:177:1: expression_list : expression ( ( WS )? ',' ( WS )? expression )+ -> ^( T_EXPRESSIONLIST ( expression )* ) ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:178:1: expression_list : expression ( ( WS )? ',' ( WS )? expression )+ -> ^( T_EXPRESSIONLIST ( expression )* ) ;
 	[GrammarRule("expression_list")]
 	private AstParserRuleReturnScope<object, IToken> expression_list()
 	{
@@ -3868,24 +3869,24 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal91_tree = default(object);
 	    object WS92_tree = default(object);
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
-	    RewriteRuleITokenStream stream_123=new RewriteRuleITokenStream(adaptor,"token 123");
+	    RewriteRuleITokenStream stream_124=new RewriteRuleITokenStream(adaptor,"token 124");
 	    RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 		try { DebugEnterRule(GrammarFileName, "expression_list");
-		DebugLocation(177, 1);
+		DebugLocation(178, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:178:2: ( expression ( ( WS )? ',' ( WS )? expression )+ -> ^( T_EXPRESSIONLIST ( expression )* ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:179:2: ( expression ( ( WS )? ',' ( WS )? expression )+ -> ^( T_EXPRESSIONLIST ( expression )* ) )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:178:4: expression ( ( WS )? ',' ( WS )? expression )+
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:179:4: expression ( ( WS )? ',' ( WS )? expression )+
 			{
-			DebugLocation(178, 4);
-			PushFollow(Follow._expression_in_expression_list925);
+			DebugLocation(179, 4);
+			PushFollow(Follow._expression_in_expression_list929);
 			expression89=expression();
 			PopFollow();
 
 			stream_expression.Add(expression89.Tree);
-			DebugLocation(178, 15);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:178:15: ( ( WS )? ',' ( WS )? expression )+
+			DebugLocation(179, 15);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:179:15: ( ( WS )? ',' ( WS )? expression )+
 			int cnt39=0;
 			try { DebugEnterSubRule(39);
 			while (true)
@@ -3898,14 +3899,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA39_1 = input.LA(2);
 
-					if ((LA39_1==123))
+					if ((LA39_1==124))
 					{
 						alt39 = 1;
 					}
 
 
 				}
-				else if ((LA39_0==123))
+				else if ((LA39_0==124))
 				{
 					alt39 = 1;
 				}
@@ -3916,10 +3917,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:178:16: ( WS )? ',' ( WS )? expression
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:179:16: ( WS )? ',' ( WS )? expression
 					{
-					DebugLocation(178, 16);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:178:16: ( WS )?
+					DebugLocation(179, 16);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:179:16: ( WS )?
 					int alt37=2;
 					try { DebugEnterSubRule(37);
 					try { DebugEnterDecision(37, decisionCanBacktrack[37]);
@@ -3934,10 +3935,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:178:16: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:179:16: WS
 						{
-						DebugLocation(178, 16);
-						WS90=(IToken)Match(input,WS,Follow._WS_in_expression_list928);  
+						DebugLocation(179, 16);
+						WS90=(IToken)Match(input,WS,Follow._WS_in_expression_list932);  
 						stream_WS.Add(WS90);
 
 
@@ -3947,12 +3948,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(37); }
 
-					DebugLocation(178, 20);
-					char_literal91=(IToken)Match(input,123,Follow._123_in_expression_list931);  
-					stream_123.Add(char_literal91);
+					DebugLocation(179, 20);
+					char_literal91=(IToken)Match(input,124,Follow._124_in_expression_list935);  
+					stream_124.Add(char_literal91);
 
-					DebugLocation(178, 24);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:178:24: ( WS )?
+					DebugLocation(179, 24);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:179:24: ( WS )?
 					int alt38=2;
 					try { DebugEnterSubRule(38);
 					try { DebugEnterDecision(38, decisionCanBacktrack[38]);
@@ -3967,10 +3968,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:178:24: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:179:24: WS
 						{
-						DebugLocation(178, 24);
-						WS92=(IToken)Match(input,WS,Follow._WS_in_expression_list933);  
+						DebugLocation(179, 24);
+						WS92=(IToken)Match(input,WS,Follow._WS_in_expression_list937);  
 						stream_WS.Add(WS92);
 
 
@@ -3980,8 +3981,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(38); }
 
-					DebugLocation(178, 28);
-					PushFollow(Follow._expression_in_expression_list936);
+					DebugLocation(179, 28);
+					PushFollow(Follow._expression_in_expression_list940);
 					expression93=expression();
 					PopFollow();
 
@@ -4019,20 +4020,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 178:41: -> ^( T_EXPRESSIONLIST ( expression )* )
+			// 179:41: -> ^( T_EXPRESSIONLIST ( expression )* )
 			{
-				DebugLocation(178, 44);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:178:44: ^( T_EXPRESSIONLIST ( expression )* )
+				DebugLocation(179, 44);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:179:44: ^( T_EXPRESSIONLIST ( expression )* )
 				{
 				object root_1 = (object)adaptor.Nil();
-				DebugLocation(178, 46);
+				DebugLocation(179, 46);
 				root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_EXPRESSIONLIST, "T_EXPRESSIONLIST"), root_1);
 
-				DebugLocation(178, 63);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:178:63: ( expression )*
+				DebugLocation(179, 63);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:179:63: ( expression )*
 				while ( stream_expression.HasNext )
 				{
-					DebugLocation(178, 63);
+					DebugLocation(179, 63);
 					adaptor.AddChild(root_1, stream_expression.NextTree());
 
 				}
@@ -4067,7 +4068,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("expression_list", 21);
 			LeaveRule_expression_list();
 	    }
-	 	DebugLocation(179, 1);
+	 	DebugLocation(180, 1);
 		} finally { DebugExitRule(GrammarFileName, "expression_list"); }
 		return retval;
 
@@ -4081,7 +4082,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_expression_list_or_select_command() {}
 
 	// $ANTLR start "expression_list_or_select_command"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:181:1: expression_list_or_select_command : ( expression_list | select_command );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:182:1: expression_list_or_select_command : ( expression_list | select_command );
 	[GrammarRule("expression_list_or_select_command")]
 	private AstParserRuleReturnScope<object, IToken> expression_list_or_select_command()
 	{
@@ -4098,15 +4099,15 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 
 		try { DebugEnterRule(GrammarFileName, "expression_list_or_select_command");
-		DebugLocation(181, 1);
+		DebugLocation(182, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:182:2: ( expression_list | select_command )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:183:2: ( expression_list | select_command )
 			int alt40=2;
 			try { DebugEnterDecision(40, decisionCanBacktrack[40]);
 			int LA40_0 = input.LA(1);
 
-			if ((LA40_0==CAST||LA40_0==CONVERT||LA40_0==EXISTS||(LA40_0>=NOT && LA40_0<=NUMBER)||(LA40_0>=STRING && LA40_0<=SYSTEMVAR)||LA40_0==TOKEN||LA40_0==119))
+			if ((LA40_0==CAST||LA40_0==CONVERT||LA40_0==EXISTS||(LA40_0>=NOT && LA40_0<=NUMBER)||LA40_0==SIMPLE_FILE||(LA40_0>=STRING && LA40_0<=SYSTEMVAR)||LA40_0==TOKEN||LA40_0==120))
 			{
 				alt40 = 1;
 			}
@@ -4125,12 +4126,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:182:4: expression_list
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:183:4: expression_list
 				{
 				root_0 = (object)adaptor.Nil();
 
-				DebugLocation(182, 4);
-				PushFollow(Follow._expression_list_in_expression_list_or_select_command959);
+				DebugLocation(183, 4);
+				PushFollow(Follow._expression_list_in_expression_list_or_select_command963);
 				expression_list94=expression_list();
 				PopFollow();
 
@@ -4140,12 +4141,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:182:22: select_command
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:183:22: select_command
 				{
 				root_0 = (object)adaptor.Nil();
 
-				DebugLocation(182, 22);
-				PushFollow(Follow._select_command_in_expression_list_or_select_command963);
+				DebugLocation(183, 22);
+				PushFollow(Follow._select_command_in_expression_list_or_select_command967);
 				select_command95=select_command();
 				PopFollow();
 
@@ -4174,7 +4175,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("expression_list_or_select_command", 22);
 			LeaveRule_expression_list_or_select_command();
 	    }
-	 	DebugLocation(183, 1);
+	 	DebugLocation(184, 1);
 		} finally { DebugExitRule(GrammarFileName, "expression_list_or_select_command"); }
 		return retval;
 
@@ -4188,7 +4189,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_expression() {}
 
 	// $ANTLR start "expression"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:185:1: expression : expression_7 ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:186:1: expression : expression_7 ;
 	[GrammarRule("expression")]
 	private AstParserRuleReturnScope<object, IToken> expression()
 	{
@@ -4204,17 +4205,17 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 
 		try { DebugEnterRule(GrammarFileName, "expression");
-		DebugLocation(185, 1);
+		DebugLocation(186, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:186:2: ( expression_7 )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:187:2: ( expression_7 )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:186:4: expression_7
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:187:4: expression_7
 			{
 			root_0 = (object)adaptor.Nil();
 
-			DebugLocation(186, 4);
-			PushFollow(Follow._expression_7_in_expression975);
+			DebugLocation(187, 4);
+			PushFollow(Follow._expression_7_in_expression979);
 			expression_796=expression_7();
 			PopFollow();
 
@@ -4241,7 +4242,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("expression", 23);
 			LeaveRule_expression();
 	    }
-	 	DebugLocation(187, 1);
+	 	DebugLocation(188, 1);
 		} finally { DebugExitRule(GrammarFileName, "expression"); }
 		return retval;
 
@@ -4255,7 +4256,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_expression_7() {}
 
 	// $ANTLR start "expression_7"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:189:1: expression_7 : (a= expression_6 -> $a) ( WS ( op_7 WS b= expression_6 -> ^( T_OP_BINARY op_7 $expression_7 $b) | IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')' -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command ) | NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')' -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command ) ) )* ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:190:1: expression_7 : (a= expression_6 -> $a) ( WS ( op_7 WS b= expression_6 -> ^( T_OP_BINARY op_7 $expression_7 $b) | IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')' -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command ) | NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')' -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command ) ) )* ;
 	[GrammarRule("expression_7")]
 	private AstParserRuleReturnScope<object, IToken> expression_7()
 	{
@@ -4331,6 +4332,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS127_tree = default(object);
 	    object char_literal128_tree = default(object);
 	    object char_literal130_tree = default(object);
+	    RewriteRuleITokenStream stream_121=new RewriteRuleITokenStream(adaptor,"token 121");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleITokenStream stream_ANY=new RewriteRuleITokenStream(adaptor,"token ANY");
 	    RewriteRuleITokenStream stream_IN=new RewriteRuleITokenStream(adaptor,"token IN");
@@ -4338,26 +4340,25 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleITokenStream stream_120=new RewriteRuleITokenStream(adaptor,"token 120");
 	    RewriteRuleITokenStream stream_SOME=new RewriteRuleITokenStream(adaptor,"token SOME");
 	    RewriteRuleITokenStream stream_ALL=new RewriteRuleITokenStream(adaptor,"token ALL");
-	    RewriteRuleITokenStream stream_119=new RewriteRuleITokenStream(adaptor,"token 119");
 	    RewriteRuleSubtreeStream stream_op_7=new RewriteRuleSubtreeStream(adaptor,"rule op_7");
 	    RewriteRuleSubtreeStream stream_expression_6=new RewriteRuleSubtreeStream(adaptor,"rule expression_6");
 	    RewriteRuleSubtreeStream stream_expression_list_or_select_command=new RewriteRuleSubtreeStream(adaptor,"rule expression_list_or_select_command");
 	    RewriteRuleSubtreeStream stream_op_4=new RewriteRuleSubtreeStream(adaptor,"rule op_4");
 		try { DebugEnterRule(GrammarFileName, "expression_7");
-		DebugLocation(189, 1);
+		DebugLocation(190, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:190:2: ( (a= expression_6 -> $a) ( WS ( op_7 WS b= expression_6 -> ^( T_OP_BINARY op_7 $expression_7 $b) | IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')' -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command ) | NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')' -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command ) ) )* )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:191:2: ( (a= expression_6 -> $a) ( WS ( op_7 WS b= expression_6 -> ^( T_OP_BINARY op_7 $expression_7 $b) | IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')' -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command ) | NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')' -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command ) ) )* )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:190:4: (a= expression_6 -> $a) ( WS ( op_7 WS b= expression_6 -> ^( T_OP_BINARY op_7 $expression_7 $b) | IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')' -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command ) | NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')' -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command ) ) )*
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:191:4: (a= expression_6 -> $a) ( WS ( op_7 WS b= expression_6 -> ^( T_OP_BINARY op_7 $expression_7 $b) | IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')' -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command ) | NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')' -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command ) ) )*
 			{
-			DebugLocation(190, 4);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:190:4: (a= expression_6 -> $a)
+			DebugLocation(191, 4);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:191:4: (a= expression_6 -> $a)
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:190:5: a= expression_6
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:191:5: a= expression_6
 			{
-			DebugLocation(190, 6);
-			PushFollow(Follow._expression_6_in_expression_7991);
+			DebugLocation(191, 6);
+			PushFollow(Follow._expression_6_in_expression_7995);
 			a=expression_6();
 			PopFollow();
 
@@ -4377,9 +4378,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_a=new RewriteRuleSubtreeStream(adaptor,"rule a",a!=null?a.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 190:19: -> $a
+			// 191:19: -> $a
 			{
-				DebugLocation(190, 22);
+				DebugLocation(191, 22);
 				adaptor.AddChild(root_0, stream_a.NextTree());
 
 			}
@@ -4389,8 +4390,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			}
 
-			DebugLocation(190, 25);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:190:25: ( WS ( op_7 WS b= expression_6 -> ^( T_OP_BINARY op_7 $expression_7 $b) | IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')' -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command ) | NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')' -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command ) ) )*
+			DebugLocation(191, 25);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:191:25: ( WS ( op_7 WS b= expression_6 -> ^( T_OP_BINARY op_7 $expression_7 $b) | IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')' -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command ) | NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')' -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command ) ) )*
 			try { DebugEnterSubRule(53);
 			while (true)
 			{
@@ -4420,7 +4421,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 
 					}
-					else if ((LA53_1==BETWEEN||LA53_1==IN||LA53_1==LIKE||LA53_1==MATCH||LA53_1==OR||(LA53_1>=114 && LA53_1<=116)||(LA53_1>=127 && LA53_1<=132)))
+					else if ((LA53_1==BETWEEN||LA53_1==IN||LA53_1==LIKE||LA53_1==MATCH||LA53_1==OR||(LA53_1>=115 && LA53_1<=117)||(LA53_1>=128 && LA53_1<=133)))
 					{
 						alt53 = 1;
 					}
@@ -4434,14 +4435,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:190:26: WS ( op_7 WS b= expression_6 -> ^( T_OP_BINARY op_7 $expression_7 $b) | IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')' -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command ) | NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')' -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command ) )
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:191:26: WS ( op_7 WS b= expression_6 -> ^( T_OP_BINARY op_7 $expression_7 $b) | IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')' -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command ) | NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')' -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command ) )
 					{
-					DebugLocation(190, 26);
-					WS97=(IToken)Match(input,WS,Follow._WS_in_expression_7998);  
+					DebugLocation(191, 26);
+					WS97=(IToken)Match(input,WS,Follow._WS_in_expression_71002);  
 					stream_WS.Add(WS97);
 
-					DebugLocation(190, 29);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:190:29: ( op_7 WS b= expression_6 -> ^( T_OP_BINARY op_7 $expression_7 $b) | IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')' -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command ) | NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')' -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command ) )
+					DebugLocation(191, 29);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:191:29: ( op_7 WS b= expression_6 -> ^( T_OP_BINARY op_7 $expression_7 $b) | IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')' -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command ) | NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')' -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command ) | op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')' -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command ) )
 					int alt52=5;
 					try { DebugEnterSubRule(52);
 					try { DebugEnterDecision(52, decisionCanBacktrack[52]);
@@ -4491,7 +4492,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						alt52 = 2;
 						}
 						break;
-					case 130:
+					case 131:
 						{
 						switch (input.LA(2))
 						{
@@ -4536,7 +4537,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 132:
+					case 133:
 						{
 						switch (input.LA(2))
 						{
@@ -4581,7 +4582,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 128:
+					case 129:
 						{
 						switch (input.LA(2))
 						{
@@ -4626,7 +4627,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 129:
+					case 130:
 						{
 						switch (input.LA(2))
 						{
@@ -4671,7 +4672,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 115:
+					case 116:
 						{
 						switch (input.LA(2))
 						{
@@ -4716,7 +4717,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 116:
+					case 117:
 						{
 						switch (input.LA(2))
 						{
@@ -4761,7 +4762,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 114:
+					case 115:
 						{
 						switch (input.LA(2))
 						{
@@ -4806,7 +4807,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 131:
+					case 132:
 						{
 						switch (input.LA(2))
 						{
@@ -4851,7 +4852,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 127:
+					case 128:
 						{
 						switch (input.LA(2))
 						{
@@ -4909,20 +4910,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:191:2: op_7 WS b= expression_6
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:192:2: op_7 WS b= expression_6
 						{
-						DebugLocation(191, 2);
-						PushFollow(Follow._op_7_in_expression_71003);
+						DebugLocation(192, 2);
+						PushFollow(Follow._op_7_in_expression_71007);
 						op_798=op_7();
 						PopFollow();
 
 						stream_op_7.Add(op_798.Tree);
-						DebugLocation(191, 7);
-						WS99=(IToken)Match(input,WS,Follow._WS_in_expression_71005);  
+						DebugLocation(192, 7);
+						WS99=(IToken)Match(input,WS,Follow._WS_in_expression_71009);  
 						stream_WS.Add(WS99);
 
-						DebugLocation(191, 11);
-						PushFollow(Follow._expression_6_in_expression_71009);
+						DebugLocation(192, 11);
+						PushFollow(Follow._expression_6_in_expression_71013);
 						b=expression_6();
 						PopFollow();
 
@@ -4931,7 +4932,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						{
 						// AST REWRITE
-						// elements: expression_7, op_7, b
+						// elements: op_7, b, expression_7
 						// token labels: 
 						// rule labels: retval, b
 						// token list labels: 
@@ -4942,20 +4943,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						RewriteRuleSubtreeStream stream_b=new RewriteRuleSubtreeStream(adaptor,"rule b",b!=null?b.Tree:null);
 
 						root_0 = (object)adaptor.Nil();
-						// 191:25: -> ^( T_OP_BINARY op_7 $expression_7 $b)
+						// 192:25: -> ^( T_OP_BINARY op_7 $expression_7 $b)
 						{
-							DebugLocation(191, 28);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:191:28: ^( T_OP_BINARY op_7 $expression_7 $b)
+							DebugLocation(192, 28);
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:192:28: ^( T_OP_BINARY op_7 $expression_7 $b)
 							{
 							object root_1 = (object)adaptor.Nil();
-							DebugLocation(191, 30);
+							DebugLocation(192, 30);
 							root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_OP_BINARY, "T_OP_BINARY"), root_1);
 
-							DebugLocation(191, 42);
+							DebugLocation(192, 42);
 							adaptor.AddChild(root_1, stream_op_7.NextTree());
-							DebugLocation(191, 48);
+							DebugLocation(192, 48);
 							adaptor.AddChild(root_1, stream_retval.NextTree());
-							DebugLocation(191, 62);
+							DebugLocation(192, 62);
 							adaptor.AddChild(root_1, stream_b.NextTree());
 
 							adaptor.AddChild(root_0, root_1);
@@ -4970,14 +4971,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						break;
 					case 2:
 						DebugEnterAlt(2);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:192:4: IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')'
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:4: IN ( WS )? '(' ( WS )? expression_list_or_select_command ( WS )? ')'
 						{
-						DebugLocation(192, 4);
-						IN100=(IToken)Match(input,IN,Follow._IN_in_expression_71028);  
+						DebugLocation(193, 4);
+						IN100=(IToken)Match(input,IN,Follow._IN_in_expression_71032);  
 						stream_IN.Add(IN100);
 
-						DebugLocation(192, 7);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:192:7: ( WS )?
+						DebugLocation(193, 7);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:7: ( WS )?
 						int alt41=2;
 						try { DebugEnterSubRule(41);
 						try { DebugEnterDecision(41, decisionCanBacktrack[41]);
@@ -4992,10 +4993,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 						case 1:
 							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:192:7: WS
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:7: WS
 							{
-							DebugLocation(192, 7);
-							WS101=(IToken)Match(input,WS,Follow._WS_in_expression_71030);  
+							DebugLocation(193, 7);
+							WS101=(IToken)Match(input,WS,Follow._WS_in_expression_71034);  
 							stream_WS.Add(WS101);
 
 
@@ -5005,12 +5006,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						}
 						} finally { DebugExitSubRule(41); }
 
-						DebugLocation(192, 11);
-						char_literal102=(IToken)Match(input,119,Follow._119_in_expression_71033);  
-						stream_119.Add(char_literal102);
+						DebugLocation(193, 11);
+						char_literal102=(IToken)Match(input,120,Follow._120_in_expression_71037);  
+						stream_120.Add(char_literal102);
 
-						DebugLocation(192, 15);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:192:15: ( WS )?
+						DebugLocation(193, 15);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:15: ( WS )?
 						int alt42=2;
 						try { DebugEnterSubRule(42);
 						try { DebugEnterDecision(42, decisionCanBacktrack[42]);
@@ -5025,10 +5026,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 						case 1:
 							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:192:15: WS
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:15: WS
 							{
-							DebugLocation(192, 15);
-							WS103=(IToken)Match(input,WS,Follow._WS_in_expression_71035);  
+							DebugLocation(193, 15);
+							WS103=(IToken)Match(input,WS,Follow._WS_in_expression_71039);  
 							stream_WS.Add(WS103);
 
 
@@ -5038,14 +5039,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						}
 						} finally { DebugExitSubRule(42); }
 
-						DebugLocation(192, 19);
-						PushFollow(Follow._expression_list_or_select_command_in_expression_71038);
+						DebugLocation(193, 19);
+						PushFollow(Follow._expression_list_or_select_command_in_expression_71042);
 						expression_list_or_select_command104=expression_list_or_select_command();
 						PopFollow();
 
 						stream_expression_list_or_select_command.Add(expression_list_or_select_command104.Tree);
-						DebugLocation(192, 53);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:192:53: ( WS )?
+						DebugLocation(193, 53);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:53: ( WS )?
 						int alt43=2;
 						try { DebugEnterSubRule(43);
 						try { DebugEnterDecision(43, decisionCanBacktrack[43]);
@@ -5060,10 +5061,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 						case 1:
 							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:192:53: WS
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:53: WS
 							{
-							DebugLocation(192, 53);
-							WS105=(IToken)Match(input,WS,Follow._WS_in_expression_71040);  
+							DebugLocation(193, 53);
+							WS105=(IToken)Match(input,WS,Follow._WS_in_expression_71044);  
 							stream_WS.Add(WS105);
 
 
@@ -5073,15 +5074,15 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						}
 						} finally { DebugExitSubRule(43); }
 
-						DebugLocation(192, 57);
-						char_literal106=(IToken)Match(input,120,Follow._120_in_expression_71043);  
-						stream_120.Add(char_literal106);
+						DebugLocation(193, 57);
+						char_literal106=(IToken)Match(input,121,Follow._121_in_expression_71047);  
+						stream_121.Add(char_literal106);
 
 
 
 						{
 						// AST REWRITE
-						// elements: expression_7, expression_list_or_select_command
+						// elements: expression_list_or_select_command, expression_7
 						// token labels: 
 						// rule labels: retval
 						// token list labels: 
@@ -5091,20 +5092,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 						root_0 = (object)adaptor.Nil();
-						// 192:61: -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command )
+						// 193:61: -> ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command )
 						{
-							DebugLocation(192, 64);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:192:64: ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command )
+							DebugLocation(193, 64);
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:64: ^( T_OP_BINARY T_IN $expression_7 expression_list_or_select_command )
 							{
 							object root_1 = (object)adaptor.Nil();
-							DebugLocation(192, 66);
+							DebugLocation(193, 66);
 							root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_OP_BINARY, "T_OP_BINARY"), root_1);
 
-							DebugLocation(192, 78);
+							DebugLocation(193, 78);
 							adaptor.AddChild(root_1, (object)adaptor.Create(T_IN, "T_IN"));
-							DebugLocation(192, 84);
+							DebugLocation(193, 84);
 							adaptor.AddChild(root_1, stream_retval.NextTree());
-							DebugLocation(192, 97);
+							DebugLocation(193, 97);
 							adaptor.AddChild(root_1, stream_expression_list_or_select_command.NextTree());
 
 							adaptor.AddChild(root_0, root_1);
@@ -5119,22 +5120,22 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						break;
 					case 3:
 						DebugEnterAlt(3);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:4: NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')'
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:4: NOT WS IN ( WS )? '(' ( WS )? ( expression_list_or_select_command ) ( WS )? ')'
 						{
-						DebugLocation(193, 4);
-						NOT107=(IToken)Match(input,NOT,Follow._NOT_in_expression_71061);  
+						DebugLocation(194, 4);
+						NOT107=(IToken)Match(input,NOT,Follow._NOT_in_expression_71065);  
 						stream_NOT.Add(NOT107);
 
-						DebugLocation(193, 8);
-						WS108=(IToken)Match(input,WS,Follow._WS_in_expression_71063);  
+						DebugLocation(194, 8);
+						WS108=(IToken)Match(input,WS,Follow._WS_in_expression_71067);  
 						stream_WS.Add(WS108);
 
-						DebugLocation(193, 11);
-						IN109=(IToken)Match(input,IN,Follow._IN_in_expression_71065);  
+						DebugLocation(194, 11);
+						IN109=(IToken)Match(input,IN,Follow._IN_in_expression_71069);  
 						stream_IN.Add(IN109);
 
-						DebugLocation(193, 14);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:14: ( WS )?
+						DebugLocation(194, 14);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:14: ( WS )?
 						int alt44=2;
 						try { DebugEnterSubRule(44);
 						try { DebugEnterDecision(44, decisionCanBacktrack[44]);
@@ -5149,10 +5150,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 						case 1:
 							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:14: WS
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:14: WS
 							{
-							DebugLocation(193, 14);
-							WS110=(IToken)Match(input,WS,Follow._WS_in_expression_71067);  
+							DebugLocation(194, 14);
+							WS110=(IToken)Match(input,WS,Follow._WS_in_expression_71071);  
 							stream_WS.Add(WS110);
 
 
@@ -5162,12 +5163,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						}
 						} finally { DebugExitSubRule(44); }
 
-						DebugLocation(193, 18);
-						char_literal111=(IToken)Match(input,119,Follow._119_in_expression_71070);  
-						stream_119.Add(char_literal111);
+						DebugLocation(194, 18);
+						char_literal111=(IToken)Match(input,120,Follow._120_in_expression_71074);  
+						stream_120.Add(char_literal111);
 
-						DebugLocation(193, 22);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:22: ( WS )?
+						DebugLocation(194, 22);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:22: ( WS )?
 						int alt45=2;
 						try { DebugEnterSubRule(45);
 						try { DebugEnterDecision(45, decisionCanBacktrack[45]);
@@ -5182,10 +5183,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 						case 1:
 							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:22: WS
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:22: WS
 							{
-							DebugLocation(193, 22);
-							WS112=(IToken)Match(input,WS,Follow._WS_in_expression_71072);  
+							DebugLocation(194, 22);
+							WS112=(IToken)Match(input,WS,Follow._WS_in_expression_71076);  
 							stream_WS.Add(WS112);
 
 
@@ -5195,13 +5196,13 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						}
 						} finally { DebugExitSubRule(45); }
 
-						DebugLocation(193, 26);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:26: ( expression_list_or_select_command )
+						DebugLocation(194, 26);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:26: ( expression_list_or_select_command )
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:27: expression_list_or_select_command
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:27: expression_list_or_select_command
 						{
-						DebugLocation(193, 27);
-						PushFollow(Follow._expression_list_or_select_command_in_expression_71076);
+						DebugLocation(194, 27);
+						PushFollow(Follow._expression_list_or_select_command_in_expression_71080);
 						expression_list_or_select_command113=expression_list_or_select_command();
 						PopFollow();
 
@@ -5209,8 +5210,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 
-						DebugLocation(193, 62);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:62: ( WS )?
+						DebugLocation(194, 62);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:62: ( WS )?
 						int alt46=2;
 						try { DebugEnterSubRule(46);
 						try { DebugEnterDecision(46, decisionCanBacktrack[46]);
@@ -5225,10 +5226,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 						case 1:
 							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:62: WS
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:62: WS
 							{
-							DebugLocation(193, 62);
-							WS114=(IToken)Match(input,WS,Follow._WS_in_expression_71079);  
+							DebugLocation(194, 62);
+							WS114=(IToken)Match(input,WS,Follow._WS_in_expression_71083);  
 							stream_WS.Add(WS114);
 
 
@@ -5238,9 +5239,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						}
 						} finally { DebugExitSubRule(46); }
 
-						DebugLocation(193, 66);
-						char_literal115=(IToken)Match(input,120,Follow._120_in_expression_71082);  
-						stream_120.Add(char_literal115);
+						DebugLocation(194, 66);
+						char_literal115=(IToken)Match(input,121,Follow._121_in_expression_71086);  
+						stream_121.Add(char_literal115);
 
 
 
@@ -5256,20 +5257,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 						root_0 = (object)adaptor.Nil();
-						// 193:70: -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command )
+						// 194:70: -> ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command )
 						{
-							DebugLocation(193, 73);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:193:73: ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command )
+							DebugLocation(194, 73);
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:73: ^( T_OP_BINARY T_NOTIN $expression_7 expression_list_or_select_command )
 							{
 							object root_1 = (object)adaptor.Nil();
-							DebugLocation(193, 75);
+							DebugLocation(194, 75);
 							root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_OP_BINARY, "T_OP_BINARY"), root_1);
 
-							DebugLocation(193, 87);
+							DebugLocation(194, 87);
 							adaptor.AddChild(root_1, (object)adaptor.Create(T_NOTIN, "T_NOTIN"));
-							DebugLocation(193, 96);
+							DebugLocation(194, 96);
 							adaptor.AddChild(root_1, stream_retval.NextTree());
-							DebugLocation(193, 109);
+							DebugLocation(194, 109);
 							adaptor.AddChild(root_1, stream_expression_list_or_select_command.NextTree());
 
 							adaptor.AddChild(root_0, root_1);
@@ -5284,16 +5285,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						break;
 					case 4:
 						DebugEnterAlt(4);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:4: op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')'
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:4: op_4 ( WS )? ( SOME | ANY ) ( WS )? '(' expression_list_or_select_command ')'
 						{
-						DebugLocation(194, 4);
-						PushFollow(Follow._op_4_in_expression_71100);
+						DebugLocation(195, 4);
+						PushFollow(Follow._op_4_in_expression_71104);
 						op_4116=op_4();
 						PopFollow();
 
 						stream_op_4.Add(op_4116.Tree);
-						DebugLocation(194, 9);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:9: ( WS )?
+						DebugLocation(195, 9);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:9: ( WS )?
 						int alt47=2;
 						try { DebugEnterSubRule(47);
 						try { DebugEnterDecision(47, decisionCanBacktrack[47]);
@@ -5308,10 +5309,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 						case 1:
 							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:9: WS
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:9: WS
 							{
-							DebugLocation(194, 9);
-							WS117=(IToken)Match(input,WS,Follow._WS_in_expression_71102);  
+							DebugLocation(195, 9);
+							WS117=(IToken)Match(input,WS,Follow._WS_in_expression_71106);  
 							stream_WS.Add(WS117);
 
 
@@ -5321,8 +5322,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						}
 						} finally { DebugExitSubRule(47); }
 
-						DebugLocation(194, 13);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:13: ( SOME | ANY )
+						DebugLocation(195, 13);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:13: ( SOME | ANY )
 						int alt48=2;
 						try { DebugEnterSubRule(48);
 						try { DebugEnterDecision(48, decisionCanBacktrack[48]);
@@ -5347,10 +5348,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 						case 1:
 							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:14: SOME
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:14: SOME
 							{
-							DebugLocation(194, 14);
-							SOME118=(IToken)Match(input,SOME,Follow._SOME_in_expression_71106);  
+							DebugLocation(195, 14);
+							SOME118=(IToken)Match(input,SOME,Follow._SOME_in_expression_71110);  
 							stream_SOME.Add(SOME118);
 
 
@@ -5358,10 +5359,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 							break;
 						case 2:
 							DebugEnterAlt(2);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:21: ANY
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:21: ANY
 							{
-							DebugLocation(194, 21);
-							ANY119=(IToken)Match(input,ANY,Follow._ANY_in_expression_71110);  
+							DebugLocation(195, 21);
+							ANY119=(IToken)Match(input,ANY,Follow._ANY_in_expression_71114);  
 							stream_ANY.Add(ANY119);
 
 
@@ -5371,8 +5372,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						}
 						} finally { DebugExitSubRule(48); }
 
-						DebugLocation(194, 26);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:26: ( WS )?
+						DebugLocation(195, 26);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:26: ( WS )?
 						int alt49=2;
 						try { DebugEnterSubRule(49);
 						try { DebugEnterDecision(49, decisionCanBacktrack[49]);
@@ -5387,10 +5388,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 						case 1:
 							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:26: WS
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:26: WS
 							{
-							DebugLocation(194, 26);
-							WS120=(IToken)Match(input,WS,Follow._WS_in_expression_71113);  
+							DebugLocation(195, 26);
+							WS120=(IToken)Match(input,WS,Follow._WS_in_expression_71117);  
 							stream_WS.Add(WS120);
 
 
@@ -5400,25 +5401,25 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						}
 						} finally { DebugExitSubRule(49); }
 
-						DebugLocation(194, 30);
-						char_literal121=(IToken)Match(input,119,Follow._119_in_expression_71116);  
-						stream_119.Add(char_literal121);
+						DebugLocation(195, 30);
+						char_literal121=(IToken)Match(input,120,Follow._120_in_expression_71120);  
+						stream_120.Add(char_literal121);
 
-						DebugLocation(194, 34);
-						PushFollow(Follow._expression_list_or_select_command_in_expression_71118);
+						DebugLocation(195, 34);
+						PushFollow(Follow._expression_list_or_select_command_in_expression_71122);
 						expression_list_or_select_command122=expression_list_or_select_command();
 						PopFollow();
 
 						stream_expression_list_or_select_command.Add(expression_list_or_select_command122.Tree);
-						DebugLocation(194, 68);
-						char_literal123=(IToken)Match(input,120,Follow._120_in_expression_71120);  
-						stream_120.Add(char_literal123);
+						DebugLocation(195, 68);
+						char_literal123=(IToken)Match(input,121,Follow._121_in_expression_71124);  
+						stream_121.Add(char_literal123);
 
 
 
 						{
 						// AST REWRITE
-						// elements: expression_7, expression_list_or_select_command, op_4
+						// elements: expression_list_or_select_command, expression_7, op_4
 						// token labels: 
 						// rule labels: retval
 						// token list labels: 
@@ -5428,22 +5429,22 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 						root_0 = (object)adaptor.Nil();
-						// 194:72: -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command )
+						// 195:72: -> ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command )
 						{
-							DebugLocation(194, 75);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:194:75: ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command )
+							DebugLocation(195, 75);
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:75: ^( T_OP_BINARY T_ANY op_4 $expression_7 expression_list_or_select_command )
 							{
 							object root_1 = (object)adaptor.Nil();
-							DebugLocation(194, 77);
+							DebugLocation(195, 77);
 							root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_OP_BINARY, "T_OP_BINARY"), root_1);
 
-							DebugLocation(194, 89);
+							DebugLocation(195, 89);
 							adaptor.AddChild(root_1, (object)adaptor.Create(T_ANY, "T_ANY"));
-							DebugLocation(194, 95);
+							DebugLocation(195, 95);
 							adaptor.AddChild(root_1, stream_op_4.NextTree());
-							DebugLocation(194, 101);
+							DebugLocation(195, 101);
 							adaptor.AddChild(root_1, stream_retval.NextTree());
-							DebugLocation(194, 114);
+							DebugLocation(195, 114);
 							adaptor.AddChild(root_1, stream_expression_list_or_select_command.NextTree());
 
 							adaptor.AddChild(root_0, root_1);
@@ -5458,16 +5459,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						break;
 					case 5:
 						DebugEnterAlt(5);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:4: op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')'
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:196:4: op_4 ( WS )? ALL ( WS )? '(' expression_list_or_select_command ')'
 						{
-						DebugLocation(195, 4);
-						PushFollow(Follow._op_4_in_expression_71140);
+						DebugLocation(196, 4);
+						PushFollow(Follow._op_4_in_expression_71144);
 						op_4124=op_4();
 						PopFollow();
 
 						stream_op_4.Add(op_4124.Tree);
-						DebugLocation(195, 9);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:9: ( WS )?
+						DebugLocation(196, 9);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:196:9: ( WS )?
 						int alt50=2;
 						try { DebugEnterSubRule(50);
 						try { DebugEnterDecision(50, decisionCanBacktrack[50]);
@@ -5482,10 +5483,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 						case 1:
 							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:9: WS
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:196:9: WS
 							{
-							DebugLocation(195, 9);
-							WS125=(IToken)Match(input,WS,Follow._WS_in_expression_71142);  
+							DebugLocation(196, 9);
+							WS125=(IToken)Match(input,WS,Follow._WS_in_expression_71146);  
 							stream_WS.Add(WS125);
 
 
@@ -5495,12 +5496,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						}
 						} finally { DebugExitSubRule(50); }
 
-						DebugLocation(195, 13);
-						ALL126=(IToken)Match(input,ALL,Follow._ALL_in_expression_71145);  
+						DebugLocation(196, 13);
+						ALL126=(IToken)Match(input,ALL,Follow._ALL_in_expression_71149);  
 						stream_ALL.Add(ALL126);
 
-						DebugLocation(195, 17);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:17: ( WS )?
+						DebugLocation(196, 17);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:196:17: ( WS )?
 						int alt51=2;
 						try { DebugEnterSubRule(51);
 						try { DebugEnterDecision(51, decisionCanBacktrack[51]);
@@ -5515,10 +5516,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 						case 1:
 							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:17: WS
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:196:17: WS
 							{
-							DebugLocation(195, 17);
-							WS127=(IToken)Match(input,WS,Follow._WS_in_expression_71147);  
+							DebugLocation(196, 17);
+							WS127=(IToken)Match(input,WS,Follow._WS_in_expression_71151);  
 							stream_WS.Add(WS127);
 
 
@@ -5528,25 +5529,25 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						}
 						} finally { DebugExitSubRule(51); }
 
-						DebugLocation(195, 21);
-						char_literal128=(IToken)Match(input,119,Follow._119_in_expression_71150);  
-						stream_119.Add(char_literal128);
+						DebugLocation(196, 21);
+						char_literal128=(IToken)Match(input,120,Follow._120_in_expression_71154);  
+						stream_120.Add(char_literal128);
 
-						DebugLocation(195, 25);
-						PushFollow(Follow._expression_list_or_select_command_in_expression_71152);
+						DebugLocation(196, 25);
+						PushFollow(Follow._expression_list_or_select_command_in_expression_71156);
 						expression_list_or_select_command129=expression_list_or_select_command();
 						PopFollow();
 
 						stream_expression_list_or_select_command.Add(expression_list_or_select_command129.Tree);
-						DebugLocation(195, 59);
-						char_literal130=(IToken)Match(input,120,Follow._120_in_expression_71154);  
-						stream_120.Add(char_literal130);
+						DebugLocation(196, 59);
+						char_literal130=(IToken)Match(input,121,Follow._121_in_expression_71158);  
+						stream_121.Add(char_literal130);
 
 
 
 						{
 						// AST REWRITE
-						// elements: op_4, expression_list_or_select_command, expression_7
+						// elements: expression_list_or_select_command, op_4, expression_7
 						// token labels: 
 						// rule labels: retval
 						// token list labels: 
@@ -5556,22 +5557,22 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 						root_0 = (object)adaptor.Nil();
-						// 195:63: -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command )
+						// 196:63: -> ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command )
 						{
-							DebugLocation(195, 66);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:195:66: ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command )
+							DebugLocation(196, 66);
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:196:66: ^( T_OP_BINARY T_ALL op_4 $expression_7 expression_list_or_select_command )
 							{
 							object root_1 = (object)adaptor.Nil();
-							DebugLocation(195, 68);
+							DebugLocation(196, 68);
 							root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_OP_BINARY, "T_OP_BINARY"), root_1);
 
-							DebugLocation(195, 80);
+							DebugLocation(196, 80);
 							adaptor.AddChild(root_1, (object)adaptor.Create(T_ALL, "T_ALL"));
-							DebugLocation(195, 86);
+							DebugLocation(196, 86);
 							adaptor.AddChild(root_1, stream_op_4.NextTree());
-							DebugLocation(195, 92);
+							DebugLocation(196, 92);
 							adaptor.AddChild(root_1, stream_retval.NextTree());
-							DebugLocation(195, 105);
+							DebugLocation(196, 105);
 							adaptor.AddChild(root_1, stream_expression_list_or_select_command.NextTree());
 
 							adaptor.AddChild(root_0, root_1);
@@ -5624,7 +5625,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("expression_7", 24);
 			LeaveRule_expression_7();
 	    }
-	 	DebugLocation(197, 1);
+	 	DebugLocation(198, 1);
 		} finally { DebugExitRule(GrammarFileName, "expression_7"); }
 		return retval;
 
@@ -5638,7 +5639,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_op_7() {}
 
 	// $ANTLR start "op_7"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:199:1: op_7 : ( OR -> T_OR | LIKE -> T_LIKE | NOT WS LIKE -> T_NOTLIKE | MATCH -> T_MATCH | NOT WS MATCH -> T_NOTMATCH | BETWEEN -> T_BETWEEN | NOT WS BETWEEN -> T_NOTBETWEEN );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:200:1: op_7 : ( OR -> T_OR | LIKE -> T_LIKE | NOT WS LIKE -> T_NOTLIKE | MATCH -> T_MATCH | NOT WS MATCH -> T_NOTMATCH | BETWEEN -> T_BETWEEN | NOT WS BETWEEN -> T_NOTBETWEEN );
 	[GrammarRule("op_7")]
 	private AstParserRuleReturnScope<object, IToken> op_7()
 	{
@@ -5685,10 +5686,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleITokenStream stream_OR=new RewriteRuleITokenStream(adaptor,"token OR");
 
 		try { DebugEnterRule(GrammarFileName, "op_7");
-		DebugLocation(199, 1);
+		DebugLocation(200, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:199:6: ( OR -> T_OR | LIKE -> T_LIKE | NOT WS LIKE -> T_NOTLIKE | MATCH -> T_MATCH | NOT WS MATCH -> T_NOTMATCH | BETWEEN -> T_BETWEEN | NOT WS BETWEEN -> T_NOTBETWEEN )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:200:6: ( OR -> T_OR | LIKE -> T_LIKE | NOT WS LIKE -> T_NOTLIKE | MATCH -> T_MATCH | NOT WS MATCH -> T_NOTMATCH | BETWEEN -> T_BETWEEN | NOT WS BETWEEN -> T_NOTBETWEEN )
 			int alt54=7;
 			try { DebugEnterDecision(54, decisionCanBacktrack[54]);
 			switch (input.LA(1))
@@ -5766,10 +5767,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:199:8: OR
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:200:8: OR
 				{
-				DebugLocation(199, 8);
-				OR131=(IToken)Match(input,OR,Follow._OR_in_op_71184);  
+				DebugLocation(200, 8);
+				OR131=(IToken)Match(input,OR,Follow._OR_in_op_71188);  
 				stream_OR.Add(OR131);
 
 
@@ -5786,9 +5787,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 199:11: -> T_OR
+				// 200:11: -> T_OR
 				{
-					DebugLocation(199, 14);
+					DebugLocation(200, 14);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_OR, "T_OR"));
 
 				}
@@ -5800,10 +5801,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:200:4: LIKE
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:201:4: LIKE
 				{
-				DebugLocation(200, 4);
-				LIKE132=(IToken)Match(input,LIKE,Follow._LIKE_in_op_71193);  
+				DebugLocation(201, 4);
+				LIKE132=(IToken)Match(input,LIKE,Follow._LIKE_in_op_71197);  
 				stream_LIKE.Add(LIKE132);
 
 
@@ -5820,9 +5821,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 200:9: -> T_LIKE
+				// 201:9: -> T_LIKE
 				{
-					DebugLocation(200, 12);
+					DebugLocation(201, 12);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_LIKE, "T_LIKE"));
 
 				}
@@ -5834,18 +5835,18 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 3:
 				DebugEnterAlt(3);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:201:4: NOT WS LIKE
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:202:4: NOT WS LIKE
 				{
-				DebugLocation(201, 4);
-				NOT133=(IToken)Match(input,NOT,Follow._NOT_in_op_71202);  
+				DebugLocation(202, 4);
+				NOT133=(IToken)Match(input,NOT,Follow._NOT_in_op_71206);  
 				stream_NOT.Add(NOT133);
 
-				DebugLocation(201, 8);
-				WS134=(IToken)Match(input,WS,Follow._WS_in_op_71204);  
+				DebugLocation(202, 8);
+				WS134=(IToken)Match(input,WS,Follow._WS_in_op_71208);  
 				stream_WS.Add(WS134);
 
-				DebugLocation(201, 11);
-				LIKE135=(IToken)Match(input,LIKE,Follow._LIKE_in_op_71206);  
+				DebugLocation(202, 11);
+				LIKE135=(IToken)Match(input,LIKE,Follow._LIKE_in_op_71210);  
 				stream_LIKE.Add(LIKE135);
 
 
@@ -5862,9 +5863,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 201:16: -> T_NOTLIKE
+				// 202:16: -> T_NOTLIKE
 				{
-					DebugLocation(201, 19);
+					DebugLocation(202, 19);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_NOTLIKE, "T_NOTLIKE"));
 
 				}
@@ -5876,10 +5877,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 4:
 				DebugEnterAlt(4);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:202:4: MATCH
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:203:4: MATCH
 				{
-				DebugLocation(202, 4);
-				MATCH136=(IToken)Match(input,MATCH,Follow._MATCH_in_op_71215);  
+				DebugLocation(203, 4);
+				MATCH136=(IToken)Match(input,MATCH,Follow._MATCH_in_op_71219);  
 				stream_MATCH.Add(MATCH136);
 
 
@@ -5896,9 +5897,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 202:10: -> T_MATCH
+				// 203:10: -> T_MATCH
 				{
-					DebugLocation(202, 13);
+					DebugLocation(203, 13);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_MATCH, "T_MATCH"));
 
 				}
@@ -5910,18 +5911,18 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 5:
 				DebugEnterAlt(5);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:203:4: NOT WS MATCH
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:204:4: NOT WS MATCH
 				{
-				DebugLocation(203, 4);
-				NOT137=(IToken)Match(input,NOT,Follow._NOT_in_op_71224);  
+				DebugLocation(204, 4);
+				NOT137=(IToken)Match(input,NOT,Follow._NOT_in_op_71228);  
 				stream_NOT.Add(NOT137);
 
-				DebugLocation(203, 8);
-				WS138=(IToken)Match(input,WS,Follow._WS_in_op_71226);  
+				DebugLocation(204, 8);
+				WS138=(IToken)Match(input,WS,Follow._WS_in_op_71230);  
 				stream_WS.Add(WS138);
 
-				DebugLocation(203, 11);
-				MATCH139=(IToken)Match(input,MATCH,Follow._MATCH_in_op_71228);  
+				DebugLocation(204, 11);
+				MATCH139=(IToken)Match(input,MATCH,Follow._MATCH_in_op_71232);  
 				stream_MATCH.Add(MATCH139);
 
 
@@ -5938,9 +5939,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 203:17: -> T_NOTMATCH
+				// 204:17: -> T_NOTMATCH
 				{
-					DebugLocation(203, 20);
+					DebugLocation(204, 20);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_NOTMATCH, "T_NOTMATCH"));
 
 				}
@@ -5952,10 +5953,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 6:
 				DebugEnterAlt(6);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:204:4: BETWEEN
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:205:4: BETWEEN
 				{
-				DebugLocation(204, 4);
-				BETWEEN140=(IToken)Match(input,BETWEEN,Follow._BETWEEN_in_op_71237);  
+				DebugLocation(205, 4);
+				BETWEEN140=(IToken)Match(input,BETWEEN,Follow._BETWEEN_in_op_71241);  
 				stream_BETWEEN.Add(BETWEEN140);
 
 
@@ -5972,9 +5973,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 204:12: -> T_BETWEEN
+				// 205:12: -> T_BETWEEN
 				{
-					DebugLocation(204, 15);
+					DebugLocation(205, 15);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_BETWEEN, "T_BETWEEN"));
 
 				}
@@ -5986,18 +5987,18 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 7:
 				DebugEnterAlt(7);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:205:4: NOT WS BETWEEN
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:206:4: NOT WS BETWEEN
 				{
-				DebugLocation(205, 4);
-				NOT141=(IToken)Match(input,NOT,Follow._NOT_in_op_71246);  
+				DebugLocation(206, 4);
+				NOT141=(IToken)Match(input,NOT,Follow._NOT_in_op_71250);  
 				stream_NOT.Add(NOT141);
 
-				DebugLocation(205, 8);
-				WS142=(IToken)Match(input,WS,Follow._WS_in_op_71248);  
+				DebugLocation(206, 8);
+				WS142=(IToken)Match(input,WS,Follow._WS_in_op_71252);  
 				stream_WS.Add(WS142);
 
-				DebugLocation(205, 11);
-				BETWEEN143=(IToken)Match(input,BETWEEN,Follow._BETWEEN_in_op_71250);  
+				DebugLocation(206, 11);
+				BETWEEN143=(IToken)Match(input,BETWEEN,Follow._BETWEEN_in_op_71254);  
 				stream_BETWEEN.Add(BETWEEN143);
 
 
@@ -6014,9 +6015,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 205:19: -> T_NOTBETWEEN
+				// 206:19: -> T_NOTBETWEEN
 				{
-					DebugLocation(205, 22);
+					DebugLocation(206, 22);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_NOTBETWEEN, "T_NOTBETWEEN"));
 
 				}
@@ -6047,7 +6048,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("op_7", 25);
 			LeaveRule_op_7();
 	    }
-	 	DebugLocation(206, 1);
+	 	DebugLocation(207, 1);
 		} finally { DebugExitRule(GrammarFileName, "op_7"); }
 		return retval;
 
@@ -6061,7 +6062,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_expression_6() {}
 
 	// $ANTLR start "expression_6"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:208:1: expression_6 : (a= expression_5 -> $a) ( WS op_6 WS b= expression_5 -> ^( T_OP_BINARY op_6 $expression_6 $b) )* ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:209:1: expression_6 : (a= expression_5 -> $a) ( WS op_6 WS b= expression_5 -> ^( T_OP_BINARY op_6 $expression_6 $b) )* ;
 	[GrammarRule("expression_6")]
 	private AstParserRuleReturnScope<object, IToken> expression_6()
 	{
@@ -6085,20 +6086,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleSubtreeStream stream_op_6=new RewriteRuleSubtreeStream(adaptor,"rule op_6");
 	    RewriteRuleSubtreeStream stream_expression_5=new RewriteRuleSubtreeStream(adaptor,"rule expression_5");
 		try { DebugEnterRule(GrammarFileName, "expression_6");
-		DebugLocation(208, 1);
+		DebugLocation(209, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:209:2: ( (a= expression_5 -> $a) ( WS op_6 WS b= expression_5 -> ^( T_OP_BINARY op_6 $expression_6 $b) )* )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:210:2: ( (a= expression_5 -> $a) ( WS op_6 WS b= expression_5 -> ^( T_OP_BINARY op_6 $expression_6 $b) )* )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:209:4: (a= expression_5 -> $a) ( WS op_6 WS b= expression_5 -> ^( T_OP_BINARY op_6 $expression_6 $b) )*
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:210:4: (a= expression_5 -> $a) ( WS op_6 WS b= expression_5 -> ^( T_OP_BINARY op_6 $expression_6 $b) )*
 			{
-			DebugLocation(209, 4);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:209:4: (a= expression_5 -> $a)
+			DebugLocation(210, 4);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:210:4: (a= expression_5 -> $a)
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:209:5: a= expression_5
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:210:5: a= expression_5
 			{
-			DebugLocation(209, 6);
-			PushFollow(Follow._expression_5_in_expression_61269);
+			DebugLocation(210, 6);
+			PushFollow(Follow._expression_5_in_expression_61273);
 			a=expression_5();
 			PopFollow();
 
@@ -6118,9 +6119,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_a=new RewriteRuleSubtreeStream(adaptor,"rule a",a!=null?a.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 209:19: -> $a
+			// 210:19: -> $a
 			{
-				DebugLocation(209, 22);
+				DebugLocation(210, 22);
 				adaptor.AddChild(root_0, stream_a.NextTree());
 
 			}
@@ -6130,8 +6131,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			}
 
-			DebugLocation(209, 25);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:209:25: ( WS op_6 WS b= expression_5 -> ^( T_OP_BINARY op_6 $expression_6 $b) )*
+			DebugLocation(210, 25);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:210:25: ( WS op_6 WS b= expression_5 -> ^( T_OP_BINARY op_6 $expression_6 $b) )*
 			try { DebugEnterSubRule(55);
 			while (true)
 			{
@@ -6157,24 +6158,24 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:209:26: WS op_6 WS b= expression_5
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:210:26: WS op_6 WS b= expression_5
 					{
-					DebugLocation(209, 26);
-					WS144=(IToken)Match(input,WS,Follow._WS_in_expression_61276);  
+					DebugLocation(210, 26);
+					WS144=(IToken)Match(input,WS,Follow._WS_in_expression_61280);  
 					stream_WS.Add(WS144);
 
-					DebugLocation(209, 29);
-					PushFollow(Follow._op_6_in_expression_61278);
+					DebugLocation(210, 29);
+					PushFollow(Follow._op_6_in_expression_61282);
 					op_6145=op_6();
 					PopFollow();
 
 					stream_op_6.Add(op_6145.Tree);
-					DebugLocation(209, 34);
-					WS146=(IToken)Match(input,WS,Follow._WS_in_expression_61280);  
+					DebugLocation(210, 34);
+					WS146=(IToken)Match(input,WS,Follow._WS_in_expression_61284);  
 					stream_WS.Add(WS146);
 
-					DebugLocation(209, 38);
-					PushFollow(Follow._expression_5_in_expression_61284);
+					DebugLocation(210, 38);
+					PushFollow(Follow._expression_5_in_expression_61288);
 					b=expression_5();
 					PopFollow();
 
@@ -6183,7 +6184,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 					{
 					// AST REWRITE
-					// elements: b, op_6, expression_6
+					// elements: expression_6, op_6, b
 					// token labels: 
 					// rule labels: retval, b
 					// token list labels: 
@@ -6194,20 +6195,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					RewriteRuleSubtreeStream stream_b=new RewriteRuleSubtreeStream(adaptor,"rule b",b!=null?b.Tree:null);
 
 					root_0 = (object)adaptor.Nil();
-					// 209:52: -> ^( T_OP_BINARY op_6 $expression_6 $b)
+					// 210:52: -> ^( T_OP_BINARY op_6 $expression_6 $b)
 					{
-						DebugLocation(209, 55);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:209:55: ^( T_OP_BINARY op_6 $expression_6 $b)
+						DebugLocation(210, 55);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:210:55: ^( T_OP_BINARY op_6 $expression_6 $b)
 						{
 						object root_1 = (object)adaptor.Nil();
-						DebugLocation(209, 57);
+						DebugLocation(210, 57);
 						root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_OP_BINARY, "T_OP_BINARY"), root_1);
 
-						DebugLocation(209, 69);
+						DebugLocation(210, 69);
 						adaptor.AddChild(root_1, stream_op_6.NextTree());
-						DebugLocation(209, 75);
+						DebugLocation(210, 75);
 						adaptor.AddChild(root_1, stream_retval.NextTree());
-						DebugLocation(209, 89);
+						DebugLocation(210, 89);
 						adaptor.AddChild(root_1, stream_b.NextTree());
 
 						adaptor.AddChild(root_0, root_1);
@@ -6253,7 +6254,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("expression_6", 26);
 			LeaveRule_expression_6();
 	    }
-	 	DebugLocation(210, 1);
+	 	DebugLocation(211, 1);
 		} finally { DebugExitRule(GrammarFileName, "expression_6"); }
 		return retval;
 
@@ -6267,7 +6268,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_op_6() {}
 
 	// $ANTLR start "op_6"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:212:1: op_6 : AND -> T_AND ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:213:1: op_6 : AND -> T_AND ;
 	[GrammarRule("op_6")]
 	private AstParserRuleReturnScope<object, IToken> op_6()
 	{
@@ -6285,15 +6286,15 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleITokenStream stream_AND=new RewriteRuleITokenStream(adaptor,"token AND");
 
 		try { DebugEnterRule(GrammarFileName, "op_6");
-		DebugLocation(212, 1);
+		DebugLocation(213, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:212:6: ( AND -> T_AND )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:213:6: ( AND -> T_AND )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:212:8: AND
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:213:8: AND
 			{
-			DebugLocation(212, 8);
-			AND147=(IToken)Match(input,AND,Follow._AND_in_op_61312);  
+			DebugLocation(213, 8);
+			AND147=(IToken)Match(input,AND,Follow._AND_in_op_61316);  
 			stream_AND.Add(AND147);
 
 
@@ -6310,9 +6311,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 212:12: -> T_AND
+			// 213:12: -> T_AND
 			{
-				DebugLocation(212, 15);
+				DebugLocation(213, 15);
 				adaptor.AddChild(root_0, (object)adaptor.Create(T_AND, "T_AND"));
 
 			}
@@ -6341,7 +6342,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("op_6", 27);
 			LeaveRule_op_6();
 	    }
-	 	DebugLocation(213, 1);
+	 	DebugLocation(214, 1);
 		} finally { DebugExitRule(GrammarFileName, "op_6"); }
 		return retval;
 
@@ -6355,7 +6356,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_expression_5() {}
 
 	// $ANTLR start "expression_5"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:215:1: expression_5 : ( op_5 WS expression_5 -> ^( T_OP_UNARY op_5 expression_5 ) | expression_4 );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:216:1: expression_5 : ( op_5 WS expression_5 -> ^( T_OP_UNARY op_5 expression_5 ) | expression_4 );
 	[GrammarRule("expression_5")]
 	private AstParserRuleReturnScope<object, IToken> expression_5()
 	{
@@ -6377,10 +6378,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleSubtreeStream stream_expression_5=new RewriteRuleSubtreeStream(adaptor,"rule expression_5");
 	    RewriteRuleSubtreeStream stream_op_5=new RewriteRuleSubtreeStream(adaptor,"rule op_5");
 		try { DebugEnterRule(GrammarFileName, "expression_5");
-		DebugLocation(215, 1);
+		DebugLocation(216, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:216:2: ( op_5 WS expression_5 -> ^( T_OP_UNARY op_5 expression_5 ) | expression_4 )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:217:2: ( op_5 WS expression_5 -> ^( T_OP_UNARY op_5 expression_5 ) | expression_4 )
 			int alt56=2;
 			try { DebugEnterDecision(56, decisionCanBacktrack[56]);
 			int LA56_0 = input.LA(1);
@@ -6389,7 +6390,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 				alt56 = 1;
 			}
-			else if ((LA56_0==CAST||LA56_0==CONVERT||LA56_0==EXISTS||LA56_0==NUMBER||(LA56_0>=STRING && LA56_0<=SYSTEMVAR)||LA56_0==TOKEN||LA56_0==119))
+			else if ((LA56_0==CAST||LA56_0==CONVERT||LA56_0==EXISTS||LA56_0==NUMBER||LA56_0==SIMPLE_FILE||(LA56_0>=STRING && LA56_0<=SYSTEMVAR)||LA56_0==TOKEN||LA56_0==120))
 			{
 				alt56 = 2;
 			}
@@ -6404,20 +6405,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:216:4: op_5 WS expression_5
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:217:4: op_5 WS expression_5
 				{
-				DebugLocation(216, 4);
-				PushFollow(Follow._op_5_in_expression_51330);
+				DebugLocation(217, 4);
+				PushFollow(Follow._op_5_in_expression_51334);
 				op_5148=op_5();
 				PopFollow();
 
 				stream_op_5.Add(op_5148.Tree);
-				DebugLocation(216, 9);
-				WS149=(IToken)Match(input,WS,Follow._WS_in_expression_51332);  
+				DebugLocation(217, 9);
+				WS149=(IToken)Match(input,WS,Follow._WS_in_expression_51336);  
 				stream_WS.Add(WS149);
 
-				DebugLocation(216, 12);
-				PushFollow(Follow._expression_5_in_expression_51334);
+				DebugLocation(217, 12);
+				PushFollow(Follow._expression_5_in_expression_51338);
 				expression_5150=expression_5();
 				PopFollow();
 
@@ -6436,18 +6437,18 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 216:25: -> ^( T_OP_UNARY op_5 expression_5 )
+				// 217:25: -> ^( T_OP_UNARY op_5 expression_5 )
 				{
-					DebugLocation(216, 28);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:216:28: ^( T_OP_UNARY op_5 expression_5 )
+					DebugLocation(217, 28);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:217:28: ^( T_OP_UNARY op_5 expression_5 )
 					{
 					object root_1 = (object)adaptor.Nil();
-					DebugLocation(216, 30);
+					DebugLocation(217, 30);
 					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_OP_UNARY, "T_OP_UNARY"), root_1);
 
-					DebugLocation(216, 41);
+					DebugLocation(217, 41);
 					adaptor.AddChild(root_1, stream_op_5.NextTree());
-					DebugLocation(216, 46);
+					DebugLocation(217, 46);
 					adaptor.AddChild(root_1, stream_expression_5.NextTree());
 
 					adaptor.AddChild(root_0, root_1);
@@ -6462,12 +6463,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:217:4: expression_4
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:218:4: expression_4
 				{
 				root_0 = (object)adaptor.Nil();
 
-				DebugLocation(217, 4);
-				PushFollow(Follow._expression_4_in_expression_51349);
+				DebugLocation(218, 4);
+				PushFollow(Follow._expression_4_in_expression_51353);
 				expression_4151=expression_4();
 				PopFollow();
 
@@ -6496,7 +6497,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("expression_5", 28);
 			LeaveRule_expression_5();
 	    }
-	 	DebugLocation(218, 1);
+	 	DebugLocation(219, 1);
 		} finally { DebugExitRule(GrammarFileName, "expression_5"); }
 		return retval;
 
@@ -6510,7 +6511,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_op_5() {}
 
 	// $ANTLR start "op_5"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:220:1: op_5 : NOT -> T_NOT ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:221:1: op_5 : NOT -> T_NOT ;
 	[GrammarRule("op_5")]
 	private AstParserRuleReturnScope<object, IToken> op_5()
 	{
@@ -6528,15 +6529,15 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleITokenStream stream_NOT=new RewriteRuleITokenStream(adaptor,"token NOT");
 
 		try { DebugEnterRule(GrammarFileName, "op_5");
-		DebugLocation(220, 1);
+		DebugLocation(221, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:220:7: ( NOT -> T_NOT )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:221:7: ( NOT -> T_NOT )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:220:9: NOT
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:221:9: NOT
 			{
-			DebugLocation(220, 9);
-			NOT152=(IToken)Match(input,NOT,Follow._NOT_in_op_51360);  
+			DebugLocation(221, 9);
+			NOT152=(IToken)Match(input,NOT,Follow._NOT_in_op_51364);  
 			stream_NOT.Add(NOT152);
 
 
@@ -6553,9 +6554,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 220:13: -> T_NOT
+			// 221:13: -> T_NOT
 			{
-				DebugLocation(220, 16);
+				DebugLocation(221, 16);
 				adaptor.AddChild(root_0, (object)adaptor.Create(T_NOT, "T_NOT"));
 
 			}
@@ -6584,7 +6585,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("op_5", 29);
 			LeaveRule_op_5();
 	    }
-	 	DebugLocation(221, 1);
+	 	DebugLocation(222, 1);
 		} finally { DebugExitRule(GrammarFileName, "op_5"); }
 		return retval;
 
@@ -6598,7 +6599,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_expression_4() {}
 
 	// $ANTLR start "expression_4"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:223:1: expression_4 : (a= expression_3 -> $a) ( ( WS )? op_4 ( WS )? b= expression_3 -> ^( T_OP_BINARY op_4 $expression_4 $b) )* ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:224:1: expression_4 : (a= expression_3 -> $a) ( ( WS )? op_4 ( WS )? b= expression_3 -> ^( T_OP_BINARY op_4 $expression_4 $b) )* ;
 	[GrammarRule("expression_4")]
 	private AstParserRuleReturnScope<object, IToken> expression_4()
 	{
@@ -6622,20 +6623,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleSubtreeStream stream_expression_3=new RewriteRuleSubtreeStream(adaptor,"rule expression_3");
 	    RewriteRuleSubtreeStream stream_op_4=new RewriteRuleSubtreeStream(adaptor,"rule op_4");
 		try { DebugEnterRule(GrammarFileName, "expression_4");
-		DebugLocation(223, 1);
+		DebugLocation(224, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:224:2: ( (a= expression_3 -> $a) ( ( WS )? op_4 ( WS )? b= expression_3 -> ^( T_OP_BINARY op_4 $expression_4 $b) )* )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:225:2: ( (a= expression_3 -> $a) ( ( WS )? op_4 ( WS )? b= expression_3 -> ^( T_OP_BINARY op_4 $expression_4 $b) )* )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:224:4: (a= expression_3 -> $a) ( ( WS )? op_4 ( WS )? b= expression_3 -> ^( T_OP_BINARY op_4 $expression_4 $b) )*
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:225:4: (a= expression_3 -> $a) ( ( WS )? op_4 ( WS )? b= expression_3 -> ^( T_OP_BINARY op_4 $expression_4 $b) )*
 			{
-			DebugLocation(224, 4);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:224:4: (a= expression_3 -> $a)
+			DebugLocation(225, 4);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:225:4: (a= expression_3 -> $a)
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:224:5: a= expression_3
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:225:5: a= expression_3
 			{
-			DebugLocation(224, 6);
-			PushFollow(Follow._expression_3_in_expression_41379);
+			DebugLocation(225, 6);
+			PushFollow(Follow._expression_3_in_expression_41383);
 			a=expression_3();
 			PopFollow();
 
@@ -6655,9 +6656,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_a=new RewriteRuleSubtreeStream(adaptor,"rule a",a!=null?a.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 224:19: -> $a
+			// 225:19: -> $a
 			{
-				DebugLocation(224, 22);
+				DebugLocation(225, 22);
 				adaptor.AddChild(root_0, stream_a.NextTree());
 
 			}
@@ -6667,8 +6668,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			}
 
-			DebugLocation(224, 25);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:224:25: ( ( WS )? op_4 ( WS )? b= expression_3 -> ^( T_OP_BINARY op_4 $expression_4 $b) )*
+			DebugLocation(225, 25);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:225:25: ( ( WS )? op_4 ( WS )? b= expression_3 -> ^( T_OP_BINARY op_4 $expression_4 $b) )*
 			try { DebugEnterSubRule(59);
 			while (true)
 			{
@@ -6680,7 +6681,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					switch (input.LA(2))
 					{
-					case 130:
+					case 131:
 						{
 						int LA59_4 = input.LA(3);
 
@@ -6688,14 +6689,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 							int LA59_13 = input.LA(4);
 
-							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==119))
+							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||LA59_13==SIMPLE_FILE||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==120))
 							{
 								alt59 = 1;
 							}
 
 
 						}
-						else if ((LA59_4==CAST||LA59_4==CONVERT||LA59_4==EXISTS||LA59_4==NUMBER||(LA59_4>=STRING && LA59_4<=SYSTEMVAR)||LA59_4==TOKEN||LA59_4==119))
+						else if ((LA59_4==CAST||LA59_4==CONVERT||LA59_4==EXISTS||LA59_4==NUMBER||LA59_4==SIMPLE_FILE||(LA59_4>=STRING && LA59_4<=SYSTEMVAR)||LA59_4==TOKEN||LA59_4==120))
 						{
 							alt59 = 1;
 						}
@@ -6703,7 +6704,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 132:
+					case 133:
 						{
 						int LA59_5 = input.LA(3);
 
@@ -6711,37 +6712,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 							int LA59_13 = input.LA(4);
 
-							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==119))
+							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||LA59_13==SIMPLE_FILE||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==120))
 							{
 								alt59 = 1;
 							}
 
 
 						}
-						else if ((LA59_5==CAST||LA59_5==CONVERT||LA59_5==EXISTS||LA59_5==NUMBER||(LA59_5>=STRING && LA59_5<=SYSTEMVAR)||LA59_5==TOKEN||LA59_5==119))
-						{
-							alt59 = 1;
-						}
-
-
-						}
-						break;
-					case 128:
-						{
-						int LA59_6 = input.LA(3);
-
-						if ((LA59_6==WS))
-						{
-							int LA59_13 = input.LA(4);
-
-							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==119))
-							{
-								alt59 = 1;
-							}
-
-
-						}
-						else if ((LA59_6==CAST||LA59_6==CONVERT||LA59_6==EXISTS||LA59_6==NUMBER||(LA59_6>=STRING && LA59_6<=SYSTEMVAR)||LA59_6==TOKEN||LA59_6==119))
+						else if ((LA59_5==CAST||LA59_5==CONVERT||LA59_5==EXISTS||LA59_5==NUMBER||LA59_5==SIMPLE_FILE||(LA59_5>=STRING && LA59_5<=SYSTEMVAR)||LA59_5==TOKEN||LA59_5==120))
 						{
 							alt59 = 1;
 						}
@@ -6751,20 +6729,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						break;
 					case 129:
 						{
-						int LA59_7 = input.LA(3);
+						int LA59_6 = input.LA(3);
 
-						if ((LA59_7==WS))
+						if ((LA59_6==WS))
 						{
 							int LA59_13 = input.LA(4);
 
-							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==119))
+							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||LA59_13==SIMPLE_FILE||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==120))
 							{
 								alt59 = 1;
 							}
 
 
 						}
-						else if ((LA59_7==CAST||LA59_7==CONVERT||LA59_7==EXISTS||LA59_7==NUMBER||(LA59_7>=STRING && LA59_7<=SYSTEMVAR)||LA59_7==TOKEN||LA59_7==119))
+						else if ((LA59_6==CAST||LA59_6==CONVERT||LA59_6==EXISTS||LA59_6==NUMBER||LA59_6==SIMPLE_FILE||(LA59_6>=STRING && LA59_6<=SYSTEMVAR)||LA59_6==TOKEN||LA59_6==120))
 						{
 							alt59 = 1;
 						}
@@ -6772,22 +6750,22 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 115:
+					case 130:
 						{
-						int LA59_8 = input.LA(3);
+						int LA59_7 = input.LA(3);
 
-						if ((LA59_8==WS))
+						if ((LA59_7==WS))
 						{
 							int LA59_13 = input.LA(4);
 
-							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==119))
+							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||LA59_13==SIMPLE_FILE||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==120))
 							{
 								alt59 = 1;
 							}
 
 
 						}
-						else if ((LA59_8==CAST||LA59_8==CONVERT||LA59_8==EXISTS||LA59_8==NUMBER||(LA59_8>=STRING && LA59_8<=SYSTEMVAR)||LA59_8==TOKEN||LA59_8==119))
+						else if ((LA59_7==CAST||LA59_7==CONVERT||LA59_7==EXISTS||LA59_7==NUMBER||LA59_7==SIMPLE_FILE||(LA59_7>=STRING && LA59_7<=SYSTEMVAR)||LA59_7==TOKEN||LA59_7==120))
 						{
 							alt59 = 1;
 						}
@@ -6797,20 +6775,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						break;
 					case 116:
 						{
-						int LA59_9 = input.LA(3);
+						int LA59_8 = input.LA(3);
 
-						if ((LA59_9==WS))
+						if ((LA59_8==WS))
 						{
 							int LA59_13 = input.LA(4);
 
-							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==119))
+							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||LA59_13==SIMPLE_FILE||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==120))
 							{
 								alt59 = 1;
 							}
 
 
 						}
-						else if ((LA59_9==CAST||LA59_9==CONVERT||LA59_9==EXISTS||LA59_9==NUMBER||(LA59_9>=STRING && LA59_9<=SYSTEMVAR)||LA59_9==TOKEN||LA59_9==119))
+						else if ((LA59_8==CAST||LA59_8==CONVERT||LA59_8==EXISTS||LA59_8==NUMBER||LA59_8==SIMPLE_FILE||(LA59_8>=STRING && LA59_8<=SYSTEMVAR)||LA59_8==TOKEN||LA59_8==120))
 						{
 							alt59 = 1;
 						}
@@ -6818,7 +6796,30 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 114:
+					case 117:
+						{
+						int LA59_9 = input.LA(3);
+
+						if ((LA59_9==WS))
+						{
+							int LA59_13 = input.LA(4);
+
+							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||LA59_13==SIMPLE_FILE||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==120))
+							{
+								alt59 = 1;
+							}
+
+
+						}
+						else if ((LA59_9==CAST||LA59_9==CONVERT||LA59_9==EXISTS||LA59_9==NUMBER||LA59_9==SIMPLE_FILE||(LA59_9>=STRING && LA59_9<=SYSTEMVAR)||LA59_9==TOKEN||LA59_9==120))
+						{
+							alt59 = 1;
+						}
+
+
+						}
+						break;
+					case 115:
 						{
 						int LA59_10 = input.LA(3);
 
@@ -6826,14 +6827,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 							int LA59_13 = input.LA(4);
 
-							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==119))
+							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||LA59_13==SIMPLE_FILE||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==120))
 							{
 								alt59 = 1;
 							}
 
 
 						}
-						else if ((LA59_10==CAST||LA59_10==CONVERT||LA59_10==EXISTS||LA59_10==NUMBER||(LA59_10>=STRING && LA59_10<=SYSTEMVAR)||LA59_10==TOKEN||LA59_10==119))
+						else if ((LA59_10==CAST||LA59_10==CONVERT||LA59_10==EXISTS||LA59_10==NUMBER||LA59_10==SIMPLE_FILE||(LA59_10>=STRING && LA59_10<=SYSTEMVAR)||LA59_10==TOKEN||LA59_10==120))
 						{
 							alt59 = 1;
 						}
@@ -6841,7 +6842,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 131:
+					case 132:
 						{
 						int LA59_11 = input.LA(3);
 
@@ -6849,14 +6850,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 							int LA59_13 = input.LA(4);
 
-							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==119))
+							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||LA59_13==SIMPLE_FILE||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==120))
 							{
 								alt59 = 1;
 							}
 
 
 						}
-						else if ((LA59_11==CAST||LA59_11==CONVERT||LA59_11==EXISTS||LA59_11==NUMBER||(LA59_11>=STRING && LA59_11<=SYSTEMVAR)||LA59_11==TOKEN||LA59_11==119))
+						else if ((LA59_11==CAST||LA59_11==CONVERT||LA59_11==EXISTS||LA59_11==NUMBER||LA59_11==SIMPLE_FILE||(LA59_11>=STRING && LA59_11<=SYSTEMVAR)||LA59_11==TOKEN||LA59_11==120))
 						{
 							alt59 = 1;
 						}
@@ -6864,7 +6865,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 127:
+					case 128:
 						{
 						int LA59_12 = input.LA(3);
 
@@ -6872,14 +6873,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 							int LA59_13 = input.LA(4);
 
-							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==119))
+							if ((LA59_13==CAST||LA59_13==CONVERT||LA59_13==EXISTS||LA59_13==NUMBER||LA59_13==SIMPLE_FILE||(LA59_13>=STRING && LA59_13<=SYSTEMVAR)||LA59_13==TOKEN||LA59_13==120))
 							{
 								alt59 = 1;
 							}
 
 
 						}
-						else if ((LA59_12==CAST||LA59_12==CONVERT||LA59_12==EXISTS||LA59_12==NUMBER||(LA59_12>=STRING && LA59_12<=SYSTEMVAR)||LA59_12==TOKEN||LA59_12==119))
+						else if ((LA59_12==CAST||LA59_12==CONVERT||LA59_12==EXISTS||LA59_12==NUMBER||LA59_12==SIMPLE_FILE||(LA59_12>=STRING && LA59_12<=SYSTEMVAR)||LA59_12==TOKEN||LA59_12==120))
 						{
 							alt59 = 1;
 						}
@@ -6890,7 +6891,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 
 				}
-				else if (((LA59_0>=114 && LA59_0<=116)||(LA59_0>=127 && LA59_0<=132)))
+				else if (((LA59_0>=115 && LA59_0<=117)||(LA59_0>=128 && LA59_0<=133)))
 				{
 					alt59 = 1;
 				}
@@ -6901,10 +6902,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:224:26: ( WS )? op_4 ( WS )? b= expression_3
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:225:26: ( WS )? op_4 ( WS )? b= expression_3
 					{
-					DebugLocation(224, 26);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:224:26: ( WS )?
+					DebugLocation(225, 26);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:225:26: ( WS )?
 					int alt57=2;
 					try { DebugEnterSubRule(57);
 					try { DebugEnterDecision(57, decisionCanBacktrack[57]);
@@ -6919,10 +6920,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:224:26: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:225:26: WS
 						{
-						DebugLocation(224, 26);
-						WS153=(IToken)Match(input,WS,Follow._WS_in_expression_41386);  
+						DebugLocation(225, 26);
+						WS153=(IToken)Match(input,WS,Follow._WS_in_expression_41390);  
 						stream_WS.Add(WS153);
 
 
@@ -6932,14 +6933,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(57); }
 
-					DebugLocation(224, 30);
-					PushFollow(Follow._op_4_in_expression_41389);
+					DebugLocation(225, 30);
+					PushFollow(Follow._op_4_in_expression_41393);
 					op_4154=op_4();
 					PopFollow();
 
 					stream_op_4.Add(op_4154.Tree);
-					DebugLocation(224, 35);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:224:35: ( WS )?
+					DebugLocation(225, 35);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:225:35: ( WS )?
 					int alt58=2;
 					try { DebugEnterSubRule(58);
 					try { DebugEnterDecision(58, decisionCanBacktrack[58]);
@@ -6954,10 +6955,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:224:35: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:225:35: WS
 						{
-						DebugLocation(224, 35);
-						WS155=(IToken)Match(input,WS,Follow._WS_in_expression_41391);  
+						DebugLocation(225, 35);
+						WS155=(IToken)Match(input,WS,Follow._WS_in_expression_41395);  
 						stream_WS.Add(WS155);
 
 
@@ -6967,8 +6968,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(58); }
 
-					DebugLocation(224, 40);
-					PushFollow(Follow._expression_3_in_expression_41396);
+					DebugLocation(225, 40);
+					PushFollow(Follow._expression_3_in_expression_41400);
 					b=expression_3();
 					PopFollow();
 
@@ -6977,7 +6978,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 					{
 					// AST REWRITE
-					// elements: b, expression_4, op_4
+					// elements: expression_4, b, op_4
 					// token labels: 
 					// rule labels: retval, b
 					// token list labels: 
@@ -6988,20 +6989,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					RewriteRuleSubtreeStream stream_b=new RewriteRuleSubtreeStream(adaptor,"rule b",b!=null?b.Tree:null);
 
 					root_0 = (object)adaptor.Nil();
-					// 224:54: -> ^( T_OP_BINARY op_4 $expression_4 $b)
+					// 225:54: -> ^( T_OP_BINARY op_4 $expression_4 $b)
 					{
-						DebugLocation(224, 57);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:224:57: ^( T_OP_BINARY op_4 $expression_4 $b)
+						DebugLocation(225, 57);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:225:57: ^( T_OP_BINARY op_4 $expression_4 $b)
 						{
 						object root_1 = (object)adaptor.Nil();
-						DebugLocation(224, 59);
+						DebugLocation(225, 59);
 						root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_OP_BINARY, "T_OP_BINARY"), root_1);
 
-						DebugLocation(224, 71);
+						DebugLocation(225, 71);
 						adaptor.AddChild(root_1, stream_op_4.NextTree());
-						DebugLocation(224, 77);
+						DebugLocation(225, 77);
 						adaptor.AddChild(root_1, stream_retval.NextTree());
-						DebugLocation(224, 91);
+						DebugLocation(225, 91);
 						adaptor.AddChild(root_1, stream_b.NextTree());
 
 						adaptor.AddChild(root_0, root_1);
@@ -7047,7 +7048,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("expression_4", 30);
 			LeaveRule_expression_4();
 	    }
-	 	DebugLocation(225, 1);
+	 	DebugLocation(226, 1);
 		} finally { DebugExitRule(GrammarFileName, "expression_4"); }
 		return retval;
 
@@ -7061,7 +7062,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_op_4() {}
 
 	// $ANTLR start "op_4"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:227:1: op_4 : ( '=' -> T_EQUAL | '>=' -> T_NOTLESS | '<=' -> T_NOTGREATER | '<>' -> T_NOTEQUAL | '!=' -> T_NOTEQUAL | '!>' -> T_NOTGREATER | '!<' -> T_NOTLESS | '>' -> T_GREATER | '<' -> T_LESS );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:228:1: op_4 : ( '=' -> T_EQUAL | '>=' -> T_NOTLESS | '<=' -> T_NOTGREATER | '<>' -> T_NOTEQUAL | '!=' -> T_NOTEQUAL | '!>' -> T_NOTGREATER | '!<' -> T_NOTLESS | '>' -> T_GREATER | '<' -> T_LESS );
 	[GrammarRule("op_4")]
 	private AstParserRuleReturnScope<object, IToken> op_4()
 	{
@@ -7093,65 +7094,65 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal163_tree = default(object);
 	    object char_literal164_tree = default(object);
 	    RewriteRuleITokenStream stream_116=new RewriteRuleITokenStream(adaptor,"token 116");
-	    RewriteRuleITokenStream stream_127=new RewriteRuleITokenStream(adaptor,"token 127");
-	    RewriteRuleITokenStream stream_114=new RewriteRuleITokenStream(adaptor,"token 114");
+	    RewriteRuleITokenStream stream_117=new RewriteRuleITokenStream(adaptor,"token 117");
 	    RewriteRuleITokenStream stream_132=new RewriteRuleITokenStream(adaptor,"token 132");
-	    RewriteRuleITokenStream stream_115=new RewriteRuleITokenStream(adaptor,"token 115");
 	    RewriteRuleITokenStream stream_128=new RewriteRuleITokenStream(adaptor,"token 128");
-	    RewriteRuleITokenStream stream_131=new RewriteRuleITokenStream(adaptor,"token 131");
+	    RewriteRuleITokenStream stream_115=new RewriteRuleITokenStream(adaptor,"token 115");
+	    RewriteRuleITokenStream stream_133=new RewriteRuleITokenStream(adaptor,"token 133");
 	    RewriteRuleITokenStream stream_129=new RewriteRuleITokenStream(adaptor,"token 129");
+	    RewriteRuleITokenStream stream_131=new RewriteRuleITokenStream(adaptor,"token 131");
 	    RewriteRuleITokenStream stream_130=new RewriteRuleITokenStream(adaptor,"token 130");
 
 		try { DebugEnterRule(GrammarFileName, "op_4");
-		DebugLocation(227, 1);
+		DebugLocation(228, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:227:6: ( '=' -> T_EQUAL | '>=' -> T_NOTLESS | '<=' -> T_NOTGREATER | '<>' -> T_NOTEQUAL | '!=' -> T_NOTEQUAL | '!>' -> T_NOTGREATER | '!<' -> T_NOTLESS | '>' -> T_GREATER | '<' -> T_LESS )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:228:6: ( '=' -> T_EQUAL | '>=' -> T_NOTLESS | '<=' -> T_NOTGREATER | '<>' -> T_NOTEQUAL | '!=' -> T_NOTEQUAL | '!>' -> T_NOTGREATER | '!<' -> T_NOTLESS | '>' -> T_GREATER | '<' -> T_LESS )
 			int alt60=9;
 			try { DebugEnterDecision(60, decisionCanBacktrack[60]);
 			switch (input.LA(1))
 			{
-			case 130:
+			case 131:
 				{
 				alt60 = 1;
 				}
 				break;
-			case 132:
+			case 133:
 				{
 				alt60 = 2;
 				}
 				break;
-			case 128:
+			case 129:
 				{
 				alt60 = 3;
 				}
 				break;
-			case 129:
+			case 130:
 				{
 				alt60 = 4;
 				}
 				break;
-			case 115:
+			case 116:
 				{
 				alt60 = 5;
 				}
 				break;
-			case 116:
+			case 117:
 				{
 				alt60 = 6;
 				}
 				break;
-			case 114:
+			case 115:
 				{
 				alt60 = 7;
 				}
 				break;
-			case 131:
+			case 132:
 				{
 				alt60 = 8;
 				}
 				break;
-			case 127:
+			case 128:
 				{
 				alt60 = 9;
 				}
@@ -7169,11 +7170,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:227:8: '='
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:228:8: '='
 				{
-				DebugLocation(227, 8);
-				char_literal156=(IToken)Match(input,130,Follow._130_in_op_41422);  
-				stream_130.Add(char_literal156);
+				DebugLocation(228, 8);
+				char_literal156=(IToken)Match(input,131,Follow._131_in_op_41426);  
+				stream_131.Add(char_literal156);
 
 
 
@@ -7189,9 +7190,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 227:12: -> T_EQUAL
+				// 228:12: -> T_EQUAL
 				{
-					DebugLocation(227, 15);
+					DebugLocation(228, 15);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_EQUAL, "T_EQUAL"));
 
 				}
@@ -7203,11 +7204,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:228:4: '>='
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:229:4: '>='
 				{
-				DebugLocation(228, 4);
-				string_literal157=(IToken)Match(input,132,Follow._132_in_op_41431);  
-				stream_132.Add(string_literal157);
+				DebugLocation(229, 4);
+				string_literal157=(IToken)Match(input,133,Follow._133_in_op_41435);  
+				stream_133.Add(string_literal157);
 
 
 
@@ -7223,9 +7224,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 228:9: -> T_NOTLESS
+				// 229:9: -> T_NOTLESS
 				{
-					DebugLocation(228, 12);
+					DebugLocation(229, 12);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_NOTLESS, "T_NOTLESS"));
 
 				}
@@ -7237,11 +7238,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 3:
 				DebugEnterAlt(3);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:229:4: '<='
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:230:4: '<='
 				{
-				DebugLocation(229, 4);
-				string_literal158=(IToken)Match(input,128,Follow._128_in_op_41441);  
-				stream_128.Add(string_literal158);
+				DebugLocation(230, 4);
+				string_literal158=(IToken)Match(input,129,Follow._129_in_op_41445);  
+				stream_129.Add(string_literal158);
 
 
 
@@ -7257,9 +7258,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 229:9: -> T_NOTGREATER
+				// 230:9: -> T_NOTGREATER
 				{
-					DebugLocation(229, 12);
+					DebugLocation(230, 12);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_NOTGREATER, "T_NOTGREATER"));
 
 				}
@@ -7271,45 +7272,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 4:
 				DebugEnterAlt(4);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:230:4: '<>'
-				{
-				DebugLocation(230, 4);
-				string_literal159=(IToken)Match(input,129,Follow._129_in_op_41451);  
-				stream_129.Add(string_literal159);
-
-
-
-				{
-				// AST REWRITE
-				// elements: 
-				// token labels: 
-				// rule labels: retval
-				// token list labels: 
-				// rule list labels: 
-				// wildcard labels: 
-				retval.Tree = root_0;
-				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
-
-				root_0 = (object)adaptor.Nil();
-				// 230:9: -> T_NOTEQUAL
-				{
-					DebugLocation(230, 12);
-					adaptor.AddChild(root_0, (object)adaptor.Create(T_NOTEQUAL, "T_NOTEQUAL"));
-
-				}
-
-				retval.Tree = root_0;
-				}
-
-				}
-				break;
-			case 5:
-				DebugEnterAlt(5);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:231:4: '!='
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:231:4: '<>'
 				{
 				DebugLocation(231, 4);
-				string_literal160=(IToken)Match(input,115,Follow._115_in_op_41460);  
-				stream_115.Add(string_literal160);
+				string_literal159=(IToken)Match(input,130,Follow._130_in_op_41455);  
+				stream_130.Add(string_literal159);
 
 
 
@@ -7337,13 +7304,13 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				}
 				break;
-			case 6:
-				DebugEnterAlt(6);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:232:4: '!>'
+			case 5:
+				DebugEnterAlt(5);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:232:4: '!='
 				{
 				DebugLocation(232, 4);
-				string_literal161=(IToken)Match(input,116,Follow._116_in_op_41469);  
-				stream_116.Add(string_literal161);
+				string_literal160=(IToken)Match(input,116,Follow._116_in_op_41464);  
+				stream_116.Add(string_literal160);
 
 
 
@@ -7359,9 +7326,43 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 232:9: -> T_NOTGREATER
+				// 232:9: -> T_NOTEQUAL
 				{
 					DebugLocation(232, 12);
+					adaptor.AddChild(root_0, (object)adaptor.Create(T_NOTEQUAL, "T_NOTEQUAL"));
+
+				}
+
+				retval.Tree = root_0;
+				}
+
+				}
+				break;
+			case 6:
+				DebugEnterAlt(6);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:233:4: '!>'
+				{
+				DebugLocation(233, 4);
+				string_literal161=(IToken)Match(input,117,Follow._117_in_op_41473);  
+				stream_117.Add(string_literal161);
+
+
+
+				{
+				// AST REWRITE
+				// elements: 
+				// token labels: 
+				// rule labels: retval
+				// token list labels: 
+				// rule list labels: 
+				// wildcard labels: 
+				retval.Tree = root_0;
+				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
+
+				root_0 = (object)adaptor.Nil();
+				// 233:9: -> T_NOTGREATER
+				{
+					DebugLocation(233, 12);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_NOTGREATER, "T_NOTGREATER"));
 
 				}
@@ -7373,11 +7374,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 7:
 				DebugEnterAlt(7);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:233:4: '!<'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:234:4: '!<'
 				{
-				DebugLocation(233, 4);
-				string_literal162=(IToken)Match(input,114,Follow._114_in_op_41478);  
-				stream_114.Add(string_literal162);
+				DebugLocation(234, 4);
+				string_literal162=(IToken)Match(input,115,Follow._115_in_op_41482);  
+				stream_115.Add(string_literal162);
 
 
 
@@ -7393,9 +7394,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 233:9: -> T_NOTLESS
+				// 234:9: -> T_NOTLESS
 				{
-					DebugLocation(233, 12);
+					DebugLocation(234, 12);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_NOTLESS, "T_NOTLESS"));
 
 				}
@@ -7407,11 +7408,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 8:
 				DebugEnterAlt(8);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:234:4: '>'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:235:4: '>'
 				{
-				DebugLocation(234, 4);
-				char_literal163=(IToken)Match(input,131,Follow._131_in_op_41487);  
-				stream_131.Add(char_literal163);
+				DebugLocation(235, 4);
+				char_literal163=(IToken)Match(input,132,Follow._132_in_op_41491);  
+				stream_132.Add(char_literal163);
 
 
 
@@ -7427,9 +7428,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 234:8: -> T_GREATER
+				// 235:8: -> T_GREATER
 				{
-					DebugLocation(234, 11);
+					DebugLocation(235, 11);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_GREATER, "T_GREATER"));
 
 				}
@@ -7441,11 +7442,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 9:
 				DebugEnterAlt(9);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:235:4: '<'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:236:4: '<'
 				{
-				DebugLocation(235, 4);
-				char_literal164=(IToken)Match(input,127,Follow._127_in_op_41497);  
-				stream_127.Add(char_literal164);
+				DebugLocation(236, 4);
+				char_literal164=(IToken)Match(input,128,Follow._128_in_op_41501);  
+				stream_128.Add(char_literal164);
 
 
 
@@ -7461,9 +7462,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 235:8: -> T_LESS
+				// 236:8: -> T_LESS
 				{
-					DebugLocation(235, 11);
+					DebugLocation(236, 11);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_LESS, "T_LESS"));
 
 				}
@@ -7494,7 +7495,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("op_4", 31);
 			LeaveRule_op_4();
 	    }
-	 	DebugLocation(236, 1);
+	 	DebugLocation(237, 1);
 		} finally { DebugExitRule(GrammarFileName, "op_4"); }
 		return retval;
 
@@ -7508,7 +7509,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_expression_3() {}
 
 	// $ANTLR start "expression_3"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:238:1: expression_3 : (a= expression_2 -> $a) ( ( WS )? op_3 ( WS )? b= expression_2 -> ^( T_OP_BINARY op_3 $expression_3 $b) )* ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:239:1: expression_3 : (a= expression_2 -> $a) ( ( WS )? op_3 ( WS )? b= expression_2 -> ^( T_OP_BINARY op_3 $expression_3 $b) )* ;
 	[GrammarRule("expression_3")]
 	private AstParserRuleReturnScope<object, IToken> expression_3()
 	{
@@ -7532,20 +7533,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleSubtreeStream stream_op_3=new RewriteRuleSubtreeStream(adaptor,"rule op_3");
 	    RewriteRuleSubtreeStream stream_expression_2=new RewriteRuleSubtreeStream(adaptor,"rule expression_2");
 		try { DebugEnterRule(GrammarFileName, "expression_3");
-		DebugLocation(238, 1);
+		DebugLocation(239, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:239:2: ( (a= expression_2 -> $a) ( ( WS )? op_3 ( WS )? b= expression_2 -> ^( T_OP_BINARY op_3 $expression_3 $b) )* )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:240:2: ( (a= expression_2 -> $a) ( ( WS )? op_3 ( WS )? b= expression_2 -> ^( T_OP_BINARY op_3 $expression_3 $b) )* )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:239:4: (a= expression_2 -> $a) ( ( WS )? op_3 ( WS )? b= expression_2 -> ^( T_OP_BINARY op_3 $expression_3 $b) )*
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:240:4: (a= expression_2 -> $a) ( ( WS )? op_3 ( WS )? b= expression_2 -> ^( T_OP_BINARY op_3 $expression_3 $b) )*
 			{
-			DebugLocation(239, 4);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:239:4: (a= expression_2 -> $a)
+			DebugLocation(240, 4);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:240:4: (a= expression_2 -> $a)
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:239:5: a= expression_2
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:240:5: a= expression_2
 			{
-			DebugLocation(239, 6);
-			PushFollow(Follow._expression_2_in_expression_31516);
+			DebugLocation(240, 6);
+			PushFollow(Follow._expression_2_in_expression_31520);
 			a=expression_2();
 			PopFollow();
 
@@ -7565,9 +7566,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_a=new RewriteRuleSubtreeStream(adaptor,"rule a",a!=null?a.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 239:19: -> $a
+			// 240:19: -> $a
 			{
-				DebugLocation(239, 22);
+				DebugLocation(240, 22);
 				adaptor.AddChild(root_0, stream_a.NextTree());
 
 			}
@@ -7577,8 +7578,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			}
 
-			DebugLocation(239, 25);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:239:25: ( ( WS )? op_3 ( WS )? b= expression_2 -> ^( T_OP_BINARY op_3 $expression_3 $b) )*
+			DebugLocation(240, 25);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:240:25: ( ( WS )? op_3 ( WS )? b= expression_2 -> ^( T_OP_BINARY op_3 $expression_3 $b) )*
 			try { DebugEnterSubRule(63);
 			while (true)
 			{
@@ -7590,14 +7591,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA63_1 = input.LA(2);
 
-					if ((LA63_1==118||LA63_1==122||LA63_1==124||(LA63_1>=135 && LA63_1<=136)))
+					if ((LA63_1==119||LA63_1==123||LA63_1==125||(LA63_1>=136 && LA63_1<=137)))
 					{
 						alt63 = 1;
 					}
 
 
 				}
-				else if ((LA63_0==118||LA63_0==122||LA63_0==124||(LA63_0>=135 && LA63_0<=136)))
+				else if ((LA63_0==119||LA63_0==123||LA63_0==125||(LA63_0>=136 && LA63_0<=137)))
 				{
 					alt63 = 1;
 				}
@@ -7608,10 +7609,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:239:26: ( WS )? op_3 ( WS )? b= expression_2
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:240:26: ( WS )? op_3 ( WS )? b= expression_2
 					{
-					DebugLocation(239, 26);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:239:26: ( WS )?
+					DebugLocation(240, 26);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:240:26: ( WS )?
 					int alt61=2;
 					try { DebugEnterSubRule(61);
 					try { DebugEnterDecision(61, decisionCanBacktrack[61]);
@@ -7626,10 +7627,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:239:26: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:240:26: WS
 						{
-						DebugLocation(239, 26);
-						WS165=(IToken)Match(input,WS,Follow._WS_in_expression_31523);  
+						DebugLocation(240, 26);
+						WS165=(IToken)Match(input,WS,Follow._WS_in_expression_31527);  
 						stream_WS.Add(WS165);
 
 
@@ -7639,14 +7640,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(61); }
 
-					DebugLocation(239, 30);
-					PushFollow(Follow._op_3_in_expression_31526);
+					DebugLocation(240, 30);
+					PushFollow(Follow._op_3_in_expression_31530);
 					op_3166=op_3();
 					PopFollow();
 
 					stream_op_3.Add(op_3166.Tree);
-					DebugLocation(239, 35);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:239:35: ( WS )?
+					DebugLocation(240, 35);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:240:35: ( WS )?
 					int alt62=2;
 					try { DebugEnterSubRule(62);
 					try { DebugEnterDecision(62, decisionCanBacktrack[62]);
@@ -7661,10 +7662,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:239:35: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:240:35: WS
 						{
-						DebugLocation(239, 35);
-						WS167=(IToken)Match(input,WS,Follow._WS_in_expression_31528);  
+						DebugLocation(240, 35);
+						WS167=(IToken)Match(input,WS,Follow._WS_in_expression_31532);  
 						stream_WS.Add(WS167);
 
 
@@ -7674,8 +7675,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(62); }
 
-					DebugLocation(239, 40);
-					PushFollow(Follow._expression_2_in_expression_31533);
+					DebugLocation(240, 40);
+					PushFollow(Follow._expression_2_in_expression_31537);
 					b=expression_2();
 					PopFollow();
 
@@ -7684,7 +7685,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 					{
 					// AST REWRITE
-					// elements: expression_3, b, op_3
+					// elements: op_3, expression_3, b
 					// token labels: 
 					// rule labels: retval, b
 					// token list labels: 
@@ -7695,20 +7696,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					RewriteRuleSubtreeStream stream_b=new RewriteRuleSubtreeStream(adaptor,"rule b",b!=null?b.Tree:null);
 
 					root_0 = (object)adaptor.Nil();
-					// 239:54: -> ^( T_OP_BINARY op_3 $expression_3 $b)
+					// 240:54: -> ^( T_OP_BINARY op_3 $expression_3 $b)
 					{
-						DebugLocation(239, 57);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:239:57: ^( T_OP_BINARY op_3 $expression_3 $b)
+						DebugLocation(240, 57);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:240:57: ^( T_OP_BINARY op_3 $expression_3 $b)
 						{
 						object root_1 = (object)adaptor.Nil();
-						DebugLocation(239, 59);
+						DebugLocation(240, 59);
 						root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_OP_BINARY, "T_OP_BINARY"), root_1);
 
-						DebugLocation(239, 71);
+						DebugLocation(240, 71);
 						adaptor.AddChild(root_1, stream_op_3.NextTree());
-						DebugLocation(239, 77);
+						DebugLocation(240, 77);
 						adaptor.AddChild(root_1, stream_retval.NextTree());
-						DebugLocation(239, 91);
+						DebugLocation(240, 91);
 						adaptor.AddChild(root_1, stream_b.NextTree());
 
 						adaptor.AddChild(root_0, root_1);
@@ -7754,7 +7755,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("expression_3", 32);
 			LeaveRule_expression_3();
 	    }
-	 	DebugLocation(240, 1);
+	 	DebugLocation(241, 1);
 		} finally { DebugExitRule(GrammarFileName, "expression_3"); }
 		return retval;
 
@@ -7768,7 +7769,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_op_3() {}
 
 	// $ANTLR start "op_3"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:242:1: op_3 : ( '+' -> T_PLUS | '-' -> T_MINUS | '&' -> T_BITWISE_AND | '|' -> T_BITWISE_OR | '^' -> T_BITWISE_XOR );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:243:1: op_3 : ( '+' -> T_PLUS | '-' -> T_MINUS | '&' -> T_BITWISE_AND | '|' -> T_BITWISE_OR | '^' -> T_BITWISE_XOR );
 	[GrammarRule("op_3")]
 	private AstParserRuleReturnScope<object, IToken> op_3()
 	{
@@ -7791,42 +7792,42 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal170_tree = default(object);
 	    object char_literal171_tree = default(object);
 	    object char_literal172_tree = default(object);
-	    RewriteRuleITokenStream stream_135=new RewriteRuleITokenStream(adaptor,"token 135");
-	    RewriteRuleITokenStream stream_122=new RewriteRuleITokenStream(adaptor,"token 122");
+	    RewriteRuleITokenStream stream_125=new RewriteRuleITokenStream(adaptor,"token 125");
 	    RewriteRuleITokenStream stream_136=new RewriteRuleITokenStream(adaptor,"token 136");
-	    RewriteRuleITokenStream stream_124=new RewriteRuleITokenStream(adaptor,"token 124");
-	    RewriteRuleITokenStream stream_118=new RewriteRuleITokenStream(adaptor,"token 118");
+	    RewriteRuleITokenStream stream_123=new RewriteRuleITokenStream(adaptor,"token 123");
+	    RewriteRuleITokenStream stream_137=new RewriteRuleITokenStream(adaptor,"token 137");
+	    RewriteRuleITokenStream stream_119=new RewriteRuleITokenStream(adaptor,"token 119");
 
 		try { DebugEnterRule(GrammarFileName, "op_3");
-		DebugLocation(242, 1);
+		DebugLocation(243, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:242:6: ( '+' -> T_PLUS | '-' -> T_MINUS | '&' -> T_BITWISE_AND | '|' -> T_BITWISE_OR | '^' -> T_BITWISE_XOR )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:243:6: ( '+' -> T_PLUS | '-' -> T_MINUS | '&' -> T_BITWISE_AND | '|' -> T_BITWISE_OR | '^' -> T_BITWISE_XOR )
 			int alt64=5;
 			try { DebugEnterDecision(64, decisionCanBacktrack[64]);
 			switch (input.LA(1))
 			{
-			case 122:
+			case 123:
 				{
 				alt64 = 1;
 				}
 				break;
-			case 124:
+			case 125:
 				{
 				alt64 = 2;
 				}
 				break;
-			case 118:
+			case 119:
 				{
 				alt64 = 3;
 				}
 				break;
-			case 136:
+			case 137:
 				{
 				alt64 = 4;
 				}
 				break;
-			case 135:
+			case 136:
 				{
 				alt64 = 5;
 				}
@@ -7844,11 +7845,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:242:8: '+'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:243:8: '+'
 				{
-				DebugLocation(242, 8);
-				char_literal168=(IToken)Match(input,122,Follow._122_in_op_31559);  
-				stream_122.Add(char_literal168);
+				DebugLocation(243, 8);
+				char_literal168=(IToken)Match(input,123,Follow._123_in_op_31563);  
+				stream_123.Add(char_literal168);
 
 
 
@@ -7864,9 +7865,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 242:12: -> T_PLUS
+				// 243:12: -> T_PLUS
 				{
-					DebugLocation(242, 15);
+					DebugLocation(243, 15);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_PLUS, "T_PLUS"));
 
 				}
@@ -7878,11 +7879,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:243:4: '-'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:244:4: '-'
 				{
-				DebugLocation(243, 4);
-				char_literal169=(IToken)Match(input,124,Follow._124_in_op_31568);  
-				stream_124.Add(char_literal169);
+				DebugLocation(244, 4);
+				char_literal169=(IToken)Match(input,125,Follow._125_in_op_31572);  
+				stream_125.Add(char_literal169);
 
 
 
@@ -7898,9 +7899,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 243:8: -> T_MINUS
+				// 244:8: -> T_MINUS
 				{
-					DebugLocation(243, 11);
+					DebugLocation(244, 11);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_MINUS, "T_MINUS"));
 
 				}
@@ -7912,11 +7913,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 3:
 				DebugEnterAlt(3);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:244:4: '&'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:245:4: '&'
 				{
-				DebugLocation(244, 4);
-				char_literal170=(IToken)Match(input,118,Follow._118_in_op_31577);  
-				stream_118.Add(char_literal170);
+				DebugLocation(245, 4);
+				char_literal170=(IToken)Match(input,119,Follow._119_in_op_31581);  
+				stream_119.Add(char_literal170);
 
 
 
@@ -7932,9 +7933,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 244:8: -> T_BITWISE_AND
+				// 245:8: -> T_BITWISE_AND
 				{
-					DebugLocation(244, 11);
+					DebugLocation(245, 11);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_BITWISE_AND, "T_BITWISE_AND"));
 
 				}
@@ -7946,11 +7947,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 4:
 				DebugEnterAlt(4);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:245:4: '|'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:246:4: '|'
 				{
-				DebugLocation(245, 4);
-				char_literal171=(IToken)Match(input,136,Follow._136_in_op_31586);  
-				stream_136.Add(char_literal171);
+				DebugLocation(246, 4);
+				char_literal171=(IToken)Match(input,137,Follow._137_in_op_31590);  
+				stream_137.Add(char_literal171);
 
 
 
@@ -7966,9 +7967,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 245:8: -> T_BITWISE_OR
+				// 246:8: -> T_BITWISE_OR
 				{
-					DebugLocation(245, 11);
+					DebugLocation(246, 11);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_BITWISE_OR, "T_BITWISE_OR"));
 
 				}
@@ -7980,11 +7981,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 5:
 				DebugEnterAlt(5);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:246:4: '^'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:247:4: '^'
 				{
-				DebugLocation(246, 4);
-				char_literal172=(IToken)Match(input,135,Follow._135_in_op_31595);  
-				stream_135.Add(char_literal172);
+				DebugLocation(247, 4);
+				char_literal172=(IToken)Match(input,136,Follow._136_in_op_31599);  
+				stream_136.Add(char_literal172);
 
 
 
@@ -8000,9 +8001,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 246:8: -> T_BITWISE_XOR
+				// 247:8: -> T_BITWISE_XOR
 				{
-					DebugLocation(246, 11);
+					DebugLocation(247, 11);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_BITWISE_XOR, "T_BITWISE_XOR"));
 
 				}
@@ -8033,7 +8034,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("op_3", 33);
 			LeaveRule_op_3();
 	    }
-	 	DebugLocation(247, 1);
+	 	DebugLocation(248, 1);
 		} finally { DebugExitRule(GrammarFileName, "op_3"); }
 		return retval;
 
@@ -8047,7 +8048,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_expression_2() {}
 
 	// $ANTLR start "expression_2"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:255:1: expression_2 : (a= expression_1 -> $a) ( ( WS )? op_2 ( WS )? b= expression_1 -> ^( T_OP_BINARY op_2 $expression_2 $b) )* ;
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:256:1: expression_2 : (a= expression_1 -> $a) ( ( WS )? op_2 ( WS )? b= expression_1 -> ^( T_OP_BINARY op_2 $expression_2 $b) )* ;
 	[GrammarRule("expression_2")]
 	private AstParserRuleReturnScope<object, IToken> expression_2()
 	{
@@ -8071,20 +8072,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleSubtreeStream stream_op_2=new RewriteRuleSubtreeStream(adaptor,"rule op_2");
 	    RewriteRuleSubtreeStream stream_expression_1=new RewriteRuleSubtreeStream(adaptor,"rule expression_1");
 		try { DebugEnterRule(GrammarFileName, "expression_2");
-		DebugLocation(255, 1);
+		DebugLocation(256, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:256:2: ( (a= expression_1 -> $a) ( ( WS )? op_2 ( WS )? b= expression_1 -> ^( T_OP_BINARY op_2 $expression_2 $b) )* )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:257:2: ( (a= expression_1 -> $a) ( ( WS )? op_2 ( WS )? b= expression_1 -> ^( T_OP_BINARY op_2 $expression_2 $b) )* )
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:256:4: (a= expression_1 -> $a) ( ( WS )? op_2 ( WS )? b= expression_1 -> ^( T_OP_BINARY op_2 $expression_2 $b) )*
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:257:4: (a= expression_1 -> $a) ( ( WS )? op_2 ( WS )? b= expression_1 -> ^( T_OP_BINARY op_2 $expression_2 $b) )*
 			{
-			DebugLocation(256, 4);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:256:4: (a= expression_1 -> $a)
+			DebugLocation(257, 4);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:257:4: (a= expression_1 -> $a)
 			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:256:5: a= expression_1
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:257:5: a= expression_1
 			{
-			DebugLocation(256, 6);
-			PushFollow(Follow._expression_1_in_expression_21617);
+			DebugLocation(257, 6);
+			PushFollow(Follow._expression_1_in_expression_21621);
 			a=expression_1();
 			PopFollow();
 
@@ -8104,9 +8105,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			RewriteRuleSubtreeStream stream_a=new RewriteRuleSubtreeStream(adaptor,"rule a",a!=null?a.Tree:null);
 
 			root_0 = (object)adaptor.Nil();
-			// 256:19: -> $a
+			// 257:19: -> $a
 			{
-				DebugLocation(256, 22);
+				DebugLocation(257, 22);
 				adaptor.AddChild(root_0, stream_a.NextTree());
 
 			}
@@ -8116,8 +8117,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			}
 
-			DebugLocation(256, 25);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:256:25: ( ( WS )? op_2 ( WS )? b= expression_1 -> ^( T_OP_BINARY op_2 $expression_2 $b) )*
+			DebugLocation(257, 25);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:257:25: ( ( WS )? op_2 ( WS )? b= expression_1 -> ^( T_OP_BINARY op_2 $expression_2 $b) )*
 			try { DebugEnterSubRule(67);
 			while (true)
 			{
@@ -8129,7 +8130,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA67_1 = input.LA(2);
 
-					if ((LA67_1==121))
+					if ((LA67_1==122))
 					{
 						int LA67_4 = input.LA(3);
 
@@ -8137,28 +8138,28 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 							int LA67_5 = input.LA(4);
 
-							if ((LA67_5==CAST||LA67_5==CONVERT||LA67_5==EXISTS||LA67_5==NUMBER||(LA67_5>=STRING && LA67_5<=SYSTEMVAR)||LA67_5==TOKEN||LA67_5==119))
+							if ((LA67_5==CAST||LA67_5==CONVERT||LA67_5==EXISTS||LA67_5==NUMBER||LA67_5==SIMPLE_FILE||(LA67_5>=STRING && LA67_5<=SYSTEMVAR)||LA67_5==TOKEN||LA67_5==120))
 							{
 								alt67 = 1;
 							}
 
 
 						}
-						else if ((LA67_4==CAST||LA67_4==CONVERT||LA67_4==EXISTS||LA67_4==NUMBER||(LA67_4>=STRING && LA67_4<=SYSTEMVAR)||LA67_4==TOKEN||LA67_4==119))
+						else if ((LA67_4==CAST||LA67_4==CONVERT||LA67_4==EXISTS||LA67_4==NUMBER||LA67_4==SIMPLE_FILE||(LA67_4>=STRING && LA67_4<=SYSTEMVAR)||LA67_4==TOKEN||LA67_4==120))
 						{
 							alt67 = 1;
 						}
 
 
 					}
-					else if ((LA67_1==117||LA67_1==125))
+					else if ((LA67_1==118||LA67_1==126))
 					{
 						alt67 = 1;
 					}
 
 
 				}
-				else if ((LA67_0==117||LA67_0==121||LA67_0==125))
+				else if ((LA67_0==118||LA67_0==122||LA67_0==126))
 				{
 					alt67 = 1;
 				}
@@ -8169,10 +8170,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:256:26: ( WS )? op_2 ( WS )? b= expression_1
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:257:26: ( WS )? op_2 ( WS )? b= expression_1
 					{
-					DebugLocation(256, 26);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:256:26: ( WS )?
+					DebugLocation(257, 26);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:257:26: ( WS )?
 					int alt65=2;
 					try { DebugEnterSubRule(65);
 					try { DebugEnterDecision(65, decisionCanBacktrack[65]);
@@ -8187,10 +8188,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:256:26: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:257:26: WS
 						{
-						DebugLocation(256, 26);
-						WS173=(IToken)Match(input,WS,Follow._WS_in_expression_21624);  
+						DebugLocation(257, 26);
+						WS173=(IToken)Match(input,WS,Follow._WS_in_expression_21628);  
 						stream_WS.Add(WS173);
 
 
@@ -8200,14 +8201,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(65); }
 
-					DebugLocation(256, 30);
-					PushFollow(Follow._op_2_in_expression_21627);
+					DebugLocation(257, 30);
+					PushFollow(Follow._op_2_in_expression_21631);
 					op_2174=op_2();
 					PopFollow();
 
 					stream_op_2.Add(op_2174.Tree);
-					DebugLocation(256, 35);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:256:35: ( WS )?
+					DebugLocation(257, 35);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:257:35: ( WS )?
 					int alt66=2;
 					try { DebugEnterSubRule(66);
 					try { DebugEnterDecision(66, decisionCanBacktrack[66]);
@@ -8222,10 +8223,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:256:35: WS
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:257:35: WS
 						{
-						DebugLocation(256, 35);
-						WS175=(IToken)Match(input,WS,Follow._WS_in_expression_21629);  
+						DebugLocation(257, 35);
+						WS175=(IToken)Match(input,WS,Follow._WS_in_expression_21633);  
 						stream_WS.Add(WS175);
 
 
@@ -8235,8 +8236,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					} finally { DebugExitSubRule(66); }
 
-					DebugLocation(256, 40);
-					PushFollow(Follow._expression_1_in_expression_21634);
+					DebugLocation(257, 40);
+					PushFollow(Follow._expression_1_in_expression_21638);
 					b=expression_1();
 					PopFollow();
 
@@ -8256,20 +8257,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					RewriteRuleSubtreeStream stream_b=new RewriteRuleSubtreeStream(adaptor,"rule b",b!=null?b.Tree:null);
 
 					root_0 = (object)adaptor.Nil();
-					// 256:54: -> ^( T_OP_BINARY op_2 $expression_2 $b)
+					// 257:54: -> ^( T_OP_BINARY op_2 $expression_2 $b)
 					{
-						DebugLocation(256, 57);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:256:57: ^( T_OP_BINARY op_2 $expression_2 $b)
+						DebugLocation(257, 57);
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:257:57: ^( T_OP_BINARY op_2 $expression_2 $b)
 						{
 						object root_1 = (object)adaptor.Nil();
-						DebugLocation(256, 59);
+						DebugLocation(257, 59);
 						root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_OP_BINARY, "T_OP_BINARY"), root_1);
 
-						DebugLocation(256, 71);
+						DebugLocation(257, 71);
 						adaptor.AddChild(root_1, stream_op_2.NextTree());
-						DebugLocation(256, 77);
+						DebugLocation(257, 77);
 						adaptor.AddChild(root_1, stream_retval.NextTree());
-						DebugLocation(256, 91);
+						DebugLocation(257, 91);
 						adaptor.AddChild(root_1, stream_b.NextTree());
 
 						adaptor.AddChild(root_0, root_1);
@@ -8315,7 +8316,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("expression_2", 34);
 			LeaveRule_expression_2();
 	    }
-	 	DebugLocation(257, 1);
+	 	DebugLocation(258, 1);
 		} finally { DebugExitRule(GrammarFileName, "expression_2"); }
 		return retval;
 
@@ -8329,7 +8330,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_op_2() {}
 
 	// $ANTLR start "op_2"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:259:1: op_2 : ( '*' -> T_PRODUCT | '/' -> T_DIVIDE | '%' -> T_MODULO );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:260:1: op_2 : ( '*' -> T_PRODUCT | '/' -> T_DIVIDE | '%' -> T_MODULO );
 	[GrammarRule("op_2")]
 	private AstParserRuleReturnScope<object, IToken> op_2()
 	{
@@ -8348,30 +8349,30 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal176_tree = default(object);
 	    object char_literal177_tree = default(object);
 	    object char_literal178_tree = default(object);
-	    RewriteRuleITokenStream stream_125=new RewriteRuleITokenStream(adaptor,"token 125");
-	    RewriteRuleITokenStream stream_117=new RewriteRuleITokenStream(adaptor,"token 117");
-	    RewriteRuleITokenStream stream_121=new RewriteRuleITokenStream(adaptor,"token 121");
+	    RewriteRuleITokenStream stream_126=new RewriteRuleITokenStream(adaptor,"token 126");
+	    RewriteRuleITokenStream stream_122=new RewriteRuleITokenStream(adaptor,"token 122");
+	    RewriteRuleITokenStream stream_118=new RewriteRuleITokenStream(adaptor,"token 118");
 
 		try { DebugEnterRule(GrammarFileName, "op_2");
-		DebugLocation(259, 1);
+		DebugLocation(260, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:259:6: ( '*' -> T_PRODUCT | '/' -> T_DIVIDE | '%' -> T_MODULO )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:260:6: ( '*' -> T_PRODUCT | '/' -> T_DIVIDE | '%' -> T_MODULO )
 			int alt68=3;
 			try { DebugEnterDecision(68, decisionCanBacktrack[68]);
 			switch (input.LA(1))
 			{
-			case 121:
+			case 122:
 				{
 				alt68 = 1;
 				}
 				break;
-			case 125:
+			case 126:
 				{
 				alt68 = 2;
 				}
 				break;
-			case 117:
+			case 118:
 				{
 				alt68 = 3;
 				}
@@ -8389,11 +8390,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:259:8: '*'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:260:8: '*'
 				{
-				DebugLocation(259, 8);
-				char_literal176=(IToken)Match(input,121,Follow._121_in_op_21660);  
-				stream_121.Add(char_literal176);
+				DebugLocation(260, 8);
+				char_literal176=(IToken)Match(input,122,Follow._122_in_op_21664);  
+				stream_122.Add(char_literal176);
 
 
 
@@ -8409,9 +8410,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 259:12: -> T_PRODUCT
+				// 260:12: -> T_PRODUCT
 				{
-					DebugLocation(259, 15);
+					DebugLocation(260, 15);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_PRODUCT, "T_PRODUCT"));
 
 				}
@@ -8423,11 +8424,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:260:4: '/'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:261:4: '/'
 				{
-				DebugLocation(260, 4);
-				char_literal177=(IToken)Match(input,125,Follow._125_in_op_21669);  
-				stream_125.Add(char_literal177);
+				DebugLocation(261, 4);
+				char_literal177=(IToken)Match(input,126,Follow._126_in_op_21673);  
+				stream_126.Add(char_literal177);
 
 
 
@@ -8443,9 +8444,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 260:8: -> T_DIVIDE
+				// 261:8: -> T_DIVIDE
 				{
-					DebugLocation(260, 11);
+					DebugLocation(261, 11);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_DIVIDE, "T_DIVIDE"));
 
 				}
@@ -8457,11 +8458,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 3:
 				DebugEnterAlt(3);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:261:4: '%'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:262:4: '%'
 				{
-				DebugLocation(261, 4);
-				char_literal178=(IToken)Match(input,117,Follow._117_in_op_21678);  
-				stream_117.Add(char_literal178);
+				DebugLocation(262, 4);
+				char_literal178=(IToken)Match(input,118,Follow._118_in_op_21682);  
+				stream_118.Add(char_literal178);
 
 
 
@@ -8477,9 +8478,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 261:8: -> T_MODULO
+				// 262:8: -> T_MODULO
 				{
-					DebugLocation(261, 11);
+					DebugLocation(262, 11);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_MODULO, "T_MODULO"));
 
 				}
@@ -8510,7 +8511,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("op_2", 35);
 			LeaveRule_op_2();
 	    }
-	 	DebugLocation(262, 1);
+	 	DebugLocation(263, 1);
 		} finally { DebugExitRule(GrammarFileName, "op_2"); }
 		return retval;
 
@@ -8524,7 +8525,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_expression_1() {}
 
 	// $ANTLR start "expression_1"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:264:1: expression_1 : ( '(' ( WS )? op_1 ( WS )? expression_1 ( WS )? ')' -> ^( T_OP_UNARY op_1 expression_1 ) | expression_atom );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:265:1: expression_1 : ( '(' ( WS )? op_1 ( WS )? expression_1 ( WS )? ')' -> ^( T_OP_UNARY op_1 expression_1 ) | expression_atom );
 	[GrammarRule("expression_1")]
 	private AstParserRuleReturnScope<object, IToken> expression_1()
 	{
@@ -8550,29 +8551,29 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS182_tree = default(object);
 	    object WS184_tree = default(object);
 	    object char_literal185_tree = default(object);
+	    RewriteRuleITokenStream stream_121=new RewriteRuleITokenStream(adaptor,"token 121");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleITokenStream stream_120=new RewriteRuleITokenStream(adaptor,"token 120");
-	    RewriteRuleITokenStream stream_119=new RewriteRuleITokenStream(adaptor,"token 119");
 	    RewriteRuleSubtreeStream stream_expression_1=new RewriteRuleSubtreeStream(adaptor,"rule expression_1");
 	    RewriteRuleSubtreeStream stream_op_1=new RewriteRuleSubtreeStream(adaptor,"rule op_1");
 		try { DebugEnterRule(GrammarFileName, "expression_1");
-		DebugLocation(264, 1);
+		DebugLocation(265, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:266:2: ( '(' ( WS )? op_1 ( WS )? expression_1 ( WS )? ')' -> ^( T_OP_UNARY op_1 expression_1 ) | expression_atom )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:267:2: ( '(' ( WS )? op_1 ( WS )? expression_1 ( WS )? ')' -> ^( T_OP_UNARY op_1 expression_1 ) | expression_atom )
 			int alt72=2;
 			try { DebugEnterDecision(72, decisionCanBacktrack[72]);
 			int LA72_0 = input.LA(1);
 
-			if ((LA72_0==119))
+			if ((LA72_0==120))
 			{
 				int LA72_1 = input.LA(2);
 
-				if ((LA72_1==WS||LA72_1==122||LA72_1==124||LA72_1==137))
+				if ((LA72_1==WS||LA72_1==123||LA72_1==125||LA72_1==138))
 				{
 					alt72 = 1;
 				}
-				else if ((LA72_1==CAST||LA72_1==CONVERT||LA72_1==EXISTS||(LA72_1>=NOT && LA72_1<=NUMBER)||(LA72_1>=STRING && LA72_1<=SYSTEMVAR)||LA72_1==TOKEN||LA72_1==119))
+				else if ((LA72_1==CAST||LA72_1==CONVERT||LA72_1==EXISTS||(LA72_1>=NOT && LA72_1<=NUMBER)||LA72_1==SIMPLE_FILE||(LA72_1>=STRING && LA72_1<=SYSTEMVAR)||LA72_1==TOKEN||LA72_1==120))
 				{
 					alt72 = 2;
 				}
@@ -8583,7 +8584,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					throw nvae;
 				}
 			}
-			else if ((LA72_0==CAST||LA72_0==CONVERT||LA72_0==EXISTS||LA72_0==NUMBER||(LA72_0>=STRING && LA72_0<=SYSTEMVAR)||LA72_0==TOKEN))
+			else if ((LA72_0==CAST||LA72_0==CONVERT||LA72_0==EXISTS||LA72_0==NUMBER||LA72_0==SIMPLE_FILE||(LA72_0>=STRING && LA72_0<=SYSTEMVAR)||LA72_0==TOKEN))
 			{
 				alt72 = 2;
 			}
@@ -8598,14 +8599,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:266:4: '(' ( WS )? op_1 ( WS )? expression_1 ( WS )? ')'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:267:4: '(' ( WS )? op_1 ( WS )? expression_1 ( WS )? ')'
 				{
-				DebugLocation(266, 4);
-				char_literal179=(IToken)Match(input,119,Follow._119_in_expression_11696);  
-				stream_119.Add(char_literal179);
+				DebugLocation(267, 4);
+				char_literal179=(IToken)Match(input,120,Follow._120_in_expression_11700);  
+				stream_120.Add(char_literal179);
 
-				DebugLocation(266, 8);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:266:8: ( WS )?
+				DebugLocation(267, 8);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:267:8: ( WS )?
 				int alt69=2;
 				try { DebugEnterSubRule(69);
 				try { DebugEnterDecision(69, decisionCanBacktrack[69]);
@@ -8620,10 +8621,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:266:8: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:267:8: WS
 					{
-					DebugLocation(266, 8);
-					WS180=(IToken)Match(input,WS,Follow._WS_in_expression_11698);  
+					DebugLocation(267, 8);
+					WS180=(IToken)Match(input,WS,Follow._WS_in_expression_11702);  
 					stream_WS.Add(WS180);
 
 
@@ -8633,14 +8634,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(69); }
 
-				DebugLocation(266, 12);
-				PushFollow(Follow._op_1_in_expression_11701);
+				DebugLocation(267, 12);
+				PushFollow(Follow._op_1_in_expression_11705);
 				op_1181=op_1();
 				PopFollow();
 
 				stream_op_1.Add(op_1181.Tree);
-				DebugLocation(266, 17);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:266:17: ( WS )?
+				DebugLocation(267, 17);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:267:17: ( WS )?
 				int alt70=2;
 				try { DebugEnterSubRule(70);
 				try { DebugEnterDecision(70, decisionCanBacktrack[70]);
@@ -8655,10 +8656,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:266:17: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:267:17: WS
 					{
-					DebugLocation(266, 17);
-					WS182=(IToken)Match(input,WS,Follow._WS_in_expression_11703);  
+					DebugLocation(267, 17);
+					WS182=(IToken)Match(input,WS,Follow._WS_in_expression_11707);  
 					stream_WS.Add(WS182);
 
 
@@ -8668,14 +8669,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(70); }
 
-				DebugLocation(266, 21);
-				PushFollow(Follow._expression_1_in_expression_11706);
+				DebugLocation(267, 21);
+				PushFollow(Follow._expression_1_in_expression_11710);
 				expression_1183=expression_1();
 				PopFollow();
 
 				stream_expression_1.Add(expression_1183.Tree);
-				DebugLocation(266, 34);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:266:34: ( WS )?
+				DebugLocation(267, 34);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:267:34: ( WS )?
 				int alt71=2;
 				try { DebugEnterSubRule(71);
 				try { DebugEnterDecision(71, decisionCanBacktrack[71]);
@@ -8690,10 +8691,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:266:34: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:267:34: WS
 					{
-					DebugLocation(266, 34);
-					WS184=(IToken)Match(input,WS,Follow._WS_in_expression_11708);  
+					DebugLocation(267, 34);
+					WS184=(IToken)Match(input,WS,Follow._WS_in_expression_11712);  
 					stream_WS.Add(WS184);
 
 
@@ -8703,9 +8704,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(71); }
 
-				DebugLocation(266, 38);
-				char_literal185=(IToken)Match(input,120,Follow._120_in_expression_11711);  
-				stream_120.Add(char_literal185);
+				DebugLocation(267, 38);
+				char_literal185=(IToken)Match(input,121,Follow._121_in_expression_11715);  
+				stream_121.Add(char_literal185);
 
 
 
@@ -8721,18 +8722,18 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 266:42: -> ^( T_OP_UNARY op_1 expression_1 )
+				// 267:42: -> ^( T_OP_UNARY op_1 expression_1 )
 				{
-					DebugLocation(266, 45);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:266:45: ^( T_OP_UNARY op_1 expression_1 )
+					DebugLocation(267, 45);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:267:45: ^( T_OP_UNARY op_1 expression_1 )
 					{
 					object root_1 = (object)adaptor.Nil();
-					DebugLocation(266, 47);
+					DebugLocation(267, 47);
 					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_OP_UNARY, "T_OP_UNARY"), root_1);
 
-					DebugLocation(266, 58);
+					DebugLocation(267, 58);
 					adaptor.AddChild(root_1, stream_op_1.NextTree());
-					DebugLocation(266, 63);
+					DebugLocation(267, 63);
 					adaptor.AddChild(root_1, stream_expression_1.NextTree());
 
 					adaptor.AddChild(root_0, root_1);
@@ -8747,12 +8748,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:268:4: expression_atom
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:269:4: expression_atom
 				{
 				root_0 = (object)adaptor.Nil();
 
-				DebugLocation(268, 4);
-				PushFollow(Follow._expression_atom_in_expression_11728);
+				DebugLocation(269, 4);
+				PushFollow(Follow._expression_atom_in_expression_11732);
 				expression_atom186=expression_atom();
 				PopFollow();
 
@@ -8781,7 +8782,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("expression_1", 36);
 			LeaveRule_expression_1();
 	    }
-	 	DebugLocation(269, 1);
+	 	DebugLocation(270, 1);
 		} finally { DebugExitRule(GrammarFileName, "expression_1"); }
 		return retval;
 
@@ -8795,7 +8796,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_op_1() {}
 
 	// $ANTLR start "op_1"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:271:1: op_1 : ( '~' -> T_BITWISE_NOT | '+' -> T_PLUS | '-' -> T_MINUS );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:272:1: op_1 : ( '~' -> T_BITWISE_NOT | '+' -> T_PLUS | '-' -> T_MINUS );
 	[GrammarRule("op_1")]
 	private AstParserRuleReturnScope<object, IToken> op_1()
 	{
@@ -8814,30 +8815,30 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal187_tree = default(object);
 	    object char_literal188_tree = default(object);
 	    object char_literal189_tree = default(object);
-	    RewriteRuleITokenStream stream_122=new RewriteRuleITokenStream(adaptor,"token 122");
-	    RewriteRuleITokenStream stream_124=new RewriteRuleITokenStream(adaptor,"token 124");
-	    RewriteRuleITokenStream stream_137=new RewriteRuleITokenStream(adaptor,"token 137");
+	    RewriteRuleITokenStream stream_125=new RewriteRuleITokenStream(adaptor,"token 125");
+	    RewriteRuleITokenStream stream_138=new RewriteRuleITokenStream(adaptor,"token 138");
+	    RewriteRuleITokenStream stream_123=new RewriteRuleITokenStream(adaptor,"token 123");
 
 		try { DebugEnterRule(GrammarFileName, "op_1");
-		DebugLocation(271, 1);
+		DebugLocation(272, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:271:6: ( '~' -> T_BITWISE_NOT | '+' -> T_PLUS | '-' -> T_MINUS )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:272:6: ( '~' -> T_BITWISE_NOT | '+' -> T_PLUS | '-' -> T_MINUS )
 			int alt73=3;
 			try { DebugEnterDecision(73, decisionCanBacktrack[73]);
 			switch (input.LA(1))
 			{
-			case 137:
+			case 138:
 				{
 				alt73 = 1;
 				}
 				break;
-			case 122:
+			case 123:
 				{
 				alt73 = 2;
 				}
 				break;
-			case 124:
+			case 125:
 				{
 				alt73 = 3;
 				}
@@ -8855,11 +8856,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:271:8: '~'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:272:8: '~'
 				{
-				DebugLocation(271, 8);
-				char_literal187=(IToken)Match(input,137,Follow._137_in_op_11738);  
-				stream_137.Add(char_literal187);
+				DebugLocation(272, 8);
+				char_literal187=(IToken)Match(input,138,Follow._138_in_op_11742);  
+				stream_138.Add(char_literal187);
 
 
 
@@ -8875,9 +8876,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 271:12: -> T_BITWISE_NOT
+				// 272:12: -> T_BITWISE_NOT
 				{
-					DebugLocation(271, 15);
+					DebugLocation(272, 15);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_BITWISE_NOT, "T_BITWISE_NOT"));
 
 				}
@@ -8889,11 +8890,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:272:5: '+'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:273:5: '+'
 				{
-				DebugLocation(272, 5);
-				char_literal188=(IToken)Match(input,122,Follow._122_in_op_11748);  
-				stream_122.Add(char_literal188);
+				DebugLocation(273, 5);
+				char_literal188=(IToken)Match(input,123,Follow._123_in_op_11752);  
+				stream_123.Add(char_literal188);
 
 
 
@@ -8909,9 +8910,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 272:9: -> T_PLUS
+				// 273:9: -> T_PLUS
 				{
-					DebugLocation(272, 12);
+					DebugLocation(273, 12);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_PLUS, "T_PLUS"));
 
 				}
@@ -8923,11 +8924,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 3:
 				DebugEnterAlt(3);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:273:4: '-'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:274:4: '-'
 				{
-				DebugLocation(273, 4);
-				char_literal189=(IToken)Match(input,124,Follow._124_in_op_11757);  
-				stream_124.Add(char_literal189);
+				DebugLocation(274, 4);
+				char_literal189=(IToken)Match(input,125,Follow._125_in_op_11761);  
+				stream_125.Add(char_literal189);
 
 
 
@@ -8943,9 +8944,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 273:8: -> T_MINUS
+				// 274:8: -> T_MINUS
 				{
-					DebugLocation(273, 11);
+					DebugLocation(274, 11);
 					adaptor.AddChild(root_0, (object)adaptor.Create(T_MINUS, "T_MINUS"));
 
 				}
@@ -8976,7 +8977,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("op_1", 37);
 			LeaveRule_op_1();
 	    }
-	 	DebugLocation(274, 1);
+	 	DebugLocation(275, 1);
 		} finally { DebugExitRule(GrammarFileName, "op_1"); }
 		return retval;
 
@@ -8990,7 +8991,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_expression_atom() {}
 
 	// $ANTLR start "expression_atom"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:276:1: expression_atom : ( NUMBER -> ^( T_INTEGER NUMBER ) | STRING -> ^( T_STRING STRING ) | SYSTEMVAR -> ^( T_SYSTEMVAR SYSTEMVAR ) | '(' expression ')' -> expression | functioncall | conversion | EXISTS ( WS )? '(' ( WS )? select_command ( WS )? ')' -> ^( T_EXISTS select_command ) );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:277:1: expression_atom : ( NUMBER -> ^( T_INTEGER NUMBER ) | STRING -> ^( T_STRING STRING ) | SYSTEMVAR -> ^( T_SYSTEMVAR SYSTEMVAR ) | '(' expression ')' -> expression | functioncall_or_column | conversion | EXISTS ( WS )? '(' ( WS )? select_command ( WS )? ')' -> ^( T_EXISTS select_command ) );
 	[GrammarRule("expression_atom")]
 	private AstParserRuleReturnScope<object, IToken> expression_atom()
 	{
@@ -9014,7 +9015,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    IToken WS203 = default(IToken);
 	    IToken char_literal204 = default(IToken);
 	    AstParserRuleReturnScope<object, IToken> expression194 = default(AstParserRuleReturnScope<object, IToken>);
-	    AstParserRuleReturnScope<object, IToken> functioncall196 = default(AstParserRuleReturnScope<object, IToken>);
+	    AstParserRuleReturnScope<object, IToken> functioncall_or_column196 = default(AstParserRuleReturnScope<object, IToken>);
 	    AstParserRuleReturnScope<object, IToken> conversion197 = default(AstParserRuleReturnScope<object, IToken>);
 	    AstParserRuleReturnScope<object, IToken> select_command202 = default(AstParserRuleReturnScope<object, IToken>);
 
@@ -9030,19 +9031,19 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS203_tree = default(object);
 	    object char_literal204_tree = default(object);
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
+	    RewriteRuleITokenStream stream_121=new RewriteRuleITokenStream(adaptor,"token 121");
 	    RewriteRuleITokenStream stream_EXISTS=new RewriteRuleITokenStream(adaptor,"token EXISTS");
 	    RewriteRuleITokenStream stream_SYSTEMVAR=new RewriteRuleITokenStream(adaptor,"token SYSTEMVAR");
 	    RewriteRuleITokenStream stream_120=new RewriteRuleITokenStream(adaptor,"token 120");
 	    RewriteRuleITokenStream stream_STRING=new RewriteRuleITokenStream(adaptor,"token STRING");
-	    RewriteRuleITokenStream stream_119=new RewriteRuleITokenStream(adaptor,"token 119");
 	    RewriteRuleITokenStream stream_NUMBER=new RewriteRuleITokenStream(adaptor,"token NUMBER");
 	    RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 	    RewriteRuleSubtreeStream stream_select_command=new RewriteRuleSubtreeStream(adaptor,"rule select_command");
 		try { DebugEnterRule(GrammarFileName, "expression_atom");
-		DebugLocation(276, 1);
+		DebugLocation(277, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:277:2: ( NUMBER -> ^( T_INTEGER NUMBER ) | STRING -> ^( T_STRING STRING ) | SYSTEMVAR -> ^( T_SYSTEMVAR SYSTEMVAR ) | '(' expression ')' -> expression | functioncall | conversion | EXISTS ( WS )? '(' ( WS )? select_command ( WS )? ')' -> ^( T_EXISTS select_command ) )
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:278:2: ( NUMBER -> ^( T_INTEGER NUMBER ) | STRING -> ^( T_STRING STRING ) | SYSTEMVAR -> ^( T_SYSTEMVAR SYSTEMVAR ) | '(' expression ')' -> expression | functioncall_or_column | conversion | EXISTS ( WS )? '(' ( WS )? select_command ( WS )? ')' -> ^( T_EXISTS select_command ) )
 			int alt77=7;
 			try { DebugEnterDecision(77, decisionCanBacktrack[77]);
 			switch (input.LA(1))
@@ -9062,11 +9063,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				alt77 = 3;
 				}
 				break;
-			case 119:
+			case 120:
 				{
 				alt77 = 4;
 				}
 				break;
+			case SIMPLE_FILE:
 			case TOKEN:
 				{
 				alt77 = 5;
@@ -9096,10 +9098,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:277:4: NUMBER
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:278:4: NUMBER
 				{
-				DebugLocation(277, 4);
-				NUMBER190=(IToken)Match(input,NUMBER,Follow._NUMBER_in_expression_atom1772);  
+				DebugLocation(278, 4);
+				NUMBER190=(IToken)Match(input,NUMBER,Follow._NUMBER_in_expression_atom1776);  
 				stream_NUMBER.Add(NUMBER190);
 
 
@@ -9116,16 +9118,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 277:11: -> ^( T_INTEGER NUMBER )
+				// 278:11: -> ^( T_INTEGER NUMBER )
 				{
-					DebugLocation(277, 14);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:277:14: ^( T_INTEGER NUMBER )
+					DebugLocation(278, 14);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:278:14: ^( T_INTEGER NUMBER )
 					{
 					object root_1 = (object)adaptor.Nil();
-					DebugLocation(277, 16);
+					DebugLocation(278, 16);
 					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_INTEGER, "T_INTEGER"), root_1);
 
-					DebugLocation(277, 26);
+					DebugLocation(278, 26);
 					adaptor.AddChild(root_1, stream_NUMBER.NextNode());
 
 					adaptor.AddChild(root_0, root_1);
@@ -9140,10 +9142,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 2:
 				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:278:4: STRING
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:279:4: STRING
 				{
-				DebugLocation(278, 4);
-				STRING191=(IToken)Match(input,STRING,Follow._STRING_in_expression_atom1785);  
+				DebugLocation(279, 4);
+				STRING191=(IToken)Match(input,STRING,Follow._STRING_in_expression_atom1789);  
 				stream_STRING.Add(STRING191);
 
 
@@ -9160,16 +9162,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 278:11: -> ^( T_STRING STRING )
+				// 279:11: -> ^( T_STRING STRING )
 				{
-					DebugLocation(278, 14);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:278:14: ^( T_STRING STRING )
+					DebugLocation(279, 14);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:279:14: ^( T_STRING STRING )
 					{
 					object root_1 = (object)adaptor.Nil();
-					DebugLocation(278, 16);
+					DebugLocation(279, 16);
 					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_STRING, "T_STRING"), root_1);
 
-					DebugLocation(278, 25);
+					DebugLocation(279, 25);
 					adaptor.AddChild(root_1, stream_STRING.NextNode());
 
 					adaptor.AddChild(root_0, root_1);
@@ -9184,10 +9186,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 3:
 				DebugEnterAlt(3);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:279:4: SYSTEMVAR
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:280:4: SYSTEMVAR
 				{
-				DebugLocation(279, 4);
-				SYSTEMVAR192=(IToken)Match(input,SYSTEMVAR,Follow._SYSTEMVAR_in_expression_atom1798);  
+				DebugLocation(280, 4);
+				SYSTEMVAR192=(IToken)Match(input,SYSTEMVAR,Follow._SYSTEMVAR_in_expression_atom1802);  
 				stream_SYSTEMVAR.Add(SYSTEMVAR192);
 
 
@@ -9204,16 +9206,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 279:14: -> ^( T_SYSTEMVAR SYSTEMVAR )
+				// 280:14: -> ^( T_SYSTEMVAR SYSTEMVAR )
 				{
-					DebugLocation(279, 17);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:279:17: ^( T_SYSTEMVAR SYSTEMVAR )
+					DebugLocation(280, 17);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:280:17: ^( T_SYSTEMVAR SYSTEMVAR )
 					{
 					object root_1 = (object)adaptor.Nil();
-					DebugLocation(279, 19);
+					DebugLocation(280, 19);
 					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_SYSTEMVAR, "T_SYSTEMVAR"), root_1);
 
-					DebugLocation(279, 31);
+					DebugLocation(280, 31);
 					adaptor.AddChild(root_1, stream_SYSTEMVAR.NextNode());
 
 					adaptor.AddChild(root_0, root_1);
@@ -9228,21 +9230,21 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 4:
 				DebugEnterAlt(4);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:280:4: '(' expression ')'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:281:4: '(' expression ')'
 				{
-				DebugLocation(280, 4);
-				char_literal193=(IToken)Match(input,119,Follow._119_in_expression_atom1811);  
-				stream_119.Add(char_literal193);
+				DebugLocation(281, 4);
+				char_literal193=(IToken)Match(input,120,Follow._120_in_expression_atom1815);  
+				stream_120.Add(char_literal193);
 
-				DebugLocation(280, 8);
-				PushFollow(Follow._expression_in_expression_atom1813);
+				DebugLocation(281, 8);
+				PushFollow(Follow._expression_in_expression_atom1817);
 				expression194=expression();
 				PopFollow();
 
 				stream_expression.Add(expression194.Tree);
-				DebugLocation(280, 19);
-				char_literal195=(IToken)Match(input,120,Follow._120_in_expression_atom1815);  
-				stream_120.Add(char_literal195);
+				DebugLocation(281, 19);
+				char_literal195=(IToken)Match(input,121,Follow._121_in_expression_atom1819);  
+				stream_121.Add(char_literal195);
 
 
 
@@ -9258,9 +9260,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 280:23: -> expression
+				// 281:23: -> expression
 				{
-					DebugLocation(280, 26);
+					DebugLocation(281, 26);
 					adaptor.AddChild(root_0, stream_expression.NextTree());
 
 				}
@@ -9272,27 +9274,27 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 5:
 				DebugEnterAlt(5);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:281:4: functioncall
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:282:4: functioncall_or_column
 				{
 				root_0 = (object)adaptor.Nil();
 
-				DebugLocation(281, 4);
-				PushFollow(Follow._functioncall_in_expression_atom1824);
-				functioncall196=functioncall();
+				DebugLocation(282, 4);
+				PushFollow(Follow._functioncall_or_column_in_expression_atom1828);
+				functioncall_or_column196=functioncall_or_column();
 				PopFollow();
 
-				adaptor.AddChild(root_0, functioncall196.Tree);
+				adaptor.AddChild(root_0, functioncall_or_column196.Tree);
 
 				}
 				break;
 			case 6:
 				DebugEnterAlt(6);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:282:4: conversion
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:283:4: conversion
 				{
 				root_0 = (object)adaptor.Nil();
 
-				DebugLocation(282, 4);
-				PushFollow(Follow._conversion_in_expression_atom1830);
+				DebugLocation(283, 4);
+				PushFollow(Follow._conversion_in_expression_atom1833);
 				conversion197=conversion();
 				PopFollow();
 
@@ -9302,14 +9304,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				break;
 			case 7:
 				DebugEnterAlt(7);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:283:4: EXISTS ( WS )? '(' ( WS )? select_command ( WS )? ')'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:284:4: EXISTS ( WS )? '(' ( WS )? select_command ( WS )? ')'
 				{
-				DebugLocation(283, 4);
-				EXISTS198=(IToken)Match(input,EXISTS,Follow._EXISTS_in_expression_atom1835);  
+				DebugLocation(284, 4);
+				EXISTS198=(IToken)Match(input,EXISTS,Follow._EXISTS_in_expression_atom1838);  
 				stream_EXISTS.Add(EXISTS198);
 
-				DebugLocation(283, 11);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:283:11: ( WS )?
+				DebugLocation(284, 11);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:284:11: ( WS )?
 				int alt74=2;
 				try { DebugEnterSubRule(74);
 				try { DebugEnterDecision(74, decisionCanBacktrack[74]);
@@ -9324,10 +9326,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:283:11: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:284:11: WS
 					{
-					DebugLocation(283, 11);
-					WS199=(IToken)Match(input,WS,Follow._WS_in_expression_atom1837);  
+					DebugLocation(284, 11);
+					WS199=(IToken)Match(input,WS,Follow._WS_in_expression_atom1840);  
 					stream_WS.Add(WS199);
 
 
@@ -9337,12 +9339,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(74); }
 
-				DebugLocation(283, 15);
-				char_literal200=(IToken)Match(input,119,Follow._119_in_expression_atom1840);  
-				stream_119.Add(char_literal200);
+				DebugLocation(284, 15);
+				char_literal200=(IToken)Match(input,120,Follow._120_in_expression_atom1843);  
+				stream_120.Add(char_literal200);
 
-				DebugLocation(283, 19);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:283:19: ( WS )?
+				DebugLocation(284, 19);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:284:19: ( WS )?
 				int alt75=2;
 				try { DebugEnterSubRule(75);
 				try { DebugEnterDecision(75, decisionCanBacktrack[75]);
@@ -9357,10 +9359,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:283:19: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:284:19: WS
 					{
-					DebugLocation(283, 19);
-					WS201=(IToken)Match(input,WS,Follow._WS_in_expression_atom1842);  
+					DebugLocation(284, 19);
+					WS201=(IToken)Match(input,WS,Follow._WS_in_expression_atom1845);  
 					stream_WS.Add(WS201);
 
 
@@ -9370,14 +9372,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(75); }
 
-				DebugLocation(283, 23);
-				PushFollow(Follow._select_command_in_expression_atom1845);
+				DebugLocation(284, 23);
+				PushFollow(Follow._select_command_in_expression_atom1848);
 				select_command202=select_command();
 				PopFollow();
 
 				stream_select_command.Add(select_command202.Tree);
-				DebugLocation(283, 38);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:283:38: ( WS )?
+				DebugLocation(284, 38);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:284:38: ( WS )?
 				int alt76=2;
 				try { DebugEnterSubRule(76);
 				try { DebugEnterDecision(76, decisionCanBacktrack[76]);
@@ -9392,10 +9394,10 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:283:38: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:284:38: WS
 					{
-					DebugLocation(283, 38);
-					WS203=(IToken)Match(input,WS,Follow._WS_in_expression_atom1847);  
+					DebugLocation(284, 38);
+					WS203=(IToken)Match(input,WS,Follow._WS_in_expression_atom1850);  
 					stream_WS.Add(WS203);
 
 
@@ -9405,9 +9407,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(76); }
 
-				DebugLocation(283, 42);
-				char_literal204=(IToken)Match(input,120,Follow._120_in_expression_atom1850);  
-				stream_120.Add(char_literal204);
+				DebugLocation(284, 42);
+				char_literal204=(IToken)Match(input,121,Follow._121_in_expression_atom1853);  
+				stream_121.Add(char_literal204);
 
 
 
@@ -9423,16 +9425,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 283:46: -> ^( T_EXISTS select_command )
+				// 284:46: -> ^( T_EXISTS select_command )
 				{
-					DebugLocation(283, 49);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:283:49: ^( T_EXISTS select_command )
+					DebugLocation(284, 49);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:284:49: ^( T_EXISTS select_command )
 					{
 					object root_1 = (object)adaptor.Nil();
-					DebugLocation(283, 51);
+					DebugLocation(284, 51);
 					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_EXISTS, "T_EXISTS"), root_1);
 
-					DebugLocation(283, 60);
+					DebugLocation(284, 60);
 					adaptor.AddChild(root_1, stream_select_command.NextTree());
 
 					adaptor.AddChild(root_0, root_1);
@@ -9466,7 +9468,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("expression_atom", 38);
 			LeaveRule_expression_atom();
 	    }
-	 	DebugLocation(284, 1);
+	 	DebugLocation(285, 1);
 		} finally { DebugExitRule(GrammarFileName, "expression_atom"); }
 		return retval;
 
@@ -9475,18 +9477,18 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 
 	[Conditional("ANTLR_TRACE")]
-	protected virtual void EnterRule_functioncall() {}
+	protected virtual void EnterRule_functioncall_or_column() {}
 	[Conditional("ANTLR_TRACE")]
-	protected virtual void LeaveRule_functioncall() {}
+	protected virtual void LeaveRule_functioncall_or_column() {}
 
-	// $ANTLR start "functioncall"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:287:1: functioncall : TOKEN ( WS )? '(' ( WS )? ( expression ( WS )? ( ',' ( WS )? expression ( WS )? )* )? ')' -> ^( T_FUNCTIONCALL TOKEN ( expression )* ) ;
-	[GrammarRule("functioncall")]
-	private AstParserRuleReturnScope<object, IToken> functioncall()
+	// $ANTLR start "functioncall_or_column"
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:1: functioncall_or_column : ( TOKEN ( WS )? '(' ( WS )? ( expression ( WS )? ( ',' ( WS )? expression ( WS )? )* )? ')' -> ^( T_FUNCTIONCALL TOKEN ( expression )* ) | SIMPLE_FILE -> ^( T_COLUMN SIMPLE_FILE ) );
+	[GrammarRule("functioncall_or_column")]
+	private AstParserRuleReturnScope<object, IToken> functioncall_or_column()
 	{
-		EnterRule_functioncall();
-		EnterRule("functioncall", 39);
-		TraceIn("functioncall", 39);
+		EnterRule_functioncall_or_column();
+		EnterRule("functioncall_or_column", 39);
+		TraceIn("functioncall_or_column", 39);
 	    AstParserRuleReturnScope<object, IToken> retval = new AstParserRuleReturnScope<object, IToken>();
 	    retval.Start = (IToken)input.LT(1);
 
@@ -9501,6 +9503,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    IToken WS212 = default(IToken);
 	    IToken WS214 = default(IToken);
 	    IToken char_literal215 = default(IToken);
+	    IToken SIMPLE_FILE216 = default(IToken);
 	    AstParserRuleReturnScope<object, IToken> expression209 = default(AstParserRuleReturnScope<object, IToken>);
 	    AstParserRuleReturnScope<object, IToken> expression213 = default(AstParserRuleReturnScope<object, IToken>);
 
@@ -9513,299 +9516,369 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS212_tree = default(object);
 	    object WS214_tree = default(object);
 	    object char_literal215_tree = default(object);
+	    object SIMPLE_FILE216_tree = default(object);
+	    RewriteRuleITokenStream stream_121=new RewriteRuleITokenStream(adaptor,"token 121");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
-	    RewriteRuleITokenStream stream_123=new RewriteRuleITokenStream(adaptor,"token 123");
+	    RewriteRuleITokenStream stream_SIMPLE_FILE=new RewriteRuleITokenStream(adaptor,"token SIMPLE_FILE");
+	    RewriteRuleITokenStream stream_124=new RewriteRuleITokenStream(adaptor,"token 124");
 	    RewriteRuleITokenStream stream_120=new RewriteRuleITokenStream(adaptor,"token 120");
 	    RewriteRuleITokenStream stream_TOKEN=new RewriteRuleITokenStream(adaptor,"token TOKEN");
-	    RewriteRuleITokenStream stream_119=new RewriteRuleITokenStream(adaptor,"token 119");
 	    RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
-		try { DebugEnterRule(GrammarFileName, "functioncall");
-		DebugLocation(287, 1);
+		try { DebugEnterRule(GrammarFileName, "functioncall_or_column");
+		DebugLocation(288, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:2: ( TOKEN ( WS )? '(' ( WS )? ( expression ( WS )? ( ',' ( WS )? expression ( WS )? )* )? ')' -> ^( T_FUNCTIONCALL TOKEN ( expression )* ) )
-			DebugEnterAlt(1);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:4: TOKEN ( WS )? '(' ( WS )? ( expression ( WS )? ( ',' ( WS )? expression ( WS )? )* )? ')'
-			{
-			DebugLocation(288, 4);
-			TOKEN205=(IToken)Match(input,TOKEN,Follow._TOKEN_in_functioncall1870);  
-			stream_TOKEN.Add(TOKEN205);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:2: ( TOKEN ( WS )? '(' ( WS )? ( expression ( WS )? ( ',' ( WS )? expression ( WS )? )* )? ')' -> ^( T_FUNCTIONCALL TOKEN ( expression )* ) | SIMPLE_FILE -> ^( T_COLUMN SIMPLE_FILE ) )
+			int alt85=2;
+			try { DebugEnterDecision(85, decisionCanBacktrack[85]);
+			int LA85_0 = input.LA(1);
 
-			DebugLocation(288, 10);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:10: ( WS )?
-			int alt78=2;
-			try { DebugEnterSubRule(78);
-			try { DebugEnterDecision(78, decisionCanBacktrack[78]);
-			int LA78_0 = input.LA(1);
-
-			if ((LA78_0==WS))
+			if ((LA85_0==TOKEN))
 			{
-				alt78 = 1;
+				alt85 = 1;
 			}
-			} finally { DebugExitDecision(78); }
-			switch (alt78)
+			else if ((LA85_0==SIMPLE_FILE))
+			{
+				alt85 = 2;
+			}
+			else
+			{
+				NoViableAltException nvae = new NoViableAltException("", 85, 0, input);
+				DebugRecognitionException(nvae);
+				throw nvae;
+			}
+			} finally { DebugExitDecision(85); }
+			switch (alt85)
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:10: WS
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:4: TOKEN ( WS )? '(' ( WS )? ( expression ( WS )? ( ',' ( WS )? expression ( WS )? )* )? ')'
 				{
-				DebugLocation(288, 10);
-				WS206=(IToken)Match(input,WS,Follow._WS_in_functioncall1872);  
-				stream_WS.Add(WS206);
+				DebugLocation(289, 4);
+				TOKEN205=(IToken)Match(input,TOKEN,Follow._TOKEN_in_functioncall_or_column1873);  
+				stream_TOKEN.Add(TOKEN205);
 
+				DebugLocation(289, 10);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:10: ( WS )?
+				int alt78=2;
+				try { DebugEnterSubRule(78);
+				try { DebugEnterDecision(78, decisionCanBacktrack[78]);
+				int LA78_0 = input.LA(1);
 
+				if ((LA78_0==WS))
+				{
+					alt78 = 1;
 				}
-				break;
-
-			}
-			} finally { DebugExitSubRule(78); }
-
-			DebugLocation(288, 14);
-			char_literal207=(IToken)Match(input,119,Follow._119_in_functioncall1875);  
-			stream_119.Add(char_literal207);
-
-			DebugLocation(288, 18);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:18: ( WS )?
-			int alt79=2;
-			try { DebugEnterSubRule(79);
-			try { DebugEnterDecision(79, decisionCanBacktrack[79]);
-			int LA79_0 = input.LA(1);
-
-			if ((LA79_0==WS))
-			{
-				alt79 = 1;
-			}
-			} finally { DebugExitDecision(79); }
-			switch (alt79)
-			{
-			case 1:
-				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:18: WS
-				{
-				DebugLocation(288, 18);
-				WS208=(IToken)Match(input,WS,Follow._WS_in_functioncall1877);  
-				stream_WS.Add(WS208);
-
-
-				}
-				break;
-
-			}
-			} finally { DebugExitSubRule(79); }
-
-			DebugLocation(288, 22);
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:22: ( expression ( WS )? ( ',' ( WS )? expression ( WS )? )* )?
-			int alt84=2;
-			try { DebugEnterSubRule(84);
-			try { DebugEnterDecision(84, decisionCanBacktrack[84]);
-			int LA84_0 = input.LA(1);
-
-			if ((LA84_0==CAST||LA84_0==CONVERT||LA84_0==EXISTS||(LA84_0>=NOT && LA84_0<=NUMBER)||(LA84_0>=STRING && LA84_0<=SYSTEMVAR)||LA84_0==TOKEN||LA84_0==119))
-			{
-				alt84 = 1;
-			}
-			} finally { DebugExitDecision(84); }
-			switch (alt84)
-			{
-			case 1:
-				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:23: expression ( WS )? ( ',' ( WS )? expression ( WS )? )*
-				{
-				DebugLocation(288, 23);
-				PushFollow(Follow._expression_in_functioncall1881);
-				expression209=expression();
-				PopFollow();
-
-				stream_expression.Add(expression209.Tree);
-				DebugLocation(288, 34);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:34: ( WS )?
-				int alt80=2;
-				try { DebugEnterSubRule(80);
-				try { DebugEnterDecision(80, decisionCanBacktrack[80]);
-				int LA80_0 = input.LA(1);
-
-				if ((LA80_0==WS))
-				{
-					alt80 = 1;
-				}
-				} finally { DebugExitDecision(80); }
-				switch (alt80)
+				} finally { DebugExitDecision(78); }
+				switch (alt78)
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:34: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:10: WS
 					{
-					DebugLocation(288, 34);
-					WS210=(IToken)Match(input,WS,Follow._WS_in_functioncall1883);  
-					stream_WS.Add(WS210);
+					DebugLocation(289, 10);
+					WS206=(IToken)Match(input,WS,Follow._WS_in_functioncall_or_column1875);  
+					stream_WS.Add(WS206);
 
 
 					}
 					break;
 
 				}
-				} finally { DebugExitSubRule(80); }
+				} finally { DebugExitSubRule(78); }
 
-				DebugLocation(288, 38);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:38: ( ',' ( WS )? expression ( WS )? )*
-				try { DebugEnterSubRule(83);
-				while (true)
+				DebugLocation(289, 14);
+				char_literal207=(IToken)Match(input,120,Follow._120_in_functioncall_or_column1878);  
+				stream_120.Add(char_literal207);
+
+				DebugLocation(289, 18);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:18: ( WS )?
+				int alt79=2;
+				try { DebugEnterSubRule(79);
+				try { DebugEnterDecision(79, decisionCanBacktrack[79]);
+				int LA79_0 = input.LA(1);
+
+				if ((LA79_0==WS))
 				{
-					int alt83=2;
-					try { DebugEnterDecision(83, decisionCanBacktrack[83]);
-					int LA83_0 = input.LA(1);
-
-					if ((LA83_0==123))
+					alt79 = 1;
+				}
+				} finally { DebugExitDecision(79); }
+				switch (alt79)
+				{
+				case 1:
+					DebugEnterAlt(1);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:18: WS
 					{
-						alt83 = 1;
+					DebugLocation(289, 18);
+					WS208=(IToken)Match(input,WS,Follow._WS_in_functioncall_or_column1880);  
+					stream_WS.Add(WS208);
+
+
 					}
+					break;
 
+				}
+				} finally { DebugExitSubRule(79); }
 
-					} finally { DebugExitDecision(83); }
-					switch ( alt83 )
+				DebugLocation(289, 22);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:22: ( expression ( WS )? ( ',' ( WS )? expression ( WS )? )* )?
+				int alt84=2;
+				try { DebugEnterSubRule(84);
+				try { DebugEnterDecision(84, decisionCanBacktrack[84]);
+				int LA84_0 = input.LA(1);
+
+				if ((LA84_0==CAST||LA84_0==CONVERT||LA84_0==EXISTS||(LA84_0>=NOT && LA84_0<=NUMBER)||LA84_0==SIMPLE_FILE||(LA84_0>=STRING && LA84_0<=SYSTEMVAR)||LA84_0==TOKEN||LA84_0==120))
+				{
+					alt84 = 1;
+				}
+				} finally { DebugExitDecision(84); }
+				switch (alt84)
+				{
+				case 1:
+					DebugEnterAlt(1);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:23: expression ( WS )? ( ',' ( WS )? expression ( WS )? )*
+					{
+					DebugLocation(289, 23);
+					PushFollow(Follow._expression_in_functioncall_or_column1884);
+					expression209=expression();
+					PopFollow();
+
+					stream_expression.Add(expression209.Tree);
+					DebugLocation(289, 34);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:34: ( WS )?
+					int alt80=2;
+					try { DebugEnterSubRule(80);
+					try { DebugEnterDecision(80, decisionCanBacktrack[80]);
+					int LA80_0 = input.LA(1);
+
+					if ((LA80_0==WS))
+					{
+						alt80 = 1;
+					}
+					} finally { DebugExitDecision(80); }
+					switch (alt80)
 					{
 					case 1:
 						DebugEnterAlt(1);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:39: ',' ( WS )? expression ( WS )?
+						// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:34: WS
 						{
-						DebugLocation(288, 39);
-						char_literal211=(IToken)Match(input,123,Follow._123_in_functioncall1887);  
-						stream_123.Add(char_literal211);
-
-						DebugLocation(288, 43);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:43: ( WS )?
-						int alt81=2;
-						try { DebugEnterSubRule(81);
-						try { DebugEnterDecision(81, decisionCanBacktrack[81]);
-						int LA81_0 = input.LA(1);
-
-						if ((LA81_0==WS))
-						{
-							alt81 = 1;
-						}
-						} finally { DebugExitDecision(81); }
-						switch (alt81)
-						{
-						case 1:
-							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:43: WS
-							{
-							DebugLocation(288, 43);
-							WS212=(IToken)Match(input,WS,Follow._WS_in_functioncall1889);  
-							stream_WS.Add(WS212);
-
-
-							}
-							break;
-
-						}
-						} finally { DebugExitSubRule(81); }
-
-						DebugLocation(288, 47);
-						PushFollow(Follow._expression_in_functioncall1892);
-						expression213=expression();
-						PopFollow();
-
-						stream_expression.Add(expression213.Tree);
-						DebugLocation(288, 58);
-						// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:58: ( WS )?
-						int alt82=2;
-						try { DebugEnterSubRule(82);
-						try { DebugEnterDecision(82, decisionCanBacktrack[82]);
-						int LA82_0 = input.LA(1);
-
-						if ((LA82_0==WS))
-						{
-							alt82 = 1;
-						}
-						} finally { DebugExitDecision(82); }
-						switch (alt82)
-						{
-						case 1:
-							DebugEnterAlt(1);
-							// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:288:58: WS
-							{
-							DebugLocation(288, 58);
-							WS214=(IToken)Match(input,WS,Follow._WS_in_functioncall1894);  
-							stream_WS.Add(WS214);
-
-
-							}
-							break;
-
-						}
-						} finally { DebugExitSubRule(82); }
+						DebugLocation(289, 34);
+						WS210=(IToken)Match(input,WS,Follow._WS_in_functioncall_or_column1886);  
+						stream_WS.Add(WS210);
 
 
 						}
 						break;
 
-					default:
-						goto loop83;
 					}
+					} finally { DebugExitSubRule(80); }
+
+					DebugLocation(289, 38);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:38: ( ',' ( WS )? expression ( WS )? )*
+					try { DebugEnterSubRule(83);
+					while (true)
+					{
+						int alt83=2;
+						try { DebugEnterDecision(83, decisionCanBacktrack[83]);
+						int LA83_0 = input.LA(1);
+
+						if ((LA83_0==124))
+						{
+							alt83 = 1;
+						}
+
+
+						} finally { DebugExitDecision(83); }
+						switch ( alt83 )
+						{
+						case 1:
+							DebugEnterAlt(1);
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:39: ',' ( WS )? expression ( WS )?
+							{
+							DebugLocation(289, 39);
+							char_literal211=(IToken)Match(input,124,Follow._124_in_functioncall_or_column1890);  
+							stream_124.Add(char_literal211);
+
+							DebugLocation(289, 43);
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:43: ( WS )?
+							int alt81=2;
+							try { DebugEnterSubRule(81);
+							try { DebugEnterDecision(81, decisionCanBacktrack[81]);
+							int LA81_0 = input.LA(1);
+
+							if ((LA81_0==WS))
+							{
+								alt81 = 1;
+							}
+							} finally { DebugExitDecision(81); }
+							switch (alt81)
+							{
+							case 1:
+								DebugEnterAlt(1);
+								// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:43: WS
+								{
+								DebugLocation(289, 43);
+								WS212=(IToken)Match(input,WS,Follow._WS_in_functioncall_or_column1892);  
+								stream_WS.Add(WS212);
+
+
+								}
+								break;
+
+							}
+							} finally { DebugExitSubRule(81); }
+
+							DebugLocation(289, 47);
+							PushFollow(Follow._expression_in_functioncall_or_column1895);
+							expression213=expression();
+							PopFollow();
+
+							stream_expression.Add(expression213.Tree);
+							DebugLocation(289, 58);
+							// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:58: ( WS )?
+							int alt82=2;
+							try { DebugEnterSubRule(82);
+							try { DebugEnterDecision(82, decisionCanBacktrack[82]);
+							int LA82_0 = input.LA(1);
+
+							if ((LA82_0==WS))
+							{
+								alt82 = 1;
+							}
+							} finally { DebugExitDecision(82); }
+							switch (alt82)
+							{
+							case 1:
+								DebugEnterAlt(1);
+								// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:58: WS
+								{
+								DebugLocation(289, 58);
+								WS214=(IToken)Match(input,WS,Follow._WS_in_functioncall_or_column1897);  
+								stream_WS.Add(WS214);
+
+
+								}
+								break;
+
+							}
+							} finally { DebugExitSubRule(82); }
+
+
+							}
+							break;
+
+						default:
+							goto loop83;
+						}
+					}
+
+					loop83:
+						;
+
+					} finally { DebugExitSubRule(83); }
+
+
+					}
+					break;
+
+				}
+				} finally { DebugExitSubRule(84); }
+
+				DebugLocation(289, 66);
+				char_literal215=(IToken)Match(input,121,Follow._121_in_functioncall_or_column1904);  
+				stream_121.Add(char_literal215);
+
+
+
+				{
+				// AST REWRITE
+				// elements: expression, TOKEN
+				// token labels: 
+				// rule labels: retval
+				// token list labels: 
+				// rule list labels: 
+				// wildcard labels: 
+				retval.Tree = root_0;
+				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
+
+				root_0 = (object)adaptor.Nil();
+				// 289:70: -> ^( T_FUNCTIONCALL TOKEN ( expression )* )
+				{
+					DebugLocation(289, 73);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:73: ^( T_FUNCTIONCALL TOKEN ( expression )* )
+					{
+					object root_1 = (object)adaptor.Nil();
+					DebugLocation(289, 75);
+					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_FUNCTIONCALL, "T_FUNCTIONCALL"), root_1);
+
+					DebugLocation(289, 90);
+					adaptor.AddChild(root_1, stream_TOKEN.NextNode());
+					DebugLocation(289, 96);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:96: ( expression )*
+					while ( stream_expression.HasNext )
+					{
+						DebugLocation(289, 96);
+						adaptor.AddChild(root_1, stream_expression.NextTree());
+
+					}
+					stream_expression.Reset();
+
+					adaptor.AddChild(root_0, root_1);
+					}
+
 				}
 
-				loop83:
-					;
+				retval.Tree = root_0;
+				}
 
-				} finally { DebugExitSubRule(83); }
+				}
+				break;
+			case 2:
+				DebugEnterAlt(2);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:291:4: SIMPLE_FILE
+				{
+				DebugLocation(291, 4);
+				SIMPLE_FILE216=(IToken)Match(input,SIMPLE_FILE,Follow._SIMPLE_FILE_in_functioncall_or_column1922);  
+				stream_SIMPLE_FILE.Add(SIMPLE_FILE216);
 
+
+
+				{
+				// AST REWRITE
+				// elements: SIMPLE_FILE
+				// token labels: 
+				// rule labels: retval
+				// token list labels: 
+				// rule list labels: 
+				// wildcard labels: 
+				retval.Tree = root_0;
+				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
+
+				root_0 = (object)adaptor.Nil();
+				// 291:16: -> ^( T_COLUMN SIMPLE_FILE )
+				{
+					DebugLocation(291, 19);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:291:19: ^( T_COLUMN SIMPLE_FILE )
+					{
+					object root_1 = (object)adaptor.Nil();
+					DebugLocation(291, 21);
+					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_COLUMN, "T_COLUMN"), root_1);
+
+					DebugLocation(291, 30);
+					adaptor.AddChild(root_1, stream_SIMPLE_FILE.NextNode());
+
+					adaptor.AddChild(root_0, root_1);
+					}
+
+				}
+
+				retval.Tree = root_0;
+				}
 
 				}
 				break;
 
 			}
-			} finally { DebugExitSubRule(84); }
-
-			DebugLocation(288, 66);
-			char_literal215=(IToken)Match(input,120,Follow._120_in_functioncall1901);  
-			stream_120.Add(char_literal215);
-
-
-
-			{
-			// AST REWRITE
-			// elements: expression, TOKEN
-			// token labels: 
-			// rule labels: retval
-			// token list labels: 
-			// rule list labels: 
-			// wildcard labels: 
-			retval.Tree = root_0;
-			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
-
-			root_0 = (object)adaptor.Nil();
-			// 289:2: -> ^( T_FUNCTIONCALL TOKEN ( expression )* )
-			{
-				DebugLocation(289, 5);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:5: ^( T_FUNCTIONCALL TOKEN ( expression )* )
-				{
-				object root_1 = (object)adaptor.Nil();
-				DebugLocation(289, 7);
-				root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_FUNCTIONCALL, "T_FUNCTIONCALL"), root_1);
-
-				DebugLocation(289, 22);
-				adaptor.AddChild(root_1, stream_TOKEN.NextNode());
-				DebugLocation(289, 28);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:289:28: ( expression )*
-				while ( stream_expression.HasNext )
-				{
-					DebugLocation(289, 28);
-					adaptor.AddChild(root_1, stream_expression.NextTree());
-
-				}
-				stream_expression.Reset();
-
-				adaptor.AddChild(root_0, root_1);
-				}
-
-			}
-
-			retval.Tree = root_0;
-			}
-
-			}
-
 			retval.Stop = (IToken)input.LT(-1);
 
 			retval.Tree = (object)adaptor.RulePostProcessing(root_0);
@@ -9821,16 +9894,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 		}
 		finally
 		{
-			TraceOut("functioncall", 39);
-			LeaveRule("functioncall", 39);
-			LeaveRule_functioncall();
+			TraceOut("functioncall_or_column", 39);
+			LeaveRule("functioncall_or_column", 39);
+			LeaveRule_functioncall_or_column();
 	    }
-	 	DebugLocation(290, 1);
-		} finally { DebugExitRule(GrammarFileName, "functioncall"); }
+	 	DebugLocation(292, 1);
+		} finally { DebugExitRule(GrammarFileName, "functioncall_or_column"); }
 		return retval;
 
 	}
-	// $ANTLR end "functioncall"
+	// $ANTLR end "functioncall_or_column"
 
 
 	[Conditional("ANTLR_TRACE")]
@@ -9839,7 +9912,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_conversion() {}
 
 	// $ANTLR start "conversion"
-	// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:292:1: conversion : ( CONVERT ( WS )? '(' ( WS )? TOKEN ( WS )? ',' ( WS )? expression ( WS )? ')' -> ^( T_CONVERT TOKEN expression ) | CAST ( WS )? '(' ( WS )? expression WS AS WS TOKEN ( WS )? ')' -> ^( T_CONVERT TOKEN expression ) );
+	// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:294:1: conversion : ( CONVERT ( WS )? '(' ( WS )? TOKEN ( WS )? ',' ( WS )? expression ( WS )? ')' -> ^( T_CONVERT TOKEN expression ) | CAST ( WS )? '(' ( WS )? expression WS AS WS TOKEN ( WS )? ')' -> ^( T_CONVERT TOKEN expression ) );
 	[GrammarRule("conversion")]
 	private AstParserRuleReturnScope<object, IToken> conversion()
 	{
@@ -9851,127 +9924,94 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 	    object root_0 = default(object);
 
-	    IToken CONVERT216 = default(IToken);
-	    IToken WS217 = default(IToken);
-	    IToken char_literal218 = default(IToken);
-	    IToken WS219 = default(IToken);
-	    IToken TOKEN220 = default(IToken);
-	    IToken WS221 = default(IToken);
-	    IToken char_literal222 = default(IToken);
-	    IToken WS223 = default(IToken);
-	    IToken WS225 = default(IToken);
-	    IToken char_literal226 = default(IToken);
-	    IToken CAST227 = default(IToken);
-	    IToken WS228 = default(IToken);
-	    IToken char_literal229 = default(IToken);
-	    IToken WS230 = default(IToken);
-	    IToken WS232 = default(IToken);
-	    IToken AS233 = default(IToken);
-	    IToken WS234 = default(IToken);
-	    IToken TOKEN235 = default(IToken);
-	    IToken WS236 = default(IToken);
-	    IToken char_literal237 = default(IToken);
-	    AstParserRuleReturnScope<object, IToken> expression224 = default(AstParserRuleReturnScope<object, IToken>);
-	    AstParserRuleReturnScope<object, IToken> expression231 = default(AstParserRuleReturnScope<object, IToken>);
+	    IToken CONVERT217 = default(IToken);
+	    IToken WS218 = default(IToken);
+	    IToken char_literal219 = default(IToken);
+	    IToken WS220 = default(IToken);
+	    IToken TOKEN221 = default(IToken);
+	    IToken WS222 = default(IToken);
+	    IToken char_literal223 = default(IToken);
+	    IToken WS224 = default(IToken);
+	    IToken WS226 = default(IToken);
+	    IToken char_literal227 = default(IToken);
+	    IToken CAST228 = default(IToken);
+	    IToken WS229 = default(IToken);
+	    IToken char_literal230 = default(IToken);
+	    IToken WS231 = default(IToken);
+	    IToken WS233 = default(IToken);
+	    IToken AS234 = default(IToken);
+	    IToken WS235 = default(IToken);
+	    IToken TOKEN236 = default(IToken);
+	    IToken WS237 = default(IToken);
+	    IToken char_literal238 = default(IToken);
+	    AstParserRuleReturnScope<object, IToken> expression225 = default(AstParserRuleReturnScope<object, IToken>);
+	    AstParserRuleReturnScope<object, IToken> expression232 = default(AstParserRuleReturnScope<object, IToken>);
 
-	    object CONVERT216_tree = default(object);
-	    object WS217_tree = default(object);
-	    object char_literal218_tree = default(object);
-	    object WS219_tree = default(object);
-	    object TOKEN220_tree = default(object);
-	    object WS221_tree = default(object);
-	    object char_literal222_tree = default(object);
-	    object WS223_tree = default(object);
-	    object WS225_tree = default(object);
-	    object char_literal226_tree = default(object);
-	    object CAST227_tree = default(object);
-	    object WS228_tree = default(object);
-	    object char_literal229_tree = default(object);
-	    object WS230_tree = default(object);
-	    object WS232_tree = default(object);
-	    object AS233_tree = default(object);
-	    object WS234_tree = default(object);
-	    object TOKEN235_tree = default(object);
-	    object WS236_tree = default(object);
-	    object char_literal237_tree = default(object);
+	    object CONVERT217_tree = default(object);
+	    object WS218_tree = default(object);
+	    object char_literal219_tree = default(object);
+	    object WS220_tree = default(object);
+	    object TOKEN221_tree = default(object);
+	    object WS222_tree = default(object);
+	    object char_literal223_tree = default(object);
+	    object WS224_tree = default(object);
+	    object WS226_tree = default(object);
+	    object char_literal227_tree = default(object);
+	    object CAST228_tree = default(object);
+	    object WS229_tree = default(object);
+	    object char_literal230_tree = default(object);
+	    object WS231_tree = default(object);
+	    object WS233_tree = default(object);
+	    object AS234_tree = default(object);
+	    object WS235_tree = default(object);
+	    object TOKEN236_tree = default(object);
+	    object WS237_tree = default(object);
+	    object char_literal238_tree = default(object);
 	    RewriteRuleITokenStream stream_CAST=new RewriteRuleITokenStream(adaptor,"token CAST");
 	    RewriteRuleITokenStream stream_AS=new RewriteRuleITokenStream(adaptor,"token AS");
+	    RewriteRuleITokenStream stream_121=new RewriteRuleITokenStream(adaptor,"token 121");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
-	    RewriteRuleITokenStream stream_123=new RewriteRuleITokenStream(adaptor,"token 123");
+	    RewriteRuleITokenStream stream_124=new RewriteRuleITokenStream(adaptor,"token 124");
 	    RewriteRuleITokenStream stream_CONVERT=new RewriteRuleITokenStream(adaptor,"token CONVERT");
 	    RewriteRuleITokenStream stream_120=new RewriteRuleITokenStream(adaptor,"token 120");
 	    RewriteRuleITokenStream stream_TOKEN=new RewriteRuleITokenStream(adaptor,"token TOKEN");
-	    RewriteRuleITokenStream stream_119=new RewriteRuleITokenStream(adaptor,"token 119");
 	    RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 		try { DebugEnterRule(GrammarFileName, "conversion");
-		DebugLocation(292, 1);
+		DebugLocation(294, 1);
 		try
 		{
-			// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:293:2: ( CONVERT ( WS )? '(' ( WS )? TOKEN ( WS )? ',' ( WS )? expression ( WS )? ')' -> ^( T_CONVERT TOKEN expression ) | CAST ( WS )? '(' ( WS )? expression WS AS WS TOKEN ( WS )? ')' -> ^( T_CONVERT TOKEN expression ) )
-			int alt93=2;
-			try { DebugEnterDecision(93, decisionCanBacktrack[93]);
-			int LA93_0 = input.LA(1);
+			// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:295:2: ( CONVERT ( WS )? '(' ( WS )? TOKEN ( WS )? ',' ( WS )? expression ( WS )? ')' -> ^( T_CONVERT TOKEN expression ) | CAST ( WS )? '(' ( WS )? expression WS AS WS TOKEN ( WS )? ')' -> ^( T_CONVERT TOKEN expression ) )
+			int alt94=2;
+			try { DebugEnterDecision(94, decisionCanBacktrack[94]);
+			int LA94_0 = input.LA(1);
 
-			if ((LA93_0==CONVERT))
+			if ((LA94_0==CONVERT))
 			{
-				alt93 = 1;
+				alt94 = 1;
 			}
-			else if ((LA93_0==CAST))
+			else if ((LA94_0==CAST))
 			{
-				alt93 = 2;
+				alt94 = 2;
 			}
 			else
 			{
-				NoViableAltException nvae = new NoViableAltException("", 93, 0, input);
+				NoViableAltException nvae = new NoViableAltException("", 94, 0, input);
 				DebugRecognitionException(nvae);
 				throw nvae;
 			}
-			} finally { DebugExitDecision(93); }
-			switch (alt93)
+			} finally { DebugExitDecision(94); }
+			switch (alt94)
 			{
 			case 1:
 				DebugEnterAlt(1);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:293:4: CONVERT ( WS )? '(' ( WS )? TOKEN ( WS )? ',' ( WS )? expression ( WS )? ')'
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:295:4: CONVERT ( WS )? '(' ( WS )? TOKEN ( WS )? ',' ( WS )? expression ( WS )? ')'
 				{
-				DebugLocation(293, 4);
-				CONVERT216=(IToken)Match(input,CONVERT,Follow._CONVERT_in_conversion1925);  
-				stream_CONVERT.Add(CONVERT216);
+				DebugLocation(295, 4);
+				CONVERT217=(IToken)Match(input,CONVERT,Follow._CONVERT_in_conversion1942);  
+				stream_CONVERT.Add(CONVERT217);
 
-				DebugLocation(293, 12);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:293:12: ( WS )?
-				int alt85=2;
-				try { DebugEnterSubRule(85);
-				try { DebugEnterDecision(85, decisionCanBacktrack[85]);
-				int LA85_0 = input.LA(1);
-
-				if ((LA85_0==WS))
-				{
-					alt85 = 1;
-				}
-				} finally { DebugExitDecision(85); }
-				switch (alt85)
-				{
-				case 1:
-					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:293:12: WS
-					{
-					DebugLocation(293, 12);
-					WS217=(IToken)Match(input,WS,Follow._WS_in_conversion1927);  
-					stream_WS.Add(WS217);
-
-
-					}
-					break;
-
-				}
-				} finally { DebugExitSubRule(85); }
-
-				DebugLocation(293, 16);
-				char_literal218=(IToken)Match(input,119,Follow._119_in_conversion1930);  
-				stream_119.Add(char_literal218);
-
-				DebugLocation(293, 20);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:293:20: ( WS )?
+				DebugLocation(295, 12);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:295:12: ( WS )?
 				int alt86=2;
 				try { DebugEnterSubRule(86);
 				try { DebugEnterDecision(86, decisionCanBacktrack[86]);
@@ -9986,11 +10026,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:293:20: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:295:12: WS
 					{
-					DebugLocation(293, 20);
-					WS219=(IToken)Match(input,WS,Follow._WS_in_conversion1932);  
-					stream_WS.Add(WS219);
+					DebugLocation(295, 12);
+					WS218=(IToken)Match(input,WS,Follow._WS_in_conversion1944);  
+					stream_WS.Add(WS218);
 
 
 					}
@@ -9999,12 +10039,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(86); }
 
-				DebugLocation(293, 24);
-				TOKEN220=(IToken)Match(input,TOKEN,Follow._TOKEN_in_conversion1935);  
-				stream_TOKEN.Add(TOKEN220);
+				DebugLocation(295, 16);
+				char_literal219=(IToken)Match(input,120,Follow._120_in_conversion1947);  
+				stream_120.Add(char_literal219);
 
-				DebugLocation(293, 30);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:293:30: ( WS )?
+				DebugLocation(295, 20);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:295:20: ( WS )?
 				int alt87=2;
 				try { DebugEnterSubRule(87);
 				try { DebugEnterDecision(87, decisionCanBacktrack[87]);
@@ -10019,11 +10059,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:293:30: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:295:20: WS
 					{
-					DebugLocation(293, 30);
-					WS221=(IToken)Match(input,WS,Follow._WS_in_conversion1937);  
-					stream_WS.Add(WS221);
+					DebugLocation(295, 20);
+					WS220=(IToken)Match(input,WS,Follow._WS_in_conversion1949);  
+					stream_WS.Add(WS220);
 
 
 					}
@@ -10032,12 +10072,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(87); }
 
-				DebugLocation(293, 34);
-				char_literal222=(IToken)Match(input,123,Follow._123_in_conversion1940);  
-				stream_123.Add(char_literal222);
+				DebugLocation(295, 24);
+				TOKEN221=(IToken)Match(input,TOKEN,Follow._TOKEN_in_conversion1952);  
+				stream_TOKEN.Add(TOKEN221);
 
-				DebugLocation(293, 38);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:293:38: ( WS )?
+				DebugLocation(295, 30);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:295:30: ( WS )?
 				int alt88=2;
 				try { DebugEnterSubRule(88);
 				try { DebugEnterDecision(88, decisionCanBacktrack[88]);
@@ -10052,11 +10092,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:293:38: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:295:30: WS
 					{
-					DebugLocation(293, 38);
-					WS223=(IToken)Match(input,WS,Follow._WS_in_conversion1942);  
-					stream_WS.Add(WS223);
+					DebugLocation(295, 30);
+					WS222=(IToken)Match(input,WS,Follow._WS_in_conversion1954);  
+					stream_WS.Add(WS222);
 
 
 					}
@@ -10065,14 +10105,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(88); }
 
-				DebugLocation(293, 42);
-				PushFollow(Follow._expression_in_conversion1945);
-				expression224=expression();
-				PopFollow();
+				DebugLocation(295, 34);
+				char_literal223=(IToken)Match(input,124,Follow._124_in_conversion1957);  
+				stream_124.Add(char_literal223);
 
-				stream_expression.Add(expression224.Tree);
-				DebugLocation(293, 53);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:293:53: ( WS )?
+				DebugLocation(295, 38);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:295:38: ( WS )?
 				int alt89=2;
 				try { DebugEnterSubRule(89);
 				try { DebugEnterDecision(89, decisionCanBacktrack[89]);
@@ -10087,11 +10125,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:293:53: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:295:38: WS
 					{
-					DebugLocation(293, 53);
-					WS225=(IToken)Match(input,WS,Follow._WS_in_conversion1947);  
-					stream_WS.Add(WS225);
+					DebugLocation(295, 38);
+					WS224=(IToken)Match(input,WS,Follow._WS_in_conversion1959);  
+					stream_WS.Add(WS224);
 
 
 					}
@@ -10100,58 +10138,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(89); }
 
-				DebugLocation(293, 57);
-				char_literal226=(IToken)Match(input,120,Follow._120_in_conversion1950);  
-				stream_120.Add(char_literal226);
+				DebugLocation(295, 42);
+				PushFollow(Follow._expression_in_conversion1962);
+				expression225=expression();
+				PopFollow();
 
-
-
-				{
-				// AST REWRITE
-				// elements: TOKEN, expression
-				// token labels: 
-				// rule labels: retval
-				// token list labels: 
-				// rule list labels: 
-				// wildcard labels: 
-				retval.Tree = root_0;
-				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
-
-				root_0 = (object)adaptor.Nil();
-				// 293:61: -> ^( T_CONVERT TOKEN expression )
-				{
-					DebugLocation(293, 64);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:293:64: ^( T_CONVERT TOKEN expression )
-					{
-					object root_1 = (object)adaptor.Nil();
-					DebugLocation(293, 66);
-					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_CONVERT, "T_CONVERT"), root_1);
-
-					DebugLocation(293, 76);
-					adaptor.AddChild(root_1, stream_TOKEN.NextNode());
-					DebugLocation(293, 82);
-					adaptor.AddChild(root_1, stream_expression.NextTree());
-
-					adaptor.AddChild(root_0, root_1);
-					}
-
-				}
-
-				retval.Tree = root_0;
-				}
-
-				}
-				break;
-			case 2:
-				DebugEnterAlt(2);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:294:4: CAST ( WS )? '(' ( WS )? expression WS AS WS TOKEN ( WS )? ')'
-				{
-				DebugLocation(294, 4);
-				CAST227=(IToken)Match(input,CAST,Follow._CAST_in_conversion1965);  
-				stream_CAST.Add(CAST227);
-
-				DebugLocation(294, 9);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:294:9: ( WS )?
+				stream_expression.Add(expression225.Tree);
+				DebugLocation(295, 53);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:295:53: ( WS )?
 				int alt90=2;
 				try { DebugEnterSubRule(90);
 				try { DebugEnterDecision(90, decisionCanBacktrack[90]);
@@ -10166,11 +10160,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 				case 1:
 					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:294:9: WS
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:295:53: WS
 					{
-					DebugLocation(294, 9);
-					WS228=(IToken)Match(input,WS,Follow._WS_in_conversion1967);  
-					stream_WS.Add(WS228);
+					DebugLocation(295, 53);
+					WS226=(IToken)Match(input,WS,Follow._WS_in_conversion1964);  
+					stream_WS.Add(WS226);
 
 
 					}
@@ -10179,93 +10173,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				} finally { DebugExitSubRule(90); }
 
-				DebugLocation(294, 13);
-				char_literal229=(IToken)Match(input,119,Follow._119_in_conversion1970);  
-				stream_119.Add(char_literal229);
-
-				DebugLocation(294, 17);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:294:17: ( WS )?
-				int alt91=2;
-				try { DebugEnterSubRule(91);
-				try { DebugEnterDecision(91, decisionCanBacktrack[91]);
-				int LA91_0 = input.LA(1);
-
-				if ((LA91_0==WS))
-				{
-					alt91 = 1;
-				}
-				} finally { DebugExitDecision(91); }
-				switch (alt91)
-				{
-				case 1:
-					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:294:17: WS
-					{
-					DebugLocation(294, 17);
-					WS230=(IToken)Match(input,WS,Follow._WS_in_conversion1972);  
-					stream_WS.Add(WS230);
-
-
-					}
-					break;
-
-				}
-				} finally { DebugExitSubRule(91); }
-
-				DebugLocation(294, 21);
-				PushFollow(Follow._expression_in_conversion1975);
-				expression231=expression();
-				PopFollow();
-
-				stream_expression.Add(expression231.Tree);
-				DebugLocation(294, 32);
-				WS232=(IToken)Match(input,WS,Follow._WS_in_conversion1977);  
-				stream_WS.Add(WS232);
-
-				DebugLocation(294, 35);
-				AS233=(IToken)Match(input,AS,Follow._AS_in_conversion1979);  
-				stream_AS.Add(AS233);
-
-				DebugLocation(294, 38);
-				WS234=(IToken)Match(input,WS,Follow._WS_in_conversion1981);  
-				stream_WS.Add(WS234);
-
-				DebugLocation(294, 41);
-				TOKEN235=(IToken)Match(input,TOKEN,Follow._TOKEN_in_conversion1983);  
-				stream_TOKEN.Add(TOKEN235);
-
-				DebugLocation(294, 47);
-				// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:294:47: ( WS )?
-				int alt92=2;
-				try { DebugEnterSubRule(92);
-				try { DebugEnterDecision(92, decisionCanBacktrack[92]);
-				int LA92_0 = input.LA(1);
-
-				if ((LA92_0==WS))
-				{
-					alt92 = 1;
-				}
-				} finally { DebugExitDecision(92); }
-				switch (alt92)
-				{
-				case 1:
-					DebugEnterAlt(1);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:294:47: WS
-					{
-					DebugLocation(294, 47);
-					WS236=(IToken)Match(input,WS,Follow._WS_in_conversion1985);  
-					stream_WS.Add(WS236);
-
-
-					}
-					break;
-
-				}
-				} finally { DebugExitSubRule(92); }
-
-				DebugLocation(294, 51);
-				char_literal237=(IToken)Match(input,120,Follow._120_in_conversion1988);  
-				stream_120.Add(char_literal237);
+				DebugLocation(295, 57);
+				char_literal227=(IToken)Match(input,121,Follow._121_in_conversion1967);  
+				stream_121.Add(char_literal227);
 
 
 
@@ -10281,18 +10191,181 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 294:55: -> ^( T_CONVERT TOKEN expression )
+				// 295:61: -> ^( T_CONVERT TOKEN expression )
 				{
-					DebugLocation(294, 58);
-					// /home/wim/Projects/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:294:58: ^( T_CONVERT TOKEN expression )
+					DebugLocation(295, 64);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:295:64: ^( T_CONVERT TOKEN expression )
 					{
 					object root_1 = (object)adaptor.Nil();
-					DebugLocation(294, 60);
+					DebugLocation(295, 66);
 					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_CONVERT, "T_CONVERT"), root_1);
 
-					DebugLocation(294, 70);
+					DebugLocation(295, 76);
 					adaptor.AddChild(root_1, stream_TOKEN.NextNode());
-					DebugLocation(294, 76);
+					DebugLocation(295, 82);
+					adaptor.AddChild(root_1, stream_expression.NextTree());
+
+					adaptor.AddChild(root_0, root_1);
+					}
+
+				}
+
+				retval.Tree = root_0;
+				}
+
+				}
+				break;
+			case 2:
+				DebugEnterAlt(2);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:296:4: CAST ( WS )? '(' ( WS )? expression WS AS WS TOKEN ( WS )? ')'
+				{
+				DebugLocation(296, 4);
+				CAST228=(IToken)Match(input,CAST,Follow._CAST_in_conversion1982);  
+				stream_CAST.Add(CAST228);
+
+				DebugLocation(296, 9);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:296:9: ( WS )?
+				int alt91=2;
+				try { DebugEnterSubRule(91);
+				try { DebugEnterDecision(91, decisionCanBacktrack[91]);
+				int LA91_0 = input.LA(1);
+
+				if ((LA91_0==WS))
+				{
+					alt91 = 1;
+				}
+				} finally { DebugExitDecision(91); }
+				switch (alt91)
+				{
+				case 1:
+					DebugEnterAlt(1);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:296:9: WS
+					{
+					DebugLocation(296, 9);
+					WS229=(IToken)Match(input,WS,Follow._WS_in_conversion1984);  
+					stream_WS.Add(WS229);
+
+
+					}
+					break;
+
+				}
+				} finally { DebugExitSubRule(91); }
+
+				DebugLocation(296, 13);
+				char_literal230=(IToken)Match(input,120,Follow._120_in_conversion1987);  
+				stream_120.Add(char_literal230);
+
+				DebugLocation(296, 17);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:296:17: ( WS )?
+				int alt92=2;
+				try { DebugEnterSubRule(92);
+				try { DebugEnterDecision(92, decisionCanBacktrack[92]);
+				int LA92_0 = input.LA(1);
+
+				if ((LA92_0==WS))
+				{
+					alt92 = 1;
+				}
+				} finally { DebugExitDecision(92); }
+				switch (alt92)
+				{
+				case 1:
+					DebugEnterAlt(1);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:296:17: WS
+					{
+					DebugLocation(296, 17);
+					WS231=(IToken)Match(input,WS,Follow._WS_in_conversion1989);  
+					stream_WS.Add(WS231);
+
+
+					}
+					break;
+
+				}
+				} finally { DebugExitSubRule(92); }
+
+				DebugLocation(296, 21);
+				PushFollow(Follow._expression_in_conversion1992);
+				expression232=expression();
+				PopFollow();
+
+				stream_expression.Add(expression232.Tree);
+				DebugLocation(296, 32);
+				WS233=(IToken)Match(input,WS,Follow._WS_in_conversion1994);  
+				stream_WS.Add(WS233);
+
+				DebugLocation(296, 35);
+				AS234=(IToken)Match(input,AS,Follow._AS_in_conversion1996);  
+				stream_AS.Add(AS234);
+
+				DebugLocation(296, 38);
+				WS235=(IToken)Match(input,WS,Follow._WS_in_conversion1998);  
+				stream_WS.Add(WS235);
+
+				DebugLocation(296, 41);
+				TOKEN236=(IToken)Match(input,TOKEN,Follow._TOKEN_in_conversion2000);  
+				stream_TOKEN.Add(TOKEN236);
+
+				DebugLocation(296, 47);
+				// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:296:47: ( WS )?
+				int alt93=2;
+				try { DebugEnterSubRule(93);
+				try { DebugEnterDecision(93, decisionCanBacktrack[93]);
+				int LA93_0 = input.LA(1);
+
+				if ((LA93_0==WS))
+				{
+					alt93 = 1;
+				}
+				} finally { DebugExitDecision(93); }
+				switch (alt93)
+				{
+				case 1:
+					DebugEnterAlt(1);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:296:47: WS
+					{
+					DebugLocation(296, 47);
+					WS237=(IToken)Match(input,WS,Follow._WS_in_conversion2002);  
+					stream_WS.Add(WS237);
+
+
+					}
+					break;
+
+				}
+				} finally { DebugExitSubRule(93); }
+
+				DebugLocation(296, 51);
+				char_literal238=(IToken)Match(input,121,Follow._121_in_conversion2005);  
+				stream_121.Add(char_literal238);
+
+
+
+				{
+				// AST REWRITE
+				// elements: expression, TOKEN
+				// token labels: 
+				// rule labels: retval
+				// token list labels: 
+				// rule list labels: 
+				// wildcard labels: 
+				retval.Tree = root_0;
+				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
+
+				root_0 = (object)adaptor.Nil();
+				// 296:55: -> ^( T_CONVERT TOKEN expression )
+				{
+					DebugLocation(296, 58);
+					// /home/wim/Projects/FxGqlC/FxGql/FxGqlLib/Parser/GqlAntlrOutput/gql.g:296:58: ^( T_CONVERT TOKEN expression )
+					{
+					object root_1 = (object)adaptor.Nil();
+					DebugLocation(296, 60);
+					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_CONVERT, "T_CONVERT"), root_1);
+
+					DebugLocation(296, 70);
+					adaptor.AddChild(root_1, stream_TOKEN.NextNode());
+					DebugLocation(296, 76);
 					adaptor.AddChild(root_1, stream_expression.NextTree());
 
 					adaptor.AddChild(root_0, root_1);
@@ -10326,7 +10399,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			LeaveRule("conversion", 40);
 			LeaveRule_conversion();
 	    }
-	 	DebugLocation(295, 1);
+	 	DebugLocation(297, 1);
 		} finally { DebugExitRule(GrammarFileName, "conversion"); }
 		return retval;
 
@@ -10338,252 +10411,253 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	#region Follow sets
 	private static class Follow
 	{
-		public static readonly BitSet _WS_in_parse288 = new BitSet(new ulong[]{0x400000000000UL});
-		public static readonly BitSet _commands_in_parse292 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_parse294 = new BitSet(new ulong[]{0x0UL});
-		public static readonly BitSet _EOF_in_parse299 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _command_in_commands322 = new BitSet(new ulong[]{0x400000000002UL,0x4000400000000000UL});
-		public static readonly BitSet _WS_in_commands325 = new BitSet(new ulong[]{0x400000000000UL,0x4000000000000000UL});
-		public static readonly BitSet _126_in_commands329 = new BitSet(new ulong[]{0x400000000000UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_commands331 = new BitSet(new ulong[]{0x400000000000UL});
-		public static readonly BitSet _command_in_commands336 = new BitSet(new ulong[]{0x400000000002UL,0x4000400000000000UL});
-		public static readonly BitSet _select_command_in_command356 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _SELECT_in_select_command367 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_select_command370 = new BitSet(new ulong[]{0x100020UL});
-		public static readonly BitSet _distinct_clause_in_select_command372 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_select_command377 = new BitSet(new ulong[]{0x20000000000000UL});
-		public static readonly BitSet _top_clause_in_select_command379 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_select_command383 = new BitSet(new ulong[]{0x16006000414000UL,0x280000000000000UL});
-		public static readonly BitSet _column_list_in_select_command385 = new BitSet(new ulong[]{0x2UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_select_command388 = new BitSet(new ulong[]{0x20000000UL});
-		public static readonly BitSet _into_clause_in_select_command390 = new BitSet(new ulong[]{0x2UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_select_command395 = new BitSet(new ulong[]{0x1000000UL});
-		public static readonly BitSet _from_clause_in_select_command397 = new BitSet(new ulong[]{0x2UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_select_command402 = new BitSet(new ulong[]{0x0UL,0x200000000000UL});
-		public static readonly BitSet _where_clause_in_select_command404 = new BitSet(new ulong[]{0x2UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_select_command409 = new BitSet(new ulong[]{0x20000000000UL});
-		public static readonly BitSet _orderby_clause_in_select_command411 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _DISTINCT_in_distinct_clause453 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _ALL_in_distinct_clause462 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _TOP_in_top_clause478 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_top_clause480 = new BitSet(new ulong[]{0x16006000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_in_top_clause482 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _column_in_column_list504 = new BitSet(new ulong[]{0x2UL,0x800400000000000UL});
-		public static readonly BitSet _WS_in_column_list507 = new BitSet(new ulong[]{0x0UL,0x800000000000000UL});
-		public static readonly BitSet _123_in_column_list510 = new BitSet(new ulong[]{0x16006000414000UL,0x280400000000000UL});
-		public static readonly BitSet _WS_in_column_list512 = new BitSet(new ulong[]{0x16006000414000UL,0x280000000000000UL});
-		public static readonly BitSet _column_in_column_list515 = new BitSet(new ulong[]{0x2UL,0x800400000000000UL});
-		public static readonly BitSet _121_in_column539 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_in_column543 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _INTO_in_into_clause553 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_into_clause555 = new BitSet(new ulong[]{0x800000000000UL,0x0UL,0x20UL});
-		public static readonly BitSet _file_in_into_clause557 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _FROM_in_from_clause577 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_from_clause579 = new BitSet(new ulong[]{0x2800000000000UL,0x80000000000000UL,0x20UL});
-		public static readonly BitSet _from_clause_item_in_from_clause581 = new BitSet(new ulong[]{0x2UL,0x800400000000000UL});
-		public static readonly BitSet _WS_in_from_clause584 = new BitSet(new ulong[]{0x0UL,0x800000000000000UL});
-		public static readonly BitSet _123_in_from_clause587 = new BitSet(new ulong[]{0x2800000000000UL,0x80400000000000UL,0x20UL});
-		public static readonly BitSet _WS_in_from_clause589 = new BitSet(new ulong[]{0x2800000000000UL,0x80000000000000UL,0x20UL});
-		public static readonly BitSet _from_clause_item_in_from_clause592 = new BitSet(new ulong[]{0x2UL,0x800400000000000UL});
-		public static readonly BitSet _STRING_in_from_clause_item615 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _file_in_from_clause_item628 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _119_in_from_clause_item633 = new BitSet(new ulong[]{0x400000000000UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_from_clause_item635 = new BitSet(new ulong[]{0x400000000000UL});
-		public static readonly BitSet _select_command_in_from_clause_item638 = new BitSet(new ulong[]{0x0UL,0x100400000000000UL});
-		public static readonly BitSet _WS_in_from_clause_item640 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
-		public static readonly BitSet _120_in_from_clause_item643 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _133_in_file662 = new BitSet(new ulong[]{0x2000000000000UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_file664 = new BitSet(new ulong[]{0x2000000000000UL});
-		public static readonly BitSet _STRING_in_file667 = new BitSet(new ulong[]{0x0UL,0x400000000000UL,0x40UL});
-		public static readonly BitSet _WS_in_file670 = new BitSet(new ulong[]{0x0UL,0x1000000000000000UL});
-		public static readonly BitSet _file_option_in_file672 = new BitSet(new ulong[]{0x0UL,0x400000000000UL,0x40UL});
-		public static readonly BitSet _WS_in_file676 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _134_in_file679 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _SIMPLE_FILE_in_file696 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _124_in_file_option713 = new BitSet(new ulong[]{0x10000000000000UL});
-		public static readonly BitSet _file_option_name_in_file_option715 = new BitSet(new ulong[]{0x2UL,0x400000000000UL,0x4UL});
-		public static readonly BitSet _WS_in_file_option719 = new BitSet(new ulong[]{0x0UL,0x0UL,0x4UL});
-		public static readonly BitSet _130_in_file_option722 = new BitSet(new ulong[]{0x12004000000000UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_file_option724 = new BitSet(new ulong[]{0x12004000000000UL});
-		public static readonly BitSet _file_option_value_in_file_option727 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _TOKEN_in_file_option_name751 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _WHERE_in_where_clause783 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_where_clause785 = new BitSet(new ulong[]{0x16006000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_in_where_clause787 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _ORDER_in_orderby_clause808 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_orderby_clause810 = new BitSet(new ulong[]{0x1000UL});
-		public static readonly BitSet _BY_in_orderby_clause812 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_orderby_clause814 = new BitSet(new ulong[]{0x16006000414000UL,0x80000000000000UL});
-		public static readonly BitSet _orderby_column_list_in_orderby_clause816 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _orderby_column_in_orderby_column_list837 = new BitSet(new ulong[]{0x2UL,0x800400000000000UL});
-		public static readonly BitSet _WS_in_orderby_column_list840 = new BitSet(new ulong[]{0x0UL,0x800000000000000UL});
-		public static readonly BitSet _123_in_orderby_column_list843 = new BitSet(new ulong[]{0x16006000414000UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_orderby_column_list845 = new BitSet(new ulong[]{0x16006000414000UL,0x80000000000000UL});
-		public static readonly BitSet _orderby_column_in_orderby_column_list848 = new BitSet(new ulong[]{0x2UL,0x800400000000000UL});
-		public static readonly BitSet _expression_in_orderby_column868 = new BitSet(new ulong[]{0x2UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_orderby_column871 = new BitSet(new ulong[]{0x40200UL});
-		public static readonly BitSet _orderby_direction_in_orderby_column873 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _ASC_in_orderby_direction898 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _DESC_in_orderby_direction907 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_in_expression_list925 = new BitSet(new ulong[]{0x0UL,0x800400000000000UL});
-		public static readonly BitSet _WS_in_expression_list928 = new BitSet(new ulong[]{0x0UL,0x800000000000000UL});
-		public static readonly BitSet _123_in_expression_list931 = new BitSet(new ulong[]{0x16006000414000UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_expression_list933 = new BitSet(new ulong[]{0x16006000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_in_expression_list936 = new BitSet(new ulong[]{0x2UL,0x800400000000000UL});
-		public static readonly BitSet _expression_list_in_expression_list_or_select_command959 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _select_command_in_expression_list_or_select_command963 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_7_in_expression975 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_6_in_expression_7991 = new BitSet(new ulong[]{0x2UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_expression_7998 = new BitSet(new ulong[]{0x12A10000800UL,0x801C000000000000UL,0x1FUL});
-		public static readonly BitSet _op_7_in_expression_71003 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_expression_71005 = new BitSet(new ulong[]{0x16006000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_6_in_expression_71009 = new BitSet(new ulong[]{0x2UL,0x400000000000UL});
-		public static readonly BitSet _IN_in_expression_71028 = new BitSet(new ulong[]{0x0UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_expression_71030 = new BitSet(new ulong[]{0x0UL,0x80000000000000UL});
-		public static readonly BitSet _119_in_expression_71033 = new BitSet(new ulong[]{0x16406000414000UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_expression_71035 = new BitSet(new ulong[]{0x16406000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_list_or_select_command_in_expression_71038 = new BitSet(new ulong[]{0x0UL,0x100400000000000UL});
-		public static readonly BitSet _WS_in_expression_71040 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
-		public static readonly BitSet _120_in_expression_71043 = new BitSet(new ulong[]{0x2UL,0x400000000000UL});
-		public static readonly BitSet _NOT_in_expression_71061 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_expression_71063 = new BitSet(new ulong[]{0x10000000UL});
-		public static readonly BitSet _IN_in_expression_71065 = new BitSet(new ulong[]{0x0UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_expression_71067 = new BitSet(new ulong[]{0x0UL,0x80000000000000UL});
-		public static readonly BitSet _119_in_expression_71070 = new BitSet(new ulong[]{0x16406000414000UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_expression_71072 = new BitSet(new ulong[]{0x16406000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_list_or_select_command_in_expression_71076 = new BitSet(new ulong[]{0x0UL,0x100400000000000UL});
-		public static readonly BitSet _WS_in_expression_71079 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
-		public static readonly BitSet _120_in_expression_71082 = new BitSet(new ulong[]{0x2UL,0x400000000000UL});
-		public static readonly BitSet _op_4_in_expression_71100 = new BitSet(new ulong[]{0x1000000000080UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_expression_71102 = new BitSet(new ulong[]{0x1000000000080UL});
-		public static readonly BitSet _SOME_in_expression_71106 = new BitSet(new ulong[]{0x0UL,0x80400000000000UL});
-		public static readonly BitSet _ANY_in_expression_71110 = new BitSet(new ulong[]{0x0UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_expression_71113 = new BitSet(new ulong[]{0x0UL,0x80000000000000UL});
-		public static readonly BitSet _119_in_expression_71116 = new BitSet(new ulong[]{0x16406000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_list_or_select_command_in_expression_71118 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
-		public static readonly BitSet _120_in_expression_71120 = new BitSet(new ulong[]{0x2UL,0x400000000000UL});
-		public static readonly BitSet _op_4_in_expression_71140 = new BitSet(new ulong[]{0x20UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_expression_71142 = new BitSet(new ulong[]{0x20UL});
-		public static readonly BitSet _ALL_in_expression_71145 = new BitSet(new ulong[]{0x0UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_expression_71147 = new BitSet(new ulong[]{0x0UL,0x80000000000000UL});
-		public static readonly BitSet _119_in_expression_71150 = new BitSet(new ulong[]{0x16406000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_list_or_select_command_in_expression_71152 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
-		public static readonly BitSet _120_in_expression_71154 = new BitSet(new ulong[]{0x2UL,0x400000000000UL});
-		public static readonly BitSet _OR_in_op_71184 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _LIKE_in_op_71193 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _NOT_in_op_71202 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_op_71204 = new BitSet(new ulong[]{0x200000000UL});
-		public static readonly BitSet _LIKE_in_op_71206 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _MATCH_in_op_71215 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _NOT_in_op_71224 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_op_71226 = new BitSet(new ulong[]{0x800000000UL});
-		public static readonly BitSet _MATCH_in_op_71228 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _BETWEEN_in_op_71237 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _NOT_in_op_71246 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_op_71248 = new BitSet(new ulong[]{0x800UL});
-		public static readonly BitSet _BETWEEN_in_op_71250 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_5_in_expression_61269 = new BitSet(new ulong[]{0x2UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_expression_61276 = new BitSet(new ulong[]{0x40UL});
-		public static readonly BitSet _op_6_in_expression_61278 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_expression_61280 = new BitSet(new ulong[]{0x16006000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_5_in_expression_61284 = new BitSet(new ulong[]{0x2UL,0x400000000000UL});
-		public static readonly BitSet _AND_in_op_61312 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _op_5_in_expression_51330 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_expression_51332 = new BitSet(new ulong[]{0x16006000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_5_in_expression_51334 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_4_in_expression_51349 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _NOT_in_op_51360 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_3_in_expression_41379 = new BitSet(new ulong[]{0x2UL,0x801C400000000000UL,0x1FUL});
-		public static readonly BitSet _WS_in_expression_41386 = new BitSet(new ulong[]{0x0UL,0x801C000000000000UL,0x1FUL});
-		public static readonly BitSet _op_4_in_expression_41389 = new BitSet(new ulong[]{0x16004000414000UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_expression_41391 = new BitSet(new ulong[]{0x16004000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_3_in_expression_41396 = new BitSet(new ulong[]{0x2UL,0x801C400000000000UL,0x1FUL});
-		public static readonly BitSet _130_in_op_41422 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _132_in_op_41431 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _128_in_op_41441 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _129_in_op_41451 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _115_in_op_41460 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _116_in_op_41469 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _114_in_op_41478 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _131_in_op_41487 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _127_in_op_41497 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_2_in_expression_31516 = new BitSet(new ulong[]{0x2UL,0x1440400000000000UL,0x180UL});
-		public static readonly BitSet _WS_in_expression_31523 = new BitSet(new ulong[]{0x0UL,0x1440000000000000UL,0x180UL});
-		public static readonly BitSet _op_3_in_expression_31526 = new BitSet(new ulong[]{0x16004000414000UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_expression_31528 = new BitSet(new ulong[]{0x16004000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_2_in_expression_31533 = new BitSet(new ulong[]{0x2UL,0x1440400000000000UL,0x180UL});
-		public static readonly BitSet _122_in_op_31559 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _124_in_op_31568 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _118_in_op_31577 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _136_in_op_31586 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _135_in_op_31595 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_1_in_expression_21617 = new BitSet(new ulong[]{0x2UL,0x2220400000000000UL});
-		public static readonly BitSet _WS_in_expression_21624 = new BitSet(new ulong[]{0x0UL,0x2220000000000000UL});
-		public static readonly BitSet _op_2_in_expression_21627 = new BitSet(new ulong[]{0x16004000414000UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_expression_21629 = new BitSet(new ulong[]{0x16004000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_1_in_expression_21634 = new BitSet(new ulong[]{0x2UL,0x2220400000000000UL});
-		public static readonly BitSet _121_in_op_21660 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _125_in_op_21669 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _117_in_op_21678 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _119_in_expression_11696 = new BitSet(new ulong[]{0x0UL,0x1400400000000000UL,0x200UL});
-		public static readonly BitSet _WS_in_expression_11698 = new BitSet(new ulong[]{0x0UL,0x1400000000000000UL,0x200UL});
-		public static readonly BitSet _op_1_in_expression_11701 = new BitSet(new ulong[]{0x16004000414000UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_expression_11703 = new BitSet(new ulong[]{0x16004000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_1_in_expression_11706 = new BitSet(new ulong[]{0x0UL,0x100400000000000UL});
-		public static readonly BitSet _WS_in_expression_11708 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
-		public static readonly BitSet _120_in_expression_11711 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_atom_in_expression_11728 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _137_in_op_11738 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _122_in_op_11748 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _124_in_op_11757 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _NUMBER_in_expression_atom1772 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _STRING_in_expression_atom1785 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _SYSTEMVAR_in_expression_atom1798 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _119_in_expression_atom1811 = new BitSet(new ulong[]{0x16006000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_in_expression_atom1813 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
-		public static readonly BitSet _120_in_expression_atom1815 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _functioncall_in_expression_atom1824 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _conversion_in_expression_atom1830 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _EXISTS_in_expression_atom1835 = new BitSet(new ulong[]{0x0UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_expression_atom1837 = new BitSet(new ulong[]{0x0UL,0x80000000000000UL});
-		public static readonly BitSet _119_in_expression_atom1840 = new BitSet(new ulong[]{0x400000000000UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_expression_atom1842 = new BitSet(new ulong[]{0x400000000000UL});
-		public static readonly BitSet _select_command_in_expression_atom1845 = new BitSet(new ulong[]{0x0UL,0x100400000000000UL});
-		public static readonly BitSet _WS_in_expression_atom1847 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
-		public static readonly BitSet _120_in_expression_atom1850 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _TOKEN_in_functioncall1870 = new BitSet(new ulong[]{0x0UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_functioncall1872 = new BitSet(new ulong[]{0x0UL,0x80000000000000UL});
-		public static readonly BitSet _119_in_functioncall1875 = new BitSet(new ulong[]{0x16006000414000UL,0x180400000000000UL});
-		public static readonly BitSet _WS_in_functioncall1877 = new BitSet(new ulong[]{0x16006000414000UL,0x180000000000000UL});
-		public static readonly BitSet _expression_in_functioncall1881 = new BitSet(new ulong[]{0x0UL,0x900400000000000UL});
-		public static readonly BitSet _WS_in_functioncall1883 = new BitSet(new ulong[]{0x0UL,0x900000000000000UL});
-		public static readonly BitSet _123_in_functioncall1887 = new BitSet(new ulong[]{0x16006000414000UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_functioncall1889 = new BitSet(new ulong[]{0x16006000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_in_functioncall1892 = new BitSet(new ulong[]{0x0UL,0x900400000000000UL});
-		public static readonly BitSet _WS_in_functioncall1894 = new BitSet(new ulong[]{0x0UL,0x900000000000000UL});
-		public static readonly BitSet _120_in_functioncall1901 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _CONVERT_in_conversion1925 = new BitSet(new ulong[]{0x0UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_conversion1927 = new BitSet(new ulong[]{0x0UL,0x80000000000000UL});
-		public static readonly BitSet _119_in_conversion1930 = new BitSet(new ulong[]{0x10000000000000UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_conversion1932 = new BitSet(new ulong[]{0x10000000000000UL});
-		public static readonly BitSet _TOKEN_in_conversion1935 = new BitSet(new ulong[]{0x0UL,0x800400000000000UL});
-		public static readonly BitSet _WS_in_conversion1937 = new BitSet(new ulong[]{0x0UL,0x800000000000000UL});
-		public static readonly BitSet _123_in_conversion1940 = new BitSet(new ulong[]{0x16006000414000UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_conversion1942 = new BitSet(new ulong[]{0x16006000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_in_conversion1945 = new BitSet(new ulong[]{0x0UL,0x100400000000000UL});
-		public static readonly BitSet _WS_in_conversion1947 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
-		public static readonly BitSet _120_in_conversion1950 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _CAST_in_conversion1965 = new BitSet(new ulong[]{0x0UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_conversion1967 = new BitSet(new ulong[]{0x0UL,0x80000000000000UL});
-		public static readonly BitSet _119_in_conversion1970 = new BitSet(new ulong[]{0x16006000414000UL,0x80400000000000UL});
-		public static readonly BitSet _WS_in_conversion1972 = new BitSet(new ulong[]{0x16006000414000UL,0x80000000000000UL});
-		public static readonly BitSet _expression_in_conversion1975 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_conversion1977 = new BitSet(new ulong[]{0x100UL});
-		public static readonly BitSet _AS_in_conversion1979 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
-		public static readonly BitSet _WS_in_conversion1981 = new BitSet(new ulong[]{0x10000000000000UL});
-		public static readonly BitSet _TOKEN_in_conversion1983 = new BitSet(new ulong[]{0x0UL,0x100400000000000UL});
-		public static readonly BitSet _WS_in_conversion1985 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
-		public static readonly BitSet _120_in_conversion1988 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _WS_in_parse292 = new BitSet(new ulong[]{0x400000000000UL});
+		public static readonly BitSet _commands_in_parse296 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_parse298 = new BitSet(new ulong[]{0x0UL});
+		public static readonly BitSet _EOF_in_parse303 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _command_in_commands326 = new BitSet(new ulong[]{0x400000000002UL,0x8000800000000000UL});
+		public static readonly BitSet _WS_in_commands329 = new BitSet(new ulong[]{0x400000000000UL,0x8000000000000000UL});
+		public static readonly BitSet _127_in_commands333 = new BitSet(new ulong[]{0x400000000000UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_commands335 = new BitSet(new ulong[]{0x400000000000UL});
+		public static readonly BitSet _command_in_commands340 = new BitSet(new ulong[]{0x400000000002UL,0x8000800000000000UL});
+		public static readonly BitSet _select_command_in_command360 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _SELECT_in_select_command371 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_select_command374 = new BitSet(new ulong[]{0x100020UL});
+		public static readonly BitSet _distinct_clause_in_select_command376 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_select_command381 = new BitSet(new ulong[]{0x20000000000000UL});
+		public static readonly BitSet _top_clause_in_select_command383 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_select_command387 = new BitSet(new ulong[]{0x16806000414000UL,0x500000000000000UL});
+		public static readonly BitSet _column_list_in_select_command389 = new BitSet(new ulong[]{0x2UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_select_command392 = new BitSet(new ulong[]{0x20000000UL});
+		public static readonly BitSet _into_clause_in_select_command394 = new BitSet(new ulong[]{0x2UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_select_command399 = new BitSet(new ulong[]{0x1000000UL});
+		public static readonly BitSet _from_clause_in_select_command401 = new BitSet(new ulong[]{0x2UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_select_command406 = new BitSet(new ulong[]{0x0UL,0x400000000000UL});
+		public static readonly BitSet _where_clause_in_select_command408 = new BitSet(new ulong[]{0x2UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_select_command413 = new BitSet(new ulong[]{0x20000000000UL});
+		public static readonly BitSet _orderby_clause_in_select_command415 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _DISTINCT_in_distinct_clause457 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _ALL_in_distinct_clause466 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _TOP_in_top_clause482 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_top_clause484 = new BitSet(new ulong[]{0x16806000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_in_top_clause486 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _column_in_column_list508 = new BitSet(new ulong[]{0x2UL,0x1000800000000000UL});
+		public static readonly BitSet _WS_in_column_list511 = new BitSet(new ulong[]{0x0UL,0x1000000000000000UL});
+		public static readonly BitSet _124_in_column_list514 = new BitSet(new ulong[]{0x16806000414000UL,0x500800000000000UL});
+		public static readonly BitSet _WS_in_column_list516 = new BitSet(new ulong[]{0x16806000414000UL,0x500000000000000UL});
+		public static readonly BitSet _column_in_column_list519 = new BitSet(new ulong[]{0x2UL,0x1000800000000000UL});
+		public static readonly BitSet _122_in_column543 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_in_column547 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _INTO_in_into_clause557 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_into_clause559 = new BitSet(new ulong[]{0x800000000000UL,0x0UL,0x40UL});
+		public static readonly BitSet _file_in_into_clause561 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _FROM_in_from_clause581 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_from_clause583 = new BitSet(new ulong[]{0x2800000000000UL,0x100000000000000UL,0x40UL});
+		public static readonly BitSet _from_clause_item_in_from_clause585 = new BitSet(new ulong[]{0x2UL,0x1000800000000000UL});
+		public static readonly BitSet _WS_in_from_clause588 = new BitSet(new ulong[]{0x0UL,0x1000000000000000UL});
+		public static readonly BitSet _124_in_from_clause591 = new BitSet(new ulong[]{0x2800000000000UL,0x100800000000000UL,0x40UL});
+		public static readonly BitSet _WS_in_from_clause593 = new BitSet(new ulong[]{0x2800000000000UL,0x100000000000000UL,0x40UL});
+		public static readonly BitSet _from_clause_item_in_from_clause596 = new BitSet(new ulong[]{0x2UL,0x1000800000000000UL});
+		public static readonly BitSet _STRING_in_from_clause_item619 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _file_in_from_clause_item632 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _120_in_from_clause_item637 = new BitSet(new ulong[]{0x400000000000UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_from_clause_item639 = new BitSet(new ulong[]{0x400000000000UL});
+		public static readonly BitSet _select_command_in_from_clause_item642 = new BitSet(new ulong[]{0x0UL,0x200800000000000UL});
+		public static readonly BitSet _WS_in_from_clause_item644 = new BitSet(new ulong[]{0x0UL,0x200000000000000UL});
+		public static readonly BitSet _121_in_from_clause_item647 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _134_in_file666 = new BitSet(new ulong[]{0x2000000000000UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_file668 = new BitSet(new ulong[]{0x2000000000000UL});
+		public static readonly BitSet _STRING_in_file671 = new BitSet(new ulong[]{0x0UL,0x800000000000UL,0x80UL});
+		public static readonly BitSet _WS_in_file674 = new BitSet(new ulong[]{0x0UL,0x2000000000000000UL});
+		public static readonly BitSet _file_option_in_file676 = new BitSet(new ulong[]{0x0UL,0x800000000000UL,0x80UL});
+		public static readonly BitSet _WS_in_file680 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _135_in_file683 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _SIMPLE_FILE_in_file700 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _125_in_file_option717 = new BitSet(new ulong[]{0x10000000000000UL});
+		public static readonly BitSet _file_option_name_in_file_option719 = new BitSet(new ulong[]{0x2UL,0x800000000000UL,0x8UL});
+		public static readonly BitSet _WS_in_file_option723 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8UL});
+		public static readonly BitSet _131_in_file_option726 = new BitSet(new ulong[]{0x12004000000000UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_file_option728 = new BitSet(new ulong[]{0x12004000000000UL});
+		public static readonly BitSet _file_option_value_in_file_option731 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _TOKEN_in_file_option_name755 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _WHERE_in_where_clause787 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_where_clause789 = new BitSet(new ulong[]{0x16806000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_in_where_clause791 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _ORDER_in_orderby_clause812 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_orderby_clause814 = new BitSet(new ulong[]{0x1000UL});
+		public static readonly BitSet _BY_in_orderby_clause816 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_orderby_clause818 = new BitSet(new ulong[]{0x16806000414000UL,0x100000000000000UL});
+		public static readonly BitSet _orderby_column_list_in_orderby_clause820 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _orderby_column_in_orderby_column_list841 = new BitSet(new ulong[]{0x2UL,0x1000800000000000UL});
+		public static readonly BitSet _WS_in_orderby_column_list844 = new BitSet(new ulong[]{0x0UL,0x1000000000000000UL});
+		public static readonly BitSet _124_in_orderby_column_list847 = new BitSet(new ulong[]{0x16806000414000UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_orderby_column_list849 = new BitSet(new ulong[]{0x16806000414000UL,0x100000000000000UL});
+		public static readonly BitSet _orderby_column_in_orderby_column_list852 = new BitSet(new ulong[]{0x2UL,0x1000800000000000UL});
+		public static readonly BitSet _expression_in_orderby_column872 = new BitSet(new ulong[]{0x2UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_orderby_column875 = new BitSet(new ulong[]{0x40200UL});
+		public static readonly BitSet _orderby_direction_in_orderby_column877 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _ASC_in_orderby_direction902 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _DESC_in_orderby_direction911 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_in_expression_list929 = new BitSet(new ulong[]{0x0UL,0x1000800000000000UL});
+		public static readonly BitSet _WS_in_expression_list932 = new BitSet(new ulong[]{0x0UL,0x1000000000000000UL});
+		public static readonly BitSet _124_in_expression_list935 = new BitSet(new ulong[]{0x16806000414000UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_expression_list937 = new BitSet(new ulong[]{0x16806000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_in_expression_list940 = new BitSet(new ulong[]{0x2UL,0x1000800000000000UL});
+		public static readonly BitSet _expression_list_in_expression_list_or_select_command963 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _select_command_in_expression_list_or_select_command967 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_7_in_expression979 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_6_in_expression_7995 = new BitSet(new ulong[]{0x2UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_expression_71002 = new BitSet(new ulong[]{0x12A10000800UL,0x38000000000000UL,0x3FUL});
+		public static readonly BitSet _op_7_in_expression_71007 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_expression_71009 = new BitSet(new ulong[]{0x16806000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_6_in_expression_71013 = new BitSet(new ulong[]{0x2UL,0x800000000000UL});
+		public static readonly BitSet _IN_in_expression_71032 = new BitSet(new ulong[]{0x0UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_expression_71034 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
+		public static readonly BitSet _120_in_expression_71037 = new BitSet(new ulong[]{0x16C06000414000UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_expression_71039 = new BitSet(new ulong[]{0x16C06000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_list_or_select_command_in_expression_71042 = new BitSet(new ulong[]{0x0UL,0x200800000000000UL});
+		public static readonly BitSet _WS_in_expression_71044 = new BitSet(new ulong[]{0x0UL,0x200000000000000UL});
+		public static readonly BitSet _121_in_expression_71047 = new BitSet(new ulong[]{0x2UL,0x800000000000UL});
+		public static readonly BitSet _NOT_in_expression_71065 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_expression_71067 = new BitSet(new ulong[]{0x10000000UL});
+		public static readonly BitSet _IN_in_expression_71069 = new BitSet(new ulong[]{0x0UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_expression_71071 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
+		public static readonly BitSet _120_in_expression_71074 = new BitSet(new ulong[]{0x16C06000414000UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_expression_71076 = new BitSet(new ulong[]{0x16C06000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_list_or_select_command_in_expression_71080 = new BitSet(new ulong[]{0x0UL,0x200800000000000UL});
+		public static readonly BitSet _WS_in_expression_71083 = new BitSet(new ulong[]{0x0UL,0x200000000000000UL});
+		public static readonly BitSet _121_in_expression_71086 = new BitSet(new ulong[]{0x2UL,0x800000000000UL});
+		public static readonly BitSet _op_4_in_expression_71104 = new BitSet(new ulong[]{0x1000000000080UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_expression_71106 = new BitSet(new ulong[]{0x1000000000080UL});
+		public static readonly BitSet _SOME_in_expression_71110 = new BitSet(new ulong[]{0x0UL,0x100800000000000UL});
+		public static readonly BitSet _ANY_in_expression_71114 = new BitSet(new ulong[]{0x0UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_expression_71117 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
+		public static readonly BitSet _120_in_expression_71120 = new BitSet(new ulong[]{0x16C06000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_list_or_select_command_in_expression_71122 = new BitSet(new ulong[]{0x0UL,0x200000000000000UL});
+		public static readonly BitSet _121_in_expression_71124 = new BitSet(new ulong[]{0x2UL,0x800000000000UL});
+		public static readonly BitSet _op_4_in_expression_71144 = new BitSet(new ulong[]{0x20UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_expression_71146 = new BitSet(new ulong[]{0x20UL});
+		public static readonly BitSet _ALL_in_expression_71149 = new BitSet(new ulong[]{0x0UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_expression_71151 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
+		public static readonly BitSet _120_in_expression_71154 = new BitSet(new ulong[]{0x16C06000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_list_or_select_command_in_expression_71156 = new BitSet(new ulong[]{0x0UL,0x200000000000000UL});
+		public static readonly BitSet _121_in_expression_71158 = new BitSet(new ulong[]{0x2UL,0x800000000000UL});
+		public static readonly BitSet _OR_in_op_71188 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _LIKE_in_op_71197 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _NOT_in_op_71206 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_op_71208 = new BitSet(new ulong[]{0x200000000UL});
+		public static readonly BitSet _LIKE_in_op_71210 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _MATCH_in_op_71219 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _NOT_in_op_71228 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_op_71230 = new BitSet(new ulong[]{0x800000000UL});
+		public static readonly BitSet _MATCH_in_op_71232 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _BETWEEN_in_op_71241 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _NOT_in_op_71250 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_op_71252 = new BitSet(new ulong[]{0x800UL});
+		public static readonly BitSet _BETWEEN_in_op_71254 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_5_in_expression_61273 = new BitSet(new ulong[]{0x2UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_expression_61280 = new BitSet(new ulong[]{0x40UL});
+		public static readonly BitSet _op_6_in_expression_61282 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_expression_61284 = new BitSet(new ulong[]{0x16806000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_5_in_expression_61288 = new BitSet(new ulong[]{0x2UL,0x800000000000UL});
+		public static readonly BitSet _AND_in_op_61316 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _op_5_in_expression_51334 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_expression_51336 = new BitSet(new ulong[]{0x16806000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_5_in_expression_51338 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_4_in_expression_51353 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _NOT_in_op_51364 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_3_in_expression_41383 = new BitSet(new ulong[]{0x2UL,0x38800000000000UL,0x3FUL});
+		public static readonly BitSet _WS_in_expression_41390 = new BitSet(new ulong[]{0x0UL,0x38000000000000UL,0x3FUL});
+		public static readonly BitSet _op_4_in_expression_41393 = new BitSet(new ulong[]{0x16804000414000UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_expression_41395 = new BitSet(new ulong[]{0x16804000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_3_in_expression_41400 = new BitSet(new ulong[]{0x2UL,0x38800000000000UL,0x3FUL});
+		public static readonly BitSet _131_in_op_41426 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _133_in_op_41435 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _129_in_op_41445 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _130_in_op_41455 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _116_in_op_41464 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _117_in_op_41473 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _115_in_op_41482 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _132_in_op_41491 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _128_in_op_41501 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_2_in_expression_31520 = new BitSet(new ulong[]{0x2UL,0x2880800000000000UL,0x300UL});
+		public static readonly BitSet _WS_in_expression_31527 = new BitSet(new ulong[]{0x0UL,0x2880000000000000UL,0x300UL});
+		public static readonly BitSet _op_3_in_expression_31530 = new BitSet(new ulong[]{0x16804000414000UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_expression_31532 = new BitSet(new ulong[]{0x16804000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_2_in_expression_31537 = new BitSet(new ulong[]{0x2UL,0x2880800000000000UL,0x300UL});
+		public static readonly BitSet _123_in_op_31563 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _125_in_op_31572 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _119_in_op_31581 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _137_in_op_31590 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _136_in_op_31599 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_1_in_expression_21621 = new BitSet(new ulong[]{0x2UL,0x4440800000000000UL});
+		public static readonly BitSet _WS_in_expression_21628 = new BitSet(new ulong[]{0x0UL,0x4440000000000000UL});
+		public static readonly BitSet _op_2_in_expression_21631 = new BitSet(new ulong[]{0x16804000414000UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_expression_21633 = new BitSet(new ulong[]{0x16804000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_1_in_expression_21638 = new BitSet(new ulong[]{0x2UL,0x4440800000000000UL});
+		public static readonly BitSet _122_in_op_21664 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _126_in_op_21673 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _118_in_op_21682 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _120_in_expression_11700 = new BitSet(new ulong[]{0x0UL,0x2800800000000000UL,0x400UL});
+		public static readonly BitSet _WS_in_expression_11702 = new BitSet(new ulong[]{0x0UL,0x2800000000000000UL,0x400UL});
+		public static readonly BitSet _op_1_in_expression_11705 = new BitSet(new ulong[]{0x16804000414000UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_expression_11707 = new BitSet(new ulong[]{0x16804000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_1_in_expression_11710 = new BitSet(new ulong[]{0x0UL,0x200800000000000UL});
+		public static readonly BitSet _WS_in_expression_11712 = new BitSet(new ulong[]{0x0UL,0x200000000000000UL});
+		public static readonly BitSet _121_in_expression_11715 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_atom_in_expression_11732 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _138_in_op_11742 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _123_in_op_11752 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _125_in_op_11761 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _NUMBER_in_expression_atom1776 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _STRING_in_expression_atom1789 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _SYSTEMVAR_in_expression_atom1802 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _120_in_expression_atom1815 = new BitSet(new ulong[]{0x16806000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_in_expression_atom1817 = new BitSet(new ulong[]{0x0UL,0x200000000000000UL});
+		public static readonly BitSet _121_in_expression_atom1819 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _functioncall_or_column_in_expression_atom1828 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _conversion_in_expression_atom1833 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _EXISTS_in_expression_atom1838 = new BitSet(new ulong[]{0x0UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_expression_atom1840 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
+		public static readonly BitSet _120_in_expression_atom1843 = new BitSet(new ulong[]{0x400000000000UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_expression_atom1845 = new BitSet(new ulong[]{0x400000000000UL});
+		public static readonly BitSet _select_command_in_expression_atom1848 = new BitSet(new ulong[]{0x0UL,0x200800000000000UL});
+		public static readonly BitSet _WS_in_expression_atom1850 = new BitSet(new ulong[]{0x0UL,0x200000000000000UL});
+		public static readonly BitSet _121_in_expression_atom1853 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _TOKEN_in_functioncall_or_column1873 = new BitSet(new ulong[]{0x0UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_functioncall_or_column1875 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
+		public static readonly BitSet _120_in_functioncall_or_column1878 = new BitSet(new ulong[]{0x16806000414000UL,0x300800000000000UL});
+		public static readonly BitSet _WS_in_functioncall_or_column1880 = new BitSet(new ulong[]{0x16806000414000UL,0x300000000000000UL});
+		public static readonly BitSet _expression_in_functioncall_or_column1884 = new BitSet(new ulong[]{0x0UL,0x1200800000000000UL});
+		public static readonly BitSet _WS_in_functioncall_or_column1886 = new BitSet(new ulong[]{0x0UL,0x1200000000000000UL});
+		public static readonly BitSet _124_in_functioncall_or_column1890 = new BitSet(new ulong[]{0x16806000414000UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_functioncall_or_column1892 = new BitSet(new ulong[]{0x16806000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_in_functioncall_or_column1895 = new BitSet(new ulong[]{0x0UL,0x1200800000000000UL});
+		public static readonly BitSet _WS_in_functioncall_or_column1897 = new BitSet(new ulong[]{0x0UL,0x1200000000000000UL});
+		public static readonly BitSet _121_in_functioncall_or_column1904 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _SIMPLE_FILE_in_functioncall_or_column1922 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _CONVERT_in_conversion1942 = new BitSet(new ulong[]{0x0UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_conversion1944 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
+		public static readonly BitSet _120_in_conversion1947 = new BitSet(new ulong[]{0x10000000000000UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_conversion1949 = new BitSet(new ulong[]{0x10000000000000UL});
+		public static readonly BitSet _TOKEN_in_conversion1952 = new BitSet(new ulong[]{0x0UL,0x1000800000000000UL});
+		public static readonly BitSet _WS_in_conversion1954 = new BitSet(new ulong[]{0x0UL,0x1000000000000000UL});
+		public static readonly BitSet _124_in_conversion1957 = new BitSet(new ulong[]{0x16806000414000UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_conversion1959 = new BitSet(new ulong[]{0x16806000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_in_conversion1962 = new BitSet(new ulong[]{0x0UL,0x200800000000000UL});
+		public static readonly BitSet _WS_in_conversion1964 = new BitSet(new ulong[]{0x0UL,0x200000000000000UL});
+		public static readonly BitSet _121_in_conversion1967 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _CAST_in_conversion1982 = new BitSet(new ulong[]{0x0UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_conversion1984 = new BitSet(new ulong[]{0x0UL,0x100000000000000UL});
+		public static readonly BitSet _120_in_conversion1987 = new BitSet(new ulong[]{0x16806000414000UL,0x100800000000000UL});
+		public static readonly BitSet _WS_in_conversion1989 = new BitSet(new ulong[]{0x16806000414000UL,0x100000000000000UL});
+		public static readonly BitSet _expression_in_conversion1992 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_conversion1994 = new BitSet(new ulong[]{0x100UL});
+		public static readonly BitSet _AS_in_conversion1996 = new BitSet(new ulong[]{0x0UL,0x800000000000UL});
+		public static readonly BitSet _WS_in_conversion1998 = new BitSet(new ulong[]{0x10000000000000UL});
+		public static readonly BitSet _TOKEN_in_conversion2000 = new BitSet(new ulong[]{0x0UL,0x200800000000000UL});
+		public static readonly BitSet _WS_in_conversion2002 = new BitSet(new ulong[]{0x0UL,0x200000000000000UL});
+		public static readonly BitSet _121_in_conversion2005 = new BitSet(new ulong[]{0x2UL});
 	}
 	#endregion Follow sets
 }

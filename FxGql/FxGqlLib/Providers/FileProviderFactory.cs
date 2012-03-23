@@ -25,6 +25,8 @@ namespace FxGqlLib
 		public NewLineEnum NewLine  { get; set; }
 
 		public bool Append { get; set; }
+
+		public bool TitleLine { get; set; }
 	}
 	
 	static class FileProviderFactory

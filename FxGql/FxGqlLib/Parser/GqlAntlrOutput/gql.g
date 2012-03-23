@@ -60,6 +60,7 @@ tokens
 	T_NOTIN;
 	T_ANY;
 	T_EXISTS;
+	T_COLUMN;
 }
 
 @parser::namespace { FxGqlLib }
@@ -278,15 +279,16 @@ expression_atom
 	| STRING -> ^(T_STRING STRING)
 	| SYSTEMVAR -> ^(T_SYSTEMVAR SYSTEMVAR)
 	| '(' expression ')' -> expression
-	| functioncall 
+	| functioncall_or_column
 	| conversion
 	| EXISTS WS? '(' WS? select_command WS? ')' -> ^(T_EXISTS select_command)
 	;
 ///////////////////////////////////////////////////////////////////////////////
 
-functioncall
-	: TOKEN WS? '(' WS? (expression WS? (',' WS? expression WS?)*)? ')'
-	-> ^(T_FUNCTIONCALL TOKEN expression*)
+functioncall_or_column
+	: TOKEN WS? '(' WS? (expression WS? (',' WS? expression WS?)*)? ')' -> ^(T_FUNCTIONCALL TOKEN expression*)
+	//| TOKEN -> ^(T_COLUMN TOKEN)
+	| SIMPLE_FILE -> ^(T_COLUMN SIMPLE_FILE)
 	;
 	
 conversion

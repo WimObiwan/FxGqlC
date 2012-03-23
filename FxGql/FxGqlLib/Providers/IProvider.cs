@@ -4,6 +4,8 @@ namespace FxGqlLib
 {
 	public class ProviderRecord
 	{
+		public string[] ColumnTitles { get; set; }
+
 		//public string Text { get; set; }
 		public string Source { get; set; }
 
@@ -16,7 +18,9 @@ namespace FxGqlLib
 	
 	public interface IProvider : IDisposable
 	{
-		Type[] GetColumnTypes();
+		int GetColumnOrdinal (string columnName);
+		
+		Type[] GetColumnTypes ();
 		
 		void Initialize ();
 

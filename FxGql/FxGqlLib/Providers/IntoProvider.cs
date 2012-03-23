@@ -18,6 +18,11 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+		public int GetColumnOrdinal(string columnName)
+		{
+			return -1;
+		}
+		
 		public Type[] GetColumnTypes()
 		{
 			return new Type[] { };

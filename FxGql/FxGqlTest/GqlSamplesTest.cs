@@ -153,7 +153,7 @@ namespace FxGqlTest
 			TestGql ("select * from ['SampleFiles/*.csv'] where $line like '%belgium%'",
 				"118A735B8252E05853FD53AB5BF4D2223899144E763EE87880AEA0534F0B3FFB");
 			TestGql ("select * from ['SampleFiles/*.csv']",
-				"6F91BC761BA19434609D879489CF4D0A3105619F14823EEDBF71E41392F48DAA");
+				"061A433CD5329B48CB1FAC416F4505AFEE5D79632DF2A363991711FB8788D573");
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -recurse]",
 				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
 			TestGql ("select * from ['SampleFiles/AirportCodes2.csv' -recurse]",
@@ -546,6 +546,13 @@ namespace FxGqlTest
 			//			+ "order by 1, 2 desc",
 			//	"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 			
+			// Columns
+			TestGql ("select distinct top 15 [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine]",
+				"E55E5D72E548200133B381F911E02E57CA2032C42394C544492FE569C8DA9646");
+			TestGql ("select distinct [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine]",
+				"BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+						
+			
 			Console.WriteLine ();
 			Console.WriteLine ("{0} tests done, {1} succeeded, {2} failed, {3} unknown", succeeded + failed + unknown, succeeded, failed, unknown);
 		}
@@ -554,6 +561,7 @@ namespace FxGqlTest
 		{
 			// TODO: group by
 			// TODO: aggregates
+			// 
 		}
 	}
 }

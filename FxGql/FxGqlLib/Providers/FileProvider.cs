@@ -15,6 +15,11 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+		public int GetColumnOrdinal(string columnName)
+		{
+			return -1;
+		}
+		
 		public Type[] GetColumnTypes()
 		{
 			return new Type[] { typeof(string) };
@@ -34,6 +39,7 @@ namespace FxGqlLib
 			{ 
 				text 
 			};
+			record.OriginalColumns = record.Columns;
 			record.LineNo++;
 			
 			return text != null;
