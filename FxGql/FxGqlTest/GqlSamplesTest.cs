@@ -574,11 +574,6 @@ namespace FxGqlTest
 			// TODO: create file columns on regular expression
 			// TODO: create "view" or "function"
 			// TODO: skip clause (select top 10 skip 2 from ...
-			// 
-			// TODO: New release with column titles
-			// TODO: Documentation for -FirstLine
-			// TODO: Documentation for column title
-
 		}
 	}
 }
