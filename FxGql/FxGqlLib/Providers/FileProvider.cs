@@ -27,7 +27,7 @@ namespace FxGqlLib
 		
 		public void Initialize ()
 		{
-			streamReader = new StreamReader (fileName);
+			streamReader = new StreamReader (new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
 			record = new ProviderRecord ();
 			record.Source = fileName;
 		}
