@@ -28,6 +28,28 @@ namespace FxGqlLib
 		{
 			return functor(arg1.Evaluate(gqlQueryState), arg2.Evaluate(gqlQueryState));
 		}
+
+		public override bool IsAggregated ()
+		{
+			return arg1.IsAggregated () || arg2.IsAggregated ();
+		}
+		
+		public override void Aggregate (AggregationState state, GqlQueryState gqlQueryState)
+		{
+			if (arg1.IsAggregated()) arg1.Aggregate (state, gqlQueryState);
+			if (arg2.IsAggregated()) arg2.Aggregate (state, gqlQueryState);
+		}
+		
+		public override IComparable AggregateCalculate (AggregationState state)
+		{
+			T1 t1;
+			if (arg1.IsAggregated()) t1 = (T1)arg1.AggregateCalculate (state);
+			else t1 = arg1.Evaluate(null);
+			T2 t2;
+			if (arg2.IsAggregated()) t2 = (T2)arg2.AggregateCalculate (state);
+			else t2 = arg2.Evaluate(null);
+			return functor(t1, t2);
+		}
 		#endregion
 	}
 }

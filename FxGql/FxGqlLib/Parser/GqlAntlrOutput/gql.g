@@ -18,6 +18,7 @@ tokens
 	T_INTO;
 	T_FROM;
 	T_WHERE;
+	T_GROUPBY;
 	T_ORDERBY;
 	T_FILE;
 	T_FILEOPTION;
@@ -96,8 +97,8 @@ command
 	;
 
 select_command
-	: SELECT (WS distinct_clause)? (WS top_clause)? WS column_list (WS into_clause)? (WS from_clause)? (WS where_clause)? (WS orderby_clause)?
-		-> ^(T_SELECT distinct_clause? top_clause? column_list into_clause? from_clause? where_clause? orderby_clause?)
+	: SELECT (WS distinct_clause)? (WS top_clause)? WS column_list (WS into_clause)? (WS from_clause)? (WS where_clause)? (WS groupby_clause)? (WS orderby_clause)?
+		-> ^(T_SELECT distinct_clause? top_clause? column_list into_clause? from_clause? where_clause? groupby_clause? orderby_clause?)
 	;
 	
 distinct_clause
@@ -153,6 +154,10 @@ where_clause
 	: WHERE WS expression
 	-> ^(T_WHERE expression)
 	;
+groupby_clause
+	: GROUP WS BY WS expression_list
+	-> ^(T_GROUPBY expression_list)
+	;
 	
 orderby_clause
 	: ORDER WS BY WS orderby_column_list
@@ -177,7 +182,7 @@ orderby_direction
 // EXPRESSIONS
 // http://msdn.microsoft.com/en-us/library/ms190276.aspx
 expression_list
-	: expression (WS? ',' WS? expression)+ -> ^(T_EXPRESSIONLIST expression*)
+	: expression (WS? ',' WS? expression)* -> ^(T_EXPRESSIONLIST expression+)
 	;
 	
 expression_list_or_select_command
@@ -320,6 +325,7 @@ AND 	: A N D;
 OR 	: O R;
 LIKE	: L I K E;
 MATCH	: M A T C H;
+GROUP	: G R O U P;
 ORDER	: O R D E R;
 BY	: B Y;
 ASC	: A S C;

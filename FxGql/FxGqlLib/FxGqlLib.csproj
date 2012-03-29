@@ -89,6 +89,8 @@
     <Compile Include="Providers\ColumnsComparer.cs" />
     <Compile Include="Providers\ColumnProvider.cs" />
     <Compile Include="Expressions\ColumnExpression.cs" />
+    <Compile Include="Providers\GroupbyProvider.cs" />
+    <Compile Include="Expressions\AggregationExpression.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

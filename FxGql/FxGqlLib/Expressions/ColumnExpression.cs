@@ -52,6 +52,9 @@ namespace FxGqlLib
 
 		public Type GetResultType ()
 		{
+			if (provider is ColumnProvider)
+				return typeof(string);
+			
 			if (columnOrdinal == -1) 
 				columnOrdinal = this.provider.GetColumnOrdinal(column);
 			
@@ -61,6 +64,21 @@ namespace FxGqlLib
 			else
 				throw new Exception (string.Format ("Column {0} not found", column));
 		}
+		
+		public bool IsAggregated()
+		{
+			return false;
+		}
+		
+		public void Aggregate(AggregationState state, GqlQueryState gqlQueryState)
+		{
+			throw new Exception(string.Format("Aggregation not supported on expression {0}", this.GetType().ToString()));
+		}
+		
+		public IComparable AggregateCalculate (AggregationState state)
+		{
+			throw new Exception(string.Format("Aggregation not supported on expression {0}", this.GetType().ToString()));
+ 		}
 		#endregion
 	}
 }

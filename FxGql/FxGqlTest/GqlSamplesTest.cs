@@ -440,15 +440,15 @@ namespace FxGqlTest
 			TestGql ("select top 10 * from (select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"') order by $line",
 				"9FBCD5AA7183396C32D0398480C376BD5A4CCF627C9B4896BE30AF993F603E1A");
 			TestGql ("select top 15 * from (select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"') order by $line desc",
-				"676A6FAADD62BEE23D765B8D8F84D9A7A1BEDE4444F05096C8E202E23024341D");
+				"B5C1AB92460AA52216BACD873A135D16C4A3F0E2F7674DB43479BA20DEA3AB71");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"'), $line desc",
-				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
+				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by 1, 2 desc",
-				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
+				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by 1, $line desc",
-				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
+				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"'), 2 desc",
-				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
+				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 			
 			//TestFile("zippedfile.zip", "8F7422A7F2189623D9DB98FB6C583F276806891545AF3BD92530B98098AA6C0A");
 			//TestGql("select * from [smallfile.log]", null);
@@ -521,21 +521,21 @@ namespace FxGqlTest
 						+ "where $line match ', (.*?) (?:- .*)?\"' -- this is a single line comment" + Environment.NewLine
 						+ "-- this is another single line comment" + Environment.NewLine
 						+ "order by 1, 2 desc",
-				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
+				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"'), 2 desc",
-				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
+				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), *" + Environment.NewLine
 						+ "from ['SampleFiles/AirportCodes.csv'] " + Environment.NewLine
 						+ "where $line match ', (.*?) (?:- .*)?\"' -- this is a single line comment" + Environment.NewLine
 						+ "-- this is another single line comment" + Environment.NewLine
 						+ "order by 1, 2 desc",
-				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
+				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), *" + Environment.NewLine
 						+ "from ['SampleFiles/AirportCodes.csv'] " + Environment.NewLine
 						+ "where $line match ', (.*?) (?:- .*)?\"' -- this is a single line comment" + Environment.NewLine
 						+ "-- this is another single line comment" + Environment.NewLine
 						+ "order by 1, 2 desc -- final single line comment",
-				"D69FBBED985D587B0A4EA672D8285CFD8C6228EA3C48B01FFE0EEDB53D7C760E");
+				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 
 			//TestGql ("select /*block comment*/ 17", 
 			//	"54183F4323F377B737433A1E98229EAD0FDC686F93BAB057ECB612DAA94002B5");
@@ -559,6 +559,12 @@ namespace FxGqlTest
 				"145DA47A1E9E308A0A501B6A24509A94943CF72F642347331D3E7B900E4740E2");
 			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) where contains([FieldA], 'b') order by [FieldB]",
 				"F5C19EBA4EB529C014CC94E538B7C9E1ED36DFE73C0F1EF37BA65285A32CC58C");
+			
+			// Group By
+			TestGql ("select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Tournament]",
+				"BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+			TestGql ("select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Tournament] order by 1",
+				"08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
 						
 			
 			Console.WriteLine ();
@@ -574,6 +580,34 @@ namespace FxGqlTest
 			// TODO: create file columns on regular expression
 			// TODO: create "view" or "function"
 			// TODO: skip clause (select top 10 skip 2 from ...
+			
+			// TODO:
+			//TestGql ("select $line from ['SampleFiles/Tennis-ATP-2011.csv' - TitleLine]",
+			//	null);
+			//TestGql ("select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Tournament] order by 1 desc",
+			//	null);
+			//TestGql ("select distinct left($line, 20) from ['SampleFiles/Tennis-ATP-2011.csv'] order by 1 asc",
+			//	null);
+			TestGql ("select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Tournament]",
+				"BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+			TestGql ("select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Tournament] order by 1",
+				"08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
+			TestGql ("select top 10 [Winner], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Winner] order by 2 desc",
+				"0E40036FDDB3972DEC5D9B84D13109D6885DAA2B2D7578DAF45BF0B710EC4E74");
+			TestGql ("select count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by 1",
+				"8458672E871307348E9BAABB7CAFB48EFA0C4BCA39B5B99E5A480CB1708F710A");
+			TestGql ("select sum(1) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by 1",
+				"8458672E871307348E9BAABB7CAFB48EFA0C4BCA39B5B99E5A480CB1708F710A");
+			TestGql ("select count(1) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by 1",
+				"2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
+			TestGql ("select sum(5) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by 1",
+				"2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
+			TestGql ("select top 10 [Winner], count(1), min([Tournament]), max([Tournament]), first([Tournament]), last([Tournament]) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Winner] order by 2 desc",
+				"F1B884B190CA6A14779AAA7D901398247E4E11710CA5A243602023AC1FA09859");
+			//TestGql ("select top 10 [Winner], convert('int', [WRank]), convert('int', [WRank]) + 5 from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine]",
+			//	null);
+			//TestGql ("select top 10 [Winner], count(1), min([WRank]), max([WRank]), sum([WRank]), average([WRank]), sum([WRank]) / count(1), first([WRank]), last([WRank]) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Winner] order by 2 desc",
+			//	null);
 		}
 	}
 }

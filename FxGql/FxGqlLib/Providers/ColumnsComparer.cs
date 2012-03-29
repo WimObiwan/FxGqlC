@@ -4,35 +4,64 @@ using System.Collections;
 
 namespace FxGqlLib
 {
-	class ColumnsComparer<K> : IComparer<K> where K : ColumnsComparerKey
+	class ColumnsComparer<K> : IComparer<K>, IEqualityComparer<K> where K : ColumnsComparerKey
 	{
 		IComparer[] comparers;
+		bool[] descending;
 			
 		public ColumnsComparer (Type[] types, StringComparer stringComparer)
+			: this(types, new bool[types.Length], stringComparer)
+		{
+		}
+		
+		public ColumnsComparer (Type[] types, bool[] descending, StringComparer stringComparer)
 		{
 			comparers = new IComparer[types.Length];
+			this.descending = descending;
+			
+			//TODO: Check array sizes
 			for (int i = 0; i < types.Length; i++) {
 				if (types [i] == typeof(string))
 					comparers [i] = stringComparer;
 				else {
 					Type comparerType = typeof(Comparer<>).MakeGenericType (types [i]);
-					Comparer comparer = Activator.CreateInstance (comparerType) as Comparer;
-					comparers [i] = comparer;
+					object obj = comparerType.GetProperty("Default").GetValue(null, null);
+					//Comparer comparer = obj as Comparer;
+					//Comparer comparer = Activator.CreateInstance (comparerType) as Comparer;
+					comparers [i] = obj as IComparer;
 				}
 			}
 		}
 			
-			#region IComparer[IComparable] implementation
+		#region IComparer[IComparable] implementation
 		public int Compare (K x, K y)
 		{
 			for (int i = 0; i < comparers.Length; i++) {
 				int result = comparers [i].Compare (x.Members [i], y.Members [i]);
 				if (result != 0)
-					return result;
+					return descending[i] ? -result : result;
 			}
 			return 0;
 		}
-			#endregion
+		#endregion
+
+		#region IEqualityComparer[K] implementation
+		public bool Equals (K x, K y)
+		{
+			return Compare(x, y) == 0;
+		}
+		
+	    public int GetHashCode(K x)
+	    {
+	        int hash = x.Members.Length;
+            foreach (var t in x.Members)
+            {
+                hash *= 17;
+                hash = hash + t.GetHashCode();
+            }
+	        return hash;
+	    }
+		#endregion
 	}
 			
 	class ColumnsComparerKey : IComparable<ColumnsComparerKey>

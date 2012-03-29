@@ -27,8 +27,6 @@ namespace FxGqlLib
 			public string Source { get; set; }
 
 			public IComparable[] Columns { get; set; }
-
-			public bool[] Desc { get; set; }
 		}
 		
 		IProvider provider;
@@ -135,7 +133,6 @@ namespace FxGqlLib
 				gqlQueryState.Record = provider.Record;
 				Key key = new Key ();
 				key.Members = new IComparable[orderbyColumns.Count];
-				key.Desc = descArray;
 				key.OriginalColumns = provider.Record.OriginalColumns;
 				key.LineNo = provider.Record.LineNo;
 				key.Source = provider.Record.Source;
@@ -152,7 +149,7 @@ namespace FxGqlLib
 				data.Add (key);
 			}
 			
-			ColumnsComparer<Key > columnsComparer = new ColumnsComparer<Key> (types, stringComparer);
+			ColumnsComparer<Key > columnsComparer = new ColumnsComparer<Key> (types, descArray, stringComparer);
 			data.Sort (columnsComparer);
 		}
 	}

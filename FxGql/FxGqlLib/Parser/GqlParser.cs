@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
 using System.Collections.Generic;
@@ -256,8 +257,16 @@ namespace FxGqlLib
 				
 				IList<Column > outputColumns;
 				outputColumns = ParseColumnList (fromProvider, columnListEnumerator);
-
-				provider = new SelectProvider (outputColumns, provider);
+				
+				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY") {
+					IList<IExpression> groupbyColumns = ParseGroupbyClause (fromProvider, (CommonTree)enumerator.Current);
+					enumerator.MoveNext ();
+					
+					provider = new GroupbyProvider(provider, groupbyColumns, outputColumns, stringComparer);
+				}
+				else {
+					provider = new SelectProvider (outputColumns, provider);
+				}
 				
 				if (distinct)
 					provider = new DistinctProvider (provider, stringComparer);
@@ -283,6 +292,9 @@ namespace FxGqlLib
 				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE")
 					throw new ParserException ("WHERE clause not allowed without a FROM clause.", selectTree);
 				
+				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY")
+					throw new ParserException ("GROUP BY clause not allowed without a FROM clause.", selectTree);
+
 				if (enumerator.Current != null && enumerator.Current.Text == "T_ORDERBY")
 					throw new ParserException ("ORDER BY clause not allowed without a FROM clause.", selectTree);
 
@@ -380,6 +392,13 @@ namespace FxGqlLib
 				throw new ParserException ("Expected boolean expression in WHERE clause.", expressionTree);
 			}
 			return (Expression<bool>)expression;
+		}
+		
+		IList<IExpression> ParseGroupbyClause (IProvider provider, CommonTree groupbyTree)
+		{
+			AssertAntlrToken (groupbyTree, "T_GROUPBY", 1, 1);
+		
+			return ParseExpressionList(provider, (CommonTree)groupbyTree.Children[0]);
 		}
 		
 		IList<OrderbyProvider.Column> ParseOrderbyClause (IProvider provider, CommonTree orderbyTree)
@@ -578,6 +597,140 @@ namespace FxGqlLib
 				break;
 			case "TRIM":
 				result = new UnaryExpression<string, string> ((a) => a.Trim (), arg);
+				break;
+			case "COUNT":
+				if (arg is Expression<string>)
+					result = new AggregationExpression<string, long, long>((a) => 1, 
+						(s, a) => s + 1, 
+						(s) => s, 
+						(Expression<string>)arg);
+				else if (arg is Expression<long>)
+					result = new AggregationExpression<long, long, long>((a) => 1, 
+						(s, a) => s + 1, 
+						(s) => s, 
+						(Expression<long>)arg);
+				else {
+					throw new ParserException (
+						string.Format ("COUNT aggregation function cannot be used on datatype '{0}'",
+				               arg.GetResultType ().ToString ()),
+						functionCallTree);
+				}
+				break;
+			case "SUM":
+				if (arg is Expression<long>)
+					result = new AggregationExpression<long, long, long>(
+						(a) => a, 
+						(s, a) => s + a, 
+						(s) => s, 
+						(Expression<long>)arg);
+				else {
+					throw new ParserException (
+						string.Format ("SUM aggregation function cannot be used on datatype '{0}'",
+				               arg.GetResultType ().ToString ()),
+						functionCallTree);
+				}
+				break;
+			case "MIN":
+				if (arg.GetResultType() == typeof(string))
+					result = new AggregationExpression<string, string, string>(
+						(a) => a, 
+						(s, a) => string.Compare(a, s) < 0 ? a : s, 
+						(s) => s, 
+						ExpressionHelper.ConvertIfNeeded<string>(arg));
+				else if (arg.GetResultType() == typeof(long))
+					result = new AggregationExpression<long, long, long>(
+						(a) => a, 
+						(s, a) => a < s ? a : s, 
+						(s) => s, 
+						ExpressionHelper.ConvertIfNeeded<long>(arg));
+				else {
+					throw new ParserException (
+						string.Format ("MIN aggregation function cannot be used on datatype '{0}'",
+				               arg.GetResultType ().ToString ()),
+						functionCallTree);
+				}
+				break;
+			case "MAX":
+				if (arg.GetResultType() == typeof(string))
+					result = new AggregationExpression<string, string, string>(
+						(a) => a, 
+						(s, a) => string.Compare(a, s) > 0 ? a : s, 
+						(s) => s, 
+						ExpressionHelper.ConvertIfNeeded<string>(arg));
+				else if (arg.GetResultType() == typeof(long))
+					result = new AggregationExpression<long, long, long>(
+						(a) => a, 
+						(s, a) => a > s ? a : s, 
+						(s) => s, 
+						ExpressionHelper.ConvertIfNeeded<long>(arg));
+				else {
+					throw new ParserException (
+						string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
+				               arg.GetResultType ().ToString ()),
+						functionCallTree);
+				}
+				break;
+			case "FIRST":
+				if (arg.GetResultType() == typeof(string))
+					result = new AggregationExpression<string, string, string>(
+						(a) => a, 
+						(s, a) => s, 
+						(s) => s, 
+						ExpressionHelper.ConvertIfNeeded<string>(arg));
+				else if (arg.GetResultType() == typeof(long))
+					result = new AggregationExpression<long, long, long>(
+						(a) => a, 
+						(s, a) => s, 
+						(s) => s, 
+						ExpressionHelper.ConvertIfNeeded<long>(arg));
+				else {
+					throw new ParserException (
+						string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
+				               arg.GetResultType ().ToString ()),
+						functionCallTree);
+				}
+				break;
+			case "LAST":
+				if (arg.GetResultType() == typeof(string))
+					result = new AggregationExpression<string, string, string>(
+						(a) => a, 
+						(s, a) => a, 
+						(s) => s, 
+						ExpressionHelper.ConvertIfNeeded<string>(arg));
+				else if (arg.GetResultType() == typeof(long))
+					result = new AggregationExpression<long, long, long>(
+						(a) => a, 
+						(s, a) => a, 
+						(s) => s, 
+						ExpressionHelper.ConvertIfNeeded<long>(arg));
+				else {
+					throw new ParserException (
+						string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
+				               arg.GetResultType ().ToString ()),
+						functionCallTree);
+				}
+				break;
+			case "AVG":
+				if (arg is Expression<long>) {
+					Expression<long> resultSum = new AggregationExpression<long, long, long>(
+						(a) => a, 
+						(s, a) => s + a, 
+						(s) => s, 
+						(Expression<long>)arg);
+					Expression<long> resultCount = new AggregationExpression<string, long, long>(
+						(a) => 1, 
+						(s, a) => s + 1, 
+						(s) => s, 
+						(Expression<string>)arg);
+					result = new BinaryExpression<long, long, long>(
+						(a, b) => a / b, resultSum, resultCount);
+				}
+				else {
+					throw new ParserException (
+						string.Format ("SUM aggregation function cannot be used on datatype '{0}'",
+				               arg.GetResultType ().ToString ()),
+						functionCallTree);
+				}
 				break;
 			default:
 				throw new ParserException (string.Format ("Function call to {0} with 1 parameters not supported.", functionName), 
