@@ -717,11 +717,11 @@ namespace FxGqlLib
 						(s, a) => s + a, 
 						(s) => s, 
 						(Expression<long>)arg);
-					Expression<long> resultCount = new AggregationExpression<string, long, long>(
+					Expression<long> resultCount = new AggregationExpression<long, long, long>(
 						(a) => 1, 
 						(s, a) => s + 1, 
 						(s) => s, 
-						(Expression<string>)arg);
+						(Expression<long>)arg);
 					result = new BinaryExpression<long, long, long>(
 						(a, b) => a / b, resultSum, resultCount);
 				}

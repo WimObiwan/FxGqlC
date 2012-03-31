@@ -23,14 +23,6 @@ namespace FxGqlLib
 		public override R Evaluate (GqlQueryState gqlQueryState)
 		{
 			throw new NotSupportedException();
-			//if (true /*gqlQueryState.Aggregating*/) {
-			//	state = aggregator(state, arg.Evaluate(gqlQueryState));
-			//	//return default(R);
-			//	return calculate(state);
-			//}
-			//else {
-			//	return calculate(state);
-			//}
 		}
 		
 		public override bool IsAggregated ()

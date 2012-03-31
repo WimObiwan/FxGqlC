@@ -11,10 +11,22 @@ namespace FxGqlLib
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
 		public override string Evaluate (GqlQueryState gqlQueryState)
 		{
+			IComparable[] columns;
 			if (gqlQueryState.UseOriginalColumns)
-				return gqlQueryState.Record.OriginalColumns [0].ToString ();
+				columns = gqlQueryState.Record.OriginalColumns;
 			else
-				return gqlQueryState.Record.Columns [0].ToString ();
+				columns = gqlQueryState.Record.Columns;
+			
+			string column = "";
+			for (int i = 0; i < columns.Length; i++)
+			{
+				if (i == 0)
+					column = columns[i].ToString();
+				else
+					column += '\t' + columns[i].ToString();
+			}
+			
+			return column;
 		}
 		#endregion
 	}

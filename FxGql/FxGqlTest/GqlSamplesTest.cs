@@ -192,6 +192,10 @@ namespace FxGqlTest
 				"DA2B58CAE0F384F863DDB7D7937DA82E01606FA9F12C9CD6EF7DA441FEF7F9AA");
 			TestGql ("select top 15 $filename, $lineno, $line from ['SampleFiles/AirportCodes.csv']",
 				"913A745EAEB0F5ADF60EDFB63523DF1F44ED0C9AA32660CC3D40EE6783B1C2FA");
+			TestGql ("select * from ['SampleFiles/Tennis-ATP-2011.csv'] where $lineno > 1",
+				"B7B20E3D1807D5638954EE155A94608D1492D0C9FAB4E5D346E50E8816AD63CC");
+			TestGql ("select $line from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine]",
+				"B7B20E3D1807D5638954EE155A94608D1492D0C9FAB4E5D346E50E8816AD63CC");
 
 			// Function call:
 			//    String: 
@@ -565,29 +569,6 @@ namespace FxGqlTest
 				"BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
 			TestGql ("select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Tournament] order by 1",
 				"08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
-						
-			
-			Console.WriteLine ();
-			Console.WriteLine ("{0} tests done, {1} succeeded, {2} failed, {3} unknown", succeeded + failed + unknown, succeeded, failed, unknown);
-		}
-		 
-		public void RunDevelop ()
-		{
-			// TODO: group by
-			// TODO: aggregates
-			// TODO: default column names
-			// TODO: output columns as column headings
-			// TODO: create file columns on regular expression
-			// TODO: create "view" or "function"
-			// TODO: skip clause (select top 10 skip 2 from ...
-			
-			// TODO:
-			//TestGql ("select $line from ['SampleFiles/Tennis-ATP-2011.csv' - TitleLine]",
-			//	null);
-			//TestGql ("select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Tournament] order by 1 desc",
-			//	null);
-			//TestGql ("select distinct left($line, 20) from ['SampleFiles/Tennis-ATP-2011.csv'] order by 1 asc",
-			//	null);
 			TestGql ("select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Tournament]",
 				"BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
 			TestGql ("select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Tournament] order by 1",
@@ -604,10 +585,23 @@ namespace FxGqlTest
 				"2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
 			TestGql ("select top 10 [Winner], count(1), min([Tournament]), max([Tournament]), first([Tournament]), last([Tournament]) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Winner] order by 2 desc",
 				"F1B884B190CA6A14779AAA7D901398247E4E11710CA5A243602023AC1FA09859");
-			//TestGql ("select top 10 [Winner], convert('int', [WRank]), convert('int', [WRank]) + 5 from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine]",
-			//	null);
-			//TestGql ("select top 10 [Winner], count(1), min([WRank]), max([WRank]), sum([WRank]), average([WRank]), sum([WRank]) / count(1), first([WRank]), last([WRank]) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Winner] order by 2 desc",
-			//	null);
+			TestGql ("select top 10 [Winner], count(1), min(convert(int, [WRank])), max(convert(int, [WRank])), sum(convert(int, [WRank])), avg(convert(int, [WRank])), sum(convert(int, [WRank])) / count(1), first(convert(int, [WRank])), last(convert(int, [WRank])) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Winner] order by 2 desc",
+				"E5A14072A8FD77E045A4E7CFE0D570BDA784BEF4211B53A6A39F3A68E284DC83");
+						
+			
+			Console.WriteLine ();
+			Console.WriteLine ("{0} tests done, {1} succeeded, {2} failed, {3} unknown", succeeded + failed + unknown, succeeded, failed, unknown);
+		}
+		 
+		public void RunDevelop ()
+		{
+			// TODO: default column names
+			// TODO: output columns as column headings
+			// TODO: create file columns on regular expression
+			// TODO: create "view" or "function"
+			// TODO: skip clause (select top 10 skip 2 from ...
+			
+			// TODO:
 		}
 	}
 }
