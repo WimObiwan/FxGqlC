@@ -473,6 +473,9 @@ namespace FxGqlLib
 			case "T_COLUMN":
 				expression = ParseExpressionColumn (provider, expressionTree);
 				break;
+			case "T_CASE":
+				expression = ParseExpressionCase (provider, expressionTree);
+				break;
 			default:
 				throw new UnexpectedTokenAntlrException (expressionTree);
 			}
@@ -1231,6 +1234,7 @@ namespace FxGqlLib
 		
 		IExpression ParseExpressionColumn (IProvider provider, CommonTree expressionTree)
 		{
+			
 			AssertAntlrToken (expressionTree, "T_COLUMN", 1, 1);
 			
 			string column = ParseColumnName((CommonTree)expressionTree.Children [0]);
@@ -1245,6 +1249,66 @@ namespace FxGqlLib
 				column = column.Substring (1, column.Length - 2);
 			
 			return column;
+		}
+		
+		IExpression ParseExpressionCase (IProvider provider, CommonTree expressionTree)
+		{
+			AssertAntlrToken (expressionTree, "T_CASE", 1, -1);
+			
+			List<CaseExpression.WhenItem> whenItems = new List<CaseExpression.WhenItem>();
+			IExpression elseResult = null;
+
+			string text = expressionTree.Children [0].Text;
+			if (text != "T_CASE_WHEN" && text != "T_CASE_ELSE")
+			{
+				// CASE source WHEN destination THEN target ELSE other END
+				IExpression source = ParseExpression(provider, (CommonTree)expressionTree.Children [0]);
+				int whenNo;
+				for (whenNo = 1; expressionTree.Children [whenNo].Text == "T_CASE_WHEN"; whenNo++)
+				{
+					CommonTree whenTree = (CommonTree)expressionTree.Children [whenNo];
+					IExpression destination = ParseExpression(provider, (CommonTree)whenTree.Children[0]);
+					IExpression target = ParseExpression(provider, (CommonTree)whenTree.Children[1]);
+					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem();
+					
+					//TODO: Don't re-evaluate source for every item
+					if (source is Expression<string> || destination is Expression<string>)
+						whenItem.Check = 
+							new BinaryExpression<string, string, bool> (OperatorHelper.GetStringComparer ("T_EQUAL", false, stringComparison),
+								source, destination);
+					else if (source is Expression<long>)
+						whenItem.Check = 
+							new BinaryExpression<long, long, bool> (OperatorHelper.GetLongComparer ("T_EQUAL", false),
+								source, destination);
+					else {
+						throw new ParserException (
+							string.Format ("Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
+					               source.GetResultType ().ToString (), destination.GetResultType ().ToString ()),
+							whenTree);
+					}
+					whenItem.Result = target;
+					
+					whenItems.Add(whenItem);
+				}
+				
+				if (whenNo < expressionTree.Children.Count - 1)
+					throw new Exception("Invalid case statement");
+				
+				if (whenNo == expressionTree.Children.Count - 1)
+				{
+					CommonTree elseTree = (CommonTree)expressionTree.Children[whenNo];
+					AssertAntlrToken(elseTree, "T_CASE_ELSE", 1, 1);
+					
+					elseResult = ParseExpression(provider, (CommonTree)elseTree.Children[0]);
+				}
+			}
+			else
+			{
+				// CASE WHEN a THEN x ELSE y END
+				throw new NotImplementedException();
+			}
+
+			return new CaseExpression(whenItems, elseResult);
 		}
 	}
 }

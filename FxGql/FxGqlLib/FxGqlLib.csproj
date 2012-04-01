@@ -91,6 +91,7 @@
     <Compile Include="Expressions\ColumnExpression.cs" />
     <Compile Include="Providers\GroupbyProvider.cs" />
     <Compile Include="Expressions\AggregationExpression.cs" />
+    <Compile Include="Expressions\CaseExpression.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

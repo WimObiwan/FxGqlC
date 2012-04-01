@@ -62,6 +62,9 @@ tokens
 	T_ANY;
 	T_EXISTS;
 	T_COLUMN;
+	T_CASE;
+	T_CASE_WHEN;
+	T_CASE_ELSE;
 }
 
 @parser::namespace { FxGqlLib }
@@ -287,6 +290,7 @@ expression_atom
 	| '(' expression ')' -> expression
 	| functioncall_or_column
 	| conversion
+	| case
 	| EXISTS WS? '(' WS? select_command WS? ')' -> ^(T_EXISTS select_command)
 	;
 ///////////////////////////////////////////////////////////////////////////////
@@ -300,6 +304,21 @@ functioncall_or_column
 conversion
 	: CONVERT WS? '(' WS? TOKEN WS? ',' WS? expression WS? ')' -> ^(T_CONVERT TOKEN expression)
 	| CAST WS? '(' WS? expression WS AS WS TOKEN WS? ')' -> ^(T_CONVERT TOKEN expression)
+	;
+	
+case
+	: CASE WS (expression WS)? (case_when WS)* (case_else WS)? END
+	-> ^(T_CASE expression? case_when* case_else?)
+	;
+	
+case_when
+	: WHEN WS a=expression WS THEN WS b=expression
+	-> ^(T_CASE_WHEN $a $b)
+	;
+	
+case_else
+	: ELSE WS expression
+	-> ^(T_CASE_ELSE expression)
 	;
 
 STRING
@@ -338,6 +357,11 @@ IN	: I N;
 ANY	: A N Y;
 SOME	: S O M E;
 EXISTS 	: E X I S T S;
+CASE 	: C A S E;
+WHEN	: W H E N;
+THEN	: T H E N;
+ELSE	: E L S E;
+END	: E N D;
 
 TOKEN
 	: ('A'..'Z' | 'a'..'z' | '_') ('A'..'Z' | 'a'..'z' | '_' | '0'..'9')*
