@@ -1305,7 +1305,38 @@ namespace FxGqlLib
 			else
 			{
 				// CASE WHEN a THEN x ELSE y END
-				throw new NotImplementedException();
+				int whenNo;
+				for (whenNo = 0; expressionTree.Children [whenNo].Text == "T_CASE_WHEN"; whenNo++)
+				{
+					CommonTree whenTree = (CommonTree)expressionTree.Children [whenNo];
+					IExpression destination = ParseExpression(provider, (CommonTree)whenTree.Children[0]);
+					IExpression target = ParseExpression(provider, (CommonTree)whenTree.Children[1]);
+					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem();
+					
+					//TODO: Don't re-evaluate source for every item
+					if (destination is Expression<bool>)
+						whenItem.Check = (Expression<bool>)destination;
+					else {
+						throw new ParserException (
+							string.Format ("CASE WHEN expression must evaluate to datatype boolean instead of {0}",
+					               destination.GetResultType ().ToString ()),
+							whenTree);
+					}
+					whenItem.Result = target;
+					
+					whenItems.Add(whenItem);
+				}
+				
+				if (whenNo < expressionTree.Children.Count - 1)
+					throw new Exception("Invalid case statement");
+				
+				if (whenNo == expressionTree.Children.Count - 1)
+				{
+					CommonTree elseTree = (CommonTree)expressionTree.Children[whenNo];
+					AssertAntlrToken(elseTree, "T_CASE_ELSE", 1, 1);
+					
+					elseResult = ParseExpression(provider, (CommonTree)elseTree.Children[0]);
+				}
 			}
 
 			return new CaseExpression(whenItems, elseResult);

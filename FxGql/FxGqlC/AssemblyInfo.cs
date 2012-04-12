@@ -23,7 +23,7 @@ using System.Runtime.CompilerServices;
 // 1 for beta (status) - feature complete
 // 2 for release candidate
 // 3 for (final) release
-[assembly: AssemblyVersion("2.0.0.3")]
+[assembly: AssemblyVersion("2.0.3.0")]
 
 // The following attributes are used to specify the signing key for the assembly, 
 // if desired. See the Mono documentation for more information about signing.

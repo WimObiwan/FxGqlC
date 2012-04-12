@@ -63,11 +63,17 @@ namespace FxGqlC
 				case 0: type = "alpha"; break;
 				case 1: type = "beta"; break;
 				case 2: type = "rc"; break;
-				case 3: type = "r"; break;
+				case 3: type = (info.FilePrivatePart == 0) ? null : "r";
+					break;
 				default: type = ""; break;
 				}
+				
+				string version;
+				if (type != null) version = string.Format("v{0}.{1}.{2}{3}", info.FileMajorPart, info.FileMinorPart, type, info.FilePrivatePart);
+				else version = string.Format("v{0}.{1}", info.FileMajorPart, info.FileMinorPart);
+				
 				Console.WriteLine ();
-				Console.WriteLine ("{0} - v{1}.{2}-{3}{4} - {5}", info.FileDescription, info.FileMajorPart, info.FileMinorPart, type, info.FilePrivatePart, info.Comments);
+				Console.WriteLine ("{0} - {1} - {2}", info.FileDescription, version, info.Comments);				
 				Console.WriteLine (info.LegalCopyright);
 			}
 							
@@ -139,7 +145,7 @@ namespace FxGqlC
 			Console.WriteLine ("   -license            Shows license information");
 			Console.WriteLine ("   -prompt or -p       Run in prompt mode");
 			Console.WriteLine ("   -command <command>  Run a single command (usefull when running FxGqlC in");
-			Console.WriteLine ("                         scripts)  Alternative: -c <command>");
+			Console.WriteLine ("        or -c <cmd>         scripts)");
 			Console.WriteLine ("   -gqlfile <file>     Run the commands from a file");
 			Console.WriteLine ("   -logfile <file>     Outputs all GQL commands and query output to a file");
 			//Console.WriteLine ("   -loglevel <#>")

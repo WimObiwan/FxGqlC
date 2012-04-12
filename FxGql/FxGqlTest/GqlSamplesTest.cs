@@ -423,6 +423,12 @@ namespace FxGqlTest
 				"30EA892617C142D937C889BF1593FA0ED096628D057B8EB5CEF9A0E2F696E024");
 			TestGql ("select case 2 when 0 then 'case_when_0' when 1 then 'case_when_1' else 'case_else' end",
 				"A955C341A5B79376BFC146598B1C2243DB49D6B770689E71FCBF16F7141E3F09");
+			TestGql ("select case when 0 = 0 then 'case_when_0' when 0 = 1 then 'case_when_1' else 'case_else' end",
+				"59833D11154F19C4D876DE038EFCD5890D9721549BF1843163F2FB28B9F3DBAB");
+			TestGql ("select case when 1 = 0 then 'case_when_0' when 1 = 1 then 'case_when_1' else 'case_else' end",
+				"30EA892617C142D937C889BF1593FA0ED096628D057B8EB5CEF9A0E2F696E024");
+			TestGql ("select case when 2 = 0 then 'case_when_0' when 2 = 1 then 'case_when_1' else 'case_else' end",
+				"A955C341A5B79376BFC146598B1C2243DB49D6B770689E71FCBF16F7141E3F09");
 			
 			// WHERE clause
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv'] where contains($line, 'belgium')", 
@@ -608,12 +614,6 @@ namespace FxGqlTest
 			// TODO: skip clause (select top 10 skip 2 from ...
 			
 			// TODO:
-			//TestGql ("select case when 0 = 0 then 'case_when_0' when 0 = 1 then 'case_when_1' else 'case_else' end",
-			//	null);
-			//TestGql ("select case when 1 = 0 then 'case_when_0' when 1 = 1 then 'case_when_1' else 'case_else' end",
-			//	null);
-			//TestGql ("select case when 2 = 0 then 'case_when_0' when 2 = 1 then 'case_when_1' else 'case_else' end",
-			//	null);
 		}
 	}
 }
