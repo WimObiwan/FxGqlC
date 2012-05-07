@@ -27,36 +27,34 @@ namespace FxGqlLib
 		public bool Append { get; set; }
 
 		public bool TitleLine { get; set; }
+		
+		public string ColumnsRegex { get; set; }
+		
+		public long Skip { get; set; }
 	}
 	
 	static class FileProviderFactory
 	{
 		public static IProvider Get (FileOptions fileOptions)
 		{
-			bool recurse;
-			if (fileOptions != null)
-				recurse = fileOptions.Recurse;
-			else
-				recurse = false;
-			
 			IProvider provider;
-			if (fileOptions.FileName.Contains ("*") || fileOptions.FileName.Contains ("?") || recurse) {
-				provider = new MultiFileProvider (fileOptions.FileName, recurse);
+			if (fileOptions.FileName.Contains ("*") || fileOptions.FileName.Contains ("?") || fileOptions.Recurse) {
+				provider = new MultiFileProvider (fileOptions.FileName, fileOptions.Recurse, fileOptions.Skip);
 			} else {
-				provider = Get (fileOptions.FileName);
+				provider = Get (fileOptions.FileName, fileOptions.Skip);
 			}
 			
 			return provider;
 		}
 		
-		public static IProvider Get (string fileName)
+		public static IProvider Get (string fileName, long skip)
 		{
 			IProvider provider;
 				
 			if (System.IO.Path.GetExtension (fileName).ToUpper () == ".ZIP")
-				provider = new ZipFileProvider (fileName);
+				provider = new ZipFileProvider (fileName, skip);
 			else
-				provider = new FileProvider (fileName);
+				provider = new FileProvider (fileName, skip);
 			
 			return provider;
 		}

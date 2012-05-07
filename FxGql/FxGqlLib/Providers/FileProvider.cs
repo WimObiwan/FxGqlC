@@ -6,12 +6,14 @@ namespace FxGqlLib
 	public class FileProvider : IProvider
 	{
 		string fileName;
+		long skip;
 		StreamReader streamReader;
 		ProviderRecord record;
 		
-		public FileProvider (string fileName)
+		public FileProvider (string fileName, long skip)
 		{
 			this.fileName = fileName;
+			this.skip = skip;
 		}
 
 		#region IProvider implementation
@@ -30,10 +32,23 @@ namespace FxGqlLib
 			streamReader = new StreamReader (new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
 			record = new ProviderRecord ();
 			record.Source = fileName;
+
+			for (long i = 0; i < skip; i++)
+			{
+				if (streamReader.ReadLine () == null) 
+				{
+					streamReader.Close();
+					streamReader = null;
+					return;
+				}
+			}
 		}
 
 		public bool GetNextRecord ()
 		{
+			if (streamReader == null)
+				return false;
+			
 			string text = streamReader.ReadLine ();
 			record.Columns = new string[] 
 			{ 

@@ -9,7 +9,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>FxGqlLib</RootNamespace>
     <AssemblyName>FxGqlLib</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -87,11 +86,12 @@
     <Compile Include="Operators\AnySubqueryOperator.cs" />
     <Compile Include="Operators\OperatorHelper.cs" />
     <Compile Include="Providers\ColumnsComparer.cs" />
-    <Compile Include="Providers\ColumnProvider.cs" />
     <Compile Include="Expressions\ColumnExpression.cs" />
     <Compile Include="Providers\GroupbyProvider.cs" />
     <Compile Include="Expressions\AggregationExpression.cs" />
     <Compile Include="Expressions\CaseExpression.cs" />
+    <Compile Include="Providers\ColumnProviderTitleLine.cs" />
+    <Compile Include="Providers\ColumnProviderRegex.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

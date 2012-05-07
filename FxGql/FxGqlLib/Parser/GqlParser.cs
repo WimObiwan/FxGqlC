@@ -503,6 +503,11 @@ namespace FxGqlLib
 			string text = tree.Text;
 			if (text.Length < 2 || text [0] != '\'' || text [text.Length - 1] != '\'')
 				throw new ParserException ("Invalid string format.", tree);
+			return ParseString(text);
+		}
+		
+		string ParseString (string text)
+		{
 			text = text.Substring (1, text.Length - 2);
 			text = text.Replace ("''", "'");
 			return text;
@@ -859,6 +864,12 @@ namespace FxGqlLib
 					case "TITLELINE":
 						fileOptions.TitleLine = true;
 						break;
+					case "COLUMNS":
+						fileOptions.ColumnsRegex = ParseString (value);
+						break;
+					case "SKIP":
+						fileOptions.Skip = long.Parse(value);
+						break;
 					default:
 						throw new ParserException (string.Format ("Unknown file option '{0}'", option), enumerator.Current);  
 					}
@@ -889,7 +900,10 @@ namespace FxGqlLib
 			IProvider provider = FileProviderFactory.Get (fileOptions);
 			
 			if (fileOptions.TitleLine) {
-				provider = new ColumnProvider (provider, new char[] {'\t'});
+				provider = new ColumnProviderTitleLine (provider, new char[] {'\t'});
+			}
+			else if (fileOptions.ColumnsRegex != null) {
+				provider = new ColumnProviderRegex (provider, fileOptions.ColumnsRegex, caseInsensitive);
 			}
 			
 			return provider;

@@ -154,12 +154,6 @@ namespace FxGqlTest
 				"118A735B8252E05853FD53AB5BF4D2223899144E763EE87880AEA0534F0B3FFB");
 			TestGql ("select * from ['SampleFiles/*.csv']",
 				"061A433CD5329B48CB1FAC416F4505AFEE5D79632DF2A363991711FB8788D573");
-			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -recurse]",
-				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
-			TestGql ("select * from ['SampleFiles/AirportCodes2.csv' -recurse]",
-				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
-			TestGql ("select * from ['SampleFiles/AirportCodes*.csv' -recurse]",
-				"593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
 			
 			// Select from zip-files
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv.zip']",
@@ -170,9 +164,17 @@ namespace FxGqlTest
 			    "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv.zip'], ['SampleFiles/SubFolder/AirportCodes2.csv.zip']",
 			    "593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
-			TestGql ("select * from ['SampleFiles/AirportCodes*.csv.zip' -recurse]",
-			    "593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv*']",
+			    "593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
+
+			// FROM clause attributes
+			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -recurse]",
+				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+			TestGql ("select * from ['SampleFiles/AirportCodes2.csv' -recurse]",
+				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+			TestGql ("select * from ['SampleFiles/AirportCodes*.csv' -recurse]",
+				"593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
+			TestGql ("select * from ['SampleFiles/AirportCodes*.csv.zip' -recurse]",
 			    "593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
 			
 			// TOP clause
@@ -599,6 +601,12 @@ namespace FxGqlTest
 				"F1B884B190CA6A14779AAA7D901398247E4E11710CA5A243602023AC1FA09859");
 			TestGql ("select top 10 [Winner], count(1), min(convert(int, [WRank])), max(convert(int, [WRank])), sum(convert(int, [WRank])), avg(convert(int, [WRank])), sum(convert(int, [WRank])) / count(1), first(convert(int, [WRank])), last(convert(int, [WRank])) from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Winner] order by 2 desc",
 				"E5A14072A8FD77E045A4E7CFE0D570BDA784BEF4211B53A6A39F3A68E284DC83");
+			TestGql (@"select * from (select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]) where $lineno > 0",
+				"BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+			TestGql (@"select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]",
+				"BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+			TestGql (@"select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament] order by 1",
+			    "08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
 						
 			
 			Console.WriteLine ();
@@ -615,5 +623,6 @@ namespace FxGqlTest
 			
 			// TODO:
 		}
+
 	}
 }

@@ -8,14 +8,16 @@ namespace FxGqlLib
 		IProvider provider;
 		string fileMask;
 		bool recurse;
+		long skip;
 		string[] files;
 		
 		int currentFile;
 		
-		public MultiFileProvider (string fileMask, bool recurse)
+		public MultiFileProvider (string fileMask, bool recurse, long skip)
 		{
 			this.fileMask = fileMask;
 			this.recurse = recurse;
+			this.skip = skip;
 		}
 
 		#region IProvider implementation
@@ -79,7 +81,7 @@ namespace FxGqlLib
 			if (currentFile >= files.Length)
 				return false;
 			
-			provider = FileProviderFactory.Get(files[currentFile]);
+			provider = FileProviderFactory.Get(files[currentFile], skip);
 			provider.Initialize();
 			
 			return true;

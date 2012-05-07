@@ -52,7 +52,7 @@ namespace FxGqlLib
 
 		public Type GetResultType ()
 		{
-			if (provider is ColumnProvider)
+			if (provider is ColumnProviderTitleLine)
 				return typeof(string);
 			
 			if (columnOrdinal == -1) 
