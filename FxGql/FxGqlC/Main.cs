@@ -159,17 +159,38 @@ namespace FxGqlC
 				string command = Console.ReadLine ();
 				if (command.Equals ("exit", StringComparison.InvariantCultureIgnoreCase))
 					break; 
-				try {
-					ExecuteCommand (command);
-				} catch (Exception x) {
-					Console.WriteLine (x.ToString ());
-				}
+				ExecuteCommand (command);
 			}
 		}
 
 		public static void ExecuteCommand (string command)
 		{
-			gqlEngine.Execute (command);
+			try {
+				gqlEngine.Execute (command);
+			} catch (FxGqlLib.PositionException x) {
+				Console.WriteLine (x.Message);
+				if (gqlEngine.LogStream != null) 
+					gqlEngine.LogStream.WriteLine(x.ToString());
+
+				string line;
+				using (StringReader stringReader = new System.IO.StringReader(command)) {
+					for (int no = 0; (line = stringReader.ReadLine()) != null; no++) {
+						Console.WriteLine("{0,3}: {1}", no + 1, line);
+						if (gqlEngine.LogStream != null) 
+							gqlEngine.LogStream.WriteLine("{0,3}: {1}", no + 1, line);
+						
+						if (no + 1 == x.Line) {
+							Console.WriteLine("     {0}^", new string(' ', Math.Max (0, x.Pos - 1)));
+							if (gqlEngine.LogStream != null) 
+								gqlEngine.LogStream.WriteLine("     {0}^", new string(' ', Math.Max (0, x.Pos - 1)));
+						}
+					}
+				}
+			} catch (Exception x) {
+				Console.WriteLine (x.Message);
+				if (gqlEngine.LogStream != null) 
+					gqlEngine.LogStream.WriteLine(x.ToString());
+			}
 		}
 
 		public static void ExecuteFile (string file)

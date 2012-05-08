@@ -28,18 +28,23 @@ namespace FxGqlLib
 		public PositionException (string message, int line, int pos, Exception innerException)
 			: base(string.Format("{0} At line {1}, position {2}.", message, line, pos), innerException)
 		{
+			Line = line;
+			Pos = pos;
 		}
 
 		public PositionException (string message, ITree tree)
-			: this(message, tree.Line, tree.CharPositionInLine, null)
+			: this(message, tree.Line, tree.CharPositionInLine + 1, null)
 		{
 		}
+		
+		public int Line { get; private set; }
+		public int Pos { get; private set; }
 	}
 	
 	public class ParserException : PositionException
 	{
 		public ParserException (RecognitionException recognitionException)
-			: base("Parsing failed.", recognitionException.Line, recognitionException.CharPositionInLine, recognitionException)
+			: base("Parsing failed. " + recognitionException.Message, recognitionException.Line, recognitionException.CharPositionInLine, recognitionException)
 		{
 		}
 
