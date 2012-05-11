@@ -26,6 +26,8 @@ namespace FxGqlLib
 
 		public bool Append { get; set; }
 
+		public bool Overwrite { get; set; }
+
 		public bool TitleLine { get; set; }
 		
 		public string ColumnsRegex { get; set; }

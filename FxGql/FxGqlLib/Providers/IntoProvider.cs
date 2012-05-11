@@ -50,6 +50,12 @@ namespace FxGqlLib
 
 		public bool GetNextRecord ()
 		{
+			if (!fileOptions.Overwrite && !fileOptions.Append
+			    && File.Exists(fileOptions.FileName))
+				throw new InvalidOperationException(
+					string.Format("File '{0}' already exists. Use '-overwrite' or '-append' option to change the existing file.", 
+				              fileOptions.FileName));
+
 			if (string.Compare (Path.GetExtension (fileOptions.FileName), ".zip", StringComparison.InvariantCultureIgnoreCase) == 0) {
 				using (FileStream fileStream = new FileStream(fileOptions.FileName, FileMode.Create)) {
 					using (ZipOutputStream zipOutputStream = new ZipOutputStream(fileStream)) {

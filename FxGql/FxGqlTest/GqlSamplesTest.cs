@@ -83,6 +83,27 @@ namespace FxGqlTest
 			}
 		}
 
+		private void TestGql (string command, Type exceptionType)
+		{
+			try {
+				engine.Execute (command);
+				Console.WriteLine ("   Test FAILED");
+				Console.WriteLine ("      Expected: {0}", exceptionType.ToString());
+				Console.WriteLine ("      No exception happened");
+				failed++;
+			} catch (Exception exception) {
+				if (exception.GetType () == exceptionType) {
+					Console.WriteLine ("   Test OK");
+					succeeded++;
+				} else {
+					Console.WriteLine ("   Test FAILED");
+					Console.WriteLine ("      Expected: {0}", exceptionType.ToString());
+					Console.WriteLine ("      Catched: {0}", exception.GetType().ToString ());
+					failed++;
+				}
+			}
+		}
+		
 		private void TestGql (string command, string targetHash)
 		{
 			Console.WriteLine ("Testing GQL '{0}'", command);
@@ -472,60 +493,76 @@ namespace FxGqlTest
 			//TestGql("select * from [smallfile.log]", null);
 			
 			// INTO clause
+			if (File.Exists("test.txt")) File.Delete("test.txt");
+			if (File.Exists("test.zip")) File.Delete("test.zip");
 			TestGql ("select * into ['test.txt'] from ['SampleFiles/AirportCodes.csv']",
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
 				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2", // unix
 				"2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
+			File.Delete ("test.txt");
 			TestGql ("select 17, '<this is a test>' into ['test.txt']", 
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
 				"A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8", // unix
 				"0B99DAF34499129ACC727D61F3F43A481DA2D4AE50A87DAFFAC799DA1325D46C"); // windows
+			File.Delete ("test.txt");
 			TestGql ("select * into [test.txt] from ['SampleFiles/AirportCodes.csv']",
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
 				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2", // unix
 				"2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
+			File.Delete ("test.txt");
 			TestGql ("select 17, '<this is a test>' into [test.txt]", 
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
 				"A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8", // unix
 				"0B99DAF34499129ACC727D61F3F43A481DA2D4AE50A87DAFFAC799DA1325D46C"); // windows
+			File.Delete ("test.txt");
 			TestGql ("select * into ['test.txt' -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
 				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+			File.Delete ("test.txt");
 			TestGql ("select 17, '<this is a test>' into ['test.txt' -lineend=unix]", 
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
 				"A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
+			File.Delete ("test.txt");
 			TestGql ("select * into ['test.txt' -lineend=dos] from ['SampleFiles/AirportCodes.csv']",
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
 				"2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5");
+			File.Delete ("test.txt");
 			TestGql ("select 17, '<this is a test>' into ['test.txt' -lineend=dos]", 
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
 				"0B99DAF34499129ACC727D61F3F43A481DA2D4AE50A87DAFFAC799DA1325D46C");
+			File.Delete ("test.txt");
 			TestGql ("select * into ['test.zip' -lineend=dos] from ['SampleFiles/AirportCodes.csv']",
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql ("select * from ['test.zip']",
 				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+			File.Delete ("test.zip");
 			TestGql ("select * into ['test.txt' -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql ("select * into ['test.txt' -append -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
 				"593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
+			TestGql ("select * into ['test.txt' -overwrite -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
+				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile ("test.txt",
+				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+			TestGql ("select * into ['test.txt' -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
+				typeof(InvalidOperationException));
+			File.Delete ("test.txt");
 			//TestGql ("select * into ['test.zip' -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
 			//	"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			//TestGql ("select * into ['test.zip' -append -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
 			//	"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			//TestGql ("select * from ['test.zip']",
 			//	"593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
-			File.Delete ("test.txt");
-			File.Delete ("test.zip");
 			
 			// Query batch
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv'] select * from ['SampleFiles/AirportCodes.csv']", 

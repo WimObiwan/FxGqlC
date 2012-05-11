@@ -353,7 +353,7 @@ namespace FxGqlLib
 			AssertAntlrToken (intoClauseTree, "T_INTO", 1);
 				
 			CommonTree fileTree = GetSingleChild (intoClauseTree);
-			FileOptions intoFile = ParseFile (fileTree);			
+			FileOptions intoFile = ParseFile (fileTree, true);			
 			
 			return intoFile;
 		}
@@ -834,7 +834,7 @@ namespace FxGqlLib
 			return result;
 		}
 
-		FileOptions ParseFile (CommonTree fileProvider)
+		FileOptions ParseFile (CommonTree fileProvider, bool intoClause)
 		{
 			AssertAntlrToken (fileProvider, "T_FILE", 1, -1);
 			
@@ -853,30 +853,40 @@ namespace FxGqlLib
 					string option;
 					string value;
 					ParseFileOption ((CommonTree)enumerator.Current, out option, out value);
-					switch (option.ToUpperInvariant ()) {
-					case "RECURSE":
-						fileOptions.Recurse = true;
-						break;
-					case "LINEEND":
-						FileOptions.NewLineEnum lineEnd;
-						if (!Enum.TryParse<FileOptions.NewLineEnum> (value, true, out lineEnd))
-							throw new ParserException (string.Format ("Unknown file option LineEnd={0}", value), enumerator.Current);
-						fileOptions.NewLine = lineEnd;
-						break;
-					case "APPEND":
-						fileOptions.Append = true;
-						break;
-					case "TITLELINE":
-						fileOptions.TitleLine = true;
-						break;
-					case "COLUMNS":
-						fileOptions.ColumnsRegex = ParseString (value);
-						break;
-					case "SKIP":
-						fileOptions.Skip = long.Parse(value);
-						break;
-					default:
-						throw new ParserException (string.Format ("Unknown file option '{0}'", option), enumerator.Current);  
+					if (intoClause) {
+						switch (option.ToUpperInvariant ()) {
+						case "LINEEND":
+							FileOptions.NewLineEnum lineEnd;
+							if (!Enum.TryParse<FileOptions.NewLineEnum> (value, true, out lineEnd))
+								throw new ParserException (string.Format ("Unknown file option LineEnd={0}", value), enumerator.Current);
+							fileOptions.NewLine = lineEnd;
+							break;
+						case "APPEND":
+							fileOptions.Append = true;
+							break;
+						case "OVERWRITE":
+							fileOptions.Overwrite = true;
+							break;
+						default:
+							throw new ParserException (string.Format ("Unknown file option '{0}'", option), enumerator.Current);  
+						}
+					} else {
+						switch (option.ToUpperInvariant ()) {
+						case "RECURSE":
+							fileOptions.Recurse = true;
+							break;
+						case "TITLELINE":
+							fileOptions.TitleLine = true;
+							break;
+						case "COLUMNS":
+							fileOptions.ColumnsRegex = ParseString (value);
+							break;
+						case "SKIP":
+							fileOptions.Skip = long.Parse(value);
+							break;
+						default:
+							throw new ParserException (string.Format ("Unknown file option '{0}'", option), enumerator.Current);  
+						}
 					}
 					
 					enumerator.MoveNext ();
@@ -900,7 +910,7 @@ namespace FxGqlLib
 
 		IProvider ParseFileProvider (CommonTree fileProvider)
 		{
-			FileOptions fileOptions = ParseFile (fileProvider);
+			FileOptions fileOptions = ParseFile (fileProvider, false);
 			
 			IProvider provider = FileProviderFactory.Get (fileOptions);
 			
