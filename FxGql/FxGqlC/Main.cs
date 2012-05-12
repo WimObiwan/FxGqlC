@@ -154,9 +154,11 @@ namespace FxGqlC
 
 		public static void RunPrompt ()
 		{
+			Mono.Terminal.LineEditor lineEditor = new Mono.Terminal.LineEditor("editor");
 			while (true) {
-				Console.Write ("FxGqlC> ");
-				string command = Console.ReadLine ();
+				string command = lineEditor.Edit ("FxGqlC> ", "");
+				//Console.Write ("FxGqlC> ");
+				//string command = Console.ReadLine ();
 				if (command.Equals ("exit", StringComparison.InvariantCultureIgnoreCase))
 					break; 
 				ExecuteCommand (command);
