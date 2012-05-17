@@ -55,9 +55,9 @@ namespace FxGqlLib
 			return provider.GetColumnTypes ();
 		}
 		
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
-			provider.Initialize ();
+			provider.Initialize (gqlQueryState);
 			dataRetrieved = false;
 			data = new List<Key> ();
 			currentRecord = -1;

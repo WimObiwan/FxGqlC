@@ -22,7 +22,7 @@ namespace FxGqlLib
 			return new Type[] { };
 		}
 		
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			endOfQuery = false;
 			record = new ProviderRecord ();

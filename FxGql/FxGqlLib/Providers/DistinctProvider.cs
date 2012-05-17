@@ -28,9 +28,9 @@ namespace FxGqlLib
 			return provider.GetColumnTypes ();
 		}
 		
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
-			provider.Initialize ();
+			provider.Initialize (gqlQueryState);
 			ColumnsComparer<ColumnsComparerKey > columnsComparer = new ColumnsComparer<ColumnsComparerKey> (provider.GetColumnTypes (), stringComparer);
 			recordList = new SortedSet<ColumnsComparerKey> (columnsComparer);
 		}

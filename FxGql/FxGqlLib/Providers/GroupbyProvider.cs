@@ -119,9 +119,9 @@ namespace FxGqlLib
 			return types;
 		}
 
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
-			provider.Initialize ();
+			provider.Initialize (gqlQueryState);
 			data = null;
 			currentRecord = -1;
 			enumerator = null;

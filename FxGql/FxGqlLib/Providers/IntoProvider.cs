@@ -10,6 +10,7 @@ namespace FxGqlLib
 		IProvider provider;
 		FileOptions fileOptions;
 		ProviderRecord record;
+		GqlQueryState gqlQueryState;
 		
 		public IntoProvider (IProvider provider, FileOptions fileOptions)
 		{
@@ -28,12 +29,13 @@ namespace FxGqlLib
 			return new Type[] { };
 		}
 		
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			record = new ProviderRecord ();
 			record.Columns = new IComparable[] { };
 			record.OriginalColumns = new IComparable[] { };
 			record.LineNo = 1;
+			this.gqlQueryState = gqlQueryState;
 		}
 
 		private string GetNewLine (FileOptions.NewLineEnum lineEnd)
@@ -69,7 +71,7 @@ namespace FxGqlLib
 							new List<IExpression> () { new FormatColumnListFunction ("\t") },
 							this.provider)) {
 
-							provider.Initialize ();
+							provider.Initialize (this.gqlQueryState);
 
 							using (ProviderToStream stream = new ProviderToStream(provider, System.Text.Encoding.GetEncoding (0), GetNewLine(fileOptions.NewLine))) {
 								using (BufferedStream bufferedStream = new BufferedStream(stream)) {		
@@ -102,7 +104,7 @@ namespace FxGqlLib
 						new List<IExpression> () { new FormatColumnListFunction ("\t") },
 						this.provider)) {
 	
-						provider.Initialize ();
+						provider.Initialize (this.gqlQueryState);
 
 						while (provider.GetNextRecord()) {
 							outputStream.WriteLine (provider.Record.Columns [0].ToString ());

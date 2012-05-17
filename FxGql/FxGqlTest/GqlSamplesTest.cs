@@ -659,6 +659,8 @@ namespace FxGqlTest
 			// TODO: skip clause (select top 10 skip 2 from ...
 			
 			// TODO:
+			TestGql (@"select distinct top 10 $filename from [*.*]",
+			    (string)null);
 		}
 
 	}

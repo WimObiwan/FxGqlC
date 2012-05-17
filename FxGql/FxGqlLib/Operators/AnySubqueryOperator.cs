@@ -26,7 +26,7 @@ namespace FxGqlLib
 			
 			if (values == null) {
 				values = new List<T> ();
-				provider.Initialize ();
+				provider.Initialize (gqlQueryState);
 				
 				while (provider.GetNextRecord()) {
 					values.Add ((T)Convert.ChangeType (provider.Record.Columns [0], typeof(T)));

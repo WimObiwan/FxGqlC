@@ -35,13 +35,13 @@ namespace FxGqlLib
 			return types;
 		}
 
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			regex = new Regex(regexDefinition, caseInsensitive ? RegexOptions.IgnoreCase : RegexOptions.None);
 			string[] groups = regex.GetGroupNames();
 			columns = new string[groups.Length - 1];
 			Array.Copy(groups, 1, columns, 0, columns.Length);
-			provider.Initialize ();
+			provider.Initialize (gqlQueryState);
 						
 			record = new ProviderRecord ();
 			record.ColumnTitles = columns;

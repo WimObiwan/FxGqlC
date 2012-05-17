@@ -25,11 +25,11 @@ namespace FxGqlLib
 			return provider.GetColumnTypes();
 		}
 		
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
-			provider.Initialize ();
-			gqlQueryState = new GqlQueryState ();
-			gqlQueryState.TotalLineNumber = 0;
+			provider.Initialize (gqlQueryState);
+			this.gqlQueryState = new GqlQueryState ();
+			this.gqlQueryState.TotalLineNumber = 0;
 		}
 
 		public bool GetNextRecord ()

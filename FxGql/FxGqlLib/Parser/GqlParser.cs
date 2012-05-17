@@ -581,15 +581,18 @@ namespace FxGqlLib
 				
 		IExpression ParseExpressionFunctionCall_0 (IProvider provider, CommonTree functionCallTree, string functionName)
 		{
-			//IExpression result;
+			IExpression result;
 			
 			switch (functionName.ToUpperInvariant ()) {
+			case "GETCURDIR":
+				result = new GetCurDirFunction();
+				break;
 			default:
 				throw new ParserException (string.Format ("Function call to {0} with 0 parameters not supported.", functionName), 
 					functionCallTree);
 			}
 			
-			//return result;
+			return result;
 		}
 
 		IExpression ParseExpressionFunctionCall_1 (IProvider provider, CommonTree functionCallTree, string functionName)

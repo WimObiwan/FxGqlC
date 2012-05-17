@@ -31,8 +31,9 @@ namespace FxGqlLib
 			return new Type[] { typeof(string) };
 		}
 		
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
+			string fileName = Path.Combine(gqlQueryState.CurrentDirectory, this.fileName);
 			zipFile = new ZipFile (fileName);
 			zipFile.UseZip64 = UseZip64.On;
 			streamReader = new StreamReader (zipFile.GetInputStream (currentFile));

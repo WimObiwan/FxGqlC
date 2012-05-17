@@ -54,10 +54,10 @@ namespace FxGqlLib
 			return types;
 		}
 
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
-			provider.Initialize ();
-			gqlQueryState = new GqlQueryState ();
+			this.gqlQueryState = gqlQueryState;
+			provider.Initialize (gqlQueryState);
 			gqlQueryState.TotalLineNumber = 0;
 			record = new ProviderRecord ();
 			record.Source = "(subQuery)";

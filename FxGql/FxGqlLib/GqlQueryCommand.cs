@@ -14,13 +14,15 @@ namespace FxGqlLib
 		}
 
 		#region IGqlCommand implementation
-		public void Execute (TextWriter outputStream, TextWriter logStream)
+		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
 			using (SelectProvider provider = new SelectProvider (
 					new List<IExpression> () { new FormatColumnListFunction ("\t") },
 					gqlQuery)) {
-
-				provider.Initialize ();
+				
+				GqlQueryState gqlQueryState = new GqlQueryState();
+				gqlQueryState.CurrentDirectory = gqlEngineState.CurrentDirectory;
+				provider.Initialize (gqlQueryState);
 					
 				while (provider.GetNextRecord()) {
 					string text = provider.Record.Columns [0].ToString ();

@@ -25,10 +25,9 @@ namespace FxGqlLib
 			return provider.GetColumnTypes();
 		}
 		
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
-			provider.Initialize();
-			GqlQueryState gqlQueryState = new GqlQueryState();
+			provider.Initialize(gqlQueryState);
 			linesToGo = topValueExpression.Evaluate(gqlQueryState);
 		}
 

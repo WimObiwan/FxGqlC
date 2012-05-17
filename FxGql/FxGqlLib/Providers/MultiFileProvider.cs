@@ -10,6 +10,7 @@ namespace FxGqlLib
 		bool recurse;
 		long skip;
 		string[] files;
+		GqlQueryState gqlQueryState;
 		
 		int currentFile;
 		
@@ -31,14 +32,16 @@ namespace FxGqlLib
 			return new Type[] { typeof(string) };
 		}
 		
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
+			this.gqlQueryState = gqlQueryState;
 			string path = Path.GetDirectoryName(fileMask);
 			string searchPattern = Path.GetFileName(fileMask);
 			SearchOption searchOption;
 			if (recurse) searchOption = SearchOption.AllDirectories;
 			else searchOption = SearchOption.TopDirectoryOnly;
-
+			
+			path = Path.Combine(gqlQueryState.CurrentDirectory, path); 
 			files = Directory.GetFiles(path + Path.DirectorySeparatorChar, searchPattern, searchOption);
 			
 			currentFile = -1;
@@ -82,7 +85,7 @@ namespace FxGqlLib
 				return false;
 			
 			provider = FileProviderFactory.Get(files[currentFile], skip);
-			provider.Initialize();
+			provider.Initialize(gqlQueryState);
 			
 			return true;
 		}

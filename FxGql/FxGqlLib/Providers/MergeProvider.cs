@@ -6,6 +6,7 @@ namespace FxGqlLib
 	{
 		IProvider[] providers;
 		int currentProvider;
+		GqlQueryState gqlQueryState;
 		
 		public MergeProvider (IProvider[] providers)
 		{
@@ -25,10 +26,11 @@ namespace FxGqlLib
 			return providers[0].GetColumnTypes();
 		}
 		
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
+			this.gqlQueryState = gqlQueryState;
 			currentProvider = 0;
-			providers[0].Initialize();
+			providers[0].Initialize(gqlQueryState);
 		}
 
 		public bool GetNextRecord ()
@@ -40,7 +42,7 @@ namespace FxGqlLib
 			{
 				providers[currentProvider].Uninitialize();
 				currentProvider++;
-				providers[currentProvider].Initialize();
+				providers[currentProvider].Initialize(gqlQueryState);
 				result = providers[currentProvider].GetNextRecord();
 			} while (!result && currentProvider < providers.Length);
 				

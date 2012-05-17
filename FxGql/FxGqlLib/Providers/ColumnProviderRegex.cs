@@ -31,9 +31,9 @@ namespace FxGqlLib
 			return types;
 		}
 
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
-			provider.Initialize ();
+			provider.Initialize (gqlQueryState);
 			if (provider.GetNextRecord ()) {
 				string line = provider.Record.Columns [0].ToString ();
 				columns = line.Split (separators, StringSplitOptions.None);

@@ -22,7 +22,7 @@ namespace FxGqlLib
 		
 		Type[] GetColumnTypes ();
 		
-		void Initialize ();
+		void Initialize (GqlQueryState gqlQueryState);
 
 		bool GetNextRecord ();
 

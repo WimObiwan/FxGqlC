@@ -27,8 +27,9 @@ namespace FxGqlLib
 			return new Type[] { typeof(string) };
 		}
 		
-		public void Initialize ()
+		public void Initialize (GqlQueryState gqlQueryState)
 		{
+			string fileName = Path.Combine(gqlQueryState.CurrentDirectory, this.fileName);
 			streamReader = new StreamReader (new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
 			record = new ProviderRecord ();
 			record.Source = fileName;

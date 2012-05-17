@@ -92,6 +92,9 @@
     <Compile Include="Expressions\CaseExpression.cs" />
     <Compile Include="Providers\ColumnProviderTitleLine.cs" />
     <Compile Include="Providers\ColumnProviderRegex.cs" />
+    <Compile Include="Expressions\NullaryExpression.cs" />
+    <Compile Include="GqlEngineState.cs" />
+    <Compile Include="Functions\GetCurDirFunction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
