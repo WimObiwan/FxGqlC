@@ -124,9 +124,11 @@ namespace Mono.Terminal {
 				KeyHandler = h;
 			}
 			
-			public static Handler Control (char c, KeyHandler h)
+			public static Handler Control (char c, ConsoleKey k, KeyHandler h)
 			{
-				return new Handler ((char) (c - 'A' + 1), h);
+				//return new Handler ((char) (c - 'A' + 1), h);
+				ConsoleKeyInfo cki = new ConsoleKeyInfo ((char) c, k, false, false, true);
+				return new Handler (cki, h);
 			}
 
 			public static Handler Alt (char c, ConsoleKey k, KeyHandler h)
@@ -167,20 +169,25 @@ namespace Mono.Terminal {
 				new Handler (ConsoleKey.Backspace,  CmdBackspace),
 				new Handler (ConsoleKey.Delete,     CmdDeleteChar),
 				new Handler (ConsoleKey.Tab,        CmdTabOrComplete),
+				new Handler (ConsoleKey.Escape,     CmdKillLine),
 				
+				// Doesn't work on mono?
+				Handler.Control ((char)0, ConsoleKey.LeftArrow, CmdBackwardWord),
+				Handler.Control ((char)0, ConsoleKey.RightArrow, CmdForwardWord),
+
 				// Emacs keys
-				Handler.Control ('A', CmdHome),
-				Handler.Control ('E', CmdEnd),
-				Handler.Control ('B', CmdLeft),
-				Handler.Control ('F', CmdRight),
-				Handler.Control ('P', CmdHistoryPrev),
-				Handler.Control ('N', CmdHistoryNext),
-				Handler.Control ('K', CmdKillToEOF),
-				Handler.Control ('Y', CmdYank),
-				Handler.Control ('D', CmdDeleteChar),
-				Handler.Control ('L', CmdRefresh),
-				Handler.Control ('R', CmdReverseSearch),
-				Handler.Control ('G', delegate {} ),
+				Handler.Control ('A', ConsoleKey.A, CmdHome),
+				Handler.Control ('E', ConsoleKey.E, CmdEnd),
+				Handler.Control ('B', ConsoleKey.B, CmdLeft),
+				Handler.Control ('F', ConsoleKey.F, CmdRight),
+				Handler.Control ('P', ConsoleKey.P, CmdHistoryPrev),
+				Handler.Control ('N', ConsoleKey.N, CmdHistoryNext),
+				Handler.Control ('K', ConsoleKey.K, CmdKillToEOF),
+				Handler.Control ('Y', ConsoleKey.Y, CmdYank),
+				Handler.Control ('D', ConsoleKey.D, CmdDeleteChar),
+				Handler.Control ('L', ConsoleKey.L, CmdRefresh),
+				Handler.Control ('R', ConsoleKey.R, CmdReverseSearch),
+				Handler.Control ('G', ConsoleKey.G, delegate {} ),
 				Handler.Alt ('B', ConsoleKey.B, CmdBackwardWord),
 				Handler.Alt ('F', ConsoleKey.F, CmdForwardWord),
 				
@@ -191,7 +198,7 @@ namespace Mono.Terminal {
 				//Handler.Control ('T', CmdDebug),
 
 				// quote
-				Handler.Control ('Q', delegate { HandleChar (Console.ReadKey (true).KeyChar); })
+				Handler.Control ('Q', ConsoleKey.Q, delegate { HandleChar (Console.ReadKey (true).KeyChar); })
 			};
 
 			rendered_text = new StringBuilder ();
@@ -630,6 +637,12 @@ namespace Mono.Terminal {
 			ComputeRendered ();
 			RenderAfter (cursor);
 		}
+		
+		void CmdKillLine ()
+		{
+			CmdHome ();
+			CmdKillToEOF ();
+		}
 
 		void CmdYank ()
 		{
@@ -769,18 +782,18 @@ namespace Mono.Terminal {
 				ConsoleModifiers mod;
 				
 				cki = Console.ReadKey (true);
-				if (cki.Key == ConsoleKey.Escape){
+				/*if (cki.Key == ConsoleKey.Escape){
 					cki = Console.ReadKey (true);
 
 					mod = ConsoleModifiers.Alt;
-				} else
+				} else*/
 					mod = cki.Modifiers;
 				
 				bool handled = false;
-
+				
 				foreach (Handler handler in handlers){
 					ConsoleKeyInfo t = handler.CKI;
-
+					
 					if (t.Key == cki.Key && t.Modifiers == mod){
 						handled = true;
 						handler.KeyHandler ();
