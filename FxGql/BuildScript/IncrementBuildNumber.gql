@@ -1,0 +1,1 @@
+select (case when ($line match 'assembly\: AssemblyVersion\(\"\d+\.\d+\.\d+\.(\d+)\"\)') then matchregex($line, '^(.*\(\"\d+\.\d+\.\d+)\.\d+(\"\).*)$', '$1.' + (1 + convert(int, matchregex($line, 'assembly\: AssemblyVersion\(\"\d+\.\d+\.\d+\.(\d+)\"\)'))) + '$2') else $line end) into ['/tmp/_fxgqlc_AssemblyInfo.cs' -overwrite] from [FxGql/FxGqlC/AssemblyInfo.cs]
