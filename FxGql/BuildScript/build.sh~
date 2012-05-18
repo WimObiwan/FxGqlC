@@ -35,7 +35,6 @@ zip /tmp/FxGqlC-$version.zip FxGql/FxGqlC/bin/Release/*
 
 git add ./FxGql/FxGqlC/AssemblyInfo.cs
 git commit -m "$version"
-git push
 echo "Increased version to $version"
 git tag "$version" -a –f
 git push --tags
