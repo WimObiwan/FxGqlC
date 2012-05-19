@@ -31,7 +31,7 @@ mdtool build --target:Build --configuration:Release FxGql/FxGql.sln
 
 version=`cat /tmp/_fxgqlc_versionoutput2.txt`
 
-zip /tmp/FxGqlC-$version.zip FxGql/FxGqlC/bin/Release/*
+zip -j /tmp/FxGqlC-$version.zip FxGql/FxGqlC/bin/Release/*
 
 git add ./FxGql/FxGqlC/AssemblyInfo.cs
 git commit -m "$version"
