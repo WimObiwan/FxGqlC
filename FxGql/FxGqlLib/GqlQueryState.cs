@@ -4,8 +4,9 @@ namespace FxGqlLib
 {
 	public class GqlQueryState
 	{
-		public GqlQueryState ()
+		public GqlQueryState (GqlEngineExecutionState currentExecutionState)
 		{
+			this.CurrentExecutionState = currentExecutionState;
 		}
 		
 		public ProviderRecord Record { get; set; }
@@ -15,6 +16,8 @@ namespace FxGqlLib
 		public bool UseOriginalColumns { get; set; }
 		
 		public string CurrentDirectory { get; set; }
+		
+		public GqlEngineExecutionState CurrentExecutionState { get; private set; }
 	}
 }
 

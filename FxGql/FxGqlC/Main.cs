@@ -114,6 +114,15 @@ namespace FxGqlC
 				return;
 			}
 			
+			Console.TreatControlCAsInput = false;
+			Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs e) {
+				if (e.SpecialKey == ConsoleSpecialKey.ControlC) {
+					//Console.WriteLine ("===== Ctrl-C signal received =====");
+					e.Cancel = true;
+					gqlEngine.Interrupt();
+				}
+			};
+
 			gqlEngine = new GqlEngine ();
 			gqlEngine.OutputStream = Console.Out;
 			if (logFile != null)

@@ -20,18 +20,21 @@ namespace FxGqlLib
 					new List<IExpression> () { new FormatColumnListFunction ("\t") },
 					gqlQuery)) {
 				
-				GqlQueryState gqlQueryState = new GqlQueryState();
-				gqlQueryState.CurrentDirectory = gqlEngineState.CurrentDirectory;
-				provider.Initialize (gqlQueryState);
+				try {
+					GqlQueryState gqlQueryState = new GqlQueryState(gqlEngineState.ExecutionState);
+					gqlQueryState.CurrentDirectory = gqlEngineState.CurrentDirectory;
+					provider.Initialize (gqlQueryState);
+						
+					while (provider.GetNextRecord()) {
+						string text = provider.Record.Columns [0].ToString ();
+						outputStream.WriteLine (text);
+						if (logStream != null)
+							logStream.WriteLine (text);
+					}
 					
-				while (provider.GetNextRecord()) {
-					string text = provider.Record.Columns [0].ToString ();
-					outputStream.WriteLine (text);
-					if (logStream != null)
-						logStream.WriteLine (text);
+				} finally {
+					provider.Uninitialize ();
 				}
-				
-				provider.Uninitialize ();
 			}
 		}
 		#endregion

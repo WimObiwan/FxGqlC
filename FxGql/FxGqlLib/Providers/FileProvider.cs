@@ -9,6 +9,7 @@ namespace FxGqlLib
 		long skip;
 		StreamReader streamReader;
 		ProviderRecord record;
+		GqlEngineExecutionState gqlEngineExecutionState;
 		
 		public FileProvider (string fileName, long skip)
 		{
@@ -29,6 +30,8 @@ namespace FxGqlLib
 		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
+			gqlEngineExecutionState = gqlQueryState.CurrentExecutionState;
+			
 			string fileName = Path.Combine(gqlQueryState.CurrentDirectory, this.fileName);
 			streamReader = new StreamReader (new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
 			record = new ProviderRecord ();
@@ -47,6 +50,9 @@ namespace FxGqlLib
 
 		public bool GetNextRecord ()
 		{
+			if (gqlEngineExecutionState.InterruptState == GqlEngineExecutionState.InterruptStates.Interrupted)
+				throw new InterruptedException();
+			
 			if (streamReader == null)
 				return false;
 			
@@ -67,6 +73,7 @@ namespace FxGqlLib
 			streamReader.Close ();
 			streamReader.Dispose ();
 			streamReader = null;
+			gqlEngineExecutionState = null;
 		}
 		
 		public ProviderRecord Record {

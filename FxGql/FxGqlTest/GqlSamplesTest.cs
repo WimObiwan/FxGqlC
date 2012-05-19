@@ -644,7 +644,11 @@ namespace FxGqlTest
 				"BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
 			TestGql (@"select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament] order by 1",
 			    "08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
-						
+			
+			//// To test interrupt (Ctrl-C) of long running query
+			//TestGql (@"select top 10000 * from [/var/log/dpkg.log.1]",
+			//         (string)null);
+
 			
 			Console.WriteLine ();
 			Console.WriteLine ("{0} tests done, {1} succeeded, {2} failed, {3} unknown", succeeded + failed + unknown, succeeded, failed, unknown);
@@ -659,8 +663,9 @@ namespace FxGqlTest
 			// TODO: skip clause (select top 10 skip 2 from ...
 			
 			// TODO:
-			TestGql (@"select distinct top 10 $filename from [*.*]",
-			    (string)null);
+			//TestGql (@"select distinct top 10 $filename from [*.*]",
+			//    (string)null);
+			
 		}
 
 	}

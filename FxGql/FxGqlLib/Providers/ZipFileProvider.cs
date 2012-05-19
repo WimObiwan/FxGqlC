@@ -13,6 +13,7 @@ namespace FxGqlLib
 		long currentFile;
 		StreamReader streamReader;
 		ProviderRecord record;
+		GqlEngineExecutionState gqlEngineExecutionState;
 		
 		public ZipFileProvider (string fileName, long skip)
 		{
@@ -33,6 +34,8 @@ namespace FxGqlLib
 		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
+			gqlEngineExecutionState = gqlQueryState.CurrentExecutionState;
+			
 			string fileName = Path.Combine(gqlQueryState.CurrentDirectory, this.fileName);
 			zipFile = new ZipFile (fileName);
 			zipFile.UseZip64 = UseZip64.On;
@@ -53,6 +56,9 @@ namespace FxGqlLib
 
 		public bool GetNextRecord ()
 		{
+			if (gqlEngineExecutionState.InterruptState == GqlEngineExecutionState.InterruptStates.Interrupted)
+				throw new InterruptedException();
+
 			if (streamReader == null)
 				return false;
 						
@@ -86,6 +92,7 @@ namespace FxGqlLib
 			streamReader.Close ();
 			streamReader.Dispose ();
 			streamReader = null;
+			gqlEngineExecutionState = null;
 		}
 		
 		public ProviderRecord Record {

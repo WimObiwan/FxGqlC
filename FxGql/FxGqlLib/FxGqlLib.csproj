@@ -95,6 +95,8 @@
     <Compile Include="Expressions\NullaryExpression.cs" />
     <Compile Include="GqlEngineState.cs" />
     <Compile Include="Functions\GetCurDirFunction.cs" />
+    <Compile Include="GqlEngineExecutionState.cs" />
+    <Compile Include="Exceptions\InterruptedException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -111,5 +113,6 @@
     <Folder Include="SystemVars\" />
     <Folder Include="Functions\" />
     <Folder Include="Operators\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 </Project>

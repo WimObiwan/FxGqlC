@@ -15,6 +15,7 @@ namespace FxGqlLib
 		int currentRecord;
 		IEnumerator<KeyValuePair<ColumnsComparerKey, AggregationState>> enumerator;
 		ProviderRecord record;
+		GqlEngineExecutionState executionState;
 		
 		class InvariantColumn : IExpression
 		{
@@ -121,6 +122,7 @@ namespace FxGqlLib
 
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
+			executionState = gqlQueryState.CurrentExecutionState;
 			provider.Initialize (gqlQueryState);
 			data = null;
 			currentRecord = -1;
@@ -157,6 +159,7 @@ namespace FxGqlLib
 			enumerator = null;
 			data = null;
 			record = null;
+			executionState = null;
 		}
 
 		public ProviderRecord Record {
@@ -177,7 +180,7 @@ namespace FxGqlLib
 
 		private void RetrieveData ()
 		{
-			GqlQueryState gqlQueryState = new GqlQueryState ();
+			GqlQueryState gqlQueryState = new GqlQueryState (executionState);
 			gqlQueryState.TotalLineNumber = 0;
 			gqlQueryState.UseOriginalColumns = true;
 			

@@ -36,6 +36,7 @@ namespace FxGqlLib
 		List<Key> data;
 		int currentRecord;
 		ProviderRecord record = new ProviderRecord ();
+		GqlEngineExecutionState executionState;
 		
 		public OrderbyProvider (IProvider provider, IList<Column> orderbyColumns, StringComparer stringComparer)
 		{
@@ -57,6 +58,7 @@ namespace FxGqlLib
 		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
+			executionState = gqlQueryState.CurrentExecutionState;
 			provider.Initialize (gqlQueryState);
 			dataRetrieved = false;
 			data = new List<Key> ();
@@ -86,6 +88,7 @@ namespace FxGqlLib
 		{
 			provider.Uninitialize ();
 			data = null;
+			executionState = null;
 		}
 
 		public ProviderRecord Record {
@@ -106,7 +109,7 @@ namespace FxGqlLib
 
 		private void RetrieveData ()
 		{
-			GqlQueryState gqlQueryState = new GqlQueryState ();
+			GqlQueryState gqlQueryState = new GqlQueryState (executionState);
 			gqlQueryState.TotalLineNumber = 0;
 			gqlQueryState.UseOriginalColumns = true;
 			bool[] descArray = new bool[orderbyColumns.Count];
