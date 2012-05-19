@@ -56,8 +56,10 @@ namespace FxGqlLib
 
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
-			this.gqlQueryState = gqlQueryState;
-			provider.Initialize (gqlQueryState);
+			this.gqlQueryState = new GqlQueryState(gqlQueryState.CurrentExecutionState);
+			this.gqlQueryState.CurrentDirectory = gqlQueryState.CurrentDirectory;
+			
+			provider.Initialize (this.gqlQueryState);
 			gqlQueryState.TotalLineNumber = 0;
 			record = new ProviderRecord ();
 			record.Source = "(subQuery)";
