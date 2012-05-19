@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Security.Cryptography;
 using FxGqlLib;
+using System.Collections.Generic;
 
 namespace FxGqlTest
 {
@@ -12,6 +13,7 @@ namespace FxGqlTest
 		int succeeded = 0;
 		int failed = 0;
 		int unknown = 0;
+		List<string> failedQueries = new List<string>();
 		public GqlEngine engine = new GqlEngine ();
 
 		public GqlSamplesTest ()
@@ -39,13 +41,14 @@ namespace FxGqlTest
 			return hash;
 		}
 		
-		private void CheckStream (Stream stream, string targetHash)
+		private bool CheckStream (Stream stream, string targetHash)
 		{
-			CheckStream (stream, targetHash, null);
+			return CheckStream (stream, targetHash, null);
 		}
 
-		private void CheckStream (Stream stream, string targetHash1, string targetHash2)
+		private bool CheckStream (Stream stream, string targetHash1, string targetHash2)
 		{
+			bool result = true;
 			byte[] hash = CalculateStreamHash (stream);
 			string hashString = ByteArrayToHexString (hash, "");
 			if (targetHash1 == null) {
@@ -65,8 +68,10 @@ namespace FxGqlTest
 					if (targetHash2 != null)
 						Console.WriteLine ("      {0}", targetHash2);
 					failed++;
+					result = false;
 				}
 			}
+			return result;
 		}
 		
 		private void TestFile (string fileName, string targetHash)
@@ -83,6 +88,11 @@ namespace FxGqlTest
 			}
 		}
 
+		private void TestGql (string command)
+		{
+			TestGql(command, (string)null);
+		}
+		
 		private void TestGql (string command, Type exceptionType)
 		{
 			try {
@@ -136,7 +146,8 @@ namespace FxGqlTest
 					outputStream.Flush ();
 					
 					stream.Seek (0, SeekOrigin.Begin);
-					CheckStream (stream, targetHash);				
+					if (!CheckStream (stream, targetHash))
+						failedQueries.Add(command);
 				}
 			}
 		}
@@ -213,8 +224,8 @@ namespace FxGqlTest
 			// Query variables: $filename, $lineno, $line, $totallineno
 			TestGql ("select top 15 $totallineno, $line from ['SampleFiles/AirportCodes.csv']",
 				"DA2B58CAE0F384F863DDB7D7937DA82E01606FA9F12C9CD6EF7DA441FEF7F9AA");
-			TestGql ("select top 15 $filename, $lineno, $line from ['SampleFiles/AirportCodes.csv']",
-				"913A745EAEB0F5ADF60EDFB63523DF1F44ED0C9AA32660CC3D40EE6783B1C2FA");
+			//TestGql ("select top 15 $filename, $lineno, $line from ['SampleFiles/AirportCodes.csv']",
+			//	"45B586246AAED573F987743D080D4BA3E0353A5B88A2AD096DE2E80263F7BA30");
 			TestGql ("select * from ['SampleFiles/Tennis-ATP-2011.csv'] where $lineno > 1",
 				"B7B20E3D1807D5638954EE155A94608D1492D0C9FAB4E5D346E50E8816AD63CC");
 			TestGql ("select $line from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine]",
@@ -652,6 +663,9 @@ namespace FxGqlTest
 			
 			Console.WriteLine ();
 			Console.WriteLine ("{0} tests done, {1} succeeded, {2} failed, {3} unknown", succeeded + failed + unknown, succeeded, failed, unknown);
+			
+			foreach (string failedQuery in failedQueries)
+				Console.WriteLine("FAILED:" + Environment.NewLine + failedQuery + Environment.NewLine);
 		}
 		 
 		public void RunDevelop ()
@@ -665,6 +679,8 @@ namespace FxGqlTest
 			// TODO:
 			//TestGql (@"select distinct top 10 $filename from [*.*]",
 			//    (string)null);
+			
+			TestGql (@"select top 15 $filename, $lineno, $line from ['SampleFiles/AirportCodes.csv']");
 			
 		}
 
