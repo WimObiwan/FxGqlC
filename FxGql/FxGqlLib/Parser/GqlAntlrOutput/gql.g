@@ -65,6 +65,7 @@ tokens
 	T_CASE;
 	T_CASE_WHEN;
 	T_CASE_ELSE;
+	T_USE;
 }
 
 @parser::namespace { FxGqlLib }
@@ -97,7 +98,11 @@ commands
 	
 command
 	: select_command
+	| use_command
 	;
+
+///////////////////////////////////////////////////////////////////////////////
+// SELECT COMMAND
 
 select_command
 	: SELECT (WS distinct_clause)? (WS top_clause)? WS column_list (WS into_clause)? (WS from_clause)? (WS where_clause)? (WS groupby_clause)? (WS orderby_clause)?
@@ -179,6 +184,13 @@ orderby_column
 orderby_direction
 	: ASC -> T_ORDERBY_ASC
 	| DESC -> T_ORDERBY_DESC
+	;
+
+///////////////////////////////////////////////////////////////////////////////
+// USE COMMAND
+
+use_command
+	: USE WS file -> ^(T_USE file)
 	;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -362,6 +374,7 @@ WHEN	: W H E N;
 THEN	: T H E N;
 ELSE	: E L S E;
 END	: E N D;
+USE     : U S E;
 
 TOKEN
 	: ('A'..'Z' | 'a'..'z' | '_') ('A'..'Z' | 'a'..'z' | '_' | '0'..'9')*

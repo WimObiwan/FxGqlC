@@ -202,6 +202,8 @@ namespace FxGqlLib
 			switch (commandTree.Text) {
 			case "T_SELECT":
 				return new GqlQueryCommand (ParseCommandSelect (commandTree));
+			case "T_USE":
+				return new UseCommand (ParseCommandUse (commandTree));
 			default:
 				throw new UnexpectedTokenAntlrException (commandTree);
 			}
@@ -1372,6 +1374,13 @@ namespace FxGqlLib
 			}
 
 			return new CaseExpression(whenItems, elseResult);
+		}
+
+		FileOptions ParseCommandUse (CommonTree selectTree)
+		{
+			AssertAntlrToken (selectTree, "T_USE", 1);
+
+			return ParseFile ((CommonTree)selectTree.Children [0], false);
 		}
 	}
 }
