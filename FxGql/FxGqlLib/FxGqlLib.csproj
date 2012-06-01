@@ -45,21 +45,18 @@
     <Compile Include="Expressions\ConvertExpression.cs" />
     <Compile Include="Expressions\ConvertToStringExpression.cs" />
     <Compile Include="GqlEngine.cs" />
-    <Compile Include="IGqlCommand.cs" />
     <Compile Include="Parser\GqlAntlrOutput\output\gqlLexer.cs" />
     <Compile Include="Parser\GqlAntlrOutput\output\gqlParser.cs" />
     <Compile Include="Providers\IProvider.cs" />
     <Compile Include="Providers\FileProvider.cs">
       <DeployService-Deploy>true</DeployService-Deploy>
     </Compile>
-    <Compile Include="GqlQueryState.cs" />
     <Compile Include="SystemVars\LineSystemVars.cs" />
     <Compile Include="SystemVars\FileNameSystemVar.cs" />
     <Compile Include="SystemVars\TotalLineNoSystemVar.cs" />
     <Compile Include="SystemVars\LineNoSystemVar.cs" />
     <Compile Include="Expressions\ExpressionHelper.cs" />
     <Compile Include="Functions\SubstringFunction.cs" />
-    <Compile Include="GqlQueryCommand.cs" />
     <Compile Include="Providers\NullProvider.cs" />
     <Compile Include="Providers\TopProvider.cs" />
     <Compile Include="Providers\MergeProvider.cs" />
@@ -97,6 +94,10 @@
     <Compile Include="Functions\GetCurDirFunction.cs" />
     <Compile Include="GqlEngineExecutionState.cs" />
     <Compile Include="Exceptions\InterruptedException.cs" />
+    <Compile Include="Commands\GqlQueryState.cs" />
+    <Compile Include="Commands\GqlQueryCommand.cs" />
+    <Compile Include="Commands\IGqlCommand.cs" />
+    <Compile Include="Commands\UseCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -107,12 +108,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Parser\" />
-    <Folder Include="..\" />
     <Folder Include="Expressions\" />
     <Folder Include="Providers\" />
     <Folder Include="SystemVars\" />
     <Folder Include="Functions\" />
     <Folder Include="Operators\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="..\..\FxGql\" />
+    <Folder Include="Commands\" />
   </ItemGroup>
 </Project>

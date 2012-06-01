@@ -504,8 +504,10 @@ namespace FxGqlTest
 			//TestGql("select * from [smallfile.log]", null);
 			
 			// INTO clause
-			if (File.Exists("test.txt")) File.Delete("test.txt");
-			if (File.Exists("test.zip")) File.Delete("test.zip");
+			if (File.Exists ("test.txt"))
+				File.Delete ("test.txt");
+			if (File.Exists ("test.zip"))
+				File.Delete ("test.zip");
 			TestGql ("select * into ['test.txt'] from ['SampleFiles/AirportCodes.csv']",
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
@@ -583,24 +585,24 @@ namespace FxGqlTest
 			
 			// Comments
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), *" + Environment.NewLine
-						+ "from ['SampleFiles/AirportCodes.csv'] " + Environment.NewLine
-						+ "where $line match ', (.*?) (?:- .*)?\"' -- this is a single line comment" + Environment.NewLine
-						+ "-- this is another single line comment" + Environment.NewLine
-						+ "order by 1, 2 desc",
+				+ "from ['SampleFiles/AirportCodes.csv'] " + Environment.NewLine
+				+ "where $line match ', (.*?) (?:- .*)?\"' -- this is a single line comment" + Environment.NewLine
+				+ "-- this is another single line comment" + Environment.NewLine
+				+ "order by 1, 2 desc",
 				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"'), 2 desc",
 				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), *" + Environment.NewLine
-						+ "from ['SampleFiles/AirportCodes.csv'] " + Environment.NewLine
-						+ "where $line match ', (.*?) (?:- .*)?\"' -- this is a single line comment" + Environment.NewLine
-						+ "-- this is another single line comment" + Environment.NewLine
-						+ "order by 1, 2 desc",
+				+ "from ['SampleFiles/AirportCodes.csv'] " + Environment.NewLine
+				+ "where $line match ', (.*?) (?:- .*)?\"' -- this is a single line comment" + Environment.NewLine
+				+ "-- this is another single line comment" + Environment.NewLine
+				+ "order by 1, 2 desc",
 				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), *" + Environment.NewLine
-						+ "from ['SampleFiles/AirportCodes.csv'] " + Environment.NewLine
-						+ "where $line match ', (.*?) (?:- .*)?\"' -- this is a single line comment" + Environment.NewLine
-						+ "-- this is another single line comment" + Environment.NewLine
-						+ "order by 1, 2 desc -- final single line comment",
+				+ "from ['SampleFiles/AirportCodes.csv'] " + Environment.NewLine
+				+ "where $line match ', (.*?) (?:- .*)?\"' -- this is a single line comment" + Environment.NewLine
+				+ "-- this is another single line comment" + Environment.NewLine
+				+ "order by 1, 2 desc -- final single line comment",
 				"588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 
 			//TestGql ("select /*block comment*/ 17", 
@@ -660,7 +662,11 @@ namespace FxGqlTest
 			//TestGql (@"select top 10000 * from [/var/log/dpkg.log.1]",
 			//         (string)null);
 
-			
+
+			// Use command
+			TestGql ("use [SampleFiles]; select * from ['AirportCodes.csv']",
+				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+
 			Console.WriteLine ();
 			Console.WriteLine ("{0} tests done, {1} succeeded, {2} failed, {3} unknown", succeeded + failed + unknown, succeeded, failed, unknown);
 			
@@ -681,7 +687,6 @@ namespace FxGqlTest
 			//    (string)null);
 			
 			TestGql (@"select top 15 $filename, $lineno, $line from ['SampleFiles/AirportCodes.csv']");
-			
 		}
 
 	}
