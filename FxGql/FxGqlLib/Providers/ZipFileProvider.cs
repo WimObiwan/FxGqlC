@@ -89,9 +89,15 @@ namespace FxGqlLib
 		public void Uninitialize ()
 		{
 			record = null;
-			streamReader.Close ();
-			streamReader.Dispose ();
-			streamReader = null;
+			if (zipFile != null) {
+				zipFile.Close ();
+				zipFile = null;
+			}
+			if (streamReader != null) {
+				streamReader.Close ();
+				streamReader.Dispose ();
+				streamReader = null;
+			}
 			gqlEngineExecutionState = null;
 		}
 		
