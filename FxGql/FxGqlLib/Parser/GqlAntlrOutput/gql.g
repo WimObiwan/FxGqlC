@@ -139,12 +139,20 @@ from_clause
 from_clause_item
 	: STRING -> ^(T_FILE STRING)
 	| file
-	| '(' WS? select_command WS? ')' -> ^(T_SUBQUERY select_command)
+	| subquery
 	;
-
+	
 file
-	: '[' WS? STRING (WS file_option)* WS? ']' -> ^(T_FILE STRING file_option*) 
-	| SIMPLE_FILE -> ^(T_FILE SIMPLE_FILE);
+	: '[' WS? (file_string | subquery) (WS file_option)* WS? ']' -> ^(T_FILE file_string file_option*) 
+	//| '[' WS? subquery (WS file_option)* WS? ']' -> ^(T_FILE subquery STRING file_option*)
+	| SIMPLE_FILE -> ^(T_FILE ^(T_STRING SIMPLE_FILE));
+
+file_string 
+	: STRING -> ^(T_STRING STRING);	
+
+
+subquery 
+	: '(' WS? select_command WS? ')' -> ^(T_SUBQUERY select_command);	
 
 file_option
 	: '-' file_option_name ( WS? '=' WS? file_option_value)? -> ^(T_FILEOPTION file_option_name file_option_value?)
@@ -338,7 +346,7 @@ STRING
 	;
 
 SIMPLE_FILE
-	: '[' ~('\''|']')* ']'
+	: '[' ~('\''|']'|'('|')')* ']'
 	;
 
 
