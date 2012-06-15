@@ -6,8 +6,8 @@ namespace FxGqlLib
 	{
 		public FileOptions ()
 		{
-			Recurse = false;
 			NewLine = NewLineEnum.Default;
+			FileOrder = FileOrderEnum.DontCare;
 		}
 		
 		public enum NewLineEnum
@@ -33,15 +33,23 @@ namespace FxGqlLib
 		public string ColumnsRegex { get; set; }
 		
 		public long Skip { get; set; }
+
+		public enum FileOrderEnum { DontCare, Asc, Desc }
+		public FileOrderEnum FileOrder { get; set; }
 	}
 	
 	static class FileProviderFactory
 	{
-		public static IProvider Get (FileOptions fileOptions)
+		public static IProvider Get (FileOptions fileOptions, StringComparer stringComparer)
 		{
 			IProvider provider;
 			if (fileOptions.FileName.Contains ("*") || fileOptions.FileName.Contains ("?") || fileOptions.Recurse) {
-				provider = new MultiFileProvider (fileOptions.FileName, fileOptions.Recurse, fileOptions.Skip);
+				provider = new MultiFileProvider (
+					fileOptions.FileName,
+					fileOptions.Recurse,
+					fileOptions.Skip,
+					fileOptions.FileOrder,
+					stringComparer);
 			} else {
 				provider = Get (fileOptions.FileName, fileOptions.Skip);
 			}

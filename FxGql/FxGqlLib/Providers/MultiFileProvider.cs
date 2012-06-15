@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 
 namespace FxGqlLib
 {
@@ -9,16 +10,21 @@ namespace FxGqlLib
 		string fileMask;
 		bool recurse;
 		long skip;
+		FileOptions.FileOrderEnum order;
+		StringComparer stringComparer;
+
 		string[] files;
 		GqlQueryState gqlQueryState;
 		
 		int currentFile;
 		
-		public MultiFileProvider (string fileMask, bool recurse, long skip)
+		public MultiFileProvider (string fileMask, bool recurse, long skip, FileOptions.FileOrderEnum order, StringComparer stringComparer)
 		{
 			this.fileMask = fileMask;
 			this.recurse = recurse;
 			this.skip = skip;
+			this.order = order;
+			this.stringComparer = stringComparer;
 		}
 
 		#region IProvider implementation
@@ -35,15 +41,22 @@ namespace FxGqlLib
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			this.gqlQueryState = gqlQueryState;
-			string path = Path.GetDirectoryName(fileMask);
-			string searchPattern = Path.GetFileName(fileMask);
+			string path = Path.GetDirectoryName (fileMask);
+			string searchPattern = Path.GetFileName (fileMask);
 			SearchOption searchOption;
-			if (recurse) searchOption = SearchOption.AllDirectories;
-			else searchOption = SearchOption.TopDirectoryOnly;
+			if (recurse)
+				searchOption = SearchOption.AllDirectories;
+			else
+				searchOption = SearchOption.TopDirectoryOnly;
 			
-			path = Path.Combine(gqlQueryState.CurrentDirectory, path); 
-			files = Directory.GetFiles(path + Path.DirectorySeparatorChar, searchPattern, searchOption);
-			
+			path = Path.Combine (gqlQueryState.CurrentDirectory, path); 
+			files = Directory.GetFiles (path + Path.DirectorySeparatorChar, searchPattern, searchOption);
+
+			if (order == FileOptions.FileOrderEnum.Asc)
+				files = files.OrderBy (p => p, stringComparer).ToArray ();
+			else if (order == FileOptions.FileOrderEnum.Desc)
+				files = files.OrderByDescending (p => p, stringComparer).ToArray ();
+
 			currentFile = -1;
 			if (!SetNextProvider())
 				throw new FileNotFoundException("No files found that match with the wildcards", fileMask);

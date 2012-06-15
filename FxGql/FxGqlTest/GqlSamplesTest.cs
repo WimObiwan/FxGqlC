@@ -208,6 +208,12 @@ namespace FxGqlTest
 				"593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
 			TestGql ("select * from ['SampleFiles/AirportCodes*.csv.zip' -recurse]",
 			    "593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
+			TestGql (@"select distinct $filename from ['SampleFiles/*.csv']",
+			         "57A1C33AC64612377818E8666AAB79E721598CB0031C86E869C4A135BF5AD472");
+			TestGql (@"select distinct $filename from ['SampleFiles/*.csv' -fileorder='asc']",
+			         "57A1C33AC64612377818E8666AAB79E721598CB0031C86E869C4A135BF5AD472");
+			TestGql (@"select distinct $filename from ['SampleFiles/*.csv' -fileorder='desc']",
+			         "040D35EE741AD7D314234EBF2F1AF130CC9FC3808BC9077B0B2CFFD489A5A1CA");
 			
 			// TOP clause
 			TestGql ("select top 15 * from ['SampleFiles/AirportCodes.csv']",
@@ -224,8 +230,8 @@ namespace FxGqlTest
 			// Query variables: $filename, $lineno, $line, $totallineno
 			TestGql ("select top 15 $totallineno, $line from ['SampleFiles/AirportCodes.csv']",
 				"DA2B58CAE0F384F863DDB7D7937DA82E01606FA9F12C9CD6EF7DA441FEF7F9AA");
-			//TestGql ("select top 15 $filename, $lineno, $line from ['SampleFiles/AirportCodes.csv']",
-			//	"45B586246AAED573F987743D080D4BA3E0353A5B88A2AD096DE2E80263F7BA30");
+			TestGql ("select top 15 $filename, $lineno, $line from ['SampleFiles/AirportCodes.csv']",
+			         "1C3F74EE525F29C372EB8AF97462D9547AC87BD22A5AD04C7EA6D6D5704388DB");
 			TestGql ("select * from ['SampleFiles/Tennis-ATP-2011.csv'] where $lineno > 1",
 				"B7B20E3D1807D5638954EE155A94608D1492D0C9FAB4E5D346E50E8816AD63CC");
 			TestGql ("select $line from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine]",
@@ -683,10 +689,7 @@ namespace FxGqlTest
 			// TODO: skip clause (select top 10 skip 2 from ...
 			
 			// TODO:
-			//TestGql (@"select distinct top 10 $filename from [*.*]",
-			//    (string)null);
-			
-			TestGql (@"select top 15 $filename, $lineno, $line from ['SampleFiles/AirportCodes.csv']");
+
 		}
 
 	}

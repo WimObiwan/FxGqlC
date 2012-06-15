@@ -382,7 +382,7 @@ namespace FxGqlLib
 			Column column = new Column ();
 			column.Expression = ParseExpression (
 				provider,
-				(CommonTree)outputColumnTree.Children[0]
+				(CommonTree)outputColumnTree.Children [0]
 			);
 			if (outputColumnTree.Children.Count == 2) {
 				column.Name = ParseColumnName ((CommonTree)outputColumnTree.Children [1]);
@@ -565,6 +565,19 @@ namespace FxGqlLib
 			return ParseString (text);
 		}
 		
+		string ParseStringValue (ITree tree)
+		{
+			string text = tree.Text;
+			if (text [0] == '\'') {
+				if (text [text.Length - 1] != '\'')
+					throw new ParserException ("Invalid string format.", tree);
+
+				return ParseString (text);
+			} else {
+				return text;
+			}
+		}
+
 		string ParseString (string text)
 		{
 			text = text.Substring (1, text.Length - 2);
@@ -593,7 +606,10 @@ namespace FxGqlLib
 				expression = new TotalLineNoSystemVar ();
 				break;
 			case "$FILENAME":
-				expression = new FileNameSystemVar ();
+				expression = new FileNameSystemVar (false);
+				break;
+			case "$FULLFILENAME":
+				expression = new FileNameSystemVar (true);
 				break;
 			case "$LINENO":
 				expression = new LineNoSystemVar ();
@@ -647,7 +663,10 @@ namespace FxGqlLib
 				break;
 			default:
 				throw new ParserException (
-					string.Format ("Function call with '{0}' arguments not supported.", argCount),
+					string.Format (
+					"Function call with '{0}' arguments not supported.",
+					argCount
+				),
 					functionCallTree
 				);
 			}
@@ -953,7 +972,10 @@ namespace FxGqlLib
 				break;
 			default:
 				throw new ParserException (
-					string.Format ("Datatype {0} not supported in CONVERT function.", dataType),
+					string.Format (
+					"Datatype {0} not supported in CONVERT function.",
+					dataType
+				),
 					convertTree.Children [1]
 				);
 			}
@@ -1004,6 +1026,15 @@ namespace FxGqlLib
 						}
 					} else {
 						switch (option.ToUpperInvariant ()) {
+						case "FILEORDER":
+							FileOptions.FileOrderEnum order;
+							if (!Enum.TryParse<FileOptions.FileOrderEnum> (value, true, out order))
+								throw new ParserException (
+									string.Format ("Unknown file option FileOrder={0}", value),
+									enumerator.Current
+								);
+							fileOptions.FileOrder = order;
+							break;
 						case "RECURSE":
 							fileOptions.Recurse = true;
 							break;
@@ -1041,7 +1072,7 @@ namespace FxGqlLib
 			
 			option = fileOptionTree.Children [0].Text;
 			if (fileOptionTree.Children.Count > 1)
-				value = fileOptionTree.Children [1].Text;
+				value = ParseStringValue(fileOptionTree.Children [1]);
 			else
 				value = null;
 		}
@@ -1050,7 +1081,7 @@ namespace FxGqlLib
 		{
 			FileOptions fileOptions = ParseFile (fileProvider, false);
 			
-			IProvider provider = FileProviderFactory.Get (fileOptions);
+			IProvider provider = FileProviderFactory.Get (fileOptions, stringComparer);
 			
 			if (fileOptions.TitleLine) {
 				provider = new ColumnProviderTitleLine (provider, new char[] {'\t'});
@@ -1418,8 +1449,16 @@ namespace FxGqlLib
 			if (arg1 is Expression<string> || arg2 is Expression<string> || arg3 is Expression<string>)
 				result = new TernaryExpression<string, string, string, bool> (
 					(a, b, c) => 
-				                                                      string.Compare (a, b, stringComparison) >= 0 
-				                                                      && string.Compare (a, c, stringComparison) <= 0,
+				                                                      string.Compare (
+					a,
+					b,
+					stringComparison
+				) >= 0 
+					&& string.Compare (
+					a,
+					c,
+					stringComparison
+				) <= 0,
 					arg1,
 					arg2,
 					arg3
@@ -1495,7 +1534,11 @@ namespace FxGqlLib
 					);
 				else
 					throw new ParserException (
-						string.Format ("Binary operator '{0}' cannot be used with datatype {1}", inTree.Children [0].Text, target.Text),
+						string.Format (
+						"Binary operator '{0}' cannot be used with datatype {1}",
+						inTree.Children [0].Text,
+						target.Text
+					),
 						target
 					);
 			} else if (target.Text == "T_SELECT") {
@@ -1514,12 +1557,20 @@ namespace FxGqlLib
 					);
 				else
 					throw new ParserException (
-						string.Format ("Binary operator '{0}' cannot be used with datatype {1}", inTree.Children [0].Text, target.Text),
+						string.Format (
+						"Binary operator '{0}' cannot be used with datatype {1}",
+						inTree.Children [0].Text,
+						target.Text
+					),
 						target
 					);
 			} else {
 				throw new ParserException (
-					string.Format ("Binary operator '{0}' cannot be used with argument {1}", inTree.Children [0].Text, arg2.GetResultType ().ToString ()),
+					string.Format (
+					"Binary operator '{0}' cannot be used with argument {1}",
+					inTree.Children [0].Text,
+					arg2.GetResultType ().ToString ()
+				),
 					target
 				);
 			}
@@ -1552,8 +1603,11 @@ namespace FxGqlLib
 			return new AnySubqueryOperator<long> (
 				new ConstExpression<long> (1),
 				new SelectProvider (
-				new IExpression[] { new ConstExpression<long>(1) }, 
-				new TopProvider (ParseCommandSelect ((CommonTree)expressionTree.Children [0]), new ConstExpression<long> (1))
+				new IExpression[] { new ConstExpression<long> (1) }, 
+				new TopProvider (
+				ParseCommandSelect ((CommonTree)expressionTree.Children [0]),
+				new ConstExpression<long> (1)
+			)
 			),
 				(a, b) => a == b);
 			;
@@ -1597,11 +1651,11 @@ namespace FxGqlLib
 					CommonTree whenTree = (CommonTree)expressionTree.Children [whenNo];
 					IExpression destination = ParseExpression (
 						provider,
-						(CommonTree)whenTree.Children[0]
+						(CommonTree)whenTree.Children [0]
 					);
 					IExpression target = ParseExpression (
 						provider,
-						(CommonTree)whenTree.Children[1]
+						(CommonTree)whenTree.Children [1]
 					);
 					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
 					
@@ -1651,11 +1705,11 @@ namespace FxGqlLib
 					CommonTree whenTree = (CommonTree)expressionTree.Children [whenNo];
 					IExpression destination = ParseExpression (
 						provider,
-						(CommonTree)whenTree.Children[0]
+						(CommonTree)whenTree.Children [0]
 					);
 					IExpression target = ParseExpression (
 						provider,
-						(CommonTree)whenTree.Children[1]
+						(CommonTree)whenTree.Children [1]
 					);
 					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
 					
