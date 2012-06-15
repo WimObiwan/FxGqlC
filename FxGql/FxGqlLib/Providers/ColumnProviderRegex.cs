@@ -1,30 +1,39 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace FxGqlLib
 {
-	public class ColumnProviderTitleLine : IProvider
+	public class ColumnProviderRegex : IProvider
 	{
 		IProvider provider;
-		char[] separators;
+		string regexDefinition;
+		bool caseInsensitive;
 		ProviderRecord record;
-		string[] columns;
+		string[] columnNameList;
+		Regex regex;
 		
-		public ColumnProviderTitleLine (IProvider provider, char[] separators)
+		public ColumnProviderRegex (IProvider provider, string regexDefinition, bool caseInsensitive)
 		{
 			this.provider = provider;
-			this.separators = separators;
+			this.regexDefinition = regexDefinition;
+			this.caseInsensitive = caseInsensitive;
 		}
 
 		#region IProvider implementation
+		public string[] GetColumnTitles ()
+		{
+			return columnNameList;
+		}
+
 		public int GetColumnOrdinal(string columnName)
 		{
-			return Array.FindIndex(columns, a => string.Compare(a, columnName, StringComparison.InvariantCultureIgnoreCase) == 0);
+			return Array.FindIndex(columnNameList, a => string.Compare(a, columnName, StringComparison.InvariantCultureIgnoreCase) == 0);
 		}
 		
 		public Type[] GetColumnTypes ()
 		{
-			Type[] types = new Type[columns.Length];
+			Type[] types = new Type[columnNameList.Length];
 			for (int i = 0; i < types.Length; i++) { 
 				types [i] = typeof(string);
 			}
@@ -33,31 +42,38 @@ namespace FxGqlLib
 
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
+			regex = new Regex(regexDefinition, caseInsensitive ? RegexOptions.IgnoreCase : RegexOptions.None);
+			string[] groups = regex.GetGroupNames();
+			columnNameList = new string[groups.Length - 1];
+			Array.Copy(groups, 1, columnNameList, 0, columnNameList.Length);
 			provider.Initialize (gqlQueryState);
-			if (provider.GetNextRecord ()) {
-				string line = provider.Record.Columns [0].ToString ();
-				columns = line.Split (separators, StringSplitOptions.None);
-			}
-			
+						
 			record = new ProviderRecord ();
-			record.ColumnTitles = columns;
+			record.ColumnTitles = columnNameList;
+			record.Columns = new string[columnNameList.Length];
 		}
 
 		public bool GetNextRecord ()
 		{
-			if (!provider.GetNextRecord ())
-				return false;
+			while (provider.GetNextRecord ())
+			{
+				string line = provider.Record.Columns [0].ToString ();
+				Match match = regex.Match (line);
+				if (match.Success)
+				{
+					for (int i = 0; i < columnNameList.Length; i++)
+						record.Columns[i] = match.Groups[i + 1].Value;
+					
+					return true;
+				}
+			}
 			
-			string line = provider.Record.Columns [0].ToString ();
-			record.Columns = line.Split (separators, StringSplitOptions.None);
-			record.LineNo = provider.Record.LineNo;
-			record.OriginalColumns = provider.Record.Columns;
-			record.Source = provider.Record.Source;
-			return true;
+			return false;
 		}
 
 		public void Uninitialize ()
 		{
+			regex = null;
 			record = null;
 			provider.Uninitialize ();
 		}

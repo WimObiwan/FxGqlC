@@ -18,8 +18,10 @@ namespace FxGqlLib
 	
 	public interface IProvider : IDisposable
 	{
+		string[] GetColumnTitles ();
+
 		int GetColumnOrdinal (string columnName);
-		
+
 		Type[] GetColumnTypes ();
 		
 		void Initialize (GqlQueryState gqlQueryState);

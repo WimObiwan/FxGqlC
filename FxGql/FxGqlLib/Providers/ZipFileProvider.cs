@@ -22,6 +22,11 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+		public string[] GetColumnTitles ()
+		{
+			return new string[] { "Column1" };
+		}
+
 		public int GetColumnOrdinal(string columnName)
 		{
 			return -1;

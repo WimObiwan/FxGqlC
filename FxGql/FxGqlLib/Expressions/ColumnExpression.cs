@@ -14,6 +14,12 @@ namespace FxGqlLib
 			this.provider = provider;
 		}
 		
+		public ColumnExpression (IProvider provider, int column)
+		{
+			this.columnOrdinal = column;
+			this.provider = provider;
+		}
+		
 		#region IExpression implementation
 		public IComparable EvaluateAsComparable (GqlQueryState gqlQueryState)
 		{

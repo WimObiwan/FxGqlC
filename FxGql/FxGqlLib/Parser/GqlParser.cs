@@ -378,16 +378,21 @@ namespace FxGqlLib
 		Column ParseColumn (IProvider provider, CommonTree outputColumnTree)
 		{
 			AssertAntlrToken (outputColumnTree, "T_COLUMN", 1, 2);
-			
-			Column column = new Column ();
-			column.Expression = ParseExpression (
-				provider,
-				(CommonTree)outputColumnTree.Children [0]
-			);
-			if (outputColumnTree.Children.Count == 2) {
-				column.Name = ParseColumnName ((CommonTree)outputColumnTree.Children [1]);
+
+			Column column;
+			if (outputColumnTree.Children [0].Text == "*") {
+				column = new AllColums (provider);
 			} else {
-				column.Name = null;
+				column = new Column ();
+				column.Expression = ParseExpression (
+					provider,
+					(CommonTree)outputColumnTree.Children [0]
+				);
+				if (outputColumnTree.Children.Count == 2) {
+					column.Name = ParseColumnName ((CommonTree)outputColumnTree.Children [1]);
+				} else {
+					column.Name = null;
+				}
 			}
 			
 			return column; 
@@ -499,9 +504,9 @@ namespace FxGqlLib
 		{
 			IExpression expression;
 			switch (expressionTree.Text.ToUpperInvariant ()) {
-			case "*":
-				expression = new LineSystemVar ();
-				break;
+//			case "*":
+//				expression = new LineSystemVar ();
+//				break;
 			case "T_INTEGER":
 				expression = ParseExpressionInteger (expressionTree);
 				break;

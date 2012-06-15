@@ -176,6 +176,9 @@ namespace FxGqlC
 
 		public static void ExecuteCommand (string command)
 		{
+#if DEBUG
+			gqlEngine.Execute (command);
+#else
 			try {
 				gqlEngine.Execute (command);
 			} catch (FxGqlLib.PositionException x) {
@@ -198,13 +201,12 @@ namespace FxGqlC
 					}
 				}
 			} catch (Exception x) {
+
 				Console.WriteLine (x.Message);
 				if (gqlEngine.LogStream != null) 
 					gqlEngine.LogStream.WriteLine (x.ToString ());
-//#if DEBUG
-//				throw;
-//#endif
 			}
+#endif
 		}
 
 		public static void ExecuteFile (string file)
