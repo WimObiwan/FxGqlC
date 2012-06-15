@@ -38,6 +38,7 @@ namespace FxGqlLib
 		}
 		
 		public int Line { get; private set; }
+
 		public int Pos { get; private set; }
 	}
 	
@@ -141,11 +142,20 @@ namespace FxGqlLib
 			if (expectedToken != null && tree.Text != expectedToken)
 				throw new UnexpectedTokenAntlrException (expectedToken, tree);
 			if (minChildCount >= 0 && minChildCount == maxChildCount && minChildCount != tree.ChildCount)
-				throw new ParserException (string.Format ("Expected exact {0} childnode(s).", minChildCount), tree);
+				throw new ParserException (
+					string.Format ("Expected exact {0} childnode(s).", minChildCount),
+					tree
+				);
 			if (minChildCount >= 0 && minChildCount > tree.ChildCount)
-				throw new ParserException (string.Format ("Expected at least {0} childnode(s).", minChildCount), tree);
+				throw new ParserException (
+					string.Format ("Expected at least {0} childnode(s).", minChildCount),
+					tree
+				);
 			if (maxChildCount >= 0 && maxChildCount < tree.ChildCount)
-				throw new ParserException (string.Format ("Expected maximum {0} childnode(s).", maxChildCount), tree);
+				throw new ParserException (
+					string.Format ("Expected maximum {0} childnode(s).", maxChildCount),
+					tree
+				);
 		}
 		
 		private void AssertAntlrSubTokenMinCount (ITree tree, string expectedToken)
@@ -190,8 +200,10 @@ namespace FxGqlLib
 			AssertAntlrToken (commandsTree, "T_ROOT");
 			
 			List<IGqlCommand > commands = new List<IGqlCommand> ();
-			foreach (CommonTree commandTree in commandsTree.Children) {
-				commands.Add (ParseCommand (commandTree));
+			if (commandsTree.Children != null) {
+				foreach (CommonTree commandTree in commandsTree.Children) {
+					commands.Add (ParseCommand (commandTree));
+				}
 			}
 			
 			return commands;
@@ -256,7 +268,10 @@ namespace FxGqlLib
 				enumerator.MoveNext ();
 								
 				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE") {
-					Expression<bool > whereExpression = ParseWhereClause (fromProvider, (CommonTree)enumerator.Current);
+					Expression<bool > whereExpression = ParseWhereClause (
+						fromProvider,
+						(CommonTree)enumerator.Current
+					);
 					enumerator.MoveNext ();
 
 					provider = new FilterProvider (provider, whereExpression);
@@ -266,12 +281,19 @@ namespace FxGqlLib
 				outputColumns = ParseColumnList (fromProvider, columnListEnumerator);
 				
 				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY") {
-					IList<IExpression> groupbyColumns = ParseGroupbyClause (fromProvider, (CommonTree)enumerator.Current);
+					IList<IExpression> groupbyColumns = ParseGroupbyClause (
+						fromProvider,
+						(CommonTree)enumerator.Current
+					);
 					enumerator.MoveNext ();
 					
-					provider = new GroupbyProvider(provider, groupbyColumns, outputColumns, stringComparer);
-				}
-				else {
+					provider = new GroupbyProvider (
+						provider,
+						groupbyColumns,
+						outputColumns,
+						stringComparer
+					);
+				} else {
 					provider = new SelectProvider (outputColumns, provider);
 				}
 				
@@ -279,7 +301,10 @@ namespace FxGqlLib
 					provider = new DistinctProvider (provider, stringComparer);
 				
 				if (enumerator.Current != null && enumerator.Current.Text == "T_ORDERBY") {
-					IList<OrderbyProvider.Column> orderbyColumns = ParseOrderbyClause (fromProvider, (CommonTree)enumerator.Current);
+					IList<OrderbyProvider.Column> orderbyColumns = ParseOrderbyClause (
+						fromProvider,
+						(CommonTree)enumerator.Current
+					);
 					enumerator.MoveNext ();
 					
 					provider = new OrderbyProvider (provider, orderbyColumns, stringComparer);
@@ -291,19 +316,34 @@ namespace FxGqlLib
 				provider = new NullProvider ();
 			
 				if (distinct)
-					throw new ParserException ("DISTINCT clause not allowed without a FROM clause.", selectTree);
+					throw new ParserException (
+						"DISTINCT clause not allowed without a FROM clause.",
+						selectTree
+					);
 				
 				if (topExpression != null) 
-					throw new ParserException ("TOP clause not allowed without a FROM clause.", selectTree);
+					throw new ParserException (
+						"TOP clause not allowed without a FROM clause.",
+						selectTree
+					);
 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE")
-					throw new ParserException ("WHERE clause not allowed without a FROM clause.", selectTree);
+					throw new ParserException (
+						"WHERE clause not allowed without a FROM clause.",
+						selectTree
+					);
 				
 				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY")
-					throw new ParserException ("GROUP BY clause not allowed without a FROM clause.", selectTree);
+					throw new ParserException (
+						"GROUP BY clause not allowed without a FROM clause.",
+						selectTree
+					);
 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_ORDERBY")
-					throw new ParserException ("ORDER BY clause not allowed without a FROM clause.", selectTree);
+					throw new ParserException (
+						"ORDER BY clause not allowed without a FROM clause.",
+						selectTree
+					);
 
 				IList<Column > outputColumns;
 				outputColumns = ParseColumnList (provider, columnListEnumerator);
@@ -339,10 +379,13 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (outputColumnTree, "T_COLUMN", 1, 2);
 			
-			Column column = new Column();
-			column.Expression = ParseExpression (provider, (CommonTree)outputColumnTree.Children[0]);
+			Column column = new Column ();
+			column.Expression = ParseExpression (
+				provider,
+				(CommonTree)outputColumnTree.Children[0]
+			);
 			if (outputColumnTree.Children.Count == 2) {
-				column.Name = ParseColumnName((CommonTree)outputColumnTree.Children[1]);
+				column.Name = ParseColumnName ((CommonTree)outputColumnTree.Children [1]);
 			} else {
 				column.Name = null;
 			}
@@ -396,7 +439,10 @@ namespace FxGqlLib
 			CommonTree expressionTree = GetSingleChild (whereTree);
 			IExpression expression = ParseExpression (provider, expressionTree);
 			if (!(expression is Expression<bool>)) {
-				throw new ParserException ("Expected boolean expression in WHERE clause.", expressionTree);
+				throw new ParserException (
+					"Expected boolean expression in WHERE clause.",
+					expressionTree
+				);
 			}
 			return (Expression<bool>)expression;
 		}
@@ -405,7 +451,7 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (groupbyTree, "T_GROUPBY", 1, 1);
 		
-			return ParseExpressionList(provider, (CommonTree)groupbyTree.Children[0]);
+			return ParseExpressionList (provider, (CommonTree)groupbyTree.Children [0]);
 		}
 		
 		IList<OrderbyProvider.Column> ParseOrderbyClause (IProvider provider, CommonTree orderbyTree)
@@ -425,7 +471,10 @@ namespace FxGqlLib
 			AssertAntlrToken (orderbyColumnTree, "T_ORDERBY_COLUMN", 1, 2);
 			
 			OrderbyProvider.Column orderbyColumn = new OrderbyProvider.Column ();
-			orderbyColumn.Expression = ParseExpression (provider, (CommonTree)orderbyColumnTree.Children [0]);
+			orderbyColumn.Expression = ParseExpression (
+				provider,
+				(CommonTree)orderbyColumnTree.Children [0]
+			);
 			if (orderbyColumnTree.Children.Count > 1) {
 				string order = orderbyColumnTree.Children [1].Text;
 				switch (order) {
@@ -495,7 +544,10 @@ namespace FxGqlLib
 			IExpression expression = ParseExpression (provider, expressionTree);
 			Expression<T > expressionT = expression as Expression<T>;
 			if (expressionT == null)
-				throw new ParserException (string.Format ("Expected expression of type '{0}'", typeof(T).Name), expressionTree);
+				throw new ParserException (
+					string.Format ("Expected expression of type '{0}'", typeof(T).Name),
+					expressionTree
+				);
 			return expressionT;
 		}
 		
@@ -510,7 +562,7 @@ namespace FxGqlLib
 			string text = tree.Text;
 			if (text.Length < 2 || text [0] != '\'' || text [text.Length - 1] != '\'')
 				throw new ParserException ("Invalid string format.", tree);
-			return ParseString(text);
+			return ParseString (text);
 		}
 		
 		string ParseString (string text)
@@ -547,7 +599,10 @@ namespace FxGqlLib
 				expression = new LineNoSystemVar ();
 				break;
 			default:
-				throw new ParserException (string.Format ("Unknown system variable '{0}'.", tree.Text), tree);
+				throw new ParserException (
+					string.Format ("Unknown system variable '{0}'.", tree.Text),
+					tree
+				);
 			}
 			
 			return expression;
@@ -563,19 +618,38 @@ namespace FxGqlLib
 			int argCount = functionCallTree.Children.Count - 1;
 			switch (argCount) {
 			case 0:
-				result = ParseExpressionFunctionCall_0 (provider, functionCallTree, functionName);
+				result = ParseExpressionFunctionCall_0 (
+					provider,
+					functionCallTree,
+					functionName
+				);
 				break;
 			case 1:
-				result = ParseExpressionFunctionCall_1 (provider, functionCallTree, functionName);
+				result = ParseExpressionFunctionCall_1 (
+					provider,
+					functionCallTree,
+					functionName
+				);
 				break;
 			case 2:
-				result = ParseExpressionFunctionCall_2 (provider, functionCallTree, functionName);
+				result = ParseExpressionFunctionCall_2 (
+					provider,
+					functionCallTree,
+					functionName
+				);
 				break;
 			case 3:
-				result = ParseExpressionFunctionCall_3 (provider, functionCallTree, functionName);
+				result = ParseExpressionFunctionCall_3 (
+					provider,
+					functionCallTree,
+					functionName
+				);
 				break;
 			default:
-				throw new ParserException (string.Format ("Function call with '{0}' arguments not supported.", argCount), functionCallTree);
+				throw new ParserException (
+					string.Format ("Function call with '{0}' arguments not supported.", argCount),
+					functionCallTree
+				);
 			}
 			
 			return result;
@@ -587,10 +661,13 @@ namespace FxGqlLib
 			
 			switch (functionName.ToUpperInvariant ()) {
 			case "GETCURDIR":
-				result = new GetCurDirFunction();
+				result = new GetCurDirFunction ();
 				break;
 			default:
-				throw new ParserException (string.Format ("Function call to {0} with 0 parameters not supported.", functionName), 
+				throw new ParserException (string.Format (
+					"Function call to {0} with 0 parameters not supported.",
+					functionName
+				), 
 					functionCallTree);
 			}
 			
@@ -599,7 +676,10 @@ namespace FxGqlLib
 
 		IExpression ParseExpressionFunctionCall_1 (IProvider provider, CommonTree functionCallTree, string functionName)
 		{
-			IExpression arg = ParseExpression (provider, (CommonTree)functionCallTree.Children [1]);
+			IExpression arg = ParseExpression (
+				provider,
+				(CommonTree)functionCallTree.Children [1]
+			);
 
 			IExpression result;
 			
@@ -618,12 +698,12 @@ namespace FxGqlLib
 				break;
 			case "COUNT":
 				if (arg is Expression<string>)
-					result = new AggregationExpression<string, long, long>((a) => 1, 
+					result = new AggregationExpression<string, long, long> ((a) => 1, 
 						(s, a) => s + 1, 
 						(s) => s, 
 						(Expression<string>)arg);
 				else if (arg is Expression<long>)
-					result = new AggregationExpression<long, long, long>((a) => 1, 
+					result = new AggregationExpression<long, long, long> ((a) => 1, 
 						(s, a) => s + 1, 
 						(s) => s, 
 						(Expression<long>)arg);
@@ -636,7 +716,7 @@ namespace FxGqlLib
 				break;
 			case "SUM":
 				if (arg is Expression<long>)
-					result = new AggregationExpression<long, long, long>(
+					result = new AggregationExpression<long, long, long> (
 						(a) => a, 
 						(s, a) => s + a, 
 						(s) => s, 
@@ -649,18 +729,18 @@ namespace FxGqlLib
 				}
 				break;
 			case "MIN":
-				if (arg.GetResultType() == typeof(string))
-					result = new AggregationExpression<string, string, string>(
+				if (arg.GetResultType () == typeof(string))
+					result = new AggregationExpression<string, string, string> (
 						(a) => a, 
-						(s, a) => string.Compare(a, s) < 0 ? a : s, 
+						(s, a) => string.Compare (a, s) < 0 ? a : s, 
 						(s) => s, 
-						ExpressionHelper.ConvertIfNeeded<string>(arg));
-				else if (arg.GetResultType() == typeof(long))
-					result = new AggregationExpression<long, long, long>(
+						ExpressionHelper.ConvertIfNeeded<string> (arg));
+				else if (arg.GetResultType () == typeof(long))
+					result = new AggregationExpression<long, long, long> (
 						(a) => a, 
 						(s, a) => a < s ? a : s, 
 						(s) => s, 
-						ExpressionHelper.ConvertIfNeeded<long>(arg));
+						ExpressionHelper.ConvertIfNeeded<long> (arg));
 				else {
 					throw new ParserException (
 						string.Format ("MIN aggregation function cannot be used on datatype '{0}'",
@@ -669,18 +749,18 @@ namespace FxGqlLib
 				}
 				break;
 			case "MAX":
-				if (arg.GetResultType() == typeof(string))
-					result = new AggregationExpression<string, string, string>(
+				if (arg.GetResultType () == typeof(string))
+					result = new AggregationExpression<string, string, string> (
 						(a) => a, 
-						(s, a) => string.Compare(a, s) > 0 ? a : s, 
+						(s, a) => string.Compare (a, s) > 0 ? a : s, 
 						(s) => s, 
-						ExpressionHelper.ConvertIfNeeded<string>(arg));
-				else if (arg.GetResultType() == typeof(long))
-					result = new AggregationExpression<long, long, long>(
+						ExpressionHelper.ConvertIfNeeded<string> (arg));
+				else if (arg.GetResultType () == typeof(long))
+					result = new AggregationExpression<long, long, long> (
 						(a) => a, 
 						(s, a) => a > s ? a : s, 
 						(s) => s, 
-						ExpressionHelper.ConvertIfNeeded<long>(arg));
+						ExpressionHelper.ConvertIfNeeded<long> (arg));
 				else {
 					throw new ParserException (
 						string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
@@ -689,18 +769,18 @@ namespace FxGqlLib
 				}
 				break;
 			case "FIRST":
-				if (arg.GetResultType() == typeof(string))
-					result = new AggregationExpression<string, string, string>(
+				if (arg.GetResultType () == typeof(string))
+					result = new AggregationExpression<string, string, string> (
 						(a) => a, 
 						(s, a) => s, 
 						(s) => s, 
-						ExpressionHelper.ConvertIfNeeded<string>(arg));
-				else if (arg.GetResultType() == typeof(long))
-					result = new AggregationExpression<long, long, long>(
+						ExpressionHelper.ConvertIfNeeded<string> (arg));
+				else if (arg.GetResultType () == typeof(long))
+					result = new AggregationExpression<long, long, long> (
 						(a) => a, 
 						(s, a) => s, 
 						(s) => s, 
-						ExpressionHelper.ConvertIfNeeded<long>(arg));
+						ExpressionHelper.ConvertIfNeeded<long> (arg));
 				else {
 					throw new ParserException (
 						string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
@@ -709,18 +789,18 @@ namespace FxGqlLib
 				}
 				break;
 			case "LAST":
-				if (arg.GetResultType() == typeof(string))
-					result = new AggregationExpression<string, string, string>(
+				if (arg.GetResultType () == typeof(string))
+					result = new AggregationExpression<string, string, string> (
 						(a) => a, 
 						(s, a) => a, 
 						(s) => s, 
-						ExpressionHelper.ConvertIfNeeded<string>(arg));
-				else if (arg.GetResultType() == typeof(long))
-					result = new AggregationExpression<long, long, long>(
+						ExpressionHelper.ConvertIfNeeded<string> (arg));
+				else if (arg.GetResultType () == typeof(long))
+					result = new AggregationExpression<long, long, long> (
 						(a) => a, 
 						(s, a) => a, 
 						(s) => s, 
-						ExpressionHelper.ConvertIfNeeded<long>(arg));
+						ExpressionHelper.ConvertIfNeeded<long> (arg));
 				else {
 					throw new ParserException (
 						string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
@@ -730,20 +810,19 @@ namespace FxGqlLib
 				break;
 			case "AVG":
 				if (arg is Expression<long>) {
-					Expression<long> resultSum = new AggregationExpression<long, long, long>(
+					Expression<long> resultSum = new AggregationExpression<long, long, long> (
 						(a) => a, 
 						(s, a) => s + a, 
 						(s) => s, 
 						(Expression<long>)arg);
-					Expression<long> resultCount = new AggregationExpression<long, long, long>(
+					Expression<long> resultCount = new AggregationExpression<long, long, long> (
 						(a) => 1, 
 						(s, a) => s + 1, 
 						(s) => s, 
 						(Expression<long>)arg);
-					result = new BinaryExpression<long, long, long>(
+					result = new BinaryExpression<long, long, long> (
 						(a, b) => a / b, resultSum, resultCount);
-				}
-				else {
+				} else {
 					throw new ParserException (
 						string.Format ("SUM aggregation function cannot be used on datatype '{0}'",
 				               arg.GetResultType ().ToString ()),
@@ -751,7 +830,10 @@ namespace FxGqlLib
 				}
 				break;
 			default:
-				throw new ParserException (string.Format ("Function call to {0} with 1 parameters not supported.", functionName), 
+				throw new ParserException (string.Format (
+					"Function call to {0} with 1 parameters not supported.",
+					functionName
+				), 
 					functionCallTree);
 			}
 			
@@ -760,29 +842,50 @@ namespace FxGqlLib
 
 		IExpression ParseExpressionFunctionCall_2 (IProvider provider, CommonTree functionCallTree, string functionName)
 		{
-			IExpression arg1 = ParseExpression (provider, (CommonTree)functionCallTree.Children [1]);
-			IExpression arg2 = ParseExpression (provider, (CommonTree)functionCallTree.Children [2]);
+			IExpression arg1 = ParseExpression (
+				provider,
+				(CommonTree)functionCallTree.Children [1]
+			);
+			IExpression arg2 = ParseExpression (
+				provider,
+				(CommonTree)functionCallTree.Children [2]
+			);
 			
 			IExpression result;
 			
 			switch (functionName.ToUpperInvariant ()) {
 			case "CONTAINS":
-				result = new BinaryExpression<string, string, bool> ((a, b) => a.IndexOf (b, stringComparison) != -1, arg1, arg2);
+				result = new BinaryExpression<string, string, bool> (
+					(a, b) => a.IndexOf (b, stringComparison) != -1,
+					arg1,
+					arg2
+				);
 				break;
 			case "LEFT":
-				result = new BinaryExpression<string, int, string> ((a, b) => a.Substring (0, Math.Min (b, a.Length)), arg1, arg2);
+				result = new BinaryExpression<string, int, string> (
+					(a, b) => a.Substring (0, Math.Min (b, a.Length)),
+					arg1,
+					arg2
+				);
 				break;
 			case "MATCHREGEX":
 				result = new MatchRegexFunction (arg1, arg2, caseInsensitive);
 				break;
 			case "RIGHT":
-				result = new BinaryExpression<string, int, string> ((a, b) => a.Substring (a.Length - Math.Min (b, a.Length)), arg1, arg2);
+				result = new BinaryExpression<string, int, string> (
+					(a, b) => a.Substring (a.Length - Math.Min (b, a.Length)),
+					arg1,
+					arg2
+				);
 				break;
 			case "SUBSTRING":
 				result = new SubstringFunction (arg1, arg2);
 				break;
 			default:
-				throw new ParserException (string.Format ("Function call to {0} with 2 parameters not supported.", functionName), 
+				throw new ParserException (string.Format (
+					"Function call to {0} with 2 parameters not supported.",
+					functionName
+				), 
 					functionCallTree);
 			}
 			
@@ -791,9 +894,18 @@ namespace FxGqlLib
 
 		IExpression ParseExpressionFunctionCall_3 (IProvider provider, CommonTree functionCallTree, string functionName)
 		{
-			IExpression arg1 = ParseExpression (provider, (CommonTree)functionCallTree.Children [1]);
-			IExpression arg2 = ParseExpression (provider, (CommonTree)functionCallTree.Children [2]);
-			IExpression arg3 = ParseExpression (provider, (CommonTree)functionCallTree.Children [3]);
+			IExpression arg1 = ParseExpression (
+				provider,
+				(CommonTree)functionCallTree.Children [1]
+			);
+			IExpression arg2 = ParseExpression (
+				provider,
+				(CommonTree)functionCallTree.Children [2]
+			);
+			IExpression arg3 = ParseExpression (
+				provider,
+				(CommonTree)functionCallTree.Children [3]
+			);
 			
 			IExpression result;
 			
@@ -811,7 +923,10 @@ namespace FxGqlLib
 				result = new SubstringFunction (arg1, arg2, arg3);
 				break;
 			default:
-				throw new ParserException (string.Format ("Function call to {0} with 2 parameters not supported.", functionName), 
+				throw new ParserException (string.Format (
+					"Function call to {0} with 2 parameters not supported.",
+					functionName
+				), 
 					functionCallTree);
 			}
 			
@@ -823,7 +938,10 @@ namespace FxGqlLib
 			AssertAntlrToken (convertTree, "T_CONVERT", 2);
 			
 			string dataType = convertTree.Children [0].Text;
-			IExpression expr = ParseExpression (provider, (CommonTree)convertTree.Children [1]);
+			IExpression expr = ParseExpression (
+				provider,
+				(CommonTree)convertTree.Children [1]
+			);
 			
 			IExpression result;
 			switch (dataType.ToUpperInvariant ()) {
@@ -834,7 +952,10 @@ namespace FxGqlLib
 				result = new ConvertToStringExpression (expr);
 				break;
 			default:
-				throw new ParserException (string.Format ("Datatype {0} not supported in CONVERT function.", dataType), convertTree.Children [1]);
+				throw new ParserException (
+					string.Format ("Datatype {0} not supported in CONVERT function.", dataType),
+					convertTree.Children [1]
+				);
 			}
 			return result;
 		}
@@ -863,7 +984,10 @@ namespace FxGqlLib
 						case "LINEEND":
 							FileOptions.NewLineEnum lineEnd;
 							if (!Enum.TryParse<FileOptions.NewLineEnum> (value, true, out lineEnd))
-								throw new ParserException (string.Format ("Unknown file option LineEnd={0}", value), enumerator.Current);
+								throw new ParserException (
+									string.Format ("Unknown file option LineEnd={0}", value),
+									enumerator.Current
+								);
 							fileOptions.NewLine = lineEnd;
 							break;
 						case "APPEND":
@@ -873,7 +997,10 @@ namespace FxGqlLib
 							fileOptions.Overwrite = true;
 							break;
 						default:
-							throw new ParserException (string.Format ("Unknown file option '{0}'", option), enumerator.Current);  
+							throw new ParserException (
+								string.Format ("Unknown file option '{0}'", option),
+								enumerator.Current
+							);  
 						}
 					} else {
 						switch (option.ToUpperInvariant ()) {
@@ -887,17 +1014,23 @@ namespace FxGqlLib
 							fileOptions.ColumnsRegex = ParseString (value);
 							break;
 						case "SKIP":
-							fileOptions.Skip = long.Parse(value);
+							fileOptions.Skip = long.Parse (value);
 							break;
 						default:
-							throw new ParserException (string.Format ("Unknown file option '{0}'", option), enumerator.Current);  
+							throw new ParserException (
+								string.Format ("Unknown file option '{0}'", option),
+								enumerator.Current
+							);  
 						}
 					}
 					
 					enumerator.MoveNext ();
 				}
 			} else
-				throw new ParserException ("Expected '[' or '\'' for file specification", enumerator.Current);
+				throw new ParserException (
+					"Expected '[' or '\'' for file specification",
+					enumerator.Current
+				);
 			
 			return fileOptions;
 		}
@@ -921,9 +1054,12 @@ namespace FxGqlLib
 			
 			if (fileOptions.TitleLine) {
 				provider = new ColumnProviderTitleLine (provider, new char[] {'\t'});
-			}
-			else if (fileOptions.ColumnsRegex != null) {
-				provider = new ColumnProviderRegex (provider, fileOptions.ColumnsRegex, caseInsensitive);
+			} else if (fileOptions.ColumnsRegex != null) {
+				provider = new ColumnProviderRegex (
+					provider,
+					fileOptions.ColumnsRegex,
+					caseInsensitive
+				);
 			}
 			
 			return provider;
@@ -941,7 +1077,10 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (operatorTree, "T_OP_UNARY", 2);
 			
-			IExpression arg = ParseExpression (provider, (CommonTree)operatorTree.Children [1]);			
+			IExpression arg = ParseExpression (
+				provider,
+				(CommonTree)operatorTree.Children [1]
+			);			
 			IExpression result;
 			
 			string operatorText = operatorTree.Children [0].Text;
@@ -980,7 +1119,10 @@ namespace FxGqlLib
 				}
 				break;
 			default:
-				throw new ParserException (string.Format ("Unknown unary operator '{0}'.", operatorText), operatorTree);
+				throw new ParserException (
+					string.Format ("Unknown unary operator '{0}'.", operatorText),
+					operatorTree
+				);
 			}
 			
 			return result;
@@ -994,48 +1136,85 @@ namespace FxGqlLib
 			if (operatorText == "T_BETWEEN") {
 				return ParseExpressionBetween (provider, (CommonTree)operatorTree);
 			} else if (operatorText == "T_NOTBETWEEN") {
-				return new UnaryExpression<bool, bool> ((a) => !a, ParseExpressionBetween (provider, (CommonTree)operatorTree));
+				return new UnaryExpression<bool, bool> (
+					(a) => !a,
+					ParseExpressionBetween (provider, (CommonTree)operatorTree)
+				);
 			} else if (operatorText == "T_IN" || operatorText == "T_ANY" || operatorText == "T_ALL") {
 				return ParseExpressionInSomeAnyAll (provider, (CommonTree)operatorTree);
 			} else if (operatorText == "T_NOTIN") {
-				return new UnaryExpression<bool, bool> ((a) => !a, ParseExpressionInSomeAnyAll (provider, (CommonTree)operatorTree));
+				return new UnaryExpression<bool, bool> (
+					(a) => !a,
+					ParseExpressionInSomeAnyAll (provider, (CommonTree)operatorTree)
+				);
 			} 
 			
 			AssertAntlrToken (operatorTree, "T_OP_BINARY", 3);
 
-			IExpression arg1 = ParseExpression (provider, (CommonTree)operatorTree.Children [1]);			
-			IExpression arg2 = ParseExpression (provider, (CommonTree)operatorTree.Children [2]);			
+			IExpression arg1 = ParseExpression (
+				provider,
+				(CommonTree)operatorTree.Children [1]
+			);			
+			IExpression arg2 = ParseExpression (
+				provider,
+				(CommonTree)operatorTree.Children [2]
+			);			
 			IExpression result;
 			
 			switch (operatorText) {
 			case "T_AND":
-				result = new BinaryExpression<bool, bool, bool> ((a, b) => a && b, arg1, arg2);
+				result = new BinaryExpression<bool, bool, bool> (
+					(a, b) => a && b,
+					arg1,
+					arg2
+				);
 				break;
 			case "T_OR":
-				result = new BinaryExpression<bool, bool, bool> ((a, b) => a || b, arg1, arg2);
+				result = new BinaryExpression<bool, bool, bool> (
+					(a, b) => a || b,
+					arg1,
+					arg2
+				);
 				break;
 			case "T_MATCH":
 				result = new MatchOperator (arg1, arg2, caseInsensitive);
 				break;
 			case "T_NOTMATCH":
-				result = new UnaryExpression<bool, bool> ((a) => !a, new MatchOperator (arg1, arg2, caseInsensitive));
+				result = new UnaryExpression<bool, bool> (
+					(a) => !a,
+					new MatchOperator (arg1, arg2, caseInsensitive)
+				);
 				break;
 			case "T_LIKE":
 				result = new LikeOperator (arg1, arg2, caseInsensitive);
 				break;
 			case "T_NOTLIKE":
-				result = new UnaryExpression<bool, bool> ((a) => !a, new LikeOperator (arg1, arg2, caseInsensitive));
+				result = new UnaryExpression<bool, bool> (
+					(a) => !a,
+					new LikeOperator (arg1, arg2, caseInsensitive)
+				);
 				break;
 			case "T_PLUS":
 				{
 					if (arg1 is Expression<string> || arg2 is Expression<string>)
-						result = new BinaryExpression<string, string, string> ((a, b) => a + b, arg1, arg2);
+						result = new BinaryExpression<string, string, string> (
+							(a, b) => a + b,
+							arg1,
+							arg2
+						);
 					else if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> ((a, b) => a + b, arg1, arg2);
+						result = new BinaryExpression<long, long, long> (
+							(a, b) => a + b,
+							arg1,
+							arg2
+						);
 					else {
 						throw new ParserException (
-							string.Format ("Binary operator 'PLUS' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
+							string.Format (
+							"Binary operator 'PLUS' cannot be used with datatypes {0} and {1}",
+							arg1.GetResultType ().ToString (),
+							arg2.GetResultType ().ToString ()
+						),
 							operatorTree);
 					}
 				}
@@ -1043,11 +1222,18 @@ namespace FxGqlLib
 			case "T_MINUS":
 				{
 					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> ((a, b) => a - b, arg1, arg2);
+						result = new BinaryExpression<long, long, long> (
+							(a, b) => a - b,
+							arg1,
+							arg2
+						);
 					else {
 						throw new ParserException (
-							string.Format ("Binary operator 'MINUS' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
+							string.Format (
+							"Binary operator 'MINUS' cannot be used with datatypes {0} and {1}",
+							arg1.GetResultType ().ToString (),
+							arg2.GetResultType ().ToString ()
+						),
 							operatorTree);
 					}
 				}
@@ -1055,11 +1241,18 @@ namespace FxGqlLib
 			case "T_DIVIDE":
 				{
 					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> ((a, b) => a / b, arg1, arg2);
+						result = new BinaryExpression<long, long, long> (
+							(a, b) => a / b,
+							arg1,
+							arg2
+						);
 					else {
 						throw new ParserException (
-							string.Format ("Binary operator 'DIVIDE' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
+							string.Format (
+							"Binary operator 'DIVIDE' cannot be used with datatypes {0} and {1}",
+							arg1.GetResultType ().ToString (),
+							arg2.GetResultType ().ToString ()
+						),
 							operatorTree);
 					}
 				}
@@ -1067,11 +1260,18 @@ namespace FxGqlLib
 			case "T_PRODUCT":
 				{
 					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> ((a, b) => a * b, arg1, arg2);
+						result = new BinaryExpression<long, long, long> (
+							(a, b) => a * b,
+							arg1,
+							arg2
+						);
 					else {
 						throw new ParserException (
-							string.Format ("Binary operator 'PRODUCT' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
+							string.Format (
+							"Binary operator 'PRODUCT' cannot be used with datatypes {0} and {1}",
+							arg1.GetResultType ().ToString (),
+							arg2.GetResultType ().ToString ()
+						),
 							operatorTree);
 					}
 				}
@@ -1079,11 +1279,18 @@ namespace FxGqlLib
 			case "T_MODULO":
 				{
 					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> ((a, b) => a % b, arg1, arg2);
+						result = new BinaryExpression<long, long, long> (
+							(a, b) => a % b,
+							arg1,
+							arg2
+						);
 					else {
 						throw new ParserException (
-							string.Format ("Binary operator 'MODULO' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
+							string.Format (
+							"Binary operator 'MODULO' cannot be used with datatypes {0} and {1}",
+							arg1.GetResultType ().ToString (),
+							arg2.GetResultType ().ToString ()
+						),
 							operatorTree);
 					}
 				}
@@ -1091,11 +1298,18 @@ namespace FxGqlLib
 			case "T_BITWISE_AND":
 				{
 					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> ((a, b) => a & b, arg1, arg2);
+						result = new BinaryExpression<long, long, long> (
+							(a, b) => a & b,
+							arg1,
+							arg2
+						);
 					else {
 						throw new ParserException (
-							string.Format ("Binary operator 'BITWISE AND' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
+							string.Format (
+							"Binary operator 'BITWISE AND' cannot be used with datatypes {0} and {1}",
+							arg1.GetResultType ().ToString (),
+							arg2.GetResultType ().ToString ()
+						),
 							operatorTree);
 					}
 				}
@@ -1103,11 +1317,18 @@ namespace FxGqlLib
 			case "T_BITWISE_OR":
 				{
 					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> ((a, b) => a | b, arg1, arg2);
+						result = new BinaryExpression<long, long, long> (
+							(a, b) => a | b,
+							arg1,
+							arg2
+						);
 					else {
 						throw new ParserException (
-							string.Format ("Binary operator 'BITWISE OR' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
+							string.Format (
+							"Binary operator 'BITWISE OR' cannot be used with datatypes {0} and {1}",
+							arg1.GetResultType ().ToString (),
+							arg2.GetResultType ().ToString ()
+						),
 							operatorTree);
 					}
 				}
@@ -1115,11 +1336,18 @@ namespace FxGqlLib
 			case "T_BITWISE_XOR":
 				{
 					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> ((a, b) => a ^ b, arg1, arg2);
+						result = new BinaryExpression<long, long, long> (
+							(a, b) => a ^ b,
+							arg1,
+							arg2
+						);
 					else {
 						throw new ParserException (
-							string.Format ("Binary operator 'BITWISE XOR' cannot be used with datatypes {0} and {1}",
-					               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
+							string.Format (
+							"Binary operator 'BITWISE XOR' cannot be used with datatypes {0} and {1}",
+							arg1.GetResultType ().ToString (),
+							arg2.GetResultType ().ToString ()
+						),
 							operatorTree);
 					}
 				}
@@ -1132,21 +1360,34 @@ namespace FxGqlLib
 			case "T_NOTGREATER":
 				if (arg1 is Expression<string> || arg2 is Expression<string>)
 					result = 
-						new BinaryExpression<string, string, bool> (OperatorHelper.GetStringComparer (operatorText, false, stringComparison),
+						new BinaryExpression<string, string, bool> (OperatorHelper.GetStringComparer (
+						operatorText,
+						false,
+						stringComparison
+					),
 							arg1, arg2);
 				else if (arg1 is Expression<long>)
 					result = 
-						new BinaryExpression<long, long, bool> (OperatorHelper.GetLongComparer (operatorText, false),
+						new BinaryExpression<long, long, bool> (OperatorHelper.GetLongComparer (
+						operatorText,
+						false
+					),
 							arg1, arg2);
 				else {
 					throw new ParserException (
-						string.Format ("Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
-				               arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString ()),
+						string.Format (
+						"Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
+						arg1.GetResultType ().ToString (),
+						arg2.GetResultType ().ToString ()
+					),
 						operatorTree);
 				}
 				break;
 			default:
-				throw new ParserException (string.Format ("Unknown binary operator '{0}'.", operatorText), operatorTree);
+				throw new ParserException (
+					string.Format ("Unknown binary operator '{0}'.", operatorText),
+					operatorTree
+				);
 			}
 			
 			return result;
@@ -1160,17 +1401,36 @@ namespace FxGqlLib
 			AssertAntlrToken (andTree, "T_OP_BINARY", 3);
 			AssertAntlrToken (andTree.Children [0], "T_AND");
 			
-			IExpression arg1 = ParseExpression (provider, (CommonTree)betweenTree.Children [1]);
-			IExpression arg2 = ParseExpression (provider, (CommonTree)andTree.Children [1]);
-			IExpression arg3 = ParseExpression (provider, (CommonTree)andTree.Children [2]);
+			IExpression arg1 = ParseExpression (
+				provider,
+				(CommonTree)betweenTree.Children [1]
+			);
+			IExpression arg2 = ParseExpression (
+				provider,
+				(CommonTree)andTree.Children [1]
+			);
+			IExpression arg3 = ParseExpression (
+				provider,
+				(CommonTree)andTree.Children [2]
+			);
 
 			IExpression result;
 			if (arg1 is Expression<string> || arg2 is Expression<string> || arg3 is Expression<string>)
-				result = new TernaryExpression<string, string, string, bool> ((a, b, c) => 
+				result = new TernaryExpression<string, string, string, bool> (
+					(a, b, c) => 
 				                                                      string.Compare (a, b, stringComparison) >= 0 
-				                                                      && string.Compare (a, c, stringComparison) <= 0, arg1, arg2, arg3);
+				                                                      && string.Compare (a, c, stringComparison) <= 0,
+					arg1,
+					arg2,
+					arg3
+				);
 			else if (arg1 is Expression<long>)
-				result = new TernaryExpression<long, long, long, bool> ((a, b, c) => (a >= b) && (a <= c), arg1, arg2, arg3);
+				result = new TernaryExpression<long, long, long, bool> (
+					(a, b, c) => (a >= b) && (a <= c),
+					arg1,
+					arg2,
+					arg3
+				);
 			else {
 				throw new ParserException (
 					string.Format ("Ternary operator 'BETWEEN' cannot be used with datatypes {0}, {1} and {2}",
@@ -1212,28 +1472,56 @@ namespace FxGqlLib
 				op = inTree.Children [1].Text;
 				break;
 			default:
-				throw new ParserException (string.Format ("Unexpected token {0}", inTree.Children [0].Text), inTree.Children [0]);
+				throw new ParserException (
+					string.Format ("Unexpected token {0}", inTree.Children [0].Text),
+					inTree.Children [0]
+				);
 			}
 						
 			Expression<bool > result;
 			if (target.Text == "T_EXPRESSIONLIST") {
 				IExpression[] expressionList = ParseExpressionList (provider, target);
 				if (arg2 is Expression<string>)
-					result = new AnyListOperator<string> ((Expression<string>)arg2, expressionList, OperatorHelper.GetStringComparer (op, all, stringComparison));
+					result = new AnyListOperator<string> (
+						(Expression<string>)arg2,
+						expressionList,
+						OperatorHelper.GetStringComparer (op, all, stringComparison)
+					);
 				else if (arg2 is Expression<long>)
-					result = new AnyListOperator<long> ((Expression<long>)arg2, expressionList, OperatorHelper.GetLongComparer (op, all));
+					result = new AnyListOperator<long> (
+						(Expression<long>)arg2,
+						expressionList,
+						OperatorHelper.GetLongComparer (op, all)
+					);
 				else
-					throw new ParserException (string.Format ("Binary operator '{0}' cannot be used with datatype {1}", inTree.Children [0].Text, target.Text), target);
+					throw new ParserException (
+						string.Format ("Binary operator '{0}' cannot be used with datatype {1}", inTree.Children [0].Text, target.Text),
+						target
+					);
 			} else if (target.Text == "T_SELECT") {
 				IProvider subProvider = ParseCommandSelect (target);
 				if (arg2 is Expression<string>)
-					result = new AnySubqueryOperator<string> ((Expression<string>)arg2, subProvider, OperatorHelper.GetStringComparer (op, all, stringComparison));
+					result = new AnySubqueryOperator<string> (
+						(Expression<string>)arg2,
+						subProvider,
+						OperatorHelper.GetStringComparer (op, all, stringComparison)
+					);
 				else if (arg2 is Expression<long>)
-					result = new AnySubqueryOperator<long> ((Expression<long>)arg2, subProvider, OperatorHelper.GetLongComparer (op, all));
+					result = new AnySubqueryOperator<long> (
+						(Expression<long>)arg2,
+						subProvider,
+						OperatorHelper.GetLongComparer (op, all)
+					);
 				else
-					throw new ParserException (string.Format ("Binary operator '{0}' cannot be used with datatype {1}", inTree.Children [0].Text, target.Text), target);
+					throw new ParserException (
+						string.Format ("Binary operator '{0}' cannot be used with datatype {1}", inTree.Children [0].Text, target.Text),
+						target
+					);
 			} else {
-				throw new ParserException (string.Format ("Binary operator '{0}' cannot be used with argument {1}", inTree.Children [0].Text, arg2.GetResultType ().ToString ()), target);
+				throw new ParserException (
+					string.Format ("Binary operator '{0}' cannot be used with argument {1}", inTree.Children [0].Text, arg2.GetResultType ().ToString ()),
+					target
+				);
 			}
 		
 			if (all)
@@ -1248,7 +1536,10 @@ namespace FxGqlLib
 			
 			IExpression[] result = new IExpression[expressionListTree.Children.Count];
 			for (int i = 0; i < expressionListTree.Children.Count; i++) {
-				result [i] = ParseExpression (provider, (CommonTree)expressionListTree.Children [i]);
+				result [i] = ParseExpression (
+					provider,
+					(CommonTree)expressionListTree.Children [i]
+				);
 			}			
 			
 			return result;
@@ -1260,8 +1551,10 @@ namespace FxGqlLib
 			
 			return new AnySubqueryOperator<long> (
 				new ConstExpression<long> (1),
-				new SelectProvider (new IExpression[] { new ConstExpression<long>(1) }, 
-					new TopProvider (ParseCommandSelect ((CommonTree)expressionTree.Children [0]), new ConstExpression<long> (1))),
+				new SelectProvider (
+				new IExpression[] { new ConstExpression<long>(1) }, 
+				new TopProvider (ParseCommandSelect ((CommonTree)expressionTree.Children [0]), new ConstExpression<long> (1))
+			),
 				(a, b) => a == b);
 			;
 		}
@@ -1271,11 +1564,11 @@ namespace FxGqlLib
 			
 			AssertAntlrToken (expressionTree, "T_COLUMN", 1, 1);
 			
-			string column = ParseColumnName((CommonTree)expressionTree.Children [0]);
+			string column = ParseColumnName ((CommonTree)expressionTree.Children [0]);
 			return new ColumnExpression (provider, column);
 		}
 		
-		string ParseColumnName(CommonTree columnNameTree)
+		string ParseColumnName (CommonTree columnNameTree)
 		{
 			string column = columnNameTree.Text;
 			
@@ -1289,63 +1582,82 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (expressionTree, "T_CASE", 1, -1);
 			
-			List<CaseExpression.WhenItem> whenItems = new List<CaseExpression.WhenItem>();
+			List<CaseExpression.WhenItem> whenItems = new List<CaseExpression.WhenItem> ();
 			IExpression elseResult = null;
 
 			string text = expressionTree.Children [0].Text;
-			if (text != "T_CASE_WHEN" && text != "T_CASE_ELSE")
-			{
+			if (text != "T_CASE_WHEN" && text != "T_CASE_ELSE") {
 				// CASE source WHEN destination THEN target ELSE other END
-				IExpression source = ParseExpression(provider, (CommonTree)expressionTree.Children [0]);
+				IExpression source = ParseExpression (
+					provider,
+					(CommonTree)expressionTree.Children [0]
+				);
 				int whenNo;
-				for (whenNo = 1; expressionTree.Children [whenNo].Text == "T_CASE_WHEN"; whenNo++)
-				{
+				for (whenNo = 1; expressionTree.Children [whenNo].Text == "T_CASE_WHEN"; whenNo++) {
 					CommonTree whenTree = (CommonTree)expressionTree.Children [whenNo];
-					IExpression destination = ParseExpression(provider, (CommonTree)whenTree.Children[0]);
-					IExpression target = ParseExpression(provider, (CommonTree)whenTree.Children[1]);
-					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem();
+					IExpression destination = ParseExpression (
+						provider,
+						(CommonTree)whenTree.Children[0]
+					);
+					IExpression target = ParseExpression (
+						provider,
+						(CommonTree)whenTree.Children[1]
+					);
+					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
 					
 					//TODO: Don't re-evaluate source for every item
 					if (source is Expression<string> || destination is Expression<string>)
 						whenItem.Check = 
-							new BinaryExpression<string, string, bool> (OperatorHelper.GetStringComparer ("T_EQUAL", false, stringComparison),
+							new BinaryExpression<string, string, bool> (OperatorHelper.GetStringComparer (
+							"T_EQUAL",
+							false,
+							stringComparison
+						),
 								source, destination);
 					else if (source is Expression<long>)
 						whenItem.Check = 
-							new BinaryExpression<long, long, bool> (OperatorHelper.GetLongComparer ("T_EQUAL", false),
+							new BinaryExpression<long, long, bool> (OperatorHelper.GetLongComparer (
+							"T_EQUAL",
+							false
+						),
 								source, destination);
 					else {
 						throw new ParserException (
-							string.Format ("Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
-					               source.GetResultType ().ToString (), destination.GetResultType ().ToString ()),
+							string.Format (
+							"Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
+							source.GetResultType ().ToString (),
+							destination.GetResultType ().ToString ()
+						),
 							whenTree);
 					}
 					whenItem.Result = target;
 					
-					whenItems.Add(whenItem);
+					whenItems.Add (whenItem);
 				}
 				
 				if (whenNo < expressionTree.Children.Count - 1)
-					throw new Exception("Invalid case statement");
+					throw new Exception ("Invalid case statement");
 				
-				if (whenNo == expressionTree.Children.Count - 1)
-				{
-					CommonTree elseTree = (CommonTree)expressionTree.Children[whenNo];
-					AssertAntlrToken(elseTree, "T_CASE_ELSE", 1, 1);
+				if (whenNo == expressionTree.Children.Count - 1) {
+					CommonTree elseTree = (CommonTree)expressionTree.Children [whenNo];
+					AssertAntlrToken (elseTree, "T_CASE_ELSE", 1, 1);
 					
-					elseResult = ParseExpression(provider, (CommonTree)elseTree.Children[0]);
+					elseResult = ParseExpression (provider, (CommonTree)elseTree.Children [0]);
 				}
-			}
-			else
-			{
+			} else {
 				// CASE WHEN a THEN x ELSE y END
 				int whenNo;
-				for (whenNo = 0; expressionTree.Children [whenNo].Text == "T_CASE_WHEN"; whenNo++)
-				{
+				for (whenNo = 0; expressionTree.Children [whenNo].Text == "T_CASE_WHEN"; whenNo++) {
 					CommonTree whenTree = (CommonTree)expressionTree.Children [whenNo];
-					IExpression destination = ParseExpression(provider, (CommonTree)whenTree.Children[0]);
-					IExpression target = ParseExpression(provider, (CommonTree)whenTree.Children[1]);
-					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem();
+					IExpression destination = ParseExpression (
+						provider,
+						(CommonTree)whenTree.Children[0]
+					);
+					IExpression target = ParseExpression (
+						provider,
+						(CommonTree)whenTree.Children[1]
+					);
+					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
 					
 					//TODO: Don't re-evaluate source for every item
 					if (destination is Expression<bool>)
@@ -1358,22 +1670,21 @@ namespace FxGqlLib
 					}
 					whenItem.Result = target;
 					
-					whenItems.Add(whenItem);
+					whenItems.Add (whenItem);
 				}
 				
 				if (whenNo < expressionTree.Children.Count - 1)
-					throw new Exception("Invalid case statement");
+					throw new Exception ("Invalid case statement");
 				
-				if (whenNo == expressionTree.Children.Count - 1)
-				{
-					CommonTree elseTree = (CommonTree)expressionTree.Children[whenNo];
-					AssertAntlrToken(elseTree, "T_CASE_ELSE", 1, 1);
+				if (whenNo == expressionTree.Children.Count - 1) {
+					CommonTree elseTree = (CommonTree)expressionTree.Children [whenNo];
+					AssertAntlrToken (elseTree, "T_CASE_ELSE", 1, 1);
 					
-					elseResult = ParseExpression(provider, (CommonTree)elseTree.Children[0]);
+					elseResult = ParseExpression (provider, (CommonTree)elseTree.Children [0]);
 				}
 			}
 
-			return new CaseExpression(whenItems, elseResult);
+			return new CaseExpression (whenItems, elseResult);
 		}
 
 		FileOptions ParseCommandUse (CommonTree selectTree)
