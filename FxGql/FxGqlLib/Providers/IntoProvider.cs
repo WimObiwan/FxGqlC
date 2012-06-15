@@ -24,12 +24,12 @@ namespace FxGqlLib
 			return new string[] {};
 		}
 
-		public int GetColumnOrdinal(string columnName)
+		public int GetColumnOrdinal (string columnName)
 		{
 			return -1;
 		}
 		
-		public Type[] GetColumnTypes()
+		public Type[] GetColumnTypes ()
 		{
 			return new Type[] { };
 		}
@@ -58,12 +58,17 @@ namespace FxGqlLib
 		public bool GetNextRecord ()
 		{
 			if (!fileOptions.Overwrite && !fileOptions.Append
-			    && File.Exists(fileOptions.FileName))
-				throw new InvalidOperationException(
-					string.Format("File '{0}' already exists. Use '-overwrite' or '-append' option to change the existing file.", 
-				              fileOptions.FileName));
+				&& File.Exists (fileOptions.FileName))
+				throw new InvalidOperationException (
+					string.Format ("File '{0}' already exists. Use '-overwrite' or '-append' option to change the existing file.", 
+				              fileOptions.FileName)
+				);
 
-			if (string.Compare (Path.GetExtension (fileOptions.FileName), ".zip", StringComparison.InvariantCultureIgnoreCase) == 0) {
+			if (string.Compare (
+				Path.GetExtension (fileOptions.FileName),
+				".zip",
+				StringComparison.InvariantCultureIgnoreCase
+			) == 0) {
 				using (FileStream fileStream = new FileStream(fileOptions.FileName, FileMode.Create)) {
 					using (ZipOutputStream zipOutputStream = new ZipOutputStream(fileStream)) {
 						zipOutputStream.SetLevel (9);
@@ -71,30 +76,9 @@ namespace FxGqlLib
 						zipEntry.DateTime = DateTime.Now;
 						zipOutputStream.PutNextEntry (zipEntry);
 						
-						
-						using (SelectProvider provider = new SelectProvider (
-							new List<IExpression> () { new FormatColumnListFunction ("\t") },
-							this.provider)) {
+						DumpProviderToStream (provider, zipOutputStream, this.gqlQueryState,
+						                      "\t", GetNewLine (fileOptions.NewLine));
 
-							provider.Initialize (this.gqlQueryState);
-
-							using (ProviderToStream stream = new ProviderToStream(provider, System.Text.Encoding.GetEncoding (0), GetNewLine(fileOptions.NewLine))) {
-								using (BufferedStream bufferedStream = new BufferedStream(stream)) {		
-									byte[] buffer = new byte[4096];
-									int size;
-									while ((size = stream.Read (buffer, 0, buffer.Length)) > 0) {
-										zipOutputStream.Write (buffer, 0, size);
-									}
-								}
-							}
-//							while (provider.GetNextRecord()) {
-//								streamWriter.WriteLine (provider.Record.Columns [0].ToString ());
-//								//byte[] buffer = System.Text.Encoding.GetEncoding (0).GetBytes (provider.Record.Columns [0].ToString ());
-//								//zipOutputStream.Write (buffer, 0, buffer.Length);
-//							}
-
-							provider.Uninitialize ();
-						}
 						zipOutputStream.CloseEntry ();
 						zipOutputStream.IsStreamOwner = false;
 						zipOutputStream.Finish ();
@@ -103,42 +87,19 @@ namespace FxGqlLib
 					}
 				}
 			} else {
-				using (StreamWriter outputStream = new StreamWriter(fileOptions.FileName, fileOptions.Append)) {
-					outputStream.NewLine = GetNewLine (fileOptions.NewLine);
-					using (SelectProvider provider = new SelectProvider (
-						new List<IExpression> () { new FormatColumnListFunction ("\t") },
-						this.provider)) {
-	
-						provider.Initialize (this.gqlQueryState);
-
-						while (provider.GetNextRecord()) {
-							outputStream.WriteLine (provider.Record.Columns [0].ToString ());
-						}
-
-						provider.Uninitialize ();
-					}
+				FileMode fileMode;
+				if (fileOptions.Append)
+					fileMode = FileMode.Append;
+				else if (fileOptions.Overwrite)
+					fileMode = FileMode.Create;
+				else
+					fileMode = FileMode.CreateNew;
+				using (FileStream outputStream = new FileStream(fileOptions.FileName, fileMode, FileAccess.Write, FileShare.None)) {
+					DumpProviderToStream (provider, outputStream, this.gqlQueryState,
+					                      "\t", GetNewLine (fileOptions.NewLine));
 				}
 			}
 
-//			using (FileStream fileStream = new FileStream(fileOptions.FileName, FileMode.Create)) {
-//				using (SelectProvider provider = new SelectProvider (
-//						new List<IExpression> () { new FormatColumnListFunction ("\t") },
-//						this.provider)) {
-//	
-//					provider.Initialize ();
-//
-//					using (ProviderToStream stream = new ProviderToStream(provider, System.Text.Encoding.GetEncoding (0), GetNewLine(fileOptions.NewLine))) {
-//						byte[] buffer = new byte[10];
-//						int size;
-//						while ((size = stream.Read (buffer, 0, buffer.Length)) > 0) {
-//							fileStream.Write (buffer, 0, size);
-//						}
-//					}
-//					
-//					provider.Uninitialize ();
-//				}
-//			}
-			
 			return false;
 		}
 
@@ -161,6 +122,28 @@ namespace FxGqlLib
 			provider.Dispose ();
 		}
 		#endregion
+
+		public static void DumpProviderToStream (IProvider provider, Stream outputStream, GqlQueryState gqlQueryState, string columnDelimiter, string recordDelimiter)
+		{
+			using (SelectProvider selectProvider = new SelectProvider (
+							new List<IExpression> () { new FormatColumnListFunction (columnDelimiter) },
+							provider)) {
+
+				selectProvider.Initialize (gqlQueryState);
+
+				using (ProviderToStream stream = new ProviderToStream(selectProvider, System.Text.Encoding.GetEncoding (0), recordDelimiter)) {
+					using (BufferedStream bufferedStream = new BufferedStream(stream)) {		
+						byte[] buffer = new byte[4096];
+						int size;
+						while ((size = stream.Read (buffer, 0, buffer.Length)) > 0) {
+							outputStream.Write (buffer, 0, size);
+						}
+					}
+				}
+
+				selectProvider.Uninitialize ();
+			}
+		}
 		
 		
 		class ProviderToStream : Stream
@@ -194,7 +177,13 @@ namespace FxGqlLib
 					} else {
 						Buffer.BlockCopy (readBuffer, 0, buffer, offset, count);
 						byte[] readBuffer2 = new byte[readBuffer.Length - count];
-						Buffer.BlockCopy (readBuffer, count, readBuffer2, 0, readBuffer.Length - count);
+						Buffer.BlockCopy (
+							readBuffer,
+							count,
+							readBuffer2,
+							0,
+							readBuffer.Length - count
+						);
 						readBuffer = readBuffer2;
 						return count;
 					}
