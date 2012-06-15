@@ -181,26 +181,29 @@ namespace FxGqlC
 			} catch (FxGqlLib.PositionException x) {
 				Console.WriteLine (x.Message);
 				if (gqlEngine.LogStream != null) 
-					gqlEngine.LogStream.WriteLine(x.ToString());
+					gqlEngine.LogStream.WriteLine (x.ToString ());
 
 				string line;
 				using (StringReader stringReader = new System.IO.StringReader(command)) {
 					for (int no = 0; (line = stringReader.ReadLine()) != null; no++) {
-						Console.WriteLine("{0,3}: {1}", no + 1, line);
+						Console.WriteLine ("{0,3}: {1}", no + 1, line);
 						if (gqlEngine.LogStream != null) 
-							gqlEngine.LogStream.WriteLine("{0,3}: {1}", no + 1, line);
+							gqlEngine.LogStream.WriteLine ("{0,3}: {1}", no + 1, line);
 						
 						if (no + 1 == x.Line) {
-							Console.WriteLine("     {0}^", new string(' ', Math.Max (0, x.Pos - 1)));
+							Console.WriteLine ("     {0}^", new string (' ', Math.Max (0, x.Pos - 1)));
 							if (gqlEngine.LogStream != null) 
-								gqlEngine.LogStream.WriteLine("     {0}^", new string(' ', Math.Max (0, x.Pos - 1)));
+								gqlEngine.LogStream.WriteLine ("     {0}^", new string (' ', Math.Max (0, x.Pos - 1)));
 						}
 					}
 				}
 			} catch (Exception x) {
 				Console.WriteLine (x.Message);
 				if (gqlEngine.LogStream != null) 
-					gqlEngine.LogStream.WriteLine(x.ToString());
+					gqlEngine.LogStream.WriteLine (x.ToString ());
+//#if DEBUG
+//				throw;
+//#endif
 			}
 		}
 

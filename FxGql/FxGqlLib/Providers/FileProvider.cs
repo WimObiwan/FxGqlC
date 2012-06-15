@@ -18,12 +18,12 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
-		public int GetColumnOrdinal(string columnName)
+		public int GetColumnOrdinal (string columnName)
 		{
 			return -1;
 		}
 		
-		public Type[] GetColumnTypes()
+		public Type[] GetColumnTypes ()
 		{
 			return new Type[] { typeof(string) };
 		}
@@ -32,16 +32,22 @@ namespace FxGqlLib
 		{
 			gqlEngineExecutionState = gqlQueryState.CurrentExecutionState;
 			
-			string fileName = Path.Combine(gqlQueryState.CurrentDirectory, this.fileName);
-			streamReader = new StreamReader (new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
+			string fileName = Path.Combine (
+				gqlQueryState.CurrentDirectory,
+				this.fileName
+			);
+			streamReader = new StreamReader (new FileStream (
+				fileName,
+				FileMode.Open,
+				FileAccess.Read,
+				FileShare.ReadWrite
+			));
 			record = new ProviderRecord ();
 			record.Source = fileName;
 
-			for (long i = 0; i < skip; i++)
-			{
-				if (streamReader.ReadLine () == null) 
-				{
-					streamReader.Close();
+			for (long i = 0; i < skip; i++) {
+				if (streamReader.ReadLine () == null) {
+					streamReader.Close ();
 					streamReader = null;
 					return;
 				}
@@ -51,7 +57,7 @@ namespace FxGqlLib
 		public bool GetNextRecord ()
 		{
 			if (gqlEngineExecutionState.InterruptState == GqlEngineExecutionState.InterruptStates.Interrupted)
-				throw new InterruptedException();
+				throw new InterruptedException ();
 			
 			if (streamReader == null)
 				return false;
@@ -70,8 +76,10 @@ namespace FxGqlLib
 		public void Uninitialize ()
 		{
 			record = null;
-			streamReader.Close ();
-			streamReader.Dispose ();
+			if (streamReader != null) {
+				streamReader.Close ();
+				streamReader.Dispose ();
+			}
 			streamReader = null;
 			gqlEngineExecutionState = null;
 		}
