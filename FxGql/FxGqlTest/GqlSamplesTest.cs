@@ -152,7 +152,7 @@ namespace FxGqlTest
 			}
 		}
 		
-		public void Run ()
+		public bool Run ()
 		{
 			// Select expression without file
 			TestGql ("select 17", 
@@ -674,10 +674,18 @@ namespace FxGqlTest
 				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
 
 			Console.WriteLine ();
-			Console.WriteLine ("{0} tests done, {1} succeeded, {2} failed, {3} unknown", succeeded + failed + unknown, succeeded, failed, unknown);
+			Console.WriteLine (
+				"{0} tests done, {1} succeeded, {2} failed, {3} unknown",
+				succeeded + failed + unknown,
+				succeeded,
+				failed,
+				unknown
+			);
 			
 			foreach (string failedQuery in failedQueries)
-				Console.WriteLine("FAILED:" + Environment.NewLine + failedQuery + Environment.NewLine);
+				Console.WriteLine ("FAILED:" + Environment.NewLine + failedQuery + Environment.NewLine);
+
+			return failed == 0;
 		}
 		 
 		public void RunDevelop ()
