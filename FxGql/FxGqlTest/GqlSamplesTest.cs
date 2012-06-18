@@ -13,14 +13,271 @@ namespace FxGqlTest
 		int succeeded = 0;
 		int failed = 0;
 		int unknown = 0;
-		List<string> failedQueries = new List<string>();
+		List<string> failedQueries = new List<string> ();
 		public GqlEngine engine = new GqlEngine ();
 
 		public GqlSamplesTest ()
 		{
 		}
 		
-		static string[] BATHS = { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "0A", "0B", "0C", "0D", "0E", "0F", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "1A", "1B", "1C", "1D", "1E", "1F", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "2A", "2B", "2C", "2D", "2E", "2F", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "3A", "3B", "3C", "3D", "3E", "3F", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "4A", "4B", "4C", "4D", "4E", "4F", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "5A", "5B", "5C", "5D", "5E", "5F", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "6A", "6B", "6C", "6D", "6E", "6F", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "7A", "7B", "7C", "7D", "7E", "7F", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "8A", "8B", "8C", "8D", "8E", "8F", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "9A", "9B", "9C", "9D", "9E", "9F", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "AA", "AB", "AC", "AD", "AE", "AF", "B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "BA", "BB", "BC", "BD", "BE", "BF", "C0", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "CA", "CB", "CC", "CD", "CE", "CF", "D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "DA", "DB", "DC", "DD", "DE", "DF", "E0", "E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "EA", "EB", "EC", "ED", "EE", "EF", "F0", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "FA", "FB", "FC", "FD", "FE", "FF" };
+		static string[] BATHS = {
+				"00",
+				"01",
+				"02",
+				"03",
+				"04",
+				"05",
+				"06",
+				"07",
+				"08",
+				"09",
+				"0A",
+				"0B",
+				"0C",
+				"0D",
+				"0E",
+				"0F",
+				"10",
+				"11",
+				"12",
+				"13",
+				"14",
+				"15",
+				"16",
+				"17",
+				"18",
+				"19",
+				"1A",
+				"1B",
+				"1C",
+				"1D",
+				"1E",
+				"1F",
+				"20",
+				"21",
+				"22",
+				"23",
+				"24",
+				"25",
+				"26",
+				"27",
+				"28",
+				"29",
+				"2A",
+				"2B",
+				"2C",
+				"2D",
+				"2E",
+				"2F",
+				"30",
+				"31",
+				"32",
+				"33",
+				"34",
+				"35",
+				"36",
+				"37",
+				"38",
+				"39",
+				"3A",
+				"3B",
+				"3C",
+				"3D",
+				"3E",
+				"3F",
+				"40",
+				"41",
+				"42",
+				"43",
+				"44",
+				"45",
+				"46",
+				"47",
+				"48",
+				"49",
+				"4A",
+				"4B",
+				"4C",
+				"4D",
+				"4E",
+				"4F",
+				"50",
+				"51",
+				"52",
+				"53",
+				"54",
+				"55",
+				"56",
+				"57",
+				"58",
+				"59",
+				"5A",
+				"5B",
+				"5C",
+				"5D",
+				"5E",
+				"5F",
+				"60",
+				"61",
+				"62",
+				"63",
+				"64",
+				"65",
+				"66",
+				"67",
+				"68",
+				"69",
+				"6A",
+				"6B",
+				"6C",
+				"6D",
+				"6E",
+				"6F",
+				"70",
+				"71",
+				"72",
+				"73",
+				"74",
+				"75",
+				"76",
+				"77",
+				"78",
+				"79",
+				"7A",
+				"7B",
+				"7C",
+				"7D",
+				"7E",
+				"7F",
+				"80",
+				"81",
+				"82",
+				"83",
+				"84",
+				"85",
+				"86",
+				"87",
+				"88",
+				"89",
+				"8A",
+				"8B",
+				"8C",
+				"8D",
+				"8E",
+				"8F",
+				"90",
+				"91",
+				"92",
+				"93",
+				"94",
+				"95",
+				"96",
+				"97",
+				"98",
+				"99",
+				"9A",
+				"9B",
+				"9C",
+				"9D",
+				"9E",
+				"9F",
+				"A0",
+				"A1",
+				"A2",
+				"A3",
+				"A4",
+				"A5",
+				"A6",
+				"A7",
+				"A8",
+				"A9",
+				"AA",
+				"AB",
+				"AC",
+				"AD",
+				"AE",
+				"AF",
+				"B0",
+				"B1",
+				"B2",
+				"B3",
+				"B4",
+				"B5",
+				"B6",
+				"B7",
+				"B8",
+				"B9",
+				"BA",
+				"BB",
+				"BC",
+				"BD",
+				"BE",
+				"BF",
+				"C0",
+				"C1",
+				"C2",
+				"C3",
+				"C4",
+				"C5",
+				"C6",
+				"C7",
+				"C8",
+				"C9",
+				"CA",
+				"CB",
+				"CC",
+				"CD",
+				"CE",
+				"CF",
+				"D0",
+				"D1",
+				"D2",
+				"D3",
+				"D4",
+				"D5",
+				"D6",
+				"D7",
+				"D8",
+				"D9",
+				"DA",
+				"DB",
+				"DC",
+				"DD",
+				"DE",
+				"DF",
+				"E0",
+				"E1",
+				"E2",
+				"E3",
+				"E4",
+				"E5",
+				"E6",
+				"E7",
+				"E8",
+				"E9",
+				"EA",
+				"EB",
+				"EC",
+				"ED",
+				"EE",
+				"EF",
+				"F0",
+				"F1",
+				"F2",
+				"F3",
+				"F4",
+				"F5",
+				"F6",
+				"F7",
+				"F8",
+				"F9",
+				"FA",
+				"FB",
+				"FC",
+				"FD",
+				"FE",
+				"FF"
+			};
 
 		static string ByteArrayToHexString (byte[] arrayToConvert, string delimiter)
 		{
@@ -90,7 +347,7 @@ namespace FxGqlTest
 
 		private void TestGql (string command)
 		{
-			TestGql(command, (string)null);
+			TestGql (command, (string)null);
 		}
 		
 		private void TestGql (string command, Type exceptionType)
@@ -98,7 +355,7 @@ namespace FxGqlTest
 			try {
 				engine.Execute (command);
 				Console.WriteLine ("   Test FAILED");
-				Console.WriteLine ("      Expected: {0}", exceptionType.ToString());
+				Console.WriteLine ("      Expected: {0}", exceptionType.ToString ());
 				Console.WriteLine ("      No exception happened");
 				failed++;
 			} catch (Exception exception) {
@@ -107,8 +364,8 @@ namespace FxGqlTest
 					succeeded++;
 				} else {
 					Console.WriteLine ("   Test FAILED");
-					Console.WriteLine ("      Expected: {0}", exceptionType.ToString());
-					Console.WriteLine ("      Catched: {0}", exception.GetType().ToString ());
+					Console.WriteLine ("      Expected: {0}", exceptionType.ToString ());
+					Console.WriteLine ("      Catched: {0}", exception.GetType ().ToString ());
 					failed++;
 				}
 			}
@@ -147,7 +404,7 @@ namespace FxGqlTest
 					
 					stream.Seek (0, SeekOrigin.Begin);
 					if (!CheckStream (stream, targetHash))
-						failedQueries.Add(command);
+						failedQueries.Add (command);
 				}
 			}
 		}
@@ -633,6 +890,49 @@ namespace FxGqlTest
 				"145DA47A1E9E308A0A501B6A24509A94943CF72F642347331D3E7B900E4740E2");
 			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) where contains([FieldA], 'b') order by [FieldB]",
 				"F5C19EBA4EB529C014CC94E538B7C9E1ED36DFE73C0F1EF37BA65285A32CC58C");
+			engine.GqlEngineState.Headings = GqlEngineState.HeadingsEnum.On;
+			TestGql ("select distinct top 15 [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine]",
+			         "D569409E7341F23F676A1110DDA586355B0C32AF1FCEB963321BBB82746DED34");
+			TestGql ("select distinct [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine]",
+			         "FCBCCCA64F73FB929ECA3D5D4028432AC951EA9358E7330312604F1F24BE83F6");
+			TestGql ("select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']",
+			         "7DC1281F71DCBB7EDCB1B304F3342F3B678D9201DDDDBF6043779CCF8FD76000");
+			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv'])",
+			         "7DC1281F71DCBB7EDCB1B304F3342F3B678D9201DDDDBF6043779CCF8FD76000");
+			TestGql ("select [FieldB], [FieldA] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv'])",
+			         "8B0890F614DA8E3EE46F73E21E0E215CB35D66A4F94400A6DE1A60F420348C38");
+			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) where contains([FieldA], 'b') order by [FieldB]",
+			         "2694BA9570ECB03DC308F8F55FDA8A7A215B7645F5FEDF24E335B946FF96CAFC");
+			if (File.Exists ("test.txt"))
+				File.Delete ("test.txt");
+			TestGql ("select * into ['test.txt'] from ['SampleFiles/AirportCodes.csv']",
+				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile ("test.txt",
+				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2", // unix
+				"2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
+			File.Delete ("test.txt");
+			engine.GqlEngineState.Headings = GqlEngineState.HeadingsEnum.OnWithRule;
+			TestGql ("select distinct top 15 [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine]",
+			         "80176A38BE42D39718085E5336A617D296929AC3D80E4AA4FC0BF30192D81F57");
+			TestGql ("select distinct [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine]",
+			         "F770BE451AC0ED2F4840D886B858BFC97D2C3574D92092D4993C9C22FC36B69E");
+			TestGql ("select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']",
+			         "C6C7E4379D54251C714D4018BD5619A171B0A6F3C5A3B94C0AD569076201EBE1");
+			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv'])",
+				     "C6C7E4379D54251C714D4018BD5619A171B0A6F3C5A3B94C0AD569076201EBE1");
+			TestGql ("select [FieldB], [FieldA] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv'])",
+			         "393AE317372CFD6FA722A82DA11308B28889607D881969BB20ADA19044DC9DA3");
+			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) where contains([FieldA], 'b') order by [FieldB]",
+			         "3394178832D00FC1E9489067E0DC8BD0ED8C1312BC91046210FD3F7B14E19E57");
+			if (File.Exists ("test.txt"))
+				File.Delete ("test.txt");
+			TestGql ("select * into ['test.txt'] from ['SampleFiles/AirportCodes.csv']",
+				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile ("test.txt",
+				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2", // unix
+				"2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
+			File.Delete ("test.txt");
+			engine.GqlEngineState.Headings = GqlEngineState.HeadingsEnum.Off;
 			
 			// Group By
 			TestGql ("select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -TitleLine] group by [Tournament]",
@@ -690,14 +990,15 @@ namespace FxGqlTest
 		 
 		public void RunDevelop ()
 		{
-			// TODO: default column names
 			// TODO: output columns as column headings
-			// TODO: create file columns on regular expression
 			// TODO: create "view" or "function"
 			// TODO: skip clause (select top 10 skip 2 from ...
-			
+
+			/*
+			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv'])");
+			*/
+
 			// TODO:
-			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -recurse]");
 		}
 
 	}

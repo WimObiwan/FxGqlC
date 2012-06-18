@@ -20,7 +20,7 @@ namespace FxGqlLib
 			GqlQueryState gqlQueryState = new GqlQueryState (gqlEngineState.ExecutionState);
 			gqlQueryState.CurrentDirectory = gqlEngineState.CurrentDirectory;
 
-			IntoProvider.DumpProviderToStream (gqlQuery, outputStream, gqlQueryState, "\t");
+			IntoProvider.DumpProviderToStream (gqlQuery, outputStream, gqlQueryState, "\t", gqlEngineState.Headings);
 		}
 		#endregion
 	}

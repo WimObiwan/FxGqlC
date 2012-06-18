@@ -163,18 +163,46 @@ namespace FxGqlC
 
 		public static void RunPrompt ()
 		{
-			Mono.Terminal.LineEditor lineEditor = new Mono.Terminal.LineEditor("editor");
+			Mono.Terminal.LineEditor lineEditor = new Mono.Terminal.LineEditor ("editor");
 			while (true) {
 				string command = lineEditor.Edit ("FxGqlC> ", "");
 				//Console.Write ("FxGqlC> ");
 				//string command = Console.ReadLine ();
-				if (command.Equals ("exit", StringComparison.InvariantCultureIgnoreCase))
+				if (command.Trim ().Equals ("exit", StringComparison.InvariantCultureIgnoreCase))
 					break; 
 				ExecuteCommand (command);
 			}
 		}
 
 		public static void ExecuteCommand (string command)
+		{
+			if (command.TrimStart ().StartsWith ("!")) {
+				ExecuteClientCommand (command);
+			} else {
+				ExecuteServerCommand (command);
+			}
+		}
+
+		static void ExecuteClientCommand (string command)
+		{
+			command = command.TrimStart ().TrimStart ('!');
+			string[] commandComponents = command.Split (new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+
+			if (commandComponents.Length < 1) {
+				Console.WriteLine ("Invalid client command syntax");
+			} else {
+				switch (commandComponents [0].ToUpperInvariant ()) {
+				case "SET":
+					ExecuteClientCommandSet (commandComponents);
+					break;
+				default:
+					Console.WriteLine ("Unknown client command '{0}'", commandComponents [0]);
+					break;
+				}
+			}
+		}
+
+		public static void ExecuteServerCommand (string command)
 		{
 #if DEBUG
 			gqlEngine.Execute (command);
@@ -214,6 +242,29 @@ namespace FxGqlC
 			using (StreamReader reader = new StreamReader(file)) {
 				string command = reader.ReadToEnd ();
 				ExecuteCommand (command);
+			}
+		}
+
+		static void ExecuteClientCommandSet (string[] commandComponents)
+		{
+			if (commandComponents.Length < 3) {
+				Console.WriteLine ("Invalid number of components in client command 'SET'");
+			} else {
+				string key = commandComponents [1];
+				string value = commandComponents [2];
+				switch (key.ToUpperInvariant ()) {
+				case "HEADINGS":
+					GqlEngineState.HeadingsEnum headings;
+					if (Enum.TryParse<GqlEngineState.HeadingsEnum> (value, true, out headings)) 
+						gqlEngine.GqlEngineState.Headings = headings;
+					else
+						Console.WriteLine ("Unknown SET HEADINGS value '{0}'", value);
+
+					break;
+				default:
+					Console.WriteLine ("Unknown SET command '{0}'", key);
+					break;
+				}
 			}
 		}
 	}

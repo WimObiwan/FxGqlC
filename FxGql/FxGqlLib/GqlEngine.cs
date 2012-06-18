@@ -8,8 +8,9 @@ namespace FxGqlLib
 	{
 		TextWriter outputStream;
 		TextWriter logStream;
-		GqlEngineState gqlEngineState;
 		GqlEngineExecutionState gqlEngineExecutionState = new GqlEngineExecutionState();
+
+		public GqlEngineState GqlEngineState { get; private set; }
 		
 		public TextWriter OutputStream {
 			get { return outputStream; }
@@ -20,11 +21,11 @@ namespace FxGqlLib
 			get { return logStream; }
 			set { logStream = value; }
 		}
-		
+
 		public GqlEngine ()
 		{
-			gqlEngineState = new GqlEngineState(gqlEngineExecutionState);
-			gqlEngineState.CurrentDirectory = Environment.CurrentDirectory;
+			GqlEngineState = new GqlEngineState(gqlEngineExecutionState);
+			GqlEngineState.CurrentDirectory = Environment.CurrentDirectory;
 		}
 	
 		public void Execute (string commandsText)
@@ -39,7 +40,7 @@ namespace FxGqlLib
 			IList<IGqlCommand> commands = parser.Parse ();
 			
 			foreach (IGqlCommand command in commands) {
-				command.Execute (outputStream, logStream, gqlEngineState);
+				command.Execute (outputStream, logStream, GqlEngineState);
 			}
 		}
 		

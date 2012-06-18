@@ -122,20 +122,41 @@ namespace FxGqlLib
 			using (TextWriter writer = new StreamWriter(outputStream, System.Text.Encoding.GetEncoding (0))) {
 				writer.NewLine = recordDelimiter;
 
-				DumpProviderToStream(provider, writer, gqlQueryState, columnDelimiter);
+				DumpProviderToStream (
+					provider,
+					writer,
+					gqlQueryState,
+					columnDelimiter,
+					GqlEngineState.HeadingsEnum.Off
+				);
 			}
 		}
 		
-		public static void DumpProviderToStream (IProvider provider, TextWriter outputWriter, GqlQueryState gqlQueryState, string columnDelimiter)
+		public static void DumpProviderToStream (IProvider provider, TextWriter outputWriter, GqlQueryState gqlQueryState, 
+		                                         string columnDelimiter, GqlEngineState.HeadingsEnum headings)
 		{
 			using (SelectProvider selectProvider = new SelectProvider (
 								new List<IExpression> () { new FormatColumnListFunction (columnDelimiter) },
 								provider)) {
 	
 				selectProvider.Initialize (gqlQueryState);
-	
-				while (selectProvider.GetNextRecord()) {
-					outputWriter.WriteLine (selectProvider.Record.Columns [0].ToString ());
+
+				if (selectProvider.GetNextRecord ()) {
+					if (headings != GqlEngineState.HeadingsEnum.Off) {
+						FormatColumnListFunction formatColumnListFunction = new FormatColumnListFunction (columnDelimiter);
+						string[] columnTitles = provider.GetColumnTitles ();
+						outputWriter.WriteLine (formatColumnListFunction.Evaluate (columnTitles));
+						if (headings == GqlEngineState.HeadingsEnum.OnWithRule) {
+							string[] columnTitlesRule = new string[columnTitles.Length];
+							for (int i = 0; i < columnTitles.Length; i++)
+								columnTitlesRule [i] = new string ('=', columnTitles [i].Length);
+							outputWriter.WriteLine (formatColumnListFunction.Evaluate (columnTitlesRule));
+						}
+					}
+
+					do {
+						outputWriter.WriteLine (selectProvider.Record.Columns [0].ToString ());
+					} while (selectProvider.GetNextRecord());
 				}
 
 				selectProvider.Uninitialize ();

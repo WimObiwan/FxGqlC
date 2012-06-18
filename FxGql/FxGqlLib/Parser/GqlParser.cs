@@ -1003,11 +1003,7 @@ namespace FxGqlLib
 				switch (key.ToUpperInvariant ()) {
 				case "FILEORDER":
 					FileOptionsFromClause.FileOrderEnum order;
-					if (!Enum.TryParse<FileOptionsFromClause.FileOrderEnum> (
-						value,
-						true,
-						out order
-					))
+					if (!Enum.TryParse<FileOptionsFromClause.FileOrderEnum> (value, true, out order))
 						throw new ParserException (
 									string.Format ("Unknown file option FileOrder={0}", value),
 									tree
@@ -1053,11 +1049,7 @@ namespace FxGqlLib
 				switch (key.ToUpperInvariant ()) {
 				case "LINEEND":
 					FileOptionsIntoClause.NewLineEnum lineEnd;
-					if (!Enum.TryParse<FileOptionsIntoClause.NewLineEnum> (
-						value,
-						true,
-						out lineEnd
-					))
+					if (!Enum.TryParse<FileOptionsIntoClause.NewLineEnum> (value, true, out lineEnd))
 						throw new ParserException (
 									string.Format ("Unknown file option LineEnd={0}", value),
 									tree

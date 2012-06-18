@@ -9,8 +9,12 @@ namespace FxGqlLib
 			ExecutionState = executionState;
 		}
 		
-		public string CurrentDirectory { get; set; }
 		public GqlEngineExecutionState ExecutionState { get; private set; }
+
+		public string CurrentDirectory { get; set; }
+
+		public enum HeadingsEnum { Off, On, OnWithRule }
+		public HeadingsEnum Headings { get; set; }
 	}
 }
 

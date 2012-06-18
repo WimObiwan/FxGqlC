@@ -19,7 +19,16 @@ namespace FxGqlLib
 			this.columnOrdinal = column;
 			this.provider = provider;
 		}
-		
+
+		public string ColumnName {
+			get {
+				if (column != null)
+					return column;
+				else
+					return provider.GetColumnTitles() [columnOrdinal];
+			}
+		}		
+
 		#region IExpression implementation
 		public IComparable EvaluateAsComparable (GqlQueryState gqlQueryState)
 		{

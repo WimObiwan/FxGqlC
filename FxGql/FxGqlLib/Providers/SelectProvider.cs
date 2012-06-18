@@ -36,8 +36,14 @@ namespace FxGqlLib
 		{
 			this.outputList = outputList.ToArray ();
 			this.columnNameList = new string[outputList.Count];
-			for (int i = 0; i < outputList.Count; i++) 
-				this.columnNameList [i] = string.Format ("Column{0}", i + 1);
+			for (int i = 0; i < outputList.Count; i++) {
+				ColumnExpression columnExpression = outputList [i] as ColumnExpression;
+				if (columnExpression != null) {
+					this.columnNameList [i] = columnExpression.ColumnName;
+				} else {
+					this.columnNameList [i] = string.Format ("Column{0}", i + 1);
+				}
+			}
 			this.provider = provider;
 		}
 
@@ -67,7 +73,8 @@ namespace FxGqlLib
 						if (this.columnNameList [i] == null)
 							this.columnNameList [i] = string.Format ("Column{0}", i + 1);
 				}
-			} else*/ {
+			} else*/
+			{
 				this.outputColumns = outputColumns;
 			}
 			this.provider = provider;
@@ -135,9 +142,16 @@ namespace FxGqlLib
 				}
 				this.outputList = outputList.ToArray ();
 				this.columnNameList = columnNameList.ToArray ();
-				for (int i = 0; i < columnNameList.Count; i++)
-					if (this.columnNameList [i] == null)
-						this.columnNameList [i] = string.Format ("Column{0}", i + 1);
+				for (int i = 0; i < columnNameList.Count; i++) {
+					if (this.columnNameList [i] == null) {
+						ColumnExpression columnExpression = this.outputList [i] as ColumnExpression;
+						if (columnExpression != null) {
+							this.columnNameList [i] = columnExpression.ColumnName;
+						} else {
+							this.columnNameList [i] = string.Format ("Column{0}", i + 1);
+						}
+					}
+				}
 			}
 
 			gqlQueryState.TotalLineNumber = 0;
