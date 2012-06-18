@@ -253,12 +253,12 @@ namespace FxGqlC
 				string key = commandComponents [1];
 				string value = commandComponents [2];
 				switch (key.ToUpperInvariant ()) {
-				case "HEADINGS":
-					GqlEngineState.HeadingsEnum headings;
-					if (Enum.TryParse<GqlEngineState.HeadingsEnum> (value, true, out headings)) 
-						gqlEngine.GqlEngineState.Headings = headings;
+				case "HEADING":
+					GqlEngineState.HeadingEnum heading;
+					if (Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading)) 
+						gqlEngine.GqlEngineState.Heading = heading;
 					else
-						Console.WriteLine ("Unknown SET HEADINGS value '{0}'", value);
+						Console.WriteLine ("Unknown SET HEADING value '{0}'", value);
 
 					break;
 				default:

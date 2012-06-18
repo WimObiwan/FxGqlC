@@ -22,7 +22,7 @@ namespace FxGqlLib
 
 		public string ColumnsRegex { get; set; }
 		
-		public bool TitleLine { get; set; }
+		public GqlEngineState.HeadingEnum Heading { get; set; }
 		
 		public long Skip { get; set; }
 

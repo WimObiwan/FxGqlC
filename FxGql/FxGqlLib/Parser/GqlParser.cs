@@ -1013,8 +1013,14 @@ namespace FxGqlLib
 				case "RECURSE":
 					fileOptions.Recurse = true;
 					break;
-				case "TITLELINE":
-					fileOptions.TitleLine = true;
+				case "HEADING":
+					GqlEngineState.HeadingEnum heading;
+					if (!Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading))
+						throw new ParserException (
+									string.Format ("Unknown file option Heading={0}", value),
+									tree
+						);
+					fileOptions.Heading = heading;
 					break;
 				case "COLUMNS":
 					fileOptions.ColumnsRegex = ParseString (value);
@@ -1148,7 +1154,7 @@ namespace FxGqlLib
 			
 			IProvider provider = FileProviderFactory.Get (fileOptions, stringComparer);
 			
-			if (fileOptions.TitleLine) {
+			if (fileOptions.Heading == GqlEngineState.HeadingEnum.On) {
 				provider = new ColumnProviderTitleLine (provider, new char[] {'\t'});
 			} else if (fileOptions.ColumnsRegex != null) {
 				provider = new ColumnProviderRegex (

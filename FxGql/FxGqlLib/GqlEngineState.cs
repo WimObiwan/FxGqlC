@@ -13,8 +13,8 @@ namespace FxGqlLib
 
 		public string CurrentDirectory { get; set; }
 
-		public enum HeadingsEnum { Off, On, OnWithRule }
-		public HeadingsEnum Headings { get; set; }
+		public enum HeadingEnum { Off, On, OnWithRule }
+		public HeadingEnum Heading { get; set; }
 	}
 }
 
