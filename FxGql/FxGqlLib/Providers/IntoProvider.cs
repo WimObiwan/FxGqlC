@@ -8,11 +8,11 @@ namespace FxGqlLib
 	public class IntoProvider : IProvider
 	{
 		IProvider provider;
-		FileOptions fileOptions;
+		FileOptionsIntoClause fileOptions;
 		ProviderRecord record;
 		GqlQueryState gqlQueryState;
 		
-		public IntoProvider (IProvider provider, FileOptions fileOptions)
+		public IntoProvider (IProvider provider, FileOptionsIntoClause fileOptions)
 		{
 			this.provider = provider;
 			this.fileOptions = fileOptions;
@@ -43,13 +43,13 @@ namespace FxGqlLib
 			this.gqlQueryState = gqlQueryState;
 		}
 
-		private string GetNewLine (FileOptions.NewLineEnum lineEnd)
+		private string GetNewLine (FileOptionsIntoClause.NewLineEnum lineEnd)
 		{
-			if (fileOptions.NewLine == FileOptions.NewLineEnum.Dos)
+			if (fileOptions.NewLine == FileOptionsIntoClause.NewLineEnum.Dos)
 				return "\r\n";
-			else if (fileOptions.NewLine == FileOptions.NewLineEnum.Unix)
+			else if (fileOptions.NewLine == FileOptionsIntoClause.NewLineEnum.Unix)
 				return "\n";
-			else if (fileOptions.NewLine == FileOptions.NewLineEnum.Mac)
+			else if (fileOptions.NewLine == FileOptionsIntoClause.NewLineEnum.Mac)
 				return "\r";
 			else
 				return Environment.NewLine;

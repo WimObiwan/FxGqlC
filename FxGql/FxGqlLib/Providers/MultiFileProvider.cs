@@ -10,7 +10,7 @@ namespace FxGqlLib
 		string fileMask;
 		bool recurse;
 		long skip;
-		FileOptions.FileOrderEnum order;
+		FileOptionsFromClause.FileOrderEnum order;
 		StringComparer stringComparer;
 
 		string[] files;
@@ -18,7 +18,7 @@ namespace FxGqlLib
 		
 		int currentFile;
 		
-		public MultiFileProvider (string fileMask, bool recurse, long skip, FileOptions.FileOrderEnum order, StringComparer stringComparer)
+		public MultiFileProvider (string fileMask, bool recurse, long skip, FileOptionsFromClause.FileOrderEnum order, StringComparer stringComparer)
 		{
 			this.fileMask = fileMask;
 			this.recurse = recurse;
@@ -57,9 +57,9 @@ namespace FxGqlLib
 			path = Path.Combine (gqlQueryState.CurrentDirectory, path); 
 			files = Directory.GetFiles (path + Path.DirectorySeparatorChar, searchPattern, searchOption);
 
-			if (order == FileOptions.FileOrderEnum.Asc)
+			if (order == FileOptionsFromClause.FileOrderEnum.Asc)
 				files = files.OrderBy (p => p, stringComparer).ToArray ();
-			else if (order == FileOptions.FileOrderEnum.Desc)
+			else if (order == FileOptionsFromClause.FileOrderEnum.Desc)
 				files = files.OrderByDescending (p => p, stringComparer).ToArray ();
 
 			currentFile = -1;

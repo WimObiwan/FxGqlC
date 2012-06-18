@@ -6,10 +6,37 @@ namespace FxGqlLib
 	{
 		public FileOptions ()
 		{
-			NewLine = NewLineEnum.Default;
-			FileOrder = FileOrderEnum.DontCare;
 		}
 		
+		public string FileName { get; set; }
+	}
+
+	public class FileOptionsFromClause : FileOptions
+	{
+		public FileOptionsFromClause ()
+		{
+			FileOrder = FileOrderEnum.DontCare;
+		}
+
+		public bool Recurse { get; set; }
+
+		public string ColumnsRegex { get; set; }
+		
+		public bool TitleLine { get; set; }
+		
+		public long Skip { get; set; }
+
+		public enum FileOrderEnum { DontCare, Asc, Desc }
+		public FileOrderEnum FileOrder { get; set; }
+	}
+
+	public class FileOptionsIntoClause : FileOptions
+	{
+		public FileOptionsIntoClause ()
+		{
+			NewLine = NewLineEnum.Default;
+		}
+
 		public enum NewLineEnum
 		{
 			Default,
@@ -17,30 +44,17 @@ namespace FxGqlLib
 			Dos,
 			Mac
 		};
-		
-		public string FileName { get; set; }
-
-		public bool Recurse { get; set; }
 
 		public NewLineEnum NewLine  { get; set; }
 
 		public bool Append { get; set; }
 
 		public bool Overwrite { get; set; }
-
-		public bool TitleLine { get; set; }
-		
-		public string ColumnsRegex { get; set; }
-		
-		public long Skip { get; set; }
-
-		public enum FileOrderEnum { DontCare, Asc, Desc }
-		public FileOrderEnum FileOrder { get; set; }
 	}
 	
 	static class FileProviderFactory
 	{
-		public static IProvider Get (FileOptions fileOptions, StringComparer stringComparer)
+		public static IProvider Get (FileOptionsFromClause fileOptions, StringComparer stringComparer)
 		{
 			IProvider provider;
 			if (fileOptions.FileName.Contains ("*") || fileOptions.FileName.Contains ("?") || fileOptions.Recurse) {

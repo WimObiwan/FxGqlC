@@ -252,7 +252,7 @@ namespace FxGqlLib
 			enumerator.MoveNext ();
 				
 			// INTO
-			FileOptions intoFile;
+			FileOptionsIntoClause intoFile;
 			if (enumerator.Current != null && enumerator.Current.Text == "T_INTO") {
 				intoFile = ParseIntoClause ((CommonTree)enumerator.Current);
 				enumerator.MoveNext ();
@@ -398,12 +398,12 @@ namespace FxGqlLib
 			return column; 
 		}
 
-		FileOptions ParseIntoClause (CommonTree intoClauseTree)
+		FileOptionsIntoClause ParseIntoClause (CommonTree intoClauseTree)
 		{
 			AssertAntlrToken (intoClauseTree, "T_INTO", 1);
 				
 			CommonTree fileTree = GetSingleChild (intoClauseTree);
-			FileOptions intoFile = ParseFile (fileTree, true);			
+			FileOptionsIntoClause intoFile = ParseFileIntoClause (fileTree);			
 			
 			return intoFile;
 		}
@@ -987,13 +987,132 @@ namespace FxGqlLib
 			return result;
 		}
 
-		FileOptions ParseFile (CommonTree fileProvider, bool intoClause)
+		FileOptionsFromClause ParseFileFromClause (CommonTree fileProvider)
 		{
-			AssertAntlrToken (fileProvider, "T_FILE", 1, -1);
-			
-			AntlrTreeEnumerator enumerator = new AntlrTreeEnumerator (fileProvider);
+			FileOptionsFromClause fileOptions = new FileOptionsFromClause ();
 
-			FileOptions fileOptions = new FileOptions ();
+			List<Tuple<string, string, ITree>> options = ParseFileCommon (
+				fileProvider,
+				fileOptions
+			);
+
+			foreach (Tuple<string, string, ITree> option in options) {
+				string key = option.Item1;
+				string value = option.Item2;
+				ITree tree = option.Item3;
+				switch (key.ToUpperInvariant ()) {
+				case "FILEORDER":
+					FileOptionsFromClause.FileOrderEnum order;
+					if (!Enum.TryParse<FileOptionsFromClause.FileOrderEnum> (
+						value,
+						true,
+						out order
+					))
+						throw new ParserException (
+									string.Format ("Unknown file option FileOrder={0}", value),
+									tree
+						);
+					fileOptions.FileOrder = order;
+					break;
+				case "RECURSE":
+					fileOptions.Recurse = true;
+					break;
+				case "TITLELINE":
+					fileOptions.TitleLine = true;
+					break;
+				case "COLUMNS":
+					fileOptions.ColumnsRegex = ParseString (value);
+					break;
+				case "SKIP":
+					fileOptions.Skip = long.Parse (value);
+					break;
+				default:
+					throw new ParserException (
+								string.Format ("Unknown file option '{0}'", option),
+								tree
+					);  
+				}
+			}
+
+			return fileOptions;
+		}
+
+		FileOptionsIntoClause ParseFileIntoClause (CommonTree fileProvider)
+		{
+			FileOptionsIntoClause fileOptions = new FileOptionsIntoClause ();
+
+			List<Tuple<string, string, ITree>> options = ParseFileCommon (
+				fileProvider,
+				fileOptions
+			);
+
+			foreach (Tuple<string, string, ITree> option in options) {
+				string key = option.Item1;
+				string value = option.Item2;
+				ITree tree = option.Item3;
+				switch (key.ToUpperInvariant ()) {
+				case "LINEEND":
+					FileOptionsIntoClause.NewLineEnum lineEnd;
+					if (!Enum.TryParse<FileOptionsIntoClause.NewLineEnum> (
+						value,
+						true,
+						out lineEnd
+					))
+						throw new ParserException (
+									string.Format ("Unknown file option LineEnd={0}", value),
+									tree
+						);
+					fileOptions.NewLine = lineEnd;
+					break;
+				case "APPEND":
+					fileOptions.Append = true;
+					break;
+				case "OVERWRITE":
+					fileOptions.Overwrite = true;
+					break;
+				default:
+					throw new ParserException (
+								string.Format ("Unknown file option '{0}'", option),
+								tree
+					);  
+				}
+			}
+
+			return fileOptions;
+		}
+
+		FileOptions ParseFileUse (CommonTree commonTree)
+		{
+			FileOptionsIntoClause fileOptions = new FileOptionsIntoClause ();
+
+			List<Tuple<string, string, ITree>> options = ParseFileCommon (
+				commonTree,
+				fileOptions
+			);
+
+			foreach (Tuple<string, string, ITree> option in options) {
+				string key = option.Item1;
+				//string value = option.Item2;
+				ITree tree = option.Item3;
+				switch (key.ToUpperInvariant ()) {
+				default:
+					throw new ParserException (
+								string.Format ("Unknown file option '{0}'", option),
+								tree
+					);  
+				}
+			}
+
+			return fileOptions;
+		}
+
+		List<Tuple<string, string, ITree>> ParseFileCommon (CommonTree commonTree, FileOptions fileOptions)
+		{
+			AssertAntlrToken (commonTree, "T_FILE", 1, -1);
+			
+			AntlrTreeEnumerator enumerator = new AntlrTreeEnumerator (commonTree);
+
+			List<Tuple<string, string, ITree>> options = new List<Tuple<string, string, ITree>> ();
 			string fileNameText = enumerator.Current.Text;
 			if (fileNameText.StartsWith ("[")) {
 				fileOptions.FileName = fileNameText.Substring (1, fileNameText.Length - 2);
@@ -1006,69 +1125,18 @@ namespace FxGqlLib
 					string option;
 					string value;
 					ParseFileOption ((CommonTree)enumerator.Current, out option, out value);
-					if (intoClause) {
-						switch (option.ToUpperInvariant ()) {
-						case "LINEEND":
-							FileOptions.NewLineEnum lineEnd;
-							if (!Enum.TryParse<FileOptions.NewLineEnum> (value, true, out lineEnd))
-								throw new ParserException (
-									string.Format ("Unknown file option LineEnd={0}", value),
-									enumerator.Current
-								);
-							fileOptions.NewLine = lineEnd;
-							break;
-						case "APPEND":
-							fileOptions.Append = true;
-							break;
-						case "OVERWRITE":
-							fileOptions.Overwrite = true;
-							break;
-						default:
-							throw new ParserException (
-								string.Format ("Unknown file option '{0}'", option),
-								enumerator.Current
-							);  
-						}
-					} else {
-						switch (option.ToUpperInvariant ()) {
-						case "FILEORDER":
-							FileOptions.FileOrderEnum order;
-							if (!Enum.TryParse<FileOptions.FileOrderEnum> (value, true, out order))
-								throw new ParserException (
-									string.Format ("Unknown file option FileOrder={0}", value),
-									enumerator.Current
-								);
-							fileOptions.FileOrder = order;
-							break;
-						case "RECURSE":
-							fileOptions.Recurse = true;
-							break;
-						case "TITLELINE":
-							fileOptions.TitleLine = true;
-							break;
-						case "COLUMNS":
-							fileOptions.ColumnsRegex = ParseString (value);
-							break;
-						case "SKIP":
-							fileOptions.Skip = long.Parse (value);
-							break;
-						default:
-							throw new ParserException (
-								string.Format ("Unknown file option '{0}'", option),
-								enumerator.Current
-							);  
-						}
+
+					switch (option.ToUpperInvariant ()) {
+					default:
+						options.Add (Tuple.Create (option, value, enumerator.Current));
+						break;
 					}
-					
+
 					enumerator.MoveNext ();
 				}
-			} else
-				throw new ParserException (
-					"Expected '[' or '\'' for file specification",
-					enumerator.Current
-				);
-			
-			return fileOptions;
+			}
+
+			return options;
 		}
 
 		void ParseFileOption (CommonTree fileOptionTree, out string option, out string value)
@@ -1077,14 +1145,14 @@ namespace FxGqlLib
 			
 			option = fileOptionTree.Children [0].Text;
 			if (fileOptionTree.Children.Count > 1)
-				value = ParseStringValue(fileOptionTree.Children [1]);
+				value = ParseStringValue (fileOptionTree.Children [1]);
 			else
 				value = null;
 		}
 
 		IProvider ParseFileProvider (CommonTree fileProvider)
 		{
-			FileOptions fileOptions = ParseFile (fileProvider, false);
+			FileOptionsFromClause fileOptions = ParseFileFromClause (fileProvider);
 			
 			IProvider provider = FileProviderFactory.Get (fileOptions, stringComparer);
 			
@@ -1750,7 +1818,7 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (selectTree, "T_USE", 1);
 
-			return ParseFile ((CommonTree)selectTree.Children [0], false);
+			return ParseFileUse ((CommonTree)selectTree.Children [0]);
 		}
 	}
 }
