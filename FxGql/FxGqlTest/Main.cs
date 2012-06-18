@@ -10,11 +10,20 @@ namespace FxGqlTest
 
 			bool result = true;
 #if DEBUG
-			gqlSamplesTest.RunDevelop ();
-			//gqlSamplesTest.Run ();
+			result = gqlSamplesTest.RunDevelop ();
+			//result = gqlSamplesTest.Run ();
 #else
 			result = gqlSamplesTest.Run ();
 #endif
+			var oldColor = Console.ForegroundColor;
+			if (result) {
+				Console.ForegroundColor = ConsoleColor.Green;
+				Console.WriteLine ("***** SUCCEEDED *****");
+			} else {
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine ("***** FAILED *****");
+			}
+			Console.ForegroundColor = oldColor;
 
 			return result ? 0 : 1;
 		}

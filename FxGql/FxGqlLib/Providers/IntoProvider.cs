@@ -77,7 +77,7 @@ namespace FxGqlLib
 						zipOutputStream.PutNextEntry (zipEntry);
 						
 						DumpProviderToStream (provider, zipOutputStream, this.gqlQueryState,
-						                      "\t", GetNewLine (fileOptions.NewLine));
+						                      "\t", GetNewLine (fileOptions.NewLine), fileOptions.Heading);
 					}
 				}
 			} else {
@@ -90,7 +90,7 @@ namespace FxGqlLib
 					fileMode = FileMode.CreateNew;
 				using (FileStream outputStream = new FileStream(fileOptions.FileName, fileMode, FileAccess.Write, FileShare.None)) {
 					DumpProviderToStream (provider, outputStream, this.gqlQueryState,
-					                      "\t", GetNewLine (fileOptions.NewLine));
+					                      "\t", GetNewLine (fileOptions.NewLine), fileOptions.Heading);
 				}
 			}
 
@@ -117,7 +117,8 @@ namespace FxGqlLib
 		}
 		#endregion
 
-		public static void DumpProviderToStream (IProvider provider, Stream outputStream, GqlQueryState gqlQueryState, string columnDelimiter, string recordDelimiter)
+		public static void DumpProviderToStream (IProvider provider, Stream outputStream, GqlQueryState gqlQueryState, 
+		                                         string columnDelimiter, string recordDelimiter, GqlEngineState.HeadingEnum heading)
 		{
 			using (TextWriter writer = new StreamWriter(outputStream, System.Text.Encoding.GetEncoding (0))) {
 				writer.NewLine = recordDelimiter;
@@ -127,7 +128,7 @@ namespace FxGqlLib
 					writer,
 					gqlQueryState,
 					columnDelimiter,
-					GqlEngineState.HeadingEnum.Off
+					heading
 				);
 			}
 		}

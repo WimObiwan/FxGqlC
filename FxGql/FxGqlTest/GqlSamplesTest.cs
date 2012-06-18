@@ -933,7 +933,38 @@ namespace FxGqlTest
 				"2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
 			File.Delete ("test.txt");
 			engine.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
-			
+			TestGql ("select [FieldA], [FieldB] into ['test.txt' -overwrite -lineend=unix] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=on])",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile (
+				"test.txt",
+				"92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7"
+			);
+			TestGql ("select [FieldA], [FieldB] into ['test.txt' -overwrite -lineend=unix -heading=off] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=on])",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile (
+				"test.txt",
+				"92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7"
+			);
+			TestGql ("select * from [test.txt]",
+			         "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7");
+			TestGql ("select [FieldA], [FieldB] into ['test.txt' -overwrite -lineend=unix -heading=on] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=on])",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile (
+				"test.txt",
+				"020453668AEBE2F8C3E1F540B6647B1BFB154FBEEF4C0D6546C16561B34B05D5"
+			);
+			TestGql ("select * from ['test.txt' -heading=on]",
+			         "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7");
+			TestGql ("select [FieldA], [FieldB] into ['test.txt' -overwrite -lineend=unix -heading=onwithrule] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=on])",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile (
+				"test.txt",
+				"559B790700A2A0C0FBCCE4B1BDBCEE9571F51DD76EF57B5D351B9CFB0B46A88B"
+			);
+			TestGql ("select * from ['test.txt' -heading=onwithrule]",
+			         "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7");
+			File.Delete ("test.txt");
+
 			// Group By
 			TestGql ("select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Tournament]",
 				"BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
@@ -988,17 +1019,14 @@ namespace FxGqlTest
 			return failed == 0;
 		}
 		 
-		public void RunDevelop ()
+		public bool RunDevelop ()
 		{
-			// TODO: output columns as column headings
 			// TODO: create "view" or "function"
 			// TODO: skip clause (select top 10 skip 2 from ...
 
-			/*
-			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv'])");
-			*/
-
 			// TODO:
+
+			return failed == 0;
 		}
 
 	}

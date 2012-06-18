@@ -50,6 +50,8 @@ namespace FxGqlLib
 		public bool Append { get; set; }
 
 		public bool Overwrite { get; set; }
+
+		public GqlEngineState.HeadingEnum Heading { get; set; }
 	}
 	
 	static class FileProviderFactory

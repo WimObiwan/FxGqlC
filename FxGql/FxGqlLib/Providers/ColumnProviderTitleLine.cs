@@ -6,13 +6,15 @@ namespace FxGqlLib
 	public class ColumnProviderTitleLine : IProvider
 	{
 		IProvider provider;
+		bool rule;
 		char[] separators;
 		ProviderRecord record;
 		string[] columnNameList;
 		
-		public ColumnProviderTitleLine (IProvider provider, char[] separators)
+		public ColumnProviderTitleLine (IProvider provider, bool rule, char[] separators)
 		{
 			this.provider = provider;
+			this.rule = rule;
 			this.separators = separators;
 		}
 
@@ -42,8 +44,11 @@ namespace FxGqlLib
 			if (provider.GetNextRecord ()) {
 				string line = provider.Record.Columns [0].ToString ();
 				columnNameList = line.Split (separators, StringSplitOptions.None);
+
+				if (rule)
+					provider.GetNextRecord ();
 			}
-			
+
 			record = new ProviderRecord ();
 			record.ColumnTitles = columnNameList;
 		}

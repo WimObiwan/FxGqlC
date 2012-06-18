@@ -1003,7 +1003,11 @@ namespace FxGqlLib
 				switch (key.ToUpperInvariant ()) {
 				case "FILEORDER":
 					FileOptionsFromClause.FileOrderEnum order;
-					if (!Enum.TryParse<FileOptionsFromClause.FileOrderEnum> (value, true, out order))
+					if (!Enum.TryParse<FileOptionsFromClause.FileOrderEnum> (
+						value,
+						true,
+						out order
+					))
 						throw new ParserException (
 									string.Format ("Unknown file option FileOrder={0}", value),
 									tree
@@ -1055,7 +1059,11 @@ namespace FxGqlLib
 				switch (key.ToUpperInvariant ()) {
 				case "LINEEND":
 					FileOptionsIntoClause.NewLineEnum lineEnd;
-					if (!Enum.TryParse<FileOptionsIntoClause.NewLineEnum> (value, true, out lineEnd))
+					if (!Enum.TryParse<FileOptionsIntoClause.NewLineEnum> (
+						value,
+						true,
+						out lineEnd
+					))
 						throw new ParserException (
 									string.Format ("Unknown file option LineEnd={0}", value),
 									tree
@@ -1067,6 +1075,15 @@ namespace FxGqlLib
 					break;
 				case "OVERWRITE":
 					fileOptions.Overwrite = true;
+					break;
+				case "HEADING":
+					GqlEngineState.HeadingEnum heading;
+					if (!Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading))
+						throw new ParserException (
+									string.Format ("Unknown file option Heading={0}", value),
+									tree
+						);
+					fileOptions.Heading = heading;
 					break;
 				default:
 					throw new ParserException (
@@ -1154,8 +1171,9 @@ namespace FxGqlLib
 			
 			IProvider provider = FileProviderFactory.Get (fileOptions, stringComparer);
 			
-			if (fileOptions.Heading == GqlEngineState.HeadingEnum.On) {
-				provider = new ColumnProviderTitleLine (provider, new char[] {'\t'});
+			if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
+				provider = new ColumnProviderTitleLine (provider, fileOptions.Heading == GqlEngineState.HeadingEnum.OnWithRule,
+				                                        new char[] {'\t'});
 			} else if (fileOptions.ColumnsRegex != null) {
 				provider = new ColumnProviderRegex (
 					provider,
