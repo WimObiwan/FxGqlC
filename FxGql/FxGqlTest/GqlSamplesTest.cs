@@ -1025,7 +1025,11 @@ namespace FxGqlTest
 			// TODO: skip clause (select top 10 skip 2 from ...
 
 			// TODO:
-
+			TestGql ("declare @var1 as string, @var2 int;"
+			         //+ "set @var1 = '<this is a test>'; set @var2 = 17;"
+			         //+ "select @var2, @var1"
+			         ); 
+				//"A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
 			return failed == 0;
 		}
 

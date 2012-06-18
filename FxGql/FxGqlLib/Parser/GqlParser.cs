@@ -216,6 +216,8 @@ namespace FxGqlLib
 				return new GqlQueryCommand (ParseCommandSelect (commandTree));
 			case "T_USE":
 				return new UseCommand (ParseCommandUse (commandTree));
+			case "T_DECLARE":
+				return new DeclareCommand (ParseCommandDeclare (commandTree));
 			default:
 				throw new UnexpectedTokenAntlrException (commandTree);
 			}
@@ -961,21 +963,18 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (convertTree, "T_CONVERT", 2);
 			
-			string dataType = convertTree.Children [0].Text;
+			Type dataType = ParseDataType ((CommonTree)convertTree.Children [0]);
 			IExpression expr = ParseExpression (
 				provider,
 				(CommonTree)convertTree.Children [1]
 			);
 			
 			IExpression result;
-			switch (dataType.ToUpperInvariant ()) {
-			case "INT":
+			if (dataType == typeof(long)) {
 				result = new ConvertExpression<long> (expr);
-				break;
-			case "STRING":
+			} else if (dataType == typeof(string)) {
 				result = new ConvertToStringExpression (expr);
-				break;
-			default:
+			} else {	
 				throw new ParserException (
 					string.Format (
 					"Datatype {0} not supported in CONVERT function.",
@@ -1835,6 +1834,41 @@ namespace FxGqlLib
 			AssertAntlrToken (selectTree, "T_USE", 1);
 
 			return ParseFileUse ((CommonTree)selectTree.Children [0]);
+		}
+
+		IList<Tuple<string, Type>> ParseCommandDeclare (CommonTree declareTree)
+		{
+			AssertAntlrToken (declareTree, "T_DECLARE", 1, -1);
+
+			List<Tuple<string, Type>> declarations = new List<Tuple<string, Type>> ();
+			foreach (CommonTree declarationTree in declareTree.Children) {
+				declarations.Add (ParseDeclaration (declarationTree));
+			}
+
+			return declarations;
+		}
+
+		Tuple<string, Type> ParseDeclaration (CommonTree declarationTree)
+		{
+			AssertAntlrToken (declarationTree, "T_DECLARATION", 2, 2);
+
+			string variable = declarationTree.Children [0].Text;
+			Type datatype = ParseDataType ((CommonTree)declarationTree.Children [1]);
+
+			return Tuple.Create(variable, datatype);
+		}
+
+		Type ParseDataType (CommonTree dataTypeTree)
+		{
+			string text = dataTypeTree.Text;
+			switch (text.ToUpperInvariant ()) {
+			case "STRING":
+				return typeof(string);
+			case "INT":
+				return typeof(long);
+			default:
+				throw new ParserException (string.Format ("Unknown datatype '{0}'", text), dataTypeTree);
+			}
 		}
 	}
 }

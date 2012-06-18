@@ -98,6 +98,7 @@
     <Compile Include="Commands\UseCommand.cs" />
     <Compile Include="Providers\ColumnProviderRegex.cs" />
     <Compile Include="Providers\ColumnProviderTitleLine.cs" />
+    <Compile Include="Commands\DeclareCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

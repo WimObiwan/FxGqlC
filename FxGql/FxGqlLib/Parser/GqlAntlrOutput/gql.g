@@ -66,6 +66,10 @@ tokens
 	T_CASE_WHEN;
 	T_CASE_ELSE;
 	T_USE;
+	T_DECLARE;
+	T_DECLARATION;
+	T_SET_VARIABLE;
+	T_VARIABLE;
 }
 
 @parser::namespace { FxGqlLib }
@@ -92,13 +96,15 @@ parse
 	;
 	
 commands 
-	: command (WS? (';' WS?)? command)*
+	: command (WS? (';' WS?)? command)* (WS? ';')?
 	-> command+
 	;
 	
 command
 	: select_command
 	| use_command
+	| declare_command
+	| set_command
 	;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -191,6 +197,27 @@ orderby_direction
 
 use_command
 	: USE WS file -> ^(T_USE file)
+	;
+
+///////////////////////////////////////////////////////////////////////////////
+// DECLARE COMMAND
+
+declare_command
+	: DECLARE WS declaration (WS? ',' WS? declaration)*
+	-> ^(T_DECLARE declaration+)
+	;
+	
+declaration
+	: variable WS (AS WS)? datatype
+	-> ^(T_DECLARATION variable datatype)
+	;
+
+///////////////////////////////////////////////////////////////////////////////
+// DECLARE COMMAND
+
+set_command
+	: SET WS variable WS? '=' WS? expression
+	-> ^(T_SET_VARIABLE variable expression)
 	;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -299,6 +326,7 @@ expression_atom
 	: NUMBER -> ^(T_INTEGER NUMBER)
 	| STRING -> ^(T_STRING STRING)
 	| SYSTEMVAR -> ^(T_SYSTEMVAR SYSTEMVAR)
+	| VARIABLE -> ^(T_VARIABLE VARIABLE)
 	| '(' expression ')' -> expression
 	| functioncall_or_column
 	| conversion
@@ -315,7 +343,15 @@ functioncall_or_column
 	
 conversion
 	: CONVERT WS? '(' WS? TOKEN WS? ',' WS? expression WS? ')' -> ^(T_CONVERT TOKEN expression)
-	| CAST WS? '(' WS? expression WS AS WS TOKEN WS? ')' -> ^(T_CONVERT TOKEN expression)
+	| CAST WS? '(' WS? expression WS AS WS datatype WS? ')' -> ^(T_CONVERT TOKEN expression)
+	;
+	
+datatype
+	: TOKEN
+	;
+	
+variable
+	: VARIABLE
 	;
 	
 case
@@ -375,6 +411,8 @@ THEN	: T H E N;
 ELSE	: E L S E;
 END	: E N D;
 USE     : U S E;
+DECLARE	: D E C L A R E;
+SET     : S E T;
 
 TOKEN
 	: ('A'..'Z' | 'a'..'z' | '_') ('A'..'Z' | 'a'..'z' | '_' | '0'..'9')*
@@ -384,6 +422,10 @@ SYSTEMVAR
 	: '$' TOKEN
 	;
 	
+VARIABLE
+	: '@' TOKEN
+	;
+
 NUMBER
 	: DIGIT+
 	;

@@ -17,10 +17,10 @@ namespace FxGqlTest
 #endif
 			var oldColor = Console.ForegroundColor;
 			if (result) {
-				Console.ForegroundColor = ConsoleColor.Green;
+				Console.ForegroundColor = ConsoleColor.DarkGreen;
 				Console.WriteLine ("***** SUCCEEDED *****");
 			} else {
-				Console.ForegroundColor = ConsoleColor.Red;
+				Console.ForegroundColor = ConsoleColor.DarkRed;
 				Console.WriteLine ("***** FAILED *****");
 			}
 			Console.ForegroundColor = oldColor;
