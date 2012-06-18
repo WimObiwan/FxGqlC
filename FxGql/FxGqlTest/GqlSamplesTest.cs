@@ -689,7 +689,8 @@ namespace FxGqlTest
 			// TODO: skip clause (select top 10 skip 2 from ...
 			
 			// TODO:
-
+			TestGql ("select * into ['test.zip' -lineend=dos -overwrite] from ['SampleFiles/AirportCodes.csv']");
+			TestGql ("select * from [test.zip]");
 		}
 
 	}

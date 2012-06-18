@@ -78,12 +78,6 @@ namespace FxGqlLib
 						
 						DumpProviderToStream (provider, zipOutputStream, this.gqlQueryState,
 						                      "\t", GetNewLine (fileOptions.NewLine));
-
-						zipOutputStream.CloseEntry ();
-						zipOutputStream.IsStreamOwner = false;
-						zipOutputStream.Finish ();
-						zipOutputStream.Flush ();
-						zipOutputStream.Close ();
 					}
 				}
 			} else {
@@ -125,28 +119,30 @@ namespace FxGqlLib
 
 		public static void DumpProviderToStream (IProvider provider, Stream outputStream, GqlQueryState gqlQueryState, string columnDelimiter, string recordDelimiter)
 		{
-			using (SelectProvider selectProvider = new SelectProvider (
-							new List<IExpression> () { new FormatColumnListFunction (columnDelimiter) },
-							provider)) {
+			using (TextWriter writer = new StreamWriter(outputStream, System.Text.Encoding.GetEncoding (0))) {
+				writer.NewLine = recordDelimiter;
 
-				selectProvider.Initialize (gqlQueryState);
-
-				using (ProviderToStream stream = new ProviderToStream(selectProvider, System.Text.Encoding.GetEncoding (0), recordDelimiter)) {
-					using (BufferedStream bufferedStream = new BufferedStream(stream)) {		
-						byte[] buffer = new byte[4096];
-						int size;
-						while ((size = stream.Read (buffer, 0, buffer.Length)) > 0) {
-							outputStream.Write (buffer, 0, size);
-						}
-					}
-				}
-
-				selectProvider.Uninitialize ();
+				DumpProviderToStream(provider, writer, gqlQueryState, columnDelimiter);
 			}
 		}
 		
+		public static void DumpProviderToStream (IProvider provider, TextWriter outputWriter, GqlQueryState gqlQueryState, string columnDelimiter)
+		{
+			using (SelectProvider selectProvider = new SelectProvider (
+								new List<IExpression> () { new FormatColumnListFunction (columnDelimiter) },
+								provider)) {
+	
+				selectProvider.Initialize (gqlQueryState);
+	
+				while (selectProvider.GetNextRecord()) {
+					outputWriter.WriteLine (selectProvider.Record.Columns [0].ToString ());
+				}
+
+				selectProvider.Uninitialize ();
+			}	
+		}
 		
-		class ProviderToStream : Stream
+		/*class ProviderToStream : Stream
 		{
 			IProvider provider;
 			System.Text.Encoding encoding;
@@ -262,7 +258,7 @@ namespace FxGqlLib
 				}
 			}
 			#endregion
-		}
+		}*/
 	}
 }
 

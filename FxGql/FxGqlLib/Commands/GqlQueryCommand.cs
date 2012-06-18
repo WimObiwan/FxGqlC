@@ -17,6 +17,11 @@ namespace FxGqlLib
 		#region IGqlCommand implementation
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
+//			GqlQueryState gqlQueryState = new GqlQueryState (gqlEngineState.ExecutionState);
+//			gqlQueryState.CurrentDirectory = gqlEngineState.CurrentDirectory;
+//
+//			IntoProvider.DumpProviderToStream (gqlQuery, outputStream, gqlQueryState, "\t", Environment.NewLine);
+
 			FormatColumnListFunction formatColumnListFunction = new  FormatColumnListFunction ("\t");
 			using (SelectProvider provider = new SelectProvider (
 					new List<IExpression> () { formatColumnListFunction },
@@ -27,20 +32,6 @@ namespace FxGqlLib
 					gqlQueryState.CurrentDirectory = gqlEngineState.CurrentDirectory;
 					provider.Initialize (gqlQueryState);
 
-					/*
-					{
-						string[] columnTitles = gqlQuery.GetColumnTitles ();
-						string text = formatColumnListFunction.Evaluate (columnTitles);
-						outputStream.WriteLine (text);
-						if (logStream != null)
-							logStream.WriteLine (text);
-
-						text = formatColumnListFunction.Evaluate (columnTitles.Select(p => new string('=', p.Length)).ToArray());
-						outputStream.WriteLine (text);
-						if (logStream != null)
-							logStream.WriteLine (text);
-					}
-					*/
 
 					while (provider.GetNextRecord()) {
 						string text = provider.Record.Columns [0].ToString ();
