@@ -101,6 +101,8 @@
     <Compile Include="Commands\DeclareCommand.cs" />
     <Compile Include="Commands\SetVariableCommand.cs" />
     <Compile Include="Commands\Variable.cs" />
+    <Compile Include="Expressions\VariableExpression.cs" />
+    <Compile Include="Expressions\SubqueryExpression.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -21,7 +21,9 @@ namespace FxGqlLib
             if (!gqlEngineState.Variables.TryGetValue (this.variable, out variable))
                 throw new InvalidOperationException (string.Format ("Variable '{0}' not declared.", this.variable));
 
-            variable.Value = this.expression.EvaluateAsComparable (null);
+            GqlQueryState gqlQueryState = new GqlQueryState (gqlEngineState.ExecutionState, gqlEngineState.Variables);
+            gqlQueryState.CurrentDirectory = gqlEngineState.CurrentDirectory;
+            variable.Value = this.expression.EvaluateAsComparable (gqlQueryState);
         }
         #endregion
     }

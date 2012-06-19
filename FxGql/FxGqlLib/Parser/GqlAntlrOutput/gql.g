@@ -145,12 +145,17 @@ from_clause
 from_clause_item
 	: STRING -> ^(T_FILE STRING)
 	| file
-	| '(' WS? select_command WS? ')' -> ^(T_SUBQUERY select_command)
+	| subquery
+	;
+	
+subquery
+	: '(' WS? select_command WS? ')' -> ^(T_SUBQUERY select_command)
 	;
 
 file
 	: '[' WS? STRING (WS file_option)* WS? ']' -> ^(T_FILE STRING file_option*) 
-	| SIMPLE_FILE -> ^(T_FILE SIMPLE_FILE);
+	| SIMPLE_FILE -> ^(T_FILE SIMPLE_FILE)
+	;
 
 file_option
 	: '-' file_option_name ( WS? '=' WS? file_option_value)? -> ^(T_FILEOPTION file_option_name file_option_value?)
@@ -327,6 +332,7 @@ expression_atom
 	| STRING -> ^(T_STRING STRING)
 	| SYSTEMVAR -> ^(T_SYSTEMVAR SYSTEMVAR)
 	| VARIABLE -> ^(T_VARIABLE VARIABLE)
+	| subquery
 	| '(' expression ')' -> expression
 	| functioncall_or_column
 	| conversion

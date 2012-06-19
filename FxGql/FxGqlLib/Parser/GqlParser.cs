@@ -112,6 +112,8 @@ namespace FxGqlLib
         readonly bool caseInsensitive;
         readonly StringComparer stringComparer;
         readonly StringComparison stringComparison;
+
+        Dictionary<string, Type> variableTypes = new Dictionary<string, Type> ();
         
         public GqlParser (string command)
             : this(command, CultureInfo.InvariantCulture, true)
@@ -217,7 +219,13 @@ namespace FxGqlLib
             case "T_USE":
                 return new UseCommand (ParseCommandUse (commandTree));
             case "T_DECLARE":
-                return new DeclareCommand (ParseCommandDeclare (commandTree));
+                {
+                    var variableDeclaration = ParseCommandDeclare (commandTree);
+                    foreach (var variable in variableDeclaration) {
+                        variableTypes [variable.Item1] = variable.Item2;
+                    }
+                    return new DeclareCommand (variableDeclaration);
+                }
             case "T_SET_VARIABLE":
                 return new SetVariableCommand (ParseCommandSetVariable (commandTree));
             default:
@@ -540,6 +548,12 @@ namespace FxGqlLib
                 break;
             case "T_CASE":
                 expression = ParseExpressionCase (provider, expressionTree);
+                break;
+            case "T_VARIABLE":
+                expression = ParseExpressionVariable (expressionTree);
+                break;
+            case "T_SUBQUERY":
+                expression = ParseExpressionSubquery (expressionTree);
                 break;
             default:
                 throw new UnexpectedTokenAntlrException (expressionTree);
@@ -1705,10 +1719,13 @@ namespace FxGqlLib
         
         IExpression ParseExpressionColumn (IProvider provider, CommonTree expressionTree)
         {
-            
             AssertAntlrToken (expressionTree, "T_COLUMN", 1, 1);
-            
+
             string column = ParseColumnName ((CommonTree)expressionTree.Children [0]);
+
+            if (provider == null)
+                throw new ParserException (string.Format ("Columnname '{0}' not allowed outside the context of a query", column), expressionTree);
+            
             return new ColumnExpression (provider, column);
         }
         
@@ -1831,6 +1848,19 @@ namespace FxGqlLib
             return new CaseExpression (whenItems, elseResult);
         }
 
+        IExpression ParseExpressionVariable (CommonTree expressionTree)
+        {
+            AssertAntlrToken (expressionTree, "T_VARIABLE", 1, 1);
+
+            string variable = expressionTree.Children [0].Text;
+
+            Type type;
+            if (!variableTypes.TryGetValue (variable, out type))
+                throw new ParserException (string.Format ("Variable {0} not declared", variable), expressionTree);
+
+            return new VariableExpression (variable, type);
+        }
+
         FileOptions ParseCommandUse (CommonTree selectTree)
         {
             AssertAntlrToken (selectTree, "T_USE", 1);
@@ -1881,6 +1911,13 @@ namespace FxGqlLib
             IExpression expression = ParseExpression (null, (CommonTree)setVariableTree.Children [1]);
 
             return Tuple.Create (variable, expression);
+        }
+
+        IExpression ParseExpressionSubquery (CommonTree subqueryTree)
+        {
+            IProvider provider = ParseSubquery (subqueryTree);
+
+            return new SubqueryExpression (provider);
         }
     }
 }
