@@ -39,12 +39,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\FxGqlLib\FxGqlLib.csproj">
-      <Project>{86880209-911D-45B0-8544-80CD33346BA4}</Project>
-      <Name>FxGqlLib</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="SampleFiles\IP2Country.csv.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -69,5 +63,11 @@
     <None Include="SampleFiles\Tennis-ATP-2011.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FxGqlLib\FxGqlLib.csproj">
+      <Project>{86880209-911D-45B0-8544-80CD33346BA4}</Project>
+      <Name>FxGqlLib</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
