@@ -70,6 +70,8 @@ tokens
 	T_DECLARATION;
 	T_SET_VARIABLE;
 	T_VARIABLE;
+	T_CREATE_VIEW;
+	T_VIEW_NAME;
 }
 
 @parser::namespace { FxGqlLib }
@@ -105,6 +107,7 @@ command
 	| use_command
 	| declare_command
 	| set_command
+	| create_view_command
 	;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -146,6 +149,7 @@ from_clause_item
 	: STRING -> ^(T_FILE STRING)
 	| file
 	| subquery
+	| view_name
 	;
 	
 subquery
@@ -216,6 +220,19 @@ declaration
 	: variable WS (AS WS)? datatype
 	-> ^(T_DECLARATION variable datatype)
 	;
+
+///////////////////////////////////////////////////////////////////////////////
+// CREATE VIEW COMMAND
+
+create_view_command
+	: CREATE WS VIEW WS view_name WS AS WS select_command
+	-> ^(T_CREATE_VIEW view_name select_command)
+	;
+	
+view_name
+	: TOKEN -> ^(T_VIEW_NAME TOKEN)
+	;
+	
 
 ///////////////////////////////////////////////////////////////////////////////
 // DECLARE COMMAND
@@ -419,6 +436,8 @@ END	: E N D;
 USE     : U S E;
 DECLARE	: D E C L A R E;
 SET     : S E T;
+CREATE	: C R E A T E;
+VIEW	: V I E W;
 
 TOKEN
 	: ('A'..'Z' | 'a'..'z' | '_') ('A'..'Z' | 'a'..'z' | '_' | '0'..'9')*

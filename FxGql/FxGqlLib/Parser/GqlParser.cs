@@ -114,6 +114,7 @@ namespace FxGqlLib
         readonly StringComparison stringComparison;
 
         Dictionary<string, Type> variableTypes = new Dictionary<string, Type> ();
+        Dictionary<string, IProvider> views = new Dictionary<string, IProvider> ();
         
         public GqlParser (string command)
             : this(command, CultureInfo.InvariantCulture, true)
@@ -228,6 +229,12 @@ namespace FxGqlLib
                 }
             case "T_SET_VARIABLE":
                 return new SetVariableCommand (ParseCommandSetVariable (commandTree));
+            case "T_CREATE_VIEW":
+                var createView = ParseCommandCreateView (commandTree);
+                string view = createView.Item1;
+                IProvider provider = createView.Item2;
+                views.Add (view, provider);
+                return new DummyCommand ();
             default:
                 throw new UnexpectedTokenAntlrException (commandTree);
             }
@@ -434,6 +441,9 @@ namespace FxGqlLib
                     break;
                 case "T_SUBQUERY":
                     provider [i] = ParseSubquery (inputProviderTree);
+                    break;
+                case "T_VIEW_NAME":
+                    provider [i] = ParseViewProvider (inputProviderTree);
                     break;
                 default:
                     throw new UnexpectedTokenAntlrException (inputProviderTree);
@@ -1208,6 +1218,18 @@ namespace FxGqlLib
             return ParseCommandSelect (selectTree);
         }
         
+        IProvider ParseViewProvider (CommonTree tree)
+        {
+            AssertAntlrToken (tree, "T_VIEW_NAME", 1, 1);
+
+            string viewName = tree.Children [0].Text;
+            IProvider provider;
+            if (!views.TryGetValue (viewName, out provider))
+                throw new ParserException (string.Format ("View '{0}' is not declared", viewName), tree);
+
+            return provider;
+        }
+        
         IExpression ParseExpressionOperatorUnary (IProvider provider, CommonTree operatorTree)
         {
             AssertAntlrToken (operatorTree, "T_OP_UNARY", 2);
@@ -1918,6 +1940,19 @@ namespace FxGqlLib
             IProvider provider = ParseSubquery (subqueryTree);
 
             return new SubqueryExpression (provider);
+        }
+
+        Tuple<string, IProvider> ParseCommandCreateView (CommonTree tree)
+        {
+            AssertAntlrToken (tree, "T_CREATE_VIEW", 2, 2);
+
+            CommonTree viewNameTree = (CommonTree)tree.Children [0];
+            AssertAntlrToken (viewNameTree, "T_VIEW_NAME", 1, 1);
+
+            string name = viewNameTree.Children [0].Text;
+            IProvider provider = ParseCommandSelect ((CommonTree)tree.Children [1]);
+
+            return Tuple.Create (name, provider);
         }
     }
 }

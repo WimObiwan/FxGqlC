@@ -1037,6 +1037,9 @@ namespace FxGqlTest
 
             // TODO:
 
+            TestGql ("CREATE VIEW MyView AS SELECT 17, '<this is a test>'; SELECT * FROM MyView");
+
+
             return failed == 0;
         }
 
