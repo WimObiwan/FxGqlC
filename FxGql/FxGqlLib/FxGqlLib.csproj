@@ -99,6 +99,8 @@
     <Compile Include="Providers\ColumnProviderRegex.cs" />
     <Compile Include="Providers\ColumnProviderTitleLine.cs" />
     <Compile Include="Commands\DeclareCommand.cs" />
+    <Compile Include="Commands\SetVariableCommand.cs" />
+    <Compile Include="Commands\Variable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -115,7 +117,7 @@
     <Folder Include="Functions\" />
     <Folder Include="Operators\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="..\..\FxGql\" />
     <Folder Include="Commands\" />
+    <Folder Include="..\" />
   </ItemGroup>
 </Project>
