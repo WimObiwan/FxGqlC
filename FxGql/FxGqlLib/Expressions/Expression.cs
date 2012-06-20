@@ -6,20 +6,20 @@ namespace FxGqlLib
 {
 	public class AggregationState
 	{
-		static ObjectIDGenerator objectIDGenerator = new ObjectIDGenerator();
+		static ObjectIDGenerator objectIDGenerator = new ObjectIDGenerator ();
 		
-		private static long GetId(object obj)
+		private static long GetId (object obj)
 		{
 			bool notused;
-			return objectIDGenerator.GetId(obj, out notused);
+			return objectIDGenerator.GetId (obj, out notused);
 		}
 		
-		Dictionary<long, object> state = new Dictionary<long, object>();
+		Dictionary<long, object> state = new Dictionary<long, object> ();
 		
-		public bool GetState<T>(object obj, out T val)
+		public bool GetState<T> (object obj, out T val)
 		{
 			object objVal;
-			bool result = state.TryGetValue(GetId(obj), out objVal);
+			bool result = state.TryGetValue (GetId (obj), out objVal);
 			if (result)
 				val = (T)objVal;
 			else
@@ -27,9 +27,9 @@ namespace FxGqlLib
 			return result;
 		}
 		
-		public void SetState<T>(object obj, T val)
+		public void SetState<T> (object obj, T val)
 		{
-			state[GetId(obj)] = val;
+			state [GetId (obj)] = val;
 		}
 	}
 
@@ -46,9 +46,9 @@ namespace FxGqlLib
 		// TODO: IsInputDependent(); for optimalisation
 		// TODO: IsTimeDependent(); for optimalisation
 		
-		bool IsAggregated();
+		bool IsAggregated ();
 		
-		void Aggregate(AggregationState state, GqlQueryState gqlQueryState);
+		void Aggregate (AggregationState state, GqlQueryState gqlQueryState);
 		
 		IComparable AggregateCalculate (AggregationState state);
 	}
@@ -58,8 +58,6 @@ namespace FxGqlLib
 		public Expression ()
 		{
 		}
-		
-		//public Type ResultType { get { return typeof(T); } }
 		
 		public abstract T Evaluate (GqlQueryState gqlQueryState);
 
@@ -87,20 +85,20 @@ namespace FxGqlLib
 			return typeof(T);
 		}
 
-		public virtual bool IsAggregated()
+		public virtual bool IsAggregated ()
 		{
 			return false;
 		}
 		
-		public virtual void Aggregate(AggregationState state, GqlQueryState gqlQueryState)
+		public virtual void Aggregate (AggregationState state, GqlQueryState gqlQueryState)
 		{
-			throw new Exception(string.Format("Aggregation not supported on expression {0}", this.GetType().ToString()));
+			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}
 		
 		public virtual IComparable AggregateCalculate (AggregationState state)
 		{
-			throw new Exception(string.Format("Aggregation not supported on expression {0}", this.GetType().ToString()));
- 		}
+			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
+		}
 		#endregion
 	}
 }

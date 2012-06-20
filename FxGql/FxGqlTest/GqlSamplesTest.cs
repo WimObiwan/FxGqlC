@@ -966,6 +966,10 @@ namespace FxGqlTest
 			TestGql ("select * from ['test.txt' -heading=onwithrule]",
                      "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7");
 			File.Delete ("test.txt");
+			TestGql (
+				@"
+				SELECT [f], [tl] FROM (SELECT $filename [f], $totallineno [tl], $lineno [l] FROM ['SampleFiles\*' -recurse]) WHERE [l] = 1
+				", "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
 
 			// Group By
 			TestGql ("select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Tournament]",
@@ -1038,8 +1042,38 @@ namespace FxGqlTest
 			// TODO: create "view" or "function"
 			// TODO: skip clause (select top 10 skip 2 from ...
 
-			// TODO:
+			// Template:
+			/*
+			TestGql (
+				@"
+				"
+			);
+			*/
 
+			// TODO:
+//			TestGql (
+//				@"
+//				declare @file string, @option string;
+//				set @file = 'SampleFiles/Tennis-ATP-2011.csv';
+//				set @option = '^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$';
+//				select [Tournament] from [@file -skip=1 -columns=@option] group by [Tournament]
+//				", "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+
+//			TestGql (
+//				@"
+//				SELECT $totallineno, $lineno, $line FROM ['SampleFiles\AirportCodes.csv'], ['SampleFiles\AirportCodes.csv'] WHERE $line match 'belgium'
+//				");
+
+//			TestGql (
+//				@"
+//				SELECT $filename, $totallineno FROM ['SampleFiles\*' -recurse] WHERE $lineno = 1
+//				");
+
+			engine.GqlEngineState.Heading = GqlEngineState.HeadingEnum.On;
+			TestGql (
+				@"
+select distinct top 15 [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]				"
+			);
 
 			return failed == 0;
 		}

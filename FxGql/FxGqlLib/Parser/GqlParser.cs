@@ -10,1950 +10,1990 @@ using System.Text.RegularExpressions;
 
 namespace FxGqlLib
 {
-    partial class gqlParser
-    {
-        public AstParserRuleReturnScope<object, IToken> Parse ()
-        {
-            return parse ();
-        }
+	partial class gqlParser
+	{
+		public AstParserRuleReturnScope<object, IToken> Parse ()
+		{
+			return parse ();
+		}
         
-        public override void ReportError (RecognitionException e)
-        {
-            throw new ParserException (e);
-        }
-    }
+		public override void ReportError (RecognitionException e)
+		{
+			throw new ParserException (e);
+		}
+	}
     
-    public abstract class PositionException : Exception
-    {
-        public PositionException (string message, int line, int pos, Exception innerException)
+	public abstract class PositionException : Exception
+	{
+		public PositionException (string message, int line, int pos, Exception innerException)
             : base(string.Format("{0} At line {1}, position {2}.", message, line, pos), innerException)
-        {
-            Line = line;
-            Pos = pos;
-        }
+		{
+			Line = line;
+			Pos = pos;
+		}
 
-        public PositionException (string message, ITree tree)
+		public PositionException (string message, ITree tree)
             : this(message, tree.Line, tree.CharPositionInLine + 1, null)
-        {
-        }
+		{
+		}
         
-        public int Line { get; private set; }
+		public PositionException (string message, ITree tree, Exception innerException)
+            : this(message, tree.Line, tree.CharPositionInLine + 1, innerException)
+		{
+		}
+        
+		public int Line { get; private set; }
 
-        public int Pos { get; private set; }
-    }
+		public int Pos { get; private set; }
+	}
     
-    public class ParserException : PositionException
-    {
-        public ParserException (RecognitionException recognitionException)
+	public class ParserException : PositionException
+	{
+		public ParserException (RecognitionException recognitionException)
             : base("Parsing failed. " + recognitionException.Message, recognitionException.Line, recognitionException.CharPositionInLine, recognitionException)
-        {
-        }
+		{
+		}
 
-        public ParserException (string message, ITree tree)
+		public ParserException (string message, ITree tree)
             : base(message, tree)
-        {
-        }
-    }
+		{
+		}
+
+		public ParserException (string message, ITree tree, Exception innerException)
+            : base(message, tree, innerException)
+		{
+		}
+	}
     
-    public class UnexpectedTokenAntlrException : PositionException
-    {
-        public UnexpectedTokenAntlrException (string expectedToken, ITree tree)
+	public class UnexpectedTokenAntlrException : PositionException
+	{
+		public UnexpectedTokenAntlrException (string expectedToken, ITree tree)
             : base(string.Format("Unexpected token. Expected {0}, but found {1}.", expectedToken, tree.Text), tree)
-        {
-        }
+		{
+		}
 
-        public UnexpectedTokenAntlrException (ITree tree)
+		public UnexpectedTokenAntlrException (ITree tree)
             : base(string.Format("Unexpected token. Found {0}, but expected another token.", tree.Text), tree)
-        {
-        }
-    }
+		{
+		}
+	}
     
-    public class NotEnoughSubTokensAntlrException : PositionException
-    {
-        public NotEnoughSubTokensAntlrException (ITree tree)
+	public class NotEnoughSubTokensAntlrException : PositionException
+	{
+		public NotEnoughSubTokensAntlrException (ITree tree)
             : base("Not enough sub-tokens.", tree)
-        {
-        }
-    }
+		{
+		}
+	}
     
-    class AntlrTreeEnumerator
-    {
-        ITree parent;
-        IEnumerator<ITree> enumerator;
-        ITree current;
+	class AntlrTreeEnumerator
+	{
+		ITree parent;
+		IEnumerator<ITree> enumerator;
+		ITree current;
         
-        public ITree Current { get { return current; } }
+		public ITree Current { get { return current; } }
         
-        public AntlrTreeEnumerator (CommonTree parent)
-        {
-            this.parent = parent;
-            enumerator = parent.Children.GetEnumerator ();
-            if (enumerator.MoveNext ())
-                current = enumerator.Current;
-            else
-                current = null;
-        }
+		public AntlrTreeEnumerator (CommonTree parent)
+		{
+			this.parent = parent;
+			enumerator = parent.Children.GetEnumerator ();
+			if (enumerator.MoveNext ())
+				current = enumerator.Current;
+			else
+				current = null;
+		}
         
-        public void MoveNext ()
-        {
-            if (current == null)
-                throw new NotEnoughSubTokensAntlrException (parent);
-            if (enumerator.MoveNext ())
-                current = enumerator.Current;
-            else
-                current = null;
-        }       
-    }
+		public void MoveNext ()
+		{
+			if (current == null)
+				throw new NotEnoughSubTokensAntlrException (parent);
+			if (enumerator.MoveNext ())
+				current = enumerator.Current;
+			else
+				current = null;
+		}       
+	}
     
-    class GqlParser
-    {
-        readonly string command;
-        //readonly CultureInfo cultureInfo;
-        readonly bool caseInsensitive;
-        readonly StringComparer stringComparer;
-        readonly StringComparison stringComparison;
+	class GqlParser
+	{
+		readonly string command;
+		//readonly CultureInfo cultureInfo;
+		readonly bool caseInsensitive;
+		readonly StringComparer stringComparer;
+		readonly StringComparison stringComparison;
 
-        Dictionary<string, Type> variableTypes = new Dictionary<string, Type> ();
-        Dictionary<string, IProvider> views = new Dictionary<string, IProvider> ();
+		Dictionary<string, Type> variableTypes = new Dictionary<string, Type> ();
+		Dictionary<string, IProvider> views = new Dictionary<string, IProvider> ();
         
-        public GqlParser (string command)
+		public GqlParser (string command)
             : this(command, CultureInfo.InvariantCulture, true)
-        {
-        }
+		{
+		}
         
-        public GqlParser (string command, CultureInfo cultureInfo, bool caseInsensitive)
-        {
-            this.command = command;
-            //this.cultureInfo = cultureInfo;
-            this.caseInsensitive = caseInsensitive;
-            this.stringComparer = StringComparer.Create (cultureInfo, true);
-            this.stringComparison = StringComparison.InvariantCultureIgnoreCase;
-        }
+		public GqlParser (string command, CultureInfo cultureInfo, bool caseInsensitive)
+		{
+			this.command = command;
+			//this.cultureInfo = cultureInfo;
+			this.caseInsensitive = caseInsensitive;
+			this.stringComparer = StringComparer.Create (cultureInfo, true);
+			this.stringComparison = StringComparison.InvariantCultureIgnoreCase;
+		}
 
-        private void AssertAntlrToken (ITree tree, string expectedToken)
-        {
-            AssertAntlrToken (tree, expectedToken, -1, -1);
-        }
+		private void AssertAntlrToken (ITree tree, string expectedToken)
+		{
+			AssertAntlrToken (tree, expectedToken, -1, -1);
+		}
         
-        private void AssertAntlrToken (ITree tree, string expectedToken, int childCount)
-        {
-            AssertAntlrToken (tree, expectedToken, childCount, childCount);
-        }
+		private void AssertAntlrToken (ITree tree, string expectedToken, int childCount)
+		{
+			AssertAntlrToken (tree, expectedToken, childCount, childCount);
+		}
         
-        private void AssertAntlrToken (ITree tree, string expectedToken, int minChildCount, int maxChildCount)
-        {
-            if (expectedToken != null && tree.Text != expectedToken)
-                throw new UnexpectedTokenAntlrException (expectedToken, tree);
-            if (minChildCount >= 0 && minChildCount == maxChildCount && minChildCount != tree.ChildCount)
-                throw new ParserException (
+		private void AssertAntlrToken (ITree tree, string expectedToken, int minChildCount, int maxChildCount)
+		{
+			if (expectedToken != null && tree.Text != expectedToken)
+				throw new UnexpectedTokenAntlrException (expectedToken, tree);
+			if (minChildCount >= 0 && minChildCount == maxChildCount && minChildCount != tree.ChildCount)
+				throw new ParserException (
                     string.Format ("Expected exact {0} childnode(s).", minChildCount),
                     tree
-                );
-            if (minChildCount >= 0 && minChildCount > tree.ChildCount)
-                throw new ParserException (
+				);
+			if (minChildCount >= 0 && minChildCount > tree.ChildCount)
+				throw new ParserException (
                     string.Format ("Expected at least {0} childnode(s).", minChildCount),
                     tree
-                );
-            if (maxChildCount >= 0 && maxChildCount < tree.ChildCount)
-                throw new ParserException (
+				);
+			if (maxChildCount >= 0 && maxChildCount < tree.ChildCount)
+				throw new ParserException (
                     string.Format ("Expected maximum {0} childnode(s).", maxChildCount),
                     tree
-                );
-        }
+				);
+		}
         
-        private void AssertAntlrSubTokenMinCount (ITree tree, string expectedToken)
-        {
-            if (tree.Text != expectedToken)
-                throw new UnexpectedTokenAntlrException (expectedToken, tree);
-        }
+		private void AssertAntlrSubTokenMinCount (ITree tree, string expectedToken)
+		{
+			if (tree.Text != expectedToken)
+				throw new UnexpectedTokenAntlrException (expectedToken, tree);
+		}
 
-        CommonTree GetSingleChild (CommonTree tree)
-        {
-            if (tree.Children == null)
-                throw new NotEnoughSubTokensAntlrException (tree);
-            var childEnumerator = tree.Children.GetEnumerator ();
-            if (!childEnumerator.MoveNext ())
-                throw new NotEnoughSubTokensAntlrException (tree);
-            return (CommonTree)childEnumerator.Current;
-        }
+		CommonTree GetSingleChild (CommonTree tree)
+		{
+			if (tree.Children == null)
+				throw new NotEnoughSubTokensAntlrException (tree);
+			var childEnumerator = tree.Children.GetEnumerator ();
+			if (!childEnumerator.MoveNext ())
+				throw new NotEnoughSubTokensAntlrException (tree);
+			return (CommonTree)childEnumerator.Current;
+		}
         
-        public IList<IGqlCommand> Parse ()
-        {
-            gqlLexer lex = new gqlLexer (new ANTLRStringStream (this.command));
-            CommonTokenStream tokens = new CommonTokenStream (lex);
+		public IList<IGqlCommand> Parse ()
+		{
+			gqlLexer lex = new gqlLexer (new ANTLRStringStream (this.command));
+			CommonTokenStream tokens = new CommonTokenStream (lex);
      
-            gqlParser parser = new gqlParser (tokens);
-            parser.TreeAdaptor = new CommonTreeAdaptor ();
+			gqlParser parser = new gqlParser (tokens);
+			parser.TreeAdaptor = new CommonTreeAdaptor ();
                 
-            IList<IGqlCommand > commands;
-            try {
-                var result = parser.Parse ();
-                CommonTree rootTree = (CommonTree)result.Tree;
-                commands = ParseCommands (rootTree);
-            } catch (RecognitionException) {
-                // TODO: outer exception
-                throw;
-            }
+			IList<IGqlCommand > commands;
+			try {
+				var result = parser.Parse ();
+				CommonTree rootTree = (CommonTree)result.Tree;
+				commands = ParseCommands (rootTree);
+			} catch (RecognitionException) {
+				// TODO: outer exception
+				throw;
+			}
             
-            return commands;
-        }
+			return commands;
+		}
         
-        IList<IGqlCommand> ParseCommands (CommonTree commandsTree)
-        {
-            AssertAntlrToken (commandsTree, "T_ROOT");
+		IList<IGqlCommand> ParseCommands (CommonTree commandsTree)
+		{
+			AssertAntlrToken (commandsTree, "T_ROOT");
             
-            List<IGqlCommand > commands = new List<IGqlCommand> ();
-            if (commandsTree.Children != null) {
-                foreach (CommonTree commandTree in commandsTree.Children) {
-                    commands.Add (ParseCommand (commandTree));
-                }
-            }
+			List<IGqlCommand > commands = new List<IGqlCommand> ();
+			if (commandsTree.Children != null) {
+				foreach (CommonTree commandTree in commandsTree.Children) {
+					commands.Add (ParseCommand (commandTree));
+				}
+			}
             
-            return commands;
-        }
+			return commands;
+		}
         
-        IGqlCommand ParseCommand (CommonTree commandTree)
-        {
-            switch (commandTree.Text) {
-            case "T_SELECT":
-                return new GqlQueryCommand (ParseCommandSelect (commandTree));
-            case "T_USE":
-                return new UseCommand (ParseCommandUse (commandTree));
-            case "T_DECLARE":
-                {
-                    var variableDeclaration = ParseCommandDeclare (commandTree);
-                    foreach (var variable in variableDeclaration) {
-                        variableTypes [variable.Item1] = variable.Item2;
-                    }
-                    return new DeclareCommand (variableDeclaration);
-                }
-            case "T_SET_VARIABLE":
-                return new SetVariableCommand (ParseCommandSetVariable (commandTree));
-            case "T_CREATE_VIEW":
-                var createView = ParseCommandCreateView (commandTree);
-                string view = createView.Item1;
-                IProvider provider = createView.Item2;
-                views.Add (view, provider);
-                return new DummyCommand ();
-            default:
-                throw new UnexpectedTokenAntlrException (commandTree);
-            }
-        }
+		IGqlCommand ParseCommand (CommonTree commandTree)
+		{
+			switch (commandTree.Text) {
+			case "T_SELECT":
+				return new GqlQueryCommand (ParseCommandSelect (commandTree));
+			case "T_USE":
+				return new UseCommand (ParseCommandUse (commandTree));
+			case "T_DECLARE":
+				{
+					var variableDeclaration = ParseCommandDeclare (commandTree);
+					foreach (var variable in variableDeclaration) {
+						variableTypes [variable.Item1] = variable.Item2;
+					}
+					return new DeclareCommand (variableDeclaration);
+				}
+			case "T_SET_VARIABLE":
+				return new SetVariableCommand (ParseCommandSetVariable (commandTree));
+			case "T_CREATE_VIEW":
+				var createView = ParseCommandCreateView (commandTree);
+				string view = createView.Item1;
+				IProvider provider = createView.Item2;
+				views.Add (view, provider);
+				return new DummyCommand ();
+			default:
+				throw new UnexpectedTokenAntlrException (commandTree);
+			}
+		}
 
-        IProvider ParseCommandSelect (CommonTree selectTree)
-        {
-            AssertAntlrToken (selectTree, "T_SELECT");
+		IProvider ParseCommandSelect (CommonTree selectTree)
+		{
+			AssertAntlrToken (selectTree, "T_SELECT");
             
-            AntlrTreeEnumerator enumerator = new AntlrTreeEnumerator (selectTree);
+			AntlrTreeEnumerator enumerator = new AntlrTreeEnumerator (selectTree);
             
-            // DISTINCT / ALL
-            bool distinct = false;
-            if (enumerator.Current != null 
-                && (enumerator.Current.Text == "T_DISTINCT" || enumerator.Current.Text == "T_ALL")) {
-                distinct = (enumerator.Current.Text == "T_DISTINCT");
-                enumerator.MoveNext ();
-            }
+			// DISTINCT / ALL
+			bool distinct = false;
+			if (enumerator.Current != null 
+				&& (enumerator.Current.Text == "T_DISTINCT" || enumerator.Current.Text == "T_ALL")) {
+				distinct = (enumerator.Current.Text == "T_DISTINCT");
+				enumerator.MoveNext ();
+			}
             
             
-            // TOP
-            Expression<long > topExpression;
-            if (enumerator.Current != null && enumerator.Current.Text == "T_TOP") {
-                topExpression = ParseTopClause ((CommonTree)enumerator.Current);
-                enumerator.MoveNext ();
-            } else {
-                topExpression = null;
-            }
+			// TOP
+			Expression<long > topExpression;
+			if (enumerator.Current != null && enumerator.Current.Text == "T_TOP") {
+				topExpression = ParseTopClause ((CommonTree)enumerator.Current);
+				enumerator.MoveNext ();
+			} else {
+				topExpression = null;
+			}
 
-            // columns
-            if (enumerator.Current == null)
-                throw new NotEnoughSubTokensAntlrException (selectTree);
-            CommonTree columnListEnumerator = (CommonTree)enumerator.Current;
-            enumerator.MoveNext ();
+			// columns
+			if (enumerator.Current == null)
+				throw new NotEnoughSubTokensAntlrException (selectTree);
+			CommonTree columnListEnumerator = (CommonTree)enumerator.Current;
+			enumerator.MoveNext ();
                 
-            // INTO
-            FileOptionsIntoClause intoFile;
-            if (enumerator.Current != null && enumerator.Current.Text == "T_INTO") {
-                intoFile = ParseIntoClause ((CommonTree)enumerator.Current);
-                enumerator.MoveNext ();
-            } else {
-                intoFile = null;
-            }
+			// INTO
+			FileOptionsIntoClause intoFile;
+			if (enumerator.Current != null && enumerator.Current.Text == "T_INTO") {
+				intoFile = ParseIntoClause ((CommonTree)enumerator.Current);
+				enumerator.MoveNext ();
+			} else {
+				intoFile = null;
+			}
             
-            // FROM
-            IProvider provider;
-            if (enumerator.Current != null && enumerator.Current.Text == "T_FROM") {
-                IProvider fromProvider = ParseFromClause ((CommonTree)enumerator.Current);
-                provider = fromProvider;
-                enumerator.MoveNext ();
+			// FROM
+			IProvider provider;
+			if (enumerator.Current != null && enumerator.Current.Text == "T_FROM") {
+				IProvider fromProvider = ParseFromClause ((CommonTree)enumerator.Current);
+				provider = fromProvider;
+				enumerator.MoveNext ();
                                 
-                if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE") {
-                    Expression<bool > whereExpression = ParseWhereClause (
+				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE") {
+					Expression<bool > whereExpression = ParseWhereClause (
                         fromProvider,
                         (CommonTree)enumerator.Current
-                    );
-                    enumerator.MoveNext ();
+					);
+					enumerator.MoveNext ();
 
-                    provider = new FilterProvider (provider, whereExpression);
-                }
+					provider = new FilterProvider (provider, whereExpression);
+				}
                 
-                IList<Column > outputColumns;
-                outputColumns = ParseColumnList (fromProvider, columnListEnumerator);
+				IList<Column > outputColumns;
+				outputColumns = ParseColumnList (fromProvider, columnListEnumerator);
                 
-                if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY") {
-                    IList<IExpression> groupbyColumns = ParseGroupbyClause (
+				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY") {
+					IList<IExpression> groupbyColumns = ParseGroupbyClause (
                         fromProvider,
                         (CommonTree)enumerator.Current
-                    );
-                    enumerator.MoveNext ();
+					);
+					enumerator.MoveNext ();
                     
-                    provider = new GroupbyProvider (
+					provider = new GroupbyProvider (
                         provider,
                         groupbyColumns,
                         outputColumns,
                         stringComparer
-                    );
-                } else {
-                    provider = new SelectProvider (outputColumns, provider);
-                }
+					);
+				} else {
+					provider = new SelectProvider (outputColumns, provider);
+				}
                 
-                if (distinct)
-                    provider = new DistinctProvider (provider, stringComparer);
+				if (distinct)
+					provider = new DistinctProvider (provider, stringComparer);
                 
-                if (enumerator.Current != null && enumerator.Current.Text == "T_ORDERBY") {
-                    IList<OrderbyProvider.Column> orderbyColumns = ParseOrderbyClause (
+				if (enumerator.Current != null && enumerator.Current.Text == "T_ORDERBY") {
+					IList<OrderbyProvider.Column> orderbyColumns = ParseOrderbyClause (
                         fromProvider,
                         (CommonTree)enumerator.Current
-                    );
-                    enumerator.MoveNext ();
+					);
+					enumerator.MoveNext ();
                     
-                    provider = new OrderbyProvider (provider, orderbyColumns, stringComparer);
-                }
+					provider = new OrderbyProvider (provider, orderbyColumns, stringComparer);
+				}
 
-                if (topExpression != null)
-                    provider = new TopProvider (provider, topExpression);
-            } else {
-                provider = new NullProvider ();
+				if (topExpression != null)
+					provider = new TopProvider (provider, topExpression);
+			} else {
+				provider = new NullProvider ();
             
-                if (distinct)
-                    throw new ParserException (
+				if (distinct)
+					throw new ParserException (
                         "DISTINCT clause not allowed without a FROM clause.",
                         selectTree
-                    );
+					);
                 
-                if (topExpression != null) 
-                    throw new ParserException (
+				if (topExpression != null) 
+					throw new ParserException (
                         "TOP clause not allowed without a FROM clause.",
                         selectTree
-                    );
+					);
 
-                if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE")
-                    throw new ParserException (
+				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE")
+					throw new ParserException (
                         "WHERE clause not allowed without a FROM clause.",
                         selectTree
-                    );
+					);
                 
-                if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY")
-                    throw new ParserException (
+				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY")
+					throw new ParserException (
                         "GROUP BY clause not allowed without a FROM clause.",
                         selectTree
-                    );
+					);
 
-                if (enumerator.Current != null && enumerator.Current.Text == "T_ORDERBY")
-                    throw new ParserException (
+				if (enumerator.Current != null && enumerator.Current.Text == "T_ORDERBY")
+					throw new ParserException (
                         "ORDER BY clause not allowed without a FROM clause.",
                         selectTree
-                    );
+					);
 
-                IList<Column > outputColumns;
-                outputColumns = ParseColumnList (provider, columnListEnumerator);
+				IList<Column > outputColumns;
+				outputColumns = ParseColumnList (provider, columnListEnumerator);
 
-                provider = new SelectProvider (outputColumns, provider);
-            }
+				provider = new SelectProvider (outputColumns, provider);
+			}
             
-            if (intoFile != null)
-                provider = new IntoProvider (provider, intoFile);
+			if (intoFile != null)
+				provider = new IntoProvider (provider, intoFile);
             
-            return provider;
-        }
+			return provider;
+		}
         
-        Expression<long> ParseTopClause (CommonTree topClauseTree)
-        {
-            CommonTree tree = GetSingleChild (topClauseTree);
-            return ExpressionHelper.ConvertIfNeeded<long> (ParseExpression (null, tree));
-        }
+		Expression<long> ParseTopClause (CommonTree topClauseTree)
+		{
+			CommonTree tree = GetSingleChild (topClauseTree);
+			return ExpressionHelper.ConvertIfNeeded<long> (ParseExpression (null, tree));
+		}
         
-        IList<Column> ParseColumnList (IProvider provider, CommonTree outputListTree)
-        {
-            List<Column > outputColumnExpressions = new List<Column> ();
-            AssertAntlrToken (outputListTree, "T_COLUMNLIST", 1, -1);
-            foreach (CommonTree outputColumnTree in outputListTree.Children) {
-                Column column = ParseColumn (provider, outputColumnTree);
-                outputColumnExpressions.Add (column);
-            }
+		IList<Column> ParseColumnList (IProvider provider, CommonTree outputListTree)
+		{
+			List<Column > outputColumnExpressions = new List<Column> ();
+			AssertAntlrToken (outputListTree, "T_COLUMNLIST", 1, -1);
+			foreach (CommonTree outputColumnTree in outputListTree.Children) {
+				Column column = ParseColumn (provider, outputColumnTree);
+				outputColumnExpressions.Add (column);
+			}
             
-            return outputColumnExpressions;
-        }
+			return outputColumnExpressions;
+		}
 
-        Column ParseColumn (IProvider provider, CommonTree outputColumnTree)
-        {
-            AssertAntlrToken (outputColumnTree, "T_COLUMN", 1, 2);
+		Column ParseColumn (IProvider provider, CommonTree outputColumnTree)
+		{
+			AssertAntlrToken (outputColumnTree, "T_COLUMN", 1, 2);
 
-            Column column;
-            if (outputColumnTree.Children [0].Text == "*") {
-                column = new AllColums (provider);
-            } else {
-                column = new Column ();
-                column.Expression = ParseExpression (
+			Column column;
+			if (outputColumnTree.Children [0].Text == "*") {
+				column = new AllColums (provider);
+			} else {
+				column = new Column ();
+				column.Expression = ParseExpression (
                     provider,
                     (CommonTree)outputColumnTree.Children [0]
-                );
-                if (outputColumnTree.Children.Count == 2) {
-                    column.Name = ParseColumnName ((CommonTree)outputColumnTree.Children [1]);
-                } else {
-                    column.Name = null;
-                }
-            }
+				);
+				if (outputColumnTree.Children.Count == 2) {
+					column.Name = ParseColumnName ((CommonTree)outputColumnTree.Children [1]);
+				} else if (column.Expression is IColumnExpression) {
+					IColumnExpression columnExpression = (IColumnExpression)column.Expression;
+					column.Name = columnExpression.ColumnName;
+				} else {
+					column.Name = null;
+				}
+			}
             
-            return column; 
-        }
+			return column; 
+		}
 
-        FileOptionsIntoClause ParseIntoClause (CommonTree intoClauseTree)
-        {
-            AssertAntlrToken (intoClauseTree, "T_INTO", 1);
+		FileOptionsIntoClause ParseIntoClause (CommonTree intoClauseTree)
+		{
+			AssertAntlrToken (intoClauseTree, "T_INTO", 1);
                 
-            CommonTree fileTree = GetSingleChild (intoClauseTree);
-            FileOptionsIntoClause intoFile = ParseFileIntoClause (fileTree);            
+			CommonTree fileTree = GetSingleChild (intoClauseTree);
+			FileOptionsIntoClause intoFile = ParseFileIntoClause (fileTree);            
             
-            return intoFile;
-        }
+			return intoFile;
+		}
         
-        IProvider ParseFromClause (CommonTree fromClauseTree)
-        {
-            AssertAntlrToken (fromClauseTree, "T_FROM", 1, -1);
+		IProvider ParseFromClause (CommonTree fromClauseTree)
+		{
+			AssertAntlrToken (fromClauseTree, "T_FROM", 1, -1);
             
-            IProvider[] provider = new IProvider[fromClauseTree.ChildCount];
+			IProvider[] provider = new IProvider[fromClauseTree.ChildCount];
             
-            for (int i = 0; i < fromClauseTree.ChildCount; i++) {
-                CommonTree inputProviderTree = GetSingleChild (fromClauseTree);
-                switch (inputProviderTree.Text) {
-                case "T_FILE":
-                    provider [i] = ParseFileProvider (inputProviderTree);
-                    break;
-                case "T_SUBQUERY":
-                    provider [i] = ParseSubquery (inputProviderTree);
-                    break;
-                case "T_VIEW_NAME":
-                    provider [i] = ParseViewProvider (inputProviderTree);
-                    break;
-                default:
-                    throw new UnexpectedTokenAntlrException (inputProviderTree);
-                }
-            }
+			for (int i = 0; i < fromClauseTree.ChildCount; i++) {
+				CommonTree inputProviderTree = GetSingleChild (fromClauseTree);
+				switch (inputProviderTree.Text) {
+				case "T_FILE":
+					provider [i] = ParseFileProvider (inputProviderTree);
+					break;
+				case "T_SUBQUERY":
+					provider [i] = ParseSubquery (inputProviderTree);
+					break;
+				case "T_VIEW_NAME":
+					provider [i] = ParseViewProvider (inputProviderTree);
+					break;
+				default:
+					throw new UnexpectedTokenAntlrException (inputProviderTree);
+				}
+			}
             
-            IProvider fromProvider;
-            if (provider.Length == 1)
-                fromProvider = provider [0];
-            else
-                fromProvider = new MergeProvider (provider);
+			IProvider fromProvider;
+			if (provider.Length == 1)
+				fromProvider = provider [0];
+			else
+				fromProvider = new MergeProvider (provider);
             
-            return fromProvider;
-        }
+			return fromProvider;
+		}
 
-        Expression<bool> ParseWhereClause (IProvider provider, CommonTree whereTree)
-        {
-            AssertAntlrToken (whereTree, "T_WHERE");
+		Expression<bool> ParseWhereClause (IProvider provider, CommonTree whereTree)
+		{
+			AssertAntlrToken (whereTree, "T_WHERE");
             
-            CommonTree expressionTree = GetSingleChild (whereTree);
-            IExpression expression = ParseExpression (provider, expressionTree);
-            if (!(expression is Expression<bool>)) {
-                throw new ParserException (
+			CommonTree expressionTree = GetSingleChild (whereTree);
+			IExpression expression = ParseExpression (provider, expressionTree);
+			if (!(expression is Expression<bool>)) {
+				throw new ParserException (
                     "Expected boolean expression in WHERE clause.",
                     expressionTree
-                );
-            }
-            return (Expression<bool>)expression;
-        }
+				);
+			}
+			return (Expression<bool>)expression;
+		}
         
-        IList<IExpression> ParseGroupbyClause (IProvider provider, CommonTree groupbyTree)
-        {
-            AssertAntlrToken (groupbyTree, "T_GROUPBY", 1, 1);
+		IList<IExpression> ParseGroupbyClause (IProvider provider, CommonTree groupbyTree)
+		{
+			AssertAntlrToken (groupbyTree, "T_GROUPBY", 1, 1);
         
-            return ParseExpressionList (provider, (CommonTree)groupbyTree.Children [0]);
-        }
+			return ParseExpressionList (provider, (CommonTree)groupbyTree.Children [0]);
+		}
         
-        IList<OrderbyProvider.Column> ParseOrderbyClause (IProvider provider, CommonTree orderbyTree)
-        {
-            AssertAntlrToken (orderbyTree, "T_ORDERBY");
+		IList<OrderbyProvider.Column> ParseOrderbyClause (IProvider provider, CommonTree orderbyTree)
+		{
+			AssertAntlrToken (orderbyTree, "T_ORDERBY");
                         
-            List<OrderbyProvider.Column > orderbyColumns = new List<OrderbyProvider.Column> ();
-            foreach (CommonTree orderbyColumnTree in orderbyTree.Children) {
-                orderbyColumns.Add (ParseOrderbyColumn (provider, orderbyColumnTree));
-            }
+			List<OrderbyProvider.Column > orderbyColumns = new List<OrderbyProvider.Column> ();
+			foreach (CommonTree orderbyColumnTree in orderbyTree.Children) {
+				orderbyColumns.Add (ParseOrderbyColumn (provider, orderbyColumnTree));
+			}
             
-            return orderbyColumns;
-        }
+			return orderbyColumns;
+		}
         
-        OrderbyProvider.Column ParseOrderbyColumn (IProvider provider, CommonTree orderbyColumnTree)
-        {
-            AssertAntlrToken (orderbyColumnTree, "T_ORDERBY_COLUMN", 1, 2);
+		OrderbyProvider.Column ParseOrderbyColumn (IProvider provider, CommonTree orderbyColumnTree)
+		{
+			AssertAntlrToken (orderbyColumnTree, "T_ORDERBY_COLUMN", 1, 2);
             
-            OrderbyProvider.Column orderbyColumn = new OrderbyProvider.Column ();
-            orderbyColumn.Expression = ParseExpression (
+			OrderbyProvider.Column orderbyColumn = new OrderbyProvider.Column ();
+			orderbyColumn.Expression = ParseExpression (
                 provider,
                 (CommonTree)orderbyColumnTree.Children [0]
-            );
-            if (orderbyColumnTree.Children.Count > 1) {
-                string order = orderbyColumnTree.Children [1].Text;
-                switch (order) {
-                case "T_ORDERBY_ASC":
-                    orderbyColumn.Order = OrderbyProvider.OrderEnum.ASC;
-                    break;
-                case "T_ORDERBY_DESC":
-                    orderbyColumn.Order = OrderbyProvider.OrderEnum.DESC;
-                    break;
-                default:
-                    throw new ParserException ("Expected ASC or DESC as ORDER BY column order",
+			);
+			if (orderbyColumnTree.Children.Count > 1) {
+				string order = orderbyColumnTree.Children [1].Text;
+				switch (order) {
+				case "T_ORDERBY_ASC":
+					orderbyColumn.Order = OrderbyProvider.OrderEnum.ASC;
+					break;
+				case "T_ORDERBY_DESC":
+					orderbyColumn.Order = OrderbyProvider.OrderEnum.DESC;
+					break;
+				default:
+					throw new ParserException ("Expected ASC or DESC as ORDER BY column order",
                                               orderbyColumnTree.Children [1]);
-                }
-            } else {
-                orderbyColumn.Order = OrderbyProvider.OrderEnum.ASC;
-            }
+				}
+			} else {
+				orderbyColumn.Order = OrderbyProvider.OrderEnum.ASC;
+			}
             
-            return orderbyColumn;
-        }
+			return orderbyColumn;
+		}
 
-        IExpression ParseExpression (IProvider provider, CommonTree expressionTree)
-        {
-            IExpression expression;
-            switch (expressionTree.Text.ToUpperInvariant ()) {
+		IExpression ParseExpression (IProvider provider, CommonTree expressionTree)
+		{
+			IExpression expression;
+			switch (expressionTree.Text.ToUpperInvariant ()) {
 //          case "*":
 //              expression = new LineSystemVar ();
 //              break;
-            case "T_INTEGER":
-                expression = ParseExpressionInteger (expressionTree);
-                break;
-            case "T_STRING":
-                expression = ParseExpressionString (expressionTree);
-                break;
-            case "T_SYSTEMVAR":
-                expression = ParseExpressionSystemVar (expressionTree);
-                break;
-            case "T_FUNCTIONCALL":
-                expression = ParseExpressionFunctionCall (provider, expressionTree);
-                break;
-            case "T_CONVERT":
-                expression = ParseExpressionConvert (provider, expressionTree);
-                break;
-            case "T_OP_UNARY":
-                expression = ParseExpressionOperatorUnary (provider, expressionTree);
-                break;
-            case "T_OP_BINARY":
-                expression = ParseExpressionOperatorBinary (provider, expressionTree);
-                break;
-            case "T_EXISTS":
-                expression = ParseExpressionExists (expressionTree);
-                break;
-            case "T_COLUMN":
-                expression = ParseExpressionColumn (provider, expressionTree);
-                break;
-            case "T_CASE":
-                expression = ParseExpressionCase (provider, expressionTree);
-                break;
-            case "T_VARIABLE":
-                expression = ParseExpressionVariable (expressionTree);
-                break;
-            case "T_SUBQUERY":
-                expression = ParseExpressionSubquery (expressionTree);
-                break;
-            default:
-                throw new UnexpectedTokenAntlrException (expressionTree);
-            }
+			case "T_INTEGER":
+				expression = ParseExpressionInteger (expressionTree);
+				break;
+			case "T_STRING":
+				expression = ParseExpressionString (expressionTree);
+				break;
+			case "T_SYSTEMVAR":
+				expression = ParseExpressionSystemVar (expressionTree);
+				break;
+			case "T_FUNCTIONCALL":
+				expression = ParseExpressionFunctionCall (provider, expressionTree);
+				break;
+			case "T_CONVERT":
+				expression = ParseExpressionConvert (provider, expressionTree);
+				break;
+			case "T_OP_UNARY":
+				expression = ParseExpressionOperatorUnary (provider, expressionTree);
+				break;
+			case "T_OP_BINARY":
+				expression = ParseExpressionOperatorBinary (provider, expressionTree);
+				break;
+			case "T_EXISTS":
+				expression = ParseExpressionExists (expressionTree);
+				break;
+			case "T_COLUMN":
+				expression = ParseExpressionColumn (provider, expressionTree);
+				break;
+			case "T_CASE":
+				expression = ParseExpressionCase (provider, expressionTree);
+				break;
+			case "T_VARIABLE":
+				expression = ParseExpressionVariable (expressionTree);
+				break;
+			case "T_SUBQUERY":
+				expression = ParseExpressionSubquery (expressionTree);
+				break;
+			default:
+				throw new UnexpectedTokenAntlrException (expressionTree);
+			}
             
-            return expression;
-        }
+			return expression;
+		}
 
-        Expression<T> ParseExpression<T> (IProvider provider, CommonTree expressionTree) where T : IComparable
-        {
-            IExpression expression = ParseExpression (provider, expressionTree);
-            Expression<T > expressionT = expression as Expression<T>;
-            if (expressionT == null)
-                throw new ParserException (
+		Expression<T> ParseExpression<T> (IProvider provider, CommonTree expressionTree) where T : IComparable
+		{
+			IExpression expression = ParseExpression (provider, expressionTree);
+			Expression<T > expressionT = expression as Expression<T>;
+			if (expressionT == null)
+				throw new ParserException (
                     string.Format ("Expected expression of type '{0}'", typeof(T).Name),
                     expressionTree
-                );
-            return expressionT;
-        }
+				);
+			return expressionT;
+		}
         
-        Expression<long> ParseExpressionInteger (CommonTree expressionNumberTree)
-        {
-            CommonTree tree = GetSingleChild (expressionNumberTree);
-            return new ConstExpression<long> (long.Parse (tree.Text));
-        }
+		Expression<long> ParseExpressionInteger (CommonTree expressionNumberTree)
+		{
+			CommonTree tree = GetSingleChild (expressionNumberTree);
+			return new ConstExpression<long> (long.Parse (tree.Text));
+		}
 
-        string ParseString (ITree tree)
-        {
-            string text = tree.Text;
-            if (text.Length < 2 || text [0] != '\'' || text [text.Length - 1] != '\'')
-                throw new ParserException ("Invalid string format.", tree);
-            return ParseString (text);
-        }
+		string ParseString (ITree tree)
+		{
+			string text = tree.Text;
+			if (text.Length < 2 || text [0] != '\'' || text [text.Length - 1] != '\'')
+				throw new ParserException ("Invalid string format.", tree);
+			return ParseString (text);
+		}
         
-        string ParseStringValue (ITree tree)
-        {
-            string text = tree.Text;
-            if (text [0] == '\'') {
-                if (text [text.Length - 1] != '\'')
-                    throw new ParserException ("Invalid string format.", tree);
+		string ParseStringValue (ITree tree)
+		{
+			string text = tree.Text;
+			if (text [0] == '\'') {
+				if (text [text.Length - 1] != '\'')
+					throw new ParserException ("Invalid string format.", tree);
 
-                return ParseString (text);
-            } else {
-                return text;
-            }
-        }
+				return ParseString (text);
+			} else {
+				return text;
+			}
+		}
 
-        string ParseString (string text)
-        {
-            text = text.Substring (1, text.Length - 2);
-            text = text.Replace ("''", "'");
-            return text;
-        }
+		string ParseString (string text)
+		{
+			text = text.Substring (1, text.Length - 2);
+			text = text.Replace ("''", "'");
+			return text;
+		}
 
-        Expression<string> ParseExpressionString (CommonTree expressionStringTree)
-        {
-            CommonTree tree = GetSingleChild (expressionStringTree);
+		Expression<string> ParseExpressionString (CommonTree expressionStringTree)
+		{
+			CommonTree tree = GetSingleChild (expressionStringTree);
             
-            string text = ParseString (tree);
-            return new ConstExpression<string> (text);
-        }
+			string text = ParseString (tree);
+			return new ConstExpression<string> (text);
+		}
 
-        IExpression ParseExpressionSystemVar (CommonTree expressionSystemVarTree)
-        {
-            CommonTree tree = GetSingleChild (expressionSystemVarTree);
+		IExpression ParseExpressionSystemVar (CommonTree expressionSystemVarTree)
+		{
+			CommonTree tree = GetSingleChild (expressionSystemVarTree);
             
-            IExpression expression;
-            switch (tree.Text.ToUpperInvariant ()) {
-            case "$LINE":
-                expression = new LineSystemVar ();
-                break;
-            case "$TOTALLINENO":
-                expression = new TotalLineNoSystemVar ();
-                break;
-            case "$FILENAME":
-                expression = new FileNameSystemVar (false);
-                break;
-            case "$FULLFILENAME":
-                expression = new FileNameSystemVar (true);
-                break;
-            case "$LINENO":
-                expression = new LineNoSystemVar ();
-                break;
-            default:
-                throw new ParserException (
+			IExpression expression;
+			switch (tree.Text.ToUpperInvariant ()) {
+			case "$LINE":
+				expression = new LineSystemVar ();
+				break;
+			case "$TOTALLINENO":
+				expression = new TotalLineNoSystemVar ();
+				break;
+			case "$FILENAME":
+				expression = new FileNameSystemVar (false);
+				break;
+			case "$FULLFILENAME":
+				expression = new FileNameSystemVar (true);
+				break;
+			case "$LINENO":
+				expression = new LineNoSystemVar ();
+				break;
+			default:
+				throw new ParserException (
                     string.Format ("Unknown system variable '{0}'.", tree.Text),
                     tree
-                );
-            }
+				);
+			}
             
-            return expression;
-        }
+			return expression;
+		}
 
-        IExpression ParseExpressionFunctionCall (IProvider provider, CommonTree functionCallTree)
-        {
-            AssertAntlrToken (functionCallTree, "T_FUNCTIONCALL");
+		IExpression ParseExpressionFunctionCall (IProvider provider, CommonTree functionCallTree)
+		{
+			AssertAntlrToken (functionCallTree, "T_FUNCTIONCALL");
 
-            string functionName = functionCallTree.Children [0].Text;
+			string functionName = functionCallTree.Children [0].Text;
             
-            IExpression result;
-            int argCount = functionCallTree.Children.Count - 1;
-            switch (argCount) {
-            case 0:
-                result = ParseExpressionFunctionCall_0 (
+			IExpression result;
+			int argCount = functionCallTree.Children.Count - 1;
+			switch (argCount) {
+			case 0:
+				result = ParseExpressionFunctionCall_0 (
                     provider,
                     functionCallTree,
                     functionName
-                );
-                break;
-            case 1:
-                result = ParseExpressionFunctionCall_1 (
+				);
+				break;
+			case 1:
+				result = ParseExpressionFunctionCall_1 (
                     provider,
                     functionCallTree,
                     functionName
-                );
-                break;
-            case 2:
-                result = ParseExpressionFunctionCall_2 (
+				);
+				break;
+			case 2:
+				result = ParseExpressionFunctionCall_2 (
                     provider,
                     functionCallTree,
                     functionName
-                );
-                break;
-            case 3:
-                result = ParseExpressionFunctionCall_3 (
+				);
+				break;
+			case 3:
+				result = ParseExpressionFunctionCall_3 (
                     provider,
                     functionCallTree,
                     functionName
-                );
-                break;
-            default:
-                throw new ParserException (
+				);
+				break;
+			default:
+				throw new ParserException (
                     string.Format (
                     "Function call with '{0}' arguments not supported.",
                     argCount
-                ),
+				),
                     functionCallTree
-                );
-            }
+				);
+			}
             
-            return result;
-        }
+			return result;
+		}
                 
-        IExpression ParseExpressionFunctionCall_0 (IProvider provider, CommonTree functionCallTree, string functionName)
-        {
-            IExpression result;
+		IExpression ParseExpressionFunctionCall_0 (IProvider provider, CommonTree functionCallTree, string functionName)
+		{
+			IExpression result;
             
-            switch (functionName.ToUpperInvariant ()) {
-            case "GETCURDIR":
-                result = new GetCurDirFunction ();
-                break;
-            default:
-                throw new ParserException (string.Format (
+			switch (functionName.ToUpperInvariant ()) {
+			case "GETCURDIR":
+				result = new GetCurDirFunction ();
+				break;
+			default:
+				throw new ParserException (string.Format (
                     "Function call to {0} with 0 parameters not supported.",
                     functionName
-                ), 
+				), 
                     functionCallTree);
-            }
+			}
             
-            return result;
-        }
+			return result;
+		}
 
-        IExpression ParseExpressionFunctionCall_1 (IProvider provider, CommonTree functionCallTree, string functionName)
-        {
-            IExpression arg = ParseExpression (
+		IExpression ParseExpressionFunctionCall_1 (IProvider provider, CommonTree functionCallTree, string functionName)
+		{
+			IExpression arg = ParseExpression (
                 provider,
                 (CommonTree)functionCallTree.Children [1]
-            );
+			);
 
-            IExpression result;
+			IExpression result;
             
-            switch (functionName.ToUpperInvariant ()) {
-            case "ESCAPEREGEX":
-                result = new UnaryExpression<string, string> ((a) => Regex.Escape (a), arg);
-                break;
-            case "LTRIM":
-                result = new UnaryExpression<string, string> ((a) => a.TrimStart (), arg);
-                break;
-            case "RTRIM":
-                result = new UnaryExpression<string, string> ((a) => a.TrimEnd (), arg);
-                break;
-            case "TRIM":
-                result = new UnaryExpression<string, string> ((a) => a.Trim (), arg);
-                break;
-            case "COUNT":
-                if (arg is Expression<string>)
-                    result = new AggregationExpression<string, long, long> ((a) => 1, 
+			switch (functionName.ToUpperInvariant ()) {
+			case "ESCAPEREGEX":
+				result = new UnaryExpression<string, string> ((a) => Regex.Escape (a), arg);
+				break;
+			case "LTRIM":
+				result = new UnaryExpression<string, string> ((a) => a.TrimStart (), arg);
+				break;
+			case "RTRIM":
+				result = new UnaryExpression<string, string> ((a) => a.TrimEnd (), arg);
+				break;
+			case "TRIM":
+				result = new UnaryExpression<string, string> ((a) => a.Trim (), arg);
+				break;
+			case "COUNT":
+				if (arg is Expression<string>)
+					result = new AggregationExpression<string, long, long> ((a) => 1, 
                         (s, a) => s + 1, 
                         (s) => s, 
                         (Expression<string>)arg);
-                else if (arg is Expression<long>)
-                    result = new AggregationExpression<long, long, long> ((a) => 1, 
+				else if (arg is Expression<long>)
+					result = new AggregationExpression<long, long, long> ((a) => 1, 
                         (s, a) => s + 1, 
                         (s) => s, 
                         (Expression<long>)arg);
-                else {
-                    throw new ParserException (
+				else {
+					throw new ParserException (
                         string.Format ("COUNT aggregation function cannot be used on datatype '{0}'",
                                arg.GetResultType ().ToString ()),
                         functionCallTree);
-                }
-                break;
-            case "SUM":
-                if (arg is Expression<long>)
-                    result = new AggregationExpression<long, long, long> (
+				}
+				break;
+			case "SUM":
+				if (arg is Expression<long>)
+					result = new AggregationExpression<long, long, long> (
                         (a) => a, 
                         (s, a) => s + a, 
                         (s) => s, 
                         (Expression<long>)arg);
-                else {
-                    throw new ParserException (
+				else {
+					throw new ParserException (
                         string.Format ("SUM aggregation function cannot be used on datatype '{0}'",
                                arg.GetResultType ().ToString ()),
                         functionCallTree);
-                }
-                break;
-            case "MIN":
-                if (arg.GetResultType () == typeof(string))
-                    result = new AggregationExpression<string, string, string> (
+				}
+				break;
+			case "MIN":
+				if (arg.GetResultType () == typeof(string))
+					result = new AggregationExpression<string, string, string> (
                         (a) => a, 
                         (s, a) => string.Compare (a, s) < 0 ? a : s, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<string> (arg));
-                else if (arg.GetResultType () == typeof(long))
-                    result = new AggregationExpression<long, long, long> (
+				else if (arg.GetResultType () == typeof(long))
+					result = new AggregationExpression<long, long, long> (
                         (a) => a, 
                         (s, a) => a < s ? a : s, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<long> (arg));
-                else {
-                    throw new ParserException (
+				else {
+					throw new ParserException (
                         string.Format ("MIN aggregation function cannot be used on datatype '{0}'",
                                arg.GetResultType ().ToString ()),
                         functionCallTree);
-                }
-                break;
-            case "MAX":
-                if (arg.GetResultType () == typeof(string))
-                    result = new AggregationExpression<string, string, string> (
+				}
+				break;
+			case "MAX":
+				if (arg.GetResultType () == typeof(string))
+					result = new AggregationExpression<string, string, string> (
                         (a) => a, 
                         (s, a) => string.Compare (a, s) > 0 ? a : s, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<string> (arg));
-                else if (arg.GetResultType () == typeof(long))
-                    result = new AggregationExpression<long, long, long> (
+				else if (arg.GetResultType () == typeof(long))
+					result = new AggregationExpression<long, long, long> (
                         (a) => a, 
                         (s, a) => a > s ? a : s, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<long> (arg));
-                else {
-                    throw new ParserException (
+				else {
+					throw new ParserException (
                         string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
                                arg.GetResultType ().ToString ()),
                         functionCallTree);
-                }
-                break;
-            case "FIRST":
-                if (arg.GetResultType () == typeof(string))
-                    result = new AggregationExpression<string, string, string> (
+				}
+				break;
+			case "FIRST":
+				if (arg.GetResultType () == typeof(string))
+					result = new AggregationExpression<string, string, string> (
                         (a) => a, 
                         (s, a) => s, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<string> (arg));
-                else if (arg.GetResultType () == typeof(long))
-                    result = new AggregationExpression<long, long, long> (
+				else if (arg.GetResultType () == typeof(long))
+					result = new AggregationExpression<long, long, long> (
                         (a) => a, 
                         (s, a) => s, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<long> (arg));
-                else {
-                    throw new ParserException (
+				else {
+					throw new ParserException (
                         string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
                                arg.GetResultType ().ToString ()),
                         functionCallTree);
-                }
-                break;
-            case "LAST":
-                if (arg.GetResultType () == typeof(string))
-                    result = new AggregationExpression<string, string, string> (
+				}
+				break;
+			case "LAST":
+				if (arg.GetResultType () == typeof(string))
+					result = new AggregationExpression<string, string, string> (
                         (a) => a, 
                         (s, a) => a, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<string> (arg));
-                else if (arg.GetResultType () == typeof(long))
-                    result = new AggregationExpression<long, long, long> (
+				else if (arg.GetResultType () == typeof(long))
+					result = new AggregationExpression<long, long, long> (
                         (a) => a, 
                         (s, a) => a, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<long> (arg));
-                else {
-                    throw new ParserException (
+				else {
+					throw new ParserException (
                         string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
                                arg.GetResultType ().ToString ()),
                         functionCallTree);
-                }
-                break;
-            case "AVG":
-                if (arg is Expression<long>) {
-                    Expression<long> resultSum = new AggregationExpression<long, long, long> (
+				}
+				break;
+			case "AVG":
+				if (arg is Expression<long>) {
+					Expression<long> resultSum = new AggregationExpression<long, long, long> (
                         (a) => a, 
                         (s, a) => s + a, 
                         (s) => s, 
                         (Expression<long>)arg);
-                    Expression<long> resultCount = new AggregationExpression<long, long, long> (
+					Expression<long> resultCount = new AggregationExpression<long, long, long> (
                         (a) => 1, 
                         (s, a) => s + 1, 
                         (s) => s, 
                         (Expression<long>)arg);
-                    result = new BinaryExpression<long, long, long> (
+					result = new BinaryExpression<long, long, long> (
                         (a, b) => a / b, resultSum, resultCount);
-                } else {
-                    throw new ParserException (
+				} else {
+					throw new ParserException (
                         string.Format ("SUM aggregation function cannot be used on datatype '{0}'",
                                arg.GetResultType ().ToString ()),
                         functionCallTree);
-                }
-                break;
-            default:
-                throw new ParserException (string.Format (
+				}
+				break;
+			default:
+				throw new ParserException (string.Format (
                     "Function call to {0} with 1 parameters not supported.",
                     functionName
-                ), 
+				), 
                     functionCallTree);
-            }
+			}
             
-            return result;
-        }
+			return result;
+		}
 
-        IExpression ParseExpressionFunctionCall_2 (IProvider provider, CommonTree functionCallTree, string functionName)
-        {
-            IExpression arg1 = ParseExpression (
+		IExpression ParseExpressionFunctionCall_2 (IProvider provider, CommonTree functionCallTree, string functionName)
+		{
+			IExpression arg1 = ParseExpression (
                 provider,
                 (CommonTree)functionCallTree.Children [1]
-            );
-            IExpression arg2 = ParseExpression (
+			);
+			IExpression arg2 = ParseExpression (
                 provider,
                 (CommonTree)functionCallTree.Children [2]
-            );
+			);
             
-            IExpression result;
+			IExpression result;
             
-            switch (functionName.ToUpperInvariant ()) {
-            case "CONTAINS":
-                result = new BinaryExpression<string, string, bool> (
+			switch (functionName.ToUpperInvariant ()) {
+			case "CONTAINS":
+				result = new BinaryExpression<string, string, bool> (
                     (a, b) => a.IndexOf (b, stringComparison) != -1,
                     arg1,
                     arg2
-                );
-                break;
-            case "LEFT":
-                result = new BinaryExpression<string, int, string> (
+				);
+				break;
+			case "LEFT":
+				result = new BinaryExpression<string, int, string> (
                     (a, b) => a.Substring (0, Math.Min (b, a.Length)),
                     arg1,
                     arg2
-                );
-                break;
-            case "MATCHREGEX":
-                result = new MatchRegexFunction (arg1, arg2, caseInsensitive);
-                break;
-            case "RIGHT":
-                result = new BinaryExpression<string, int, string> (
+				);
+				break;
+			case "MATCHREGEX":
+				result = new MatchRegexFunction (arg1, arg2, caseInsensitive);
+				break;
+			case "RIGHT":
+				result = new BinaryExpression<string, int, string> (
                     (a, b) => a.Substring (a.Length - Math.Min (b, a.Length)),
                     arg1,
                     arg2
-                );
-                break;
-            case "SUBSTRING":
-                result = new SubstringFunction (arg1, arg2);
-                break;
-            default:
-                throw new ParserException (string.Format (
+				);
+				break;
+			case "SUBSTRING":
+				result = new SubstringFunction (arg1, arg2);
+				break;
+			default:
+				throw new ParserException (string.Format (
                     "Function call to {0} with 2 parameters not supported.",
                     functionName
-                ), 
+				), 
                     functionCallTree);
-            }
+			}
             
-            return result;
-        }
+			return result;
+		}
 
-        IExpression ParseExpressionFunctionCall_3 (IProvider provider, CommonTree functionCallTree, string functionName)
-        {
-            IExpression arg1 = ParseExpression (
+		IExpression ParseExpressionFunctionCall_3 (IProvider provider, CommonTree functionCallTree, string functionName)
+		{
+			IExpression arg1 = ParseExpression (
                 provider,
                 (CommonTree)functionCallTree.Children [1]
-            );
-            IExpression arg2 = ParseExpression (
+			);
+			IExpression arg2 = ParseExpression (
                 provider,
                 (CommonTree)functionCallTree.Children [2]
-            );
-            IExpression arg3 = ParseExpression (
+			);
+			IExpression arg3 = ParseExpression (
                 provider,
                 (CommonTree)functionCallTree.Children [3]
-            );
+			);
             
-            IExpression result;
+			IExpression result;
             
-            switch (functionName.ToUpperInvariant ()) {
-            case "MATCHREGEX":
-                result = new MatchRegexFunction (arg1, arg2, caseInsensitive, arg3);
-                break;
-            case "REPLACE":
-                result = new ReplaceFunction (arg1, arg2, arg3, caseInsensitive);
-                break;
-            case "REPLACEREGEX":
-                result = new ReplaceRegexFunction (arg1, arg2, arg3, caseInsensitive);
-                break;
-            case "SUBSTRING":
-                result = new SubstringFunction (arg1, arg2, arg3);
-                break;
-            default:
-                throw new ParserException (string.Format (
+			switch (functionName.ToUpperInvariant ()) {
+			case "MATCHREGEX":
+				result = new MatchRegexFunction (arg1, arg2, caseInsensitive, arg3);
+				break;
+			case "REPLACE":
+				result = new ReplaceFunction (arg1, arg2, arg3, caseInsensitive);
+				break;
+			case "REPLACEREGEX":
+				result = new ReplaceRegexFunction (arg1, arg2, arg3, caseInsensitive);
+				break;
+			case "SUBSTRING":
+				result = new SubstringFunction (arg1, arg2, arg3);
+				break;
+			default:
+				throw new ParserException (string.Format (
                     "Function call to {0} with 2 parameters not supported.",
                     functionName
-                ), 
+				), 
                     functionCallTree);
-            }
+			}
             
-            return result;
-        }
+			return result;
+		}
 
-        IExpression ParseExpressionConvert (IProvider provider, CommonTree convertTree)
-        {
-            AssertAntlrToken (convertTree, "T_CONVERT", 2);
+		IExpression ParseExpressionConvert (IProvider provider, CommonTree convertTree)
+		{
+			AssertAntlrToken (convertTree, "T_CONVERT", 2);
             
-            Type dataType = ParseDataType ((CommonTree)convertTree.Children [0]);
-            IExpression expr = ParseExpression (
+			Type dataType = ParseDataType ((CommonTree)convertTree.Children [0]);
+			IExpression expr = ParseExpression (
                 provider,
                 (CommonTree)convertTree.Children [1]
-            );
+			);
             
-            IExpression result;
-            if (dataType == typeof(long)) {
-                result = new ConvertExpression<long> (expr);
-            } else if (dataType == typeof(string)) {
-                result = new ConvertToStringExpression (expr);
-            } else {    
-                throw new ParserException (
+			IExpression result;
+			if (dataType == typeof(long)) {
+				result = new ConvertExpression<long> (expr);
+			} else if (dataType == typeof(string)) {
+				result = new ConvertToStringExpression (expr);
+			} else {    
+				throw new ParserException (
                     string.Format (
                     "Datatype {0} not supported in CONVERT function.",
                     dataType
-                ),
+				),
                     convertTree.Children [1]
-                );
-            }
-            return result;
-        }
+				);
+			}
+			return result;
+		}
 
-        FileOptionsFromClause ParseFileFromClause (CommonTree fileProvider)
-        {
-            FileOptionsFromClause fileOptions = new FileOptionsFromClause ();
+		FileOptionsFromClause ParseFileFromClause (CommonTree fileProvider)
+		{
+			FileOptionsFromClause fileOptions = new FileOptionsFromClause ();
 
-            List<Tuple<string, string, ITree>> options = ParseFileCommon (
+			List<Tuple<string, string, ITree>> options = ParseFileCommon (
                 fileProvider,
                 fileOptions
-            );
+			);
 
-            foreach (Tuple<string, string, ITree> option in options) {
-                string key = option.Item1;
-                string value = option.Item2;
-                ITree tree = option.Item3;
-                switch (key.ToUpperInvariant ()) {
-                case "FILEORDER":
-                    FileOptionsFromClause.FileOrderEnum order;
-                    if (!Enum.TryParse<FileOptionsFromClause.FileOrderEnum> (
+			foreach (Tuple<string, string, ITree> option in options) {
+				string key = option.Item1;
+				string value = option.Item2;
+				ITree tree = option.Item3;
+				switch (key.ToUpperInvariant ()) {
+				case "FILEORDER":
+					FileOptionsFromClause.FileOrderEnum order;
+					if (!Enum.TryParse<FileOptionsFromClause.FileOrderEnum> (
                         value,
                         true,
                         out order
-                    ))
-                        throw new ParserException (
+					))
+						throw new ParserException (
                                     string.Format ("Unknown file option FileOrder={0}", value),
                                     tree
-                        );
-                    fileOptions.FileOrder = order;
-                    break;
-                case "RECURSE":
-                    fileOptions.Recurse = true;
-                    break;
-                case "HEADING":
-                    GqlEngineState.HeadingEnum heading;
-                    if (!Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading))
-                        throw new ParserException (
+						);
+					fileOptions.FileOrder = order;
+					break;
+				case "RECURSE":
+					fileOptions.Recurse = true;
+					break;
+				case "HEADING":
+					GqlEngineState.HeadingEnum heading;
+					if (!Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading))
+						throw new ParserException (
                                     string.Format ("Unknown file option Heading={0}", value),
                                     tree
-                        );
-                    fileOptions.Heading = heading;
-                    break;
-                case "COLUMNS":
-                    fileOptions.ColumnsRegex = ParseString (value);
-                    break;
-                case "SKIP":
-                    fileOptions.Skip = long.Parse (value);
-                    break;
-                default:
-                    throw new ParserException (
+						);
+					fileOptions.Heading = heading;
+					break;
+				case "COLUMNS":
+					fileOptions.ColumnsRegex = ParseString (value);
+					break;
+				case "SKIP":
+					fileOptions.Skip = long.Parse (value);
+					break;
+				default:
+					throw new ParserException (
                                 string.Format ("Unknown file option '{0}'", option),
                                 tree
-                    );  
-                }
-            }
+					);  
+				}
+			}
 
-            return fileOptions;
-        }
+			return fileOptions;
+		}
 
-        FileOptionsIntoClause ParseFileIntoClause (CommonTree fileProvider)
-        {
-            FileOptionsIntoClause fileOptions = new FileOptionsIntoClause ();
+		FileOptionsIntoClause ParseFileIntoClause (CommonTree fileProvider)
+		{
+			FileOptionsIntoClause fileOptions = new FileOptionsIntoClause ();
 
-            List<Tuple<string, string, ITree>> options = ParseFileCommon (
+			List<Tuple<string, string, ITree>> options = ParseFileCommon (
                 fileProvider,
                 fileOptions
-            );
+			);
 
-            foreach (Tuple<string, string, ITree> option in options) {
-                string key = option.Item1;
-                string value = option.Item2;
-                ITree tree = option.Item3;
-                switch (key.ToUpperInvariant ()) {
-                case "LINEEND":
-                    FileOptionsIntoClause.NewLineEnum lineEnd;
-                    if (!Enum.TryParse<FileOptionsIntoClause.NewLineEnum> (
+			foreach (Tuple<string, string, ITree> option in options) {
+				string key = option.Item1;
+				string value = option.Item2;
+				ITree tree = option.Item3;
+				switch (key.ToUpperInvariant ()) {
+				case "LINEEND":
+					FileOptionsIntoClause.NewLineEnum lineEnd;
+					if (!Enum.TryParse<FileOptionsIntoClause.NewLineEnum> (
                         value,
                         true,
                         out lineEnd
-                    ))
-                        throw new ParserException (
+					))
+						throw new ParserException (
                                     string.Format ("Unknown file option LineEnd={0}", value),
                                     tree
-                        );
-                    fileOptions.NewLine = lineEnd;
-                    break;
-                case "APPEND":
-                    fileOptions.Append = true;
-                    break;
-                case "OVERWRITE":
-                    fileOptions.Overwrite = true;
-                    break;
-                case "HEADING":
-                    GqlEngineState.HeadingEnum heading;
-                    if (!Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading))
-                        throw new ParserException (
+						);
+					fileOptions.NewLine = lineEnd;
+					break;
+				case "APPEND":
+					fileOptions.Append = true;
+					break;
+				case "OVERWRITE":
+					fileOptions.Overwrite = true;
+					break;
+				case "HEADING":
+					GqlEngineState.HeadingEnum heading;
+					if (!Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading))
+						throw new ParserException (
                                     string.Format ("Unknown file option Heading={0}", value),
                                     tree
-                        );
-                    fileOptions.Heading = heading;
-                    break;
-                default:
-                    throw new ParserException (
+						);
+					fileOptions.Heading = heading;
+					break;
+				default:
+					throw new ParserException (
                                 string.Format ("Unknown file option '{0}'", option),
                                 tree
-                    );  
-                }
-            }
+					);  
+				}
+			}
 
-            return fileOptions;
-        }
+			return fileOptions;
+		}
 
-        FileOptions ParseFileUse (CommonTree commonTree)
-        {
-            FileOptionsIntoClause fileOptions = new FileOptionsIntoClause ();
+		FileOptions ParseFileUse (CommonTree commonTree)
+		{
+			FileOptionsIntoClause fileOptions = new FileOptionsIntoClause ();
 
-            List<Tuple<string, string, ITree>> options = ParseFileCommon (
+			List<Tuple<string, string, ITree>> options = ParseFileCommon (
                 commonTree,
                 fileOptions
-            );
+			);
 
-            foreach (Tuple<string, string, ITree> option in options) {
-                string key = option.Item1;
-                //string value = option.Item2;
-                ITree tree = option.Item3;
-                switch (key.ToUpperInvariant ()) {
-                default:
-                    throw new ParserException (
+			foreach (Tuple<string, string, ITree> option in options) {
+				string key = option.Item1;
+				//string value = option.Item2;
+				ITree tree = option.Item3;
+				switch (key.ToUpperInvariant ()) {
+				default:
+					throw new ParserException (
                                 string.Format ("Unknown file option '{0}'", option),
                                 tree
-                    );  
-                }
-            }
+					);  
+				}
+			}
 
-            return fileOptions;
-        }
+			return fileOptions;
+		}
 
-        List<Tuple<string, string, ITree>> ParseFileCommon (CommonTree commonTree, FileOptions fileOptions)
-        {
-            AssertAntlrToken (commonTree, "T_FILE", 1, -1);
+		List<Tuple<string, string, ITree>> ParseFileCommon (CommonTree commonTree, FileOptions fileOptions)
+		{
+			AssertAntlrToken (commonTree, "T_FILE", 1, -1);
             
-            AntlrTreeEnumerator enumerator = new AntlrTreeEnumerator (commonTree);
+			AntlrTreeEnumerator enumerator = new AntlrTreeEnumerator (commonTree);
 
-            List<Tuple<string, string, ITree>> options = new List<Tuple<string, string, ITree>> ();
-            string fileNameText = enumerator.Current.Text;
-            if (fileNameText.StartsWith ("[")) {
-                fileOptions.FileName = fileNameText.Substring (1, fileNameText.Length - 2);
-            } else if (fileNameText.StartsWith ("\'")) {
-                CommonTree fileTree = (CommonTree)enumerator.Current;
-                fileOptions.FileName = ParseString (fileTree);
+			List<Tuple<string, string, ITree>> options = new List<Tuple<string, string, ITree>> ();
+			string fileNameText = enumerator.Current.Text;
+			if (fileNameText.StartsWith ("[")) {
+				fileOptions.FileName = fileNameText.Substring (1, fileNameText.Length - 2);
+			} else if (fileNameText.StartsWith ("\'")) {
+				CommonTree fileTree = (CommonTree)enumerator.Current;
+				fileOptions.FileName = ParseString (fileTree);
                 
-                enumerator.MoveNext ();
-                while (enumerator.Current != null) {
-                    string option;
-                    string value;
-                    ParseFileOption ((CommonTree)enumerator.Current, out option, out value);
+				enumerator.MoveNext ();
+				while (enumerator.Current != null) {
+					string option;
+					string value;
+					ParseFileOption ((CommonTree)enumerator.Current, out option, out value);
 
-                    switch (option.ToUpperInvariant ()) {
-                    default:
-                        options.Add (Tuple.Create (option, value, enumerator.Current));
-                        break;
-                    }
+					switch (option.ToUpperInvariant ()) {
+					default:
+						options.Add (Tuple.Create (option, value, enumerator.Current));
+						break;
+					}
 
-                    enumerator.MoveNext ();
-                }
-            }
+					enumerator.MoveNext ();
+				}
+			}
 
-            return options;
-        }
+			return options;
+		}
 
-        void ParseFileOption (CommonTree fileOptionTree, out string option, out string value)
-        {
-            AssertAntlrToken (fileOptionTree, "T_FILEOPTION", 1, 2);
+		void ParseFileOption (CommonTree fileOptionTree, out string option, out string value)
+		{
+			AssertAntlrToken (fileOptionTree, "T_FILEOPTION", 1, 2);
             
-            option = fileOptionTree.Children [0].Text;
-            if (fileOptionTree.Children.Count > 1)
-                value = ParseStringValue (fileOptionTree.Children [1]);
-            else
-                value = null;
-        }
+			option = fileOptionTree.Children [0].Text;
+			if (fileOptionTree.Children.Count > 1)
+				value = ParseStringValue (fileOptionTree.Children [1]);
+			else
+				value = null;
+		}
 
-        IProvider ParseFileProvider (CommonTree fileProvider)
-        {
-            FileOptionsFromClause fileOptions = ParseFileFromClause (fileProvider);
+		IProvider ParseFileProvider (CommonTree fileProvider)
+		{
+			FileOptionsFromClause fileOptions = ParseFileFromClause (fileProvider);
             
-            IProvider provider = FileProviderFactory.Get (fileOptions, stringComparer);
+			IProvider provider = FileProviderFactory.Get (fileOptions, stringComparer);
             
-            if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
-                provider = new ColumnProviderTitleLine (provider, fileOptions.Heading == GqlEngineState.HeadingEnum.OnWithRule,
+			if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
+				provider = new ColumnProviderTitleLine (provider, fileOptions.Heading == GqlEngineState.HeadingEnum.OnWithRule,
                                                         new char[] {'\t'});
-            } else if (fileOptions.ColumnsRegex != null) {
-                provider = new ColumnProviderRegex (
+			} else if (fileOptions.ColumnsRegex != null) {
+				provider = new ColumnProviderRegex (
                     provider,
                     fileOptions.ColumnsRegex,
                     caseInsensitive
-                );
-            }
+				);
+			}
             
-            return provider;
-        }
+			return provider;
+		}
         
-        IProvider ParseSubquery (CommonTree subqueryTree)
-        {
-            AssertAntlrToken (subqueryTree, "T_SUBQUERY");
+		IProvider ParseSubquery (CommonTree subqueryTree)
+		{
+			AssertAntlrToken (subqueryTree, "T_SUBQUERY");
             
-            CommonTree selectTree = GetSingleChild (subqueryTree);
-            return ParseCommandSelect (selectTree);
-        }
+			CommonTree selectTree = GetSingleChild (subqueryTree);
+			return ParseCommandSelect (selectTree);
+		}
         
-        IProvider ParseViewProvider (CommonTree tree)
-        {
-            AssertAntlrToken (tree, "T_VIEW_NAME", 1, 1);
+		IProvider ParseViewProvider (CommonTree tree)
+		{
+			AssertAntlrToken (tree, "T_VIEW_NAME", 1, 1);
 
-            string viewName = tree.Children [0].Text;
-            IProvider provider;
-            if (!views.TryGetValue (viewName, out provider))
-                throw new ParserException (string.Format ("View '{0}' is not declared", viewName), tree);
+			string viewName = tree.Children [0].Text;
+			IProvider provider;
+			if (!views.TryGetValue (viewName, out provider))
+				throw new ParserException (string.Format ("View '{0}' is not declared", viewName), tree);
 
-            return provider;
-        }
+			return provider;
+		}
         
-        IExpression ParseExpressionOperatorUnary (IProvider provider, CommonTree operatorTree)
-        {
-            AssertAntlrToken (operatorTree, "T_OP_UNARY", 2);
+		IExpression ParseExpressionOperatorUnary (IProvider provider, CommonTree operatorTree)
+		{
+			AssertAntlrToken (operatorTree, "T_OP_UNARY", 2);
             
-            IExpression arg = ParseExpression (
+			IExpression arg = ParseExpression (
                 provider,
                 (CommonTree)operatorTree.Children [1]
-            );          
-            IExpression result;
+			);          
+			IExpression result;
             
-            string operatorText = operatorTree.Children [0].Text;
-            switch (operatorText) {
-            case "T_NOT":
-                result = new UnaryExpression<bool, bool> ((a) => !a, arg);
-                break;
-            case "T_PLUS":
-                if (arg is Expression<long>)
-                    result = new UnaryExpression<long, long> ((a) => a, arg);
-                else {
-                    throw new ParserException (
+			string operatorText = operatorTree.Children [0].Text;
+			switch (operatorText) {
+			case "T_NOT":
+				result = new UnaryExpression<bool, bool> ((a) => !a, arg);
+				break;
+			case "T_PLUS":
+				if (arg is Expression<long>)
+					result = new UnaryExpression<long, long> ((a) => a, arg);
+				else {
+					throw new ParserException (
                             string.Format ("Unary operator 'PLUS' cannot be used with datatype {0}",
                                    arg.GetResultType ().ToString ()),
                             operatorTree);
-                }
-                break;
-            case "T_MINUS":
-                if (arg is Expression<long>)
-                    result = new UnaryExpression<long, long> ((a) => -a, arg);
-                else {
-                    throw new ParserException (
+				}
+				break;
+			case "T_MINUS":
+				if (arg is Expression<long>)
+					result = new UnaryExpression<long, long> ((a) => -a, arg);
+				else {
+					throw new ParserException (
                             string.Format ("Unary operator 'MINUS' cannot be used with datatype {0}",
                                    arg.GetResultType ().ToString ()),
                             operatorTree);
-                }
-                break;
-            case "T_BITWISE_NOT":
-                if (arg is Expression<long>)
-                    result = new UnaryExpression<long, long> ((a) => ~a, arg);
-                else {
-                    throw new ParserException (
+				}
+				break;
+			case "T_BITWISE_NOT":
+				if (arg is Expression<long>)
+					result = new UnaryExpression<long, long> ((a) => ~a, arg);
+				else {
+					throw new ParserException (
                             string.Format ("Unary operator 'MINUS' cannot be used with datatype {0}",
                                    arg.GetResultType ().ToString ()),
                             operatorTree);
-                }
-                break;
-            default:
-                throw new ParserException (
+				}
+				break;
+			default:
+				throw new ParserException (
                     string.Format ("Unknown unary operator '{0}'.", operatorText),
                     operatorTree
-                );
-            }
+				);
+			}
             
-            return result;
-        }
+			return result;
+		}
 
-        IExpression ParseExpressionOperatorBinary (IProvider provider, CommonTree operatorTree)
-        {
-            AssertAntlrToken (operatorTree, "T_OP_BINARY", 3, 4);
+		IExpression ParseExpressionOperatorBinary (IProvider provider, CommonTree operatorTree)
+		{
+			AssertAntlrToken (operatorTree, "T_OP_BINARY", 3, 4);
             
-            string operatorText = operatorTree.Children [0].Text;
-            if (operatorText == "T_BETWEEN") {
-                return ParseExpressionBetween (provider, (CommonTree)operatorTree);
-            } else if (operatorText == "T_NOTBETWEEN") {
-                return new UnaryExpression<bool, bool> (
+			string operatorText = operatorTree.Children [0].Text;
+			if (operatorText == "T_BETWEEN") {
+				return ParseExpressionBetween (provider, (CommonTree)operatorTree);
+			} else if (operatorText == "T_NOTBETWEEN") {
+				return new UnaryExpression<bool, bool> (
                     (a) => !a,
                     ParseExpressionBetween (provider, (CommonTree)operatorTree)
-                );
-            } else if (operatorText == "T_IN" || operatorText == "T_ANY" || operatorText == "T_ALL") {
-                return ParseExpressionInSomeAnyAll (provider, (CommonTree)operatorTree);
-            } else if (operatorText == "T_NOTIN") {
-                return new UnaryExpression<bool, bool> (
+				);
+			} else if (operatorText == "T_IN" || operatorText == "T_ANY" || operatorText == "T_ALL") {
+				return ParseExpressionInSomeAnyAll (provider, (CommonTree)operatorTree);
+			} else if (operatorText == "T_NOTIN") {
+				return new UnaryExpression<bool, bool> (
                     (a) => !a,
                     ParseExpressionInSomeAnyAll (provider, (CommonTree)operatorTree)
-                );
-            } 
+				);
+			} 
             
-            AssertAntlrToken (operatorTree, "T_OP_BINARY", 3);
+			AssertAntlrToken (operatorTree, "T_OP_BINARY", 3);
 
-            IExpression arg1 = ParseExpression (
+			IExpression arg1 = ParseExpression (
                 provider,
                 (CommonTree)operatorTree.Children [1]
-            );          
-            IExpression arg2 = ParseExpression (
+			);          
+			IExpression arg2 = ParseExpression (
                 provider,
                 (CommonTree)operatorTree.Children [2]
-            );          
-            IExpression result;
+			);          
+			IExpression result;
             
-            switch (operatorText) {
-            case "T_AND":
-                result = new BinaryExpression<bool, bool, bool> (
+			switch (operatorText) {
+			case "T_AND":
+				result = new BinaryExpression<bool, bool, bool> (
                     (a, b) => a && b,
                     arg1,
                     arg2
-                );
-                break;
-            case "T_OR":
-                result = new BinaryExpression<bool, bool, bool> (
+				);
+				break;
+			case "T_OR":
+				result = new BinaryExpression<bool, bool, bool> (
                     (a, b) => a || b,
                     arg1,
                     arg2
-                );
-                break;
-            case "T_MATCH":
-                result = new MatchOperator (arg1, arg2, caseInsensitive);
-                break;
-            case "T_NOTMATCH":
-                result = new UnaryExpression<bool, bool> (
+				);
+				break;
+			case "T_MATCH":
+				result = new MatchOperator (arg1, arg2, caseInsensitive);
+				break;
+			case "T_NOTMATCH":
+				result = new UnaryExpression<bool, bool> (
                     (a) => !a,
                     new MatchOperator (arg1, arg2, caseInsensitive)
-                );
-                break;
-            case "T_LIKE":
-                result = new LikeOperator (arg1, arg2, caseInsensitive);
-                break;
-            case "T_NOTLIKE":
-                result = new UnaryExpression<bool, bool> (
+				);
+				break;
+			case "T_LIKE":
+				result = new LikeOperator (arg1, arg2, caseInsensitive);
+				break;
+			case "T_NOTLIKE":
+				result = new UnaryExpression<bool, bool> (
                     (a) => !a,
                     new LikeOperator (arg1, arg2, caseInsensitive)
-                );
-                break;
-            case "T_PLUS":
-                {
-                    if (arg1 is Expression<string> || arg2 is Expression<string>)
-                        result = new BinaryExpression<string, string, string> (
+				);
+				break;
+			case "T_PLUS":
+				{
+					if (arg1 is Expression<string> || arg2 is Expression<string>)
+						result = new BinaryExpression<string, string, string> (
                             (a, b) => a + b,
                             arg1,
                             arg2
-                        );
-                    else if (arg1 is Expression<long>)
-                        result = new BinaryExpression<long, long, long> (
+						);
+					else if (arg1 is Expression<long>)
+						result = new BinaryExpression<long, long, long> (
                             (a, b) => a + b,
                             arg1,
                             arg2
-                        );
-                    else {
-                        throw new ParserException (
+						);
+					else {
+						throw new ParserException (
                             string.Format (
                             "Binary operator 'PLUS' cannot be used with datatypes {0} and {1}",
                             arg1.GetResultType ().ToString (),
                             arg2.GetResultType ().ToString ()
-                        ),
+						),
                             operatorTree);
-                    }
-                }
-                break;
-            case "T_MINUS":
-                {
-                    if (arg1 is Expression<long>)
-                        result = new BinaryExpression<long, long, long> (
+					}
+				}
+				break;
+			case "T_MINUS":
+				{
+					if (arg1 is Expression<long>)
+						result = new BinaryExpression<long, long, long> (
                             (a, b) => a - b,
                             arg1,
                             arg2
-                        );
-                    else {
-                        throw new ParserException (
+						);
+					else {
+						throw new ParserException (
                             string.Format (
                             "Binary operator 'MINUS' cannot be used with datatypes {0} and {1}",
                             arg1.GetResultType ().ToString (),
                             arg2.GetResultType ().ToString ()
-                        ),
+						),
                             operatorTree);
-                    }
-                }
-                break;
-            case "T_DIVIDE":
-                {
-                    if (arg1 is Expression<long>)
-                        result = new BinaryExpression<long, long, long> (
+					}
+				}
+				break;
+			case "T_DIVIDE":
+				{
+					if (arg1 is Expression<long>)
+						result = new BinaryExpression<long, long, long> (
                             (a, b) => a / b,
                             arg1,
                             arg2
-                        );
-                    else {
-                        throw new ParserException (
+						);
+					else {
+						throw new ParserException (
                             string.Format (
                             "Binary operator 'DIVIDE' cannot be used with datatypes {0} and {1}",
                             arg1.GetResultType ().ToString (),
                             arg2.GetResultType ().ToString ()
-                        ),
+						),
                             operatorTree);
-                    }
-                }
-                break;
-            case "T_PRODUCT":
-                {
-                    if (arg1 is Expression<long>)
-                        result = new BinaryExpression<long, long, long> (
+					}
+				}
+				break;
+			case "T_PRODUCT":
+				{
+					if (arg1 is Expression<long>)
+						result = new BinaryExpression<long, long, long> (
                             (a, b) => a * b,
                             arg1,
                             arg2
-                        );
-                    else {
-                        throw new ParserException (
+						);
+					else {
+						throw new ParserException (
                             string.Format (
                             "Binary operator 'PRODUCT' cannot be used with datatypes {0} and {1}",
                             arg1.GetResultType ().ToString (),
                             arg2.GetResultType ().ToString ()
-                        ),
+						),
                             operatorTree);
-                    }
-                }
-                break;
-            case "T_MODULO":
-                {
-                    if (arg1 is Expression<long>)
-                        result = new BinaryExpression<long, long, long> (
+					}
+				}
+				break;
+			case "T_MODULO":
+				{
+					if (arg1 is Expression<long>)
+						result = new BinaryExpression<long, long, long> (
                             (a, b) => a % b,
                             arg1,
                             arg2
-                        );
-                    else {
-                        throw new ParserException (
+						);
+					else {
+						throw new ParserException (
                             string.Format (
                             "Binary operator 'MODULO' cannot be used with datatypes {0} and {1}",
                             arg1.GetResultType ().ToString (),
                             arg2.GetResultType ().ToString ()
-                        ),
+						),
                             operatorTree);
-                    }
-                }
-                break;
-            case "T_BITWISE_AND":
-                {
-                    if (arg1 is Expression<long>)
-                        result = new BinaryExpression<long, long, long> (
+					}
+				}
+				break;
+			case "T_BITWISE_AND":
+				{
+					if (arg1 is Expression<long>)
+						result = new BinaryExpression<long, long, long> (
                             (a, b) => a & b,
                             arg1,
                             arg2
-                        );
-                    else {
-                        throw new ParserException (
+						);
+					else {
+						throw new ParserException (
                             string.Format (
                             "Binary operator 'BITWISE AND' cannot be used with datatypes {0} and {1}",
                             arg1.GetResultType ().ToString (),
                             arg2.GetResultType ().ToString ()
-                        ),
+						),
                             operatorTree);
-                    }
-                }
-                break;
-            case "T_BITWISE_OR":
-                {
-                    if (arg1 is Expression<long>)
-                        result = new BinaryExpression<long, long, long> (
+					}
+				}
+				break;
+			case "T_BITWISE_OR":
+				{
+					if (arg1 is Expression<long>)
+						result = new BinaryExpression<long, long, long> (
                             (a, b) => a | b,
                             arg1,
                             arg2
-                        );
-                    else {
-                        throw new ParserException (
+						);
+					else {
+						throw new ParserException (
                             string.Format (
                             "Binary operator 'BITWISE OR' cannot be used with datatypes {0} and {1}",
                             arg1.GetResultType ().ToString (),
                             arg2.GetResultType ().ToString ()
-                        ),
+						),
                             operatorTree);
-                    }
-                }
-                break;
-            case "T_BITWISE_XOR":
-                {
-                    if (arg1 is Expression<long>)
-                        result = new BinaryExpression<long, long, long> (
+					}
+				}
+				break;
+			case "T_BITWISE_XOR":
+				{
+					if (arg1 is Expression<long>)
+						result = new BinaryExpression<long, long, long> (
                             (a, b) => a ^ b,
                             arg1,
                             arg2
-                        );
-                    else {
-                        throw new ParserException (
+						);
+					else {
+						throw new ParserException (
                             string.Format (
                             "Binary operator 'BITWISE XOR' cannot be used with datatypes {0} and {1}",
                             arg1.GetResultType ().ToString (),
                             arg2.GetResultType ().ToString ()
-                        ),
+						),
                             operatorTree);
-                    }
-                }
-                break;
-            case "T_EQUAL":
-            case "T_NOTEQUAL":
-            case "T_LESS":
-            case "T_GREATER":
-            case "T_NOTLESS":
-            case "T_NOTGREATER":
-                if (arg1 is Expression<string> || arg2 is Expression<string>)
-                    result = 
+					}
+				}
+				break;
+			case "T_EQUAL":
+			case "T_NOTEQUAL":
+			case "T_LESS":
+			case "T_GREATER":
+			case "T_NOTLESS":
+			case "T_NOTGREATER":
+				if (arg1 is Expression<string> || arg2 is Expression<string>)
+					result = 
                         new BinaryExpression<string, string, bool> (OperatorHelper.GetStringComparer (
                         operatorText,
                         false,
                         stringComparison
-                    ),
+					),
                             arg1, arg2);
-                else if (arg1 is Expression<long>)
-                    result = 
+				else if (arg1 is Expression<long>)
+					result = 
                         new BinaryExpression<long, long, bool> (OperatorHelper.GetLongComparer (
                         operatorText,
                         false
-                    ),
+					),
                             arg1, arg2);
-                else {
-                    throw new ParserException (
+				else {
+					throw new ParserException (
                         string.Format (
                         "Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
                         arg1.GetResultType ().ToString (),
                         arg2.GetResultType ().ToString ()
-                    ),
+					),
                         operatorTree);
-                }
-                break;
-            default:
-                throw new ParserException (
+				}
+				break;
+			default:
+				throw new ParserException (
                     string.Format ("Unknown binary operator '{0}'.", operatorText),
                     operatorTree
-                );
-            }
+				);
+			}
             
-            return result;
-        }
+			return result;
+		}
         
-        IExpression ParseExpressionBetween (IProvider provider, CommonTree betweenTree)
-        {
-            AssertAntlrToken (betweenTree, "T_OP_BINARY", 3);
-            //AssertAntlrToken (betweenTree.Children [0], "T_BETWEEN"); or T_NOTBETWEEN
-            CommonTree andTree = (CommonTree)betweenTree.Children [2];
-            AssertAntlrToken (andTree, "T_OP_BINARY", 3);
-            AssertAntlrToken (andTree.Children [0], "T_AND");
+		IExpression ParseExpressionBetween (IProvider provider, CommonTree betweenTree)
+		{
+			AssertAntlrToken (betweenTree, "T_OP_BINARY", 3);
+			//AssertAntlrToken (betweenTree.Children [0], "T_BETWEEN"); or T_NOTBETWEEN
+			CommonTree andTree = (CommonTree)betweenTree.Children [2];
+			AssertAntlrToken (andTree, "T_OP_BINARY", 3);
+			AssertAntlrToken (andTree.Children [0], "T_AND");
             
-            IExpression arg1 = ParseExpression (
+			IExpression arg1 = ParseExpression (
                 provider,
                 (CommonTree)betweenTree.Children [1]
-            );
-            IExpression arg2 = ParseExpression (
+			);
+			IExpression arg2 = ParseExpression (
                 provider,
                 (CommonTree)andTree.Children [1]
-            );
-            IExpression arg3 = ParseExpression (
+			);
+			IExpression arg3 = ParseExpression (
                 provider,
                 (CommonTree)andTree.Children [2]
-            );
+			);
 
-            IExpression result;
-            if (arg1 is Expression<string> || arg2 is Expression<string> || arg3 is Expression<string>)
-                result = new TernaryExpression<string, string, string, bool> (
+			IExpression result;
+			if (arg1 is Expression<string> || arg2 is Expression<string> || arg3 is Expression<string>)
+				result = new TernaryExpression<string, string, string, bool> (
                     (a, b, c) => 
                                                                       string.Compare (
                     a,
                     b,
                     stringComparison
-                ) >= 0 
-                    && string.Compare (
+				) >= 0 
+					&& string.Compare (
                     a,
                     c,
                     stringComparison
-                ) <= 0,
+				) <= 0,
                     arg1,
                     arg2,
                     arg3
-                );
-            else if (arg1 is Expression<long>)
-                result = new TernaryExpression<long, long, long, bool> (
+				);
+			else if (arg1 is Expression<long>)
+				result = new TernaryExpression<long, long, long, bool> (
                     (a, b, c) => (a >= b) && (a <= c),
                     arg1,
                     arg2,
                     arg3
-                );
-            else {
-                throw new ParserException (
+				);
+			else {
+				throw new ParserException (
                     string.Format ("Ternary operator 'BETWEEN' cannot be used with datatypes {0}, {1} and {2}",
                            arg1.GetResultType ().ToString (), arg2.GetResultType ().ToString (),
                            arg3.GetResultType ().ToString ()),
                     betweenTree);
-            }
+			}
             
-            return result;
-        }
+			return result;
+		}
 
-        IExpression ParseExpressionInSomeAnyAll (IProvider provider, CommonTree inTree)
-        {
-            AssertAntlrToken (inTree, "T_OP_BINARY", 3, 4);
-            //AssertAntlrToken (inTree.Children [0], "T_IN"); or T_NOTIN, T_ANY, T_ALL
+		IExpression ParseExpressionInSomeAnyAll (IProvider provider, CommonTree inTree)
+		{
+			AssertAntlrToken (inTree, "T_OP_BINARY", 3, 4);
+			//AssertAntlrToken (inTree.Children [0], "T_IN"); or T_NOTIN, T_ANY, T_ALL
             
-            IExpression arg2;
-            CommonTree target;          
-            bool all;
-            string op;
-            switch (inTree.Children [0].Text) {
-            case "T_IN":
-            case "T_NOTIN":
-                arg2 = ParseExpression (provider, (CommonTree)inTree.Children [1]);
-                target = (CommonTree)inTree.Children [2];
-                all = false;
-                op = "T_EQUAL";
-                break;
-            case "T_ANY":
-                arg2 = ParseExpression (provider, (CommonTree)inTree.Children [2]);
-                target = (CommonTree)inTree.Children [3];
-                all = false;
-                op = inTree.Children [1].Text;
-                break;
-            case "T_ALL":
-                arg2 = ParseExpression (provider, (CommonTree)inTree.Children [2]);
-                target = (CommonTree)inTree.Children [3];
-                all = true;
-                op = inTree.Children [1].Text;
-                break;
-            default:
-                throw new ParserException (
+			IExpression arg2;
+			CommonTree target;          
+			bool all;
+			string op;
+			switch (inTree.Children [0].Text) {
+			case "T_IN":
+			case "T_NOTIN":
+				arg2 = ParseExpression (provider, (CommonTree)inTree.Children [1]);
+				target = (CommonTree)inTree.Children [2];
+				all = false;
+				op = "T_EQUAL";
+				break;
+			case "T_ANY":
+				arg2 = ParseExpression (provider, (CommonTree)inTree.Children [2]);
+				target = (CommonTree)inTree.Children [3];
+				all = false;
+				op = inTree.Children [1].Text;
+				break;
+			case "T_ALL":
+				arg2 = ParseExpression (provider, (CommonTree)inTree.Children [2]);
+				target = (CommonTree)inTree.Children [3];
+				all = true;
+				op = inTree.Children [1].Text;
+				break;
+			default:
+				throw new ParserException (
                     string.Format ("Unexpected token {0}", inTree.Children [0].Text),
                     inTree.Children [0]
-                );
-            }
+				);
+			}
                         
-            Expression<bool > result;
-            if (target.Text == "T_EXPRESSIONLIST") {
-                IExpression[] expressionList = ParseExpressionList (provider, target);
-                if (arg2 is Expression<string>)
-                    result = new AnyListOperator<string> (
+			Expression<bool > result;
+			if (target.Text == "T_EXPRESSIONLIST") {
+				IExpression[] expressionList = ParseExpressionList (provider, target);
+				if (arg2 is Expression<string>)
+					result = new AnyListOperator<string> (
                         (Expression<string>)arg2,
                         expressionList,
                         OperatorHelper.GetStringComparer (op, all, stringComparison)
-                    );
-                else if (arg2 is Expression<long>)
-                    result = new AnyListOperator<long> (
+					);
+				else if (arg2 is Expression<long>)
+					result = new AnyListOperator<long> (
                         (Expression<long>)arg2,
                         expressionList,
                         OperatorHelper.GetLongComparer (op, all)
-                    );
-                else
-                    throw new ParserException (
+					);
+				else
+					throw new ParserException (
                         string.Format (
                         "Binary operator '{0}' cannot be used with datatype {1}",
                         inTree.Children [0].Text,
                         target.Text
-                    ),
+					),
                         target
-                    );
-            } else if (target.Text == "T_SELECT") {
-                IProvider subProvider = ParseCommandSelect (target);
-                if (arg2 is Expression<string>)
-                    result = new AnySubqueryOperator<string> (
+					);
+			} else if (target.Text == "T_SELECT") {
+				IProvider subProvider = ParseCommandSelect (target);
+				if (arg2 is Expression<string>)
+					result = new AnySubqueryOperator<string> (
                         (Expression<string>)arg2,
                         subProvider,
                         OperatorHelper.GetStringComparer (op, all, stringComparison)
-                    );
-                else if (arg2 is Expression<long>)
-                    result = new AnySubqueryOperator<long> (
+					);
+				else if (arg2 is Expression<long>)
+					result = new AnySubqueryOperator<long> (
                         (Expression<long>)arg2,
                         subProvider,
                         OperatorHelper.GetLongComparer (op, all)
-                    );
-                else
-                    throw new ParserException (
+					);
+				else
+					throw new ParserException (
                         string.Format (
                         "Binary operator '{0}' cannot be used with datatype {1}",
                         inTree.Children [0].Text,
                         target.Text
-                    ),
+					),
                         target
-                    );
-            } else {
-                throw new ParserException (
+					);
+			} else {
+				throw new ParserException (
                     string.Format (
                     "Binary operator '{0}' cannot be used with argument {1}",
                     inTree.Children [0].Text,
                     arg2.GetResultType ().ToString ()
-                ),
+				),
                     target
-                );
-            }
+				);
+			}
         
-            if (all)
-                result = new UnaryExpression<bool, bool> (a => !a, result);
+			if (all)
+				result = new UnaryExpression<bool, bool> (a => !a, result);
                     
-            return result;
-        }
+			return result;
+		}
 
-        IExpression[] ParseExpressionList (IProvider provider, CommonTree expressionListTree)
-        {
-            AssertAntlrToken (expressionListTree, "T_EXPRESSIONLIST", 1, -1);
+		IExpression[] ParseExpressionList (IProvider provider, CommonTree expressionListTree)
+		{
+			AssertAntlrToken (expressionListTree, "T_EXPRESSIONLIST", 1, -1);
             
-            IExpression[] result = new IExpression[expressionListTree.Children.Count];
-            for (int i = 0; i < expressionListTree.Children.Count; i++) {
-                result [i] = ParseExpression (
+			IExpression[] result = new IExpression[expressionListTree.Children.Count];
+			for (int i = 0; i < expressionListTree.Children.Count; i++) {
+				result [i] = ParseExpression (
                     provider,
                     (CommonTree)expressionListTree.Children [i]
-                );
-            }           
+				);
+			}           
             
-            return result;
-        }
+			return result;
+		}
 
-        IExpression ParseExpressionExists (CommonTree expressionTree)
-        {
-            AssertAntlrToken (expressionTree, "T_EXISTS", 1, 1);
+		IExpression ParseExpressionExists (CommonTree expressionTree)
+		{
+			AssertAntlrToken (expressionTree, "T_EXISTS", 1, 1);
             
-            return new AnySubqueryOperator<long> (
+			return new AnySubqueryOperator<long> (
                 new ConstExpression<long> (1),
                 new SelectProvider (
                 new IExpression[] { new ConstExpression<long> (1) }, 
                 new TopProvider (
                 ParseCommandSelect ((CommonTree)expressionTree.Children [0]),
                 new ConstExpression<long> (1)
-            )
-            ),
+			)
+			),
                 (a, b) => a == b);
-            ;
-        }
+			;
+		}
         
-        IExpression ParseExpressionColumn (IProvider provider, CommonTree expressionTree)
-        {
-            AssertAntlrToken (expressionTree, "T_COLUMN", 1, 1);
+		IExpression ParseExpressionColumn (IProvider provider, CommonTree expressionTree)
+		{
+			AssertAntlrToken (expressionTree, "T_COLUMN", 1, 1);
 
-            string column = ParseColumnName ((CommonTree)expressionTree.Children [0]);
+			string column = ParseColumnName ((CommonTree)expressionTree.Children [0]);
 
-            if (provider == null)
-                throw new ParserException (string.Format ("Columnname '{0}' not allowed outside the context of a query", column), expressionTree);
+			if (provider == null)
+				throw new ParserException (string.Format ("Columnname '{0}' not allowed outside the context of a query", column), expressionTree);
             
-            return new ColumnExpression (provider, column);
-        }
+			try {
+				return ConstructColumnExpression (provider, column);
+			} catch (Exception x) {
+				throw new ParserException (string.Format ("Could not construct column expression for column '{0}'", column), expressionTree, x);
+			}
+		}
+
+		internal static IExpression ConstructColumnExpression (IProvider provider, string column)
+		{
+			if (provider is ColumnProviderTitleLine || provider is ColumnProviderRegex) {
+				return new ColumnExpression<string> (provider, column);
+			} else {
+				int columnOrdinal = provider.GetColumnOrdinal (column);
+				return ConstructColumnExpression (provider, columnOrdinal);
+			}
+		}        
+
+		internal static IExpression ConstructColumnExpression (IProvider provider, int columnOrdinal)
+		{
+			Type type = provider.GetColumnTypes () [columnOrdinal];
+
+			if (type == typeof(long)) {
+				return new ColumnExpression<long> (provider, columnOrdinal);
+			} else if (type == typeof(string)) {
+				return new ColumnExpression<string> (provider, columnOrdinal);
+			} else {
+				throw new Exception (string.Format ("Invalid datatype '{0}'", type.ToString ()));
+			}
+		}        
+
+		string ParseColumnName (CommonTree columnNameTree)
+		{
+			string column = columnNameTree.Text;
+            
+			if (column.StartsWith ("[") && column.EndsWith ("]"))
+				column = column.Substring (1, column.Length - 2);
+            
+			return column;
+		}
         
-        string ParseColumnName (CommonTree columnNameTree)
-        {
-            string column = columnNameTree.Text;
+		IExpression ParseExpressionCase (IProvider provider, CommonTree expressionTree)
+		{
+			AssertAntlrToken (expressionTree, "T_CASE", 1, -1);
             
-            if (column.StartsWith ("[") && column.EndsWith ("]"))
-                column = column.Substring (1, column.Length - 2);
-            
-            return column;
-        }
-        
-        IExpression ParseExpressionCase (IProvider provider, CommonTree expressionTree)
-        {
-            AssertAntlrToken (expressionTree, "T_CASE", 1, -1);
-            
-            List<CaseExpression.WhenItem> whenItems = new List<CaseExpression.WhenItem> ();
-            IExpression elseResult = null;
+			List<CaseExpression.WhenItem> whenItems = new List<CaseExpression.WhenItem> ();
+			IExpression elseResult = null;
 
-            string text = expressionTree.Children [0].Text;
-            if (text != "T_CASE_WHEN" && text != "T_CASE_ELSE") {
-                // CASE source WHEN destination THEN target ELSE other END
-                IExpression source = ParseExpression (
+			string text = expressionTree.Children [0].Text;
+			if (text != "T_CASE_WHEN" && text != "T_CASE_ELSE") {
+				// CASE source WHEN destination THEN target ELSE other END
+				IExpression source = ParseExpression (
                     provider,
                     (CommonTree)expressionTree.Children [0]
-                );
-                int whenNo;
-                for (whenNo = 1; expressionTree.Children [whenNo].Text == "T_CASE_WHEN"; whenNo++) {
-                    CommonTree whenTree = (CommonTree)expressionTree.Children [whenNo];
-                    IExpression destination = ParseExpression (
+				);
+				int whenNo;
+				for (whenNo = 1; expressionTree.Children [whenNo].Text == "T_CASE_WHEN"; whenNo++) {
+					CommonTree whenTree = (CommonTree)expressionTree.Children [whenNo];
+					IExpression destination = ParseExpression (
                         provider,
                         (CommonTree)whenTree.Children [0]
-                    );
-                    IExpression target = ParseExpression (
+					);
+					IExpression target = ParseExpression (
                         provider,
                         (CommonTree)whenTree.Children [1]
-                    );
-                    CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
+					);
+					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
                     
-                    //TODO: Don't re-evaluate source for every item
-                    if (source is Expression<string> || destination is Expression<string>)
-                        whenItem.Check = 
+					//TODO: Don't re-evaluate source for every item
+					if (source is Expression<string> || destination is Expression<string>)
+						whenItem.Check = 
                             new BinaryExpression<string, string, bool> (OperatorHelper.GetStringComparer (
                             "T_EQUAL",
                             false,
                             stringComparison
-                        ),
+						),
                                 source, destination);
-                    else if (source is Expression<long>)
-                        whenItem.Check = 
+					else if (source is Expression<long>)
+						whenItem.Check = 
                             new BinaryExpression<long, long, bool> (OperatorHelper.GetLongComparer (
                             "T_EQUAL",
                             false
-                        ),
+						),
                                 source, destination);
-                    else {
-                        throw new ParserException (
+					else {
+						throw new ParserException (
                             string.Format (
                             "Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
                             source.GetResultType ().ToString (),
                             destination.GetResultType ().ToString ()
-                        ),
+						),
                             whenTree);
-                    }
-                    whenItem.Result = target;
+					}
+					whenItem.Result = target;
                     
-                    whenItems.Add (whenItem);
-                }
+					whenItems.Add (whenItem);
+				}
                 
-                if (whenNo < expressionTree.Children.Count - 1)
-                    throw new Exception ("Invalid case statement");
+				if (whenNo < expressionTree.Children.Count - 1)
+					throw new Exception ("Invalid case statement");
                 
-                if (whenNo == expressionTree.Children.Count - 1) {
-                    CommonTree elseTree = (CommonTree)expressionTree.Children [whenNo];
-                    AssertAntlrToken (elseTree, "T_CASE_ELSE", 1, 1);
+				if (whenNo == expressionTree.Children.Count - 1) {
+					CommonTree elseTree = (CommonTree)expressionTree.Children [whenNo];
+					AssertAntlrToken (elseTree, "T_CASE_ELSE", 1, 1);
                     
-                    elseResult = ParseExpression (provider, (CommonTree)elseTree.Children [0]);
-                }
-            } else {
-                // CASE WHEN a THEN x ELSE y END
-                int whenNo;
-                for (whenNo = 0; expressionTree.Children [whenNo].Text == "T_CASE_WHEN"; whenNo++) {
-                    CommonTree whenTree = (CommonTree)expressionTree.Children [whenNo];
-                    IExpression destination = ParseExpression (
+					elseResult = ParseExpression (provider, (CommonTree)elseTree.Children [0]);
+				}
+			} else {
+				// CASE WHEN a THEN x ELSE y END
+				int whenNo;
+				for (whenNo = 0; expressionTree.Children [whenNo].Text == "T_CASE_WHEN"; whenNo++) {
+					CommonTree whenTree = (CommonTree)expressionTree.Children [whenNo];
+					IExpression destination = ParseExpression (
                         provider,
                         (CommonTree)whenTree.Children [0]
-                    );
-                    IExpression target = ParseExpression (
+					);
+					IExpression target = ParseExpression (
                         provider,
                         (CommonTree)whenTree.Children [1]
-                    );
-                    CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
+					);
+					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
                     
-                    //TODO: Don't re-evaluate source for every item
-                    if (destination is Expression<bool>)
-                        whenItem.Check = (Expression<bool>)destination;
-                    else {
-                        throw new ParserException (
+					//TODO: Don't re-evaluate source for every item
+					if (destination is Expression<bool>)
+						whenItem.Check = (Expression<bool>)destination;
+					else {
+						throw new ParserException (
                             string.Format ("CASE WHEN expression must evaluate to datatype boolean instead of {0}",
                                    destination.GetResultType ().ToString ()),
                             whenTree);
-                    }
-                    whenItem.Result = target;
+					}
+					whenItem.Result = target;
                     
-                    whenItems.Add (whenItem);
-                }
+					whenItems.Add (whenItem);
+				}
                 
-                if (whenNo < expressionTree.Children.Count - 1)
-                    throw new Exception ("Invalid case statement");
+				if (whenNo < expressionTree.Children.Count - 1)
+					throw new Exception ("Invalid case statement");
                 
-                if (whenNo == expressionTree.Children.Count - 1) {
-                    CommonTree elseTree = (CommonTree)expressionTree.Children [whenNo];
-                    AssertAntlrToken (elseTree, "T_CASE_ELSE", 1, 1);
+				if (whenNo == expressionTree.Children.Count - 1) {
+					CommonTree elseTree = (CommonTree)expressionTree.Children [whenNo];
+					AssertAntlrToken (elseTree, "T_CASE_ELSE", 1, 1);
                     
-                    elseResult = ParseExpression (provider, (CommonTree)elseTree.Children [0]);
-                }
-            }
+					elseResult = ParseExpression (provider, (CommonTree)elseTree.Children [0]);
+				}
+			}
 
-            return new CaseExpression (whenItems, elseResult);
-        }
+			return new CaseExpression (whenItems, elseResult);
+		}
 
-        IExpression ParseExpressionVariable (CommonTree expressionTree)
-        {
-            AssertAntlrToken (expressionTree, "T_VARIABLE", 1, 1);
+		IExpression ParseExpressionVariable (CommonTree expressionTree)
+		{
+			AssertAntlrToken (expressionTree, "T_VARIABLE", 1, 1);
 
-            string variable = expressionTree.Children [0].Text;
+			string variable = expressionTree.Children [0].Text;
 
-            Type type;
-            if (!variableTypes.TryGetValue (variable, out type))
-                throw new ParserException (string.Format ("Variable {0} not declared", variable), expressionTree);
+			Type type;
+			if (!variableTypes.TryGetValue (variable, out type))
+				throw new ParserException (string.Format ("Variable {0} not declared", variable), expressionTree);
 
-            return new VariableExpression (variable, type);
-        }
+			return new VariableExpression (variable, type);
+		}
 
-        FileOptions ParseCommandUse (CommonTree selectTree)
-        {
-            AssertAntlrToken (selectTree, "T_USE", 1);
+		FileOptions ParseCommandUse (CommonTree selectTree)
+		{
+			AssertAntlrToken (selectTree, "T_USE", 1);
 
-            return ParseFileUse ((CommonTree)selectTree.Children [0]);
-        }
+			return ParseFileUse ((CommonTree)selectTree.Children [0]);
+		}
 
-        IList<Tuple<string, Type>> ParseCommandDeclare (CommonTree declareTree)
-        {
-            AssertAntlrToken (declareTree, "T_DECLARE", 1, -1);
+		IList<Tuple<string, Type>> ParseCommandDeclare (CommonTree declareTree)
+		{
+			AssertAntlrToken (declareTree, "T_DECLARE", 1, -1);
 
-            List<Tuple<string, Type>> declarations = new List<Tuple<string, Type>> ();
-            foreach (CommonTree declarationTree in declareTree.Children) {
-                declarations.Add (ParseDeclaration (declarationTree));
-            }
+			List<Tuple<string, Type>> declarations = new List<Tuple<string, Type>> ();
+			foreach (CommonTree declarationTree in declareTree.Children) {
+				declarations.Add (ParseDeclaration (declarationTree));
+			}
 
-            return declarations;
-        }
+			return declarations;
+		}
 
-        Tuple<string, Type> ParseDeclaration (CommonTree declarationTree)
-        {
-            AssertAntlrToken (declarationTree, "T_DECLARATION", 2, 2);
+		Tuple<string, Type> ParseDeclaration (CommonTree declarationTree)
+		{
+			AssertAntlrToken (declarationTree, "T_DECLARATION", 2, 2);
 
-            string variable = declarationTree.Children [0].Text;
-            Type datatype = ParseDataType ((CommonTree)declarationTree.Children [1]);
+			string variable = declarationTree.Children [0].Text;
+			Type datatype = ParseDataType ((CommonTree)declarationTree.Children [1]);
 
-            return Tuple.Create (variable, datatype);
-        }
+			return Tuple.Create (variable, datatype);
+		}
 
-        Type ParseDataType (CommonTree dataTypeTree)
-        {
-            string text = dataTypeTree.Text;
-            switch (text.ToUpperInvariant ()) {
-            case "STRING":
-                return typeof(string);
-            case "INT":
-                return typeof(long);
-            default:
-                throw new ParserException (string.Format ("Unknown datatype '{0}'", text), dataTypeTree);
-            }
-        }
+		Type ParseDataType (CommonTree dataTypeTree)
+		{
+			string text = dataTypeTree.Text;
+			switch (text.ToUpperInvariant ()) {
+			case "STRING":
+				return typeof(string);
+			case "INT":
+				return typeof(long);
+			default:
+				throw new ParserException (string.Format ("Unknown datatype '{0}'", text), dataTypeTree);
+			}
+		}
 
-        Tuple<string, IExpression> ParseCommandSetVariable (CommonTree setVariableTree)
-        {
-            AssertAntlrToken (setVariableTree, "T_SET_VARIABLE", 2, 2);
+		Tuple<string, IExpression> ParseCommandSetVariable (CommonTree setVariableTree)
+		{
+			AssertAntlrToken (setVariableTree, "T_SET_VARIABLE", 2, 2);
 
-            string variable = setVariableTree.Children [0].Text;
-            IExpression expression = ParseExpression (null, (CommonTree)setVariableTree.Children [1]);
+			string variable = setVariableTree.Children [0].Text;
+			IExpression expression = ParseExpression (null, (CommonTree)setVariableTree.Children [1]);
 
-            return Tuple.Create (variable, expression);
-        }
+			return Tuple.Create (variable, expression);
+		}
 
-        IExpression ParseExpressionSubquery (CommonTree subqueryTree)
-        {
-            IProvider provider = ParseSubquery (subqueryTree);
+		IExpression ParseExpressionSubquery (CommonTree subqueryTree)
+		{
+			IProvider provider = ParseSubquery (subqueryTree);
 
-            return new SubqueryExpression (provider);
-        }
+			return new SubqueryExpression (provider);
+		}
 
-        Tuple<string, IProvider> ParseCommandCreateView (CommonTree tree)
-        {
-            AssertAntlrToken (tree, "T_CREATE_VIEW", 2, 2);
+		Tuple<string, IProvider> ParseCommandCreateView (CommonTree tree)
+		{
+			AssertAntlrToken (tree, "T_CREATE_VIEW", 2, 2);
 
-            CommonTree viewNameTree = (CommonTree)tree.Children [0];
-            AssertAntlrToken (viewNameTree, "T_VIEW_NAME", 1, 1);
+			CommonTree viewNameTree = (CommonTree)tree.Children [0];
+			AssertAntlrToken (viewNameTree, "T_VIEW_NAME", 1, 1);
 
-            string name = viewNameTree.Children [0].Text;
-            IProvider provider = ParseCommandSelect ((CommonTree)tree.Children [1]);
+			string name = viewNameTree.Children [0].Text;
+			IProvider provider = ParseCommandSelect ((CommonTree)tree.Children [1]);
 
-            return Tuple.Create (name, provider);
-        }
-    }
+			return Tuple.Create (name, provider);
+		}
+	}
 }
 

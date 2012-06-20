@@ -2,7 +2,12 @@ using System;
 
 namespace FxGqlLib
 {
-	public class ColumnExpression : IExpression
+	public interface IColumnExpression : IExpression
+	{
+		string ColumnName { get; }
+	}
+
+	public class ColumnExpression<T> : Expression<T>, IColumnExpression where T : IComparable
 	{
 		string column;
 		IProvider provider;
@@ -25,12 +30,12 @@ namespace FxGqlLib
 				if (column != null)
 					return column;
 				else
-					return provider.GetColumnTitles() [columnOrdinal];
+					return provider.GetColumnTitles () [columnOrdinal];
 			}
 		}		
 
 		#region IExpression implementation
-		public IComparable EvaluateAsComparable (GqlQueryState gqlQueryState)
+		public override T Evaluate (GqlQueryState gqlQueryState)
 		{
 			//for (int i = 0; i < gqlQueryState.Record.ColumnTitles.Length; i++) {
 			//	if (string.Compare (gqlQueryState.Record.ColumnTitles [i], column, StringComparison.InvariantCultureIgnoreCase) == 0) {
@@ -38,62 +43,14 @@ namespace FxGqlLib
 			//	}
 			//}
 			if (columnOrdinal == -1)
-				columnOrdinal = this.provider.GetColumnOrdinal(column);
+				columnOrdinal = this.provider.GetColumnOrdinal (column);
 			
 			IComparable[] columns = gqlQueryState.Record.Columns;
 			if (columnOrdinal >= 0 && columnOrdinal < columns.Length)
-				return columns[columnOrdinal];
+				return (T)columns [columnOrdinal];
 			else
 				throw new Exception (string.Format ("Column {0} not found", column));
 		}
-
-		public Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
-		{
-			IComparable value = EvaluateAsComparable (gqlQueryState);
-			if (value is Y)
-				return (Y)value;
-			else
-				return (Y)Convert.ChangeType (value, typeof(Y));
-		}
-
-		public string EvaluateAsString (GqlQueryState gqlQueryState)
-		{
-			IComparable value = EvaluateAsComparable (gqlQueryState);
-			if (value is string)
-				return (string)value;
-			else
-				return value.ToString ();
-		}
-
-		public Type GetResultType ()
-		{
-			if (provider is ColumnProviderTitleLine)
-				return typeof(string);
-			
-			if (columnOrdinal == -1) 
-				columnOrdinal = this.provider.GetColumnOrdinal(column);
-			
-			Type[] types = provider.GetColumnTypes();
-			if (columnOrdinal >= 0 && columnOrdinal < types.Length)
-				return types[columnOrdinal];
-			else
-				throw new Exception (string.Format ("Column {0} not found", column));
-		}
-		
-		public bool IsAggregated()
-		{
-			return false;
-		}
-		
-		public void Aggregate(AggregationState state, GqlQueryState gqlQueryState)
-		{
-			throw new Exception(string.Format("Aggregation not supported on expression {0}", this.GetType().ToString()));
-		}
-		
-		public IComparable AggregateCalculate (AggregationState state)
-		{
-			throw new Exception(string.Format("Aggregation not supported on expression {0}", this.GetType().ToString()));
- 		}
 		#endregion
 	}
 }
