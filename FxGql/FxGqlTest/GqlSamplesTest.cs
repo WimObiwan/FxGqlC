@@ -394,7 +394,7 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engine.Execute (command);
+					engine.Execute (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -971,6 +971,10 @@ namespace FxGqlTest
 				SELECT [f], [tl] FROM (SELECT $filename [f], $totallineno [tl], $lineno [l] FROM ['SampleFiles\*' -recurse]) WHERE [l] = 1
 				", "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
 
+			// Aggregation without group by
+			TestGql (@"SELECT count(1), min($line), max($line) from [SampleFiles/AirportCodes.csv]", 
+			         "441662F2AB6E6EC6D898758DC68B142C43117BBE6B71BEC956857BECE8A9F60B");
+
 			// Group By
 			TestGql ("select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Tournament]",
                 "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
@@ -1067,13 +1071,8 @@ namespace FxGqlTest
 //			TestGql (
 //				@"
 //				SELECT $filename, $totallineno FROM ['SampleFiles\*' -recurse] WHERE $lineno = 1
-//				");
-
-			engine.GqlEngineState.Heading = GqlEngineState.HeadingEnum.On;
-			TestGql (
-				@"
-select distinct top 15 [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]				"
-			);
+//				"
+//			);
 
 			return failed == 0;
 		}

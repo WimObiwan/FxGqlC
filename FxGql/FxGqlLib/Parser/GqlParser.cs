@@ -308,7 +308,7 @@ namespace FxGqlLib
                 
 				IList<Column > outputColumns;
 				outputColumns = ParseColumnList (fromProvider, columnListEnumerator);
-                
+
 				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY") {
 					IList<IExpression> groupbyColumns = ParseGroupbyClause (
                         fromProvider,
@@ -323,7 +323,16 @@ namespace FxGqlLib
                         stringComparer
 					);
 				} else {
-					provider = new SelectProvider (outputColumns, provider);
+					// e.g. select count(1) from [myfile.txt]
+					if (outputColumns.Any (p => p.Expression != null && p.Expression.IsAggregated ())) {
+						provider = new GroupbyProvider (
+	                        provider,
+	                        outputColumns,
+	                        stringComparer
+						);
+					} else {
+						provider = new SelectProvider (outputColumns, provider);
+					}
 				}
                 
 				if (distinct)
