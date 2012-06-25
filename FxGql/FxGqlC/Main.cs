@@ -25,15 +25,15 @@ namespace FxGqlC
 				if (string.Equals (args [i], "-nologo", StringComparison.InvariantCultureIgnoreCase))
 					nologo = true;
 				else if (string.Equals (args [i], "-help", StringComparison.InvariantCultureIgnoreCase)
-				         || string.Equals (args [i], "-h", StringComparison.InvariantCultureIgnoreCase))
+					|| string.Equals (args [i], "-h", StringComparison.InvariantCultureIgnoreCase))
 					help = true;
 				else if (string.Equals (args [i], "-license", StringComparison.InvariantCultureIgnoreCase))
 					license = true;
 				else if (string.Equals (args [i], "-prompt", StringComparison.InvariantCultureIgnoreCase)
-				         || string.Equals (args [i], "-p", StringComparison.InvariantCultureIgnoreCase))
+					|| string.Equals (args [i], "-p", StringComparison.InvariantCultureIgnoreCase))
 					prompt = true;
 				else if (string.Equals (args [i], "-command", StringComparison.InvariantCultureIgnoreCase)
-				         || string.Equals (args [i], "-c", StringComparison.InvariantCultureIgnoreCase)) {
+					|| string.Equals (args [i], "-c", StringComparison.InvariantCultureIgnoreCase)) {
 					i++;
 					if (i < args.Length)
 						command = args [i];
@@ -57,20 +57,31 @@ namespace FxGqlC
 			}
 						
 			if (!nologo) {
-				var info = System.Diagnostics.FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+				var info = System.Diagnostics.FileVersionInfo.GetVersionInfo (Assembly.GetExecutingAssembly ().Location);
 				string type;
 				switch (info.FileBuildPart) {
-				case 0: type = "alpha"; break;
-				case 1: type = "beta"; break;
-				case 2: type = "rc"; break;
-				case 3: type = (info.FilePrivatePart == 0) ? null : "r";
+				case 0:
+					type = "alpha";
 					break;
-				default: type = ""; break;
+				case 1:
+					type = "beta";
+					break;
+				case 2:
+					type = "rc";
+					break;
+				case 3:
+					type = (info.FilePrivatePart == 0) ? null : "r";
+					break;
+				default:
+					type = "";
+					break;
 				}
 				
 				string version;
-				if (type != null) version = string.Format("v{0}.{1}.{2}{3}", info.FileMajorPart, info.FileMinorPart, type, info.FilePrivatePart);
-				else version = string.Format("v{0}.{1}", info.FileMajorPart, info.FileMinorPart);
+				if (type != null)
+					version = string.Format ("v{0}.{1}.{2}{3}", info.FileMajorPart, info.FileMinorPart, type, info.FilePrivatePart);
+				else
+					version = string.Format ("v{0}.{1}", info.FileMajorPart, info.FileMinorPart);
 				
 				Console.WriteLine ();
 				Console.WriteLine ("{0} - {1} - {2}", info.FileDescription, version, info.Comments);				
@@ -119,7 +130,7 @@ namespace FxGqlC
 				if (e.SpecialKey == ConsoleSpecialKey.ControlC) {
 					//Console.WriteLine ("===== Ctrl-C signal received =====");
 					e.Cancel = true;
-					gqlEngine.Interrupt();
+					gqlEngine.Interrupt ();
 				}
 			};
 
@@ -209,7 +220,7 @@ namespace FxGqlC
 #else
 			try {
 				gqlEngine.Execute (command);
-			} catch (FxGqlLib.PositionException x) {
+			} catch (FxGqlLib.ParserException x) {
 				Console.WriteLine (x.Message);
 				if (gqlEngine.LogStream != null) 
 					gqlEngine.LogStream.WriteLine (x.ToString ());

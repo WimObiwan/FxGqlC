@@ -23,69 +23,6 @@ namespace FxGqlLib
 		}
 	}
     
-	public abstract class PositionException : Exception
-	{
-		public PositionException (string message, int line, int pos, Exception innerException)
-            : base(string.Format("{0} At line {1}, position {2}.", message, line, pos), innerException)
-		{
-			Line = line;
-			Pos = pos;
-		}
-
-		public PositionException (string message, ITree tree)
-            : this(message, tree.Line, tree.CharPositionInLine + 1, null)
-		{
-		}
-        
-		public PositionException (string message, ITree tree, Exception innerException)
-            : this(message, tree.Line, tree.CharPositionInLine + 1, innerException)
-		{
-		}
-        
-		public int Line { get; private set; }
-
-		public int Pos { get; private set; }
-	}
-    
-	public class ParserException : PositionException
-	{
-		public ParserException (RecognitionException recognitionException)
-            : base("Parsing failed. " + recognitionException.Message, recognitionException.Line, recognitionException.CharPositionInLine, recognitionException)
-		{
-		}
-
-		public ParserException (string message, ITree tree)
-            : base(message, tree)
-		{
-		}
-
-		public ParserException (string message, ITree tree, Exception innerException)
-            : base(message, tree, innerException)
-		{
-		}
-	}
-    
-	public class UnexpectedTokenAntlrException : PositionException
-	{
-		public UnexpectedTokenAntlrException (string expectedToken, ITree tree)
-            : base(string.Format("Unexpected token. Expected {0}, but found {1}.", expectedToken, tree.Text), tree)
-		{
-		}
-
-		public UnexpectedTokenAntlrException (ITree tree)
-            : base(string.Format("Unexpected token. Found {0}, but expected another token.", tree.Text), tree)
-		{
-		}
-	}
-    
-	public class NotEnoughSubTokensAntlrException : PositionException
-	{
-		public NotEnoughSubTokensAntlrException (ITree tree)
-            : base("Not enough sub-tokens.", tree)
-		{
-		}
-	}
-    
 	class AntlrTreeEnumerator
 	{
 		ITree parent;
