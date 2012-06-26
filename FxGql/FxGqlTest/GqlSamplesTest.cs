@@ -394,7 +394,7 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engine.Execute (command);
+					engine.Execute (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -496,14 +496,14 @@ namespace FxGqlTest
 			TestGql ("select $line from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
                 "B7B20E3D1807D5638954EE155A94608D1492D0C9FAB4E5D346E50E8816AD63CC");
 			TestGql (@"SELECT $filename, $totallineno FROM ['SampleFiles\*' -recurse] WHERE $lineno = 1", 
-			    "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D"
-			);
-
+			    "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
+			TestGql (@"SELECT $totallineno, $lineno, $line FROM ['SampleFiles\AirportCodes.csv'], ['SampleFiles\AirportCodes.csv'] WHERE $line match 'belgium'
+				SELECT count(1) FROM ['SampleFiles\AirportCodes.csv']", 
+			    "C5540814A5C695DFEC4D4A7791A6EACC2E3ED0562FCAB27DD3CD88A464E24AB4");
 			TestGql (@"SELECT count(1) FROM ['SampleFiles\*' -recurse]
 				SELECT (SELECT max($totallineno) FROM ['SampleFiles\*' -recurse] WHERE $lineno = 1)
 					+ (SELECT count(1) FROM [SampleFiles\SubFolder\AirportCodes2.csv.zip]) - 1", 
-			    "405F3EC7933CF21E92C2EB1DE7EEFE91FB9C574BD4FC7EC6EE820AB7106033A4"
-			);
+			    "405F3EC7933CF21E92C2EB1DE7EEFE91FB9C574BD4FC7EC6EE820AB7106033A4");
 
 			// Function call:
 			//    String: 
@@ -1064,19 +1064,15 @@ namespace FxGqlTest
 			*/
 
 			// TODO:
-			TestGql (
-				@"
-				declare @file string, @option string;
-				set @file = 'SampleFiles/Tennis-ATP-2011.csv';
-				set @option = '^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$';
-				select @file, @option, @file + @option
-				", "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
-//				select [Tournament] from [@file -skip=1 -columns=@option] group by [Tournament]
-
 //			TestGql (
 //				@"
-//				SELECT $totallineno, $lineno, $line FROM ['SampleFiles\AirportCodes.csv'], ['SampleFiles\AirportCodes.csv'] WHERE $line match 'belgium'
-//				");
+//				declare @file string, @option string;
+//				set @file = 'SampleFiles/Tennis-ATP-2011.csv';
+//				set @option = '^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$';
+//				select @file, @option, @file + @option
+//				", "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+//				select [Tournament] from [@file -skip=1 -columns=@option] group by [Tournament]
+
 
 			return failed == 0;
 		}
