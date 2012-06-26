@@ -217,7 +217,11 @@ use_command
 // DECLARE COMMAND
 
 declare_command
-	: DECLARE WS declaration (WS? ',' WS? declaration)*
+	: DECLARE WS declaration_list -> declaration_list
+	;
+	
+declaration_list 
+	: declaration (WS? ',' WS? declaration)*
 	-> ^(T_DECLARE declaration+)
 	;
 	
@@ -230,8 +234,8 @@ declaration
 // CREATE VIEW COMMAND
 
 create_view_command
-	: CREATE WS VIEW WS view_name WS AS WS select_command
-	-> ^(T_CREATE_VIEW view_name select_command)
+	: CREATE WS VIEW WS view_name (WS? '(' declaration_list ')')? WS AS WS select_command
+	-> ^(T_CREATE_VIEW view_name declaration_list? select_command)
 	;
 	
 view_name
