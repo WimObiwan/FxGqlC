@@ -1837,7 +1837,7 @@ namespace FxGqlLib
 			if (!variableTypes.TryGetValue (variable, out type))
 				throw new ParserException (string.Format ("Variable {0} not declared", variable), expressionTree);
 
-			return new VariableExpression (variable, type);
+			return new VariableExpression (variable, type).GetTyped ();
 		}
 
 		FileOptions ParseCommandUse (ITree tree)
