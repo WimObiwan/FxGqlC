@@ -235,7 +235,7 @@ namespace FxGqlLib
 	                        stringComparer
 						);
 					} else {
-						provider = new SelectProvider (outputColumns, provider);
+						provider = new ColumnProvider (outputColumns, provider);
 					}
 				}
                 
@@ -1896,7 +1896,7 @@ namespace FxGqlLib
 		{
 			IProvider provider = ParseSubquery (subqueryTree);
 
-			return new SubqueryExpression (provider);
+			return new SubqueryExpression (provider).GetTyped ();
 		}
 
 		Tuple<string, IProvider> ParseCommandCreateView (ITree tree)

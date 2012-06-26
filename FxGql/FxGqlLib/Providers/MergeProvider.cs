@@ -8,6 +8,7 @@ namespace FxGqlLib
 		IList<IProvider> providers;
 		int currentProvider;
 		GqlQueryState gqlQueryState;
+		long totalLineNo;
 		
 		public MergeProvider (IList<IProvider> providers)
 		{
@@ -36,22 +37,28 @@ namespace FxGqlLib
 		{
 			this.gqlQueryState = gqlQueryState;
 			currentProvider = 0;
+			totalLineNo = 0;
 			providers [0].Initialize (gqlQueryState);
 		}
 
 		public bool GetNextRecord ()
 		{
 			bool result = providers [currentProvider].GetNextRecord ();
+			if (!result) {
+				if (currentProvider + 1 >= providers.Count)
+					return false;
+				do {
+					providers [currentProvider].Uninitialize ();
+					currentProvider++;
+					providers [currentProvider].Initialize (gqlQueryState);
+					result = providers [currentProvider].GetNextRecord ();
+				} while (!result && currentProvider < providers.Count);
+			}
+
 			if (result)
-				return true;
-			if (currentProvider + 1 >= providers.Count)
-				return false;
-			do {
-				providers [currentProvider].Uninitialize ();
-				currentProvider++;
-				providers [currentProvider].Initialize (gqlQueryState);
-				result = providers [currentProvider].GetNextRecord ();
-			} while (!result && currentProvider < providers.Count);
+				totalLineNo++;
+
+			Record.TotalLineNo = totalLineNo;
 				
 			return result;
 		}

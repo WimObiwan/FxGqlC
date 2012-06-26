@@ -106,6 +106,7 @@
     <Compile Include="Commands\CreateViewCommand.cs" />
     <Compile Include="Exceptions\ParserException.cs" />
     <Compile Include="Parser\AntlrTreeChildEnumerable.cs" />
+    <Compile Include="Providers\ColumnProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

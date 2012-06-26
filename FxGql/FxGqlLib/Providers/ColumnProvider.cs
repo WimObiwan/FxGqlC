@@ -6,7 +6,6 @@ using System.Text;
 
 namespace FxGqlLib
 {
-	/*
 	public class Column
 	{ 
 		public IExpression Expression { get; set; }
@@ -23,9 +22,8 @@ namespace FxGqlLib
 
 		public IProvider Provider { get; private set; }
 	}
-	*/
 	
-	public class SelectProvider : IProvider
+	public class ColumnProvider : IProvider
 	{
 		IList<Column> outputColumns;
 		IExpression[] outputList;
@@ -33,23 +31,24 @@ namespace FxGqlLib
 		IProvider provider;
 		GqlQueryState gqlQueryState;
 		ProviderRecord record;
-		
-		public SelectProvider (IList<IExpression> outputList, IProvider provider)
+
+		static IList<Column> ColumnListFromExpressionList (IList<IExpression> expressionList)
 		{
-			this.outputList = outputList.ToArray ();
-			this.columnNameList = new string[outputList.Count];
-			for (int i = 0; i < outputList.Count; i++) {
-				IColumnExpression columnExpression = outputList [i] as IColumnExpression;
-				if (columnExpression != null) {
-					this.columnNameList [i] = columnExpression.ColumnName;
-				} else {
-					this.columnNameList [i] = string.Format ("Column{0}", i + 1);
-				}
+			List<Column> columnList = new List<Column> ();
+			foreach (IExpression expression in expressionList) {
+				Column column = new Column ();
+				column.Expression = expression;
+				columnList.Add (column);
 			}
-			this.provider = provider;
+			return columnList;
 		}
 
-		public SelectProvider (IList<Column> outputColumns, IProvider provider)
+		public ColumnProvider (IList<IExpression> outputList, IProvider provider)
+			: this(ColumnListFromExpressionList (outputList), provider)
+		{
+		}
+
+		public ColumnProvider (IList<Column> outputColumns, IProvider provider)
 		{
 			if (!outputColumns.Any (p => p is AllColums)) {
 				if (outputColumns != null) {

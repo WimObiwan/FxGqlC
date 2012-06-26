@@ -11,7 +11,7 @@ namespace FxGqlLib
 		#region implemented abstract members of FxGqlLib.Expression[System.Int64]
 		public override long Evaluate (GqlQueryState gqlQueryState)
 		{
-			return gqlQueryState.TotalLineNumber;
+			return gqlQueryState.Record.TotalLineNo;
 		}
 		#endregion
 	}

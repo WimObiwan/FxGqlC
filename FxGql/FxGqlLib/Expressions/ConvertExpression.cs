@@ -2,6 +2,20 @@ using System;
 
 namespace FxGqlLib
 {
+	public static class ConvertExpression
+	{
+		public static IExpression Create (Type type, IExpression expression)
+		{
+			if (type == typeof(string)) {
+				return new ConvertExpression<string> (expression);
+			} else if (type == typeof(long)) {
+				return new ConvertExpression<long> (expression);
+			} else {
+				throw new Exception (string.Format ("Unknown datatype {0}", type.ToString ()));
+			}
+		}
+	}
+
 	public class ConvertExpression<ToT> : Expression<ToT> where ToT : IComparable
 	{
 		protected IExpression expression;
@@ -29,7 +43,7 @@ namespace FxGqlLib
 		
 		public override IComparable AggregateCalculate (AggregationState state)
 		{
-			return (IComparable)Convert.ChangeType(expression.AggregateCalculate (state), typeof(ToT));
+			return (IComparable)Convert.ChangeType (expression.AggregateCalculate (state), typeof(ToT));
 		}
 		#endregion
 	}

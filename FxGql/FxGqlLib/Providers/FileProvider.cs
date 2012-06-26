@@ -46,7 +46,8 @@ namespace FxGqlLib
 				FileMode.Open,
 				FileAccess.Read,
 				FileShare.ReadWrite
-			));
+			)
+			);
 			record = new ProviderRecord ();
 			record.Source = fileName;
 
@@ -74,6 +75,7 @@ namespace FxGqlLib
 			};
 			record.OriginalColumns = record.Columns;
 			record.LineNo++;
+			record.TotalLineNo = record.LineNo;
 			
 			return text != null;
 		}

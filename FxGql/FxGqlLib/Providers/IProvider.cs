@@ -11,6 +11,8 @@ namespace FxGqlLib
 
 		public long LineNo { get; set; }
 
+		public long TotalLineNo { get; set; }
+
 		public IComparable[] Columns { get; set; }
 
 		public IComparable[] OriginalColumns { get; set; }

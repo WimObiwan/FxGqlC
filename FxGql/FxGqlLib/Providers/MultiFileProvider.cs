@@ -12,6 +12,7 @@ namespace FxGqlLib
 		long skip;
 		FileOptionsFromClause.FileOrderEnum order;
 		StringComparer stringComparer;
+		long totalLineNo;
 
 		string[] files;
 		GqlQueryState gqlQueryState;
@@ -33,12 +34,12 @@ namespace FxGqlLib
 			return new string[] { "Column1" };
 		}
 
-		public int GetColumnOrdinal(string columnName)
+		public int GetColumnOrdinal (string columnName)
 		{
 			return -1;
 		}
 		
-		public Type[] GetColumnTypes()
+		public Type[] GetColumnTypes ()
 		{
 			return new Type[] { typeof(string) };
 		}
@@ -63,24 +64,28 @@ namespace FxGqlLib
 				files = files.OrderByDescending (p => p, stringComparer).ToArray ();
 
 			currentFile = -1;
-			if (!SetNextProvider())
-				throw new FileNotFoundException("No files found that match with the wildcards", fileMask);
+			totalLineNo = 0;
+			if (!SetNextProvider ())
+				throw new FileNotFoundException ("No files found that match with the wildcards", fileMask);
 		}
 
 		public bool GetNextRecord ()
 		{
-			while (!provider.GetNextRecord())
-			{
-				if (!SetNextProvider()) 
+			while (!provider.GetNextRecord()) {
+				if (!SetNextProvider ()) 
 					return false;
 			}
+
+			totalLineNo++;
+			Record.TotalLineNo = totalLineNo;
 			
 			return true;
 		}
 
 		public void Uninitialize ()
 		{
-			if (provider != null) provider.Uninitialize();
+			if (provider != null)
+				provider.Uninitialize ();
 		}
 
 		public ProviderRecord Record {
@@ -92,9 +97,8 @@ namespace FxGqlLib
 
 		public bool SetNextProvider ()
 		{
-			if (provider != null)
-			{
-				provider.Uninitialize();
+			if (provider != null) {
+				provider.Uninitialize ();
 				provider = null;
 			}
 			
@@ -102,8 +106,8 @@ namespace FxGqlLib
 			if (currentFile >= files.Length)
 				return false;
 			
-			provider = FileProviderFactory.Get(files[currentFile], skip);
-			provider.Initialize(gqlQueryState);
+			provider = FileProviderFactory.Get (files [currentFile], skip);
+			provider.Initialize (gqlQueryState);
 			
 			return true;
 		}
@@ -111,7 +115,8 @@ namespace FxGqlLib
 		#region IDisposable implementation
 		public void Dispose ()
 		{
-			if (provider != null) provider.Dispose();
+			if (provider != null)
+				provider.Dispose ();
 		}
 		#endregion
 	}

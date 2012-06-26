@@ -71,7 +71,6 @@ namespace FxGqlLib
 		public virtual Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
 		{
 			T val = Evaluate (gqlQueryState);
-			
 			return (Y)Convert.ChangeType (val, typeof(Y));
 		}
 

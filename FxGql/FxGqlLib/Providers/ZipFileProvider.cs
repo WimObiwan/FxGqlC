@@ -27,12 +27,12 @@ namespace FxGqlLib
 			return new string[] { "Column1" };
 		}
 
-		public int GetColumnOrdinal(string columnName)
+		public int GetColumnOrdinal (string columnName)
 		{
 			return -1;
 		}
 		
-		public Type[] GetColumnTypes()
+		public Type[] GetColumnTypes ()
 		{
 			return new Type[] { typeof(string) };
 		}
@@ -41,18 +41,16 @@ namespace FxGqlLib
 		{
 			gqlEngineExecutionState = gqlQueryState.CurrentExecutionState;
 			
-			string fileName = Path.Combine(gqlQueryState.CurrentDirectory, this.fileName);
+			string fileName = Path.Combine (gqlQueryState.CurrentDirectory, this.fileName);
 			zipFile = new ZipFile (fileName);
 			zipFile.UseZip64 = UseZip64.On;
 			streamReader = new StreamReader (zipFile.GetInputStream (currentFile));
 			record = new ProviderRecord ();
 			record.Source = fileName;
 
-			for (long i = 0; i < skip; i++)
-			{
-				if (streamReader.ReadLine () == null) 
-				{
-					streamReader.Close();
+			for (long i = 0; i < skip; i++) {
+				if (streamReader.ReadLine () == null) {
+					streamReader.Close ();
 					streamReader = null;
 					return;
 				}
@@ -62,7 +60,7 @@ namespace FxGqlLib
 		public bool GetNextRecord ()
 		{
 			if (gqlEngineExecutionState.InterruptState == GqlEngineExecutionState.InterruptStates.Interrupted)
-				throw new InterruptedException();
+				throw new InterruptedException ();
 
 			if (streamReader == null)
 				return false;
@@ -82,6 +80,7 @@ namespace FxGqlLib
 			}
 			
 			record.LineNo++;
+			record.TotalLineNo = record.LineNo;
 			record.Columns = new string[] 
 			{ 
 				text 
