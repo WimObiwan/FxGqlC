@@ -369,6 +369,7 @@ expression_atom
 
 functioncall_or_column
 	: TOKEN WS? '(' WS? (expression WS? (',' WS? expression WS?)*)? ')' -> ^(T_FUNCTIONCALL TOKEN expression*)
+	| TOKEN WS? '(' WS? '*' WS? ')' -> ^(T_FUNCTIONCALL TOKEN '*')
 	//| TOKEN -> ^(T_COLUMN TOKEN)
 	| SIMPLE_FILE -> ^(T_COLUMN SIMPLE_FILE)
 	;

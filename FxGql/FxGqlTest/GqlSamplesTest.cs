@@ -983,23 +983,39 @@ namespace FxGqlTest
 			// Aggregation without group by
 			TestGql (@"SELECT count(1), min($line), max($line) from [SampleFiles/AirportCodes.csv]", 
 			         "441662F2AB6E6EC6D898758DC68B142C43117BBE6B71BEC956857BECE8A9F60B");
+			TestGql (@"SELECT count(*), min($line), max($line) from [SampleFiles/AirportCodes.csv]", 
+			         "441662F2AB6E6EC6D898758DC68B142C43117BBE6B71BEC956857BECE8A9F60B");
 
 			// Group By
 			TestGql ("select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Tournament]",
                 "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
 			TestGql ("select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Tournament] order by 1",
                 "08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
+			TestGql ("select [Tournament], count(*) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Tournament] order by 1",
+                "08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
 			TestGql ("select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Tournament]",
                 "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
 			TestGql ("select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Tournament] order by 1",
                 "08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
+			TestGql ("select [Tournament], count(*) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Tournament] order by 1",
+                "08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
 			TestGql ("select top 10 [Winner], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Winner] order by 2 desc",
                 "0E40036FDDB3972DEC5D9B84D13109D6885DAA2B2D7578DAF45BF0B710EC4E74");
+			TestGql ("select top 10 [Winner], count(*) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Winner] order by 2 desc",
+                "0E40036FDDB3972DEC5D9B84D13109D6885DAA2B2D7578DAF45BF0B710EC4E74");
 			TestGql ("select count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+                "8458672E871307348E9BAABB7CAFB48EFA0C4BCA39B5B99E5A480CB1708F710A");
+			TestGql ("select count(*) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
                 "8458672E871307348E9BAABB7CAFB48EFA0C4BCA39B5B99E5A480CB1708F710A");
 			TestGql ("select sum(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
                 "8458672E871307348E9BAABB7CAFB48EFA0C4BCA39B5B99E5A480CB1708F710A");
 			TestGql ("select count(1) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+                "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
+			TestGql ("select count(*) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+                "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
+			TestGql ("select count(1) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+                "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
+			TestGql ("select count(*) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
                 "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
 			TestGql ("select sum(5) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
                 "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
@@ -1074,11 +1090,11 @@ namespace FxGqlTest
 			*/
 
 			// TODO:
-			TestGql (
-				@"
-				CREATE VIEW MyView(@file string) AS SELECT [Tournament] from [@file -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]
-				"
-			);
+//			TestGql (
+//				@"
+//				CREATE VIEW MyView(@file string) AS SELECT [Tournament] from [@file -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]
+//				"
+//			);
 
 
 			return failed == 0;

@@ -658,14 +658,18 @@ namespace FxGqlLib
 
 		IExpression ParseExpressionFunctionCall_1 (IProvider provider, ITree functionCallTree, string functionName)
 		{
-			IExpression arg = ParseExpression (
-                provider,
-                functionCallTree.GetChild (1)
-			);
+			IExpression arg;
+
+			string functionNameUpper = functionName.ToUpperInvariant ();
+			if (functionNameUpper == "COUNT" && functionCallTree.GetChild (1).Text == "*") {
+				arg = new ConstExpression<long> (1);
+			} else {
+				arg = ParseExpression (provider, functionCallTree.GetChild (1));
+			}
 
 			IExpression result;
             
-			switch (functionName.ToUpperInvariant ()) {
+			switch (functionNameUpper) {
 			case "ESCAPEREGEX":
 				result = new UnaryExpression<string, string> ((a) => Regex.Escape (a), arg);
 				break;
