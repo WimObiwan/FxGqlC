@@ -23,35 +23,6 @@ namespace FxGqlLib
 		}
 	}
     
-	class AntlrTreeEnumerator
-	{
-		ITree parent;
-		IEnumerator<ITree> enumerator;
-		ITree current;
-        
-		public ITree Current { get { return current; } }
-        
-		public AntlrTreeEnumerator (CommonTree parent)
-		{
-			this.parent = parent;
-			enumerator = parent.Children.GetEnumerator ();
-			if (enumerator.MoveNext ())
-				current = enumerator.Current;
-			else
-				current = null;
-		}
-        
-		public void MoveNext ()
-		{
-			if (current == null)
-				throw new NotEnoughSubTokensAntlrException (parent);
-			if (enumerator.MoveNext ())
-				current = enumerator.Current;
-			else
-				current = null;
-		}       
-	}
-    
 	class GqlParser
 	{
 		readonly string command;
@@ -114,14 +85,11 @@ namespace FxGqlLib
 				throw new UnexpectedTokenAntlrException (expectedToken, tree);
 		}
 
-		CommonTree GetSingleChild (CommonTree tree)
+		ITree GetSingleChild (ITree tree)
 		{
-			if (tree.Children == null)
+			if (tree.ChildCount != 1)
 				throw new NotEnoughSubTokensAntlrException (tree);
-			var childEnumerator = tree.Children.GetEnumerator ();
-			if (!childEnumerator.MoveNext ())
-				throw new NotEnoughSubTokensAntlrException (tree);
-			return (CommonTree)childEnumerator.Current;
+			return tree.GetChild (0);
 		}
         
 		public IList<IGqlCommand> Parse ()
@@ -135,8 +103,7 @@ namespace FxGqlLib
 			IList<IGqlCommand > commands;
 			try {
 				var result = parser.Parse ();
-				CommonTree rootTree = (CommonTree)result.Tree;
-				commands = ParseCommands (rootTree);
+				commands = ParseCommands ((ITree)result.Tree);
 			} catch (RecognitionException) {
 				// TODO: outer exception
 				throw;
@@ -145,53 +112,53 @@ namespace FxGqlLib
 			return commands;
 		}
         
-		IList<IGqlCommand> ParseCommands (CommonTree commandsTree)
+		IList<IGqlCommand> ParseCommands (ITree tree)
 		{
-			AssertAntlrToken (commandsTree, "T_ROOT");
+			AssertAntlrToken (tree, "T_ROOT");
             
 			List<IGqlCommand > commands = new List<IGqlCommand> ();
-			if (commandsTree.Children != null) {
-				foreach (CommonTree commandTree in commandsTree.Children) {
-					commands.Add (ParseCommand (commandTree));
-				}
+			foreach (ITree commandTree in new AntlrTreeChildEnumerable(tree)) {
+				commands.Add (ParseCommand (commandTree));
 			}
             
 			return commands;
 		}
         
-		IGqlCommand ParseCommand (CommonTree commandTree)
+		IGqlCommand ParseCommand (ITree tree)
 		{
-			switch (commandTree.Text) {
+			switch (tree.Text) {
 			case "T_SELECT":
-				return new GqlQueryCommand (ParseCommandSelect (commandTree));
+				return new GqlQueryCommand (ParseCommandSelect (tree));
 			case "T_USE":
-				return new UseCommand (ParseCommandUse (commandTree));
+				return new UseCommand (ParseCommandUse (tree));
 			case "T_DECLARE":
 				{
-					var variableDeclaration = ParseCommandDeclare (commandTree);
+					var variableDeclaration = ParseCommandDeclare (tree);
 					foreach (var variable in variableDeclaration) {
 						variableTypes [variable.Item1] = variable.Item2;
 					}
 					return new DeclareCommand (variableDeclaration);
 				}
 			case "T_SET_VARIABLE":
-				return new SetVariableCommand (ParseCommandSetVariable (commandTree));
+				return new SetVariableCommand (ParseCommandSetVariable (tree));
 			case "T_CREATE_VIEW":
-				var createView = ParseCommandCreateView (commandTree);
+				var createView = ParseCommandCreateView (tree);
 				string view = createView.Item1;
 				IProvider provider = createView.Item2;
 				views.Add (view, provider);
 				return new DummyCommand ();
 			default:
-				throw new UnexpectedTokenAntlrException (commandTree);
+				throw new UnexpectedTokenAntlrException (tree);
 			}
 		}
 
-		IProvider ParseCommandSelect (CommonTree selectTree)
+		IProvider ParseCommandSelect (ITree tree)
 		{
-			AssertAntlrToken (selectTree, "T_SELECT");
+			AssertAntlrToken (tree, "T_SELECT");
             
-			AntlrTreeEnumerator enumerator = new AntlrTreeEnumerator (selectTree);
+			var enumerator = new AntlrTreeChildEnumerable (tree).GetEnumerator ();
+			if (!enumerator.MoveNext ())
+				throw new NotEnoughSubTokensAntlrException (tree);
             
 			// DISTINCT / ALL
 			bool distinct = false;
@@ -205,7 +172,7 @@ namespace FxGqlLib
 			// TOP
 			Expression<long > topExpression;
 			if (enumerator.Current != null && enumerator.Current.Text == "T_TOP") {
-				topExpression = ParseTopClause ((CommonTree)enumerator.Current);
+				topExpression = ParseTopClause (enumerator.Current);
 				enumerator.MoveNext ();
 			} else {
 				topExpression = null;
@@ -213,14 +180,14 @@ namespace FxGqlLib
 
 			// columns
 			if (enumerator.Current == null)
-				throw new NotEnoughSubTokensAntlrException (selectTree);
-			CommonTree columnListEnumerator = (CommonTree)enumerator.Current;
+				throw new NotEnoughSubTokensAntlrException (tree);
+			ITree columnListEnumerator = enumerator.Current;
 			enumerator.MoveNext ();
                 
 			// INTO
 			FileOptionsIntoClause intoFile;
 			if (enumerator.Current != null && enumerator.Current.Text == "T_INTO") {
-				intoFile = ParseIntoClause ((CommonTree)enumerator.Current);
+				intoFile = ParseIntoClause (enumerator.Current);
 				enumerator.MoveNext ();
 			} else {
 				intoFile = null;
@@ -229,14 +196,14 @@ namespace FxGqlLib
 			// FROM
 			IProvider provider;
 			if (enumerator.Current != null && enumerator.Current.Text == "T_FROM") {
-				IProvider fromProvider = ParseFromClause ((CommonTree)enumerator.Current);
+				IProvider fromProvider = ParseFromClause (enumerator.Current);
 				provider = fromProvider;
 				enumerator.MoveNext ();
                                 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE") {
 					Expression<bool > whereExpression = ParseWhereClause (
                         fromProvider,
-                        (CommonTree)enumerator.Current
+                        enumerator.Current
 					);
 					enumerator.MoveNext ();
 
@@ -249,7 +216,7 @@ namespace FxGqlLib
 				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY") {
 					IList<IExpression> groupbyColumns = ParseGroupbyClause (
                         fromProvider,
-                        (CommonTree)enumerator.Current
+                        enumerator.Current
 					);
 					enumerator.MoveNext ();
                     
@@ -278,7 +245,7 @@ namespace FxGqlLib
 				if (enumerator.Current != null && enumerator.Current.Text == "T_ORDERBY") {
 					IList<OrderbyProvider.Column> orderbyColumns = ParseOrderbyClause (
                         fromProvider,
-                        (CommonTree)enumerator.Current
+                        enumerator.Current
 					);
 					enumerator.MoveNext ();
                     
@@ -293,31 +260,31 @@ namespace FxGqlLib
 				if (distinct)
 					throw new ParserException (
                         "DISTINCT clause not allowed without a FROM clause.",
-                        selectTree
+                        tree
 					);
                 
 				if (topExpression != null) 
 					throw new ParserException (
                         "TOP clause not allowed without a FROM clause.",
-                        selectTree
+                        tree
 					);
 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE")
 					throw new ParserException (
                         "WHERE clause not allowed without a FROM clause.",
-                        selectTree
+                        tree
 					);
                 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY")
 					throw new ParserException (
                         "GROUP BY clause not allowed without a FROM clause.",
-                        selectTree
+                        tree
 					);
 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_ORDERBY")
 					throw new ParserException (
                         "ORDER BY clause not allowed without a FROM clause.",
-                        selectTree
+                        tree
 					);
 
 				IList<Column > outputColumns;
@@ -332,17 +299,17 @@ namespace FxGqlLib
 			return provider;
 		}
         
-		Expression<long> ParseTopClause (CommonTree topClauseTree)
+		Expression<long> ParseTopClause (ITree topClauseTree)
 		{
-			CommonTree tree = GetSingleChild (topClauseTree);
+			ITree tree = GetSingleChild (topClauseTree);
 			return ExpressionHelper.ConvertIfNeeded<long> (ParseExpression (null, tree));
 		}
         
-		IList<Column> ParseColumnList (IProvider provider, CommonTree outputListTree)
+		IList<Column> ParseColumnList (IProvider provider, ITree outputListTree)
 		{
 			List<Column > outputColumnExpressions = new List<Column> ();
 			AssertAntlrToken (outputListTree, "T_COLUMNLIST", 1, -1);
-			foreach (CommonTree outputColumnTree in outputListTree.Children) {
+			foreach (ITree outputColumnTree in new AntlrTreeChildEnumerable(outputListTree)) {
 				Column column = ParseColumn (provider, outputColumnTree);
 				outputColumnExpressions.Add (column);
 			}
@@ -350,21 +317,21 @@ namespace FxGqlLib
 			return outputColumnExpressions;
 		}
 
-		Column ParseColumn (IProvider provider, CommonTree outputColumnTree)
+		Column ParseColumn (IProvider provider, ITree outputColumnTree)
 		{
 			AssertAntlrToken (outputColumnTree, "T_COLUMN", 1, 2);
 
 			Column column;
-			if (outputColumnTree.Children [0].Text == "*") {
+			if (outputColumnTree.GetChild (0).Text == "*") {
 				column = new AllColums (provider);
 			} else {
 				column = new Column ();
 				column.Expression = ParseExpression (
                     provider,
-                    (CommonTree)outputColumnTree.Children [0]
+                    outputColumnTree.GetChild (0)
 				);
-				if (outputColumnTree.Children.Count == 2) {
-					column.Name = ParseColumnName ((CommonTree)outputColumnTree.Children [1]);
+				if (outputColumnTree.ChildCount == 2) {
+					column.Name = ParseColumnName (outputColumnTree.GetChild (1));
 				} else if (column.Expression is IColumnExpression) {
 					IColumnExpression columnExpression = (IColumnExpression)column.Expression;
 					column.Name = columnExpression.ColumnName;
@@ -376,53 +343,57 @@ namespace FxGqlLib
 			return column; 
 		}
 
-		FileOptionsIntoClause ParseIntoClause (CommonTree intoClauseTree)
+		FileOptionsIntoClause ParseIntoClause (ITree intoClauseTree)
 		{
 			AssertAntlrToken (intoClauseTree, "T_INTO", 1);
                 
-			CommonTree fileTree = GetSingleChild (intoClauseTree);
-			FileOptionsIntoClause intoFile = ParseFileIntoClause (fileTree);            
+			ITree fileTree = GetSingleChild (intoClauseTree);
+			FileOptionsIntoClause intoFile = ParseFileIntoClause (fileTree);
             
 			return intoFile;
 		}
         
-		IProvider ParseFromClause (CommonTree fromClauseTree)
+		IProvider ParseFromClause (ITree fromClauseTree)
 		{
 			AssertAntlrToken (fromClauseTree, "T_FROM", 1, -1);
             
-			IProvider[] provider = new IProvider[fromClauseTree.ChildCount];
+			var providers = new List<IProvider> ();
             
-			for (int i = 0; i < fromClauseTree.ChildCount; i++) {
-				CommonTree inputProviderTree = GetSingleChild (fromClauseTree);
+//			for (int i = 0; i < fromClauseTree.ChildCount; i++) {
+//				ITree inputProviderTree = GetSingleChild (fromClauseTree);
+			foreach (ITree inputProviderTree in new AntlrTreeChildEnumerable(fromClauseTree)) {
+				IProvider provider;
 				switch (inputProviderTree.Text) {
 				case "T_FILE":
-					provider [i] = ParseFileProvider (inputProviderTree);
+					provider = ParseFileProvider (inputProviderTree);
 					break;
 				case "T_SUBQUERY":
-					provider [i] = ParseSubquery (inputProviderTree);
+					provider = ParseSubquery (inputProviderTree);
 					break;
 				case "T_VIEW_NAME":
-					provider [i] = ParseViewProvider (inputProviderTree);
+					provider = ParseViewProvider (inputProviderTree);
 					break;
 				default:
 					throw new UnexpectedTokenAntlrException (inputProviderTree);
 				}
+
+				providers.Add (provider);
 			}
             
 			IProvider fromProvider;
-			if (provider.Length == 1)
-				fromProvider = provider [0];
+			if (providers.Count == 1)
+				fromProvider = providers [0];
 			else
-				fromProvider = new MergeProvider (provider);
+				fromProvider = new MergeProvider (providers);
             
 			return fromProvider;
 		}
 
-		Expression<bool> ParseWhereClause (IProvider provider, CommonTree whereTree)
+		Expression<bool> ParseWhereClause (IProvider provider, ITree whereTree)
 		{
 			AssertAntlrToken (whereTree, "T_WHERE");
             
-			CommonTree expressionTree = GetSingleChild (whereTree);
+			ITree expressionTree = GetSingleChild (whereTree);
 			IExpression expression = ParseExpression (provider, expressionTree);
 			if (!(expression is Expression<bool>)) {
 				throw new ParserException (
@@ -433,36 +404,36 @@ namespace FxGqlLib
 			return (Expression<bool>)expression;
 		}
         
-		IList<IExpression> ParseGroupbyClause (IProvider provider, CommonTree groupbyTree)
+		IList<IExpression> ParseGroupbyClause (IProvider provider, ITree groupbyTree)
 		{
 			AssertAntlrToken (groupbyTree, "T_GROUPBY", 1, 1);
         
-			return ParseExpressionList (provider, (CommonTree)groupbyTree.Children [0]);
+			return ParseExpressionList (provider, groupbyTree.GetChild (0));
 		}
         
-		IList<OrderbyProvider.Column> ParseOrderbyClause (IProvider provider, CommonTree orderbyTree)
+		IList<OrderbyProvider.Column> ParseOrderbyClause (IProvider provider, ITree orderbyTree)
 		{
 			AssertAntlrToken (orderbyTree, "T_ORDERBY");
                         
 			List<OrderbyProvider.Column > orderbyColumns = new List<OrderbyProvider.Column> ();
-			foreach (CommonTree orderbyColumnTree in orderbyTree.Children) {
+			foreach (ITree orderbyColumnTree in new AntlrTreeChildEnumerable(orderbyTree)) {
 				orderbyColumns.Add (ParseOrderbyColumn (provider, orderbyColumnTree));
 			}
             
 			return orderbyColumns;
 		}
         
-		OrderbyProvider.Column ParseOrderbyColumn (IProvider provider, CommonTree orderbyColumnTree)
+		OrderbyProvider.Column ParseOrderbyColumn (IProvider provider, ITree orderbyColumnTree)
 		{
 			AssertAntlrToken (orderbyColumnTree, "T_ORDERBY_COLUMN", 1, 2);
             
 			OrderbyProvider.Column orderbyColumn = new OrderbyProvider.Column ();
 			orderbyColumn.Expression = ParseExpression (
                 provider,
-                (CommonTree)orderbyColumnTree.Children [0]
+                orderbyColumnTree.GetChild (0)
 			);
-			if (orderbyColumnTree.Children.Count > 1) {
-				string order = orderbyColumnTree.Children [1].Text;
+			if (orderbyColumnTree.ChildCount > 1) {
+				string order = orderbyColumnTree.GetChild (1).Text;
 				switch (order) {
 				case "T_ORDERBY_ASC":
 					orderbyColumn.Order = OrderbyProvider.OrderEnum.ASC;
@@ -472,7 +443,7 @@ namespace FxGqlLib
 					break;
 				default:
 					throw new ParserException ("Expected ASC or DESC as ORDER BY column order",
-                                              orderbyColumnTree.Children [1]);
+                                              orderbyColumnTree.GetChild (1));
 				}
 			} else {
 				orderbyColumn.Order = OrderbyProvider.OrderEnum.ASC;
@@ -481,57 +452,57 @@ namespace FxGqlLib
 			return orderbyColumn;
 		}
 
-		IExpression ParseExpression (IProvider provider, CommonTree expressionTree)
+		IExpression ParseExpression (IProvider provider, ITree tree)
 		{
 			IExpression expression;
-			switch (expressionTree.Text.ToUpperInvariant ()) {
+			switch (tree.Text.ToUpperInvariant ()) {
 //          case "*":
 //              expression = new LineSystemVar ();
 //              break;
 			case "T_INTEGER":
-				expression = ParseExpressionInteger (expressionTree);
+				expression = ParseExpressionInteger (tree);
 				break;
 			case "T_STRING":
-				expression = ParseExpressionString (expressionTree);
+				expression = ParseExpressionString (tree);
 				break;
 			case "T_SYSTEMVAR":
-				expression = ParseExpressionSystemVar (expressionTree);
+				expression = ParseExpressionSystemVar (tree);
 				break;
 			case "T_FUNCTIONCALL":
-				expression = ParseExpressionFunctionCall (provider, expressionTree);
+				expression = ParseExpressionFunctionCall (provider, tree);
 				break;
 			case "T_CONVERT":
-				expression = ParseExpressionConvert (provider, expressionTree);
+				expression = ParseExpressionConvert (provider, tree);
 				break;
 			case "T_OP_UNARY":
-				expression = ParseExpressionOperatorUnary (provider, expressionTree);
+				expression = ParseExpressionOperatorUnary (provider, tree);
 				break;
 			case "T_OP_BINARY":
-				expression = ParseExpressionOperatorBinary (provider, expressionTree);
+				expression = ParseExpressionOperatorBinary (provider, tree);
 				break;
 			case "T_EXISTS":
-				expression = ParseExpressionExists (expressionTree);
+				expression = ParseExpressionExists (tree);
 				break;
 			case "T_COLUMN":
-				expression = ParseExpressionColumn (provider, expressionTree);
+				expression = ParseExpressionColumn (provider, tree);
 				break;
 			case "T_CASE":
-				expression = ParseExpressionCase (provider, expressionTree);
+				expression = ParseExpressionCase (provider, tree);
 				break;
 			case "T_VARIABLE":
-				expression = ParseExpressionVariable (expressionTree);
+				expression = ParseExpressionVariable (tree);
 				break;
 			case "T_SUBQUERY":
-				expression = ParseExpressionSubquery (expressionTree);
+				expression = ParseExpressionSubquery (tree);
 				break;
 			default:
-				throw new UnexpectedTokenAntlrException (expressionTree);
+				throw new UnexpectedTokenAntlrException (tree);
 			}
             
 			return expression;
 		}
 
-		Expression<T> ParseExpression<T> (IProvider provider, CommonTree expressionTree) where T : IComparable
+		Expression<T> ParseExpression<T> (IProvider provider, ITree expressionTree) where T : IComparable
 		{
 			IExpression expression = ParseExpression (provider, expressionTree);
 			Expression<T > expressionT = expression as Expression<T>;
@@ -543,9 +514,9 @@ namespace FxGqlLib
 			return expressionT;
 		}
         
-		Expression<long> ParseExpressionInteger (CommonTree expressionNumberTree)
+		Expression<long> ParseExpressionInteger (ITree expressionNumberTree)
 		{
-			CommonTree tree = GetSingleChild (expressionNumberTree);
+			ITree tree = GetSingleChild (expressionNumberTree);
 			return new ConstExpression<long> (long.Parse (tree.Text));
 		}
 
@@ -577,17 +548,17 @@ namespace FxGqlLib
 			return text;
 		}
 
-		Expression<string> ParseExpressionString (CommonTree expressionStringTree)
+		Expression<string> ParseExpressionString (ITree expressionStringTree)
 		{
-			CommonTree tree = GetSingleChild (expressionStringTree);
+			ITree tree = GetSingleChild (expressionStringTree);
             
 			string text = ParseString (tree);
 			return new ConstExpression<string> (text);
 		}
 
-		IExpression ParseExpressionSystemVar (CommonTree expressionSystemVarTree)
+		IExpression ParseExpressionSystemVar (ITree expressionSystemVarTree)
 		{
-			CommonTree tree = GetSingleChild (expressionSystemVarTree);
+			ITree tree = GetSingleChild (expressionSystemVarTree);
             
 			IExpression expression;
 			switch (tree.Text.ToUpperInvariant ()) {
@@ -616,14 +587,14 @@ namespace FxGqlLib
 			return expression;
 		}
 
-		IExpression ParseExpressionFunctionCall (IProvider provider, CommonTree functionCallTree)
+		IExpression ParseExpressionFunctionCall (IProvider provider, ITree functionCallTree)
 		{
-			AssertAntlrToken (functionCallTree, "T_FUNCTIONCALL");
+			AssertAntlrToken (functionCallTree, "T_FUNCTIONCALL", 1, -1);
 
-			string functionName = functionCallTree.Children [0].Text;
+			string functionName = functionCallTree.GetChild (0).Text;
             
 			IExpression result;
-			int argCount = functionCallTree.Children.Count - 1;
+			int argCount = functionCallTree.ChildCount - 1;
 			switch (argCount) {
 			case 0:
 				result = ParseExpressionFunctionCall_0 (
@@ -666,7 +637,7 @@ namespace FxGqlLib
 			return result;
 		}
                 
-		IExpression ParseExpressionFunctionCall_0 (IProvider provider, CommonTree functionCallTree, string functionName)
+		IExpression ParseExpressionFunctionCall_0 (IProvider provider, ITree functionCallTree, string functionName)
 		{
 			IExpression result;
             
@@ -685,11 +656,11 @@ namespace FxGqlLib
 			return result;
 		}
 
-		IExpression ParseExpressionFunctionCall_1 (IProvider provider, CommonTree functionCallTree, string functionName)
+		IExpression ParseExpressionFunctionCall_1 (IProvider provider, ITree functionCallTree, string functionName)
 		{
 			IExpression arg = ParseExpression (
                 provider,
-                (CommonTree)functionCallTree.Children [1]
+                functionCallTree.GetChild (1)
 			);
 
 			IExpression result;
@@ -851,15 +822,15 @@ namespace FxGqlLib
 			return result;
 		}
 
-		IExpression ParseExpressionFunctionCall_2 (IProvider provider, CommonTree functionCallTree, string functionName)
+		IExpression ParseExpressionFunctionCall_2 (IProvider provider, ITree functionCallTree, string functionName)
 		{
 			IExpression arg1 = ParseExpression (
                 provider,
-                (CommonTree)functionCallTree.Children [1]
+                functionCallTree.GetChild (1)
 			);
 			IExpression arg2 = ParseExpression (
                 provider,
-                (CommonTree)functionCallTree.Children [2]
+                functionCallTree.GetChild (2)
 			);
             
 			IExpression result;
@@ -903,19 +874,19 @@ namespace FxGqlLib
 			return result;
 		}
 
-		IExpression ParseExpressionFunctionCall_3 (IProvider provider, CommonTree functionCallTree, string functionName)
+		IExpression ParseExpressionFunctionCall_3 (IProvider provider, ITree functionCallTree, string functionName)
 		{
 			IExpression arg1 = ParseExpression (
                 provider,
-                (CommonTree)functionCallTree.Children [1]
+                functionCallTree.GetChild (1)
 			);
 			IExpression arg2 = ParseExpression (
                 provider,
-                (CommonTree)functionCallTree.Children [2]
+                functionCallTree.GetChild (2)
 			);
 			IExpression arg3 = ParseExpression (
                 provider,
-                (CommonTree)functionCallTree.Children [3]
+                functionCallTree.GetChild (3)
 			);
             
 			IExpression result;
@@ -944,14 +915,14 @@ namespace FxGqlLib
 			return result;
 		}
 
-		IExpression ParseExpressionConvert (IProvider provider, CommonTree convertTree)
+		IExpression ParseExpressionConvert (IProvider provider, ITree convertTree)
 		{
 			AssertAntlrToken (convertTree, "T_CONVERT", 2);
             
-			Type dataType = ParseDataType ((CommonTree)convertTree.Children [0]);
+			Type dataType = ParseDataType (convertTree.GetChild (0));
 			IExpression expr = ParseExpression (
                 provider,
-                (CommonTree)convertTree.Children [1]
+                convertTree.GetChild (1)
 			);
             
 			IExpression result;
@@ -965,13 +936,13 @@ namespace FxGqlLib
                     "Datatype {0} not supported in CONVERT function.",
                     dataType
 				),
-                    convertTree.Children [1]
+                    convertTree.GetChild (1)
 				);
 			}
 			return result;
 		}
 
-		FileOptionsFromClause ParseFileFromClause (CommonTree fileProvider)
+		FileOptionsFromClause ParseFileFromClause (ITree fileProvider)
 		{
 			FileOptionsFromClause fileOptions = new FileOptionsFromClause ();
 
@@ -1027,7 +998,7 @@ namespace FxGqlLib
 			return fileOptions;
 		}
 
-		FileOptionsIntoClause ParseFileIntoClause (CommonTree fileProvider)
+		FileOptionsIntoClause ParseFileIntoClause (ITree fileProvider)
 		{
 			FileOptionsIntoClause fileOptions = new FileOptionsIntoClause ();
 
@@ -1080,24 +1051,24 @@ namespace FxGqlLib
 			return fileOptions;
 		}
 
-		FileOptions ParseFileUse (CommonTree commonTree)
+		FileOptions ParseFileUse (ITree tree)
 		{
 			FileOptionsIntoClause fileOptions = new FileOptionsIntoClause ();
 
 			List<Tuple<string, string, ITree>> options = ParseFileCommon (
-                commonTree,
+                tree,
                 fileOptions
 			);
 
 			foreach (Tuple<string, string, ITree> option in options) {
 				string key = option.Item1;
 				//string value = option.Item2;
-				ITree tree = option.Item3;
+				ITree optionTree = option.Item3;
 				switch (key.ToUpperInvariant ()) {
 				default:
 					throw new ParserException (
                                 string.Format ("Unknown file option '{0}'", option),
-                                tree
+                                optionTree
 					);  
 				}
 			}
@@ -1105,51 +1076,51 @@ namespace FxGqlLib
 			return fileOptions;
 		}
 
-		List<Tuple<string, string, ITree>> ParseFileCommon (CommonTree commonTree, FileOptions fileOptions)
+		List<Tuple<string, string, ITree>> ParseFileCommon (ITree tree, FileOptions fileOptions)
 		{
-			AssertAntlrToken (commonTree, "T_FILE", 1, -1);
+			AssertAntlrToken (tree, "T_FILE", 1, -1);
             
-			AntlrTreeEnumerator enumerator = new AntlrTreeEnumerator (commonTree);
+			//AntlrTreeEnumerator enumerator = new AntlrTreeEnumerator (commonTree);
+			var enumerator = new AntlrTreeChildEnumerable (tree).GetEnumerator ();
+			if (!enumerator.MoveNext ())
+				throw new NotEnoughSubTokensAntlrException (tree);
 
 			List<Tuple<string, string, ITree>> options = new List<Tuple<string, string, ITree>> ();
 			string fileNameText = enumerator.Current.Text;
 			if (fileNameText.StartsWith ("[")) {
 				fileOptions.FileName = fileNameText.Substring (1, fileNameText.Length - 2);
 			} else if (fileNameText.StartsWith ("\'")) {
-				CommonTree fileTree = (CommonTree)enumerator.Current;
+				ITree fileTree = enumerator.Current;
 				fileOptions.FileName = ParseString (fileTree);
                 
-				enumerator.MoveNext ();
-				while (enumerator.Current != null) {
+				while (enumerator.MoveNext ()) {
 					string option;
 					string value;
-					ParseFileOption ((CommonTree)enumerator.Current, out option, out value);
+					ParseFileOption (enumerator.Current, out option, out value);
 
 					switch (option.ToUpperInvariant ()) {
 					default:
 						options.Add (Tuple.Create (option, value, enumerator.Current));
 						break;
 					}
-
-					enumerator.MoveNext ();
 				}
 			}
 
 			return options;
 		}
 
-		void ParseFileOption (CommonTree fileOptionTree, out string option, out string value)
+		void ParseFileOption (ITree fileOptionTree, out string option, out string value)
 		{
 			AssertAntlrToken (fileOptionTree, "T_FILEOPTION", 1, 2);
             
-			option = fileOptionTree.Children [0].Text;
-			if (fileOptionTree.Children.Count > 1)
-				value = ParseStringValue (fileOptionTree.Children [1]);
+			option = fileOptionTree.GetChild (0).Text;
+			if (fileOptionTree.ChildCount > 1)
+				value = ParseStringValue (fileOptionTree.GetChild (1));
 			else
 				value = null;
 		}
 
-		IProvider ParseFileProvider (CommonTree fileProvider)
+		IProvider ParseFileProvider (ITree fileProvider)
 		{
 			FileOptionsFromClause fileOptions = ParseFileFromClause (fileProvider);
             
@@ -1169,19 +1140,19 @@ namespace FxGqlLib
 			return provider;
 		}
         
-		IProvider ParseSubquery (CommonTree subqueryTree)
+		IProvider ParseSubquery (ITree subqueryTree)
 		{
 			AssertAntlrToken (subqueryTree, "T_SUBQUERY");
             
-			CommonTree selectTree = GetSingleChild (subqueryTree);
+			ITree selectTree = GetSingleChild (subqueryTree);
 			return ParseCommandSelect (selectTree);
 		}
         
-		IProvider ParseViewProvider (CommonTree tree)
+		IProvider ParseViewProvider (ITree tree)
 		{
 			AssertAntlrToken (tree, "T_VIEW_NAME", 1, 1);
 
-			string viewName = tree.Children [0].Text;
+			string viewName = tree.GetChild (0).Text;
 			IProvider provider;
 			if (!views.TryGetValue (viewName, out provider))
 				throw new ParserException (string.Format ("View '{0}' is not declared", viewName), tree);
@@ -1189,17 +1160,17 @@ namespace FxGqlLib
 			return provider;
 		}
         
-		IExpression ParseExpressionOperatorUnary (IProvider provider, CommonTree operatorTree)
+		IExpression ParseExpressionOperatorUnary (IProvider provider, ITree operatorTree)
 		{
 			AssertAntlrToken (operatorTree, "T_OP_UNARY", 2);
             
 			IExpression arg = ParseExpression (
                 provider,
-                (CommonTree)operatorTree.Children [1]
+                operatorTree.GetChild (1)
 			);          
 			IExpression result;
             
-			string operatorText = operatorTree.Children [0].Text;
+			string operatorText = operatorTree.GetChild (0).Text;
 			switch (operatorText) {
 			case "T_NOT":
 				result = new UnaryExpression<bool, bool> ((a) => !a, arg);
@@ -1244,24 +1215,24 @@ namespace FxGqlLib
 			return result;
 		}
 
-		IExpression ParseExpressionOperatorBinary (IProvider provider, CommonTree operatorTree)
+		IExpression ParseExpressionOperatorBinary (IProvider provider, ITree operatorTree)
 		{
 			AssertAntlrToken (operatorTree, "T_OP_BINARY", 3, 4);
             
-			string operatorText = operatorTree.Children [0].Text;
+			string operatorText = operatorTree.GetChild (0).Text;
 			if (operatorText == "T_BETWEEN") {
-				return ParseExpressionBetween (provider, (CommonTree)operatorTree);
+				return ParseExpressionBetween (provider, operatorTree);
 			} else if (operatorText == "T_NOTBETWEEN") {
 				return new UnaryExpression<bool, bool> (
                     (a) => !a,
-                    ParseExpressionBetween (provider, (CommonTree)operatorTree)
+                    ParseExpressionBetween (provider, operatorTree)
 				);
 			} else if (operatorText == "T_IN" || operatorText == "T_ANY" || operatorText == "T_ALL") {
-				return ParseExpressionInSomeAnyAll (provider, (CommonTree)operatorTree);
+				return ParseExpressionInSomeAnyAll (provider, operatorTree);
 			} else if (operatorText == "T_NOTIN") {
 				return new UnaryExpression<bool, bool> (
                     (a) => !a,
-                    ParseExpressionInSomeAnyAll (provider, (CommonTree)operatorTree)
+                    ParseExpressionInSomeAnyAll (provider, operatorTree)
 				);
 			} 
             
@@ -1269,11 +1240,11 @@ namespace FxGqlLib
 
 			IExpression arg1 = ParseExpression (
                 provider,
-                (CommonTree)operatorTree.Children [1]
+                operatorTree.GetChild (1)
 			);          
 			IExpression arg2 = ParseExpression (
                 provider,
-                (CommonTree)operatorTree.Children [2]
+                operatorTree.GetChild (2)
 			);          
 			IExpression result;
             
@@ -1509,25 +1480,25 @@ namespace FxGqlLib
 			return result;
 		}
         
-		IExpression ParseExpressionBetween (IProvider provider, CommonTree betweenTree)
+		IExpression ParseExpressionBetween (IProvider provider, ITree betweenTree)
 		{
 			AssertAntlrToken (betweenTree, "T_OP_BINARY", 3);
 			//AssertAntlrToken (betweenTree.Children [0], "T_BETWEEN"); or T_NOTBETWEEN
-			CommonTree andTree = (CommonTree)betweenTree.Children [2];
+			ITree andTree = betweenTree.GetChild (2);
 			AssertAntlrToken (andTree, "T_OP_BINARY", 3);
-			AssertAntlrToken (andTree.Children [0], "T_AND");
+			AssertAntlrToken (andTree.GetChild (0), "T_AND");
             
 			IExpression arg1 = ParseExpression (
                 provider,
-                (CommonTree)betweenTree.Children [1]
+                betweenTree.GetChild (1)
 			);
 			IExpression arg2 = ParseExpression (
                 provider,
-                (CommonTree)andTree.Children [1]
+                andTree.GetChild (1)
 			);
 			IExpression arg3 = ParseExpression (
                 provider,
-                (CommonTree)andTree.Children [2]
+                andTree.GetChild (2)
 			);
 
 			IExpression result;
@@ -1566,39 +1537,39 @@ namespace FxGqlLib
 			return result;
 		}
 
-		IExpression ParseExpressionInSomeAnyAll (IProvider provider, CommonTree inTree)
+		IExpression ParseExpressionInSomeAnyAll (IProvider provider, ITree inTree)
 		{
 			AssertAntlrToken (inTree, "T_OP_BINARY", 3, 4);
 			//AssertAntlrToken (inTree.Children [0], "T_IN"); or T_NOTIN, T_ANY, T_ALL
             
 			IExpression arg2;
-			CommonTree target;          
+			ITree target;          
 			bool all;
 			string op;
-			switch (inTree.Children [0].Text) {
+			switch (inTree.GetChild (0).Text) {
 			case "T_IN":
 			case "T_NOTIN":
-				arg2 = ParseExpression (provider, (CommonTree)inTree.Children [1]);
-				target = (CommonTree)inTree.Children [2];
+				arg2 = ParseExpression (provider, inTree.GetChild (1));
+				target = inTree.GetChild (2);
 				all = false;
 				op = "T_EQUAL";
 				break;
 			case "T_ANY":
-				arg2 = ParseExpression (provider, (CommonTree)inTree.Children [2]);
-				target = (CommonTree)inTree.Children [3];
+				arg2 = ParseExpression (provider, inTree.GetChild (2));
+				target = inTree.GetChild (3);
 				all = false;
-				op = inTree.Children [1].Text;
+				op = inTree.GetChild (1).Text;
 				break;
 			case "T_ALL":
-				arg2 = ParseExpression (provider, (CommonTree)inTree.Children [2]);
-				target = (CommonTree)inTree.Children [3];
+				arg2 = ParseExpression (provider, inTree.GetChild (2));
+				target = inTree.GetChild (3);
 				all = true;
-				op = inTree.Children [1].Text;
+				op = inTree.GetChild (1).Text;
 				break;
 			default:
 				throw new ParserException (
-                    string.Format ("Unexpected token {0}", inTree.Children [0].Text),
-                    inTree.Children [0]
+                    string.Format ("Unexpected token {0}", inTree.GetChild (0).Text),
+                    inTree.GetChild (0)
 				);
 			}
                         
@@ -1621,7 +1592,7 @@ namespace FxGqlLib
 					throw new ParserException (
                         string.Format (
                         "Binary operator '{0}' cannot be used with datatype {1}",
-                        inTree.Children [0].Text,
+                        inTree.GetChild (0).Text,
                         target.Text
 					),
                         target
@@ -1644,7 +1615,7 @@ namespace FxGqlLib
 					throw new ParserException (
                         string.Format (
                         "Binary operator '{0}' cannot be used with datatype {1}",
-                        inTree.Children [0].Text,
+                        inTree.GetChild (0).Text,
                         target.Text
 					),
                         target
@@ -1653,7 +1624,7 @@ namespace FxGqlLib
 				throw new ParserException (
                     string.Format (
                     "Binary operator '{0}' cannot be used with argument {1}",
-                    inTree.Children [0].Text,
+                    inTree.GetChild (0).Text,
                     arg2.GetResultType ().ToString ()
 				),
                     target
@@ -1666,22 +1637,22 @@ namespace FxGqlLib
 			return result;
 		}
 
-		IExpression[] ParseExpressionList (IProvider provider, CommonTree expressionListTree)
+		IExpression[] ParseExpressionList (IProvider provider, ITree expressionListTree)
 		{
 			AssertAntlrToken (expressionListTree, "T_EXPRESSIONLIST", 1, -1);
             
-			IExpression[] result = new IExpression[expressionListTree.Children.Count];
-			for (int i = 0; i < expressionListTree.Children.Count; i++) {
+			IExpression[] result = new IExpression[expressionListTree.ChildCount];
+			for (int i = 0; i < expressionListTree.ChildCount; i++) {
 				result [i] = ParseExpression (
                     provider,
-                    (CommonTree)expressionListTree.Children [i]
+                    expressionListTree.GetChild (i)
 				);
 			}           
             
 			return result;
 		}
 
-		IExpression ParseExpressionExists (CommonTree expressionTree)
+		IExpression ParseExpressionExists (ITree expressionTree)
 		{
 			AssertAntlrToken (expressionTree, "T_EXISTS", 1, 1);
             
@@ -1690,7 +1661,7 @@ namespace FxGqlLib
                 new SelectProvider (
                 new IExpression[] { new ConstExpression<long> (1) }, 
                 new TopProvider (
-                ParseCommandSelect ((CommonTree)expressionTree.Children [0]),
+                ParseCommandSelect (expressionTree.GetChild (0)),
                 new ConstExpression<long> (1)
 			)
 			),
@@ -1698,11 +1669,11 @@ namespace FxGqlLib
 			;
 		}
         
-		IExpression ParseExpressionColumn (IProvider provider, CommonTree expressionTree)
+		IExpression ParseExpressionColumn (IProvider provider, ITree expressionTree)
 		{
 			AssertAntlrToken (expressionTree, "T_COLUMN", 1, 1);
 
-			string column = ParseColumnName ((CommonTree)expressionTree.Children [0]);
+			string column = ParseColumnName (expressionTree.GetChild (0));
 
 			if (provider == null)
 				throw new ParserException (string.Format ("Columnname '{0}' not allowed outside the context of a query", column), expressionTree);
@@ -1737,7 +1708,7 @@ namespace FxGqlLib
 			}
 		}        
 
-		string ParseColumnName (CommonTree columnNameTree)
+		string ParseColumnName (ITree columnNameTree)
 		{
 			string column = columnNameTree.Text;
             
@@ -1747,30 +1718,30 @@ namespace FxGqlLib
 			return column;
 		}
         
-		IExpression ParseExpressionCase (IProvider provider, CommonTree expressionTree)
+		IExpression ParseExpressionCase (IProvider provider, ITree expressionTree)
 		{
 			AssertAntlrToken (expressionTree, "T_CASE", 1, -1);
             
 			List<CaseExpression.WhenItem> whenItems = new List<CaseExpression.WhenItem> ();
 			IExpression elseResult = null;
 
-			string text = expressionTree.Children [0].Text;
+			string text = expressionTree.GetChild (0).Text;
 			if (text != "T_CASE_WHEN" && text != "T_CASE_ELSE") {
 				// CASE source WHEN destination THEN target ELSE other END
 				IExpression source = ParseExpression (
                     provider,
-                    (CommonTree)expressionTree.Children [0]
+                    expressionTree.GetChild (0)
 				);
 				int whenNo;
-				for (whenNo = 1; expressionTree.Children [whenNo].Text == "T_CASE_WHEN"; whenNo++) {
-					CommonTree whenTree = (CommonTree)expressionTree.Children [whenNo];
+				for (whenNo = 1; expressionTree.GetChild(whenNo).Text == "T_CASE_WHEN"; whenNo++) {
+					ITree whenTree = expressionTree.GetChild (whenNo);
 					IExpression destination = ParseExpression (
                         provider,
-                        (CommonTree)whenTree.Children [0]
+                        whenTree.GetChild (0)
 					);
 					IExpression target = ParseExpression (
                         provider,
-                        (CommonTree)whenTree.Children [1]
+                        whenTree.GetChild (1)
 					);
 					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
                     
@@ -1804,27 +1775,27 @@ namespace FxGqlLib
 					whenItems.Add (whenItem);
 				}
                 
-				if (whenNo < expressionTree.Children.Count - 1)
+				if (whenNo < expressionTree.ChildCount - 1)
 					throw new Exception ("Invalid case statement");
                 
-				if (whenNo == expressionTree.Children.Count - 1) {
-					CommonTree elseTree = (CommonTree)expressionTree.Children [whenNo];
+				if (whenNo == expressionTree.ChildCount - 1) {
+					ITree elseTree = expressionTree.GetChild (whenNo);
 					AssertAntlrToken (elseTree, "T_CASE_ELSE", 1, 1);
                     
-					elseResult = ParseExpression (provider, (CommonTree)elseTree.Children [0]);
+					elseResult = ParseExpression (provider, elseTree.GetChild (0));
 				}
 			} else {
 				// CASE WHEN a THEN x ELSE y END
 				int whenNo;
-				for (whenNo = 0; expressionTree.Children [whenNo].Text == "T_CASE_WHEN"; whenNo++) {
-					CommonTree whenTree = (CommonTree)expressionTree.Children [whenNo];
+				for (whenNo = 0; expressionTree.GetChild(whenNo).Text == "T_CASE_WHEN"; whenNo++) {
+					ITree whenTree = expressionTree.GetChild (whenNo);
 					IExpression destination = ParseExpression (
                         provider,
-                        (CommonTree)whenTree.Children [0]
+                        whenTree.GetChild (0)
 					);
 					IExpression target = ParseExpression (
                         provider,
-                        (CommonTree)whenTree.Children [1]
+                        whenTree.GetChild (1)
 					);
 					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
                     
@@ -1842,25 +1813,25 @@ namespace FxGqlLib
 					whenItems.Add (whenItem);
 				}
                 
-				if (whenNo < expressionTree.Children.Count - 1)
+				if (whenNo < expressionTree.ChildCount - 1)
 					throw new Exception ("Invalid case statement");
                 
-				if (whenNo == expressionTree.Children.Count - 1) {
-					CommonTree elseTree = (CommonTree)expressionTree.Children [whenNo];
+				if (whenNo == expressionTree.ChildCount - 1) {
+					ITree elseTree = expressionTree.GetChild (whenNo);
 					AssertAntlrToken (elseTree, "T_CASE_ELSE", 1, 1);
                     
-					elseResult = ParseExpression (provider, (CommonTree)elseTree.Children [0]);
+					elseResult = ParseExpression (provider, elseTree.GetChild (0));
 				}
 			}
 
 			return new CaseExpression (whenItems, elseResult);
 		}
 
-		IExpression ParseExpressionVariable (CommonTree expressionTree)
+		IExpression ParseExpressionVariable (ITree expressionTree)
 		{
 			AssertAntlrToken (expressionTree, "T_VARIABLE", 1, 1);
 
-			string variable = expressionTree.Children [0].Text;
+			string variable = expressionTree.GetChild (0).Text;
 
 			Type type;
 			if (!variableTypes.TryGetValue (variable, out type))
@@ -1869,36 +1840,36 @@ namespace FxGqlLib
 			return new VariableExpression (variable, type);
 		}
 
-		FileOptions ParseCommandUse (CommonTree selectTree)
+		FileOptions ParseCommandUse (ITree tree)
 		{
-			AssertAntlrToken (selectTree, "T_USE", 1);
+			AssertAntlrToken (tree, "T_USE", 1);
 
-			return ParseFileUse ((CommonTree)selectTree.Children [0]);
+			return ParseFileUse (GetSingleChild (tree));
 		}
 
-		IList<Tuple<string, Type>> ParseCommandDeclare (CommonTree declareTree)
+		IList<Tuple<string, Type>> ParseCommandDeclare (ITree declareTree)
 		{
 			AssertAntlrToken (declareTree, "T_DECLARE", 1, -1);
 
 			List<Tuple<string, Type>> declarations = new List<Tuple<string, Type>> ();
-			foreach (CommonTree declarationTree in declareTree.Children) {
+			foreach (ITree declarationTree in new AntlrTreeChildEnumerable(declareTree)) {
 				declarations.Add (ParseDeclaration (declarationTree));
 			}
 
 			return declarations;
 		}
 
-		Tuple<string, Type> ParseDeclaration (CommonTree declarationTree)
+		Tuple<string, Type> ParseDeclaration (ITree declarationTree)
 		{
 			AssertAntlrToken (declarationTree, "T_DECLARATION", 2, 2);
 
-			string variable = declarationTree.Children [0].Text;
-			Type datatype = ParseDataType ((CommonTree)declarationTree.Children [1]);
+			string variable = declarationTree.GetChild (0).Text;
+			Type datatype = ParseDataType (declarationTree.GetChild (1));
 
 			return Tuple.Create (variable, datatype);
 		}
 
-		Type ParseDataType (CommonTree dataTypeTree)
+		Type ParseDataType (ITree dataTypeTree)
 		{
 			string text = dataTypeTree.Text;
 			switch (text.ToUpperInvariant ()) {
@@ -1911,32 +1882,32 @@ namespace FxGqlLib
 			}
 		}
 
-		Tuple<string, IExpression> ParseCommandSetVariable (CommonTree setVariableTree)
+		Tuple<string, IExpression> ParseCommandSetVariable (ITree tree)
 		{
-			AssertAntlrToken (setVariableTree, "T_SET_VARIABLE", 2, 2);
+			AssertAntlrToken (tree, "T_SET_VARIABLE", 2, 2);
 
-			string variable = setVariableTree.Children [0].Text;
-			IExpression expression = ParseExpression (null, (CommonTree)setVariableTree.Children [1]);
+			string variable = tree.GetChild (0).Text;
+			IExpression expression = ParseExpression (null, tree.GetChild (1));
 
 			return Tuple.Create (variable, expression);
 		}
 
-		IExpression ParseExpressionSubquery (CommonTree subqueryTree)
+		IExpression ParseExpressionSubquery (ITree subqueryTree)
 		{
 			IProvider provider = ParseSubquery (subqueryTree);
 
 			return new SubqueryExpression (provider);
 		}
 
-		Tuple<string, IProvider> ParseCommandCreateView (CommonTree tree)
+		Tuple<string, IProvider> ParseCommandCreateView (ITree tree)
 		{
 			AssertAntlrToken (tree, "T_CREATE_VIEW", 2, 2);
 
-			CommonTree viewNameTree = (CommonTree)tree.Children [0];
+			ITree viewNameTree = tree.GetChild (0);
 			AssertAntlrToken (viewNameTree, "T_VIEW_NAME", 1, 1);
 
-			string name = viewNameTree.Children [0].Text;
-			IProvider provider = ParseCommandSelect ((CommonTree)tree.Children [1]);
+			string name = viewNameTree.GetChild (0).Text;
+			IProvider provider = ParseCommandSelect (tree.GetChild (1));
 
 			return Tuple.Create (name, provider);
 		}

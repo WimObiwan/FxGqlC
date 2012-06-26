@@ -105,6 +105,7 @@
     <Compile Include="Expressions\SubqueryExpression.cs" />
     <Compile Include="Commands\CreateViewCommand.cs" />
     <Compile Include="Exceptions\ParserException.cs" />
+    <Compile Include="Parser\AntlrTreeChildEnumerable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
