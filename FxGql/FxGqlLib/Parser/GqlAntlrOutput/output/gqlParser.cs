@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// $ANTLR 3.4 C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g 2012-06-26 15:23:18
+// $ANTLR 3.4 C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g 2012-06-26 16:21:59
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -40,10 +40,9 @@ namespace  FxGqlLib
 public partial class gqlParser : Antlr.Runtime.Parser
 {
 	internal static readonly string[] tokenNames = new string[] {
-		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "A", "ALL", "AND", "ANY", "AS", "ASC", "B", "BETWEEN", "BY", "C", "CASE", "CAST", "COMMENT_LINE", "CONVERT", "CREATE", "D", "DECLARE", "DESC", "DIGIT", "DISTINCT", "E", "ELSE", "END", "EXISTS", "F", "FROM", "G", "GROUP", "H", "I", "IN", "INTO", "J", "K", "L", "LIKE", "M", "MATCH", "N", "NOT", "NUMBER", "O", "OR", "ORDER", "P", "Q", "R", "S", "SELECT", "SET", "SIMPLE_FILE", "SOME", "STRING", "SYSTEMVAR", "T", "THEN", "TOKEN", "TOP", "T_ALL", "T_AND", "T_ANY", "T_BETWEEN", "T_BITWISE_AND", "T_BITWISE_NOT", "T_BITWISE_OR", "T_BITWISE_XOR", "T_CASE", "T_CASE_ELSE", "T_CASE_WHEN", "T_COLUMN", "T_COLUMNLIST", "T_CONVERT", "T_CREATE_VIEW", "T_DECLARATION", "T_DECLARE", "T_DISTINCT", "T_DIVIDE", "T_EQUAL", "T_EXISTS", "T_EXPRESSIONLIST", "T_FILE", "T_FILEOPTION", "T_FROM", "T_FUNCTIONCALL", "T_GREATER", "T_GROUPBY", "T_IN", "T_INTEGER", "T_INTO", "T_LESS", "T_LIKE", "T_MATCH", "T_MINUS", "T_MODULO", "T_NOT", "T_NOTBETWEEN", "T_NOTEQUAL", "T_NOTGREATER", "T_NOTIN", "T_NOTLESS", "T_NOTLIKE", "T_NOTMATCH", "T_OP_BINARY", "T_OP_UNARY", "T_OR", "T_ORDERBY", "T_ORDERBY_ASC", "T_ORDERBY_COLUMN", "T_ORDERBY_DESC", "T_PLUS", "T_PRODUCT", "T_ROOT", "T_SELECT", "T_SET_VARIABLE", "T_STRING", "T_SUBQUERY", "T_SYSTEMVAR", "T_TOP", "T_USE", "T_VARIABLE", "T_VIEW_NAME", "T_WHERE", "U", "USE", "V", "VARIABLE", "VIEW", "W", "WHEN", "WHERE", "WS", "X", "Y", "Z", "'!<'", "'!='", "'!>'", "'%'", "'&'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'/'", "';'", "'<'", "'<='", "'<>'", "'='", "'>'", "'>='", "'['", "']'", "'^'", "'|'", "'~'"
+		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "A", "ALL", "AND", "ANY", "AS", "ASC", "B", "BETWEEN", "BY", "C", "CASE", "CAST", "COMMENT_BLOCK", "COMMENT_LINE", "CONVERT", "CREATE", "D", "DECLARE", "DESC", "DIGIT", "DISTINCT", "E", "ELSE", "END", "EXISTS", "F", "FROM", "G", "GROUP", "H", "I", "IN", "INTO", "J", "K", "L", "LIKE", "M", "MATCH", "N", "NOT", "NUMBER", "O", "OR", "ORDER", "P", "Q", "R", "S", "SELECT", "SET", "SIMPLE_FILE", "SOME", "STRING", "SYSTEMVAR", "T", "THEN", "TOKEN", "TOP", "T_ALL", "T_AND", "T_ANY", "T_BETWEEN", "T_BITWISE_AND", "T_BITWISE_NOT", "T_BITWISE_OR", "T_BITWISE_XOR", "T_CASE", "T_CASE_ELSE", "T_CASE_WHEN", "T_COLUMN", "T_COLUMNLIST", "T_CONVERT", "T_CREATE_VIEW", "T_DECLARATION", "T_DECLARE", "T_DISTINCT", "T_DIVIDE", "T_EQUAL", "T_EXISTS", "T_EXPRESSIONLIST", "T_FILE", "T_FILEOPTION", "T_FROM", "T_FUNCTIONCALL", "T_GREATER", "T_GROUPBY", "T_IN", "T_INTEGER", "T_INTO", "T_LESS", "T_LIKE", "T_MATCH", "T_MINUS", "T_MODULO", "T_NOT", "T_NOTBETWEEN", "T_NOTEQUAL", "T_NOTGREATER", "T_NOTIN", "T_NOTLESS", "T_NOTLIKE", "T_NOTMATCH", "T_OP_BINARY", "T_OP_UNARY", "T_OR", "T_ORDERBY", "T_ORDERBY_ASC", "T_ORDERBY_COLUMN", "T_ORDERBY_DESC", "T_PLUS", "T_PRODUCT", "T_ROOT", "T_SELECT", "T_SET_VARIABLE", "T_STRING", "T_SUBQUERY", "T_SYSTEMVAR", "T_TOP", "T_USE", "T_VARIABLE", "T_VIEW_NAME", "T_WHERE", "U", "USE", "V", "VARIABLE", "VIEW", "W", "WHEN", "WHERE", "WS", "X", "Y", "Z", "'!<'", "'!='", "'!>'", "'%'", "'&'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'/'", "';'", "'<'", "'<='", "'<>'", "'='", "'>'", "'>='", "'['", "']'", "'^'", "'|'", "'~'"
 	};
 	public const int EOF=-1;
-	public const int T__138=138;
 	public const int T__139=139;
 	public const int T__140=140;
 	public const int T__141=141;
@@ -67,6 +66,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	public const int T__159=159;
 	public const int T__160=160;
 	public const int T__161=161;
+	public const int T__162=162;
 	public const int A=4;
 	public const int ALL=5;
 	public const int AND=6;
@@ -79,128 +79,129 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	public const int C=13;
 	public const int CASE=14;
 	public const int CAST=15;
-	public const int COMMENT_LINE=16;
-	public const int CONVERT=17;
-	public const int CREATE=18;
-	public const int D=19;
-	public const int DECLARE=20;
-	public const int DESC=21;
-	public const int DIGIT=22;
-	public const int DISTINCT=23;
-	public const int E=24;
-	public const int ELSE=25;
-	public const int END=26;
-	public const int EXISTS=27;
-	public const int F=28;
-	public const int FROM=29;
-	public const int G=30;
-	public const int GROUP=31;
-	public const int H=32;
-	public const int I=33;
-	public const int IN=34;
-	public const int INTO=35;
-	public const int J=36;
-	public const int K=37;
-	public const int L=38;
-	public const int LIKE=39;
-	public const int M=40;
-	public const int MATCH=41;
-	public const int N=42;
-	public const int NOT=43;
-	public const int NUMBER=44;
-	public const int O=45;
-	public const int OR=46;
-	public const int ORDER=47;
-	public const int P=48;
-	public const int Q=49;
-	public const int R=50;
-	public const int S=51;
-	public const int SELECT=52;
-	public const int SET=53;
-	public const int SIMPLE_FILE=54;
-	public const int SOME=55;
-	public const int STRING=56;
-	public const int SYSTEMVAR=57;
-	public const int T=58;
-	public const int THEN=59;
-	public const int TOKEN=60;
-	public const int TOP=61;
-	public const int T_ALL=62;
-	public const int T_AND=63;
-	public const int T_ANY=64;
-	public const int T_BETWEEN=65;
-	public const int T_BITWISE_AND=66;
-	public const int T_BITWISE_NOT=67;
-	public const int T_BITWISE_OR=68;
-	public const int T_BITWISE_XOR=69;
-	public const int T_CASE=70;
-	public const int T_CASE_ELSE=71;
-	public const int T_CASE_WHEN=72;
-	public const int T_COLUMN=73;
-	public const int T_COLUMNLIST=74;
-	public const int T_CONVERT=75;
-	public const int T_CREATE_VIEW=76;
-	public const int T_DECLARATION=77;
-	public const int T_DECLARE=78;
-	public const int T_DISTINCT=79;
-	public const int T_DIVIDE=80;
-	public const int T_EQUAL=81;
-	public const int T_EXISTS=82;
-	public const int T_EXPRESSIONLIST=83;
-	public const int T_FILE=84;
-	public const int T_FILEOPTION=85;
-	public const int T_FROM=86;
-	public const int T_FUNCTIONCALL=87;
-	public const int T_GREATER=88;
-	public const int T_GROUPBY=89;
-	public const int T_IN=90;
-	public const int T_INTEGER=91;
-	public const int T_INTO=92;
-	public const int T_LESS=93;
-	public const int T_LIKE=94;
-	public const int T_MATCH=95;
-	public const int T_MINUS=96;
-	public const int T_MODULO=97;
-	public const int T_NOT=98;
-	public const int T_NOTBETWEEN=99;
-	public const int T_NOTEQUAL=100;
-	public const int T_NOTGREATER=101;
-	public const int T_NOTIN=102;
-	public const int T_NOTLESS=103;
-	public const int T_NOTLIKE=104;
-	public const int T_NOTMATCH=105;
-	public const int T_OP_BINARY=106;
-	public const int T_OP_UNARY=107;
-	public const int T_OR=108;
-	public const int T_ORDERBY=109;
-	public const int T_ORDERBY_ASC=110;
-	public const int T_ORDERBY_COLUMN=111;
-	public const int T_ORDERBY_DESC=112;
-	public const int T_PLUS=113;
-	public const int T_PRODUCT=114;
-	public const int T_ROOT=115;
-	public const int T_SELECT=116;
-	public const int T_SET_VARIABLE=117;
-	public const int T_STRING=118;
-	public const int T_SUBQUERY=119;
-	public const int T_SYSTEMVAR=120;
-	public const int T_TOP=121;
-	public const int T_USE=122;
-	public const int T_VARIABLE=123;
-	public const int T_VIEW_NAME=124;
-	public const int T_WHERE=125;
-	public const int U=126;
-	public const int USE=127;
-	public const int V=128;
-	public const int VARIABLE=129;
-	public const int VIEW=130;
-	public const int W=131;
-	public const int WHEN=132;
-	public const int WHERE=133;
-	public const int WS=134;
-	public const int X=135;
-	public const int Y=136;
-	public const int Z=137;
+	public const int COMMENT_BLOCK=16;
+	public const int COMMENT_LINE=17;
+	public const int CONVERT=18;
+	public const int CREATE=19;
+	public const int D=20;
+	public const int DECLARE=21;
+	public const int DESC=22;
+	public const int DIGIT=23;
+	public const int DISTINCT=24;
+	public const int E=25;
+	public const int ELSE=26;
+	public const int END=27;
+	public const int EXISTS=28;
+	public const int F=29;
+	public const int FROM=30;
+	public const int G=31;
+	public const int GROUP=32;
+	public const int H=33;
+	public const int I=34;
+	public const int IN=35;
+	public const int INTO=36;
+	public const int J=37;
+	public const int K=38;
+	public const int L=39;
+	public const int LIKE=40;
+	public const int M=41;
+	public const int MATCH=42;
+	public const int N=43;
+	public const int NOT=44;
+	public const int NUMBER=45;
+	public const int O=46;
+	public const int OR=47;
+	public const int ORDER=48;
+	public const int P=49;
+	public const int Q=50;
+	public const int R=51;
+	public const int S=52;
+	public const int SELECT=53;
+	public const int SET=54;
+	public const int SIMPLE_FILE=55;
+	public const int SOME=56;
+	public const int STRING=57;
+	public const int SYSTEMVAR=58;
+	public const int T=59;
+	public const int THEN=60;
+	public const int TOKEN=61;
+	public const int TOP=62;
+	public const int T_ALL=63;
+	public const int T_AND=64;
+	public const int T_ANY=65;
+	public const int T_BETWEEN=66;
+	public const int T_BITWISE_AND=67;
+	public const int T_BITWISE_NOT=68;
+	public const int T_BITWISE_OR=69;
+	public const int T_BITWISE_XOR=70;
+	public const int T_CASE=71;
+	public const int T_CASE_ELSE=72;
+	public const int T_CASE_WHEN=73;
+	public const int T_COLUMN=74;
+	public const int T_COLUMNLIST=75;
+	public const int T_CONVERT=76;
+	public const int T_CREATE_VIEW=77;
+	public const int T_DECLARATION=78;
+	public const int T_DECLARE=79;
+	public const int T_DISTINCT=80;
+	public const int T_DIVIDE=81;
+	public const int T_EQUAL=82;
+	public const int T_EXISTS=83;
+	public const int T_EXPRESSIONLIST=84;
+	public const int T_FILE=85;
+	public const int T_FILEOPTION=86;
+	public const int T_FROM=87;
+	public const int T_FUNCTIONCALL=88;
+	public const int T_GREATER=89;
+	public const int T_GROUPBY=90;
+	public const int T_IN=91;
+	public const int T_INTEGER=92;
+	public const int T_INTO=93;
+	public const int T_LESS=94;
+	public const int T_LIKE=95;
+	public const int T_MATCH=96;
+	public const int T_MINUS=97;
+	public const int T_MODULO=98;
+	public const int T_NOT=99;
+	public const int T_NOTBETWEEN=100;
+	public const int T_NOTEQUAL=101;
+	public const int T_NOTGREATER=102;
+	public const int T_NOTIN=103;
+	public const int T_NOTLESS=104;
+	public const int T_NOTLIKE=105;
+	public const int T_NOTMATCH=106;
+	public const int T_OP_BINARY=107;
+	public const int T_OP_UNARY=108;
+	public const int T_OR=109;
+	public const int T_ORDERBY=110;
+	public const int T_ORDERBY_ASC=111;
+	public const int T_ORDERBY_COLUMN=112;
+	public const int T_ORDERBY_DESC=113;
+	public const int T_PLUS=114;
+	public const int T_PRODUCT=115;
+	public const int T_ROOT=116;
+	public const int T_SELECT=117;
+	public const int T_SET_VARIABLE=118;
+	public const int T_STRING=119;
+	public const int T_SUBQUERY=120;
+	public const int T_SYSTEMVAR=121;
+	public const int T_TOP=122;
+	public const int T_USE=123;
+	public const int T_VARIABLE=124;
+	public const int T_VIEW_NAME=125;
+	public const int T_WHERE=126;
+	public const int U=127;
+	public const int USE=128;
+	public const int V=129;
+	public const int VARIABLE=130;
+	public const int VIEW=131;
+	public const int W=132;
+	public const int WHEN=133;
+	public const int WHERE=134;
+	public const int WS=135;
+	public const int X=136;
+	public const int Y=137;
+	public const int Z=138;
 
 	#if ANTLR_DEBUG
 		private static readonly bool[] decisionCanBacktrack =
@@ -491,7 +492,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS8_tree = default(object);
 	    object WS10_tree = default(object);
 	    object char_literal11_tree = default(object);
-	    RewriteRuleITokenStream stream_150=new RewriteRuleITokenStream(adaptor,"token 150");
+	    RewriteRuleITokenStream stream_151=new RewriteRuleITokenStream(adaptor,"token 151");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleSubtreeStream stream_command=new RewriteRuleSubtreeStream(adaptor,"rule command");
 		try { DebugEnterRule(GrammarFileName, "commands");
@@ -521,7 +522,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					int LA7_1 = input.LA(2);
 
-					if ((LA7_1==150))
+					if ((LA7_1==151))
 					{
 						int LA7_2 = input.LA(3);
 
@@ -551,7 +552,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 					}
 					break;
-				case 150:
+				case 151:
 					{
 					int LA7_2 = input.LA(2);
 
@@ -628,7 +629,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					try { DebugEnterDecision(6, decisionCanBacktrack[6]);
 					int LA6_0 = input.LA(1);
 
-					if ((LA6_0==150))
+					if ((LA6_0==151))
 					{
 						alt6 = 1;
 					}
@@ -640,8 +641,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:101:18: ';' ( WS )?
 						{
 						DebugLocation(101, 18);
-						char_literal7=(IToken)Match(input,150,Follow._150_in_commands377);  
-						stream_150.Add(char_literal7);
+						char_literal7=(IToken)Match(input,151,Follow._151_in_commands377);  
+						stream_151.Add(char_literal7);
 
 						DebugLocation(101, 22);
 						// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:101:22: ( WS )?
@@ -710,12 +711,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 				int LA9_1 = input.LA(2);
 
-				if ((LA9_1==150))
+				if ((LA9_1==151))
 				{
 					alt9 = 1;
 				}
 			}
-			else if ((LA9_0==150))
+			else if ((LA9_0==151))
 			{
 				alt9 = 1;
 			}
@@ -756,8 +757,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(8); }
 
 				DebugLocation(101, 43);
-				char_literal11=(IToken)Match(input,150,Follow._150_in_commands392);  
-				stream_150.Add(char_literal11);
+				char_literal11=(IToken)Match(input,151,Follow._151_in_commands392);  
+				stream_151.Add(char_literal11);
 
 
 				}
@@ -1364,7 +1365,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: where_clause, into_clause, distinct_clause, groupby_clause, from_clause, column_list, orderby_clause, top_clause
+			// elements: orderby_clause, top_clause, distinct_clause, where_clause, into_clause, from_clause, column_list, groupby_clause
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -1774,8 +1775,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS40_tree = default(object);
 	    object char_literal41_tree = default(object);
 	    object WS42_tree = default(object);
-	    RewriteRuleITokenStream stream_147=new RewriteRuleITokenStream(adaptor,"token 147");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
+	    RewriteRuleITokenStream stream_148=new RewriteRuleITokenStream(adaptor,"token 148");
 	    RewriteRuleSubtreeStream stream_column=new RewriteRuleSubtreeStream(adaptor,"rule column");
 		try { DebugEnterRule(GrammarFileName, "column_list");
 		DebugLocation(131, 1);
@@ -1804,14 +1805,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA21_1 = input.LA(2);
 
-					if ((LA21_1==147))
+					if ((LA21_1==148))
 					{
 						alt21 = 1;
 					}
 
 
 				}
-				else if ((LA21_0==147))
+				else if ((LA21_0==148))
 				{
 					alt21 = 1;
 				}
@@ -1854,8 +1855,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					} finally { DebugExitSubRule(19); }
 
 					DebugLocation(132, 16);
-					char_literal41=(IToken)Match(input,147,Follow._147_in_column_list599);  
-					stream_147.Add(char_literal41);
+					char_literal41=(IToken)Match(input,148,Follow._148_in_column_list599);  
+					stream_148.Add(char_literal41);
 
 					DebugLocation(132, 20);
 					// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:132:20: ( WS )?
@@ -2002,7 +2003,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal44_tree = default(object);
 	    object WS46_tree = default(object);
 	    object SIMPLE_FILE47_tree = default(object);
-	    RewriteRuleITokenStream stream_145=new RewriteRuleITokenStream(adaptor,"token 145");
+	    RewriteRuleITokenStream stream_146=new RewriteRuleITokenStream(adaptor,"token 146");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleITokenStream stream_SIMPLE_FILE=new RewriteRuleITokenStream(adaptor,"token SIMPLE_FILE");
 	    RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
@@ -2015,11 +2016,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			try { DebugEnterDecision(23, decisionCanBacktrack[23]);
 			int LA23_0 = input.LA(1);
 
-			if ((LA23_0==145))
+			if ((LA23_0==146))
 			{
 				alt23 = 1;
 			}
-			else if (((LA23_0>=CASE && LA23_0<=CAST)||LA23_0==CONVERT||LA23_0==EXISTS||(LA23_0>=NOT && LA23_0<=NUMBER)||LA23_0==SIMPLE_FILE||(LA23_0>=STRING && LA23_0<=SYSTEMVAR)||LA23_0==TOKEN||LA23_0==VARIABLE||LA23_0==143))
+			else if (((LA23_0>=CASE && LA23_0<=CAST)||LA23_0==CONVERT||LA23_0==EXISTS||(LA23_0>=NOT && LA23_0<=NUMBER)||LA23_0==SIMPLE_FILE||(LA23_0>=STRING && LA23_0<=SYSTEMVAR)||LA23_0==TOKEN||LA23_0==VARIABLE||LA23_0==144))
 			{
 				alt23 = 2;
 			}
@@ -2037,14 +2038,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:137:4: '*'
 				{
 				DebugLocation(137, 4);
-				char_literal44=(IToken)Match(input,145,Follow._145_in_column628);  
-				stream_145.Add(char_literal44);
+				char_literal44=(IToken)Match(input,146,Follow._146_in_column628);  
+				stream_146.Add(char_literal44);
 
 
 
 				{
 				// AST REWRITE
-				// elements: 145
+				// elements: 146
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -2064,7 +2065,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_COLUMN, "T_COLUMN"), root_1);
 
 					DebugLocation(137, 22);
-					adaptor.AddChild(root_1, stream_145.NextNode());
+					adaptor.AddChild(root_1, stream_146.NextNode());
 
 					adaptor.AddChild(root_0, root_1);
 					}
@@ -2341,8 +2342,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS54_tree = default(object);
 	    object char_literal55_tree = default(object);
 	    object WS56_tree = default(object);
-	    RewriteRuleITokenStream stream_147=new RewriteRuleITokenStream(adaptor,"token 147");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
+	    RewriteRuleITokenStream stream_148=new RewriteRuleITokenStream(adaptor,"token 148");
 	    RewriteRuleITokenStream stream_FROM=new RewriteRuleITokenStream(adaptor,"token FROM");
 	    RewriteRuleSubtreeStream stream_from_clause_item=new RewriteRuleSubtreeStream(adaptor,"rule from_clause_item");
 		try { DebugEnterRule(GrammarFileName, "from_clause");
@@ -2380,14 +2381,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA26_1 = input.LA(2);
 
-					if ((LA26_1==147))
+					if ((LA26_1==148))
 					{
 						alt26 = 1;
 					}
 
 
 				}
-				else if ((LA26_0==147))
+				else if ((LA26_0==148))
 				{
 					alt26 = 1;
 				}
@@ -2430,8 +2431,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					} finally { DebugExitSubRule(24); }
 
 					DebugLocation(145, 34);
-					char_literal55=(IToken)Match(input,147,Follow._147_in_from_clause704);  
-					stream_147.Add(char_literal55);
+					char_literal55=(IToken)Match(input,148,Follow._148_in_from_clause704);  
+					stream_148.Add(char_literal55);
 
 					DebugLocation(145, 38);
 					// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:145:38: ( WS )?
@@ -2593,12 +2594,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				}
 				break;
 			case SIMPLE_FILE:
-			case 157:
+			case 158:
 				{
 				alt27 = 2;
 				}
 				break;
-			case 143:
+			case 144:
 				{
 				alt27 = 3;
 				}
@@ -2765,8 +2766,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS63_tree = default(object);
 	    object WS65_tree = default(object);
 	    object char_literal66_tree = default(object);
-	    RewriteRuleITokenStream stream_143=new RewriteRuleITokenStream(adaptor,"token 143");
 	    RewriteRuleITokenStream stream_144=new RewriteRuleITokenStream(adaptor,"token 144");
+	    RewriteRuleITokenStream stream_145=new RewriteRuleITokenStream(adaptor,"token 145");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleSubtreeStream stream_select_command=new RewriteRuleSubtreeStream(adaptor,"rule select_command");
 		try { DebugEnterRule(GrammarFileName, "subquery");
@@ -2778,8 +2779,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:156:4: '(' ( WS )? select_command ( WS )? ')'
 			{
 			DebugLocation(156, 4);
-			char_literal62=(IToken)Match(input,143,Follow._143_in_subquery767);  
-			stream_143.Add(char_literal62);
+			char_literal62=(IToken)Match(input,144,Follow._144_in_subquery767);  
+			stream_144.Add(char_literal62);
 
 			DebugLocation(156, 8);
 			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:156:8: ( WS )?
@@ -2846,8 +2847,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			} finally { DebugExitSubRule(29); }
 
 			DebugLocation(156, 31);
-			char_literal66=(IToken)Match(input,144,Follow._144_in_subquery777);  
-			stream_144.Add(char_literal66);
+			char_literal66=(IToken)Match(input,145,Follow._145_in_subquery777);  
+			stream_145.Add(char_literal66);
 
 
 
@@ -2947,8 +2948,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object SIMPLE_FILE74_tree = default(object);
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleITokenStream stream_SIMPLE_FILE=new RewriteRuleITokenStream(adaptor,"token SIMPLE_FILE");
+	    RewriteRuleITokenStream stream_159=new RewriteRuleITokenStream(adaptor,"token 159");
 	    RewriteRuleITokenStream stream_158=new RewriteRuleITokenStream(adaptor,"token 158");
-	    RewriteRuleITokenStream stream_157=new RewriteRuleITokenStream(adaptor,"token 157");
 	    RewriteRuleSubtreeStream stream_file_option=new RewriteRuleSubtreeStream(adaptor,"rule file_option");
 	    RewriteRuleSubtreeStream stream_file_spec=new RewriteRuleSubtreeStream(adaptor,"rule file_spec");
 		try { DebugEnterRule(GrammarFileName, "file");
@@ -2960,7 +2961,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			try { DebugEnterDecision(33, decisionCanBacktrack[33]);
 			int LA33_0 = input.LA(1);
 
-			if ((LA33_0==157))
+			if ((LA33_0==158))
 			{
 				alt33 = 1;
 			}
@@ -2982,8 +2983,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:160:4: '[' ( WS )? file_spec ( WS file_option )* ( WS )? ']'
 				{
 				DebugLocation(160, 4);
-				char_literal67=(IToken)Match(input,157,Follow._157_in_file796);  
-				stream_157.Add(char_literal67);
+				char_literal67=(IToken)Match(input,158,Follow._158_in_file796);  
+				stream_158.Add(char_literal67);
 
 				DebugLocation(160, 8);
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:160:8: ( WS )?
@@ -3033,7 +3034,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 						int LA31_1 = input.LA(2);
 
-						if ((LA31_1==148))
+						if ((LA31_1==149))
 						{
 							alt31 = 1;
 						}
@@ -3103,8 +3104,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(32); }
 
 				DebugLocation(160, 44);
-				char_literal73=(IToken)Match(input,158,Follow._158_in_file813);  
-				stream_158.Add(char_literal73);
+				char_literal73=(IToken)Match(input,159,Follow._159_in_file813);  
+				stream_159.Add(char_literal73);
 
 
 
@@ -3361,8 +3362,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal80_tree = default(object);
 	    object WS81_tree = default(object);
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
-	    RewriteRuleITokenStream stream_148=new RewriteRuleITokenStream(adaptor,"token 148");
-	    RewriteRuleITokenStream stream_154=new RewriteRuleITokenStream(adaptor,"token 154");
+	    RewriteRuleITokenStream stream_149=new RewriteRuleITokenStream(adaptor,"token 149");
+	    RewriteRuleITokenStream stream_155=new RewriteRuleITokenStream(adaptor,"token 155");
 	    RewriteRuleSubtreeStream stream_file_option_name=new RewriteRuleSubtreeStream(adaptor,"rule file_option_name");
 	    RewriteRuleSubtreeStream stream_file_option_value=new RewriteRuleSubtreeStream(adaptor,"rule file_option_value");
 		try { DebugEnterRule(GrammarFileName, "file_option");
@@ -3374,8 +3375,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:170:4: '-' file_option_name ( ( WS )? '=' ( WS )? file_option_value )?
 			{
 			DebugLocation(170, 4);
-			char_literal77=(IToken)Match(input,148,Follow._148_in_file_option866);  
-			stream_148.Add(char_literal77);
+			char_literal77=(IToken)Match(input,149,Follow._149_in_file_option866);  
+			stream_149.Add(char_literal77);
 
 			DebugLocation(170, 8);
 			PushFollow(Follow._file_option_name_in_file_option868);
@@ -3394,12 +3395,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 				int LA37_1 = input.LA(2);
 
-				if ((LA37_1==154))
+				if ((LA37_1==155))
 				{
 					alt37 = 1;
 				}
 			}
-			else if ((LA37_0==154))
+			else if ((LA37_0==155))
 			{
 				alt37 = 1;
 			}
@@ -3440,8 +3441,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(35); }
 
 				DebugLocation(170, 31);
-				char_literal80=(IToken)Match(input,154,Follow._154_in_file_option875);  
-				stream_154.Add(char_literal80);
+				char_literal80=(IToken)Match(input,155,Follow._155_in_file_option875);  
+				stream_155.Add(char_literal80);
 
 				DebugLocation(170, 35);
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:170:35: ( WS )?
@@ -3489,7 +3490,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: file_option_value, file_option_name
+			// elements: file_option_name, file_option_value
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -4166,8 +4167,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS102_tree = default(object);
 	    object char_literal103_tree = default(object);
 	    object WS104_tree = default(object);
-	    RewriteRuleITokenStream stream_147=new RewriteRuleITokenStream(adaptor,"token 147");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
+	    RewriteRuleITokenStream stream_148=new RewriteRuleITokenStream(adaptor,"token 148");
 	    RewriteRuleSubtreeStream stream_orderby_column=new RewriteRuleSubtreeStream(adaptor,"rule orderby_column");
 		try { DebugEnterRule(GrammarFileName, "orderby_column_list");
 		DebugLocation(195, 1);
@@ -4196,14 +4197,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA41_1 = input.LA(2);
 
-					if ((LA41_1==147))
+					if ((LA41_1==148))
 					{
 						alt41 = 1;
 					}
 
 
 				}
-				else if ((LA41_0==147))
+				else if ((LA41_0==148))
 				{
 					alt41 = 1;
 				}
@@ -4246,8 +4247,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					} finally { DebugExitSubRule(39); }
 
 					DebugLocation(196, 24);
-					char_literal103=(IToken)Match(input,147,Follow._147_in_orderby_column_list1027);  
-					stream_147.Add(char_literal103);
+					char_literal103=(IToken)Match(input,148,Follow._148_in_orderby_column_list1027);  
+					stream_148.Add(char_literal103);
 
 					DebugLocation(196, 28);
 					// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:196:28: ( WS )?
@@ -4442,7 +4443,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: orderby_direction, expression
+			// elements: expression, orderby_direction
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -4900,8 +4901,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS118_tree = default(object);
 	    object char_literal119_tree = default(object);
 	    object WS120_tree = default(object);
-	    RewriteRuleITokenStream stream_147=new RewriteRuleITokenStream(adaptor,"token 147");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
+	    RewriteRuleITokenStream stream_148=new RewriteRuleITokenStream(adaptor,"token 148");
 	    RewriteRuleSubtreeStream stream_declaration=new RewriteRuleSubtreeStream(adaptor,"rule declaration");
 		try { DebugEnterRule(GrammarFileName, "declaration_list");
 		DebugLocation(223, 1);
@@ -4930,14 +4931,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA46_1 = input.LA(2);
 
-					if ((LA46_1==147))
+					if ((LA46_1==148))
 					{
 						alt46 = 1;
 					}
 
 
 				}
-				else if ((LA46_0==147))
+				else if ((LA46_0==148))
 				{
 					alt46 = 1;
 				}
@@ -4980,8 +4981,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					} finally { DebugExitSubRule(44); }
 
 					DebugLocation(224, 21);
-					char_literal119=(IToken)Match(input,147,Follow._147_in_declaration_list1162);  
-					stream_147.Add(char_literal119);
+					char_literal119=(IToken)Match(input,148,Follow._148_in_declaration_list1162);  
+					stream_148.Add(char_literal119);
 
 					DebugLocation(224, 25);
 					// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:224:25: ( WS )?
@@ -5300,9 +5301,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS136_tree = default(object);
 	    object AS137_tree = default(object);
 	    object WS138_tree = default(object);
-	    RewriteRuleITokenStream stream_143=new RewriteRuleITokenStream(adaptor,"token 143");
 	    RewriteRuleITokenStream stream_144=new RewriteRuleITokenStream(adaptor,"token 144");
 	    RewriteRuleITokenStream stream_AS=new RewriteRuleITokenStream(adaptor,"token AS");
+	    RewriteRuleITokenStream stream_145=new RewriteRuleITokenStream(adaptor,"token 145");
 	    RewriteRuleITokenStream stream_CREATE=new RewriteRuleITokenStream(adaptor,"token CREATE");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleITokenStream stream_VIEW=new RewriteRuleITokenStream(adaptor,"token VIEW");
@@ -5350,12 +5351,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 				int LA49_1 = input.LA(2);
 
-				if ((LA49_1==143))
+				if ((LA49_1==144))
 				{
 					alt49 = 1;
 				}
 			}
-			else if ((LA49_0==143))
+			else if ((LA49_0==144))
 			{
 				alt49 = 1;
 			}
@@ -5396,8 +5397,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(48); }
 
 				DebugLocation(237, 37);
-				char_literal133=(IToken)Match(input,143,Follow._143_in_create_view_command1241);  
-				stream_143.Add(char_literal133);
+				char_literal133=(IToken)Match(input,144,Follow._144_in_create_view_command1241);  
+				stream_144.Add(char_literal133);
 
 				DebugLocation(237, 41);
 				PushFollow(Follow._declaration_list_in_create_view_command1243);
@@ -5406,8 +5407,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				stream_declaration_list.Add(declaration_list134.Tree);
 				DebugLocation(237, 58);
-				char_literal135=(IToken)Match(input,144,Follow._144_in_create_view_command1245);  
-				stream_144.Add(char_literal135);
+				char_literal135=(IToken)Match(input,145,Follow._145_in_create_view_command1245);  
+				stream_145.Add(char_literal135);
 
 
 				}
@@ -5438,7 +5439,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: declaration_list, view_name, select_command
+			// elements: select_command, view_name, declaration_list
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -5639,7 +5640,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS146_tree = default(object);
 	    RewriteRuleITokenStream stream_SET=new RewriteRuleITokenStream(adaptor,"token SET");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
-	    RewriteRuleITokenStream stream_154=new RewriteRuleITokenStream(adaptor,"token 154");
+	    RewriteRuleITokenStream stream_155=new RewriteRuleITokenStream(adaptor,"token 155");
 	    RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 	    RewriteRuleSubtreeStream stream_variable=new RewriteRuleSubtreeStream(adaptor,"rule variable");
 		try { DebugEnterRule(GrammarFileName, "set_command");
@@ -5694,8 +5695,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			} finally { DebugExitSubRule(50); }
 
 			DebugLocation(250, 24);
-			char_literal145=(IToken)Match(input,154,Follow._154_in_set_command1314);  
-			stream_154.Add(char_literal145);
+			char_literal145=(IToken)Match(input,155,Follow._155_in_set_command1314);  
+			stream_155.Add(char_literal145);
 
 			DebugLocation(250, 28);
 			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:250:28: ( WS )?
@@ -5824,8 +5825,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS149_tree = default(object);
 	    object char_literal150_tree = default(object);
 	    object WS151_tree = default(object);
-	    RewriteRuleITokenStream stream_147=new RewriteRuleITokenStream(adaptor,"token 147");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
+	    RewriteRuleITokenStream stream_148=new RewriteRuleITokenStream(adaptor,"token 148");
 	    RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 		try { DebugEnterRule(GrammarFileName, "expression_list");
 		DebugLocation(257, 1);
@@ -5854,14 +5855,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA54_1 = input.LA(2);
 
-					if ((LA54_1==147))
+					if ((LA54_1==148))
 					{
 						alt54 = 1;
 					}
 
 
 				}
-				else if ((LA54_0==147))
+				else if ((LA54_0==148))
 				{
 					alt54 = 1;
 				}
@@ -5904,8 +5905,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					} finally { DebugExitSubRule(52); }
 
 					DebugLocation(258, 20);
-					char_literal150=(IToken)Match(input,147,Follow._147_in_expression_list1350);  
-					stream_147.Add(char_literal150);
+					char_literal150=(IToken)Match(input,148,Follow._148_in_expression_list1350);  
+					stream_148.Add(char_literal150);
 
 					DebugLocation(258, 24);
 					// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:258:24: ( WS )?
@@ -6060,7 +6061,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			try { DebugEnterDecision(55, decisionCanBacktrack[55]);
 			int LA55_0 = input.LA(1);
 
-			if (((LA55_0>=CASE && LA55_0<=CAST)||LA55_0==CONVERT||LA55_0==EXISTS||(LA55_0>=NOT && LA55_0<=NUMBER)||LA55_0==SIMPLE_FILE||(LA55_0>=STRING && LA55_0<=SYSTEMVAR)||LA55_0==TOKEN||LA55_0==VARIABLE||LA55_0==143))
+			if (((LA55_0>=CASE && LA55_0<=CAST)||LA55_0==CONVERT||LA55_0==EXISTS||(LA55_0>=NOT && LA55_0<=NUMBER)||LA55_0==SIMPLE_FILE||(LA55_0>=STRING && LA55_0<=SYSTEMVAR)||LA55_0==TOKEN||LA55_0==VARIABLE||LA55_0==144))
 			{
 				alt55 = 1;
 			}
@@ -6285,8 +6286,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS186_tree = default(object);
 	    object char_literal187_tree = default(object);
 	    object char_literal189_tree = default(object);
-	    RewriteRuleITokenStream stream_143=new RewriteRuleITokenStream(adaptor,"token 143");
 	    RewriteRuleITokenStream stream_144=new RewriteRuleITokenStream(adaptor,"token 144");
+	    RewriteRuleITokenStream stream_145=new RewriteRuleITokenStream(adaptor,"token 145");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleITokenStream stream_ANY=new RewriteRuleITokenStream(adaptor,"token ANY");
 	    RewriteRuleITokenStream stream_IN=new RewriteRuleITokenStream(adaptor,"token IN");
@@ -6374,7 +6375,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 
 					}
-					else if ((LA68_1==BETWEEN||LA68_1==IN||LA68_1==LIKE||LA68_1==MATCH||LA68_1==OR||(LA68_1>=138 && LA68_1<=140)||(LA68_1>=151 && LA68_1<=156)))
+					else if ((LA68_1==BETWEEN||LA68_1==IN||LA68_1==LIKE||LA68_1==MATCH||LA68_1==OR||(LA68_1>=139 && LA68_1<=141)||(LA68_1>=152 && LA68_1<=157)))
 					{
 						alt68 = 1;
 					}
@@ -6445,7 +6446,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						alt67 = 2;
 						}
 						break;
-					case 154:
+					case 155:
 						{
 						switch (input.LA(2))
 						{
@@ -6490,7 +6491,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 156:
+					case 157:
 						{
 						switch (input.LA(2))
 						{
@@ -6535,7 +6536,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 152:
+					case 153:
 						{
 						switch (input.LA(2))
 						{
@@ -6580,7 +6581,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 153:
+					case 154:
 						{
 						switch (input.LA(2))
 						{
@@ -6625,7 +6626,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 139:
+					case 140:
 						{
 						switch (input.LA(2))
 						{
@@ -6670,7 +6671,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 140:
+					case 141:
 						{
 						switch (input.LA(2))
 						{
@@ -6715,7 +6716,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 138:
+					case 139:
 						{
 						switch (input.LA(2))
 						{
@@ -6760,7 +6761,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 155:
+					case 156:
 						{
 						switch (input.LA(2))
 						{
@@ -6805,7 +6806,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 151:
+					case 152:
 						{
 						switch (input.LA(2))
 						{
@@ -6885,7 +6886,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						{
 						// AST REWRITE
-						// elements: b, expression_7, op_7
+						// elements: b, op_7, expression_7
 						// token labels: 
 						// rule labels: retval, b
 						// token list labels: 
@@ -6960,8 +6961,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						} finally { DebugExitSubRule(56); }
 
 						DebugLocation(272, 11);
-						char_literal161=(IToken)Match(input,143,Follow._143_in_expression_71452);  
-						stream_143.Add(char_literal161);
+						char_literal161=(IToken)Match(input,144,Follow._144_in_expression_71452);  
+						stream_144.Add(char_literal161);
 
 						DebugLocation(272, 15);
 						// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:272:15: ( WS )?
@@ -7028,8 +7029,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						} finally { DebugExitSubRule(58); }
 
 						DebugLocation(272, 57);
-						char_literal165=(IToken)Match(input,144,Follow._144_in_expression_71462);  
-						stream_144.Add(char_literal165);
+						char_literal165=(IToken)Match(input,145,Follow._145_in_expression_71462);  
+						stream_145.Add(char_literal165);
 
 
 
@@ -7117,8 +7118,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						} finally { DebugExitSubRule(59); }
 
 						DebugLocation(273, 18);
-						char_literal170=(IToken)Match(input,143,Follow._143_in_expression_71489);  
-						stream_143.Add(char_literal170);
+						char_literal170=(IToken)Match(input,144,Follow._144_in_expression_71489);  
+						stream_144.Add(char_literal170);
 
 						DebugLocation(273, 22);
 						// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:273:22: ( WS )?
@@ -7193,8 +7194,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						} finally { DebugExitSubRule(61); }
 
 						DebugLocation(273, 66);
-						char_literal174=(IToken)Match(input,144,Follow._144_in_expression_71501);  
-						stream_144.Add(char_literal174);
+						char_literal174=(IToken)Match(input,145,Follow._145_in_expression_71501);  
+						stream_145.Add(char_literal174);
 
 
 
@@ -7355,8 +7356,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						} finally { DebugExitSubRule(64); }
 
 						DebugLocation(274, 30);
-						char_literal180=(IToken)Match(input,143,Follow._143_in_expression_71535);  
-						stream_143.Add(char_literal180);
+						char_literal180=(IToken)Match(input,144,Follow._144_in_expression_71535);  
+						stream_144.Add(char_literal180);
 
 						DebugLocation(274, 34);
 						PushFollow(Follow._expression_list_or_select_command_in_expression_71537);
@@ -7365,14 +7366,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						stream_expression_list_or_select_command.Add(expression_list_or_select_command181.Tree);
 						DebugLocation(274, 68);
-						char_literal182=(IToken)Match(input,144,Follow._144_in_expression_71539);  
-						stream_144.Add(char_literal182);
+						char_literal182=(IToken)Match(input,145,Follow._145_in_expression_71539);  
+						stream_145.Add(char_literal182);
 
 
 
 						{
 						// AST REWRITE
-						// elements: expression_list_or_select_command, op_4, expression_7
+						// elements: expression_7, expression_list_or_select_command, op_4
 						// token labels: 
 						// rule labels: retval
 						// token list labels: 
@@ -7483,8 +7484,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						} finally { DebugExitSubRule(66); }
 
 						DebugLocation(275, 21);
-						char_literal187=(IToken)Match(input,143,Follow._143_in_expression_71569);  
-						stream_143.Add(char_literal187);
+						char_literal187=(IToken)Match(input,144,Follow._144_in_expression_71569);  
+						stream_144.Add(char_literal187);
 
 						DebugLocation(275, 25);
 						PushFollow(Follow._expression_list_or_select_command_in_expression_71571);
@@ -7493,14 +7494,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						stream_expression_list_or_select_command.Add(expression_list_or_select_command188.Tree);
 						DebugLocation(275, 59);
-						char_literal189=(IToken)Match(input,144,Follow._144_in_expression_71573);  
-						stream_144.Add(char_literal189);
+						char_literal189=(IToken)Match(input,145,Follow._145_in_expression_71573);  
+						stream_145.Add(char_literal189);
 
 
 
 						{
 						// AST REWRITE
-						// elements: op_4, expression_7, expression_list_or_select_command
+						// elements: expression_7, op_4, expression_list_or_select_command
 						// token labels: 
 						// rule labels: retval
 						// token list labels: 
@@ -8137,7 +8138,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 					{
 					// AST REWRITE
-					// elements: b, expression_6, op_6
+					// elements: b, op_6, expression_6
 					// token labels: 
 					// rule labels: retval, b
 					// token list labels: 
@@ -8343,7 +8344,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			{
 				alt71 = 1;
 			}
-			else if (((LA71_0>=CASE && LA71_0<=CAST)||LA71_0==CONVERT||LA71_0==EXISTS||LA71_0==NUMBER||LA71_0==SIMPLE_FILE||(LA71_0>=STRING && LA71_0<=SYSTEMVAR)||LA71_0==TOKEN||LA71_0==VARIABLE||LA71_0==143))
+			else if (((LA71_0>=CASE && LA71_0<=CAST)||LA71_0==CONVERT||LA71_0==EXISTS||LA71_0==NUMBER||LA71_0==SIMPLE_FILE||(LA71_0>=STRING && LA71_0<=SYSTEMVAR)||LA71_0==TOKEN||LA71_0==VARIABLE||LA71_0==144))
 			{
 				alt71 = 2;
 			}
@@ -8380,7 +8381,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: op_5, expression_5
+				// elements: expression_5, op_5
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -8634,7 +8635,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					switch (input.LA(2))
 					{
-					case 154:
+					case 155:
 						{
 						int LA74_4 = input.LA(3);
 
@@ -8642,14 +8643,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 							int LA74_13 = input.LA(4);
 
-							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==143))
+							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==144))
 							{
 								alt74 = 1;
 							}
 
 
 						}
-						else if (((LA74_4>=CASE && LA74_4<=CAST)||LA74_4==CONVERT||LA74_4==EXISTS||LA74_4==NUMBER||LA74_4==SIMPLE_FILE||(LA74_4>=STRING && LA74_4<=SYSTEMVAR)||LA74_4==TOKEN||LA74_4==VARIABLE||LA74_4==143))
+						else if (((LA74_4>=CASE && LA74_4<=CAST)||LA74_4==CONVERT||LA74_4==EXISTS||LA74_4==NUMBER||LA74_4==SIMPLE_FILE||(LA74_4>=STRING && LA74_4<=SYSTEMVAR)||LA74_4==TOKEN||LA74_4==VARIABLE||LA74_4==144))
 						{
 							alt74 = 1;
 						}
@@ -8657,7 +8658,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 156:
+					case 157:
 						{
 						int LA74_5 = input.LA(3);
 
@@ -8665,37 +8666,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 							int LA74_13 = input.LA(4);
 
-							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==143))
+							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==144))
 							{
 								alt74 = 1;
 							}
 
 
 						}
-						else if (((LA74_5>=CASE && LA74_5<=CAST)||LA74_5==CONVERT||LA74_5==EXISTS||LA74_5==NUMBER||LA74_5==SIMPLE_FILE||(LA74_5>=STRING && LA74_5<=SYSTEMVAR)||LA74_5==TOKEN||LA74_5==VARIABLE||LA74_5==143))
-						{
-							alt74 = 1;
-						}
-
-
-						}
-						break;
-					case 152:
-						{
-						int LA74_6 = input.LA(3);
-
-						if ((LA74_6==WS))
-						{
-							int LA74_13 = input.LA(4);
-
-							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==143))
-							{
-								alt74 = 1;
-							}
-
-
-						}
-						else if (((LA74_6>=CASE && LA74_6<=CAST)||LA74_6==CONVERT||LA74_6==EXISTS||LA74_6==NUMBER||LA74_6==SIMPLE_FILE||(LA74_6>=STRING && LA74_6<=SYSTEMVAR)||LA74_6==TOKEN||LA74_6==VARIABLE||LA74_6==143))
+						else if (((LA74_5>=CASE && LA74_5<=CAST)||LA74_5==CONVERT||LA74_5==EXISTS||LA74_5==NUMBER||LA74_5==SIMPLE_FILE||(LA74_5>=STRING && LA74_5<=SYSTEMVAR)||LA74_5==TOKEN||LA74_5==VARIABLE||LA74_5==144))
 						{
 							alt74 = 1;
 						}
@@ -8705,20 +8683,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						break;
 					case 153:
 						{
-						int LA74_7 = input.LA(3);
+						int LA74_6 = input.LA(3);
 
-						if ((LA74_7==WS))
+						if ((LA74_6==WS))
 						{
 							int LA74_13 = input.LA(4);
 
-							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==143))
+							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==144))
 							{
 								alt74 = 1;
 							}
 
 
 						}
-						else if (((LA74_7>=CASE && LA74_7<=CAST)||LA74_7==CONVERT||LA74_7==EXISTS||LA74_7==NUMBER||LA74_7==SIMPLE_FILE||(LA74_7>=STRING && LA74_7<=SYSTEMVAR)||LA74_7==TOKEN||LA74_7==VARIABLE||LA74_7==143))
+						else if (((LA74_6>=CASE && LA74_6<=CAST)||LA74_6==CONVERT||LA74_6==EXISTS||LA74_6==NUMBER||LA74_6==SIMPLE_FILE||(LA74_6>=STRING && LA74_6<=SYSTEMVAR)||LA74_6==TOKEN||LA74_6==VARIABLE||LA74_6==144))
 						{
 							alt74 = 1;
 						}
@@ -8726,22 +8704,22 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 139:
+					case 154:
 						{
-						int LA74_8 = input.LA(3);
+						int LA74_7 = input.LA(3);
 
-						if ((LA74_8==WS))
+						if ((LA74_7==WS))
 						{
 							int LA74_13 = input.LA(4);
 
-							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==143))
+							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==144))
 							{
 								alt74 = 1;
 							}
 
 
 						}
-						else if (((LA74_8>=CASE && LA74_8<=CAST)||LA74_8==CONVERT||LA74_8==EXISTS||LA74_8==NUMBER||LA74_8==SIMPLE_FILE||(LA74_8>=STRING && LA74_8<=SYSTEMVAR)||LA74_8==TOKEN||LA74_8==VARIABLE||LA74_8==143))
+						else if (((LA74_7>=CASE && LA74_7<=CAST)||LA74_7==CONVERT||LA74_7==EXISTS||LA74_7==NUMBER||LA74_7==SIMPLE_FILE||(LA74_7>=STRING && LA74_7<=SYSTEMVAR)||LA74_7==TOKEN||LA74_7==VARIABLE||LA74_7==144))
 						{
 							alt74 = 1;
 						}
@@ -8751,20 +8729,20 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						break;
 					case 140:
 						{
-						int LA74_9 = input.LA(3);
+						int LA74_8 = input.LA(3);
 
-						if ((LA74_9==WS))
+						if ((LA74_8==WS))
 						{
 							int LA74_13 = input.LA(4);
 
-							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==143))
+							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==144))
 							{
 								alt74 = 1;
 							}
 
 
 						}
-						else if (((LA74_9>=CASE && LA74_9<=CAST)||LA74_9==CONVERT||LA74_9==EXISTS||LA74_9==NUMBER||LA74_9==SIMPLE_FILE||(LA74_9>=STRING && LA74_9<=SYSTEMVAR)||LA74_9==TOKEN||LA74_9==VARIABLE||LA74_9==143))
+						else if (((LA74_8>=CASE && LA74_8<=CAST)||LA74_8==CONVERT||LA74_8==EXISTS||LA74_8==NUMBER||LA74_8==SIMPLE_FILE||(LA74_8>=STRING && LA74_8<=SYSTEMVAR)||LA74_8==TOKEN||LA74_8==VARIABLE||LA74_8==144))
 						{
 							alt74 = 1;
 						}
@@ -8772,7 +8750,30 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 138:
+					case 141:
+						{
+						int LA74_9 = input.LA(3);
+
+						if ((LA74_9==WS))
+						{
+							int LA74_13 = input.LA(4);
+
+							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==144))
+							{
+								alt74 = 1;
+							}
+
+
+						}
+						else if (((LA74_9>=CASE && LA74_9<=CAST)||LA74_9==CONVERT||LA74_9==EXISTS||LA74_9==NUMBER||LA74_9==SIMPLE_FILE||(LA74_9>=STRING && LA74_9<=SYSTEMVAR)||LA74_9==TOKEN||LA74_9==VARIABLE||LA74_9==144))
+						{
+							alt74 = 1;
+						}
+
+
+						}
+						break;
+					case 139:
 						{
 						int LA74_10 = input.LA(3);
 
@@ -8780,14 +8781,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 							int LA74_13 = input.LA(4);
 
-							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==143))
+							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==144))
 							{
 								alt74 = 1;
 							}
 
 
 						}
-						else if (((LA74_10>=CASE && LA74_10<=CAST)||LA74_10==CONVERT||LA74_10==EXISTS||LA74_10==NUMBER||LA74_10==SIMPLE_FILE||(LA74_10>=STRING && LA74_10<=SYSTEMVAR)||LA74_10==TOKEN||LA74_10==VARIABLE||LA74_10==143))
+						else if (((LA74_10>=CASE && LA74_10<=CAST)||LA74_10==CONVERT||LA74_10==EXISTS||LA74_10==NUMBER||LA74_10==SIMPLE_FILE||(LA74_10>=STRING && LA74_10<=SYSTEMVAR)||LA74_10==TOKEN||LA74_10==VARIABLE||LA74_10==144))
 						{
 							alt74 = 1;
 						}
@@ -8795,7 +8796,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 155:
+					case 156:
 						{
 						int LA74_11 = input.LA(3);
 
@@ -8803,14 +8804,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 							int LA74_13 = input.LA(4);
 
-							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==143))
+							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==144))
 							{
 								alt74 = 1;
 							}
 
 
 						}
-						else if (((LA74_11>=CASE && LA74_11<=CAST)||LA74_11==CONVERT||LA74_11==EXISTS||LA74_11==NUMBER||LA74_11==SIMPLE_FILE||(LA74_11>=STRING && LA74_11<=SYSTEMVAR)||LA74_11==TOKEN||LA74_11==VARIABLE||LA74_11==143))
+						else if (((LA74_11>=CASE && LA74_11<=CAST)||LA74_11==CONVERT||LA74_11==EXISTS||LA74_11==NUMBER||LA74_11==SIMPLE_FILE||(LA74_11>=STRING && LA74_11<=SYSTEMVAR)||LA74_11==TOKEN||LA74_11==VARIABLE||LA74_11==144))
 						{
 							alt74 = 1;
 						}
@@ -8818,7 +8819,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						}
 						break;
-					case 151:
+					case 152:
 						{
 						int LA74_12 = input.LA(3);
 
@@ -8826,14 +8827,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 							int LA74_13 = input.LA(4);
 
-							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==143))
+							if (((LA74_13>=CASE && LA74_13<=CAST)||LA74_13==CONVERT||LA74_13==EXISTS||LA74_13==NUMBER||LA74_13==SIMPLE_FILE||(LA74_13>=STRING && LA74_13<=SYSTEMVAR)||LA74_13==TOKEN||LA74_13==VARIABLE||LA74_13==144))
 							{
 								alt74 = 1;
 							}
 
 
 						}
-						else if (((LA74_12>=CASE && LA74_12<=CAST)||LA74_12==CONVERT||LA74_12==EXISTS||LA74_12==NUMBER||LA74_12==SIMPLE_FILE||(LA74_12>=STRING && LA74_12<=SYSTEMVAR)||LA74_12==TOKEN||LA74_12==VARIABLE||LA74_12==143))
+						else if (((LA74_12>=CASE && LA74_12<=CAST)||LA74_12==CONVERT||LA74_12==EXISTS||LA74_12==NUMBER||LA74_12==SIMPLE_FILE||(LA74_12>=STRING && LA74_12<=SYSTEMVAR)||LA74_12==TOKEN||LA74_12==VARIABLE||LA74_12==144))
 						{
 							alt74 = 1;
 						}
@@ -8844,7 +8845,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 
 				}
-				else if (((LA74_0>=138 && LA74_0<=140)||(LA74_0>=151 && LA74_0<=156)))
+				else if (((LA74_0>=139 && LA74_0<=141)||(LA74_0>=152 && LA74_0<=157)))
 				{
 					alt74 = 1;
 				}
@@ -9048,12 +9049,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal223_tree = default(object);
 	    RewriteRuleITokenStream stream_152=new RewriteRuleITokenStream(adaptor,"token 152");
 	    RewriteRuleITokenStream stream_153=new RewriteRuleITokenStream(adaptor,"token 153");
-	    RewriteRuleITokenStream stream_151=new RewriteRuleITokenStream(adaptor,"token 151");
-	    RewriteRuleITokenStream stream_138=new RewriteRuleITokenStream(adaptor,"token 138");
 	    RewriteRuleITokenStream stream_139=new RewriteRuleITokenStream(adaptor,"token 139");
 	    RewriteRuleITokenStream stream_140=new RewriteRuleITokenStream(adaptor,"token 140");
+	    RewriteRuleITokenStream stream_157=new RewriteRuleITokenStream(adaptor,"token 157");
 	    RewriteRuleITokenStream stream_156=new RewriteRuleITokenStream(adaptor,"token 156");
 	    RewriteRuleITokenStream stream_155=new RewriteRuleITokenStream(adaptor,"token 155");
+	    RewriteRuleITokenStream stream_141=new RewriteRuleITokenStream(adaptor,"token 141");
 	    RewriteRuleITokenStream stream_154=new RewriteRuleITokenStream(adaptor,"token 154");
 
 		try { DebugEnterRule(GrammarFileName, "op_4");
@@ -9065,47 +9066,47 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			try { DebugEnterDecision(75, decisionCanBacktrack[75]);
 			switch (input.LA(1))
 			{
-			case 154:
+			case 155:
 				{
 				alt75 = 1;
 				}
 				break;
-			case 156:
+			case 157:
 				{
 				alt75 = 2;
 				}
 				break;
-			case 152:
+			case 153:
 				{
 				alt75 = 3;
 				}
 				break;
-			case 153:
+			case 154:
 				{
 				alt75 = 4;
 				}
 				break;
-			case 139:
+			case 140:
 				{
 				alt75 = 5;
 				}
 				break;
-			case 140:
+			case 141:
 				{
 				alt75 = 6;
 				}
 				break;
-			case 138:
+			case 139:
 				{
 				alt75 = 7;
 				}
 				break;
-			case 155:
+			case 156:
 				{
 				alt75 = 8;
 				}
 				break;
-			case 151:
+			case 152:
 				{
 				alt75 = 9;
 				}
@@ -9126,8 +9127,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:307:8: '='
 				{
 				DebugLocation(307, 8);
-				char_literal215=(IToken)Match(input,154,Follow._154_in_op_41841);  
-				stream_154.Add(char_literal215);
+				char_literal215=(IToken)Match(input,155,Follow._155_in_op_41841);  
+				stream_155.Add(char_literal215);
 
 
 
@@ -9160,8 +9161,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:308:4: '>='
 				{
 				DebugLocation(308, 4);
-				string_literal216=(IToken)Match(input,156,Follow._156_in_op_41850);  
-				stream_156.Add(string_literal216);
+				string_literal216=(IToken)Match(input,157,Follow._157_in_op_41850);  
+				stream_157.Add(string_literal216);
 
 
 
@@ -9194,8 +9195,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:309:4: '<='
 				{
 				DebugLocation(309, 4);
-				string_literal217=(IToken)Match(input,152,Follow._152_in_op_41860);  
-				stream_152.Add(string_literal217);
+				string_literal217=(IToken)Match(input,153,Follow._153_in_op_41860);  
+				stream_153.Add(string_literal217);
 
 
 
@@ -9228,8 +9229,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:310:4: '<>'
 				{
 				DebugLocation(310, 4);
-				string_literal218=(IToken)Match(input,153,Follow._153_in_op_41870);  
-				stream_153.Add(string_literal218);
+				string_literal218=(IToken)Match(input,154,Follow._154_in_op_41870);  
+				stream_154.Add(string_literal218);
 
 
 
@@ -9262,8 +9263,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:311:4: '!='
 				{
 				DebugLocation(311, 4);
-				string_literal219=(IToken)Match(input,139,Follow._139_in_op_41879);  
-				stream_139.Add(string_literal219);
+				string_literal219=(IToken)Match(input,140,Follow._140_in_op_41879);  
+				stream_140.Add(string_literal219);
 
 
 
@@ -9296,8 +9297,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:312:4: '!>'
 				{
 				DebugLocation(312, 4);
-				string_literal220=(IToken)Match(input,140,Follow._140_in_op_41888);  
-				stream_140.Add(string_literal220);
+				string_literal220=(IToken)Match(input,141,Follow._141_in_op_41888);  
+				stream_141.Add(string_literal220);
 
 
 
@@ -9330,8 +9331,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:313:4: '!<'
 				{
 				DebugLocation(313, 4);
-				string_literal221=(IToken)Match(input,138,Follow._138_in_op_41897);  
-				stream_138.Add(string_literal221);
+				string_literal221=(IToken)Match(input,139,Follow._139_in_op_41897);  
+				stream_139.Add(string_literal221);
 
 
 
@@ -9364,8 +9365,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:314:4: '>'
 				{
 				DebugLocation(314, 4);
-				char_literal222=(IToken)Match(input,155,Follow._155_in_op_41906);  
-				stream_155.Add(char_literal222);
+				char_literal222=(IToken)Match(input,156,Follow._156_in_op_41906);  
+				stream_156.Add(char_literal222);
 
 
 
@@ -9398,8 +9399,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:315:4: '<'
 				{
 				DebugLocation(315, 4);
-				char_literal223=(IToken)Match(input,151,Follow._151_in_op_41916);  
-				stream_151.Add(char_literal223);
+				char_literal223=(IToken)Match(input,152,Follow._152_in_op_41916);  
+				stream_152.Add(char_literal223);
 
 
 
@@ -9544,14 +9545,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA78_1 = input.LA(2);
 
-					if ((LA78_1==142||LA78_1==146||LA78_1==148||(LA78_1>=159 && LA78_1<=160)))
+					if ((LA78_1==143||LA78_1==147||LA78_1==149||(LA78_1>=160 && LA78_1<=161)))
 					{
 						alt78 = 1;
 					}
 
 
 				}
-				else if ((LA78_0==142||LA78_0==146||LA78_0==148||(LA78_0>=159 && LA78_0<=160)))
+				else if ((LA78_0==143||LA78_0==147||LA78_0==149||(LA78_0>=160 && LA78_0<=161)))
 				{
 					alt78 = 1;
 				}
@@ -9745,11 +9746,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal229_tree = default(object);
 	    object char_literal230_tree = default(object);
 	    object char_literal231_tree = default(object);
-	    RewriteRuleITokenStream stream_146=new RewriteRuleITokenStream(adaptor,"token 146");
-	    RewriteRuleITokenStream stream_148=new RewriteRuleITokenStream(adaptor,"token 148");
+	    RewriteRuleITokenStream stream_161=new RewriteRuleITokenStream(adaptor,"token 161");
+	    RewriteRuleITokenStream stream_143=new RewriteRuleITokenStream(adaptor,"token 143");
+	    RewriteRuleITokenStream stream_147=new RewriteRuleITokenStream(adaptor,"token 147");
+	    RewriteRuleITokenStream stream_149=new RewriteRuleITokenStream(adaptor,"token 149");
 	    RewriteRuleITokenStream stream_160=new RewriteRuleITokenStream(adaptor,"token 160");
-	    RewriteRuleITokenStream stream_159=new RewriteRuleITokenStream(adaptor,"token 159");
-	    RewriteRuleITokenStream stream_142=new RewriteRuleITokenStream(adaptor,"token 142");
 
 		try { DebugEnterRule(GrammarFileName, "op_3");
 		DebugLocation(322, 1);
@@ -9760,27 +9761,27 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			try { DebugEnterDecision(79, decisionCanBacktrack[79]);
 			switch (input.LA(1))
 			{
-			case 146:
+			case 147:
 				{
 				alt79 = 1;
 				}
 				break;
-			case 148:
+			case 149:
 				{
 				alt79 = 2;
 				}
 				break;
-			case 142:
+			case 143:
 				{
 				alt79 = 3;
 				}
 				break;
-			case 160:
+			case 161:
 				{
 				alt79 = 4;
 				}
 				break;
-			case 159:
+			case 160:
 				{
 				alt79 = 5;
 				}
@@ -9801,8 +9802,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:322:8: '+'
 				{
 				DebugLocation(322, 8);
-				char_literal227=(IToken)Match(input,146,Follow._146_in_op_31978);  
-				stream_146.Add(char_literal227);
+				char_literal227=(IToken)Match(input,147,Follow._147_in_op_31978);  
+				stream_147.Add(char_literal227);
 
 
 
@@ -9835,8 +9836,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:323:4: '-'
 				{
 				DebugLocation(323, 4);
-				char_literal228=(IToken)Match(input,148,Follow._148_in_op_31987);  
-				stream_148.Add(char_literal228);
+				char_literal228=(IToken)Match(input,149,Follow._149_in_op_31987);  
+				stream_149.Add(char_literal228);
 
 
 
@@ -9869,8 +9870,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:324:4: '&'
 				{
 				DebugLocation(324, 4);
-				char_literal229=(IToken)Match(input,142,Follow._142_in_op_31996);  
-				stream_142.Add(char_literal229);
+				char_literal229=(IToken)Match(input,143,Follow._143_in_op_31996);  
+				stream_143.Add(char_literal229);
 
 
 
@@ -9903,8 +9904,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:325:4: '|'
 				{
 				DebugLocation(325, 4);
-				char_literal230=(IToken)Match(input,160,Follow._160_in_op_32005);  
-				stream_160.Add(char_literal230);
+				char_literal230=(IToken)Match(input,161,Follow._161_in_op_32005);  
+				stream_161.Add(char_literal230);
 
 
 
@@ -9937,8 +9938,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:326:4: '^'
 				{
 				DebugLocation(326, 4);
-				char_literal231=(IToken)Match(input,159,Follow._159_in_op_32014);  
-				stream_159.Add(char_literal231);
+				char_literal231=(IToken)Match(input,160,Follow._160_in_op_32014);  
+				stream_160.Add(char_literal231);
 
 
 
@@ -10083,7 +10084,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA82_1 = input.LA(2);
 
-					if ((LA82_1==145))
+					if ((LA82_1==146))
 					{
 						int LA82_4 = input.LA(3);
 
@@ -10091,28 +10092,28 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 							int LA82_5 = input.LA(4);
 
-							if (((LA82_5>=CASE && LA82_5<=CAST)||LA82_5==CONVERT||LA82_5==EXISTS||LA82_5==NUMBER||LA82_5==SIMPLE_FILE||(LA82_5>=STRING && LA82_5<=SYSTEMVAR)||LA82_5==TOKEN||LA82_5==VARIABLE||LA82_5==143))
+							if (((LA82_5>=CASE && LA82_5<=CAST)||LA82_5==CONVERT||LA82_5==EXISTS||LA82_5==NUMBER||LA82_5==SIMPLE_FILE||(LA82_5>=STRING && LA82_5<=SYSTEMVAR)||LA82_5==TOKEN||LA82_5==VARIABLE||LA82_5==144))
 							{
 								alt82 = 1;
 							}
 
 
 						}
-						else if (((LA82_4>=CASE && LA82_4<=CAST)||LA82_4==CONVERT||LA82_4==EXISTS||LA82_4==NUMBER||LA82_4==SIMPLE_FILE||(LA82_4>=STRING && LA82_4<=SYSTEMVAR)||LA82_4==TOKEN||LA82_4==VARIABLE||LA82_4==143))
+						else if (((LA82_4>=CASE && LA82_4<=CAST)||LA82_4==CONVERT||LA82_4==EXISTS||LA82_4==NUMBER||LA82_4==SIMPLE_FILE||(LA82_4>=STRING && LA82_4<=SYSTEMVAR)||LA82_4==TOKEN||LA82_4==VARIABLE||LA82_4==144))
 						{
 							alt82 = 1;
 						}
 
 
 					}
-					else if ((LA82_1==141||LA82_1==149))
+					else if ((LA82_1==142||LA82_1==150))
 					{
 						alt82 = 1;
 					}
 
 
 				}
-				else if ((LA82_0==141||LA82_0==145||LA82_0==149))
+				else if ((LA82_0==142||LA82_0==146||LA82_0==150))
 				{
 					alt82 = 1;
 				}
@@ -10199,7 +10200,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 					{
 					// AST REWRITE
-					// elements: expression_2, b, op_2
+					// elements: b, op_2, expression_2
 					// token labels: 
 					// rule labels: retval, b
 					// token list labels: 
@@ -10302,9 +10303,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal235_tree = default(object);
 	    object char_literal236_tree = default(object);
 	    object char_literal237_tree = default(object);
-	    RewriteRuleITokenStream stream_145=new RewriteRuleITokenStream(adaptor,"token 145");
-	    RewriteRuleITokenStream stream_149=new RewriteRuleITokenStream(adaptor,"token 149");
-	    RewriteRuleITokenStream stream_141=new RewriteRuleITokenStream(adaptor,"token 141");
+	    RewriteRuleITokenStream stream_150=new RewriteRuleITokenStream(adaptor,"token 150");
+	    RewriteRuleITokenStream stream_146=new RewriteRuleITokenStream(adaptor,"token 146");
+	    RewriteRuleITokenStream stream_142=new RewriteRuleITokenStream(adaptor,"token 142");
 
 		try { DebugEnterRule(GrammarFileName, "op_2");
 		DebugLocation(339, 1);
@@ -10315,17 +10316,17 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			try { DebugEnterDecision(83, decisionCanBacktrack[83]);
 			switch (input.LA(1))
 			{
-			case 145:
+			case 146:
 				{
 				alt83 = 1;
 				}
 				break;
-			case 149:
+			case 150:
 				{
 				alt83 = 2;
 				}
 				break;
-			case 141:
+			case 142:
 				{
 				alt83 = 3;
 				}
@@ -10346,8 +10347,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:339:8: '*'
 				{
 				DebugLocation(339, 8);
-				char_literal235=(IToken)Match(input,145,Follow._145_in_op_22079);  
-				stream_145.Add(char_literal235);
+				char_literal235=(IToken)Match(input,146,Follow._146_in_op_22079);  
+				stream_146.Add(char_literal235);
 
 
 
@@ -10380,8 +10381,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:340:4: '/'
 				{
 				DebugLocation(340, 4);
-				char_literal236=(IToken)Match(input,149,Follow._149_in_op_22088);  
-				stream_149.Add(char_literal236);
+				char_literal236=(IToken)Match(input,150,Follow._150_in_op_22088);  
+				stream_150.Add(char_literal236);
 
 
 
@@ -10414,8 +10415,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:341:4: '%'
 				{
 				DebugLocation(341, 4);
-				char_literal237=(IToken)Match(input,141,Follow._141_in_op_22097);  
-				stream_141.Add(char_literal237);
+				char_literal237=(IToken)Match(input,142,Follow._142_in_op_22097);  
+				stream_142.Add(char_literal237);
 
 
 
@@ -10504,8 +10505,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS241_tree = default(object);
 	    object WS243_tree = default(object);
 	    object char_literal244_tree = default(object);
-	    RewriteRuleITokenStream stream_143=new RewriteRuleITokenStream(adaptor,"token 143");
 	    RewriteRuleITokenStream stream_144=new RewriteRuleITokenStream(adaptor,"token 144");
+	    RewriteRuleITokenStream stream_145=new RewriteRuleITokenStream(adaptor,"token 145");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleSubtreeStream stream_expression_1=new RewriteRuleSubtreeStream(adaptor,"rule expression_1");
 	    RewriteRuleSubtreeStream stream_op_1=new RewriteRuleSubtreeStream(adaptor,"rule op_1");
@@ -10518,7 +10519,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			try { DebugEnterDecision(87, decisionCanBacktrack[87]);
 			int LA87_0 = input.LA(1);
 
-			if ((LA87_0==143))
+			if ((LA87_0==144))
 			{
 				switch (input.LA(2))
 				{
@@ -10526,7 +10527,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					{
 					int LA87_3 = input.LA(3);
 
-					if ((LA87_3==146||LA87_3==148||LA87_3==161))
+					if ((LA87_3==147||LA87_3==149||LA87_3==162))
 					{
 						alt87 = 1;
 					}
@@ -10542,9 +10543,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					}
 					}
 					break;
-				case 146:
-				case 148:
-				case 161:
+				case 147:
+				case 149:
+				case 162:
 					{
 					alt87 = 1;
 					}
@@ -10561,7 +10562,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				case SYSTEMVAR:
 				case TOKEN:
 				case VARIABLE:
-				case 143:
+				case 144:
 					{
 					alt87 = 2;
 					}
@@ -10593,8 +10594,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:346:4: '(' ( WS )? op_1 ( WS )? expression_1 ( WS )? ')'
 				{
 				DebugLocation(346, 4);
-				char_literal238=(IToken)Match(input,143,Follow._143_in_expression_12115);  
-				stream_143.Add(char_literal238);
+				char_literal238=(IToken)Match(input,144,Follow._144_in_expression_12115);  
+				stream_144.Add(char_literal238);
 
 				DebugLocation(346, 8);
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:346:8: ( WS )?
@@ -10696,8 +10697,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(86); }
 
 				DebugLocation(346, 38);
-				char_literal244=(IToken)Match(input,144,Follow._144_in_expression_12130);  
-				stream_144.Add(char_literal244);
+				char_literal244=(IToken)Match(input,145,Follow._145_in_expression_12130);  
+				stream_145.Add(char_literal244);
 
 
 
@@ -10806,9 +10807,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object char_literal246_tree = default(object);
 	    object char_literal247_tree = default(object);
 	    object char_literal248_tree = default(object);
-	    RewriteRuleITokenStream stream_161=new RewriteRuleITokenStream(adaptor,"token 161");
-	    RewriteRuleITokenStream stream_146=new RewriteRuleITokenStream(adaptor,"token 146");
-	    RewriteRuleITokenStream stream_148=new RewriteRuleITokenStream(adaptor,"token 148");
+	    RewriteRuleITokenStream stream_162=new RewriteRuleITokenStream(adaptor,"token 162");
+	    RewriteRuleITokenStream stream_147=new RewriteRuleITokenStream(adaptor,"token 147");
+	    RewriteRuleITokenStream stream_149=new RewriteRuleITokenStream(adaptor,"token 149");
 
 		try { DebugEnterRule(GrammarFileName, "op_1");
 		DebugLocation(351, 1);
@@ -10819,17 +10820,17 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			try { DebugEnterDecision(88, decisionCanBacktrack[88]);
 			switch (input.LA(1))
 			{
-			case 161:
+			case 162:
 				{
 				alt88 = 1;
 				}
 				break;
-			case 146:
+			case 147:
 				{
 				alt88 = 2;
 				}
 				break;
-			case 148:
+			case 149:
 				{
 				alt88 = 3;
 				}
@@ -10850,8 +10851,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:351:8: '~'
 				{
 				DebugLocation(351, 8);
-				char_literal246=(IToken)Match(input,161,Follow._161_in_op_12157);  
-				stream_161.Add(char_literal246);
+				char_literal246=(IToken)Match(input,162,Follow._162_in_op_12157);  
+				stream_162.Add(char_literal246);
 
 
 
@@ -10884,8 +10885,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:352:5: '+'
 				{
 				DebugLocation(352, 5);
-				char_literal247=(IToken)Match(input,146,Follow._146_in_op_12167);  
-				stream_146.Add(char_literal247);
+				char_literal247=(IToken)Match(input,147,Follow._147_in_op_12167);  
+				stream_147.Add(char_literal247);
 
 
 
@@ -10918,8 +10919,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:353:4: '-'
 				{
 				DebugLocation(353, 4);
-				char_literal248=(IToken)Match(input,148,Follow._148_in_op_12176);  
-				stream_148.Add(char_literal248);
+				char_literal248=(IToken)Match(input,149,Follow._149_in_op_12176);  
+				stream_149.Add(char_literal248);
 
 
 
@@ -11023,8 +11024,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS263_tree = default(object);
 	    object WS265_tree = default(object);
 	    object char_literal266_tree = default(object);
-	    RewriteRuleITokenStream stream_143=new RewriteRuleITokenStream(adaptor,"token 143");
 	    RewriteRuleITokenStream stream_144=new RewriteRuleITokenStream(adaptor,"token 144");
+	    RewriteRuleITokenStream stream_145=new RewriteRuleITokenStream(adaptor,"token 145");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleITokenStream stream_EXISTS=new RewriteRuleITokenStream(adaptor,"token EXISTS");
 	    RewriteRuleITokenStream stream_SYSTEMVAR=new RewriteRuleITokenStream(adaptor,"token SYSTEMVAR");
@@ -11060,7 +11061,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				alt92 = 4;
 				}
 				break;
-			case 143:
+			case 144:
 				{
 				int LA92_5 = input.LA(2);
 
@@ -11068,7 +11069,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					alt92 = 5;
 				}
-				else if (((LA92_5>=CASE && LA92_5<=CAST)||LA92_5==CONVERT||LA92_5==EXISTS||(LA92_5>=NOT && LA92_5<=NUMBER)||LA92_5==SIMPLE_FILE||(LA92_5>=STRING && LA92_5<=SYSTEMVAR)||LA92_5==TOKEN||LA92_5==VARIABLE||LA92_5==143))
+				else if (((LA92_5>=CASE && LA92_5<=CAST)||LA92_5==CONVERT||LA92_5==EXISTS||(LA92_5>=NOT && LA92_5<=NUMBER)||LA92_5==SIMPLE_FILE||(LA92_5>=STRING && LA92_5<=SYSTEMVAR)||LA92_5==TOKEN||LA92_5==VARIABLE||LA92_5==144))
 				{
 					alt92 = 6;
 				}
@@ -11251,8 +11252,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:362:4: '(' expression ')'
 				{
 				DebugLocation(362, 4);
-				char_literal254=(IToken)Match(input,143,Follow._143_in_expression_atom2232);  
-				stream_143.Add(char_literal254);
+				char_literal254=(IToken)Match(input,144,Follow._144_in_expression_atom2232);  
+				stream_144.Add(char_literal254);
 
 				DebugLocation(362, 8);
 				PushFollow(Follow._expression_in_expression_atom2234);
@@ -11261,8 +11262,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				stream_expression.Add(expression255.Tree);
 				DebugLocation(362, 19);
-				char_literal256=(IToken)Match(input,144,Follow._144_in_expression_atom2236);  
-				stream_144.Add(char_literal256);
+				char_literal256=(IToken)Match(input,145,Follow._145_in_expression_atom2236);  
+				stream_145.Add(char_literal256);
 
 
 
@@ -11373,8 +11374,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(89); }
 
 				DebugLocation(366, 15);
-				char_literal262=(IToken)Match(input,143,Follow._143_in_expression_atom2265);  
-				stream_143.Add(char_literal262);
+				char_literal262=(IToken)Match(input,144,Follow._144_in_expression_atom2265);  
+				stream_144.Add(char_literal262);
 
 				DebugLocation(366, 19);
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:366:19: ( WS )?
@@ -11441,8 +11442,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(91); }
 
 				DebugLocation(366, 42);
-				char_literal266=(IToken)Match(input,144,Follow._144_in_expression_atom2275);  
-				stream_144.Add(char_literal266);
+				char_literal266=(IToken)Match(input,145,Follow._145_in_expression_atom2275);  
+				stream_145.Add(char_literal266);
 
 
 
@@ -11564,12 +11565,12 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS283_tree = default(object);
 	    object char_literal284_tree = default(object);
 	    object SIMPLE_FILE285_tree = default(object);
-	    RewriteRuleITokenStream stream_143=new RewriteRuleITokenStream(adaptor,"token 143");
 	    RewriteRuleITokenStream stream_144=new RewriteRuleITokenStream(adaptor,"token 144");
 	    RewriteRuleITokenStream stream_145=new RewriteRuleITokenStream(adaptor,"token 145");
-	    RewriteRuleITokenStream stream_147=new RewriteRuleITokenStream(adaptor,"token 147");
+	    RewriteRuleITokenStream stream_146=new RewriteRuleITokenStream(adaptor,"token 146");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
 	    RewriteRuleITokenStream stream_SIMPLE_FILE=new RewriteRuleITokenStream(adaptor,"token SIMPLE_FILE");
+	    RewriteRuleITokenStream stream_148=new RewriteRuleITokenStream(adaptor,"token 148");
 	    RewriteRuleITokenStream stream_TOKEN=new RewriteRuleITokenStream(adaptor,"token TOKEN");
 	    RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 		try { DebugEnterRule(GrammarFileName, "functioncall_or_column");
@@ -11589,7 +11590,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				{
 					int LA103_3 = input.LA(3);
 
-					if ((LA103_3==143))
+					if ((LA103_3==144))
 					{
 						switch (input.LA(4))
 						{
@@ -11597,11 +11598,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 							{
 							int LA103_5 = input.LA(5);
 
-							if (((LA103_5>=CASE && LA103_5<=CAST)||LA103_5==CONVERT||LA103_5==EXISTS||(LA103_5>=NOT && LA103_5<=NUMBER)||LA103_5==SIMPLE_FILE||(LA103_5>=STRING && LA103_5<=SYSTEMVAR)||LA103_5==TOKEN||LA103_5==VARIABLE||(LA103_5>=143 && LA103_5<=144)))
+							if (((LA103_5>=CASE && LA103_5<=CAST)||LA103_5==CONVERT||LA103_5==EXISTS||(LA103_5>=NOT && LA103_5<=NUMBER)||LA103_5==SIMPLE_FILE||(LA103_5>=STRING && LA103_5<=SYSTEMVAR)||LA103_5==TOKEN||LA103_5==VARIABLE||(LA103_5>=144 && LA103_5<=145)))
 							{
 								alt103 = 1;
 							}
-							else if ((LA103_5==145))
+							else if ((LA103_5==146))
 							{
 								alt103 = 2;
 							}
@@ -11624,13 +11625,13 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						case SYSTEMVAR:
 						case TOKEN:
 						case VARIABLE:
-						case 143:
 						case 144:
+						case 145:
 							{
 							alt103 = 1;
 							}
 							break;
-						case 145:
+						case 146:
 							{
 							alt103 = 2;
 							}
@@ -11651,7 +11652,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						throw nvae;
 					}
 				}
-				else if ((LA103_1==143))
+				else if ((LA103_1==144))
 				{
 					switch (input.LA(3))
 					{
@@ -11659,11 +11660,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						{
 						int LA103_5 = input.LA(4);
 
-						if (((LA103_5>=CASE && LA103_5<=CAST)||LA103_5==CONVERT||LA103_5==EXISTS||(LA103_5>=NOT && LA103_5<=NUMBER)||LA103_5==SIMPLE_FILE||(LA103_5>=STRING && LA103_5<=SYSTEMVAR)||LA103_5==TOKEN||LA103_5==VARIABLE||(LA103_5>=143 && LA103_5<=144)))
+						if (((LA103_5>=CASE && LA103_5<=CAST)||LA103_5==CONVERT||LA103_5==EXISTS||(LA103_5>=NOT && LA103_5<=NUMBER)||LA103_5==SIMPLE_FILE||(LA103_5>=STRING && LA103_5<=SYSTEMVAR)||LA103_5==TOKEN||LA103_5==VARIABLE||(LA103_5>=144 && LA103_5<=145)))
 						{
 							alt103 = 1;
 						}
-						else if ((LA103_5==145))
+						else if ((LA103_5==146))
 						{
 							alt103 = 2;
 						}
@@ -11686,13 +11687,13 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					case SYSTEMVAR:
 					case TOKEN:
 					case VARIABLE:
-					case 143:
 					case 144:
+					case 145:
 						{
 						alt103 = 1;
 						}
 						break;
-					case 145:
+					case 146:
 						{
 						alt103 = 2;
 						}
@@ -11764,8 +11765,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(93); }
 
 				DebugLocation(371, 14);
-				char_literal269=(IToken)Match(input,143,Follow._143_in_functioncall_or_column2300);  
-				stream_143.Add(char_literal269);
+				char_literal269=(IToken)Match(input,144,Follow._144_in_functioncall_or_column2300);  
+				stream_144.Add(char_literal269);
 
 				DebugLocation(371, 18);
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:371:18: ( WS )?
@@ -11803,7 +11804,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				try { DebugEnterDecision(99, decisionCanBacktrack[99]);
 				int LA99_0 = input.LA(1);
 
-				if (((LA99_0>=CASE && LA99_0<=CAST)||LA99_0==CONVERT||LA99_0==EXISTS||(LA99_0>=NOT && LA99_0<=NUMBER)||LA99_0==SIMPLE_FILE||(LA99_0>=STRING && LA99_0<=SYSTEMVAR)||LA99_0==TOKEN||LA99_0==VARIABLE||LA99_0==143))
+				if (((LA99_0>=CASE && LA99_0<=CAST)||LA99_0==CONVERT||LA99_0==EXISTS||(LA99_0>=NOT && LA99_0<=NUMBER)||LA99_0==SIMPLE_FILE||(LA99_0>=STRING && LA99_0<=SYSTEMVAR)||LA99_0==TOKEN||LA99_0==VARIABLE||LA99_0==144))
 				{
 					alt99 = 1;
 				}
@@ -11858,7 +11859,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 						try { DebugEnterDecision(98, decisionCanBacktrack[98]);
 						int LA98_0 = input.LA(1);
 
-						if ((LA98_0==147))
+						if ((LA98_0==148))
 						{
 							alt98 = 1;
 						}
@@ -11872,8 +11873,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 							// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:371:39: ',' ( WS )? expression ( WS )?
 							{
 							DebugLocation(371, 39);
-							char_literal273=(IToken)Match(input,147,Follow._147_in_functioncall_or_column2312);  
-							stream_147.Add(char_literal273);
+							char_literal273=(IToken)Match(input,148,Follow._148_in_functioncall_or_column2312);  
+							stream_148.Add(char_literal273);
 
 							DebugLocation(371, 43);
 							// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:371:43: ( WS )?
@@ -11961,8 +11962,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(99); }
 
 				DebugLocation(371, 66);
-				char_literal277=(IToken)Match(input,144,Follow._144_in_functioncall_or_column2326);  
-				stream_144.Add(char_literal277);
+				char_literal277=(IToken)Match(input,145,Follow._145_in_functioncall_or_column2326);  
+				stream_145.Add(char_literal277);
 
 
 
@@ -12047,8 +12048,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(100); }
 
 				DebugLocation(372, 14);
-				char_literal280=(IToken)Match(input,143,Follow._143_in_functioncall_or_column2347);  
-				stream_143.Add(char_literal280);
+				char_literal280=(IToken)Match(input,144,Follow._144_in_functioncall_or_column2347);  
+				stream_144.Add(char_literal280);
 
 				DebugLocation(372, 18);
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:372:18: ( WS )?
@@ -12080,8 +12081,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(101); }
 
 				DebugLocation(372, 22);
-				char_literal282=(IToken)Match(input,145,Follow._145_in_functioncall_or_column2352);  
-				stream_145.Add(char_literal282);
+				char_literal282=(IToken)Match(input,146,Follow._146_in_functioncall_or_column2352);  
+				stream_146.Add(char_literal282);
 
 				DebugLocation(372, 26);
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:372:26: ( WS )?
@@ -12113,14 +12114,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(102); }
 
 				DebugLocation(372, 30);
-				char_literal284=(IToken)Match(input,144,Follow._144_in_functioncall_or_column2357);  
-				stream_144.Add(char_literal284);
+				char_literal284=(IToken)Match(input,145,Follow._145_in_functioncall_or_column2357);  
+				stream_145.Add(char_literal284);
 
 
 
 				{
 				// AST REWRITE
-				// elements: TOKEN, 145
+				// elements: 146, TOKEN
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -12142,7 +12143,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 					DebugLocation(372, 54);
 					adaptor.AddChild(root_1, stream_TOKEN.NextNode());
 					DebugLocation(372, 60);
-					adaptor.AddChild(root_1, stream_145.NextNode());
+					adaptor.AddChild(root_1, stream_146.NextNode());
 
 					adaptor.AddChild(root_0, root_1);
 					}
@@ -12288,11 +12289,11 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    object WS306_tree = default(object);
 	    object char_literal307_tree = default(object);
 	    RewriteRuleITokenStream stream_CAST=new RewriteRuleITokenStream(adaptor,"token CAST");
-	    RewriteRuleITokenStream stream_143=new RewriteRuleITokenStream(adaptor,"token 143");
 	    RewriteRuleITokenStream stream_AS=new RewriteRuleITokenStream(adaptor,"token AS");
 	    RewriteRuleITokenStream stream_144=new RewriteRuleITokenStream(adaptor,"token 144");
-	    RewriteRuleITokenStream stream_147=new RewriteRuleITokenStream(adaptor,"token 147");
+	    RewriteRuleITokenStream stream_145=new RewriteRuleITokenStream(adaptor,"token 145");
 	    RewriteRuleITokenStream stream_WS=new RewriteRuleITokenStream(adaptor,"token WS");
+	    RewriteRuleITokenStream stream_148=new RewriteRuleITokenStream(adaptor,"token 148");
 	    RewriteRuleITokenStream stream_CONVERT=new RewriteRuleITokenStream(adaptor,"token CONVERT");
 	    RewriteRuleITokenStream stream_TOKEN=new RewriteRuleITokenStream(adaptor,"token TOKEN");
 	    RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
@@ -12361,8 +12362,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(104); }
 
 				DebugLocation(378, 16);
-				char_literal288=(IToken)Match(input,143,Follow._143_in_conversion2399);  
-				stream_143.Add(char_literal288);
+				char_literal288=(IToken)Match(input,144,Follow._144_in_conversion2399);  
+				stream_144.Add(char_literal288);
 
 				DebugLocation(378, 20);
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:378:20: ( WS )?
@@ -12427,8 +12428,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(106); }
 
 				DebugLocation(378, 34);
-				char_literal292=(IToken)Match(input,147,Follow._147_in_conversion2409);  
-				stream_147.Add(char_literal292);
+				char_literal292=(IToken)Match(input,148,Follow._148_in_conversion2409);  
+				stream_148.Add(char_literal292);
 
 				DebugLocation(378, 38);
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:378:38: ( WS )?
@@ -12495,14 +12496,14 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(108); }
 
 				DebugLocation(378, 57);
-				char_literal296=(IToken)Match(input,144,Follow._144_in_conversion2419);  
-				stream_144.Add(char_literal296);
+				char_literal296=(IToken)Match(input,145,Follow._145_in_conversion2419);  
+				stream_145.Add(char_literal296);
 
 
 
 				{
 				// AST REWRITE
-				// elements: TOKEN, expression
+				// elements: expression, TOKEN
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -12574,8 +12575,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(109); }
 
 				DebugLocation(379, 13);
-				char_literal299=(IToken)Match(input,143,Follow._143_in_conversion2439);  
-				stream_143.Add(char_literal299);
+				char_literal299=(IToken)Match(input,144,Follow._144_in_conversion2439);  
+				stream_144.Add(char_literal299);
 
 				DebugLocation(379, 17);
 				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:379:17: ( WS )?
@@ -12660,8 +12661,8 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				} finally { DebugExitSubRule(111); }
 
 				DebugLocation(379, 54);
-				char_literal307=(IToken)Match(input,144,Follow._144_in_conversion2457);  
-				stream_144.Add(char_literal307);
+				char_literal307=(IToken)Match(input,145,Follow._145_in_conversion2457);  
+				stream_145.Add(char_literal307);
 
 
 
@@ -13056,7 +13057,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 			try { DebugEnterDecision(113, decisionCanBacktrack[113]);
 			int LA113_0 = input.LA(1);
 
-			if (((LA113_0>=CASE && LA113_0<=CAST)||LA113_0==CONVERT||LA113_0==EXISTS||(LA113_0>=NOT && LA113_0<=NUMBER)||LA113_0==SIMPLE_FILE||(LA113_0>=STRING && LA113_0<=SYSTEMVAR)||LA113_0==TOKEN||LA113_0==VARIABLE||LA113_0==143))
+			if (((LA113_0>=CASE && LA113_0<=CAST)||LA113_0==CONVERT||LA113_0==EXISTS||(LA113_0>=NOT && LA113_0<=NUMBER)||LA113_0==SIMPLE_FILE||(LA113_0>=STRING && LA113_0<=SYSTEMVAR)||LA113_0==TOKEN||LA113_0==VARIABLE||LA113_0==144))
 			{
 				alt113 = 1;
 			}
@@ -13173,7 +13174,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: case_else, case_when, expression
+			// elements: expression, case_else, case_when
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -13515,344 +13516,344 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	#region Follow sets
 	private static class Follow
 	{
-		public static readonly BitSet _WS_in_parse336 = new BitSet(new ulong[]{0x30000000140000UL,0x8000000000000000UL});
-		public static readonly BitSet _commands_in_parse340 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
+		public static readonly BitSet _WS_in_parse336 = new BitSet(new ulong[]{0x60000000280000UL,0x0UL,0x1UL});
+		public static readonly BitSet _commands_in_parse340 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
 		public static readonly BitSet _WS_in_parse342 = new BitSet(new ulong[]{0x0UL});
 		public static readonly BitSet _EOF_in_parse347 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _command_in_commands370 = new BitSet(new ulong[]{0x30000000140002UL,0x8000000000000000UL,0x400040UL});
-		public static readonly BitSet _WS_in_commands373 = new BitSet(new ulong[]{0x30000000140000UL,0x8000000000000000UL,0x400000UL});
-		public static readonly BitSet _150_in_commands377 = new BitSet(new ulong[]{0x30000000140000UL,0x8000000000000000UL,0x40UL});
-		public static readonly BitSet _WS_in_commands379 = new BitSet(new ulong[]{0x30000000140000UL,0x8000000000000000UL});
-		public static readonly BitSet _command_in_commands384 = new BitSet(new ulong[]{0x30000000140002UL,0x8000000000000000UL,0x400040UL});
-		public static readonly BitSet _WS_in_commands389 = new BitSet(new ulong[]{0x0UL,0x0UL,0x400000UL});
-		public static readonly BitSet _150_in_commands392 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _command_in_commands370 = new BitSet(new ulong[]{0x60000000280002UL,0x0UL,0x800081UL});
+		public static readonly BitSet _WS_in_commands373 = new BitSet(new ulong[]{0x60000000280000UL,0x0UL,0x800001UL});
+		public static readonly BitSet _151_in_commands377 = new BitSet(new ulong[]{0x60000000280000UL,0x0UL,0x81UL});
+		public static readonly BitSet _WS_in_commands379 = new BitSet(new ulong[]{0x60000000280000UL,0x0UL,0x1UL});
+		public static readonly BitSet _command_in_commands384 = new BitSet(new ulong[]{0x60000000280002UL,0x0UL,0x800081UL});
+		public static readonly BitSet _WS_in_commands389 = new BitSet(new ulong[]{0x0UL,0x0UL,0x800000UL});
+		public static readonly BitSet _151_in_commands392 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _select_command_in_command412 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _use_command_in_command417 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _declare_command_in_command422 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _set_command_in_command427 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _create_view_command_in_command432 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _SELECT_in_select_command446 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_select_command449 = new BitSet(new ulong[]{0x800020UL});
-		public static readonly BitSet _distinct_clause_in_select_command451 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_select_command456 = new BitSet(new ulong[]{0x2000000000000000UL});
-		public static readonly BitSet _top_clause_in_select_command458 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_select_command462 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x28002UL});
-		public static readonly BitSet _column_list_in_select_command464 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_select_command467 = new BitSet(new ulong[]{0x800000000UL});
-		public static readonly BitSet _into_clause_in_select_command469 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_select_command474 = new BitSet(new ulong[]{0x20000000UL});
-		public static readonly BitSet _from_clause_in_select_command476 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_select_command481 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20UL});
-		public static readonly BitSet _where_clause_in_select_command483 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_select_command488 = new BitSet(new ulong[]{0x80000000UL});
-		public static readonly BitSet _groupby_clause_in_select_command490 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_select_command495 = new BitSet(new ulong[]{0x800000000000UL});
+		public static readonly BitSet _SELECT_in_select_command446 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_select_command449 = new BitSet(new ulong[]{0x1000020UL});
+		public static readonly BitSet _distinct_clause_in_select_command451 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_select_command456 = new BitSet(new ulong[]{0x4000000000000000UL});
+		public static readonly BitSet _top_clause_in_select_command458 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_select_command462 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x50004UL});
+		public static readonly BitSet _column_list_in_select_command464 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_select_command467 = new BitSet(new ulong[]{0x1000000000UL});
+		public static readonly BitSet _into_clause_in_select_command469 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_select_command474 = new BitSet(new ulong[]{0x40000000UL});
+		public static readonly BitSet _from_clause_in_select_command476 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_select_command481 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
+		public static readonly BitSet _where_clause_in_select_command483 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_select_command488 = new BitSet(new ulong[]{0x100000000UL});
+		public static readonly BitSet _groupby_clause_in_select_command490 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_select_command495 = new BitSet(new ulong[]{0x1000000000000UL});
 		public static readonly BitSet _orderby_clause_in_select_command497 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _DISTINCT_in_distinct_clause542 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _ALL_in_distinct_clause551 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _TOP_in_top_clause567 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_top_clause569 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
+		public static readonly BitSet _TOP_in_top_clause567 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_top_clause569 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
 		public static readonly BitSet _expression_in_top_clause571 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _column_in_column_list593 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80040UL});
-		public static readonly BitSet _WS_in_column_list596 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80000UL});
-		public static readonly BitSet _147_in_column_list599 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x28042UL});
-		public static readonly BitSet _WS_in_column_list601 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x28002UL});
-		public static readonly BitSet _column_in_column_list604 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80040UL});
-		public static readonly BitSet _145_in_column628 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_in_column642 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_column645 = new BitSet(new ulong[]{0x40000000000000UL});
+		public static readonly BitSet _column_in_column_list593 = new BitSet(new ulong[]{0x2UL,0x0UL,0x100080UL});
+		public static readonly BitSet _WS_in_column_list596 = new BitSet(new ulong[]{0x0UL,0x0UL,0x100000UL});
+		public static readonly BitSet _148_in_column_list599 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x50084UL});
+		public static readonly BitSet _WS_in_column_list601 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x50004UL});
+		public static readonly BitSet _column_in_column_list604 = new BitSet(new ulong[]{0x2UL,0x0UL,0x100080UL});
+		public static readonly BitSet _146_in_column628 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_in_column642 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_column645 = new BitSet(new ulong[]{0x80000000000000UL});
 		public static readonly BitSet _SIMPLE_FILE_in_column647 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _INTO_in_into_clause670 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_into_clause672 = new BitSet(new ulong[]{0x40000000000000UL,0x0UL,0x20000000UL});
+		public static readonly BitSet _INTO_in_into_clause670 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_into_clause672 = new BitSet(new ulong[]{0x80000000000000UL,0x0UL,0x40000000UL});
 		public static readonly BitSet _file_in_into_clause674 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _FROM_in_from_clause694 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_from_clause696 = new BitSet(new ulong[]{0x1140000000000000UL,0x0UL,0x20008000UL});
-		public static readonly BitSet _from_clause_item_in_from_clause698 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80040UL});
-		public static readonly BitSet _WS_in_from_clause701 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80000UL});
-		public static readonly BitSet _147_in_from_clause704 = new BitSet(new ulong[]{0x1140000000000000UL,0x0UL,0x20008040UL});
-		public static readonly BitSet _WS_in_from_clause706 = new BitSet(new ulong[]{0x1140000000000000UL,0x0UL,0x20008000UL});
-		public static readonly BitSet _from_clause_item_in_from_clause709 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80040UL});
+		public static readonly BitSet _FROM_in_from_clause694 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_from_clause696 = new BitSet(new ulong[]{0x2280000000000000UL,0x0UL,0x40010000UL});
+		public static readonly BitSet _from_clause_item_in_from_clause698 = new BitSet(new ulong[]{0x2UL,0x0UL,0x100080UL});
+		public static readonly BitSet _WS_in_from_clause701 = new BitSet(new ulong[]{0x0UL,0x0UL,0x100000UL});
+		public static readonly BitSet _148_in_from_clause704 = new BitSet(new ulong[]{0x2280000000000000UL,0x0UL,0x40010080UL});
+		public static readonly BitSet _WS_in_from_clause706 = new BitSet(new ulong[]{0x2280000000000000UL,0x0UL,0x40010000UL});
+		public static readonly BitSet _from_clause_item_in_from_clause709 = new BitSet(new ulong[]{0x2UL,0x0UL,0x100080UL});
 		public static readonly BitSet _STRING_in_from_clause_item732 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _file_in_from_clause_item745 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _subquery_in_from_clause_item750 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _view_name_in_from_clause_item755 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _143_in_subquery767 = new BitSet(new ulong[]{0x10000000000000UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_subquery769 = new BitSet(new ulong[]{0x10000000000000UL});
-		public static readonly BitSet _select_command_in_subquery772 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10040UL});
-		public static readonly BitSet _WS_in_subquery774 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
-		public static readonly BitSet _144_in_subquery777 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _157_in_file796 = new BitSet(new ulong[]{0x100000000000000UL,0x0UL,0x42UL});
-		public static readonly BitSet _WS_in_file798 = new BitSet(new ulong[]{0x100000000000000UL,0x0UL,0x2UL});
-		public static readonly BitSet _file_spec_in_file801 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40000040UL});
-		public static readonly BitSet _WS_in_file804 = new BitSet(new ulong[]{0x0UL,0x0UL,0x100000UL});
-		public static readonly BitSet _file_option_in_file806 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40000040UL});
-		public static readonly BitSet _WS_in_file810 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40000000UL});
-		public static readonly BitSet _158_in_file813 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _144_in_subquery767 = new BitSet(new ulong[]{0x20000000000000UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_subquery769 = new BitSet(new ulong[]{0x20000000000000UL});
+		public static readonly BitSet _select_command_in_subquery772 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20080UL});
+		public static readonly BitSet _WS_in_subquery774 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20000UL});
+		public static readonly BitSet _145_in_subquery777 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _158_in_file796 = new BitSet(new ulong[]{0x200000000000000UL,0x0UL,0x84UL});
+		public static readonly BitSet _WS_in_file798 = new BitSet(new ulong[]{0x200000000000000UL,0x0UL,0x4UL});
+		public static readonly BitSet _file_spec_in_file801 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80000080UL});
+		public static readonly BitSet _WS_in_file804 = new BitSet(new ulong[]{0x0UL,0x0UL,0x200000UL});
+		public static readonly BitSet _file_option_in_file806 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80000080UL});
+		public static readonly BitSet _WS_in_file810 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80000000UL});
+		public static readonly BitSet _159_in_file813 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _SIMPLE_FILE_in_file830 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _string_in_file_spec849 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _variable_in_file_spec854 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _148_in_file_option866 = new BitSet(new ulong[]{0x1000000000000000UL});
-		public static readonly BitSet _file_option_name_in_file_option868 = new BitSet(new ulong[]{0x2UL,0x0UL,0x4000040UL});
-		public static readonly BitSet _WS_in_file_option872 = new BitSet(new ulong[]{0x0UL,0x0UL,0x4000000UL});
-		public static readonly BitSet _154_in_file_option875 = new BitSet(new ulong[]{0x1100100000000000UL,0x0UL,0x42UL});
-		public static readonly BitSet _WS_in_file_option877 = new BitSet(new ulong[]{0x1100100000000000UL,0x0UL,0x2UL});
+		public static readonly BitSet _149_in_file_option866 = new BitSet(new ulong[]{0x2000000000000000UL});
+		public static readonly BitSet _file_option_name_in_file_option868 = new BitSet(new ulong[]{0x2UL,0x0UL,0x8000080UL});
+		public static readonly BitSet _WS_in_file_option872 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8000000UL});
+		public static readonly BitSet _155_in_file_option875 = new BitSet(new ulong[]{0x2200200000000000UL,0x0UL,0x84UL});
+		public static readonly BitSet _WS_in_file_option877 = new BitSet(new ulong[]{0x2200200000000000UL,0x0UL,0x4UL});
 		public static readonly BitSet _file_option_value_in_file_option880 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _TOKEN_in_file_option_name904 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _TOKEN_in_file_option_value916 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _STRING_in_file_option_value920 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _NUMBER_in_file_option_value924 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _variable_in_file_option_value928 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _WHERE_in_where_clause940 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_where_clause942 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
+		public static readonly BitSet _WHERE_in_where_clause940 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_where_clause942 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
 		public static readonly BitSet _expression_in_where_clause944 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _GROUP_in_groupby_clause963 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
+		public static readonly BitSet _GROUP_in_groupby_clause963 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
 		public static readonly BitSet _WS_in_groupby_clause965 = new BitSet(new ulong[]{0x1000UL});
-		public static readonly BitSet _BY_in_groupby_clause967 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_groupby_clause969 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
+		public static readonly BitSet _BY_in_groupby_clause967 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_groupby_clause969 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
 		public static readonly BitSet _expression_list_in_groupby_clause971 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _ORDER_in_orderby_clause992 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
+		public static readonly BitSet _ORDER_in_orderby_clause992 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
 		public static readonly BitSet _WS_in_orderby_clause994 = new BitSet(new ulong[]{0x1000UL});
-		public static readonly BitSet _BY_in_orderby_clause996 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_orderby_clause998 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
+		public static readonly BitSet _BY_in_orderby_clause996 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_orderby_clause998 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
 		public static readonly BitSet _orderby_column_list_in_orderby_clause1000 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _orderby_column_in_orderby_column_list1021 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80040UL});
-		public static readonly BitSet _WS_in_orderby_column_list1024 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80000UL});
-		public static readonly BitSet _147_in_orderby_column_list1027 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8042UL});
-		public static readonly BitSet _WS_in_orderby_column_list1029 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _orderby_column_in_orderby_column_list1032 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80040UL});
-		public static readonly BitSet _expression_in_orderby_column1052 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_orderby_column1055 = new BitSet(new ulong[]{0x200200UL});
+		public static readonly BitSet _orderby_column_in_orderby_column_list1021 = new BitSet(new ulong[]{0x2UL,0x0UL,0x100080UL});
+		public static readonly BitSet _WS_in_orderby_column_list1024 = new BitSet(new ulong[]{0x0UL,0x0UL,0x100000UL});
+		public static readonly BitSet _148_in_orderby_column_list1027 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10084UL});
+		public static readonly BitSet _WS_in_orderby_column_list1029 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _orderby_column_in_orderby_column_list1032 = new BitSet(new ulong[]{0x2UL,0x0UL,0x100080UL});
+		public static readonly BitSet _expression_in_orderby_column1052 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_orderby_column1055 = new BitSet(new ulong[]{0x400200UL});
 		public static readonly BitSet _orderby_direction_in_orderby_column1057 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _ASC_in_orderby_direction1082 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _DESC_in_orderby_direction1091 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _USE_in_use_command1109 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_use_command1111 = new BitSet(new ulong[]{0x40000000000000UL,0x0UL,0x20000000UL});
+		public static readonly BitSet _USE_in_use_command1109 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_use_command1111 = new BitSet(new ulong[]{0x80000000000000UL,0x0UL,0x40000000UL});
 		public static readonly BitSet _file_in_use_command1113 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _DECLARE_in_declare_command1135 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_declare_command1137 = new BitSet(new ulong[]{0x0UL,0x0UL,0x2UL});
+		public static readonly BitSet _DECLARE_in_declare_command1135 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_declare_command1137 = new BitSet(new ulong[]{0x0UL,0x0UL,0x4UL});
 		public static readonly BitSet _declaration_list_in_declare_command1139 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _declaration_in_declaration_list1156 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80040UL});
-		public static readonly BitSet _WS_in_declaration_list1159 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80000UL});
-		public static readonly BitSet _147_in_declaration_list1162 = new BitSet(new ulong[]{0x0UL,0x0UL,0x42UL});
-		public static readonly BitSet _WS_in_declaration_list1164 = new BitSet(new ulong[]{0x0UL,0x0UL,0x2UL});
-		public static readonly BitSet _declaration_in_declaration_list1167 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80040UL});
-		public static readonly BitSet _variable_in_declaration1191 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_declaration1193 = new BitSet(new ulong[]{0x1000000000000100UL});
-		public static readonly BitSet _AS_in_declaration1196 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_declaration1198 = new BitSet(new ulong[]{0x1000000000000000UL});
+		public static readonly BitSet _declaration_in_declaration_list1156 = new BitSet(new ulong[]{0x2UL,0x0UL,0x100080UL});
+		public static readonly BitSet _WS_in_declaration_list1159 = new BitSet(new ulong[]{0x0UL,0x0UL,0x100000UL});
+		public static readonly BitSet _148_in_declaration_list1162 = new BitSet(new ulong[]{0x0UL,0x0UL,0x84UL});
+		public static readonly BitSet _WS_in_declaration_list1164 = new BitSet(new ulong[]{0x0UL,0x0UL,0x4UL});
+		public static readonly BitSet _declaration_in_declaration_list1167 = new BitSet(new ulong[]{0x2UL,0x0UL,0x100080UL});
+		public static readonly BitSet _variable_in_declaration1191 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_declaration1193 = new BitSet(new ulong[]{0x2000000000000100UL});
+		public static readonly BitSet _AS_in_declaration1196 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_declaration1198 = new BitSet(new ulong[]{0x2000000000000000UL});
 		public static readonly BitSet _datatype_in_declaration1202 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _CREATE_in_create_view_command1227 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_create_view_command1229 = new BitSet(new ulong[]{0x0UL,0x0UL,0x4UL});
-		public static readonly BitSet _VIEW_in_create_view_command1231 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_create_view_command1233 = new BitSet(new ulong[]{0x1000000000000000UL});
-		public static readonly BitSet _view_name_in_create_view_command1235 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8040UL});
-		public static readonly BitSet _WS_in_create_view_command1238 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8000UL});
-		public static readonly BitSet _143_in_create_view_command1241 = new BitSet(new ulong[]{0x0UL,0x0UL,0x2UL});
-		public static readonly BitSet _declaration_list_in_create_view_command1243 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
-		public static readonly BitSet _144_in_create_view_command1245 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
+		public static readonly BitSet _CREATE_in_create_view_command1227 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_create_view_command1229 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8UL});
+		public static readonly BitSet _VIEW_in_create_view_command1231 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_create_view_command1233 = new BitSet(new ulong[]{0x2000000000000000UL});
+		public static readonly BitSet _view_name_in_create_view_command1235 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10080UL});
+		public static readonly BitSet _WS_in_create_view_command1238 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
+		public static readonly BitSet _144_in_create_view_command1241 = new BitSet(new ulong[]{0x0UL,0x0UL,0x4UL});
+		public static readonly BitSet _declaration_list_in_create_view_command1243 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20000UL});
+		public static readonly BitSet _145_in_create_view_command1245 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
 		public static readonly BitSet _WS_in_create_view_command1249 = new BitSet(new ulong[]{0x100UL});
-		public static readonly BitSet _AS_in_create_view_command1251 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_create_view_command1253 = new BitSet(new ulong[]{0x10000000000000UL});
+		public static readonly BitSet _AS_in_create_view_command1251 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_create_view_command1253 = new BitSet(new ulong[]{0x20000000000000UL});
 		public static readonly BitSet _select_command_in_create_view_command1255 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _TOKEN_in_view_name1281 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _SET_in_set_command1305 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_set_command1307 = new BitSet(new ulong[]{0x0UL,0x0UL,0x2UL});
-		public static readonly BitSet _variable_in_set_command1309 = new BitSet(new ulong[]{0x0UL,0x0UL,0x4000040UL});
-		public static readonly BitSet _WS_in_set_command1311 = new BitSet(new ulong[]{0x0UL,0x0UL,0x4000000UL});
-		public static readonly BitSet _154_in_set_command1314 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8042UL});
-		public static readonly BitSet _WS_in_set_command1316 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
+		public static readonly BitSet _SET_in_set_command1305 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_set_command1307 = new BitSet(new ulong[]{0x0UL,0x0UL,0x4UL});
+		public static readonly BitSet _variable_in_set_command1309 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8000080UL});
+		public static readonly BitSet _WS_in_set_command1311 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8000000UL});
+		public static readonly BitSet _155_in_set_command1314 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10084UL});
+		public static readonly BitSet _WS_in_set_command1316 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
 		public static readonly BitSet _expression_in_set_command1319 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_in_expression_list1344 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80040UL});
-		public static readonly BitSet _WS_in_expression_list1347 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80000UL});
-		public static readonly BitSet _147_in_expression_list1350 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8042UL});
-		public static readonly BitSet _WS_in_expression_list1352 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_in_expression_list1355 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80040UL});
+		public static readonly BitSet _expression_in_expression_list1344 = new BitSet(new ulong[]{0x2UL,0x0UL,0x100080UL});
+		public static readonly BitSet _WS_in_expression_list1347 = new BitSet(new ulong[]{0x0UL,0x0UL,0x100000UL});
+		public static readonly BitSet _148_in_expression_list1350 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10084UL});
+		public static readonly BitSet _WS_in_expression_list1352 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_in_expression_list1355 = new BitSet(new ulong[]{0x2UL,0x0UL,0x100080UL});
 		public static readonly BitSet _expression_list_in_expression_list_or_select_command1378 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _select_command_in_expression_list_or_select_command1382 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _expression_7_in_expression1394 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_6_in_expression_71410 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_expression_71417 = new BitSet(new ulong[]{0x4A8400000800UL,0x0UL,0x1F801C00UL});
-		public static readonly BitSet _op_7_in_expression_71422 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_expression_71424 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_6_in_expression_71428 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
-		public static readonly BitSet _IN_in_expression_71447 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8040UL});
-		public static readonly BitSet _WS_in_expression_71449 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8000UL});
-		public static readonly BitSet _143_in_expression_71452 = new BitSet(new ulong[]{0x135018000802C000UL,0x0UL,0x8042UL});
-		public static readonly BitSet _WS_in_expression_71454 = new BitSet(new ulong[]{0x135018000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_list_or_select_command_in_expression_71457 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10040UL});
-		public static readonly BitSet _WS_in_expression_71459 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
-		public static readonly BitSet _144_in_expression_71462 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
-		public static readonly BitSet _NOT_in_expression_71480 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_expression_71482 = new BitSet(new ulong[]{0x400000000UL});
-		public static readonly BitSet _IN_in_expression_71484 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8040UL});
-		public static readonly BitSet _WS_in_expression_71486 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8000UL});
-		public static readonly BitSet _143_in_expression_71489 = new BitSet(new ulong[]{0x135018000802C000UL,0x0UL,0x8042UL});
-		public static readonly BitSet _WS_in_expression_71491 = new BitSet(new ulong[]{0x135018000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_list_or_select_command_in_expression_71495 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10040UL});
-		public static readonly BitSet _WS_in_expression_71498 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
-		public static readonly BitSet _144_in_expression_71501 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
-		public static readonly BitSet _op_4_in_expression_71519 = new BitSet(new ulong[]{0x80000000000080UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_expression_71521 = new BitSet(new ulong[]{0x80000000000080UL});
-		public static readonly BitSet _SOME_in_expression_71525 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8040UL});
-		public static readonly BitSet _ANY_in_expression_71529 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8040UL});
-		public static readonly BitSet _WS_in_expression_71532 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8000UL});
-		public static readonly BitSet _143_in_expression_71535 = new BitSet(new ulong[]{0x135018000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_list_or_select_command_in_expression_71537 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
-		public static readonly BitSet _144_in_expression_71539 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
-		public static readonly BitSet _op_4_in_expression_71559 = new BitSet(new ulong[]{0x20UL,0x0UL,0x40UL});
+		public static readonly BitSet _expression_6_in_expression_71410 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_expression_71417 = new BitSet(new ulong[]{0x950800000800UL,0x0UL,0x3F003800UL});
+		public static readonly BitSet _op_7_in_expression_71422 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_expression_71424 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_6_in_expression_71428 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
+		public static readonly BitSet _IN_in_expression_71447 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10080UL});
+		public static readonly BitSet _WS_in_expression_71449 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
+		public static readonly BitSet _144_in_expression_71452 = new BitSet(new ulong[]{0x26A030001004C000UL,0x0UL,0x10084UL});
+		public static readonly BitSet _WS_in_expression_71454 = new BitSet(new ulong[]{0x26A030001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_list_or_select_command_in_expression_71457 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20080UL});
+		public static readonly BitSet _WS_in_expression_71459 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20000UL});
+		public static readonly BitSet _145_in_expression_71462 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
+		public static readonly BitSet _NOT_in_expression_71480 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_expression_71482 = new BitSet(new ulong[]{0x800000000UL});
+		public static readonly BitSet _IN_in_expression_71484 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10080UL});
+		public static readonly BitSet _WS_in_expression_71486 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
+		public static readonly BitSet _144_in_expression_71489 = new BitSet(new ulong[]{0x26A030001004C000UL,0x0UL,0x10084UL});
+		public static readonly BitSet _WS_in_expression_71491 = new BitSet(new ulong[]{0x26A030001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_list_or_select_command_in_expression_71495 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20080UL});
+		public static readonly BitSet _WS_in_expression_71498 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20000UL});
+		public static readonly BitSet _145_in_expression_71501 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
+		public static readonly BitSet _op_4_in_expression_71519 = new BitSet(new ulong[]{0x100000000000080UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_expression_71521 = new BitSet(new ulong[]{0x100000000000080UL});
+		public static readonly BitSet _SOME_in_expression_71525 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10080UL});
+		public static readonly BitSet _ANY_in_expression_71529 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10080UL});
+		public static readonly BitSet _WS_in_expression_71532 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
+		public static readonly BitSet _144_in_expression_71535 = new BitSet(new ulong[]{0x26A030001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_list_or_select_command_in_expression_71537 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20000UL});
+		public static readonly BitSet _145_in_expression_71539 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
+		public static readonly BitSet _op_4_in_expression_71559 = new BitSet(new ulong[]{0x20UL,0x0UL,0x80UL});
 		public static readonly BitSet _WS_in_expression_71561 = new BitSet(new ulong[]{0x20UL});
-		public static readonly BitSet _ALL_in_expression_71564 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8040UL});
-		public static readonly BitSet _WS_in_expression_71566 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8000UL});
-		public static readonly BitSet _143_in_expression_71569 = new BitSet(new ulong[]{0x135018000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_list_or_select_command_in_expression_71571 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
-		public static readonly BitSet _144_in_expression_71573 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
+		public static readonly BitSet _ALL_in_expression_71564 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10080UL});
+		public static readonly BitSet _WS_in_expression_71566 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
+		public static readonly BitSet _144_in_expression_71569 = new BitSet(new ulong[]{0x26A030001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_list_or_select_command_in_expression_71571 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20000UL});
+		public static readonly BitSet _145_in_expression_71573 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
 		public static readonly BitSet _OR_in_op_71603 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _LIKE_in_op_71612 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _NOT_in_op_71621 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_op_71623 = new BitSet(new ulong[]{0x8000000000UL});
+		public static readonly BitSet _NOT_in_op_71621 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_op_71623 = new BitSet(new ulong[]{0x10000000000UL});
 		public static readonly BitSet _LIKE_in_op_71625 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _MATCH_in_op_71634 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _NOT_in_op_71643 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_op_71645 = new BitSet(new ulong[]{0x20000000000UL});
+		public static readonly BitSet _NOT_in_op_71643 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_op_71645 = new BitSet(new ulong[]{0x40000000000UL});
 		public static readonly BitSet _MATCH_in_op_71647 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _BETWEEN_in_op_71656 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _NOT_in_op_71665 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
+		public static readonly BitSet _NOT_in_op_71665 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
 		public static readonly BitSet _WS_in_op_71667 = new BitSet(new ulong[]{0x800UL});
 		public static readonly BitSet _BETWEEN_in_op_71669 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_5_in_expression_61688 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
+		public static readonly BitSet _expression_5_in_expression_61688 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
 		public static readonly BitSet _WS_in_expression_61695 = new BitSet(new ulong[]{0x40UL});
-		public static readonly BitSet _op_6_in_expression_61697 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_expression_61699 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_5_in_expression_61703 = new BitSet(new ulong[]{0x2UL,0x0UL,0x40UL});
+		public static readonly BitSet _op_6_in_expression_61697 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_expression_61699 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_5_in_expression_61703 = new BitSet(new ulong[]{0x2UL,0x0UL,0x80UL});
 		public static readonly BitSet _AND_in_op_61731 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _op_5_in_expression_51749 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_expression_51751 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
+		public static readonly BitSet _op_5_in_expression_51749 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_expression_51751 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
 		public static readonly BitSet _expression_5_in_expression_51753 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _expression_4_in_expression_51768 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _NOT_in_op_51779 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_3_in_expression_41798 = new BitSet(new ulong[]{0x2UL,0x0UL,0x1F801C40UL});
-		public static readonly BitSet _WS_in_expression_41805 = new BitSet(new ulong[]{0x0UL,0x0UL,0x1F801C00UL});
-		public static readonly BitSet _op_4_in_expression_41808 = new BitSet(new ulong[]{0x134010000802C000UL,0x0UL,0x8042UL});
-		public static readonly BitSet _WS_in_expression_41810 = new BitSet(new ulong[]{0x134010000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_3_in_expression_41815 = new BitSet(new ulong[]{0x2UL,0x0UL,0x1F801C40UL});
-		public static readonly BitSet _154_in_op_41841 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _156_in_op_41850 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _152_in_op_41860 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _153_in_op_41870 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _139_in_op_41879 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _140_in_op_41888 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _138_in_op_41897 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _155_in_op_41906 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _151_in_op_41916 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_2_in_expression_31935 = new BitSet(new ulong[]{0x2UL,0x0UL,0x180144040UL});
-		public static readonly BitSet _WS_in_expression_31942 = new BitSet(new ulong[]{0x0UL,0x0UL,0x180144000UL});
-		public static readonly BitSet _op_3_in_expression_31945 = new BitSet(new ulong[]{0x134010000802C000UL,0x0UL,0x8042UL});
-		public static readonly BitSet _WS_in_expression_31947 = new BitSet(new ulong[]{0x134010000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_2_in_expression_31952 = new BitSet(new ulong[]{0x2UL,0x0UL,0x180144040UL});
-		public static readonly BitSet _146_in_op_31978 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _148_in_op_31987 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _142_in_op_31996 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _160_in_op_32005 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _159_in_op_32014 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _expression_1_in_expression_22036 = new BitSet(new ulong[]{0x2UL,0x0UL,0x222040UL});
-		public static readonly BitSet _WS_in_expression_22043 = new BitSet(new ulong[]{0x0UL,0x0UL,0x222000UL});
-		public static readonly BitSet _op_2_in_expression_22046 = new BitSet(new ulong[]{0x134010000802C000UL,0x0UL,0x8042UL});
-		public static readonly BitSet _WS_in_expression_22048 = new BitSet(new ulong[]{0x134010000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_1_in_expression_22053 = new BitSet(new ulong[]{0x2UL,0x0UL,0x222040UL});
-		public static readonly BitSet _145_in_op_22079 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _149_in_op_22088 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _141_in_op_22097 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _143_in_expression_12115 = new BitSet(new ulong[]{0x0UL,0x0UL,0x200140040UL});
-		public static readonly BitSet _WS_in_expression_12117 = new BitSet(new ulong[]{0x0UL,0x0UL,0x200140000UL});
-		public static readonly BitSet _op_1_in_expression_12120 = new BitSet(new ulong[]{0x134010000802C000UL,0x0UL,0x8042UL});
-		public static readonly BitSet _WS_in_expression_12122 = new BitSet(new ulong[]{0x134010000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_1_in_expression_12125 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10040UL});
-		public static readonly BitSet _WS_in_expression_12127 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
-		public static readonly BitSet _144_in_expression_12130 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_3_in_expression_41798 = new BitSet(new ulong[]{0x2UL,0x0UL,0x3F003880UL});
+		public static readonly BitSet _WS_in_expression_41805 = new BitSet(new ulong[]{0x0UL,0x0UL,0x3F003800UL});
+		public static readonly BitSet _op_4_in_expression_41808 = new BitSet(new ulong[]{0x268020001004C000UL,0x0UL,0x10084UL});
+		public static readonly BitSet _WS_in_expression_41810 = new BitSet(new ulong[]{0x268020001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_3_in_expression_41815 = new BitSet(new ulong[]{0x2UL,0x0UL,0x3F003880UL});
+		public static readonly BitSet _155_in_op_41841 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _157_in_op_41850 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _153_in_op_41860 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _154_in_op_41870 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _140_in_op_41879 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _141_in_op_41888 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _139_in_op_41897 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _156_in_op_41906 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _152_in_op_41916 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_2_in_expression_31935 = new BitSet(new ulong[]{0x2UL,0x0UL,0x300288080UL});
+		public static readonly BitSet _WS_in_expression_31942 = new BitSet(new ulong[]{0x0UL,0x0UL,0x300288000UL});
+		public static readonly BitSet _op_3_in_expression_31945 = new BitSet(new ulong[]{0x268020001004C000UL,0x0UL,0x10084UL});
+		public static readonly BitSet _WS_in_expression_31947 = new BitSet(new ulong[]{0x268020001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_2_in_expression_31952 = new BitSet(new ulong[]{0x2UL,0x0UL,0x300288080UL});
+		public static readonly BitSet _147_in_op_31978 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _149_in_op_31987 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _143_in_op_31996 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _161_in_op_32005 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _160_in_op_32014 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _expression_1_in_expression_22036 = new BitSet(new ulong[]{0x2UL,0x0UL,0x444080UL});
+		public static readonly BitSet _WS_in_expression_22043 = new BitSet(new ulong[]{0x0UL,0x0UL,0x444000UL});
+		public static readonly BitSet _op_2_in_expression_22046 = new BitSet(new ulong[]{0x268020001004C000UL,0x0UL,0x10084UL});
+		public static readonly BitSet _WS_in_expression_22048 = new BitSet(new ulong[]{0x268020001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_1_in_expression_22053 = new BitSet(new ulong[]{0x2UL,0x0UL,0x444080UL});
+		public static readonly BitSet _146_in_op_22079 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _150_in_op_22088 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _142_in_op_22097 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _144_in_expression_12115 = new BitSet(new ulong[]{0x0UL,0x0UL,0x400280080UL});
+		public static readonly BitSet _WS_in_expression_12117 = new BitSet(new ulong[]{0x0UL,0x0UL,0x400280000UL});
+		public static readonly BitSet _op_1_in_expression_12120 = new BitSet(new ulong[]{0x268020001004C000UL,0x0UL,0x10084UL});
+		public static readonly BitSet _WS_in_expression_12122 = new BitSet(new ulong[]{0x268020001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_1_in_expression_12125 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20080UL});
+		public static readonly BitSet _WS_in_expression_12127 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20000UL});
+		public static readonly BitSet _145_in_expression_12130 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _expression_atom_in_expression_12147 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _161_in_op_12157 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _146_in_op_12167 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _148_in_op_12176 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _162_in_op_12157 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _147_in_op_12167 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _149_in_op_12176 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _NUMBER_in_expression_atom2191 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _string_in_expression_atom2204 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _SYSTEMVAR_in_expression_atom2209 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _variable_in_expression_atom2222 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _subquery_in_expression_atom2227 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _143_in_expression_atom2232 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_in_expression_atom2234 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
-		public static readonly BitSet _144_in_expression_atom2236 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _144_in_expression_atom2232 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_in_expression_atom2234 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20000UL});
+		public static readonly BitSet _145_in_expression_atom2236 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _functioncall_or_column_in_expression_atom2245 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _conversion_in_expression_atom2250 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _case_in_expression_atom2255 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _EXISTS_in_expression_atom2260 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8040UL});
-		public static readonly BitSet _WS_in_expression_atom2262 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8000UL});
-		public static readonly BitSet _143_in_expression_atom2265 = new BitSet(new ulong[]{0x10000000000000UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_expression_atom2267 = new BitSet(new ulong[]{0x10000000000000UL});
-		public static readonly BitSet _select_command_in_expression_atom2270 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10040UL});
-		public static readonly BitSet _WS_in_expression_atom2272 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
-		public static readonly BitSet _144_in_expression_atom2275 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _TOKEN_in_functioncall_or_column2295 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8040UL});
-		public static readonly BitSet _WS_in_functioncall_or_column2297 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8000UL});
-		public static readonly BitSet _143_in_functioncall_or_column2300 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x18042UL});
-		public static readonly BitSet _WS_in_functioncall_or_column2302 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x18002UL});
-		public static readonly BitSet _expression_in_functioncall_or_column2306 = new BitSet(new ulong[]{0x0UL,0x0UL,0x90040UL});
-		public static readonly BitSet _WS_in_functioncall_or_column2308 = new BitSet(new ulong[]{0x0UL,0x0UL,0x90000UL});
-		public static readonly BitSet _147_in_functioncall_or_column2312 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8042UL});
-		public static readonly BitSet _WS_in_functioncall_or_column2314 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_in_functioncall_or_column2317 = new BitSet(new ulong[]{0x0UL,0x0UL,0x90040UL});
-		public static readonly BitSet _WS_in_functioncall_or_column2319 = new BitSet(new ulong[]{0x0UL,0x0UL,0x90000UL});
-		public static readonly BitSet _144_in_functioncall_or_column2326 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _TOKEN_in_functioncall_or_column2342 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8040UL});
-		public static readonly BitSet _WS_in_functioncall_or_column2344 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8000UL});
-		public static readonly BitSet _143_in_functioncall_or_column2347 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20040UL});
-		public static readonly BitSet _WS_in_functioncall_or_column2349 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20000UL});
-		public static readonly BitSet _145_in_functioncall_or_column2352 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10040UL});
-		public static readonly BitSet _WS_in_functioncall_or_column2354 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
-		public static readonly BitSet _144_in_functioncall_or_column2357 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _EXISTS_in_expression_atom2260 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10080UL});
+		public static readonly BitSet _WS_in_expression_atom2262 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
+		public static readonly BitSet _144_in_expression_atom2265 = new BitSet(new ulong[]{0x20000000000000UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_expression_atom2267 = new BitSet(new ulong[]{0x20000000000000UL});
+		public static readonly BitSet _select_command_in_expression_atom2270 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20080UL});
+		public static readonly BitSet _WS_in_expression_atom2272 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20000UL});
+		public static readonly BitSet _145_in_expression_atom2275 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _TOKEN_in_functioncall_or_column2295 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10080UL});
+		public static readonly BitSet _WS_in_functioncall_or_column2297 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
+		public static readonly BitSet _144_in_functioncall_or_column2300 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x30084UL});
+		public static readonly BitSet _WS_in_functioncall_or_column2302 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x30004UL});
+		public static readonly BitSet _expression_in_functioncall_or_column2306 = new BitSet(new ulong[]{0x0UL,0x0UL,0x120080UL});
+		public static readonly BitSet _WS_in_functioncall_or_column2308 = new BitSet(new ulong[]{0x0UL,0x0UL,0x120000UL});
+		public static readonly BitSet _148_in_functioncall_or_column2312 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10084UL});
+		public static readonly BitSet _WS_in_functioncall_or_column2314 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_in_functioncall_or_column2317 = new BitSet(new ulong[]{0x0UL,0x0UL,0x120080UL});
+		public static readonly BitSet _WS_in_functioncall_or_column2319 = new BitSet(new ulong[]{0x0UL,0x0UL,0x120000UL});
+		public static readonly BitSet _145_in_functioncall_or_column2326 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _TOKEN_in_functioncall_or_column2342 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10080UL});
+		public static readonly BitSet _WS_in_functioncall_or_column2344 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
+		public static readonly BitSet _144_in_functioncall_or_column2347 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40080UL});
+		public static readonly BitSet _WS_in_functioncall_or_column2349 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40000UL});
+		public static readonly BitSet _146_in_functioncall_or_column2352 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20080UL});
+		public static readonly BitSet _WS_in_functioncall_or_column2354 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20000UL});
+		public static readonly BitSet _145_in_functioncall_or_column2357 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _SIMPLE_FILE_in_functioncall_or_column2374 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _CONVERT_in_conversion2394 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8040UL});
-		public static readonly BitSet _WS_in_conversion2396 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8000UL});
-		public static readonly BitSet _143_in_conversion2399 = new BitSet(new ulong[]{0x1000000000000000UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_conversion2401 = new BitSet(new ulong[]{0x1000000000000000UL});
-		public static readonly BitSet _TOKEN_in_conversion2404 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80040UL});
-		public static readonly BitSet _WS_in_conversion2406 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80000UL});
-		public static readonly BitSet _147_in_conversion2409 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8042UL});
-		public static readonly BitSet _WS_in_conversion2411 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_in_conversion2414 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10040UL});
-		public static readonly BitSet _WS_in_conversion2416 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
-		public static readonly BitSet _144_in_conversion2419 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _CAST_in_conversion2434 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8040UL});
-		public static readonly BitSet _WS_in_conversion2436 = new BitSet(new ulong[]{0x0UL,0x0UL,0x8000UL});
-		public static readonly BitSet _143_in_conversion2439 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8042UL});
-		public static readonly BitSet _WS_in_conversion2441 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_in_conversion2444 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
+		public static readonly BitSet _CONVERT_in_conversion2394 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10080UL});
+		public static readonly BitSet _WS_in_conversion2396 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
+		public static readonly BitSet _144_in_conversion2399 = new BitSet(new ulong[]{0x2000000000000000UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_conversion2401 = new BitSet(new ulong[]{0x2000000000000000UL});
+		public static readonly BitSet _TOKEN_in_conversion2404 = new BitSet(new ulong[]{0x0UL,0x0UL,0x100080UL});
+		public static readonly BitSet _WS_in_conversion2406 = new BitSet(new ulong[]{0x0UL,0x0UL,0x100000UL});
+		public static readonly BitSet _148_in_conversion2409 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10084UL});
+		public static readonly BitSet _WS_in_conversion2411 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_in_conversion2414 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20080UL});
+		public static readonly BitSet _WS_in_conversion2416 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20000UL});
+		public static readonly BitSet _145_in_conversion2419 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _CAST_in_conversion2434 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10080UL});
+		public static readonly BitSet _WS_in_conversion2436 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
+		public static readonly BitSet _144_in_conversion2439 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10084UL});
+		public static readonly BitSet _WS_in_conversion2441 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_in_conversion2444 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
 		public static readonly BitSet _WS_in_conversion2446 = new BitSet(new ulong[]{0x100UL});
-		public static readonly BitSet _AS_in_conversion2448 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_conversion2450 = new BitSet(new ulong[]{0x1000000000000000UL});
-		public static readonly BitSet _datatype_in_conversion2452 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10040UL});
-		public static readonly BitSet _WS_in_conversion2454 = new BitSet(new ulong[]{0x0UL,0x0UL,0x10000UL});
-		public static readonly BitSet _144_in_conversion2457 = new BitSet(new ulong[]{0x2UL});
+		public static readonly BitSet _AS_in_conversion2448 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_conversion2450 = new BitSet(new ulong[]{0x2000000000000000UL});
+		public static readonly BitSet _datatype_in_conversion2452 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20080UL});
+		public static readonly BitSet _WS_in_conversion2454 = new BitSet(new ulong[]{0x0UL,0x0UL,0x20000UL});
+		public static readonly BitSet _145_in_conversion2457 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _STRING_in_string2477 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _TOKEN_in_datatype2497 = new BitSet(new ulong[]{0x2UL});
 		public static readonly BitSet _VARIABLE_in_variable2509 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _CASE_in_case2529 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_case2531 = new BitSet(new ulong[]{0x134018000E02C000UL,0x0UL,0x8012UL});
-		public static readonly BitSet _expression_in_case2534 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_case2536 = new BitSet(new ulong[]{0x6000000UL,0x0UL,0x10UL});
-		public static readonly BitSet _case_when_in_case2541 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_case2543 = new BitSet(new ulong[]{0x6000000UL,0x0UL,0x10UL});
-		public static readonly BitSet _case_else_in_case2548 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_case2550 = new BitSet(new ulong[]{0x4000000UL});
+		public static readonly BitSet _CASE_in_case2529 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_case2531 = new BitSet(new ulong[]{0x268030001C04C000UL,0x0UL,0x10024UL});
+		public static readonly BitSet _expression_in_case2534 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_case2536 = new BitSet(new ulong[]{0xC000000UL,0x0UL,0x20UL});
+		public static readonly BitSet _case_when_in_case2541 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_case2543 = new BitSet(new ulong[]{0xC000000UL,0x0UL,0x20UL});
+		public static readonly BitSet _case_else_in_case2548 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_case2550 = new BitSet(new ulong[]{0x8000000UL});
 		public static readonly BitSet _END_in_case2554 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _WHEN_in_case_when2582 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_case_when2584 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
-		public static readonly BitSet _expression_in_case_when2588 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_case_when2590 = new BitSet(new ulong[]{0x800000000000000UL});
-		public static readonly BitSet _THEN_in_case_when2592 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_case_when2594 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
+		public static readonly BitSet _WHEN_in_case_when2582 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_case_when2584 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
+		public static readonly BitSet _expression_in_case_when2588 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_case_when2590 = new BitSet(new ulong[]{0x1000000000000000UL});
+		public static readonly BitSet _THEN_in_case_when2592 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_case_when2594 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
 		public static readonly BitSet _expression_in_case_when2598 = new BitSet(new ulong[]{0x2UL});
-		public static readonly BitSet _ELSE_in_case_else2623 = new BitSet(new ulong[]{0x0UL,0x0UL,0x40UL});
-		public static readonly BitSet _WS_in_case_else2625 = new BitSet(new ulong[]{0x134018000802C000UL,0x0UL,0x8002UL});
+		public static readonly BitSet _ELSE_in_case_else2623 = new BitSet(new ulong[]{0x0UL,0x0UL,0x80UL});
+		public static readonly BitSet _WS_in_case_else2625 = new BitSet(new ulong[]{0x268030001004C000UL,0x0UL,0x10004UL});
 		public static readonly BitSet _expression_in_case_else2627 = new BitSet(new ulong[]{0x2UL});
 	}
 	#endregion Follow sets

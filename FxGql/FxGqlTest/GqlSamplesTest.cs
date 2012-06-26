@@ -394,7 +394,7 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engine.Execute (command);
+						engine.Execute (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -413,6 +413,10 @@ namespace FxGqlTest
         
 		public bool Run ()
 		{
+			// Empty command
+			TestGql ("",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+
 			// Select expression without file
 			TestGql ("select 17", 
                 "54183F4323F377B737433A1E98229EAD0FDC686F93BAB057ECB612DAA94002B5");
@@ -878,15 +882,20 @@ namespace FxGqlTest
 				+ "-- this is another single line comment" + Environment.NewLine
 				+ "order by 1, 2 desc -- final single line comment",
                 "588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
-
-			//TestGql ("select /*block comment*/ 17", 
-			//  "54183F4323F377B737433A1E98229EAD0FDC686F93BAB057ECB612DAA94002B5");
-			//TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * /* this" + Environment.NewLine
-			//          + "is a multi-line" + Environment.NewLine
-			//          + "comment*/ from ['SampleFiles/AirportCodes.csv'] " + Environment.NewLine
-			//          + "where $line match ', (.*?) (?:- .*)?\"'" + Environment.NewLine
-			//          + "order by 1, 2 desc",
-			//  "588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
+			TestGql ("-- Test",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("/*Test*/",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select  17", 
+			  "54183F4323F377B737433A1E98229EAD0FDC686F93BAB057ECB612DAA94002B5");
+			TestGql ("select /*blockcomment*/ 17", 
+			  "54183F4323F377B737433A1E98229EAD0FDC686F93BAB057ECB612DAA94002B5");
+			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * /* this" + Environment.NewLine
+				+ "is a multi-line" + Environment.NewLine
+				+ "comment*/ from ['SampleFiles/AirportCodes.csv'] " + Environment.NewLine
+				+ "where $line match ', (.*?) (?:- .*)?\"'" + Environment.NewLine
+				+ "order by 1, 2 desc",
+			  "588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
             
 			// Columns
 			TestGql ("select distinct top 15 [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",

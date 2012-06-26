@@ -405,6 +405,20 @@ case_else
 	-> ^(T_CASE_ELSE expression)
 	;
 
+COMMENT_LINE
+	//: '--' .* ('\r' '\n' | '\r' | '\n') { $channel=HIDDEN; }
+	: '--' .* (('\r' '\n') | '\r' | '\n') { Skip(); }
+	;
+	
+//COMMENT_BLOCK
+////	: '/*' .* '*/' { $channel=HIDDEN; }
+//	: '/*' .* '*/' WS { Skip(); }
+//	;
+
+COMMENT_BLOCK
+	: '/*' .* '*/' WS { Skip(); }
+	;
+
 STRING
 	: '\'' ( (~('\'')|'\'''\'')* ) '\''
 	;
@@ -467,16 +481,6 @@ VARIABLE
 NUMBER
 	: DIGIT+
 	;
-
-COMMENT_LINE
-	//: '--' .* ('\r' '\n' | '\r' | '\n') { $channel=HIDDEN; }
-	: '--' .* (('\r' '\n') | '\r' | '\n') { Skip(); }
-	;
-	
-//COMMENT_BLOCK
-//	: '/*' .* '*/' { $channel=HIDDEN; }
-//	//: '/*' ~('*' '*/' { Skip(); }
-//	;
 
 WS
 	: (' '|'\t'|'\n'|'\r'|'\u000C')+
