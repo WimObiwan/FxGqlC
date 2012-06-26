@@ -163,7 +163,7 @@ file
 
 file_spec
 	: string
-	| VARIABLE -> ^(T_VARIABLE VARIABLE)
+	| variable
 	;
 	
 file_option
@@ -357,7 +357,7 @@ expression_atom
 	: NUMBER -> ^(T_INTEGER NUMBER)
 	| string
 	| SYSTEMVAR -> ^(T_SYSTEMVAR SYSTEMVAR)
-	| VARIABLE -> ^(T_VARIABLE VARIABLE)
+	| variable
 	| subquery
 	| '(' expression ')' -> expression
 	| functioncall_or_column
@@ -386,7 +386,7 @@ datatype
 	;
 	
 variable
-	: VARIABLE
+	: VARIABLE -> ^(T_VARIABLE VARIABLE)
 	;
 	
 case

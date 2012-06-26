@@ -1866,7 +1866,10 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (declarationTree, "T_DECLARATION", 2, 2);
 
-			string variable = declarationTree.GetChild (0).Text;
+			ITree variableName = declarationTree.GetChild (0);
+			AssertAntlrToken (variableName, "T_VARIABLE", 1, 1);
+
+			string variable = variableName.GetChild (0).Text;
 			Type datatype = ParseDataType (declarationTree.GetChild (1));
 
 			return Tuple.Create (variable, datatype);
@@ -1889,7 +1892,10 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (tree, "T_SET_VARIABLE", 2, 2);
 
-			string variable = tree.GetChild (0).Text;
+			ITree variableName = tree.GetChild (0);
+			AssertAntlrToken (variableName, "T_VARIABLE", 1, 1);
+
+			string variable = variableName.GetChild (0).Text;
 			IExpression expression = ParseExpression (null, tree.GetChild (1));
 
 			return Tuple.Create (variable, expression);
