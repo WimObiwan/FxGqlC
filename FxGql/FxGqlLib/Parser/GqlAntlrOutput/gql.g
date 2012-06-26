@@ -162,7 +162,7 @@ file
 	;
 
 file_spec
-	: STRING -> STRING
+	: string
 	| VARIABLE -> ^(T_VARIABLE VARIABLE)
 	;
 	
@@ -355,7 +355,7 @@ op_1	: '~' -> T_BITWISE_NOT
 
 expression_atom
 	: NUMBER -> ^(T_INTEGER NUMBER)
-	| STRING -> ^(T_STRING STRING)
+	| string
 	| SYSTEMVAR -> ^(T_SYSTEMVAR SYSTEMVAR)
 	| VARIABLE -> ^(T_VARIABLE VARIABLE)
 	| subquery
@@ -376,6 +376,9 @@ functioncall_or_column
 conversion
 	: CONVERT WS? '(' WS? TOKEN WS? ',' WS? expression WS? ')' -> ^(T_CONVERT TOKEN expression)
 	| CAST WS? '(' WS? expression WS AS WS datatype WS? ')' -> ^(T_CONVERT TOKEN expression)
+	;
+
+string	: STRING -> ^(T_STRING STRING)
 	;
 	
 datatype

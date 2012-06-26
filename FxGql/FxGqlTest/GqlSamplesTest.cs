@@ -1032,7 +1032,12 @@ namespace FxGqlTest
 				set @option = '^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$';
 				select @file, @option, @file + @option
 				", "2F32B5DA82E004C1D08E10CFC7ECBA05F9D43AA5611EE84124BB6F4DB42F7271");
+			TestGql (@"declare @file string, @option string;
+				set @file = 'SampleFiles/Tennis-ATP-2011.csv';
+				select [Tournament] from [@file -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]
+				", "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
 
+			// Views
 			TestGql ("CREATE VIEW MyView AS SELECT 17, '<this is a test>'; SELECT * FROM MyView",
                 "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
 
@@ -1069,9 +1074,9 @@ namespace FxGqlTest
 			*/
 
 			// TODO:
-			TestGql (@"declare @file string, @option string;
-				set @file = 'SampleFiles/Tennis-ATP-2011.csv';
-				select [Tournament] from [@file -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]
+			TestGql (
+				@"
+				CREATE VIEW MyView(@file string) AS SELECT [Tournament] from [@file -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]
 				"
 			);
 

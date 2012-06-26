@@ -1089,7 +1089,7 @@ namespace FxGqlLib
 			string fileNameText = enumerator.Current.Text;
 			if (fileNameText.StartsWith ("[")) {
 				fileOptions.FileName = new ConstExpression<string> (fileNameText.Substring (1, fileNameText.Length - 2));
-			} else if (fileNameText.StartsWith ("\'") || fileNameText == "T_VARIABLE") {
+			} else if (fileNameText == "T_STRING" || fileNameText == "T_VARIABLE") {
 				ITree fileTree = enumerator.Current;
 				if (fileNameText == "T_VARIABLE")
 					fileOptions.FileName = ExpressionHelper.ConvertToStringIfNeeded (ParseExpressionVariable (fileTree));
