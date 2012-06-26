@@ -1071,8 +1071,7 @@ namespace FxGqlTest
 			// TODO:
 			TestGql (@"declare @file string, @option string;
 				set @file = 'SampleFiles/Tennis-ATP-2011.csv';
-				set @option = '^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$';
-				select [Tournament] from [@file -skip=1 -columns=@option] group by [Tournament]
+				select [Tournament] from [@file -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]
 				"
 			);
 

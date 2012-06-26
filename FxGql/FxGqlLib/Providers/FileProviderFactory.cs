@@ -8,7 +8,7 @@ namespace FxGqlLib
 		{
 		}
 		
-		public string FileName { get; set; }
+		public Expression<string> FileName { get; set; }
 	}
 
 	public class FileOptionsFromClause : FileOptions
@@ -26,7 +26,12 @@ namespace FxGqlLib
 		
 		public long Skip { get; set; }
 
-		public enum FileOrderEnum { DontCare, Asc, Desc }
+		public enum FileOrderEnum
+		{
+			DontCare,
+			Asc,
+			Desc
+		}
 		public FileOrderEnum FileOrder { get; set; }
 	}
 
@@ -43,7 +48,8 @@ namespace FxGqlLib
 			Unix,
 			Dos,
 			Mac
-		};
+		}
+		;
 
 		public NewLineEnum NewLine  { get; set; }
 
@@ -58,16 +64,19 @@ namespace FxGqlLib
 	{
 		public static IProvider Get (FileOptionsFromClause fileOptions, StringComparer stringComparer)
 		{
+			string fileName;
+			if (fileOptions.FileName is ConstExpression<string>)
+				fileName = fileOptions.FileName.EvaluateAsString (null);
+			else
+				fileName = null;
+
 			IProvider provider;
-			if (fileOptions.FileName.Contains ("*") || fileOptions.FileName.Contains ("?") || fileOptions.Recurse) {
+			if (fileName == null || fileName.Contains ("*") || fileName.Contains ("?") || fileOptions.Recurse) {
 				provider = new MultiFileProvider (
-					fileOptions.FileName,
-					fileOptions.Recurse,
-					fileOptions.Skip,
-					fileOptions.FileOrder,
+					fileOptions,
 					stringComparer);
 			} else {
-				provider = Get (fileOptions.FileName, fileOptions.Skip);
+				provider = Get (fileName, fileOptions.Skip);
 			}
 			
 			return provider;

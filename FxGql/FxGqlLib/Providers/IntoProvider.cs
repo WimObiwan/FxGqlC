@@ -57,19 +57,21 @@ namespace FxGqlLib
 
 		public bool GetNextRecord ()
 		{
+			string fileName = fileOptions.FileName.EvaluateAsString (gqlQueryState);
+
 			if (!fileOptions.Overwrite && !fileOptions.Append
-				&& File.Exists (fileOptions.FileName))
+				&& File.Exists (fileName))
 				throw new InvalidOperationException (
 					string.Format ("File '{0}' already exists. Use '-overwrite' or '-append' option to change the existing file.", 
 				              fileOptions.FileName)
 				);
 
 			if (string.Compare (
-				Path.GetExtension (fileOptions.FileName),
+				Path.GetExtension (fileName),
 				".zip",
 				StringComparison.InvariantCultureIgnoreCase
 			) == 0) {
-				using (FileStream fileStream = new FileStream(fileOptions.FileName, FileMode.Create)) {
+				using (FileStream fileStream = new FileStream(fileName, FileMode.Create)) {
 					using (ZipOutputStream zipOutputStream = new ZipOutputStream(fileStream)) {
 						zipOutputStream.SetLevel (9);
 						ZipEntry zipEntry = new ZipEntry ("output.txt");
@@ -88,7 +90,7 @@ namespace FxGqlLib
 					fileMode = FileMode.Create;
 				else
 					fileMode = FileMode.CreateNew;
-				using (FileStream outputStream = new FileStream(fileOptions.FileName, fileMode, FileAccess.Write, FileShare.None)) {
+				using (FileStream outputStream = new FileStream(fileName, fileMode, FileAccess.Write, FileShare.None)) {
 					DumpProviderToStream (provider, outputStream, this.gqlQueryState,
 					                      "\t", GetNewLine (fileOptions.NewLine), fileOptions.Heading);
 				}

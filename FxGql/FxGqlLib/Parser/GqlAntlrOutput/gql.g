@@ -157,10 +157,15 @@ subquery
 	;
 
 file
-	: '[' WS? STRING (WS file_option)* WS? ']' -> ^(T_FILE STRING file_option*) 
+	: '[' WS? file_spec (WS file_option)* WS? ']' -> ^(T_FILE file_spec file_option*) 
 	| SIMPLE_FILE -> ^(T_FILE SIMPLE_FILE)
 	;
 
+file_spec
+	: STRING -> STRING
+	| VARIABLE -> ^(T_VARIABLE VARIABLE)
+	;
+	
 file_option
 	: '-' file_option_name ( WS? '=' WS? file_option_value)? -> ^(T_FILEOPTION file_option_name file_option_value?)
 	;
@@ -170,7 +175,7 @@ file_option_name
 	;
 	
 file_option_value
-	: TOKEN | STRING | NUMBER
+	: TOKEN | STRING | NUMBER | variable
 	;
 	
 where_clause
@@ -397,7 +402,7 @@ STRING
 	;
 
 SIMPLE_FILE
-	: '[' ~('\''|']')* ']'
+	: '[' ~('@'|'\''|']')* ']'
 	;
 
 

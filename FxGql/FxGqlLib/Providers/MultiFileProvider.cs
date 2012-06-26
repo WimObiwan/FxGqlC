@@ -7,10 +7,7 @@ namespace FxGqlLib
 	public class MultiFileProvider : IProvider
 	{
 		IProvider provider;
-		string fileMask;
-		bool recurse;
-		long skip;
-		FileOptionsFromClause.FileOrderEnum order;
+		FileOptionsFromClause fileOptions;
 		StringComparer stringComparer;
 		long totalLineNo;
 
@@ -19,12 +16,9 @@ namespace FxGqlLib
 		
 		int currentFile;
 		
-		public MultiFileProvider (string fileMask, bool recurse, long skip, FileOptionsFromClause.FileOrderEnum order, StringComparer stringComparer)
+		public MultiFileProvider (FileOptionsFromClause fileOptions, StringComparer stringComparer)
 		{
-			this.fileMask = fileMask;
-			this.recurse = recurse;
-			this.skip = skip;
-			this.order = order;
+			this.fileOptions = fileOptions;
 			this.stringComparer = stringComparer;
 		}
 
@@ -46,11 +40,13 @@ namespace FxGqlLib
 		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
+			string fileName = fileOptions.FileName.EvaluateAsString (gqlQueryState);
+
 			this.gqlQueryState = gqlQueryState;
-			string path = Path.GetDirectoryName (fileMask);
-			string searchPattern = Path.GetFileName (fileMask);
+			string path = Path.GetDirectoryName (fileName);
+			string searchPattern = Path.GetFileName (fileName);
 			SearchOption searchOption;
-			if (recurse)
+			if (fileOptions.Recurse)
 				searchOption = SearchOption.AllDirectories;
 			else
 				searchOption = SearchOption.TopDirectoryOnly;
@@ -58,15 +54,15 @@ namespace FxGqlLib
 			path = Path.Combine (gqlQueryState.CurrentDirectory, path); 
 			files = Directory.GetFiles (path + Path.DirectorySeparatorChar, searchPattern, searchOption);
 
-			if (order == FileOptionsFromClause.FileOrderEnum.Asc)
+			if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Asc)
 				files = files.OrderBy (p => p, stringComparer).ToArray ();
-			else if (order == FileOptionsFromClause.FileOrderEnum.Desc)
+			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Desc)
 				files = files.OrderByDescending (p => p, stringComparer).ToArray ();
 
 			currentFile = -1;
 			totalLineNo = 0;
 			if (!SetNextProvider ())
-				throw new FileNotFoundException ("No files found that match with the wildcards", fileMask);
+				throw new FileNotFoundException ("No files found that match with the wildcards", fileName);
 		}
 
 		public bool GetNextRecord ()
@@ -106,7 +102,7 @@ namespace FxGqlLib
 			if (currentFile >= files.Length)
 				return false;
 			
-			provider = FileProviderFactory.Get (files [currentFile], skip);
+			provider = FileProviderFactory.Get (files [currentFile], fileOptions.Skip);
 			provider.Initialize (gqlQueryState);
 			
 			return true;
