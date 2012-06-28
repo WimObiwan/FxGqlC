@@ -3,87 +3,32 @@ using System.Linq;
 
 namespace FxGqlLib
 {
-	public class ColumnProviderTitleLine : IProvider
+	public class ColumnProviderTitleLine : ColumnProviderDelimiter
 	{
-		IProvider provider;
 		bool rule;
-		char[] separators;
-		ProviderRecord record;
-		string[] columnNameList;
-		
+
 		public ColumnProviderTitleLine (IProvider provider, bool rule, char[] separators)
+			: base(provider, separators)
 		{
-			this.provider = provider;
 			this.rule = rule;
-			this.separators = separators;
 		}
 
 		#region IProvider implementation
-		public string[] GetColumnTitles ()
+		public override void Initialize (GqlQueryState gqlQueryState)
 		{
-			return columnNameList;
-		}
+			base.Initialize (gqlQueryState);
 
-		public int GetColumnOrdinal(string columnName)
-		{
-			return Array.FindIndex(columnNameList, a => string.Compare(a, columnName, StringComparison.InvariantCultureIgnoreCase) == 0);
-		}
-		
-		public Type[] GetColumnTypes ()
-		{
-			Type[] types = new Type[columnNameList.Length];
-			for (int i = 0; i < types.Length; i++) { 
-				types [i] = typeof(string);
-			}
-			return types;
-		}
-
-		public void Initialize (GqlQueryState gqlQueryState)
-		{
-			provider.Initialize (gqlQueryState);
-			if (provider.GetNextRecord ()) {
-				string line = provider.Record.Columns [0].ToString ();
-				columnNameList = line.Split (separators, StringSplitOptions.None);
-
-				if (rule)
-					provider.GetNextRecord ();
+			if (base.firstLine != null) {
+				string[] columns = base.firstLine.Split (separators);
+				for (int i = 0; i < columns.Length && i < columnNameList.Length; i++)
+					if (columns [i] != "")
+						columnNameList [i] = columns [i];
+				base.firstLine = null;
 			}
 
-			record = new ProviderRecord ();
-			record.ColumnTitles = columnNameList;
-		}
-
-		public bool GetNextRecord ()
-		{
-			if (!provider.GetNextRecord ())
-				return false;
-			
-			string line = provider.Record.Columns [0].ToString ();
-			record.Columns = line.Split (separators, StringSplitOptions.None);
-			record.LineNo = provider.Record.LineNo;
-			record.OriginalColumns = provider.Record.Columns;
-			record.Source = provider.Record.Source;
-			return true;
-		}
-
-		public void Uninitialize ()
-		{
-			record = null;
-			provider.Uninitialize ();
-		}
-
-		public ProviderRecord Record {
-			get {
-				return record;
+			if (rule) {
+				provider.GetNextRecord ();
 			}
-		}
-
-		#endregion
-
-		#region IDisposable implementation
-		public void Dispose ()
-		{
-			provider.Dispose ();
 		}
 		#endregion
 	}

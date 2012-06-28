@@ -5,13 +5,13 @@ namespace FxGqlLib
 {
 	public class ColumnProviderDelimiter : IProvider
 	{
-		IProvider provider;
-		char[] separators;
+		protected IProvider provider;
+		protected char[] separators;
 		int columnCount;
 
 		ProviderRecord record;
 		protected string[] columnNameList;
-		string firstLine;
+		protected string firstLine;
 		
 		public ColumnProviderDelimiter (IProvider provider, char[] separators)
 			: this(provider, separators, -1)
@@ -45,7 +45,7 @@ namespace FxGqlLib
 			return types;
 		}
 
-		public void Initialize (GqlQueryState gqlQueryState)
+		public virtual void Initialize (GqlQueryState gqlQueryState)
 		{
 			provider.Initialize (gqlQueryState);
 			if (provider.GetNextRecord ()) {
