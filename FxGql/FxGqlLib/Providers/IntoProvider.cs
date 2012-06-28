@@ -11,6 +11,7 @@ namespace FxGqlLib
 		FileOptionsIntoClause fileOptions;
 		ProviderRecord record;
 		GqlQueryState gqlQueryState;
+		string columnDelimiter;
 		
 		public IntoProvider (IProvider provider, FileOptionsIntoClause fileOptions)
 		{
@@ -41,6 +42,9 @@ namespace FxGqlLib
 			record.OriginalColumns = new IComparable[] { };
 			record.LineNo = 1;
 			this.gqlQueryState = gqlQueryState;
+			columnDelimiter = fileOptions.ColumnDelimiter;
+			if (columnDelimiter == null)
+				columnDelimiter = "\t";
 		}
 
 		private string GetNewLine (FileOptionsIntoClause.NewLineEnum lineEnd)
@@ -79,7 +83,7 @@ namespace FxGqlLib
 						zipOutputStream.PutNextEntry (zipEntry);
 						
 						DumpProviderToStream (provider, zipOutputStream, this.gqlQueryState,
-						                      "\t", GetNewLine (fileOptions.NewLine), fileOptions.Heading);
+						                      columnDelimiter, GetNewLine (fileOptions.NewLine), fileOptions.Heading);
 					}
 				}
 			} else {
@@ -92,7 +96,7 @@ namespace FxGqlLib
 					fileMode = FileMode.CreateNew;
 				using (FileStream outputStream = new FileStream(fileName, fileMode, FileAccess.Write, FileShare.None)) {
 					DumpProviderToStream (provider, outputStream, this.gqlQueryState,
-					                      "\t", GetNewLine (fileOptions.NewLine), fileOptions.Heading);
+					                      columnDelimiter, GetNewLine (fileOptions.NewLine), fileOptions.Heading);
 				}
 			}
 

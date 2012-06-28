@@ -394,7 +394,7 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engine.Execute (command);
+						engine.Execute (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -983,6 +983,15 @@ namespace FxGqlTest
 			);
 			TestGql ("select * from ['test.txt' -heading=onwithrule]",
                      "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7");
+			TestGql ("select [FieldA], [FieldB] into ['test.txt' -overwrite -columndelimiter='\t' -lineend=unix -heading=off] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=on])",
+                     "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile ("test.txt",
+			          "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7");
+
+			TestGql ("select [FieldA], [FieldB] into ['test.txt' -overwrite -columndelimiter='+' -lineend=unix -heading=off] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=on])",
+                     "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile ("test.txt",
+			          "CDFDDF029C3BAA437F242109A66270756970ABED039AC1500A991073A987BFE9");
 			File.Delete ("test.txt");
 			TestGql (
 				@"

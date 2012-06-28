@@ -991,9 +991,6 @@ namespace FxGqlLib
 				case "SKIP":
 					fileOptions.Skip = long.Parse (value);
 					break;
-				case "COLUMNDELIMITER":
-					fileOptions.ColumnDelimiter = System.Text.RegularExpressions.Regex.Unescape (value);
-					break;
 				default:
 					throw new ParserException (
                                 string.Format ("Unknown file option '{0}'", option),
@@ -1109,6 +1106,9 @@ namespace FxGqlLib
 					ParseFileOption (enumerator.Current, out option, out value);
 
 					switch (option.ToUpperInvariant ()) {
+					case "COLUMNDELIMITER":
+						fileOptions.ColumnDelimiter = System.Text.RegularExpressions.Regex.Unescape (value);
+						break;
 					default:
 						options.Add (Tuple.Create (option, value, enumerator.Current));
 						break;
