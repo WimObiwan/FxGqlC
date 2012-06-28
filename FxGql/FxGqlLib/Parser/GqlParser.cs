@@ -1914,13 +1914,21 @@ namespace FxGqlLib
 
 		Tuple<string, IProvider> ParseCommandCreateView (ITree tree)
 		{
-			AssertAntlrToken (tree, "T_CREATE_VIEW", 2, 2);
+			AssertAntlrToken (tree, "T_CREATE_VIEW", 2, 3);
 
-			ITree viewNameTree = tree.GetChild (0);
+			var enumerator = new AntlrTreeChildEnumerable (tree).GetEnumerator ();
+			enumerator.MoveNext ();
+
+			ITree viewNameTree = enumerator.Current;
 			AssertAntlrToken (viewNameTree, "T_VIEW_NAME", 1, 1);
-
 			string name = viewNameTree.GetChild (0).Text;
-			IProvider provider = ParseCommandSelect (tree.GetChild (1));
+
+			enumerator.MoveNext ();
+			if (enumerator.Current.Text == "T_DECLARE") {
+				enumerator.MoveNext ();
+			}
+
+			IProvider provider = ParseCommandSelect (enumerator.Current);
 
 			return Tuple.Create (name, provider);
 		}
