@@ -394,7 +394,7 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engine.Execute (command);
+					engine.Execute (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -988,6 +988,16 @@ namespace FxGqlTest
 				@"
 				SELECT [f], [tl] FROM (SELECT $filename [f], $totallineno [tl], $lineno [l] FROM ['SampleFiles\*' -recurse]) WHERE [l] = 1
 				", "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
+			TestGql ("select * into [test.txt] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(.*)\",(.{3}))|(?:(.*),(.{3}))']",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile ("test.txt", "CB25B5B8F0A0FAC08419D253DB2B48F4B84546ECCA734BC70FA2B67280EDDC6E");
+			TestGql ("select * from [test.txt] where contains($line, 'Brussels') and contains($line, 'National')",
+			         "AD6FA84BFABBE32EE421A29E1BAF88DBD91A7A47B6F84AE7D8BC36AFAB8D3BAA");
+			TestGql ("select * from ['test.txt' -columndelimiter='\t'] where [Column2] = 'BRU'",
+			         "AD6FA84BFABBE32EE421A29E1BAF88DBD91A7A47B6F84AE7D8BC36AFAB8D3BAA");
+			TestGql ("select * from ['test.txt' -columndelimiter='\\t'] where [Column2] = 'BRU'",
+			         "AD6FA84BFABBE32EE421A29E1BAF88DBD91A7A47B6F84AE7D8BC36AFAB8D3BAA");
+			File.Delete ("test.txt");
 
 			// Aggregation without group by
 			TestGql (@"SELECT count(1), min($line), max($line) from [SampleFiles/AirportCodes.csv]", 
@@ -1104,7 +1114,6 @@ namespace FxGqlTest
 //				CREATE VIEW MyView(@file string) AS SELECT [Tournament] from [@file -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]
 //				"
 //			);
-
 
 			return failed == 0;
 		}

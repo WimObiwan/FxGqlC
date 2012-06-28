@@ -9,6 +9,8 @@ namespace FxGqlLib
 		}
 		
 		public Expression<string> FileName { get; set; }
+
+		public string ColumnDelimiter { get; set; }
 	}
 
 	public class FileOptionsFromClause : FileOptions

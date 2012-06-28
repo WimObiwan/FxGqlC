@@ -107,6 +107,7 @@
     <Compile Include="Exceptions\ParserException.cs" />
     <Compile Include="Parser\AntlrTreeChildEnumerable.cs" />
     <Compile Include="Providers\ColumnProvider.cs" />
+    <Compile Include="Providers\ColumnProviderDelimiter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

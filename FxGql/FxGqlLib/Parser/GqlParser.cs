@@ -986,10 +986,13 @@ namespace FxGqlLib
 					fileOptions.Heading = heading;
 					break;
 				case "COLUMNS":
-					fileOptions.ColumnsRegex = ParseString (value);
+					fileOptions.ColumnsRegex = value;
 					break;
 				case "SKIP":
 					fileOptions.Skip = long.Parse (value);
+					break;
+				case "COLUMNDELIMITER":
+					fileOptions.ColumnDelimiter = System.Text.RegularExpressions.Regex.Unescape (value);
 					break;
 				default:
 					throw new ParserException (
@@ -1136,6 +1139,8 @@ namespace FxGqlLib
 			if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
 				provider = new ColumnProviderTitleLine (provider, fileOptions.Heading == GqlEngineState.HeadingEnum.OnWithRule,
                                                         new char[] {'\t'});
+			} else if (fileOptions.ColumnDelimiter != null) {
+				provider = new ColumnProviderDelimiter (provider, fileOptions.ColumnDelimiter.ToCharArray ());
 			} else if (fileOptions.ColumnsRegex != null) {
 				provider = new ColumnProviderRegex (
                     provider,
@@ -1694,7 +1699,7 @@ namespace FxGqlLib
 
 		internal static IExpression ConstructColumnExpression (IProvider provider, string column)
 		{
-			if (provider is ColumnProviderTitleLine || provider is ColumnProviderRegex) {
+			if (provider is ColumnProviderTitleLine || provider is ColumnProviderRegex || provider is ColumnProviderDelimiter) {
 				return new ColumnExpression<string> (provider, column);
 			} else {
 				int columnOrdinal = provider.GetColumnOrdinal (column);
