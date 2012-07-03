@@ -45,7 +45,11 @@ namespace FxGqlLib
 			if (columnOrdinal == -1)
 				columnOrdinal = this.provider.GetColumnOrdinal (column);
 			
-			IComparable[] columns = gqlQueryState.Record.Columns;
+			IComparable[] columns;
+			if (gqlQueryState.UseOriginalColumns)
+				columns = gqlQueryState.Record.OriginalColumns;
+			else
+				columns = gqlQueryState.Record.Columns;
 			if (columnOrdinal >= 0 && columnOrdinal < columns.Length)
 				return (T)columns [columnOrdinal];
 			else
