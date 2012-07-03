@@ -848,6 +848,14 @@ namespace FxGqlTest
 			TestGql ("select * into ['test.txt' -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
                 typeof(InvalidOperationException));
 			File.Delete ("test.txt");
+			if (File.Exists ("SampleFiles/test.txt"))
+				File.Delete ("SampleFiles/test.txt");
+			TestGql ("use [SampleFiles]; select * into ['test.txt' -overwrite] from ['AirportCodes.csv']; use [..]",
+                "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile ("SampleFiles/test.txt",
+                "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2", // unix
+                "2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
+			File.Delete ("SampleFiles/test.txt");
 			//TestGql ("select * into ['test.zip' -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
 			//  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			//TestGql ("select * into ['test.zip' -append -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
@@ -1123,6 +1131,19 @@ namespace FxGqlTest
 //				CREATE VIEW MyView(@file string) AS SELECT [Tournament] from [@file -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]
 //				"
 //			);
+
+			// TODO: ColumnProviderRegex with column headers
+
+			// TODO: ColumnProviderTitleLine with -columndelimiter
+//			TestGql ("select 'Name', 'Code' into ['test.txt' -overwrite -lineend=unix]",
+//			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+//			TestGql ("select '==========', '===' into ['test.txt' -append -lineend=unix]",
+//			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+//			TestGql ("select * into ['test.txt' -append -lineend=unix] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(.*)\",(.{3}))|(?:(.*),(.{3}))']",
+//			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+//			TestFile ("test.txt", "03E0F58F1128CCCB2BF0EF8040F349BEE6D2C6B554C006832C1E7647F91B5B7A");
+//			TestGql ("select * from ['test.txt' -heading=onwithrule] where [Code] = 'BRU'");
+
 
 			return failed == 0;
 		}

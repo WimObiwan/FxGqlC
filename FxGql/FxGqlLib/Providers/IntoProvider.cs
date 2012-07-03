@@ -62,6 +62,7 @@ namespace FxGqlLib
 		public bool GetNextRecord ()
 		{
 			string fileName = fileOptions.FileName.EvaluateAsString (gqlQueryState);
+			fileName = Path.Combine (gqlQueryState.CurrentDirectory, fileName); 
 
 			if (!fileOptions.Overwrite && !fileOptions.Append
 				&& File.Exists (fileName))
