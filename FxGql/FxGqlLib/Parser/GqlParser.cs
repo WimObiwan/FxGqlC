@@ -1136,24 +1136,18 @@ namespace FxGqlLib
             
 			IProvider provider = FileProviderFactory.Get (fileOptions, stringComparer);
             
-			if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
-				char[] columnDelimiter;
-				if (fileOptions.ColumnDelimiter != null)
-					columnDelimiter = fileOptions.ColumnDelimiter.ToCharArray ();
-				else
-					columnDelimiter = null;
-				provider = new ColumnProviderTitleLine (provider, fileOptions.Heading == GqlEngineState.HeadingEnum.OnWithRule,
-                                                        columnDelimiter);
+			if (fileOptions.ColumnsRegex != null) {
+				provider = new ColumnProviderRegex (provider, fileOptions.ColumnsRegex, caseInsensitive);
 			} else if (fileOptions.ColumnDelimiter != null) {
 				provider = new ColumnProviderDelimiter (provider, fileOptions.ColumnDelimiter.ToCharArray ());
-			} else if (fileOptions.ColumnsRegex != null) {
-				provider = new ColumnProviderRegex (
-                    provider,
-                    fileOptions.ColumnsRegex,
-                    caseInsensitive
-				);
+			} else if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
+				provider = new ColumnProviderDelimiter (provider);
 			}
-            
+
+			if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
+				provider = new ColumnProviderTitleLine (provider, fileOptions.Heading);
+			}
+
 			return provider;
 		}
         
@@ -1704,7 +1698,7 @@ namespace FxGqlLib
 
 		internal static IExpression ConstructColumnExpression (IProvider provider, string column)
 		{
-			if (provider is ColumnProviderTitleLine || provider is ColumnProviderRegex || provider is ColumnProviderDelimiter) {
+			if (provider is ColumnProviderRegex || provider is ColumnProviderDelimiter || provider is ColumnProviderTitleLine) {
 				return new ColumnExpression<string> (provider, column);
 			} else {
 				int columnOrdinal = provider.GetColumnOrdinal (column);

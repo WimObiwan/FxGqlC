@@ -97,7 +97,6 @@
     <Compile Include="Commands\IGqlCommand.cs" />
     <Compile Include="Commands\UseCommand.cs" />
     <Compile Include="Providers\ColumnProviderRegex.cs" />
-    <Compile Include="Providers\ColumnProviderTitleLine.cs" />
     <Compile Include="Commands\DeclareCommand.cs" />
     <Compile Include="Commands\SetVariableCommand.cs" />
     <Compile Include="Commands\Variable.cs" />
@@ -108,6 +107,7 @@
     <Compile Include="Parser\AntlrTreeChildEnumerable.cs" />
     <Compile Include="Providers\ColumnProvider.cs" />
     <Compile Include="Providers\ColumnProviderDelimiter.cs" />
+    <Compile Include="Providers\ColumnProviderTitleLine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

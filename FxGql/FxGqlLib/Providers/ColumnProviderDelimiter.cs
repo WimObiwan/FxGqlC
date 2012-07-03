@@ -13,6 +13,11 @@ namespace FxGqlLib
 		protected string[] columnNameList;
 		protected string firstLine;
 		
+		public ColumnProviderDelimiter (IProvider provider)
+			: this(provider, null, -1)
+		{
+		}
+
 		public ColumnProviderDelimiter (IProvider provider, char[] separators)
 			: this(provider, separators, -1)
 		{

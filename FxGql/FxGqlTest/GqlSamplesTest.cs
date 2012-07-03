@@ -394,7 +394,7 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engine.Execute (command);
+						engine.Execute (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1027,6 +1027,16 @@ namespace FxGqlTest
 			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.{3}))|(?:(?<Column1>.*),(?<Column2>.{3}))'] where [Column2] = 'BRU'",
 			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
+			// ColumnProviderRegex with column headers
+			TestGql ("select 'Name' + '$' + 'Code' into ['test.txt' -overwrite -lineend=unix]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select '==========' + '$' + '===' into ['test.txt' -append -lineend=unix]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select [Column1] + '$' + [Column2] into ['test.txt' -append -lineend=unix] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.{3}))|(?:(?<Column1>.*),(?<Column2>.{3}))']",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile ("test.txt", "DD095E137DC942BE15B6856507D3E8AD76399E3B6EC13BA20BF3052895023ABF");
+			TestGql ("select * from ['test.txt' -heading=onwithrule -columns='^(.*)\\$(.*)$'] where [Code] = 'BRU'",
+			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
 
 			// Aggregation without group by
 			TestGql (@"SELECT count(1), min($line), max($line) from [SampleFiles/AirportCodes.csv]", 
@@ -1144,7 +1154,7 @@ namespace FxGqlTest
 //				"
 //			);
 
-			// TODO: ColumnProviderRegex with column headers
+			TestGql ("select $fullfilename, * from ['SampleFiles/*.csv']");
 
 
 			return failed == 0;
