@@ -394,7 +394,7 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engine.Execute (command);
+					engine.Execute (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1005,16 +1005,28 @@ namespace FxGqlTest
 				@"
 				SELECT [f], [tl] FROM (SELECT $filename [f], $totallineno [tl], $lineno [l] FROM ['SampleFiles\*' -recurse]) WHERE [l] = 1
 				", "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
-			TestGql ("select * into [test.txt] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(.*)\",(.{3}))|(?:(.*),(.{3}))']",
+			TestGql ("select * into [test.txt] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.{3}))|(?:(?<Column1>.*),(?<Column2>.{3}))']",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestFile ("test.txt", "CB25B5B8F0A0FAC08419D253DB2B48F4B84546ECCA734BC70FA2B67280EDDC6E");
+			TestFile ("test.txt", "408B2F3D4DA0AC76D6D836F7D93980754EB72D4BCD9C7704C7F8287E28CC029D");
 			TestGql ("select * from [test.txt] where contains($line, 'Brussels') and contains($line, 'National')",
-			         "AD6FA84BFABBE32EE421A29E1BAF88DBD91A7A47B6F84AE7D8BC36AFAB8D3BAA");
+			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
 			TestGql ("select * from ['test.txt' -columndelimiter='\t'] where [Column2] = 'BRU'",
-			         "AD6FA84BFABBE32EE421A29E1BAF88DBD91A7A47B6F84AE7D8BC36AFAB8D3BAA");
+			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
 			TestGql ("select * from ['test.txt' -columndelimiter='\\t'] where [Column2] = 'BRU'",
-			         "AD6FA84BFABBE32EE421A29E1BAF88DBD91A7A47B6F84AE7D8BC36AFAB8D3BAA");
+			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
 			File.Delete ("test.txt");
+			// ColumnProviderTitleLine with -columndelimiter
+			TestGql ("select 'Name', 'Code' into ['test.txt' -overwrite -lineend=unix]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select '==========', '===' into ['test.txt' -append -lineend=unix]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select * into ['test.txt' -append -lineend=unix] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(.*)\",(.{3}))|(?:(.*),(.{3}))']",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile ("test.txt", "1AB4DD15D1463AC548F2B67EB32D976884613082836F731BE1EE24C6DE49594D");
+			TestGql ("select * from ['test.txt' -heading=onwithrule] where [Code] = 'BRU'",
+			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
+			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.{3}))|(?:(?<Column1>.*),(?<Column2>.{3}))'] where [Column2] = 'BRU'",
+			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
 
 			// Aggregation without group by
 			TestGql (@"SELECT count(1), min($line), max($line) from [SampleFiles/AirportCodes.csv]", 
@@ -1133,16 +1145,6 @@ namespace FxGqlTest
 //			);
 
 			// TODO: ColumnProviderRegex with column headers
-
-			// TODO: ColumnProviderTitleLine with -columndelimiter
-//			TestGql ("select 'Name', 'Code' into ['test.txt' -overwrite -lineend=unix]",
-//			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-//			TestGql ("select '==========', '===' into ['test.txt' -append -lineend=unix]",
-//			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-//			TestGql ("select * into ['test.txt' -append -lineend=unix] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(.*)\",(.{3}))|(?:(.*),(.{3}))']",
-//			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-//			TestFile ("test.txt", "03E0F58F1128CCCB2BF0EF8040F349BEE6D2C6B554C006832C1E7647F91B5B7A");
-//			TestGql ("select * from ['test.txt' -heading=onwithrule] where [Code] = 'BRU'");
 
 
 			return failed == 0;

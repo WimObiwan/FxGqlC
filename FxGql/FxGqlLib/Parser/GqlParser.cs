@@ -1137,8 +1137,13 @@ namespace FxGqlLib
 			IProvider provider = FileProviderFactory.Get (fileOptions, stringComparer);
             
 			if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
+				char[] columnDelimiter;
+				if (fileOptions.ColumnDelimiter != null)
+					columnDelimiter = fileOptions.ColumnDelimiter.ToCharArray ();
+				else
+					columnDelimiter = null;
 				provider = new ColumnProviderTitleLine (provider, fileOptions.Heading == GqlEngineState.HeadingEnum.OnWithRule,
-                                                        new char[] {'\t'});
+                                                        columnDelimiter);
 			} else if (fileOptions.ColumnDelimiter != null) {
 				provider = new ColumnProviderDelimiter (provider, fileOptions.ColumnDelimiter.ToCharArray ());
 			} else if (fileOptions.ColumnsRegex != null) {

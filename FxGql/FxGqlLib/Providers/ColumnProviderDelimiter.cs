@@ -21,7 +21,10 @@ namespace FxGqlLib
 		public ColumnProviderDelimiter (IProvider provider, char[] separators, int columnCount)
 		{
 			this.provider = provider;
-			this.separators = separators;
+			if (separators != null)
+				this.separators = separators;
+			else
+				this.separators = new char[] { '\t' };
 			this.columnCount = columnCount;
 		}
 
