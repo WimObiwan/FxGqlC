@@ -394,7 +394,7 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engine.Execute (command);
+						engine.Execute (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -784,9 +784,13 @@ namespace FxGqlTest
 			         "DA21BF0CC84D8B2487A43FA5A4FB018FA58A7A7A2B67A590F5B5C2DE8EC5C440");
 			TestGql ("select distinct substring([Date], 4, 7), [Winner] from ['Test.txt' -Heading=On] order by substring([Date], 4, 7) orig, [Winner]",
 			         "DA21BF0CC84D8B2487A43FA5A4FB018FA58A7A7A2B67A590F5B5C2DE8EC5C440");
+			TestGql ("select distinct substring([Date], 4, 7), [Winner] from ['Test.txt' -Heading=On] order by 1 orig, [Winner]",
+			         "DA21BF0CC84D8B2487A43FA5A4FB018FA58A7A7A2B67A590F5B5C2DE8EC5C440");
 			TestGql ("select distinct substring([Date], 4, 7), [Winner] from ['Test.txt' -Heading=On] where [Round] = 'The final' order by substring([Date], 4, 7), [Winner]",
 			         "BD5D897A839E547E6D974FE7AAFF8F09C438F5FBE89FAEE5F3ED531BB74B2234");
 			TestGql ("select distinct substring([Date], 4, 7), [Winner] from ['Test.txt' -Heading=On] where [Round] = 'The final' order by substring([Date], 4, 7) orig, [Winner]",
+			         "BD5D897A839E547E6D974FE7AAFF8F09C438F5FBE89FAEE5F3ED531BB74B2234");
+			TestGql ("select distinct substring([Date], 4, 7), [Winner] from ['Test.txt' -Heading=On] where [Round] = 'The final' order by 1 orig, [Winner]",
 			         "BD5D897A839E547E6D974FE7AAFF8F09C438F5FBE89FAEE5F3ED531BB74B2234");
             
 			//TestFile("zippedfile.zip", "8F7422A7F2189623D9DB98FB6C583F276806891545AF3BD92530B98098AA6C0A");
@@ -1169,17 +1173,10 @@ namespace FxGqlTest
 			//TestGql ("select [Date], [Tournament], [Round], [Winner], LAG([Tournament], 1, 0) OVER (PARTITION [Winner]) from ['Test.txt' -Heading=On] where [Tournament] = 'US Open'");
 			//TestGql ("select substring([Date], 4, 7), min([Tournament]), max([Tournament]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by substring([Date], 4, 7) orig");
 
-//			TestGql ("select [Tournament], min([Date]), max([Date]), count(*) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Tournament]'",
-//			         "BC48203F39F70B935BF8E87ECA7F597967D0F8541A50C0856F42B4579ABE79E0");
-//
-//			TestGql ("select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"')",
-//			         "9F7AB835C218FD8C696470805224AEB3570F929AE1179B3D69D50099649BFEBF");
-//
-//			TestGql ("select substring([Date], 4, 7), [Winner], [Round] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] order by substring([Date], 4, 7), [Winner]",
-//			         "E239ADBE8712935A48DC9ED7B27DDB9B24C1E5AA861B037C9030964CF7050E0E");
-
-			TestGql (@"select * from (select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]) where $lineno > 0",
-                "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+			TestGql ("select distinct substring([Date], 4, 7), [Winner] from ['Test.txt' -Heading=On] order by 1 orig, [Winner]",
+			         "DA21BF0CC84D8B2487A43FA5A4FB018FA58A7A7A2B67A590F5B5C2DE8EC5C440");
+//			TestGql ("select distinct substring([Date], 4, 7), [Winner] from ['Test.txt' -Heading=On] where [Round] = 'The final' order by 1 orig, [Winner]",
+//			         "BD5D897A839E547E6D974FE7AAFF8F09C438F5FBE89FAEE5F3ED531BB74B2234");
 
 			return failed == 0;
 		}

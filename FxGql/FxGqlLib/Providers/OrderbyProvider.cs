@@ -41,7 +41,6 @@ namespace FxGqlLib
 		ProviderRecord record = new ProviderRecord ();
 		GqlQueryState gqlQueryState;
 		GqlQueryState newGqlQueryState;
-		int[] fixedColumns;
 		ColumnsComparer<Key > columnsComparer;
 		ColumnsComparer<ColumnsComparerKey > origColumnsComparer;
 		bool moreData;
@@ -187,7 +186,6 @@ namespace FxGqlLib
 			data = null;
 			gqlQueryState = null;
 			newGqlQueryState = null;
-			fixedColumns = null;
 			columnsComparer = null;
 			origColumnsComparer = null;
 		}
@@ -241,7 +239,13 @@ namespace FxGqlLib
 
 				if (origOrderByColumns != null) {
 					for (int i = 0; i < origOrderByColumns.Count; i++) {
-						currentOrigColumns [i] = origOrderByColumns [i].Expression.EvaluateAsComparable (newGqlQueryState);
+						if (origColumnsComparer.FixedColumns [i] >= 0) {
+							if (origColumnsComparer.FixedColumns [i] >= provider.Record.Columns.Length)
+								throw new Exception (string.Format ("Order by ordinal {0} is not allowed because only {1} columns are available", origColumnsComparer.FixedColumns [i] + 1, provider.Record.Columns.Length));
+							currentOrigColumns [i] = provider.Record.Columns [origColumnsComparer.FixedColumns [i]];
+						} else {
+							currentOrigColumns [i] = origOrderByColumns [i].Expression.EvaluateAsComparable (newGqlQueryState);
+						}
 					}
 
 					if (lastOrigColumns == null) {
@@ -262,10 +266,10 @@ namespace FxGqlLib
 				key.Source = provider.Record.Source;
 				key.Columns = (IComparable[])provider.Record.Columns.Clone ();
 				for (int i = 0; i < orderbyColumns.Count; i++) {
-					if (fixedColumns [i] >= 0) {
-						if (fixedColumns [i] >= provider.Record.Columns.Length)
-							throw new Exception (string.Format ("Order by ordinal {0} is not allowed because only {1} columns are available", fixedColumns [i] + 1, provider.Record.Columns.Length));
-						key.Members [i] = provider.Record.Columns [fixedColumns [i]];
+					if (columnsComparer.FixedColumns [i] >= 0) {
+						if (columnsComparer.FixedColumns [i] >= provider.Record.Columns.Length)
+							throw new Exception (string.Format ("Order by ordinal {0} is not allowed because only {1} columns are available", columnsComparer.FixedColumns [i] + 1, provider.Record.Columns.Length));
+						key.Members [i] = provider.Record.Columns [columnsComparer.FixedColumns [i]];
 					} else {
 						key.Members [i] = orderbyColumns [i].Expression.EvaluateAsComparable (newGqlQueryState);
 					}
@@ -285,7 +289,7 @@ namespace FxGqlLib
 				descArray [i] = (orderbyColumns [i].Order == OrderEnum.DESC);
 			}
 			
-			fixedColumns = new int[orderbyColumns.Count];
+			int[] fixedColumns = new int[orderbyColumns.Count];
 			Type[] types = new Type[orderbyColumns.Count];
 			for (int i = 0; i < orderbyColumns.Count; i++) {
 				if (orderbyColumns [i].Expression is ConstExpression<long>) {
@@ -299,7 +303,7 @@ namespace FxGqlLib
 				}
 			}
 				
-			return new ColumnsComparer<T> (types, descArray, stringComparer);
+			return new ColumnsComparer<T> (types, descArray, fixedColumns, stringComparer);
 		}
 	}
 }
