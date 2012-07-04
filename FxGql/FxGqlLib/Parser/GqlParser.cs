@@ -144,11 +144,19 @@ namespace FxGqlLib
 			case "T_SET_VARIABLE":
 				return new SetVariableCommand (ParseCommandSetVariable (tree));
 			case "T_CREATE_VIEW":
-				var createView = ParseCommandCreateView (tree);
-				string view = createView.Item1;
-				IProvider provider = createView.Item2;
-				views.Add (view, provider);
-				return new CreateViewCommand (view, provider);
+				{
+					var createView = ParseCommandCreateView (tree);
+					string view = createView.Item1;
+					IProvider provider = createView.Item2;
+					views.Add (view, provider);
+					return new CreateViewCommand (view, provider);
+				}
+			case "T_DROP_VIEW":
+				{
+					string view = ParseCommandDropView (tree);
+					views.Remove (view);
+					return new DropViewCommand (view);
+				}
 			default:
 				throw new UnexpectedTokenAntlrException (tree);
 			}
@@ -1960,6 +1968,18 @@ namespace FxGqlLib
 			IProvider provider = ParseCommandSelect (enumerator.Current);
 
 			return Tuple.Create (name, provider);
+		}
+
+		string ParseCommandDropView (ITree tree)
+		{
+			AssertAntlrToken (tree, "T_DROP_VIEW", 1, 1);
+
+			var enumerator = new AntlrTreeChildEnumerable (tree).GetEnumerator ();
+			enumerator.MoveNext ();
+
+			ITree viewNameTree = enumerator.Current;
+			AssertAntlrToken (viewNameTree, "T_VIEW_NAME", 1, 1);
+			return viewNameTree.GetChild (0).Text;
 		}
 	}
 }

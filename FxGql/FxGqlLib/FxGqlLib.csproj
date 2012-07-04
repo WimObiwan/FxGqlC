@@ -109,6 +109,7 @@
     <Compile Include="Providers\ColumnProviderTitleLine.cs" />
     <Compile Include="Commands\DummyCommand.cs" />
     <Compile Include="Commands\CreateViewCommand.cs" />
+    <Compile Include="Commands\DropViewCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

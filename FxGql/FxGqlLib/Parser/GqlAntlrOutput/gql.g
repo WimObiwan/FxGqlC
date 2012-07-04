@@ -74,6 +74,7 @@ tokens
 	T_VIEW_NAME;
 	T_ORDERBY_ORIG;
 	T_GROUPBY_ORIG;
+	T_DROP_VIEW;
 }
 
 @parser::namespace { FxGqlLib }
@@ -110,6 +111,7 @@ command
 	| declare_command
 	| set_command
 	| create_view_command
+	| drop_view_command
 	;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -241,6 +243,11 @@ create_view_command
 	-> ^(T_CREATE_VIEW view_name declaration_list? select_command)
 	;
 	
+drop_view_command
+	: DROP WS VIEW WS view_name
+	-> ^(T_DROP_VIEW view_name)
+	;
+
 view_name
 	: TOKEN -> ^(T_VIEW_NAME TOKEN)
 	;
@@ -469,6 +476,7 @@ DECLARE	: D E C L A R E;
 SET     : S E T;
 CREATE	: C R E A T E;
 VIEW	: V I E W;
+DROP	: D R O P;
 
 TOKEN
 	: ('A'..'Z' | 'a'..'z' | '_') ('A'..'Z' | 'a'..'z' | '_' | '0'..'9')*

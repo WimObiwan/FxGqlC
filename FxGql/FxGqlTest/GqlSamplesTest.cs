@@ -1159,12 +1159,25 @@ namespace FxGqlTest
 				", "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
 
 			// Views
-			TestGql ("CREATE VIEW MyView1 AS SELECT 17, '<this is a test>'; SELECT * FROM MyView1",
+			TestGql ("SELECT * FROM MyView", typeof(ParserException));
+			TestGql ("CREATE VIEW MyView AS SELECT 17, '<this is a test>'; SELECT * FROM MyView",
                 "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
-			TestGql ("CREATE VIEW MyView2 AS SELECT 17, '<this is a test>'",
+			TestGql ("SELECT * FROM MyView",
+                "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
+			TestGql ("DROP VIEW MyView",
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestGql ("SELECT * FROM MyView2",
+			TestGql ("SELECT * FROM MyView", typeof(ParserException));
+			TestGql ("CREATE VIEW MyView AS SELECT 17, '<this is a test>'",
+                "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("SELECT * FROM MyView",
                 "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
+			TestGql ("DROP VIEW MyView",
+                "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("CREATE VIEW MyView AS SELECT 17, '<this is a test>'; SELECT * FROM MyView; DROP VIEW MyView",
+                "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
+			TestGql ("SELECT * FROM MyView", typeof(ParserException));
+			TestGql ("CREATE VIEW MyView AS SELECT 17, '<this is a test>'; SELECT * FROM MyView; DROP VIEW MyView; SELECT * FROM MyView",
+                typeof(ParserException));
 
 			// Use command
 			TestGql ("use [SampleFiles]; select * from ['AirportCodes.csv']",
