@@ -25,6 +25,7 @@ namespace FxGqlLib
     
 	class GqlParser
 	{
+		readonly GqlEngineState gqlEngineState;
 		readonly string command;
 		//readonly CultureInfo cultureInfo;
 		readonly bool caseInsensitive;
@@ -34,13 +35,14 @@ namespace FxGqlLib
 		Dictionary<string, Type> variableTypes = new Dictionary<string, Type> ();
 		Dictionary<string, IProvider> views = new Dictionary<string, IProvider> ();
         
-		public GqlParser (string command)
-            : this(command, CultureInfo.InvariantCulture, true)
+		public GqlParser (GqlEngineState gqlEngineState, string command)
+            : this(gqlEngineState, command, CultureInfo.InvariantCulture, true)
 		{
 		}
         
-		public GqlParser (string command, CultureInfo cultureInfo, bool caseInsensitive)
+		public GqlParser (GqlEngineState gqlEngineState, string command, CultureInfo cultureInfo, bool caseInsensitive)
 		{
+			this.gqlEngineState = gqlEngineState;
 			this.command = command;
 			//this.cultureInfo = cultureInfo;
 			this.caseInsensitive = caseInsensitive;
@@ -146,7 +148,7 @@ namespace FxGqlLib
 				string view = createView.Item1;
 				IProvider provider = createView.Item2;
 				views.Add (view, provider);
-				return new DummyCommand ();
+				return new CreateViewCommand (view, provider);
 			default:
 				throw new UnexpectedTokenAntlrException (tree);
 			}
@@ -1185,8 +1187,11 @@ namespace FxGqlLib
 
 			string viewName = tree.GetChild (0).Text;
 			IProvider provider;
-			if (!views.TryGetValue (viewName, out provider))
-				throw new ParserException (string.Format ("View '{0}' is not declared", viewName), tree);
+			if (!views.TryGetValue (viewName, out provider)) {
+				if (!gqlEngineState.Views.TryGetValue (viewName, out provider)) {
+					throw new ParserException (string.Format ("View '{0}' is not declared", viewName), tree);
+				}
+			}
 
 			return provider;
 		}

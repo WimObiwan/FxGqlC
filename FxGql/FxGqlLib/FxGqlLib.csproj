@@ -102,12 +102,13 @@
     <Compile Include="Commands\Variable.cs" />
     <Compile Include="Expressions\VariableExpression.cs" />
     <Compile Include="Expressions\SubqueryExpression.cs" />
-    <Compile Include="Commands\CreateViewCommand.cs" />
     <Compile Include="Exceptions\ParserException.cs" />
     <Compile Include="Parser\AntlrTreeChildEnumerable.cs" />
     <Compile Include="Providers\ColumnProvider.cs" />
     <Compile Include="Providers\ColumnProviderDelimiter.cs" />
     <Compile Include="Providers\ColumnProviderTitleLine.cs" />
+    <Compile Include="Commands\DummyCommand.cs" />
+    <Compile Include="Commands\CreateViewCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

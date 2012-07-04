@@ -1159,7 +1159,11 @@ namespace FxGqlTest
 				", "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
 
 			// Views
-			TestGql ("CREATE VIEW MyView AS SELECT 17, '<this is a test>'; SELECT * FROM MyView",
+			TestGql ("CREATE VIEW MyView1 AS SELECT 17, '<this is a test>'; SELECT * FROM MyView1",
+                "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
+			TestGql ("CREATE VIEW MyView2 AS SELECT 17, '<this is a test>'",
+                "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("SELECT * FROM MyView2",
                 "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
 
 			// Use command
@@ -1203,8 +1207,22 @@ namespace FxGqlTest
 
 			//TestGql ("select [Date], [Tournament], [Round], [Winner] into ['Test.txt' -Heading=On -Overwrite] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]");
 			//TestGql ("select [Date], [Tournament], [Round], [Winner], LAG([Tournament], 1, 0) OVER (PARTITION [Winner]) from ['Test.txt' -Heading=On] where [Tournament] = 'US Open'");
-			//TestGql ("select substring([Date], 4, 7), min([Tournament]), max([Tournament]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by substring([Date], 4, 7) orig");
 
+			//TestGql ("select [Tournament], [Winner], Previous([Tournament]) OVER (PARTITION BY [Winner]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'");
+
+			//TestGql ("select [Tournament], [Round], [Loser] [Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On], (select [Tournament], 'Winner' [Round], [Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final')");
+
+//			TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
+//			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+//			TestGql ("select [Tournament], 'Tournament', [Winner] [Player] into ['test.txt' -append] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
+//			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+//			TestGql ("select * from ['Test.txt' -Heading=On] where [Player] match 'Federer' order by 1",
+//			         "AC29080353E4D44E11FB6A7B887CA29C62E4065CA1153FBCD0B726ECFE06EB88");
+//			TestGql ("select * from ['Test.txt' -Heading=On] where ([Player] match 'Federer') and ([Round] in ('Tournament', 'The final', 'Semifinals')) order by 1",
+//			         "AB1F81635A44CE26781CB50D9CB9D8D0E6D8B12BA4CB33F1B85799E80CEA44F6");
+//			TestGql ("select [Tournament], [Tournament], [The final], [Semifinals] from ['Test.txt' -Heading=On] pivot (first([Player]) for [Round] in ('Tournament', 'The final', 'Semifinals'))");
+//			         "33113552334D66A4079155E9DB9A4E1B32A80AE080F7D9EAC5EE023B5E1CB586");
+			//TestGql ("select [Tournament], [Round], [Player] from ['Test.txt' -Heading=On]");
 
 			return failed == 0;
 		}
