@@ -7,9 +7,10 @@ using System.Collections.Generic;
 
 namespace FxGqlTest
 {
-	public class GqlSamplesTest
+	public class GqlSamplesTest : IDisposable
 	{
 		//static string samplesPath = Path.Combine (Environment.CurrentDirectory, @"../../SampleFiles");
+		TextWriter textWriter;
 		int succeeded = 0;
 		int failed = 0;
 		int unknown = 0;
@@ -19,6 +20,7 @@ namespace FxGqlTest
 
 		public GqlSamplesTest ()
 		{
+			textWriter = new StreamWriter ("TestSummary.gql");
 		}
         
 		static string[] BATHS = {
@@ -394,6 +396,7 @@ namespace FxGqlTest
 					try {
 #endif
 						engineHash.Execute (command);
+						textWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1242,7 +1245,13 @@ namespace FxGqlTest
 			//TestGql ("select [Tournament], [Round], [Player] from ['Test.txt' -Heading=On]");
 
 			return failed == 0;
-		}
+		}		
 
+		#region IDisposable implementation
+		public void Dispose ()
+		{
+			textWriter.Dispose ();
+		}
+		#endregion
 	}
 }

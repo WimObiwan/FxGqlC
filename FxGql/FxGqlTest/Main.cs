@@ -6,26 +6,27 @@ namespace FxGqlTest
 	{
 		public static int Main (string[] args)
 		{
-			GqlSamplesTest gqlSamplesTest = new GqlSamplesTest ();
+			using (GqlSamplesTest gqlSamplesTest = new GqlSamplesTest ()) {
 
-			bool result = true;
+				bool result = true;
 #if DEBUG
 			result = gqlSamplesTest.RunDevelop ();
 			//result = gqlSamplesTest.Run ();
 #else
-			result = gqlSamplesTest.Run ();
+				result = gqlSamplesTest.Run ();
 #endif
-			var oldColor = Console.ForegroundColor;
-			if (result) {
-				Console.ForegroundColor = ConsoleColor.DarkGreen;
-				Console.WriteLine ("***** SUCCEEDED *****");
-			} else {
-				Console.ForegroundColor = ConsoleColor.DarkRed;
-				Console.WriteLine ("***** FAILED *****");
-			}
-			Console.ForegroundColor = oldColor;
+				var oldColor = Console.ForegroundColor;
+				if (result) {
+					Console.ForegroundColor = ConsoleColor.DarkGreen;
+					Console.WriteLine ("***** SUCCEEDED *****");
+				} else {
+					Console.ForegroundColor = ConsoleColor.DarkRed;
+					Console.WriteLine ("***** FAILED *****");
+				}
+				Console.ForegroundColor = oldColor;
 
-			return result ? 0 : 1;
+				return result ? 0 : 1;
+			}
 		}
 	}
 }
