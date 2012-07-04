@@ -25,7 +25,7 @@ namespace FxGqlLib
 					comparers [i] = stringComparer;
 				else {
 					Type comparerType = typeof(Comparer<>).MakeGenericType (types [i]);
-					object obj = comparerType.GetProperty("Default").GetValue(null, null);
+					object obj = comparerType.GetProperty ("Default").GetValue (null, null);
 					//Comparer comparer = obj as Comparer;
 					//Comparer comparer = Activator.CreateInstance (comparerType) as Comparer;
 					comparers [i] = obj as IComparer;
@@ -39,7 +39,7 @@ namespace FxGqlLib
 			for (int i = 0; i < comparers.Length; i++) {
 				int result = comparers [i].Compare (x.Members [i], y.Members [i]);
 				if (result != 0)
-					return descending[i] ? -result : result;
+					return descending [i] ? -result : result;
 			}
 			return 0;
 		}
@@ -48,19 +48,18 @@ namespace FxGqlLib
 		#region IEqualityComparer[K] implementation
 		public bool Equals (K x, K y)
 		{
-			return Compare(x, y) == 0;
+			return Compare (x, y) == 0;
 		}
 		
-	    public int GetHashCode(K x)
-	    {
-	        int hash = x.Members.Length;
-            foreach (var t in x.Members)
-            {
-                hash *= 17;
-                hash = hash + t.GetHashCode();
-            }
-	        return hash;
-	    }
+		public int GetHashCode (K x)
+		{
+			int hash = x.Members.Length;
+			foreach (var t in x.Members) {
+				hash *= 17;
+				hash = hash + t.GetHashCode ();
+			}
+			return hash;
+		}
 		#endregion
 	}
 			
@@ -68,7 +67,16 @@ namespace FxGqlLib
 	{
 		public IComparable[] Members { get; set; }
 			
-			#region IComparable[Key] implementation
+		public ColumnsComparerKey ()
+		{
+		}
+
+		public ColumnsComparerKey (IComparable[] members)
+		{
+			Members = members;
+		}
+
+		#region IComparable[Key] implementation
 		public int CompareTo (ColumnsComparerKey other)
 		{
 			for (int i = 0; i < Members.Length; i++) {
@@ -79,6 +87,6 @@ namespace FxGqlLib
 				
 			return 0;
 		}
-			#endregion
+		#endregion
 	}
 }

@@ -408,13 +408,19 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (groupbyTree, "T_GROUPBY", 1, 1);
         
-			return ParseExpressionList (provider, groupbyTree.GetChild (0));
+			var columns = ParseOrderbyList (provider, groupbyTree);
+			return columns.Select (p => p.Expression).ToList ();
 		}
         
 		IList<OrderbyProvider.Column> ParseOrderbyClause (IProvider provider, ITree orderbyTree)
 		{
 			AssertAntlrToken (orderbyTree, "T_ORDERBY");
                         
+			return ParseOrderbyList (provider, orderbyTree);
+		}
+        
+		IList<OrderbyProvider.Column> ParseOrderbyList (IProvider provider, ITree orderbyTree)
+		{
 			List<OrderbyProvider.Column > orderbyColumns = new List<OrderbyProvider.Column> ();
 			foreach (ITree orderbyColumnTree in new AntlrTreeChildEnumerable(orderbyTree)) {
 				orderbyColumns.Add (ParseOrderbyColumn (provider, orderbyColumnTree));
@@ -422,7 +428,7 @@ namespace FxGqlLib
             
 			return orderbyColumns;
 		}
-        
+
 		OrderbyProvider.Column ParseOrderbyColumn (IProvider provider, ITree orderbyColumnTree)
 		{
 			AssertAntlrToken (orderbyColumnTree, "T_ORDERBY_COLUMN", 1, 2);
@@ -441,8 +447,11 @@ namespace FxGqlLib
 				case "T_ORDERBY_DESC":
 					orderbyColumn.Order = OrderbyProvider.OrderEnum.DESC;
 					break;
+				case "T_ORDERBY_ORIG":
+					orderbyColumn.Order = OrderbyProvider.OrderEnum.ORIG;
+					break;
 				default:
-					throw new ParserException ("Expected ASC or DESC as ORDER BY column order",
+					throw new ParserException ("Expected ASC, DESC or ORIG as ORDER BY column order",
                                               orderbyColumnTree.GetChild (1));
 				}
 			} else {

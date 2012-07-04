@@ -56,6 +56,7 @@ namespace FxGqlLib
 			record = new ProviderRecord ();
 			record.ColumnTitles = columnNameList;
 			record.Columns = new string[columnNameList.Length];
+			record.OriginalColumns = record.Columns;
 		}
 
 		public bool GetNextRecord ()

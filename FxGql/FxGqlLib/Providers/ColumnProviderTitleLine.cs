@@ -53,7 +53,12 @@ namespace FxGqlLib
 
 		public bool GetNextRecord ()
 		{
-			return provider.GetNextRecord ();
+			if (provider.GetNextRecord ()) {
+				Record.OriginalColumns = Record.Columns;
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		public void Uninitialize ()

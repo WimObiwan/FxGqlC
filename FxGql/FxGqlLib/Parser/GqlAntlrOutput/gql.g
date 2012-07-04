@@ -72,6 +72,8 @@ tokens
 	T_VARIABLE;
 	T_CREATE_VIEW;
 	T_VIEW_NAME;
+	T_ORDERBY_ORIG;
+	T_GROUPBY_ORIG;
 }
 
 @parser::namespace { FxGqlLib }
@@ -183,8 +185,8 @@ where_clause
 	-> ^(T_WHERE expression)
 	;
 groupby_clause
-	: GROUP WS BY WS expression_list
-	-> ^(T_GROUPBY expression_list)
+	: GROUP WS BY WS orderby_column_list
+	-> ^(T_GROUPBY orderby_column_list)
 	;
 	
 orderby_clause
@@ -204,6 +206,7 @@ orderby_column
 orderby_direction
 	: ASC -> T_ORDERBY_ASC
 	| DESC -> T_ORDERBY_DESC
+	| ORIG -> T_ORDERBY_ORIG
 	;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -447,6 +450,7 @@ ORDER	: O R D E R;
 BY	: B Y;
 ASC	: A S C;
 DESC	: D E S C;
+ORIG	: O R I G;
 CONVERT : C O N V E R T;
 CAST 	: C A S T;
 AS      : A S;
