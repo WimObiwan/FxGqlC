@@ -214,7 +214,7 @@ namespace FxGqlLib
 				outputColumns = ParseColumnList (fromProvider, columnListEnumerator);
 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY") {
-					IList<IExpression> groupbyColumns = ParseGroupbyClause (
+					IList<OrderbyProvider.Column> groupbyColumns = ParseGroupbyClause (
                         fromProvider,
                         enumerator.Current
 					);
@@ -222,7 +222,8 @@ namespace FxGqlLib
                     
 					provider = new GroupbyProvider (
                         provider,
-                        groupbyColumns,
+                        groupbyColumns.Where (p => p.Order == OrderbyProvider.OrderEnum.ORIG).Select (p => p.Expression).ToList (),
+                        groupbyColumns.Where (p => p.Order != OrderbyProvider.OrderEnum.ORIG).Select (p => p.Expression).ToList (),
                         outputColumns,
                         stringComparer
 					);
@@ -404,17 +405,16 @@ namespace FxGqlLib
 			return (Expression<bool>)expression;
 		}
         
-		IList<IExpression> ParseGroupbyClause (IProvider provider, ITree groupbyTree)
+		IList<OrderbyProvider.Column> ParseGroupbyClause (IProvider provider, ITree groupbyTree)
 		{
-			AssertAntlrToken (groupbyTree, "T_GROUPBY", 1, 1);
+			AssertAntlrToken (groupbyTree, "T_GROUPBY", 1, -1);
         
-			var columns = ParseOrderbyList (provider, groupbyTree);
-			return columns.Select (p => p.Expression).ToList ();
+			return ParseOrderbyList (provider, groupbyTree);
 		}
         
 		IList<OrderbyProvider.Column> ParseOrderbyClause (IProvider provider, ITree orderbyTree)
 		{
-			AssertAntlrToken (orderbyTree, "T_ORDERBY");
+			AssertAntlrToken (orderbyTree, "T_ORDERBY", 1, -1);
                         
 			return ParseOrderbyList (provider, orderbyTree);
 		}
@@ -422,8 +422,19 @@ namespace FxGqlLib
 		IList<OrderbyProvider.Column> ParseOrderbyList (IProvider provider, ITree orderbyTree)
 		{
 			List<OrderbyProvider.Column > orderbyColumns = new List<OrderbyProvider.Column> ();
+
+			bool nonOrig = false;
 			foreach (ITree orderbyColumnTree in new AntlrTreeChildEnumerable(orderbyTree)) {
-				orderbyColumns.Add (ParseOrderbyColumn (provider, orderbyColumnTree));
+				OrderbyProvider.Column column = ParseOrderbyColumn (provider, orderbyColumnTree);
+
+				if (column.Order == OrderbyProvider.OrderEnum.ORIG) {
+					if (nonOrig)
+						throw new ParserException ("ORIG order/group by column order specifications must precede any other order specifications", orderbyColumnTree);
+				} else {
+					nonOrig = true;
+				}
+
+				orderbyColumns.Add (column);
 			}
             
 			return orderbyColumns;

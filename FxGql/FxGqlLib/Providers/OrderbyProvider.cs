@@ -254,6 +254,7 @@ namespace FxGqlLib
 					} else {
 						if (origColumnsComparer.Compare (new ColumnsComparerKey (lastOrigColumns), new ColumnsComparerKey (currentOrigColumns)) != 0) {
 							lastOrigColumns = null;
+							newGqlQueryState.TotalLineNumber--;
 							break;
 						}
 					}

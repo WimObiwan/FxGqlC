@@ -16,6 +16,11 @@ namespace FxGqlLib
 		{
 		}
 		
+		public ColumnsComparer (Type[] types, int[] fixedColumns, StringComparer stringComparer)
+			: this(types, new bool[types.Length], fixedColumns, stringComparer)
+		{
+		}
+		
 		public ColumnsComparer (Type[] types, bool[] descending, int[] fixedColumns, StringComparer stringComparer)
 		{
 			comparers = new IComparer[types.Length];

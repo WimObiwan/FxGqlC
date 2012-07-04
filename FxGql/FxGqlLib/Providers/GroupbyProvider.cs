@@ -7,6 +7,7 @@ namespace FxGqlLib
 	public class GroupbyProvider : IProvider
 	{
 		IProvider provider;
+		IList<IExpression> origGroupbyColumns;
 		IList<IExpression> groupbyColumns;
 		string[] columnNameList;
 		IExpression[] outputColumns;
@@ -16,6 +17,9 @@ namespace FxGqlLib
 		IEnumerator<KeyValuePair<ColumnsComparerKey, AggregationState>> enumerator;
 		ProviderRecord record;
 		GqlQueryState gqlQueryState;
+		GqlQueryState newGqlQueryState;
+		ColumnsComparer<ColumnsComparerKey> origColumnsComparer;
+		bool moreData;
 
 		static IList<IExpression> GeneralGroupbyExpressionList { get; set; }
 
@@ -93,23 +97,20 @@ namespace FxGqlLib
 		}
 
 		public GroupbyProvider (IProvider provider, IList<Column> outputColumns, StringComparer stringComparer)
-			: this (provider, GeneralGroupbyExpressionList, outputColumns, stringComparer)
+			: this (provider, null, GeneralGroupbyExpressionList, outputColumns, stringComparer)
 		{
 		}
 
-		public GroupbyProvider (IProvider provider, IList<IExpression> groupbyColumns, IList<Column> outputColumns, StringComparer stringComparer)
+		public GroupbyProvider (IProvider provider, IList<IExpression> origGroupbyColumns, IList<IExpression> groupbyColumns, IList<Column> outputColumns, StringComparer stringComparer)
 		{
 			this.provider = provider;
-			this.groupbyColumns = groupbyColumns;
+			if (origGroupbyColumns != null && origGroupbyColumns.Count > 0) 
+				this.origGroupbyColumns = ConvertColumnOrdinals (origGroupbyColumns, outputColumns);
+			else
+				this.origGroupbyColumns = null;
+			this.groupbyColumns = ConvertColumnOrdinals (groupbyColumns, outputColumns);
 			this.stringComparer = stringComparer;
 
-			for (int i = 0; i < groupbyColumns.Count; i++) {
-				if (this.groupbyColumns [i] is ConstExpression<long>) {
-					long col = groupbyColumns [i].EvaluateAs<long> (null);
-					this.groupbyColumns [i] = outputColumns [i].Expression;
-				}
-			}
-			
 			this.columnNameList = outputColumns.Select (a => a.Name).ToArray ();
 			this.outputColumns = new IExpression[outputColumns.Count];
 			for (int col = 0; col < outputColumns.Count; col++) {
@@ -155,18 +156,37 @@ namespace FxGqlLib
 			record = new ProviderRecord ();
 			record.Source = "(aggregated)";
 			
+			newGqlQueryState = new GqlQueryState (this.gqlQueryState.CurrentExecutionState, this.gqlQueryState.Variables);
+			newGqlQueryState.TotalLineNumber = 0;
+			newGqlQueryState.UseOriginalColumns = true;
+			
+			ColumnsComparer<ColumnsComparerKey> columnsComparer = CreateComparer (groupbyColumns, stringComparer);
+			data = new Dictionary<ColumnsComparerKey, AggregationState> (columnsComparer);			
+			if (origGroupbyColumns != null)
+				origColumnsComparer = CreateComparer (origGroupbyColumns, stringComparer);
+			else
+				origColumnsComparer = null;
+
+			moreData = this.provider.GetNextRecord ();
 		}
 
 		public bool GetNextRecord ()
 		{
-			if (enumerator == null) {
-				RetrieveData ();
-				enumerator = data.GetEnumerator ();
+			if (enumerator != null) {
+				if (!enumerator.MoveNext ())
+					enumerator = null;
 			}
-			
-			if (!enumerator.MoveNext ())
-				return false;
-			
+
+			while (enumerator == null) {
+				if (!moreData)
+					return false;
+				RetrieveData ();
+
+				enumerator = data.GetEnumerator ();
+				if (!enumerator.MoveNext ())
+					enumerator = null;
+			}
+
 			currentRecord++;
 			record.LineNo = currentRecord;
 			record.Columns = new IComparable[outputColumns.Length];
@@ -186,6 +206,8 @@ namespace FxGqlLib
 			data = null;
 			record = null;
 			gqlQueryState = null;
+			newGqlQueryState = null;
+			origColumnsComparer = null;
 		}
 
 		public ProviderRecord Record {
@@ -206,25 +228,47 @@ namespace FxGqlLib
 
 		private void RetrieveData ()
 		{
-			GqlQueryState gqlQueryState = new GqlQueryState (this.gqlQueryState.CurrentExecutionState, this.gqlQueryState.Variables);
-			gqlQueryState.TotalLineNumber = 0;
-			gqlQueryState.UseOriginalColumns = true;
-			
-			Type[] types = new Type[groupbyColumns.Count];
-			for (int i = 0; i < groupbyColumns.Count; i++) {
-				types [i] = groupbyColumns [i].GetResultType ();
+			data.Clear ();
+
+			IComparable[] lastOrigColumns = null;
+			IComparable[] currentOrigColumns;
+			if (origGroupbyColumns != null) {
+				currentOrigColumns = new IComparable[origGroupbyColumns.Count];
+			} else {
+				currentOrigColumns = null;
 			}
 
-			ColumnsComparer<ColumnsComparerKey> columnsComparer = new ColumnsComparer<ColumnsComparerKey> (types, stringComparer);
-			data = new Dictionary<ColumnsComparerKey, AggregationState> (columnsComparer);
-			
-			while (provider.GetNextRecord()) {
-				gqlQueryState.TotalLineNumber++;
-				gqlQueryState.Record = provider.Record;
+			do {
+				newGqlQueryState.TotalLineNumber++;
+				newGqlQueryState.Record = provider.Record;
+
+				if (origGroupbyColumns != null) {
+					for (int i = 0; i < origGroupbyColumns.Count; i++) {
+						if (origColumnsComparer.FixedColumns [i] >= 0) {
+							if (origColumnsComparer.FixedColumns [i] >= provider.Record.Columns.Length)
+								throw new Exception (string.Format ("Order by ordinal {0} is not allowed because only {1} columns are available", origColumnsComparer.FixedColumns [i] + 1, provider.Record.Columns.Length));
+							currentOrigColumns [i] = provider.Record.Columns [origColumnsComparer.FixedColumns [i]];
+						} else {
+							currentOrigColumns [i] = origGroupbyColumns [i].EvaluateAsComparable (newGqlQueryState);
+						}
+					}
+
+					if (lastOrigColumns == null) {
+						lastOrigColumns = new IComparable[origGroupbyColumns.Count];
+						currentOrigColumns.CopyTo (lastOrigColumns, 0);
+					} else {
+						if (origColumnsComparer.Compare (new ColumnsComparerKey (lastOrigColumns), new ColumnsComparerKey (currentOrigColumns)) != 0) {
+							lastOrigColumns = null;
+							newGqlQueryState.TotalLineNumber--;
+							break;
+						}
+					}
+				}
+
 				ColumnsComparerKey key = new ColumnsComparerKey ();
 				key.Members = new IComparable[groupbyColumns.Count];
 				for (int i = 0; i < groupbyColumns.Count; i++) {
-					key.Members [i] = groupbyColumns [i].EvaluateAsComparable (gqlQueryState);
+					key.Members [i] = groupbyColumns [i].EvaluateAsComparable (newGqlQueryState);
 				}
 				
 				AggregationState state;
@@ -237,8 +281,45 @@ namespace FxGqlLib
 				
 				// Aggregate
 				foreach (var column in outputColumns)
-					column.Aggregate (state, gqlQueryState);
+					column.Aggregate (state, newGqlQueryState);
+
+				moreData = provider.GetNextRecord ();
+			} while (moreData);
+		}
+
+		IList<IExpression> ConvertColumnOrdinals (IList<IExpression> groupByColumns, IList<Column> outputColumns)
+		{
+			List<IExpression> convertedGroupByColumns = new List<IExpression> (groupByColumns);
+			for (int i = 0; i < convertedGroupByColumns.Count; i++) {
+				if (convertedGroupByColumns [i] is ConstExpression<long>) {
+					int col = (int)convertedGroupByColumns [i].EvaluateAs<long> (null) - 1;
+					if (col < 0 || col >= outputColumns.Count) {
+						throw new Exception (string.Format ("Invalid group by column ordinal ({0})", col));
+					}
+					convertedGroupByColumns [i] = outputColumns [col].Expression;
+				}
 			}
+
+			return convertedGroupByColumns;
+		}		
+
+		ColumnsComparer<ColumnsComparerKey> CreateComparer (IList<IExpression> groupbyColumns, StringComparer stringComparer)
+		{
+			Type[] types = new Type[groupbyColumns.Count];
+			int[] fixedColumns = new int[groupbyColumns.Count];
+
+			for (int i = 0; i < groupbyColumns.Count; i++) {
+				types [i] = groupbyColumns [i].GetResultType ();
+				if (groupbyColumns [i] is ConstExpression<long>) {
+					fixedColumns [i] = (int)((ConstExpression<long>)groupbyColumns [i]).Evaluate (null) - 1;
+					if (fixedColumns [i] < 0)
+						throw new Exception (string.Format ("Negative order by column ordinal ({0}) is not allowed", fixedColumns [i] + 1));
+				} else {
+					fixedColumns [i] = -1;
+				}
+			}
+
+			return new ColumnsComparer<ColumnsComparerKey> (types, fixedColumns, stringComparer);
 		}
 	}
 }
