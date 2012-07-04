@@ -102,6 +102,13 @@ namespace FxGqlLib
 			this.provider = provider;
 			this.groupbyColumns = groupbyColumns;
 			this.stringComparer = stringComparer;
+
+			for (int i = 0; i < groupbyColumns.Count; i++) {
+				if (this.groupbyColumns [i] is ConstExpression<long>) {
+					long col = groupbyColumns [i].EvaluateAs<long> (null);
+					this.groupbyColumns [i] = outputColumns [i].Expression;
+				}
+			}
 			
 			this.columnNameList = outputColumns.Select (a => a.Name).ToArray ();
 			this.outputColumns = new IExpression[outputColumns.Count];

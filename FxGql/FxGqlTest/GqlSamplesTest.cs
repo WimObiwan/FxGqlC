@@ -1076,21 +1076,21 @@ namespace FxGqlTest
                 "0E40036FDDB3972DEC5D9B84D13109D6885DAA2B2D7578DAF45BF0B710EC4E74");
 			TestGql ("select top 10 [Winner], count(*) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Winner] order by 2 desc",
                 "0E40036FDDB3972DEC5D9B84D13109D6885DAA2B2D7578DAF45BF0B710EC4E74");
-			TestGql ("select count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+			TestGql ("select count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 'x'",
                 "8458672E871307348E9BAABB7CAFB48EFA0C4BCA39B5B99E5A480CB1708F710A");
-			TestGql ("select count(*) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+			TestGql ("select count(*) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 'x'",
                 "8458672E871307348E9BAABB7CAFB48EFA0C4BCA39B5B99E5A480CB1708F710A");
-			TestGql ("select sum(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+			TestGql ("select sum(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 'x'",
                 "8458672E871307348E9BAABB7CAFB48EFA0C4BCA39B5B99E5A480CB1708F710A");
-			TestGql ("select count(1) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+			TestGql ("select count(1) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 'x'",
                 "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
-			TestGql ("select count(*) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+			TestGql ("select count(*) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 'x'",
                 "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
-			TestGql ("select count(1) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+			TestGql ("select count(1) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 'x'",
                 "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
-			TestGql ("select count(*) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+			TestGql ("select count(*) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 'x'",
                 "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
-			TestGql ("select sum(5) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+			TestGql ("select sum(5) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 'x'",
                 "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
 			TestGql ("select top 10 [Winner], count(1), min([Tournament]), max([Tournament]), first([Tournament]), last([Tournament]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Winner] order by 2 desc",
                 "F1B884B190CA6A14779AAA7D901398247E4E11710CA5A243602023AC1FA09859");
@@ -1101,6 +1101,32 @@ namespace FxGqlTest
 			TestGql (@"select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]",
                 "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
 			TestGql (@"select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament] order by 1",
+                "08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
+			TestGql ("select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+                "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+			TestGql ("select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1 order by 1",
+                "08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
+			TestGql ("select [Tournament], count(*) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1 order by 1",
+                "08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
+			TestGql ("select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1",
+                "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+			TestGql ("select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1 order by 1",
+                "08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
+			TestGql ("select [Tournament], count(*) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1 order by 1",
+                "08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
+			TestGql ("select top 10 [Winner], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Winner] order by 2 desc",
+                "0E40036FDDB3972DEC5D9B84D13109D6885DAA2B2D7578DAF45BF0B710EC4E74");
+			TestGql ("select top 10 [Winner], count(*) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Winner] order by 2 desc",
+                "0E40036FDDB3972DEC5D9B84D13109D6885DAA2B2D7578DAF45BF0B710EC4E74");
+			TestGql ("select top 10 [Winner], count(1), min([Tournament]), max([Tournament]), first([Tournament]), last([Tournament]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1 order by 2 desc",
+                "F1B884B190CA6A14779AAA7D901398247E4E11710CA5A243602023AC1FA09859");
+			TestGql ("select top 10 [Winner], count(1), min(convert(int, [WRank])), max(convert(int, [WRank])), sum(convert(int, [WRank])), avg(convert(int, [WRank])), sum(convert(int, [WRank])) / count(1), first(convert(int, [WRank])), last(convert(int, [WRank])) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1 order by 2 desc",
+                "E5A14072A8FD77E045A4E7CFE0D570BDA784BEF4211B53A6A39F3A68E284DC83");
+			TestGql (@"select * from (select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by 1) where $lineno > 0",
+                "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+			TestGql (@"select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by 1",
+                "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+			TestGql (@"select [Tournament], count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by 1 order by 1",
                 "08E53BF1CA2D5DEEDF512EFF0BBA0C01673110BE91FC07C185D06E5DB501CFED");
             
 			//// To test interrupt (Ctrl-C) of long running query
@@ -1113,7 +1139,7 @@ namespace FxGqlTest
 				+ "select @var2, @var1",
                 "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
 			TestGql ("declare @var int;"
-				+ "set @var = (select count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 1);"
+				+ "set @var = (select count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]);"
 				+ "select @var",
                 "8458672E871307348E9BAABB7CAFB48EFA0C4BCA39B5B99E5A480CB1708F710A");
 			TestGql (@"declare @file string, @option string;
@@ -1173,10 +1199,6 @@ namespace FxGqlTest
 			//TestGql ("select [Date], [Tournament], [Round], [Winner], LAG([Tournament], 1, 0) OVER (PARTITION [Winner]) from ['Test.txt' -Heading=On] where [Tournament] = 'US Open'");
 			//TestGql ("select substring([Date], 4, 7), min([Tournament]), max([Tournament]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by substring([Date], 4, 7) orig");
 
-			TestGql ("select distinct substring([Date], 4, 7), [Winner] from ['Test.txt' -Heading=On] order by 1 orig, [Winner]",
-			         "DA21BF0CC84D8B2487A43FA5A4FB018FA58A7A7A2B67A590F5B5C2DE8EC5C440");
-//			TestGql ("select distinct substring([Date], 4, 7), [Winner] from ['Test.txt' -Heading=On] where [Round] = 'The final' order by 1 orig, [Winner]",
-//			         "BD5D897A839E547E6D974FE7AAFF8F09C438F5FBE89FAEE5F3ED531BB74B2234");
 
 			return failed == 0;
 		}
