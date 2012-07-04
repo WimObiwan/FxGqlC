@@ -14,7 +14,8 @@ namespace FxGqlTest
 		int failed = 0;
 		int unknown = 0;
 		List<string> failedQueries = new List<string> ();
-		public GqlEngine engine = new GqlEngine ();
+		public GqlEngine engineOutput = new GqlEngine ();
+		public GqlEngine engineHash = new GqlEngine ();
 
 		public GqlSamplesTest ()
 		{
@@ -353,7 +354,7 @@ namespace FxGqlTest
 		private void TestGql (string command, Type exceptionType)
 		{
 			try {
-				engine.Execute (command);
+				engineHash.Execute (command);
 				Console.WriteLine ("   Test FAILED");
 				Console.WriteLine ("      Expected: {0}", exceptionType.ToString ());
 				Console.WriteLine ("      No exception happened");
@@ -376,25 +377,23 @@ namespace FxGqlTest
 			Console.WriteLine ("Testing GQL '{0}'", command);
             
 			if (targetHash == null) {
-				engine.OutputStream = Console.Out;
+				engineOutput.OutputStream = Console.Out;
 				try {
-					engine.Execute (command);
+					engineOutput.Execute (command);
 				} catch (ParserException parserException) {
 					Console.WriteLine ("Exception catched");
 					Console.WriteLine (parserException.ToString ());
 				}
 			}
 
-			engine.Reset ();
-
 			using (MemoryStream stream = new MemoryStream()) {
 				using (TextWriter outputStream = new StreamWriter(stream)) {
 					outputStream.NewLine = "\n"; // Unix style text file
-					engine.OutputStream = outputStream;
+					engineHash.OutputStream = outputStream;
 #if !DEBUG
 					try {
 #endif
-						engine.Execute (command);
+						engineHash.Execute (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -933,7 +932,8 @@ namespace FxGqlTest
                 "145DA47A1E9E308A0A501B6A24509A94943CF72F642347331D3E7B900E4740E2");
 			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) where contains([FieldA], 'b') order by [FieldB]",
                 "F5C19EBA4EB529C014CC94E538B7C9E1ED36DFE73C0F1EF37BA65285A32CC58C");
-			engine.GqlEngineState.Heading = GqlEngineState.HeadingEnum.On;
+			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.On;
+			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.On;
 			TestGql ("select distinct top 15 [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
                      "D569409E7341F23F676A1110DDA586355B0C32AF1FCEB963321BBB82746DED34");
 			TestGql ("select distinct [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
@@ -954,7 +954,8 @@ namespace FxGqlTest
                 "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2", // unix
                 "2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
 			File.Delete ("test.txt");
-			engine.GqlEngineState.Heading = GqlEngineState.HeadingEnum.OnWithRule;
+			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.OnWithRule;
+			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.OnWithRule;
 			TestGql ("select distinct top 15 [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
                      "80176A38BE42D39718085E5336A617D296929AC3D80E4AA4FC0BF30192D81F57");
 			TestGql ("select distinct [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
@@ -975,7 +976,8 @@ namespace FxGqlTest
                 "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2", // unix
                 "2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
 			File.Delete ("test.txt");
-			engine.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
+			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
+			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
 			TestGql ("select [FieldA], [FieldB] into ['test.txt' -overwrite -lineend=unix] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=on])",
                      "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile (
@@ -1148,14 +1150,14 @@ namespace FxGqlTest
 				+ "set @var = (select count(1) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]);"
 				+ "select @var",
                 "8458672E871307348E9BAABB7CAFB48EFA0C4BCA39B5B99E5A480CB1708F710A");
-			TestGql (@"declare @file string, @option string;
-				set @file = 'SampleFiles/Tennis-ATP-2011.csv';
-				set @option = '^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$';
-				select @file, @option, @file + @option
+			TestGql (@"declare @file1 string, @option1 string;
+				set @file1 = 'SampleFiles/Tennis-ATP-2011.csv';
+				set @option1 = '^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$';
+				select @file1, @option1, @file1 + @option1
 				", "2F32B5DA82E004C1D08E10CFC7ECBA05F9D43AA5611EE84124BB6F4DB42F7271");
-			TestGql (@"declare @file string, @option string;
-				set @file = 'SampleFiles/Tennis-ATP-2011.csv';
-				select [Tournament] from [@file -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]
+			TestGql (@"declare @file2 string, @option2 string;
+				set @file2 = 'SampleFiles/Tennis-ATP-2011.csv';
+				select [Tournament] from [@file2 -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]
 				", "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
 
 			// Views
@@ -1178,6 +1180,8 @@ namespace FxGqlTest
 			TestGql ("SELECT * FROM MyView", typeof(ParserException));
 			TestGql ("CREATE VIEW MyView AS SELECT 17, '<this is a test>'; SELECT * FROM MyView; DROP VIEW MyView; SELECT * FROM MyView",
                 typeof(ParserException));
+			TestGql ("CREATE VIEW MyView AS SELECT 17, '<this is a test>' SELECT * FROM MyView DROP VIEW MyView",
+                "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
 
 			// Use command
 			TestGql ("use [SampleFiles]; select * from ['AirportCodes.csv']",

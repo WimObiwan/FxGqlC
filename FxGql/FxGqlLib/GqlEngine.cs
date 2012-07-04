@@ -47,6 +47,7 @@ namespace FxGqlLib
 		public void Reset ()
 		{
 			GqlEngineState.Variables.Clear ();
+			GqlEngineState.Views.Clear ();
 		}		
 
 		public void Interrupt ()
