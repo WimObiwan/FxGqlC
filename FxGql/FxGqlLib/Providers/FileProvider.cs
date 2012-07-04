@@ -25,7 +25,10 @@ namespace FxGqlLib
 
 		public int GetColumnOrdinal (string columnName)
 		{
-			return -1;
+			if (StringComparer.InvariantCultureIgnoreCase.Compare (columnName, "Column1") == 0)
+				return 0;
+			else
+				return -1;
 		}
 		
 		public Type[] GetColumnTypes ()

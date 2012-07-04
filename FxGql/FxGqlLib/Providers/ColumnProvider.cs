@@ -25,10 +25,13 @@ namespace FxGqlLib
 	
 	public class ColumnProvider : IProvider
 	{
-		IList<Column> outputColumns;
+		readonly IProvider provider;
+		readonly IList<Column> outputColumns;
+		readonly IExpression[] staticOutputList;
+		readonly string[] staticColumnNameList;
+
 		IExpression[] outputList;
 		string[] columnNameList;
-		IProvider provider;
 		GqlQueryState gqlQueryState;
 		ProviderRecord record;
 
@@ -68,11 +71,11 @@ namespace FxGqlLib
 							columnNameList.Add (column.Name);
 						}
 					}
-					this.outputList = outputList.ToArray ();
-					this.columnNameList = columnNameList.ToArray ();
+					this.staticOutputList = outputList.ToArray ();
+					this.staticColumnNameList = columnNameList.ToArray ();
 					for (int i = 0; i < columnNameList.Count; i++)
-						if (this.columnNameList [i] == null)
-							this.columnNameList [i] = string.Format ("Column{0}", i + 1);
+						if (this.staticColumnNameList [i] == null)
+							this.staticColumnNameList [i] = string.Format ("Column{0}", i + 1);
 				}
 			} else {
 				this.outputColumns = outputColumns;
@@ -83,11 +86,15 @@ namespace FxGqlLib
 		#region IProvider implementation
 		public string[] GetColumnTitles ()
 		{
-			return columnNameList;
+			if (columnNameList != null)
+				return columnNameList;
+			else
+				return staticColumnNameList;
 		}
 
 		public int GetColumnOrdinal (string columnName)
 		{
+			string[] columnNameList = GetColumnTitles ();
 			if (columnNameList == null)
 				throw new NotSupportedException (string.Format (
 					"Column name '{0}' not found",
@@ -107,6 +114,12 @@ namespace FxGqlLib
 		
 		public Type[] GetColumnTypes ()
 		{
+			IExpression[] outputList;
+			if (this.outputList != null)
+				outputList = this.outputList;
+			else
+				outputList = staticOutputList;
+
 			Type[] types = new Type[outputList.Length];
 			
 			for (int i = 0; i < outputList.Length; i++) {
@@ -152,6 +165,9 @@ namespace FxGqlLib
 						}
 					}
 				}
+			} else {
+				this.outputList = staticOutputList;
+				this.columnNameList = staticColumnNameList;
 			}
 
 			gqlQueryState.TotalLineNumber = 0;
@@ -184,8 +200,8 @@ namespace FxGqlLib
 			gqlQueryState = null;
 			if (provider != null)
 				provider.Uninitialize ();
-			if (outputColumns != null)
-				outputList = null;
+			outputList = null;
+			columnNameList = null;
 		}
 
 		public ProviderRecord Record {

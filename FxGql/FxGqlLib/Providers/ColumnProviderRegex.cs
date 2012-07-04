@@ -6,9 +6,10 @@ namespace FxGqlLib
 {
 	public class ColumnProviderRegex : IProvider
 	{
-		IProvider provider;
-		string regexDefinition;
-		bool caseInsensitive;
+		readonly IProvider provider;
+		readonly string regexDefinition;
+		readonly bool caseInsensitive;
+
 		ProviderRecord record;
 		string[] columnNameList;
 		Regex regex;
@@ -80,6 +81,7 @@ namespace FxGqlLib
 			regex = null;
 			record = null;
 			provider.Uninitialize ();
+			columnNameList = null;
 		}
 
 		public ProviderRecord Record {

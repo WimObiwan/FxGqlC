@@ -10,8 +10,8 @@ namespace FxGqlTest
 
 				bool result = true;
 #if DEBUG
-			result = gqlSamplesTest.RunDevelop ();
-			//result = gqlSamplesTest.Run ();
+				result = gqlSamplesTest.RunDevelop ();
+				//result = gqlSamplesTest.Run ();
 #else
 				result = gqlSamplesTest.Run ();
 #endif

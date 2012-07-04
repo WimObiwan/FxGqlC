@@ -395,8 +395,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engineHash.Execute (command);
-						textWriter.WriteLine (command);
+					engineHash.Execute (command);
+					textWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1185,6 +1185,20 @@ namespace FxGqlTest
                 typeof(ParserException));
 			TestGql ("CREATE VIEW MyView AS SELECT 17, '<this is a test>' SELECT * FROM MyView DROP VIEW MyView",
                 "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
+			TestGql ("CREATE VIEW MyView AS SELECT * FROM ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]; SELECT TOP 10 * FROM MyView",
+			         "6FA8275370BA25E2BF8C37D1676FDEFA020F3F702A7204092658C19A59CF7531");
+			TestGql ("SELECT TOP 10 * FROM MyView", 
+			         "6FA8275370BA25E2BF8C37D1676FDEFA020F3F702A7204092658C19A59CF7531");
+			TestGql ("SELECT TOP 10 * FROM MyView; DROP VIEW MyView",
+			         "6FA8275370BA25E2BF8C37D1676FDEFA020F3F702A7204092658C19A59CF7531");
+			TestGql ("create view MyView as select * from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Col1>.*)\",(?<Col2>.{3}))|(?:(?<Col1>.*),(?<Col2>.{3}))']",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select * from MyView where [Col2] = 'BRU'",
+			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
+			TestGql ("select * from MyView where [Col2] = 'BRU'",
+			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
+			TestGql ("drop view MyView",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 
 			// Use command
 			TestGql ("use [SampleFiles]; select * from ['AirportCodes.csv']",
@@ -1243,6 +1257,12 @@ namespace FxGqlTest
 //			TestGql ("select [Tournament], [Tournament], [The final], [Semifinals] from ['Test.txt' -Heading=On] pivot (first([Player]) for [Round] in ('Tournament', 'The final', 'Semifinals'))");
 //			         "33113552334D66A4079155E9DB9A4E1B32A80AE080F7D9EAC5EE023B5E1CB586");
 			//TestGql ("select [Tournament], [Round], [Player] from ['Test.txt' -Heading=On]");
+
+
+			TestGql (
+				@"
+				SELECT [f], [tl] FROM (SELECT $filename [f], $totallineno [tl], $lineno [l] FROM ['SampleFiles\*' -recurse]) WHERE [l] = 1
+				", "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
 
 			return failed == 0;
 		}		

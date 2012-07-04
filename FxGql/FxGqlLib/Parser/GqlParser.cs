@@ -1731,7 +1731,7 @@ namespace FxGqlLib
 
 		internal static IExpression ConstructColumnExpression (IProvider provider, string column)
 		{
-			if (provider is ColumnProviderRegex || provider is ColumnProviderDelimiter || provider is ColumnProviderTitleLine) {
+			if (provider.GetColumnTitles () == null) {
 				return new ColumnExpression<string> (provider, column);
 			} else {
 				int columnOrdinal = provider.GetColumnOrdinal (column);
