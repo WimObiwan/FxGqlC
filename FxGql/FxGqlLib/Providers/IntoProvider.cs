@@ -68,7 +68,7 @@ namespace FxGqlLib
 				&& File.Exists (fileName))
 				throw new InvalidOperationException (
 					string.Format ("File '{0}' already exists. Use '-overwrite' or '-append' option to change the existing file.", 
-				              fileOptions.FileName)
+				              fileName)
 				);
 
 			if (string.Compare (
