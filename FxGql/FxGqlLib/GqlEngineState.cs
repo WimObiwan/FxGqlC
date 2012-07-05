@@ -8,8 +8,8 @@ namespace FxGqlLib
 		public GqlEngineState (GqlEngineExecutionState executionState)
 		{
 			ExecutionState = executionState;
-			Variables = new Dictionary<string, Variable> ();
-			Views = new Dictionary<string, IProvider> ();
+			Variables = new Dictionary<string, Variable> (StringComparer.InvariantCultureIgnoreCase);
+			Views = new Dictionary<string, IProvider> (StringComparer.InvariantCultureIgnoreCase);
 		}
 		
 		public GqlEngineExecutionState ExecutionState { get; private set; }

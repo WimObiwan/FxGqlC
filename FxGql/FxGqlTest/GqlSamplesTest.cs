@@ -355,6 +355,8 @@ namespace FxGqlTest
         
 		private void TestGql (string command, Type exceptionType)
 		{
+			Console.WriteLine ("Testing GQL '{0}'", command);
+
 			try {
 				engineHash.Execute (command);
 				Console.WriteLine ("   Test FAILED");
@@ -362,7 +364,7 @@ namespace FxGqlTest
 				Console.WriteLine ("      No exception happened");
 				failed++;
 			} catch (Exception exception) {
-				if (exception.GetType () == exceptionType) {
+				if (exceptionType.IsAssignableFrom (exception.GetType ())) {
 					Console.WriteLine ("   Test OK");
 					succeeded++;
 				} else {
@@ -395,8 +397,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engineHash.Execute (command);
-					textWriter.WriteLine (command);
+						engineHash.Execute (command);
+						textWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1162,6 +1164,13 @@ namespace FxGqlTest
 				set @file2 = 'SampleFiles/Tennis-ATP-2011.csv';
 				select [Tournament] from [@file2 -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]
 				", "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
+			TestGql ("declare @var3 as string, @var4 int;"
+				+ "set @vaR3 = '<this is a test>'; set @vAr4 = 17;"
+				+ "select @Var4, @Var3",
+                "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
+			TestGql ("set @vaR3 = '<this is a'; set @vAr4 = 13;"
+				+ "select @Var4 + 4, @Var3 + ' test>'",
+                "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
 
 			// Views
 			TestGql ("SELECT * FROM MyView", typeof(ParserException));
@@ -1199,6 +1208,15 @@ namespace FxGqlTest
 			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
 			TestGql ("drop view MyView",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("drop view MyViewX", typeof(Exception));
+			TestGql ("create view MyView as select * from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Col1>.*)\",(?<Col2>.{3}))|(?:(?<Col1>.*),(?<Col2>.{3}))']",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select * from MyVieW where [Col2] = 'BRU'",
+			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
+			TestGql ("drop view MyVIEW",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("CREATE VIEW MyView AS SELECT 17, '<this is a test>'; SELECT * FROM MyVieW; DROP VIEW MyVIEW",
+                "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
 
 			// Use command
 			TestGql ("use [SampleFiles]; select * from ['AirportCodes.csv']",
@@ -1258,11 +1276,11 @@ namespace FxGqlTest
 //			         "33113552334D66A4079155E9DB9A4E1B32A80AE080F7D9EAC5EE023B5E1CB586");
 			//TestGql ("select [Tournament], [Round], [Player] from ['Test.txt' -Heading=On]");
 
-
-			TestGql (
-				@"
-				SELECT [f], [tl] FROM (SELECT $filename [f], $totallineno [tl], $lineno [l] FROM ['SampleFiles\*' -recurse]) WHERE [l] = 1
-				", "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
+			TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select [Tournament], 'Tournament', [Winner] [Player] into ['test.txt' -append] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select [Player], previous([Tournament) from ['test.txt' -Heading=On] where [Tournament] = 'Masters Cup'");
 
 			return failed == 0;
 		}		

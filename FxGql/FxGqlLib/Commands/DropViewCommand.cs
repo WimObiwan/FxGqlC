@@ -15,7 +15,8 @@ namespace FxGqlLib
         #region IGqlCommand implementation
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
-			gqlEngineState.Views.Remove (name);
+			if (!gqlEngineState.Views.Remove (name))
+				throw new InvalidOperationException (string.Format ("View {0} doesn't exist.", name));
 		}
         #endregion
 	}

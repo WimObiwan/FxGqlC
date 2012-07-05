@@ -32,8 +32,8 @@ namespace FxGqlLib
 		readonly StringComparer stringComparer;
 		readonly StringComparison stringComparison;
 
-		Dictionary<string, Type> variableTypes = new Dictionary<string, Type> ();
-		Dictionary<string, IProvider> views = new Dictionary<string, IProvider> ();
+		Dictionary<string, Type> variableTypes = new Dictionary<string, Type> (StringComparer.InvariantCultureIgnoreCase);
+		Dictionary<string, IProvider> views = new Dictionary<string, IProvider> (StringComparer.InvariantCultureIgnoreCase);
         
 		public GqlParser (GqlEngineState gqlEngineState, string command)
             : this(gqlEngineState, command, CultureInfo.InvariantCulture, true)
@@ -1875,13 +1875,17 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (expressionTree, "T_VARIABLE", 1, 1);
 
-			string variable = expressionTree.GetChild (0).Text;
+			string variableName = expressionTree.GetChild (0).Text;
 
 			Type type;
-			if (!variableTypes.TryGetValue (variable, out type))
-				throw new ParserException (string.Format ("Variable {0} not declared", variable), expressionTree);
+			if (!variableTypes.TryGetValue (variableName, out type)) {
+				Variable variable;
+				if (!gqlEngineState.Variables.TryGetValue (variableName, out variable))
+					throw new ParserException (string.Format ("Variable {0} not declared", variable), expressionTree);
+				type = variable.Type;
+			}
 
-			return new VariableExpression (variable, type).GetTyped ();
+			return new VariableExpression (variableName, type).GetTyped ();
 		}
 
 		FileOptions ParseCommandUse (ITree tree)
