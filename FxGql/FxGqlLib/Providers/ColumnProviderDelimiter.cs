@@ -10,7 +10,7 @@ namespace FxGqlLib
 		int columnCount;
 
 		ProviderRecord record;
-		protected string[] columnNameList;
+		protected ColumnName[] columnNameList;
 		protected string firstLine;
 		
 		public ColumnProviderDelimiter (IProvider provider)
@@ -34,14 +34,14 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
-		public string[] GetColumnTitles ()
+		public ColumnName[] GetColumnNames ()
 		{
 			return columnNameList;
 		}
 
-		public int GetColumnOrdinal (string tableAlias, string columnName)
+		public int GetColumnOrdinal (ColumnName columnName)
 		{
-			return Array.FindIndex (columnNameList, a => string.Compare (a, columnName, StringComparison.InvariantCultureIgnoreCase) == 0);
+			return Array.FindIndex (columnNameList, a => a.CompareTo (columnName) == 0);
 		}
 		
 		public Type[] GetColumnTypes ()
@@ -69,9 +69,9 @@ namespace FxGqlLib
 			}
 
 			if (columns >= 0) {
-				columnNameList = new string[columns];
+				columnNameList = new ColumnName[columns];
 				for (int i = 0; i < columnNameList.Length; i++)
-					columnNameList [i] = string.Format ("Column{0}", i + 1);
+					columnNameList [i] = new ColumnName (string.Format ("Column{0}", i + 1));
 				record.ColumnTitles = columnNameList;
 			}
 		}

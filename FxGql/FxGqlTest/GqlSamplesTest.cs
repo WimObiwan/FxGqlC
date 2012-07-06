@@ -1314,6 +1314,22 @@ namespace FxGqlTest
             */
 
 
+			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.On;
+			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.On;
+
+			TestGql ("select * from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) where contains([FieldA], 'b') order by [FieldB]",
+                     "2694BA9570ECB03DC308F8F55FDA8A7A215B7645F5FEDF24E335B946FF96CAFC");
+			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) where contains([FieldA], 'b') order by [FieldB]",
+                     "2694BA9570ECB03DC308F8F55FDA8A7A215B7645F5FEDF24E335B946FF96CAFC");
+			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) [MyAlias] where contains([FieldA], 'b') order by [FieldB]",
+                     "2694BA9570ECB03DC308F8F55FDA8A7A215B7645F5FEDF24E335B946FF96CAFC");
+			TestGql ("select [MyAlias].[FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) [MyAlias] where contains([FieldA], 'b') order by [FieldB]");
+			TestGql ("select [MyAlias].[FieldA], [MyAlias].[FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) [MyAlias] where contains([FieldA], 'b') order by [FieldB]");
+			TestGql ("select * from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) [MyAlias] where contains([FieldA], 'b') order by [FieldB]");
+
+			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
+			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
+
 			// join optimization
 			//   http://www.necessaryandsufficient.net/2010/02/join-algorithms-illustrated/
 

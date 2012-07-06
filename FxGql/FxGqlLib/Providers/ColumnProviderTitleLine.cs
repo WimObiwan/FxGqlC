@@ -7,7 +7,7 @@ namespace FxGqlLib
 	{
 		IProvider provider;
 		GqlEngineState.HeadingEnum heading;
-		string[] columnNameList;
+		ColumnName[] columnNameList;
 
 		public ColumnProviderTitleLine (IProvider provider, GqlEngineState.HeadingEnum heading)
 		{
@@ -16,14 +16,14 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
-		public string[] GetColumnTitles ()
+		public ColumnName[] GetColumnNames ()
 		{
 			return columnNameList;
 		}
 
-		public int GetColumnOrdinal (string tableAlias, string columnName)
+		public int GetColumnOrdinal (ColumnName columnName)
 		{
-			return Array.FindIndex (columnNameList, a => string.Compare (a, columnName, StringComparison.InvariantCultureIgnoreCase) == 0);
+			return Array.FindIndex (columnNameList, a => a.CompareTo (columnName) == 0);
 		}
 		
 		public Type[] GetColumnTypes ()
@@ -43,7 +43,7 @@ namespace FxGqlLib
 				if (!provider.GetNextRecord ())
 					return;
 
-				columnNameList = provider.Record.Columns.Select (p => p.ToString ()).ToArray ();
+				columnNameList = provider.Record.Columns.Select (p => new ColumnName (p.ToString ())).ToArray ();
 
 				if (heading == GqlEngineState.HeadingEnum.OnWithRule) {
 					provider.GetNextRecord ();

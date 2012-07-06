@@ -4,7 +4,7 @@ namespace FxGqlLib
 {
 	public class ProviderRecord
 	{
-		public string[] ColumnTitles { get; set; }
+		public ColumnName[] ColumnTitles { get; set; }
 
 		//public string Text { get; set; }
 		public string Source { get; set; }
@@ -17,12 +17,68 @@ namespace FxGqlLib
 
 		public IComparable[] OriginalColumns { get; set; }
 	}
+
+	public class ColumnName : IComparable<ColumnName>
+	{
+		public ColumnName (string alias, string name)
+		{
+			Alias = alias;
+			Name = name;
+		}
+
+		public ColumnName (string name)
+			: this(null, name)
+		{
+		}
+
+		public ColumnName (ColumnName columnName)
+			: this(columnName.Alias, columnName.Name)
+		{
+		}
+
+		public string Alias { get; private set; }
+		public string Name { get; private set; }
+
+		public override string ToString ()
+		{
+			if (Alias != null)
+				return string.Format ("[{0}].[{1}]", Alias, Name);
+			else
+				return string.Format ("[{0}]", Name);
+		}
+
+		public string ToStringWithoutBrackets ()
+		{
+			if (Alias != null)
+				return string.Format ("{0}.{1}", Alias, Name);
+			else
+				return string.Format ("{0}", Name);
+		}
+
+		#region IComparable implementation
+		public int CompareTo (ColumnName other)
+		{
+			int result;
+			if (Alias != null && other.Alias != null)
+				result = string.Compare (Alias, other.Alias, StringComparison.InvariantCultureIgnoreCase);
+			else
+				result = 0;
+
+			if (result == 0)
+				result = string.Compare (Name, other.Name, StringComparison.InvariantCultureIgnoreCase);
+
+			return result;
+		}
+		#endregion
+
+
+	}
 	
 	public interface IProvider : IDisposable
 	{
-		string[] GetColumnTitles ();
+		ColumnName[] GetColumnNames ();
 
-		int GetColumnOrdinal (string providerAlias, string columnName);
+		int GetColumnOrdinal (ColumnName columnName);
 
 		Type[] GetColumnTypes ();
 		

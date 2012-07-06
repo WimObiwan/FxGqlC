@@ -11,7 +11,7 @@ namespace FxGqlLib
 		readonly bool caseInsensitive;
 
 		ProviderRecord record;
-		string[] columnNameList;
+		ColumnName[] columnNameList;
 		Regex regex;
 		
 		public ColumnProviderRegex (IProvider provider, string regexDefinition, bool caseInsensitive)
@@ -22,14 +22,14 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
-		public string[] GetColumnTitles ()
+		public ColumnName[] GetColumnNames ()
 		{
 			return columnNameList;
 		}
 
-		public int GetColumnOrdinal (string providerAlias, string columnName)
+		public int GetColumnOrdinal (ColumnName columnName)
 		{
-			return Array.FindIndex (columnNameList, a => string.Compare (a, columnName, StringComparison.InvariantCultureIgnoreCase) == 0);
+			return Array.FindIndex (columnNameList, a => a.CompareTo (columnName) == 0);
 		}
 		
 		public Type[] GetColumnTypes ()
@@ -45,13 +45,12 @@ namespace FxGqlLib
 		{
 			regex = new Regex (regexDefinition, caseInsensitive ? RegexOptions.IgnoreCase : RegexOptions.None);
 			string[] groups = regex.GetGroupNames ();
-			columnNameList = new string[groups.Length - 1];
-			Array.Copy (groups, 1, columnNameList, 0, columnNameList.Length);
+			columnNameList = groups.Skip (1).Select (p => new ColumnName (p)).ToArray ();
 			for (int i = 0; i < columnNameList.Length; i++)
 				if (groups [i + 1] == (i + 1).ToString ())
-					columnNameList [i] = "Column" + groups [i + 1];
+					columnNameList [i] = new ColumnName ("Column" + groups [i + 1]);
 				else
-					columnNameList [i] = groups [i + 1];
+					columnNameList [i] = new ColumnName (groups [i + 1]);
 			provider.Initialize (gqlQueryState);
 						
 			record = new ProviderRecord ();

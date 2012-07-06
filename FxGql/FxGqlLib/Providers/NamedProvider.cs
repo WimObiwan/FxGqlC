@@ -6,12 +6,12 @@ namespace FxGqlLib
 	{
 		IProvider provider;
 
-		public string Name { get; private set; }
+		public string Alias { get; private set; }
 
-		public NamedProvider (IProvider provider, string name)
+		public NamedProvider (IProvider provider, string alias)
 		{
 			this.provider = provider;
-			Name = name;
+			Alias = alias;
 		}
 
 		#region IDisposable implementation
@@ -22,16 +22,16 @@ namespace FxGqlLib
 		#endregion
 
 		#region IProvider implementation
-		public string[] GetColumnTitles ()
+		public ColumnName[] GetColumnNames ()
 		{
-			return provider.GetColumnTitles ();
+			return provider.GetColumnNames ();
 		}
 
-		public int GetColumnOrdinal (string providerAlias, string columnName)
+		public int GetColumnOrdinal (ColumnName columnName)
 		{
-			if (providerAlias != null && StringComparer.InvariantCultureIgnoreCase.Compare (providerAlias, this.Name) != 0)
-				throw new InvalidOperationException (string.Format ("Unexpected provider alias {0} when expecting {1}", providerAlias, this.Name));
-			return provider.GetColumnOrdinal (providerAlias, columnName);
+			if (columnName.Alias != null && StringComparer.InvariantCultureIgnoreCase.Compare (columnName.Alias, this.Alias) != 0)
+				throw new InvalidOperationException (string.Format ("Unexpected provider alias {0} when expecting {1}", columnName.Alias, this.Alias));
+			return provider.GetColumnOrdinal (columnName);
 		}
 
 		public Type[] GetColumnTypes ()

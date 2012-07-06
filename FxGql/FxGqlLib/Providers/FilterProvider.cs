@@ -15,14 +15,14 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
-		public string[] GetColumnTitles ()
+		public ColumnName[] GetColumnNames ()
 		{
-			return provider.GetColumnTitles ();
+			return provider.GetColumnNames ();
 		}
 
-		public int GetColumnOrdinal (string providerAlias, string columnName)
+		public int GetColumnOrdinal (ColumnName columnName)
 		{
-			return provider.GetColumnOrdinal (providerAlias, columnName);
+			return provider.GetColumnOrdinal (columnName);
 		}
 		
 		public Type[] GetColumnTypes ()

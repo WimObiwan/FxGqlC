@@ -4,20 +4,18 @@ namespace FxGqlLib
 {
 	public interface IColumnExpression : IExpression
 	{
-		string ColumnName { get; }
+		ColumnName ColumnName { get; }
 	}
 
 	public class ColumnExpression<T> : Expression<T>, IColumnExpression where T : IComparable
 	{
-		string providerAlias;
-		string column;
+		ColumnName columnName;
 		IProvider provider;
 		int columnOrdinal = -1;
 		
-		public ColumnExpression (IProvider provider, string providerAlias, string column)
+		public ColumnExpression (IProvider provider, ColumnName columnName)
 		{
-			this.providerAlias = providerAlias;
-			this.column = column;
+			this.columnName = columnName;
 			this.provider = provider;
 		}
 		
@@ -27,12 +25,12 @@ namespace FxGqlLib
 			this.provider = provider;
 		}
 
-		public string ColumnName {
+		public ColumnName ColumnName {
 			get {
-				if (column != null)
-					return column;
+				if (columnName != null)
+					return columnName;
 				else
-					return provider.GetColumnTitles () [columnOrdinal];
+					return provider.GetColumnNames () [columnOrdinal];
 			}
 		}		
 
@@ -45,7 +43,7 @@ namespace FxGqlLib
 			//	}
 			//}
 			if (columnOrdinal == -1)
-				columnOrdinal = this.provider.GetColumnOrdinal (providerAlias, column);
+				columnOrdinal = this.provider.GetColumnOrdinal (columnName);
 			
 			IComparable[] columns;
 			if (gqlQueryState.UseOriginalColumns)
@@ -55,7 +53,7 @@ namespace FxGqlLib
 			if (columnOrdinal >= 0 && columnOrdinal < columns.Length)
 				return (T)columns [columnOrdinal];
 			else
-				throw new Exception (string.Format ("Column {0} not found", column));
+				throw new Exception (string.Format ("Column {0} not found", columnName));
 		}
 		#endregion
 	}

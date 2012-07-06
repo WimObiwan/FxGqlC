@@ -18,14 +18,14 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
-		public string[] GetColumnTitles ()
+		public ColumnName[] GetColumnNames ()
 		{
-			return new string[] { "Column1" };
+			return new ColumnName[] { new ColumnName (null, "Column1") };
 		}
 
-		public int GetColumnOrdinal (string providerAlias, string columnName)
+		public int GetColumnOrdinal (ColumnName columnName)
 		{
-			if (StringComparer.InvariantCultureIgnoreCase.Compare (columnName, "Column1") == 0)
+			if (StringComparer.InvariantCultureIgnoreCase.Compare (columnName.Name, "Column1") == 0)
 				return 0;
 			else
 				return -1;

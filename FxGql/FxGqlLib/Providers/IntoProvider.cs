@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 using ICSharpCode.SharpZipLib.Zip;
 
@@ -20,12 +21,12 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
-		public string[] GetColumnTitles ()
+		public ColumnName[] GetColumnNames ()
 		{
-			return new string[] {};
+			return new ColumnName[] {};
 		}
 
-		public int GetColumnOrdinal (string providerAlias, string columnName)
+		public int GetColumnOrdinal (ColumnName columnName)
 		{
 			return -1;
 		}
@@ -152,12 +153,13 @@ namespace FxGqlLib
 				if (selectProvider.GetNextRecord ()) {
 					if (heading != GqlEngineState.HeadingEnum.Off) {
 						FormatColumnListFunction formatColumnListFunction = new FormatColumnListFunction (columnDelimiter);
-						string[] columnTitles = provider.GetColumnTitles ();
-						outputWriter.WriteLine (formatColumnListFunction.Evaluate (columnTitles));
+						ColumnName[] columnTitles = provider.GetColumnNames ();
+						string[] columnTitleStrings = columnTitles.Select (p => p.ToStringWithoutBrackets ()).ToArray ();
+						outputWriter.WriteLine (formatColumnListFunction.Evaluate (columnTitleStrings));
 						if (heading == GqlEngineState.HeadingEnum.OnWithRule) {
 							string[] columnTitlesRule = new string[columnTitles.Length];
 							for (int i = 0; i < columnTitles.Length; i++)
-								columnTitlesRule [i] = new string ('=', columnTitles [i].Length);
+								columnTitlesRule [i] = new string ('=', columnTitleStrings [i].Length);
 							outputWriter.WriteLine (formatColumnListFunction.Evaluate (columnTitlesRule));
 						}
 					}

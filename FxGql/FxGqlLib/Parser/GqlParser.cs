@@ -220,7 +220,7 @@ namespace FxGqlLib
 					provider = new FilterProvider (provider, whereExpression);
 				}
                 
-				IList<Column > outputColumns;
+				IList<Column> outputColumns;
 				outputColumns = ParseColumnList (fromProvider, columnListEnumerator);
 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY") {
@@ -239,7 +239,7 @@ namespace FxGqlLib
 					);
 				} else {
 					// e.g. select count(1) from [myfile.txt]
-					if (outputColumns.Any (p => p.Expression != null && p.Expression.IsAggregated ())) {
+					if (outputColumns.Any (p => p is SingleColumn && ((SingleColumn)p).Expression.IsAggregated ())) {
 						provider = new GroupbyProvider (
 	                        provider,
 	                        outputColumns,
@@ -336,19 +336,20 @@ namespace FxGqlLib
 			if (outputColumnTree.GetChild (0).Text == "*") {
 				column = new AllColums (provider);
 			} else {
-				column = new Column ();
-				column.Expression = ParseExpression (
+				IExpression expression = ParseExpression (
                     provider,
                     outputColumnTree.GetChild (0)
 				);
+				string name;
 				if (outputColumnTree.ChildCount == 2) {
-					column.Name = ParseColumnName (outputColumnTree.GetChild (1));
-				} else if (column.Expression is IColumnExpression) {
-					IColumnExpression columnExpression = (IColumnExpression)column.Expression;
-					column.Name = columnExpression.ColumnName;
+					name = ParseColumnName (outputColumnTree.GetChild (1));
+				} else if (expression is IColumnExpression) {
+					IColumnExpression columnExpression = (IColumnExpression)expression;
+					name = columnExpression.ColumnName.Name;
 				} else {
-					column.Name = null;
+					name = null;
 				}
+				column = new SingleColumn (name, expression);
 			}
             
 			return column; 
@@ -1741,18 +1742,18 @@ namespace FxGqlLib
 				throw new ParserException (string.Format ("Columnname [{0}] not allowed outside the context of a query", column), expressionTree);
             
 			try {
-				return ConstructColumnExpression (provider, providerAlias, column);
+				return ConstructColumnExpression (provider, new ColumnName (providerAlias, column));
 			} catch (Exception x) {
 				throw new ParserException (string.Format ("Could not construct column expression for column '{0}'", column), expressionTree, x);
 			}
 		}
 
-		internal static IExpression ConstructColumnExpression (IProvider provider, string providerAlias, string column)
+		internal static IExpression ConstructColumnExpression (IProvider provider, ColumnName columnName)
 		{
-			if (provider.GetColumnTitles () == null) {
-				return new ColumnExpression<string> (provider, providerAlias, column);
+			if (provider.GetColumnNames () == null) {
+				return new ColumnExpression<string> (provider, columnName);
 			} else {
-				int columnOrdinal = provider.GetColumnOrdinal (providerAlias, column);
+				int columnOrdinal = provider.GetColumnOrdinal (columnName);
 				return ConstructColumnExpression (provider, columnOrdinal);
 			}
 		}        

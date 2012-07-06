@@ -9,7 +9,7 @@ namespace FxGqlLib
 		IProvider provider;
 		IList<IExpression> origGroupbyColumns;
 		IList<IExpression> groupbyColumns;
-		string[] columnNameList;
+		ColumnName[] columnNameList;
 		IExpression[] outputColumns;
 		StringComparer stringComparer;
 		Dictionary<ColumnsComparerKey, AggregationState> data;
@@ -111,28 +111,33 @@ namespace FxGqlLib
 			this.groupbyColumns = ConvertColumnOrdinals (groupbyColumns, outputColumns);
 			this.stringComparer = stringComparer;
 
-			this.columnNameList = outputColumns.Select (a => a.Name).ToArray ();
+			this.columnNameList = outputColumns.ToArray ();
 			this.outputColumns = new IExpression[outputColumns.Count];
 			for (int col = 0; col < outputColumns.Count; col++) {
-				if (!outputColumns [col].Expression.IsAggregated ())
-					this.outputColumns [col] = new InvariantColumn (outputColumns [col].Expression, stringComparer);
-				else
-					this.outputColumns [col] = outputColumns [col].Expression;
+				SingleColumn singleColumn = outputColumns [col] as SingleColumn;
+				if (singleColumn != null) {
+					if (!singleColumn.Expression.IsAggregated ())
+						this.outputColumns [col] = new InvariantColumn (singleColumn.Expression, stringComparer);
+					else
+						this.outputColumns [col] = singleColumn.Expression;
+				} else {
+					throw new InvalidOperationException ();
+				}
 			}
 		}
 
 		#region IProvider implementation
-		public string[] GetColumnTitles ()
+		public ColumnName[] GetColumnNames ()
 		{
 			return columnNameList;
 		}
 
-		public int GetColumnOrdinal (string providerAlias, string columnName)
+		public int GetColumnOrdinal (ColumnName columnName)
 		{
 			if (columnNameList == null)
-				throw new NotSupportedException (string.Format ("Column name '{0}' not found", columnName));
+				throw new NotSupportedException (string.Format ("Column name {0} not found", columnName));
 			
-			return Array.FindIndex (columnNameList, a => string.Compare (a, columnName, StringComparison.InvariantCultureIgnoreCase) == 0);
+			return Array.FindIndex (columnNameList, a => a.CompareTo (columnName) == 0);
 		}
 		
 		public Type[] GetColumnTypes ()
@@ -296,7 +301,12 @@ namespace FxGqlLib
 					if (col < 0 || col >= outputColumns.Count) {
 						throw new Exception (string.Format ("Invalid group by column ordinal ({0})", col));
 					}
-					convertedGroupByColumns [i] = outputColumns [col].Expression;
+					SingleColumn singleColumn = outputColumns [col] as SingleColumn;
+					if (singleColumn != null) {
+						convertedGroupByColumns [i] = singleColumn.Expression;
+					} else {
+						throw new InvalidOperationException ();
+					}
 				}
 			}
 
