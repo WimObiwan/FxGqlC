@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace FxGqlLib
 {
@@ -24,7 +25,11 @@ namespace FxGqlLib
 		#region IProvider implementation
 		public ColumnName[] GetColumnNames ()
 		{
-			return provider.GetColumnNames ();
+			ColumnName[] columnNames = provider.GetColumnNames ();
+			if (columnNames != null)
+				return columnNames.Select (p => new ColumnName (Alias, p.Name)).ToArray ();
+			else
+				return null;
 		}
 
 		public int GetColumnOrdinal (ColumnName columnName)

@@ -330,12 +330,20 @@ namespace FxGqlLib
 
 		Column ParseColumn (IProvider provider, ITree outputColumnTree)
 		{
-			AssertAntlrToken (outputColumnTree, "T_COLUMN", 1, 2);
-
 			Column column;
-			if (outputColumnTree.GetChild (0).Text == "*") {
-				column = new AllColums (provider);
+			if (outputColumnTree.Text == "T_ALLCOLUMNS") {
+				AssertAntlrToken (outputColumnTree, "T_ALLCOLUMNS", 0, 1);
+
+				string providerAlias;
+				if (outputColumnTree.ChildCount == 1)
+					providerAlias = ParseProviderAlias (outputColumnTree.GetChild (0));
+				else 
+					providerAlias = null;
+
+				column = new AllColums (providerAlias, provider);
 			} else {
+				AssertAntlrToken (outputColumnTree, "T_COLUMN", 1, 2);
+
 				IExpression expression = ParseExpression (
                     provider,
                     outputColumnTree.GetChild (0)
@@ -697,7 +705,7 @@ namespace FxGqlLib
 			IExpression arg;
 
 			string functionNameUpper = functionName.ToUpperInvariant ();
-			if (functionNameUpper == "COUNT" && functionCallTree.GetChild (1).Text == "*") {
+			if (functionNameUpper == "COUNT" && functionCallTree.GetChild (1).Text == "T_ALLCOLUMNS") {
 				arg = new ConstExpression<long> (1);
 			} else {
 				arg = ParseExpression (provider, functionCallTree.GetChild (1));

@@ -64,9 +64,14 @@ namespace FxGqlLib
 							AllColums allColums = (AllColums)column;
 							var columnNameList2 = allColums.Provider.GetColumnNames ();
 							for (int j = 0; j < columnNameList2.Length; j++) {
-								outputList.Add (GqlParser.ConstructColumnExpression (allColums.Provider, j));
-								columnNameList.Add (columnNameList2 [j]);
+								if (allColums.ProviderAlias == null 
+									|| StringComparer.InvariantCultureIgnoreCase.Compare (allColums.ProviderAlias, columnNameList2 [j].Alias) == 0) {
+									outputList.Add (GqlParser.ConstructColumnExpression (allColums.Provider, j));
+									columnNameList.Add (columnNameList2 [j]);
+								}
 							}
+							if (columnNameList.Count == 0)
+								throw new InvalidOperationException (string.Format ("No columns found for provider alias {0}", allColums.ProviderAlias));
 						} else if (column is SingleColumn) {
 							SingleColumn singleColumn = (SingleColumn)column;
 							outputList.Add (singleColumn.Expression);
@@ -132,9 +137,14 @@ namespace FxGqlLib
 						AllColums allColums = (AllColums)column;
 						var columnNameList2 = allColums.Provider.GetColumnNames ();
 						for (int j = 0; j < columnNameList2.Length; j++) {
-							outputList.Add (GqlParser.ConstructColumnExpression (allColums.Provider, j));
-							columnNameList.Add (columnNameList2 [j]);
+							if (allColums.ProviderAlias == null 
+								|| StringComparer.InvariantCultureIgnoreCase.Compare (allColums.ProviderAlias, columnNameList2 [j].Alias) == 0) {
+								outputList.Add (GqlParser.ConstructColumnExpression (allColums.Provider, j));
+								columnNameList.Add (columnNameList2 [j]);
+							}
 						}
+						if (columnNameList.Count == 0)
+							throw new InvalidOperationException (string.Format ("No columns found for provider alias {0}", allColums.ProviderAlias));
 					} else if (column is SingleColumn) {
 						SingleColumn singleColumn = (SingleColumn)column;
 						outputList.Add (singleColumn.Expression);

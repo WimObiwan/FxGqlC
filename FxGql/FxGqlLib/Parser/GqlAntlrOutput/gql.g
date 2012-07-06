@@ -76,6 +76,7 @@ tokens
 	T_GROUPBY_ORIG;
 	T_DROP_VIEW;
 	T_TABLE_ALIAS;
+	T_ALLCOLUMNS;
 }
 
 @parser::namespace { FxGqlLib }
@@ -139,9 +140,14 @@ column_list
 	;
 	
 column
-	: '*' -> ^(T_COLUMN '*') 
+	: all_columns
 	| expression (WS SIMPLE_FILE)? -> ^(T_COLUMN expression SIMPLE_FILE?)
 	;
+
+all_columns
+	: (table_alias WS? '.' WS?)? '*' -> ^(T_ALLCOLUMNS table_alias?)
+	;
+
 into_clause
 	: INTO WS file -> ^(T_INTO file)
 	;
@@ -381,7 +387,7 @@ expression_atom
 
 functioncall_or_column
 	: TOKEN WS? '(' WS? (expression WS? (',' WS? expression WS?)*)? ')' -> ^(T_FUNCTIONCALL TOKEN expression*)
-	| TOKEN WS? '(' WS? '*' WS? ')' -> ^(T_FUNCTIONCALL TOKEN '*')
+	| TOKEN WS? '(' WS? all_columns WS? ')' -> ^(T_FUNCTIONCALL TOKEN all_columns)
 	//| TOKEN -> ^(T_COLUMN TOKEN)
 	| (table_alias WS? '.' WS?)? column_name -> ^(T_COLUMN column_name table_alias?)
 	;
