@@ -48,7 +48,7 @@ namespace FxGqlLib
 			columnNameList = groups.Skip (1).Select (p => new ColumnName (p)).ToArray ();
 			for (int i = 0; i < columnNameList.Length; i++)
 				if (groups [i + 1] == (i + 1).ToString ())
-					columnNameList [i] = new ColumnName ("Column" + groups [i + 1]);
+					columnNameList [i] = new ColumnName (i);
 				else
 					columnNameList [i] = new ColumnName (groups [i + 1]);
 			provider.Initialize (gqlQueryState);

@@ -36,6 +36,11 @@ namespace FxGqlLib
 		{
 		}
 
+		public ColumnName (int ordinal)
+			: this(null, string.Format("Column{0}", ordinal + 1))
+		{
+		}
+
 		public string Alias { get; private set; }
 		public string Name { get; private set; }
 

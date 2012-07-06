@@ -18,6 +18,11 @@ namespace FxGqlLib
 		{
 		}
 
+		public Column (int ordinal)
+			: base(ordinal)
+		{
+		}
+
 		public Column ()
 			: base(null, null)
 		{
@@ -28,6 +33,12 @@ namespace FxGqlLib
 	{ 
 		public SingleColumn (string name, IExpression expr)
 			:base(name)
+		{
+			Expression = expr;
+		}
+
+		public SingleColumn (int ordinal, IExpression expr)
+			:base(ordinal)
 		{
 			Expression = expr;
 		}
@@ -62,7 +73,7 @@ namespace FxGqlLib
 			List<Column> columnList = new List<Column> ();
 			for (int i = 0; i < expressionList.Count; i++) {
 				IExpression expression = expressionList [i];
-				SingleColumn column = new SingleColumn (string.Format ("Column{0}", i + 1), expression);
+				SingleColumn column = new SingleColumn (i, expression);
 				columnList.Add (column);
 			}
 			return columnList;
@@ -100,7 +111,7 @@ namespace FxGqlLib
 					this.staticColumnNameList = columnNameList.ToArray ();
 					for (int i = 0; i < columnNameList.Count; i++)
 						if (this.staticColumnNameList [i] == null)
-							this.staticColumnNameList [i] = new ColumnName (string.Format ("Column{0}", i + 1));
+							this.staticColumnNameList [i] = new ColumnName (i);
 				}
 			} else {
 				this.outputColumns = outputColumns;
@@ -183,7 +194,7 @@ namespace FxGqlLib
 						if (columnExpression != null) {
 							this.columnNameList [i] = columnExpression.ColumnName;
 						} else {
-							this.columnNameList [i] = new ColumnName (string.Format ("Column{0}", i + 1));
+							this.columnNameList [i] = new ColumnName (i);
 						}
 					}
 				}

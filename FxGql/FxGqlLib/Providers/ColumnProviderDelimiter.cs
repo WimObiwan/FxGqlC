@@ -71,7 +71,7 @@ namespace FxGqlLib
 			if (columns >= 0) {
 				columnNameList = new ColumnName[columns];
 				for (int i = 0; i < columnNameList.Length; i++)
-					columnNameList [i] = new ColumnName (string.Format ("Column{0}", i + 1));
+					columnNameList [i] = new ColumnName (i);
 				record.ColumnTitles = columnNameList;
 			}
 		}

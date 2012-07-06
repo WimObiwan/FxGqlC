@@ -46,7 +46,7 @@ namespace FxGqlLib
 				if (columnExpression != null) {
 					this.staticColumnNameList [i] = columnExpression.ColumnName;
 				} else {
-					this.staticColumnNameList [i] = new ColumnName (string.Format ("Column{0}", i + 1));
+					this.staticColumnNameList [i] = new ColumnName (i);
 				}
 			}
 			this.provider = provider;
@@ -79,7 +79,7 @@ namespace FxGqlLib
 					this.staticColumnNameList = columnNameList.ToArray ();
 					for (int i = 0; i < columnNameList.Count; i++)
 						if (this.staticColumnNameList [i] == null)
-							this.staticColumnNameList [i] = new ColumnName (string.Format ("Column{0}", i + 1));
+							this.staticColumnNameList [i] = new ColumnName (i);
 				}
 			} else {
 				this.outputColumns = outputColumns;
@@ -97,8 +97,8 @@ namespace FxGqlLib
 		{
 			if (columnNameList == null)
 				throw new NotSupportedException (string.Format (
-					"Column name '{0}' not found",
-					columnName.Name
+					"Column name {0} not found",
+					columnName
 				)
 				);
 			
@@ -151,7 +151,7 @@ namespace FxGqlLib
 						if (columnExpression != null) {
 							this.columnNameList [i] = columnExpression.ColumnName;
 						} else {
-							this.columnNameList [i] = new ColumnName (string.Format ("Column{0}", i + 1));
+							this.columnNameList [i] = new ColumnName (i);
 						}
 					}
 				}

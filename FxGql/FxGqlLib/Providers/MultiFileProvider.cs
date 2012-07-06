@@ -25,12 +25,12 @@ namespace FxGqlLib
 		#region IProvider implementation
 		public ColumnName[] GetColumnNames ()
 		{
-			return new ColumnName[] { new ColumnName (null, "Column1") };
+			return new ColumnName[] { new ColumnName (0) };
 		}
 
 		public int GetColumnOrdinal (ColumnName columnName)
 		{
-			if (StringComparer.InvariantCultureIgnoreCase.Compare (columnName.Name, "Column1") == 0)
+			if (columnName.CompareTo (new ColumnName (0)) == 0)
 				return 0;
 			else
 				return -1;
