@@ -27,7 +27,7 @@ namespace FxGqlLib
 			return columnNameList;
 		}
 
-		public int GetColumnOrdinal (string columnName)
+		public int GetColumnOrdinal (string providerAlias, string columnName)
 		{
 			return Array.FindIndex (columnNameList, a => string.Compare (a, columnName, StringComparison.InvariantCultureIgnoreCase) == 0);
 		}

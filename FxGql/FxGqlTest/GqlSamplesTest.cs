@@ -10,7 +10,7 @@ namespace FxGqlTest
 	public class GqlSamplesTest : IDisposable
 	{
 		//static string samplesPath = Path.Combine (Environment.CurrentDirectory, @"../../SampleFiles");
-		TextWriter textWriter;
+		TextWriter testSummaryWriter;
 		int succeeded = 0;
 		int failed = 0;
 		int unknown = 0;
@@ -18,9 +18,11 @@ namespace FxGqlTest
 		public GqlEngine engineOutput = new GqlEngine ();
 		public GqlEngine engineHash = new GqlEngine ();
 
+		readonly TextWriter nullTextWriter = new StreamWriter (Stream.Null);
+
 		public GqlSamplesTest ()
 		{
-			textWriter = new StreamWriter ("TestSummary.gql");
+			testSummaryWriter = new StreamWriter ("TestSummary.gql");
 		}
         
 		static string[] BATHS = {
@@ -398,7 +400,7 @@ namespace FxGqlTest
 					try {
 #endif
 						engineHash.Execute (command);
-						textWriter.WriteLine (command);
+						testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -407,6 +409,7 @@ namespace FxGqlTest
 #endif
                 
 					outputStream.Flush ();
+					engineHash.OutputStream = nullTextWriter;
                     
 					stream.Seek (0, SeekOrigin.Begin);
 					if (!CheckStream (stream, targetHash))
@@ -1219,9 +1222,27 @@ namespace FxGqlTest
                 "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
 
 			// Use command
-			TestGql ("use [SampleFiles]; select * from ['AirportCodes.csv']",
-                "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
-            
+			TestGql ("use [SampleFiles]; select * from ['AirportCodes.csv']; use [..]",
+                 	 "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+			TestGql ("use ['SampleFiles']",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select * from ['AirportCodes.csv']",
+                     "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+			TestGql ("use [..]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select * from ['SampleFiles/AirportCodes.csv']",
+                     "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+
+			// Provider alias
+			TestGql ("select [Tournament], [Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
+			         "396B7BFA36E20A49FABDD9CE1AED7D53065E3F7BBB2845DA0203B25C17C985FD");
+			TestGql ("select [Tournament], [a].[Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] [a] where [Round] = 'The final'",
+			         "396B7BFA36E20A49FABDD9CE1AED7D53065E3F7BBB2845DA0203B25C17C985FD");
+			TestGql ("select [a].[Tournament], [a].[Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] [a] where [a].[Round] = 'The final'",
+			         "396B7BFA36E20A49FABDD9CE1AED7D53065E3F7BBB2845DA0203B25C17C985FD");
+			TestGql ("select [b].[Tournament], [a].[Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] [a] where [a].[Round] = 'The final'",
+			         typeof(Exception));
+
 			Console.WriteLine ();
 			Console.WriteLine (
                 "{0} tests done, {1} succeeded, {2} failed, {3} unknown",
@@ -1276,11 +1297,25 @@ namespace FxGqlTest
 //			         "33113552334D66A4079155E9DB9A4E1B32A80AE080F7D9EAC5EE023B5E1CB586");
 			//TestGql ("select [Tournament], [Round], [Player] from ['Test.txt' -Heading=On]");
 
+			/*
+			// inner join
 			TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql ("select [Tournament], 'Tournament', [Winner] [Player] into ['test.txt' -append] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestGql ("select [Player], previous([Tournament) from ['test.txt' -Heading=On] where [Tournament] = 'Masters Cup'");
+			TestGql ("select [a].[Player], previous([b].[Tournament]) from ['test.txt' -Heading=On] [a]"
+			         + " inner join ['test.txt' -Heading=On] [b] on [a].[Player] = [b].[Player]"
+			         + " where [a].[Tournament] = 'Masters Cup'"
+			         + " group by [a].[Player]");
+			TestGql ("select [a].[Player], previous([b].[Tournament]) from ['test.txt' -Heading=On] [a]"
+			         + " join ['test.txt' -Heading=On] [b] on [a].[Player] = [b].[Player]"
+			         + " where [a].[Tournament] = 'Masters Cup'"
+			         + " group by [a].[Player]");
+            */
+
+
+			// join optimization
+			//   http://www.necessaryandsufficient.net/2010/02/join-algorithms-illustrated/
 
 			return failed == 0;
 		}		
@@ -1288,7 +1323,7 @@ namespace FxGqlTest
 		#region IDisposable implementation
 		public void Dispose ()
 		{
-			textWriter.Dispose ();
+			testSummaryWriter.Dispose ();
 		}
 		#endregion
 	}

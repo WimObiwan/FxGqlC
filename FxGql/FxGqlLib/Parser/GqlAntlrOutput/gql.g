@@ -75,6 +75,7 @@ tokens
 	T_ORDERBY_ORIG;
 	T_GROUPBY_ORIG;
 	T_DROP_VIEW;
+	T_TABLE_ALIAS;
 }
 
 @parser::namespace { FxGqlLib }
@@ -146,7 +147,8 @@ into_clause
 	;
 	
 from_clause
-	: FROM WS from_clause_item (WS? ',' WS? from_clause_item)* -> ^(T_FROM from_clause_item*)
+	: FROM WS from_clause_item (WS? ',' WS? from_clause_item)* (WS table_alias)? -> ^(T_FROM table_alias? from_clause_item*)
+//	| FROM WS from_clause_item (WS? ',' WS? from_clause_item)* (WS table_alias) -> ^(T_FROM table_alias from_clause_item*)
 	;
 	
 from_clause_item
@@ -381,7 +383,15 @@ functioncall_or_column
 	: TOKEN WS? '(' WS? (expression WS? (',' WS? expression WS?)*)? ')' -> ^(T_FUNCTIONCALL TOKEN expression*)
 	| TOKEN WS? '(' WS? '*' WS? ')' -> ^(T_FUNCTIONCALL TOKEN '*')
 	//| TOKEN -> ^(T_COLUMN TOKEN)
-	| SIMPLE_FILE -> ^(T_COLUMN SIMPLE_FILE)
+	| (table_alias WS? '.' WS?)? column_name -> ^(T_COLUMN column_name table_alias?)
+	;
+	
+column_name
+	: SIMPLE_FILE
+	;
+
+table_alias
+	: SIMPLE_FILE -> ^(T_TABLE_ALIAS SIMPLE_FILE)
 	;
 	
 conversion

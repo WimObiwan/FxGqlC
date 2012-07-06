@@ -23,9 +23,9 @@ namespace FxGqlLib
 			return providers [0].GetColumnTitles ();
 		}
 
-		public int GetColumnOrdinal (string columnName)
+		public int GetColumnOrdinal (string providerAlias, string columnName)
 		{
-			return providers [0].GetColumnOrdinal (columnName);
+			return providers [0].GetColumnOrdinal (providerAlias, columnName);
 		}
 		
 		public Type[] GetColumnTypes ()

@@ -110,6 +110,7 @@
     <Compile Include="Commands\DummyCommand.cs" />
     <Compile Include="Commands\CreateViewCommand.cs" />
     <Compile Include="Commands\DropViewCommand.cs" />
+    <Compile Include="Providers\NamedProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

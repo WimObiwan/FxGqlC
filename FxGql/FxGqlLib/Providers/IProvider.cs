@@ -22,7 +22,7 @@ namespace FxGqlLib
 	{
 		string[] GetColumnTitles ();
 
-		int GetColumnOrdinal (string columnName);
+		int GetColumnOrdinal (string providerAlias, string columnName);
 
 		Type[] GetColumnTypes ();
 		

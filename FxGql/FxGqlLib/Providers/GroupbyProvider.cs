@@ -127,7 +127,7 @@ namespace FxGqlLib
 			return columnNameList;
 		}
 
-		public int GetColumnOrdinal (string columnName)
+		public int GetColumnOrdinal (string providerAlias, string columnName)
 		{
 			if (columnNameList == null)
 				throw new NotSupportedException (string.Format ("Column name '{0}' not found", columnName));

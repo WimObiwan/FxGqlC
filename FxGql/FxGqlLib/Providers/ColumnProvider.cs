@@ -92,7 +92,7 @@ namespace FxGqlLib
 				return staticColumnNameList;
 		}
 
-		public int GetColumnOrdinal (string columnName)
+		public int GetColumnOrdinal (string providerAlias, string columnName)
 		{
 			string[] columnNameList = GetColumnTitles ();
 			if (columnNameList == null)

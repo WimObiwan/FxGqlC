@@ -27,7 +27,7 @@ namespace FxGqlLib
 			return new string[] { "Column1" };
 		}
 
-		public int GetColumnOrdinal (string columnName)
+		public int GetColumnOrdinal (string tableAlias, string columnName)
 		{
 			return -1;
 		}

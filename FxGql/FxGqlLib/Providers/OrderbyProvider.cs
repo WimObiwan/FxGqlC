@@ -100,9 +100,9 @@ namespace FxGqlLib
 		/// <param name='columnName'>
 		/// Column name.
 		/// </param>
-		public int GetColumnOrdinal (string columnName)
+		public int GetColumnOrdinal (string providerAlias, string columnName)
 		{
-			return provider.GetColumnOrdinal (columnName);
+			return provider.GetColumnOrdinal (providerAlias, columnName);
 		}
 		
 		/// <summary>

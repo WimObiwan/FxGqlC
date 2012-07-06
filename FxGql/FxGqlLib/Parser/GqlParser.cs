@@ -370,8 +370,7 @@ namespace FxGqlLib
             
 			var providers = new List<IProvider> ();
             
-//			for (int i = 0; i < fromClauseTree.ChildCount; i++) {
-//				ITree inputProviderTree = GetSingleChild (fromClauseTree);
+			string providerAlias = null;
 			foreach (ITree inputProviderTree in new AntlrTreeChildEnumerable(fromClauseTree)) {
 				IProvider provider;
 				switch (inputProviderTree.Text) {
@@ -384,6 +383,9 @@ namespace FxGqlLib
 				case "T_VIEW_NAME":
 					provider = ParseViewProvider (inputProviderTree);
 					break;
+				case "T_TABLE_ALIAS":
+					providerAlias = ParseProviderAlias (inputProviderTree);
+					continue;
 				default:
 					throw new UnexpectedTokenAntlrException (inputProviderTree);
 				}
@@ -397,6 +399,9 @@ namespace FxGqlLib
 			else
 				fromProvider = new MergeProvider (providers);
             
+			if (providerAlias != null)
+				fromProvider = new NamedProvider (fromProvider, providerAlias);
+
 			return fromProvider;
 		}
 
@@ -1203,6 +1208,13 @@ namespace FxGqlLib
 
 			return provider;
 		}
+
+		string ParseProviderAlias (ITree tree)
+		{
+			AssertAntlrToken (tree, "T_TABLE_ALIAS", 1, 1);
+
+			return tree.GetChild (0).Text;
+		}
         
 		IExpression ParseExpressionOperatorUnary (IProvider provider, ITree operatorTree)
 		{
@@ -1715,26 +1727,32 @@ namespace FxGqlLib
         
 		IExpression ParseExpressionColumn (IProvider provider, ITree expressionTree)
 		{
-			AssertAntlrToken (expressionTree, "T_COLUMN", 1, 1);
+			AssertAntlrToken (expressionTree, "T_COLUMN", 1, 2);
 
 			string column = ParseColumnName (expressionTree.GetChild (0));
 
+			string providerAlias;
+			if (expressionTree.ChildCount > 1)
+				providerAlias = ParseProviderAlias (expressionTree.GetChild (1));
+			else
+				providerAlias = null;
+
 			if (provider == null)
-				throw new ParserException (string.Format ("Columnname '{0}' not allowed outside the context of a query", column), expressionTree);
+				throw new ParserException (string.Format ("Columnname [{0}] not allowed outside the context of a query", column), expressionTree);
             
 			try {
-				return ConstructColumnExpression (provider, column);
+				return ConstructColumnExpression (provider, providerAlias, column);
 			} catch (Exception x) {
 				throw new ParserException (string.Format ("Could not construct column expression for column '{0}'", column), expressionTree, x);
 			}
 		}
 
-		internal static IExpression ConstructColumnExpression (IProvider provider, string column)
+		internal static IExpression ConstructColumnExpression (IProvider provider, string providerAlias, string column)
 		{
 			if (provider.GetColumnTitles () == null) {
-				return new ColumnExpression<string> (provider, column);
+				return new ColumnExpression<string> (provider, providerAlias, column);
 			} else {
-				int columnOrdinal = provider.GetColumnOrdinal (column);
+				int columnOrdinal = provider.GetColumnOrdinal (providerAlias, column);
 				return ConstructColumnExpression (provider, columnOrdinal);
 			}
 		}        

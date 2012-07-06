@@ -2,17 +2,24 @@ using System;
 
 namespace FxGqlLib
 {
-	public class TopProvider : IProvider
+	public class NamedProvider : IProvider
 	{
 		IProvider provider;
-		Expression<long> topValueExpression;
-		long linesToGo;
-		
-		public TopProvider (IProvider provider, Expression<long> topValueExpression)
+
+		public string Name { get; private set; }
+
+		public NamedProvider (IProvider provider, string name)
 		{
 			this.provider = provider;
-			this.topValueExpression = topValueExpression;
+			Name = name;
 		}
+
+		#region IDisposable implementation
+		public void Dispose ()
+		{
+			provider.Dispose ();
+		}
+		#endregion
 
 		#region IProvider implementation
 		public string[] GetColumnTitles ()
@@ -22,25 +29,23 @@ namespace FxGqlLib
 
 		public int GetColumnOrdinal (string providerAlias, string columnName)
 		{
+			if (providerAlias != null && StringComparer.InvariantCultureIgnoreCase.Compare (providerAlias, this.Name) != 0)
+				throw new InvalidOperationException (string.Format ("Unexpected provider alias {0} when expecting {1}", providerAlias, this.Name));
 			return provider.GetColumnOrdinal (providerAlias, columnName);
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			return provider.GetColumnTypes ();
 		}
-		
+
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			provider.Initialize (gqlQueryState);
-			linesToGo = topValueExpression.Evaluate (gqlQueryState);
 		}
 
 		public bool GetNextRecord ()
 		{
-			if (linesToGo <= 0)
-				return false;
-			linesToGo--;
 			return provider.GetNextRecord ();
 		}
 
@@ -56,12 +61,6 @@ namespace FxGqlLib
 		}
 		#endregion
 
-		#region IDisposable implementation
-		public void Dispose ()
-		{
-			provider.Dispose ();
-		}
-		#endregion
 	}
 }
 
