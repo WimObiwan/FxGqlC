@@ -15,7 +15,7 @@ namespace FxGqlLib
 		#region implemented abstract members of FxGqlLib.Expression[R]
 		public override R Evaluate (GqlQueryState gqlQueryState)
 		{
-			return functor();
+			return functor ();
 		}
 		
 		public override bool IsAggregated ()
@@ -25,12 +25,12 @@ namespace FxGqlLib
 		
 		public override void Aggregate (AggregationState state, GqlQueryState gqlQueryState)
 		{
-			throw new InvalidOperationException();
+			throw new InvalidOperationException ();
 		}
 		
 		public override IComparable AggregateCalculate (AggregationState state)
 		{
-			throw new InvalidOperationException();
+			throw new InvalidOperationException ();
 		}
 		#endregion
 	}

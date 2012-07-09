@@ -30,73 +30,6 @@ namespace FxGqlLib
 			GeneralGroupbyExpressionList.Add (new ConstExpression<int> (0));
 		}
 
-		class InvariantColumn : IExpression
-		{
-			IExpression expression;
-			StringComparer stringComparer;
-			
-			public InvariantColumn (IExpression expression, StringComparer stringComparer)
-			{
-				this.expression = expression;
-				this.stringComparer = stringComparer;
-			}
-			
-			#region IExpression implementation
-			public IComparable EvaluateAsComparable (GqlQueryState gqlQueryState)
-			{
-				return expression.EvaluateAsComparable (gqlQueryState);
-			}
-
-			public Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
-			{
-				return expression.EvaluateAs<Y> (gqlQueryState);
-			}
-
-			public string EvaluateAsString (GqlQueryState gqlQueryState)
-			{
-				return expression.EvaluateAsString (gqlQueryState);
-			}
-
-			public Type GetResultType ()
-			{
-				return expression.GetResultType ();
-			}
-
-			public bool IsAggregated ()
-			{
-				return true;
-			}
-
-			public void Aggregate (AggregationState state, GqlQueryState gqlQueryState)
-			{
-				IComparable comparable1 = expression.EvaluateAsComparable (gqlQueryState);
-				IComparable comparable2;
-				if (!state.GetState<IComparable> (this, out comparable2)) {
-					state.SetState (this, comparable1);
-				} else {
-					if (!comparable1.GetType ().Equals (comparable2.GetType ()))
-						throw new Exception ("Expression returned different data types");
-					bool invariant;
-					if (comparable1 is string)
-						invariant = (stringComparer.Compare (comparable1 as string, comparable2 as string) == 0);
-					else
-						invariant = (comparable1.CompareTo (comparable2) == 0);
-					
-					if (!invariant)
-						throw new Exception ("Column Expression is not invariant during group by");
-				}
-			}
-
-			public IComparable AggregateCalculate (AggregationState state)
-			{
-				IComparable comparable;
-				state.GetState<IComparable> (this, out comparable);
-				// TODO: If not found? Shouldn't happen?
-				return comparable;
-			}
-			#endregion
-		}
-
 		public GroupbyProvider (IProvider provider, IList<Column> outputColumns, StringComparer stringComparer)
 			: this (provider, null, GeneralGroupbyExpressionList, outputColumns, null, stringComparer)
 		{
@@ -366,5 +299,73 @@ namespace FxGqlLib
 			return new ColumnsComparer<ColumnsComparerKey> (types, fixedColumns, stringComparer);
 		}
 	}
+
+	class InvariantColumn : IExpression
+	{
+		IExpression expression;
+		StringComparer stringComparer;
+			
+		public InvariantColumn (IExpression expression, StringComparer stringComparer)
+		{
+			this.expression = expression;
+			this.stringComparer = stringComparer;
+		}
+			
+			#region IExpression implementation
+		public IComparable EvaluateAsComparable (GqlQueryState gqlQueryState)
+		{
+			return expression.EvaluateAsComparable (gqlQueryState);
+		}
+
+		public Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
+		{
+			return expression.EvaluateAs<Y> (gqlQueryState);
+		}
+
+		public string EvaluateAsString (GqlQueryState gqlQueryState)
+		{
+			return expression.EvaluateAsString (gqlQueryState);
+		}
+
+		public Type GetResultType ()
+		{
+			return expression.GetResultType ();
+		}
+
+		public bool IsAggregated ()
+		{
+			return true;
+		}
+
+		public void Aggregate (AggregationState state, GqlQueryState gqlQueryState)
+		{
+			IComparable comparable1 = expression.EvaluateAsComparable (gqlQueryState);
+			IComparable comparable2;
+			if (!state.GetState<IComparable> (this, out comparable2)) {
+				state.SetState (this, comparable1);
+			} else {
+				if (!comparable1.GetType ().Equals (comparable2.GetType ()))
+					throw new Exception ("Expression returned different data types");
+				bool invariant;
+				if (comparable1 is string)
+					invariant = (stringComparer.Compare (comparable1 as string, comparable2 as string) == 0);
+				else
+					invariant = (comparable1.CompareTo (comparable2) == 0);
+					
+				if (!invariant)
+					throw new Exception ("Column Expression is not invariant during group by");
+			}
+		}
+
+		public IComparable AggregateCalculate (AggregationState state)
+		{
+			IComparable comparable;
+			state.GetState<IComparable> (this, out comparable);
+			// TODO: If not found? Shouldn't happen?
+			return comparable;
+		}
+			#endregion
+	}
+
 }
 

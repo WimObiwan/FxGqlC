@@ -22,7 +22,7 @@ namespace FxGqlLib
 		#region implemented abstract members of FxGqlLib.Expression[T]
 		public override R Evaluate (GqlQueryState gqlQueryState)
 		{
-			throw new NotSupportedException();
+			throw new NotSupportedException ();
 		}
 		
 		public override bool IsAggregated ()
@@ -33,20 +33,20 @@ namespace FxGqlLib
 		public override void Aggregate (AggregationState state, GqlQueryState gqlQueryState)
 		{
 			S stateValue;
-			T t = arg.Evaluate(gqlQueryState);
-			if (!state.GetState<S>(this, out stateValue))
-				stateValue = init(t);
+			T t = arg.Evaluate (gqlQueryState);
+			if (!state.GetState<S> (this, out stateValue))
+				stateValue = init (t);
 			else
-				stateValue = aggregator(stateValue, t);
-			state.SetState(this, stateValue);
+				stateValue = aggregator (stateValue, t);
+			state.SetState (this, stateValue);
 		}
 		
 		public override IComparable AggregateCalculate (AggregationState state)
 		{
 			S stateValue;
-			if (!state.GetState<S>(this, out stateValue))
-				throw new NotSupportedException("Aggregation state not found"); // TODO: Aggregation without values
-			return calculate(stateValue);
+			if (!state.GetState<S> (this, out stateValue))
+				throw new NotSupportedException ("Aggregation state not found"); // TODO: Aggregation without values
+			return calculate (stateValue);
 		}
 		#endregion
 	}

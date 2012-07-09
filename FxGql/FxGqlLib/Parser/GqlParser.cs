@@ -923,6 +923,8 @@ namespace FxGqlLib
                 functionCallTree.GetChild (2)
 			);
             
+			AdjustAggregation (ref arg1, ref arg2);
+
 			IExpression result;
             
 			switch (functionName.ToUpperInvariant ()) {
@@ -979,6 +981,8 @@ namespace FxGqlLib
                 functionCallTree.GetChild (3)
 			);
             
+			AdjustAggregation (ref arg1, ref arg2, ref arg3);
+
 			IExpression result;
             
 			switch (functionName.ToUpperInvariant ()) {
@@ -1271,7 +1275,29 @@ namespace FxGqlLib
 
 			return alias.Substring (1, alias.Length - 2);
 		}
-        
+
+		void AdjustAggregation (ref IExpression arg1, ref IExpression arg2)
+		{
+			if (arg1.IsAggregated () || arg2.IsAggregated ()) {
+				if (!arg1.IsAggregated ())
+					arg1 = new InvariantColumn (arg1, stringComparer);
+				if (!arg2.IsAggregated ())
+					arg2 = new InvariantColumn (arg2, stringComparer);
+			}
+		}        
+
+		void AdjustAggregation (ref IExpression arg1, ref IExpression arg2, ref IExpression arg3)
+		{
+			if (arg1.IsAggregated () || arg2.IsAggregated () || arg3.IsAggregated ()) {
+				if (!arg1.IsAggregated ())
+					arg1 = new InvariantColumn (arg1, stringComparer);
+				if (!arg2.IsAggregated ())
+					arg2 = new InvariantColumn (arg2, stringComparer);
+				if (!arg3.IsAggregated ())
+					arg3 = new InvariantColumn (arg3, stringComparer);
+			}
+		}        
+
 		IExpression ParseExpressionOperatorUnary (IProvider provider, ITree operatorTree)
 		{
 			AssertAntlrToken (operatorTree, "T_OP_UNARY", 2);
@@ -1359,6 +1385,8 @@ namespace FxGqlLib
                 operatorTree.GetChild (2)
 			);          
 			IExpression result;
+
+			AdjustAggregation (ref arg1, ref arg2);
             
 			switch (operatorText) {
 			case "T_AND":
@@ -1612,6 +1640,8 @@ namespace FxGqlLib
                 provider,
                 andTree.GetChild (2)
 			);
+
+			AdjustAggregation (ref arg1, ref arg2, ref arg3);
 
 			IExpression result;
 			if (arg1 is Expression<string> || arg2 is Expression<string> || arg3 is Expression<string>)

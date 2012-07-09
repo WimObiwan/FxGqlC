@@ -21,12 +21,10 @@ namespace FxGqlLib
 		}
 
 		#region IExpression implementation
-		private IExpression GetResultExpression(GqlQueryState gqlQueryState)
+		private IExpression GetResultExpression (GqlQueryState gqlQueryState)
 		{
-			foreach (WhenItem whenItem in whenItems)
-			{
-				if (whenItem.Check.Evaluate(gqlQueryState))
-				{
+			foreach (WhenItem whenItem in whenItems) {
+				if (whenItem.Check.Evaluate (gqlQueryState)) {
 					return whenItem.Result;
 				}
 			}
@@ -36,28 +34,28 @@ namespace FxGqlLib
 		
 		public IComparable EvaluateAsComparable (GqlQueryState gqlQueryState)
 		{
-			return GetResultExpression(gqlQueryState).EvaluateAsComparable(gqlQueryState);
+			return GetResultExpression (gqlQueryState).EvaluateAsComparable (gqlQueryState);
 		}
 
 		public Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
 		{
-			return GetResultExpression(gqlQueryState).EvaluateAs<Y>(gqlQueryState);
+			return GetResultExpression (gqlQueryState).EvaluateAs<Y> (gqlQueryState);
 		}
 
 		public string EvaluateAsString (GqlQueryState gqlQueryState)
 		{
-			return GetResultExpression(gqlQueryState).EvaluateAsString(gqlQueryState);
+			return GetResultExpression (gqlQueryState).EvaluateAsString (gqlQueryState);
 		}
 
 		public Type GetResultType ()
 		{
 			if (whenItems.Count > 0)
-				return whenItems[0].Result.GetResultType();
+				return whenItems [0].Result.GetResultType ();
 			
 			if (elseResult != null)
-				return elseResult.GetResultType();
+				return elseResult.GetResultType ();
 			
-			throw new InvalidOperationException("Case statement without output");
+			throw new InvalidOperationException ("Case statement without output");
 		}
 
 		public bool IsAggregated ()
@@ -83,14 +81,14 @@ namespace FxGqlLib
 
 		public void Aggregate (AggregationState state, GqlQueryState gqlQueryState)
 		{
-			throw new NotSupportedException("Aggregation with case expression not supported");
+			throw new NotSupportedException ("Aggregation with case expression not supported");
 
 			//GetResultExpression(gqlQueryState).Aggregate(state, gqlQueryState);
 		}
 
 		public IComparable AggregateCalculate (AggregationState state)
 		{
-			throw new NotSupportedException("Aggregation with case expression not supported");
+			throw new NotSupportedException ("Aggregation with case expression not supported");
 
 			/*
 			foreach (WhenItem whenItem in whenItems)

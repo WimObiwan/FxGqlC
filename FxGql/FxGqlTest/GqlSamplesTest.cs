@@ -1295,6 +1295,12 @@ namespace FxGqlTest
 			TestGql ("select * from (select [Player], count(*) [Cnt] from ['test.txt' -Heading=On] group by [Player] order by 1)"
 				+ " where [Cnt] > 25 order by [Cnt] desc, [Player]",
 			         "A84ED21176905D9A19E01FA17FED63E164C141C6E3E3173420867C0C2F9558AA");
+			TestGql ("select * from (select [Player], count(*) [Cnt] from ['test.txt' -Heading=On] group by [Player] order by 1)"
+				+ " where ([Cnt] > 20) and ([Player] in (select [Player] from ['test.txt' -Heading=On] where [Tournament] = 'Masters Cup')) order by [Cnt] desc, [Player]",
+			         "FAE80CD4AE8307D81AFFD7C8CA1E210A62B17CA86B14175E5D72C6C341B0BC83");
+			TestGql ("select [Player], count(*) from ['test.txt' -Heading=On] group by [Player]"
+				+ " having (count(*) > 20) and ([Player] in (select [Player] from ['test.txt' -Heading=On] where [Tournament] = 'Masters Cup')) order by 2 desc, 1",
+			         "FAE80CD4AE8307D81AFFD7C8CA1E210A62B17CA86B14175E5D72C6C341B0BC83");
 
 			Console.WriteLine ();
 			Console.WriteLine (
@@ -1350,12 +1356,18 @@ namespace FxGqlTest
 //			         "33113552334D66A4079155E9DB9A4E1B32A80AE080F7D9EAC5EE023B5E1CB586");
 			//TestGql ("select [Tournament], [Round], [Player] from ['Test.txt' -Heading=On]");
 
+			TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select [Tournament], 'Tournament', [Winner] [Player] into ['test.txt' -append] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+//			TestGql ("select [Player], (select count(*) from ['test.txt' -Heading=On] [b] where [b].[Player] = [a].[Player])"
+			//				+ " from ['test.txt' -Heading=On] [a] where [Tournament] = 'Masters Cup');"
+
 			// inner select
 			/*
 			TestGql ("select [a].[Player], (select count(*) from ['test.txt' -Heading=On] [b] where [b].[Player] = [a].[Player]) from ['test.txt' -Heading=On] [a]"
 				+ " inner join ['test.txt' -Heading=On] [b] on [a].[Player] = [b].[Player]"
 				+ " where [a].[Tournament] = 'Masters Cup'"
-				+ " group by [a].[Player]"
 			TestGql ("select [a].[Player], previous([b].[Tournament]) from ['test.txt' -Heading=On] [a]"
 				+ " inner join ['test.txt' -Heading=On] [b] on [a].[Player] = [b].[Player]"
 				+ " where [a].[Tournament] = 'Masters Cup'"

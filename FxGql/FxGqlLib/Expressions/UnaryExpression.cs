@@ -10,7 +10,7 @@ namespace FxGqlLib
 		Expression<T> arg;
 		
 		public UnaryExpression (Func<T, R> functor, IExpression arg)
-			: this (functor, ExpressionHelper.ConvertIfNeeded<T>(arg)) 
+			: this (functor, ExpressionHelper.ConvertIfNeeded<T>(arg))
 		{
 		}
 		
@@ -23,7 +23,7 @@ namespace FxGqlLib
 		#region implemented abstract members of FxGqlLib.Expression[R]
 		public override R Evaluate (GqlQueryState gqlQueryState)
 		{
-			return functor(arg.Evaluate(gqlQueryState));
+			return functor (arg.Evaluate (gqlQueryState));
 		}
 		
 		public override bool IsAggregated ()
@@ -38,7 +38,7 @@ namespace FxGqlLib
 		
 		public override IComparable AggregateCalculate (AggregationState state)
 		{
-			return functor((T)arg.AggregateCalculate (state));
+			return functor ((T)arg.AggregateCalculate (state));
 		}
 		#endregion
 	}

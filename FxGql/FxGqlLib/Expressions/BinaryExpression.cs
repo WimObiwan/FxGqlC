@@ -12,7 +12,7 @@ namespace FxGqlLib
 		Expression<T2> arg2;
 
 		public BinaryExpression (Func<T1, T2, R> functor, IExpression arg1, IExpression arg2)
-			: this (functor, ExpressionHelper.ConvertIfNeeded<T1>(arg1), ExpressionHelper.ConvertIfNeeded<T2>(arg2)) 
+			: this (functor, ExpressionHelper.ConvertIfNeeded<T1>(arg1), ExpressionHelper.ConvertIfNeeded<T2>(arg2))
 		{
 		}
 		
@@ -26,29 +26,25 @@ namespace FxGqlLib
 		#region implemented abstract members of FxGqlLib.Expression[R]
 		public override R Evaluate (GqlQueryState gqlQueryState)
 		{
-			return functor(arg1.Evaluate(gqlQueryState), arg2.Evaluate(gqlQueryState));
+			return functor (arg1.Evaluate (gqlQueryState), arg2.Evaluate (gqlQueryState));
 		}
 
 		public override bool IsAggregated ()
 		{
-			return arg1.IsAggregated () || arg2.IsAggregated ();
+			return arg1.IsAggregated ();
 		}
 		
 		public override void Aggregate (AggregationState state, GqlQueryState gqlQueryState)
 		{
-			if (arg1.IsAggregated()) arg1.Aggregate (state, gqlQueryState);
-			if (arg2.IsAggregated()) arg2.Aggregate (state, gqlQueryState);
+			arg1.Aggregate (state, gqlQueryState);
+			arg2.Aggregate (state, gqlQueryState);
 		}
 		
 		public override IComparable AggregateCalculate (AggregationState state)
 		{
-			T1 t1;
-			if (arg1.IsAggregated()) t1 = (T1)arg1.AggregateCalculate (state);
-			else t1 = arg1.Evaluate(null);
-			T2 t2;
-			if (arg2.IsAggregated()) t2 = (T2)arg2.AggregateCalculate (state);
-			else t2 = arg2.Evaluate(null);
-			return functor(t1, t2);
+			T1 t1 = (T1)arg1.AggregateCalculate (state);
+			T2 t2 = (T2)arg2.AggregateCalculate (state);
+			return functor (t1, t2);
 		}
 		#endregion
 	}
