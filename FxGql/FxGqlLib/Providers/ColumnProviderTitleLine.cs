@@ -28,7 +28,7 @@ namespace FxGqlLib
 
 		public int GetColumnOrdinal (ColumnName columnName)
 		{
-			return Array.FindIndex (columnNameList, a => a.CompareTo (columnName) == 0);
+			return Array.FindIndex (columnNameList, a => (columnName.Alias != null && a.Alias != null || columnName.Alias == null) && a.CompareTo (columnName) == 0);
 		}
 		
 		public Type[] GetColumnTypes ()

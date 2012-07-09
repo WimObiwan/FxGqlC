@@ -39,8 +39,13 @@ namespace FxGqlLib
 
 		public int GetColumnOrdinal (ColumnName columnName)
 		{
-			if (columnName.Alias != null && StringComparer.InvariantCultureIgnoreCase.Compare (columnName.Alias, this.Alias) != 0)
-				throw new InvalidOperationException (string.Format ("Unexpected provider alias {0} when expecting {1}", columnName.Alias, this.Alias));
+			if (columnName.Alias != null) {
+				if (StringComparer.InvariantCultureIgnoreCase.Compare (columnName.Alias, this.Alias) != 0)
+					throw new InvalidOperationException (string.Format ("Unexpected provider alias {0} when expecting {1}", columnName.Alias, this.Alias));
+				else
+					columnName = new ColumnName (null, columnName.Name);
+			}
+
 			return provider.GetColumnOrdinal (columnName);
 		}
 

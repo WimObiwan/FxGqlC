@@ -360,6 +360,7 @@ namespace FxGqlTest
 			Console.WriteLine ("Testing GQL '{0}'", command);
 
 			try {
+				engineHash.OutputStream = nullTextWriter;
 				engineHash.Execute (command);
 				Console.WriteLine ("   Test FAILED");
 				Console.WriteLine ("      Expected: {0}", exceptionType.ToString ());
@@ -367,7 +368,7 @@ namespace FxGqlTest
 				failed++;
 			} catch (Exception exception) {
 				if (exceptionType.IsAssignableFrom (exception.GetType ())) {
-					Console.WriteLine ("   Test OK");
+					Console.WriteLine ("   Test OK, {0}", exception.Message);
 					succeeded++;
 				} else {
 					Console.WriteLine ("   Test FAILED");
@@ -1242,6 +1243,12 @@ namespace FxGqlTest
 			         "396B7BFA36E20A49FABDD9CE1AED7D53065E3F7BBB2845DA0203B25C17C985FD");
 			TestGql ("select [b].[Tournament], [a].[Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] [a] where [a].[Round] = 'The final'",
 			         typeof(Exception));
+			TestGql ("select [a].[Tournament], [a].[Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] [a] where [b].[Round] = 'The final'",
+			         typeof(Exception));
+			TestGql ("select [b].[Tournament], [b].[Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
+			         typeof(Exception));
+			TestGql ("select [Tournament], [Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [b].[Round] = 'The final'",
+			         typeof(Exception));
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv'] [MyAlias]",
 			    "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
 			TestGql ("select [MyAlias].* from ['SampleFiles/AirportCodes.csv'] [MyAlias]",
@@ -1326,15 +1333,33 @@ namespace FxGqlTest
 			//TestGql ("select [Tournament], [Round], [Player] from ['Test.txt' -Heading=On]");
 
 			/*
-			// inner join
 			TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql ("select [Tournament], 'Tournament', [Winner] [Player] into ['test.txt' -append] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select [Player] from ['test.txt' -Heading=On] where [a].[Tournament] = 'Masters Cup'");
+			TestGql ("select * from (select [Player], count(*) from ['test.txt' -Heading=On] group by [Player])"
+				+ " where [Player] in (select [Player] from ['test.txt' -Heading=On] where [a].[Tournament] = 'Masters Cup')"
+			);
+//			TestGql ("select [Player], count(*) from ['test.txt' -Heading=On] group by [Player]"
+//				+ " having [Player] in (select [Player] from ['test.txt' -Heading=On] where [a].[Tournament] = 'Masters Cup')"
+//			);
+*/
+
+			// inner select
+			/*
+			TestGql ("select [a].[Player], (select count(*) from ['test.txt' -Heading=On] [b] where [b].[Player] = [a].[Player]) from ['test.txt' -Heading=On] [a]"
+				+ " inner join ['test.txt' -Heading=On] [b] on [a].[Player] = [b].[Player]"
+				+ " where [a].[Tournament] = 'Masters Cup'"
+				+ " group by [a].[Player]"
 			TestGql ("select [a].[Player], previous([b].[Tournament]) from ['test.txt' -Heading=On] [a]"
-			         + " inner join ['test.txt' -Heading=On] [b] on [a].[Player] = [b].[Player]"
-			         + " where [a].[Tournament] = 'Masters Cup'"
-			         + " group by [a].[Player]");
+				+ " inner join ['test.txt' -Heading=On] [b] on [a].[Player] = [b].[Player]"
+				+ " where [a].[Tournament] = 'Masters Cup'"
+				+ " group by [a].[Player]"
+			);
+			*/
+			// inner join
+			/*
 			TestGql ("select [a].[Player], previous([b].[Tournament]) from ['test.txt' -Heading=On] [a]"
 			         + " join ['test.txt' -Heading=On] [b] on [a].[Player] = [b].[Player]"
 			         + " where [a].[Tournament] = 'Masters Cup'"

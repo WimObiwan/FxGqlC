@@ -39,6 +39,7 @@ namespace FxGqlLib
 		{
 			provider.Initialize (gqlQueryState);
 			this.gqlQueryState = new GqlQueryState (gqlQueryState.CurrentExecutionState, gqlQueryState.Variables);
+			this.gqlQueryState.CurrentDirectory = gqlQueryState.CurrentDirectory;
 			this.gqlQueryState.TotalLineNumber = 0;
 		}
 
