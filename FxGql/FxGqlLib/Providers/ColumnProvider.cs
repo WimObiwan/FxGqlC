@@ -31,6 +31,12 @@ namespace FxGqlLib
 
 	public class SingleColumn : Column
 	{ 
+		public SingleColumn (ColumnName columnName, IExpression expr)
+			:base(columnName)
+		{
+			Expression = expr;
+		}
+
 		public SingleColumn (string name, IExpression expr)
 			:base(name)
 		{

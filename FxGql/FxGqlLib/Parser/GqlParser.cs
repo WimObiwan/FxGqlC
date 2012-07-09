@@ -348,16 +348,18 @@ namespace FxGqlLib
                     provider,
                     outputColumnTree.GetChild (0)
 				);
-				string name;
+
+				ColumnName columnName;
 				if (outputColumnTree.ChildCount == 2) {
-					name = ParseColumnName (outputColumnTree.GetChild (1));
+					string name = ParseColumnName (outputColumnTree.GetChild (1));
+					columnName = new ColumnName (name);
 				} else if (expression is IColumnExpression) {
 					IColumnExpression columnExpression = (IColumnExpression)expression;
-					name = columnExpression.ColumnName.Name;
+					columnName = columnExpression.ColumnName;
 				} else {
-					name = null;
+					columnName = null;
 				}
-				column = new SingleColumn (name, expression);
+				column = new SingleColumn (columnName, expression);
 			}
             
 			return column; 
@@ -1235,7 +1237,12 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (tree, "T_TABLE_ALIAS", 1, 1);
 
-			return tree.GetChild (0).Text;
+			string alias = tree.GetChild (0).Text;
+			if (!alias.StartsWith ("[") && !alias.EndsWith ("]")) {
+				throw new ParserException ("Provider alias must have square brackets", tree);
+			}
+
+			return alias.Substring (1, alias.Length - 2);
 		}
         
 		IExpression ParseExpressionOperatorUnary (IProvider provider, ITree operatorTree)

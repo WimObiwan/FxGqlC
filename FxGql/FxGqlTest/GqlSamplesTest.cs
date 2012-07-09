@@ -1254,6 +1254,22 @@ namespace FxGqlTest
 			         "441662F2AB6E6EC6D898758DC68B142C43117BBE6B71BEC956857BECE8A9F60B");
 			TestGql (@"SELECT count([InvalidAlias].*), min($line), max($line) from [SampleFiles/AirportCodes.csv] [MyAlias]", 
 			         typeof(Exception));
+			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.On;
+			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.On;
+			TestGql ("select * from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) where contains([FieldA], 'b') order by [FieldB]",
+                     "2694BA9570ECB03DC308F8F55FDA8A7A215B7645F5FEDF24E335B946FF96CAFC");
+			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) where contains([FieldA], 'b') order by [FieldB]",
+                     "2694BA9570ECB03DC308F8F55FDA8A7A215B7645F5FEDF24E335B946FF96CAFC");
+			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) [MyAlias] where contains([FieldA], 'b') order by [FieldB]",
+			         "336911E83983AD5440BC00B2725E273E75F1EE0393574FCC1F8D7640FEECDFB9");
+			TestGql ("select [MyAlias].[FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) [MyAlias] where contains([FieldA], 'b') order by [FieldB]",
+			         "336911E83983AD5440BC00B2725E273E75F1EE0393574FCC1F8D7640FEECDFB9");
+			TestGql ("select [MyAlias].[FieldA], [MyAlias].[FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) [MyAlias] where contains([FieldA], 'b') order by [FieldB]",
+			         "336911E83983AD5440BC00B2725E273E75F1EE0393574FCC1F8D7640FEECDFB9");
+			TestGql ("select * from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) [MyAlias] where contains([FieldA], 'b') order by [FieldB]",
+			         "336911E83983AD5440BC00B2725E273E75F1EE0393574FCC1F8D7640FEECDFB9");
+			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
+			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
 
 			Console.WriteLine ();
 			Console.WriteLine (
@@ -1326,23 +1342,6 @@ namespace FxGqlTest
             */
 
 
-			/*
-			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.On;
-			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.On;
-
-			TestGql ("select * from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) where contains([FieldA], 'b') order by [FieldB]",
-                     "2694BA9570ECB03DC308F8F55FDA8A7A215B7645F5FEDF24E335B946FF96CAFC");
-			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) where contains([FieldA], 'b') order by [FieldB]",
-                     "2694BA9570ECB03DC308F8F55FDA8A7A215B7645F5FEDF24E335B946FF96CAFC");
-			TestGql ("select [FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) [MyAlias] where contains([FieldA], 'b') order by [FieldB]",
-                     "2694BA9570ECB03DC308F8F55FDA8A7A215B7645F5FEDF24E335B946FF96CAFC");
-			TestGql ("select [MyAlias].[FieldA], [FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) [MyAlias] where contains([FieldA], 'b') order by [FieldB]");
-			TestGql ("select [MyAlias].[FieldA], [MyAlias].[FieldB] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) [MyAlias] where contains([FieldA], 'b') order by [FieldB]");
-			TestGql ("select * from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv']) [MyAlias] where contains([FieldA], 'b') order by [FieldB]");
-
-			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
-			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
-			*/
 
 
 			// join optimization

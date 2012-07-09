@@ -32,7 +32,8 @@ namespace FxGqlLib
 		}
 
 		public ColumnName (ColumnName columnName)
-			: this(columnName.Alias, columnName.Name)
+			: this(columnName != null ? columnName.Alias : null, 
+			       columnName != null ? columnName.Name : null)
 		{
 		}
 
