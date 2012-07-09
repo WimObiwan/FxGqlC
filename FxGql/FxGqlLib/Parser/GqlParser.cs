@@ -706,6 +706,19 @@ namespace FxGqlLib
 
 			string functionNameUpper = functionName.ToUpperInvariant ();
 			if (functionNameUpper == "COUNT" && functionCallTree.GetChild (1).Text == "T_ALLCOLUMNS") {
+				ITree allColumnsTree = functionCallTree.GetChild (1);
+				string providerAlias;
+				if (allColumnsTree.ChildCount == 1)
+					providerAlias = ParseProviderAlias (allColumnsTree.GetChild (0));
+				else 
+					providerAlias = null;
+
+				if (providerAlias != null) {
+					string[] providerAliases = provider.GetAliases ();
+					if (!providerAliases.Any (p => StringComparer.InvariantCultureIgnoreCase.Compare (p, providerAlias) == 0)) {
+						throw new InvalidOperationException (string.Format ("Invalid provider alias '{0}'", providerAlias));
+					}
+				}
 				arg = new ConstExpression<long> (1);
 			} else {
 				arg = ParseExpression (provider, functionCallTree.GetChild (1));

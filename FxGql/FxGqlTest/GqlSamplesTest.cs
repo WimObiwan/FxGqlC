@@ -399,8 +399,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engineHash.Execute (command);
-					testSummaryWriter.WriteLine (command);
+						engineHash.Execute (command);
+						testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1248,6 +1248,12 @@ namespace FxGqlTest
 			    "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
 			TestGql ("select [InvalidAlias].* from ['SampleFiles/AirportCodes.csv'] [MyAlias]",
 			    typeof(Exception));
+			TestGql (@"SELECT count(*), min($line), max($line) from [SampleFiles/AirportCodes.csv] [MyAlias]", 
+			         "441662F2AB6E6EC6D898758DC68B142C43117BBE6B71BEC956857BECE8A9F60B");
+			TestGql (@"SELECT count([MyAlias].*), min($line), max($line) from [SampleFiles/AirportCodes.csv] [MyAlias]", 
+			         "441662F2AB6E6EC6D898758DC68B142C43117BBE6B71BEC956857BECE8A9F60B");
+			TestGql (@"SELECT count([InvalidAlias].*), min($line), max($line) from [SampleFiles/AirportCodes.csv] [MyAlias]", 
+			         typeof(Exception));
 
 			Console.WriteLine ();
 			Console.WriteLine (
@@ -1338,12 +1344,6 @@ namespace FxGqlTest
 			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
 			*/
 
-//			TestGql (@"SELECT count(*), min($line), max($line) from [SampleFiles/AirportCodes.csv] [MyAlias]", 
-//			         "441662F2AB6E6EC6D898758DC68B142C43117BBE6B71BEC956857BECE8A9F60B");
-//			TestGql (@"SELECT count([MyAlias].*), min($line), max($line) from [SampleFiles/AirportCodes.csv] [MyAlias]", 
-//			         "441662F2AB6E6EC6D898758DC68B142C43117BBE6B71BEC956857BECE8A9F60B");
-//			TestGql (@"SELECT count([InvalidAlias].*), min($line), max($line) from [SampleFiles/AirportCodes.csv] [MyAlias]", 
-//			         typeof(Exception));
 
 			// join optimization
 			//   http://www.necessaryandsufficient.net/2010/02/join-algorithms-illustrated/

@@ -81,6 +81,8 @@ namespace FxGqlLib
 	
 	public interface IProvider : IDisposable
 	{
+		string[] GetAliases ();
+
 		ColumnName[] GetColumnNames ();
 
 		int GetColumnOrdinal (ColumnName columnName);

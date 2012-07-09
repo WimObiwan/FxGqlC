@@ -18,6 +18,11 @@ namespace FxGqlLib
 		}
 		
 		#region IProvider implementation
+		public string[] GetAliases ()
+		{
+			return providers [0].GetAliases ();
+		}
+
 		public ColumnName[] GetColumnNames ()
 		{
 			return providers [0].GetColumnNames ();

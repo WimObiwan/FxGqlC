@@ -23,6 +23,11 @@ namespace FxGqlLib
 		#endregion
 
 		#region IProvider implementation
+		public string[] GetAliases ()
+		{
+			return new string[] { Alias };
+		}
+
 		public ColumnName[] GetColumnNames ()
 		{
 			ColumnName[] columnNames = provider.GetColumnNames ();
