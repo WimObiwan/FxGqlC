@@ -211,7 +211,7 @@ namespace FxGqlLib
 				enumerator.MoveNext ();
                                 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE") {
-					Expression<bool > whereExpression = ParseWhereClause (
+					Expression<bool> whereExpression = ParseWhereClause (
                         fromProvider,
                         enumerator.Current
 					);
@@ -230,11 +230,23 @@ namespace FxGqlLib
 					);
 					enumerator.MoveNext ();
                     
+					Expression<bool> havingExpression;
+					if (enumerator.Current != null && enumerator.Current.Text == "T_HAVING") {
+						havingExpression = ParseHavingClause (
+	                        fromProvider,
+	                        enumerator.Current
+						);
+						enumerator.MoveNext ();
+					} else {
+						havingExpression = null;
+					}
+
 					provider = new GroupbyProvider (
                         provider,
                         groupbyColumns.Where (p => p.Order == OrderbyProvider.OrderEnum.ORIG).Select (p => p.Expression).ToList (),
                         groupbyColumns.Where (p => p.Order != OrderbyProvider.OrderEnum.ORIG).Select (p => p.Expression).ToList (),
                         outputColumns,
+						havingExpression,
                         stringComparer
 					);
 				} else {
@@ -425,6 +437,21 @@ namespace FxGqlLib
 			if (!(expression is Expression<bool>)) {
 				throw new ParserException (
                     "Expected boolean expression in WHERE clause.",
+                    expressionTree
+				);
+			}
+			return (Expression<bool>)expression;
+		}
+        
+		Expression<bool> ParseHavingClause (IProvider provider, ITree whereTree)
+		{
+			AssertAntlrToken (whereTree, "T_HAVING");
+            
+			ITree expressionTree = GetSingleChild (whereTree);
+			IExpression expression = ParseExpression (provider, expressionTree);
+			if (!(expression is Expression<bool>)) {
+				throw new ParserException (
+                    "Expected boolean expression in HAVING clause.",
                     expressionTree
 				);
 			}

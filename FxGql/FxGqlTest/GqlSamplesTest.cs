@@ -1278,6 +1278,24 @@ namespace FxGqlTest
 			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
 			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
 
+			// HAVING clause
+			TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select [Tournament], 'Tournament', [Winner] [Player] into ['test.txt' -append] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select * from (select [Player], count(*) from ['test.txt' -Heading=On] group by [Player] order by 1)"
+				+ " where [Player] in (select [Player] from ['test.txt' -Heading=On] where [Tournament] = 'Masters Cup')",
+				"02F0342B809A2D52B69B6DB48D2C00A96C6B6E5F262DC93EC159A66D0D9C6DCD");
+			TestGql ("select [Player], count(*) from ['test.txt' -Heading=On] group by [Player]"
+				+ " having [Player] in (select [Player] from ['test.txt' -Heading=On] where [Tournament] = 'Masters Cup') order by 1",
+			         "02F0342B809A2D52B69B6DB48D2C00A96C6B6E5F262DC93EC159A66D0D9C6DCD");
+			TestGql ("select [Player], count(*) from ['test.txt' -Heading=On] group by [Player]"
+				+ " having count(*) > 25 order by 2 desc, 1",
+			         "A84ED21176905D9A19E01FA17FED63E164C141C6E3E3173420867C0C2F9558AA");
+			TestGql ("select * from (select [Player], count(*) [Cnt] from ['test.txt' -Heading=On] group by [Player] order by 1)"
+				+ " where [Cnt] > 25 order by [Cnt] desc, [Player]",
+			         "A84ED21176905D9A19E01FA17FED63E164C141C6E3E3173420867C0C2F9558AA");
+
 			Console.WriteLine ();
 			Console.WriteLine (
                 "{0} tests done, {1} succeeded, {2} failed, {3} unknown",
@@ -1331,20 +1349,6 @@ namespace FxGqlTest
 //			TestGql ("select [Tournament], [Tournament], [The final], [Semifinals] from ['Test.txt' -Heading=On] pivot (first([Player]) for [Round] in ('Tournament', 'The final', 'Semifinals'))");
 //			         "33113552334D66A4079155E9DB9A4E1B32A80AE080F7D9EAC5EE023B5E1CB586");
 			//TestGql ("select [Tournament], [Round], [Player] from ['Test.txt' -Heading=On]");
-
-			/*
-			TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
-			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestGql ("select [Tournament], 'Tournament', [Winner] [Player] into ['test.txt' -append] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
-			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestGql ("select [Player] from ['test.txt' -Heading=On] where [a].[Tournament] = 'Masters Cup'");
-			TestGql ("select * from (select [Player], count(*) from ['test.txt' -Heading=On] group by [Player])"
-				+ " where [Player] in (select [Player] from ['test.txt' -Heading=On] where [a].[Tournament] = 'Masters Cup')"
-			);
-//			TestGql ("select [Player], count(*) from ['test.txt' -Heading=On] group by [Player]"
-//				+ " having [Player] in (select [Player] from ['test.txt' -Heading=On] where [a].[Tournament] = 'Masters Cup')"
-//			);
-*/
 
 			// inner select
 			/*

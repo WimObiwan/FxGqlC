@@ -77,6 +77,7 @@ tokens
 	T_DROP_VIEW;
 	T_TABLE_ALIAS;
 	T_ALLCOLUMNS;
+	T_HAVING;
 }
 
 @parser::namespace { FxGqlLib }
@@ -120,8 +121,8 @@ command
 // SELECT COMMAND
 
 select_command
-	: SELECT (WS distinct_clause)? (WS top_clause)? WS column_list (WS into_clause)? (WS from_clause)? (WS where_clause)? (WS groupby_clause)? (WS orderby_clause)?
-		-> ^(T_SELECT distinct_clause? top_clause? column_list into_clause? from_clause? where_clause? groupby_clause? orderby_clause?)
+	: SELECT (WS distinct_clause)? (WS top_clause)? WS column_list (WS into_clause)? (WS from_clause)? (WS where_clause)? (WS groupby_clause)? (WS having_clause)? (WS orderby_clause)?
+		-> ^(T_SELECT distinct_clause? top_clause? column_list into_clause? from_clause? where_clause? groupby_clause? having_clause? orderby_clause?)
 	;
 	
 distinct_clause
@@ -197,6 +198,11 @@ where_clause
 groupby_clause
 	: GROUP WS BY WS orderby_column_list
 	-> ^(T_GROUPBY orderby_column_list)
+	;
+	
+having_clause
+	: HAVING WS expression
+	-> ^(T_HAVING expression)
 	;
 	
 orderby_clause
@@ -493,6 +499,7 @@ SET     : S E T;
 CREATE	: C R E A T E;
 VIEW	: V I E W;
 DROP	: D R O P;
+HAVING	: H A V I N G;
 
 TOKEN
 	: ('A'..'Z' | 'a'..'z' | '_') ('A'..'Z' | 'a'..'z' | '_' | '0'..'9')*

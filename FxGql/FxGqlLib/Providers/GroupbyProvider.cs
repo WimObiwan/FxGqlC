@@ -9,6 +9,7 @@ namespace FxGqlLib
 		IProvider provider;
 		IList<IExpression> origGroupbyColumns;
 		IList<IExpression> groupbyColumns;
+		IExpression havingExpression;
 		ColumnName[] columnNameList;
 		IExpression[] outputColumns;
 		StringComparer stringComparer;
@@ -97,11 +98,12 @@ namespace FxGqlLib
 		}
 
 		public GroupbyProvider (IProvider provider, IList<Column> outputColumns, StringComparer stringComparer)
-			: this (provider, null, GeneralGroupbyExpressionList, outputColumns, stringComparer)
+			: this (provider, null, GeneralGroupbyExpressionList, outputColumns, null, stringComparer)
 		{
 		}
 
-		public GroupbyProvider (IProvider provider, IList<IExpression> origGroupbyColumns, IList<IExpression> groupbyColumns, IList<Column> outputColumns, StringComparer stringComparer)
+		public GroupbyProvider (IProvider provider, IList<IExpression> origGroupbyColumns, IList<IExpression> groupbyColumns, 
+		                        IList<Column> outputColumns, Expression<bool> havingExpression, StringComparer stringComparer)
 		{
 			this.provider = provider;
 			if (origGroupbyColumns != null && origGroupbyColumns.Count > 0) 
@@ -109,6 +111,12 @@ namespace FxGqlLib
 			else
 				this.origGroupbyColumns = null;
 			this.groupbyColumns = ConvertColumnOrdinals (groupbyColumns, outputColumns);
+			if (havingExpression == null)
+				this.havingExpression = null;
+			else if (havingExpression.IsAggregated ())
+				this.havingExpression = havingExpression;
+			else
+				this.havingExpression = new InvariantColumn (havingExpression, stringComparer);
 			this.stringComparer = stringComparer;
 
 			this.columnNameList = outputColumns.ToArray ();
@@ -167,6 +175,7 @@ namespace FxGqlLib
 			record.Source = "(aggregated)";
 			
 			newGqlQueryState = new GqlQueryState (this.gqlQueryState.CurrentExecutionState, this.gqlQueryState.Variables);
+			newGqlQueryState.CurrentDirectory = this.gqlQueryState.CurrentDirectory;
 			newGqlQueryState.TotalLineNumber = 0;
 			newGqlQueryState.UseOriginalColumns = true;
 			
@@ -183,7 +192,15 @@ namespace FxGqlLib
 		public bool GetNextRecord ()
 		{
 			if (enumerator != null) {
-				if (!enumerator.MoveNext ())
+				bool found = false;
+				while (!found && enumerator.MoveNext ()) {
+					if (havingExpression == null)
+						found = true;
+					else if (havingExpression.AggregateCalculate (enumerator.Current.Value).CompareTo (true) == 0)
+						found = true;
+				}
+
+				if (!found)
 					enumerator = null;
 			}
 
@@ -193,7 +210,16 @@ namespace FxGqlLib
 				RetrieveData ();
 
 				enumerator = data.GetEnumerator ();
-				if (!enumerator.MoveNext ())
+
+				bool found = false;
+				while (!found && enumerator.MoveNext ()) {
+					if (havingExpression == null)
+						found = true;
+					else if (havingExpression.AggregateCalculate (enumerator.Current.Value).CompareTo (true) == 0)
+						found = true;
+				}
+
+				if (!found)
 					enumerator = null;
 			}
 
@@ -292,6 +318,9 @@ namespace FxGqlLib
 				// Aggregate
 				foreach (var column in outputColumns)
 					column.Aggregate (state, newGqlQueryState);
+
+				if (havingExpression != null)
+					havingExpression.Aggregate (state, newGqlQueryState);
 
 				moreData = provider.GetNextRecord ();
 			} while (moreData);
