@@ -9,7 +9,6 @@ namespace FxGqlLib
 		readonly FileOptionsFromClause fileOptions;
 		readonly StringComparer stringComparer;
 
-		// TODO: Cache
 		IProvider provider;
 		long totalLineNo;
 		string[] files;

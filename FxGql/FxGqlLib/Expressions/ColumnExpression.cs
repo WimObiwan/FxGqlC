@@ -11,27 +11,42 @@ namespace FxGqlLib
 	{
 		readonly ColumnName columnName;
 		readonly IProvider provider;
-		readonly int columnOrdinal;
+		readonly int origColumnOrdinal;
 
-		public ColumnExpression (IProvider provider, ColumnName columnName)
+		int columnOrdinal;
+
+		private ColumnExpression (IProvider provider, ColumnName columnName, int columnOrdinal)
 		{
 			this.columnName = columnName;
-			this.columnOrdinal = -1;
 			this.provider = provider;
+			this.origColumnOrdinal = columnOrdinal;
+
+			this.columnOrdinal = -1;
+		}
+
+		public ColumnExpression (IProvider provider, ColumnName columnName)
+			: this (provider, columnName, -1)
+		{
 		}
 		
-		public ColumnExpression (IProvider provider, int column)
+		public ColumnExpression (IProvider provider, int columnOrdinal)
+			: this (provider, null, columnOrdinal)
 		{
-			this.columnOrdinal = column;
-			this.provider = provider;
 		}
 
 		public ColumnName ColumnName {
 			get {
 				if (columnName != null)
 					return columnName;
-				else
-					return provider.GetColumnNames () [columnOrdinal];
+				else {
+					ColumnName[] columnNames = provider.GetColumnNames ();
+					if (origColumnOrdinal >= 0 && origColumnOrdinal < columnNames.Length)
+						return columnNames [origColumnOrdinal];
+					else 					if (columnOrdinal >= 0 && columnOrdinal < columnNames.Length)
+						return columnNames [columnOrdinal];
+					else
+						return null;
+				}
 			}
 		}		
 
@@ -44,14 +59,13 @@ namespace FxGqlLib
 			//	}
 			//}
 
-			int columnOrdinal;
-			if (this.columnOrdinal != -1)
-				columnOrdinal = this.columnOrdinal;
-			else
-				columnOrdinal = this.provider.GetColumnOrdinal (columnName);
+			if (columnOrdinal == -1) {
+				if (origColumnOrdinal != -1)
+					columnOrdinal = origColumnOrdinal;
+				else
+					columnOrdinal = provider.GetColumnOrdinal (columnName);
+			}
 
-			// TODO: Cache columnOrdinal in gqlQueryState
-			
 			IComparable[] columns;
 			if (gqlQueryState.UseOriginalColumns)
 				columns = gqlQueryState.Record.OriginalColumns;

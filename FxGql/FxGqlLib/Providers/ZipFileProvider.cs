@@ -10,7 +10,6 @@ namespace FxGqlLib
 		readonly string fileName;
 		readonly long skip;
 
-		// TODO: Cache
 		ZipFile zipFile;
 		long currentFile;
 		StreamReader streamReader;

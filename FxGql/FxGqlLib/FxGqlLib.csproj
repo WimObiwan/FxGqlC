@@ -110,6 +110,7 @@
     <Compile Include="Commands\CreateViewCommand.cs" />
     <Compile Include="Commands\DropViewCommand.cs" />
     <Compile Include="Providers\NamedProvider.cs" />
+    <Compile Include="Util\StateBin.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -128,5 +129,6 @@
     <Folder Include="Exceptions\" />
     <Folder Include="Commands\" />
     <Folder Include="..\" />
+    <Folder Include="Util\" />
   </ItemGroup>
 </Project>

@@ -12,7 +12,6 @@ namespace FxGqlLib
 		readonly FileOptionsIntoClause fileOptions;
 		readonly string columnDelimiter;
 
-		// TODO: Cache
 		ProviderRecord record;
 		GqlQueryState gqlQueryState;
 

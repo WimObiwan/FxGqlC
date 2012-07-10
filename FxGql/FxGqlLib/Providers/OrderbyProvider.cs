@@ -36,7 +36,6 @@ namespace FxGqlLib
 		readonly IList<Column> orderbyColumns;
 		readonly StringComparer stringComparer;
 
-		// TODO: Cache
 		bool dataRetrieved;
 		List<Key> data;
 		int nextRecord;

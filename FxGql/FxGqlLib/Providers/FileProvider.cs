@@ -8,7 +8,6 @@ namespace FxGqlLib
 		readonly string fileName;
 		readonly long skip;
 
-		// TODO: Cache
 		StreamReader streamReader;
 		ProviderRecord record;
 		GqlEngineExecutionState gqlEngineExecutionState;

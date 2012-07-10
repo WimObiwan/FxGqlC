@@ -62,12 +62,12 @@ namespace FxGqlLib
 			return false;
 		}
         
-		public void Aggregate (AggregationState state, GqlQueryState gqlQueryState)
+		public void Aggregate (StateBin state, GqlQueryState gqlQueryState)
 		{
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}
         
-		public IComparable AggregateCalculate (AggregationState state)
+		public IComparable AggregateCalculate (StateBin state)
 		{
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}

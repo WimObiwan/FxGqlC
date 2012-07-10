@@ -10,7 +10,6 @@ namespace FxGqlLib
 		readonly string regexDefinition;
 		readonly bool caseInsensitive;
 
-		// TODO: Cache
 		ProviderRecord record;
 		ColumnName[] columnNameList;
 		Regex regex;

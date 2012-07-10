@@ -9,7 +9,6 @@ namespace FxGqlLib
 		readonly IProvider provider;
 		readonly Func<T, T, bool> functor;
 
-		// TODO: Cache Values in gqlQueryState
 		List<T> values;
 		
 		public AnySubqueryOperator (Expression<T> arg, 
@@ -25,7 +24,8 @@ namespace FxGqlLib
 		public override bool Evaluate (GqlQueryState gqlQueryState)
 		{
 			T value1 = arg.Evaluate (gqlQueryState);
-			
+
+
 			if (values == null) {
 				values = new List<T> ();
 				provider.Initialize (gqlQueryState);

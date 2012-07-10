@@ -9,7 +9,6 @@ namespace FxGqlLib
 		readonly protected char[] separators;
 		readonly int columnCount;
 
-		// TODO: Cache
 		ProviderRecord record;
 		protected ColumnName[] columnNameList;
 		protected string firstLine;

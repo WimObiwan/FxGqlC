@@ -14,10 +14,9 @@ namespace FxGqlLib
 		readonly ColumnName[] columnNameList;
 		readonly IExpression[] outputColumns;
 
-		// TODO: Cache
-		Dictionary<ColumnsComparerKey, AggregationState> data;
+		Dictionary<ColumnsComparerKey, StateBin> data;
 		int currentRecord;
-		IEnumerator<KeyValuePair<ColumnsComparerKey, AggregationState>> enumerator;
+		IEnumerator<KeyValuePair<ColumnsComparerKey, StateBin>> enumerator;
 		ProviderRecord record;
 		GqlQueryState gqlQueryState;
 		GqlQueryState newGqlQueryState;
@@ -115,7 +114,7 @@ namespace FxGqlLib
 			newGqlQueryState.UseOriginalColumns = true;
 			
 			ColumnsComparer<ColumnsComparerKey> columnsComparer = CreateComparer (groupbyColumns, stringComparer);
-			data = new Dictionary<ColumnsComparerKey, AggregationState> (columnsComparer);			
+			data = new Dictionary<ColumnsComparerKey, StateBin> (columnsComparer);			
 			if (origGroupbyColumns != null)
 				origColumnsComparer = CreateComparer (origGroupbyColumns, stringComparer);
 			else
@@ -242,9 +241,9 @@ namespace FxGqlLib
 					key.Members [i] = groupbyColumns [i].EvaluateAsComparable (newGqlQueryState);
 				}
 				
-				AggregationState state;
+				StateBin state;
 				if (!data.TryGetValue (key, out state)) {
-					state = new AggregationState ();
+					state = new StateBin ();
 					//foreach (var column in aggregationColumns)
 					//	column.AggregateInitialize(state);
 					data.Add (key, state);
@@ -339,7 +338,7 @@ namespace FxGqlLib
 			return true;
 		}
 
-		public void Aggregate (AggregationState state, GqlQueryState gqlQueryState)
+		public void Aggregate (StateBin state, GqlQueryState gqlQueryState)
 		{
 			IComparable comparable1 = expression.EvaluateAsComparable (gqlQueryState);
 			IComparable comparable2;
@@ -359,7 +358,7 @@ namespace FxGqlLib
 			}
 		}
 
-		public IComparable AggregateCalculate (AggregationState state)
+		public IComparable AggregateCalculate (StateBin state)
 		{
 			IComparable comparable;
 			state.GetState<IComparable> (this, out comparable);

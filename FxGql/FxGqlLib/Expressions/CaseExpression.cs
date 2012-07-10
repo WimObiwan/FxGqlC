@@ -79,14 +79,14 @@ namespace FxGqlLib
 			//TODO: Consistency check on aggregation
 		}
 
-		public void Aggregate (AggregationState state, GqlQueryState gqlQueryState)
+		public void Aggregate (StateBin state, GqlQueryState gqlQueryState)
 		{
 			throw new NotSupportedException ("Aggregation with case expression not supported");
 
 			//GetResultExpression(gqlQueryState).Aggregate(state, gqlQueryState);
 		}
 
-		public IComparable AggregateCalculate (AggregationState state)
+		public IComparable AggregateCalculate (StateBin state)
 		{
 			throw new NotSupportedException ("Aggregation with case expression not supported");
 

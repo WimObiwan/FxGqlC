@@ -23,12 +23,12 @@ namespace FxGqlLib
 			return false;
 		}
 		
-		public override void Aggregate (AggregationState state, GqlQueryState gqlQueryState)
+		public override void Aggregate (StateBin state, GqlQueryState gqlQueryState)
 		{
 			throw new InvalidOperationException ();
 		}
 		
-		public override IComparable AggregateCalculate (AggregationState state)
+		public override IComparable AggregateCalculate (StateBin state)
 		{
 			throw new InvalidOperationException ();
 		}

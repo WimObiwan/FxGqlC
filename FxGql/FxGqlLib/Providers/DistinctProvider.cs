@@ -9,7 +9,6 @@ namespace FxGqlLib
 		readonly IProvider provider;
 		readonly StringComparer stringComparer;
 
-		// TODO: Cache
 		SortedSet<ColumnsComparerKey> recordList;
 		ProviderRecord record;
 

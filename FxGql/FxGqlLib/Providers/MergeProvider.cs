@@ -7,7 +7,6 @@ namespace FxGqlLib
 	{
 		readonly IList<IProvider> providers;
 
-		// TODO: Cache
 		int currentProvider;
 		GqlQueryState gqlQueryState;
 		long totalLineNo;

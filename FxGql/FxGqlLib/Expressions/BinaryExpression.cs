@@ -34,13 +34,13 @@ namespace FxGqlLib
 			return arg1.IsAggregated ();
 		}
 		
-		public override void Aggregate (AggregationState state, GqlQueryState gqlQueryState)
+		public override void Aggregate (StateBin state, GqlQueryState gqlQueryState)
 		{
 			arg1.Aggregate (state, gqlQueryState);
 			arg2.Aggregate (state, gqlQueryState);
 		}
 		
-		public override IComparable AggregateCalculate (AggregationState state)
+		public override IComparable AggregateCalculate (StateBin state)
 		{
 			T1 t1 = (T1)arg1.AggregateCalculate (state);
 			T2 t2 = (T2)arg2.AggregateCalculate (state);

@@ -7,7 +7,6 @@ namespace FxGqlLib
 		readonly IProvider provider;
 		readonly Expression<long> topValueExpression;
 
-		// TODO: Cache
 		long linesToGo;
 		
 		public TopProvider (IProvider provider, Expression<long> topValueExpression)
