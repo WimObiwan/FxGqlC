@@ -9,13 +9,14 @@ namespace FxGqlLib
 
 	public class ColumnExpression<T> : Expression<T>, IColumnExpression where T : IComparable
 	{
-		ColumnName columnName;
-		IProvider provider;
-		int columnOrdinal = -1;
-		
+		readonly ColumnName columnName;
+		readonly IProvider provider;
+		readonly int columnOrdinal;
+
 		public ColumnExpression (IProvider provider, ColumnName columnName)
 		{
 			this.columnName = columnName;
+			this.columnOrdinal = -1;
 			this.provider = provider;
 		}
 		
@@ -42,8 +43,14 @@ namespace FxGqlLib
 			//		return gqlQueryState.Record.Columns [i];
 			//	}
 			//}
-			if (columnOrdinal == -1)
+
+			int columnOrdinal;
+			if (this.columnOrdinal != -1)
+				columnOrdinal = this.columnOrdinal;
+			else
 				columnOrdinal = this.provider.GetColumnOrdinal (columnName);
+
+			// TODO: Cache columnOrdinal in gqlQueryState
 			
 			IComparable[] columns;
 			if (gqlQueryState.UseOriginalColumns)

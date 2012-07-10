@@ -5,10 +5,10 @@ namespace FxGqlLib
 {
 	public class MatchRegexFunction : Expression<string>
 	{
-		IExpression arg1;
-		IExpression arg2;
-		IExpression arg3;
-		RegexOptions regexOptions;
+		readonly IExpression arg1;
+		readonly IExpression arg2;
+		readonly IExpression arg3;
+		readonly RegexOptions regexOptions;
 		
 		public MatchRegexFunction (IExpression arg1, IExpression arg2, bool caseInsensitive)
 			: this(arg1, arg2, caseInsensitive, new ConstExpression<string>("$1"))

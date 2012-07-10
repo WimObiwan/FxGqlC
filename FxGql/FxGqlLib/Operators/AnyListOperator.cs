@@ -4,9 +4,9 @@ namespace FxGqlLib
 {
 	public class AnyListOperator<T> : Expression<bool> where T: IComparable
 	{
-		Expression<T> arg;
-		Expression<T>[] list;
-		Func<T, T, bool> functor;
+		readonly Expression<T> arg;
+		readonly Expression<T>[] list;
+		readonly Func<T, T, bool> functor;
 		
 		public AnyListOperator (Expression<T> arg, 
 		                       IExpression[] list, 

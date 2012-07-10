@@ -11,8 +11,8 @@ namespace FxGqlLib
 			public IExpression Result { get; set; }
 		}
 		
-		IList<WhenItem> whenItems;
-		IExpression elseResult;
+		readonly IList<WhenItem> whenItems;
+		readonly IExpression elseResult;
 			
 		public CaseExpression (IList<WhenItem> whenItems, IExpression elseResult)
 		{

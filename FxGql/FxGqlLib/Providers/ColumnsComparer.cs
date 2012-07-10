@@ -6,10 +6,11 @@ namespace FxGqlLib
 {
 	class ColumnsComparer<K> : IComparer<K>, IEqualityComparer<K> where K : ColumnsComparerKey
 	{
-		IComparer[] comparers;
-		bool[] descending;
+		readonly IComparer[] comparers;
+		readonly bool[] descending;
+		readonly int[] fixedColumns;
 
-		public int[] FixedColumns { get; private set; }
+		public int[] FixedColumns { get { return fixedColumns; } }
 			
 		public ColumnsComparer (Type[] types, StringComparer stringComparer)
 			: this(types, new bool[types.Length], null, stringComparer)
@@ -25,7 +26,7 @@ namespace FxGqlLib
 		{
 			comparers = new IComparer[types.Length];
 			this.descending = descending;
-			FixedColumns = fixedColumns;
+			this.fixedColumns = fixedColumns;
 			
 			//TODO: Check array sizes
 			for (int i = 0; i < types.Length; i++) {

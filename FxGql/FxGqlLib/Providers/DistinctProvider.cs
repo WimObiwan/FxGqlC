@@ -6,11 +6,13 @@ namespace FxGqlLib
 {
 	public class DistinctProvider : IProvider
 	{
-		IProvider provider;
+		readonly IProvider provider;
+		readonly StringComparer stringComparer;
+
+		// TODO: Cache
 		SortedSet<ColumnsComparerKey> recordList;
 		ProviderRecord record;
-		StringComparer stringComparer;
-		
+
 		public DistinctProvider (IProvider provider, StringComparer stringComparer)
 		{
 			this.provider = provider;

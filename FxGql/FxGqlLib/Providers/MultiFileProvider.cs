@@ -6,14 +6,14 @@ namespace FxGqlLib
 {
 	public class MultiFileProvider : IProvider
 	{
-		IProvider provider;
-		FileOptionsFromClause fileOptions;
-		StringComparer stringComparer;
-		long totalLineNo;
+		readonly FileOptionsFromClause fileOptions;
+		readonly StringComparer stringComparer;
 
+		// TODO: Cache
+		IProvider provider;
+		long totalLineNo;
 		string[] files;
 		GqlQueryState gqlQueryState;
-		
 		int currentFile;
 		
 		public MultiFileProvider (FileOptionsFromClause fileOptions, StringComparer stringComparer)

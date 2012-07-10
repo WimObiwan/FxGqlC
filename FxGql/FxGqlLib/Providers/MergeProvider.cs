@@ -5,7 +5,9 @@ namespace FxGqlLib
 {
 	public class MergeProvider : IProvider
 	{
-		IList<IProvider> providers;
+		readonly IList<IProvider> providers;
+
+		// TODO: Cache
 		int currentProvider;
 		GqlQueryState gqlQueryState;
 		long totalLineNo;

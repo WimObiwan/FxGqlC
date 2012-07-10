@@ -6,7 +6,7 @@ namespace FxGqlLib
 {
 	public class UseCommand : IGqlCommand
 	{
-		FileOptions fileOptions;
+		readonly FileOptions fileOptions;
 
 		public UseCommand (FileOptions fileOptions)
 		{

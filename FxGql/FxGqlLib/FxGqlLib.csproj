@@ -68,7 +68,6 @@
     <Compile Include="Operators\LikeOperator.cs" />
     <Compile Include="Functions\ReplaceFunction.cs" />
     <Compile Include="Providers\OrderbyProvider.cs" />
-    <Compile Include="Providers\FormatSelectProvider.cs" />
     <Compile Include="Providers\IntoProvider.cs" />
     <Compile Include="Functions\FormatListFunction.cs" />
     <Compile Include="Functions\FormatColumnListFunction.cs" />

@@ -4,8 +4,8 @@ namespace FxGqlLib
 {
 	public class FormatListFunction : Expression<string>
 	{
-		IExpression[] expression;
-		string separator;
+		readonly IExpression[] expression;
+		readonly string separator;
 		
 		public FormatListFunction (IExpression[] expression, string separator)
 		{

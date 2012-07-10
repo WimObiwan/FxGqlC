@@ -4,8 +4,10 @@ namespace FxGqlLib
 {
 	public class FilterProvider : IProvider
 	{
-		IProvider provider;
-		Expression<bool> filterExpression;
+		readonly IProvider provider;
+		readonly Expression<bool> filterExpression;
+
+		// TODO: Cache
 		GqlQueryState gqlQueryState;
 		
 		public FilterProvider (IProvider provider, Expression<bool> filterExpression)

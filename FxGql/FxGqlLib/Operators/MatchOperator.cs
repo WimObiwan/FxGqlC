@@ -6,9 +6,9 @@ namespace FxGqlLib
 {
 	public class MatchOperator : Expression<bool>
 	{
-		IExpression arg1;
-		IExpression arg2;
-		RegexOptions regexOptions;
+		readonly IExpression arg1;
+		readonly IExpression arg2;
+		readonly RegexOptions regexOptions;
 		
 		public MatchOperator (IExpression arg1, IExpression arg2, bool caseInsensitive)
 		{

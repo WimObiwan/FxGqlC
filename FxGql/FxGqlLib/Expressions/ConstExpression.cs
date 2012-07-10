@@ -4,7 +4,7 @@ namespace FxGqlLib
 {
 	public class ConstExpression<T> : Expression<T> where T : IComparable
 	{
-		T constValue;
+		readonly T constValue;
 		
 		public ConstExpression (T constValue)
 		{

@@ -6,8 +6,8 @@ namespace FxGqlLib
 		where T : IComparable
 		where R : IComparable
 	{
-		Func<T, R> functor;
-		Expression<T> arg;
+		readonly Func<T, R> functor;
+		readonly Expression<T> arg;
 		
 		public UnaryExpression (Func<T, R> functor, IExpression arg)
 			: this (functor, ExpressionHelper.ConvertIfNeeded<T>(arg))

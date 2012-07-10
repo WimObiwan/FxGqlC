@@ -31,10 +31,12 @@ namespace FxGqlLib
 			public IComparable[] Columns { get; set; }
 		}
 		
-		IProvider provider;
-		IList<Column> origOrderByColumns;
-		IList<Column> orderbyColumns;
-		StringComparer stringComparer;
+		readonly IProvider provider;
+		readonly IList<Column> origOrderByColumns;
+		readonly IList<Column> orderbyColumns;
+		readonly StringComparer stringComparer;
+
+		// TODO: Cache
 		bool dataRetrieved;
 		List<Key> data;
 		int nextRecord;

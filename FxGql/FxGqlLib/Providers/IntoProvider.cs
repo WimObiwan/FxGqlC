@@ -8,16 +8,21 @@ namespace FxGqlLib
 {
 	public class IntoProvider : IProvider
 	{
-		IProvider provider;
-		FileOptionsIntoClause fileOptions;
+		readonly IProvider provider;
+		readonly FileOptionsIntoClause fileOptions;
+		readonly string columnDelimiter;
+
+		// TODO: Cache
 		ProviderRecord record;
 		GqlQueryState gqlQueryState;
-		string columnDelimiter;
-		
+
 		public IntoProvider (IProvider provider, FileOptionsIntoClause fileOptions)
 		{
 			this.provider = provider;
 			this.fileOptions = fileOptions;
+			columnDelimiter = fileOptions.ColumnDelimiter;
+			if (columnDelimiter == null)
+				columnDelimiter = "\t";
 		}
 
 		#region IProvider implementation
@@ -48,9 +53,6 @@ namespace FxGqlLib
 			record.OriginalColumns = new IComparable[] { };
 			record.LineNo = 1;
 			this.gqlQueryState = gqlQueryState;
-			columnDelimiter = fileOptions.ColumnDelimiter;
-			if (columnDelimiter == null)
-				columnDelimiter = "\t";
 		}
 
 		private string GetNewLine (FileOptionsIntoClause.NewLineEnum lineEnd)

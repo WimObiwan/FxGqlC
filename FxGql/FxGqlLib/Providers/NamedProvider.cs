@@ -5,14 +5,15 @@ namespace FxGqlLib
 {
 	public class NamedProvider : IProvider
 	{
-		IProvider provider;
+		readonly IProvider provider;
+		readonly string alias;
 
-		public string Alias { get; private set; }
+		public string Alias { get { return alias; } }
 
 		public NamedProvider (IProvider provider, string alias)
 		{
 			this.provider = provider;
-			Alias = alias;
+			this.alias = alias;
 		}
 
 		#region IDisposable implementation

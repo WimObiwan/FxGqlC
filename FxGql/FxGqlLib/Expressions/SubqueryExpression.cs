@@ -4,7 +4,7 @@ namespace FxGqlLib
 {
 	public class SubqueryExpression : IExpression
 	{
-		IProvider provider;
+		readonly IProvider provider;
 
 		public SubqueryExpression (IProvider provider)
 		{

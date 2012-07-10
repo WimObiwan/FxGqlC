@@ -31,6 +31,7 @@ namespace FxGqlLib
 		readonly IExpression[] staticOutputList;
 		readonly ColumnName[] staticColumnNameList;
 
+		// TODO: Cache
 		IExpression[] outputList;
 		ColumnName[] columnNameList;
 		IProvider provider;

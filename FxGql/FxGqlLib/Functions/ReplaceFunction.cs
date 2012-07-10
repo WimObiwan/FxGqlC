@@ -5,10 +5,10 @@ namespace FxGqlLib
 {
 	public class ReplaceFunction : Expression<string>
 	{
-		IExpression arg1;
-		IExpression arg2;
-		IExpression arg3;
-		RegexOptions regexOptions;
+		readonly IExpression arg1;
+		readonly IExpression arg2;
+		readonly IExpression arg3;
+		readonly RegexOptions regexOptions;
 
 		public ReplaceFunction (IExpression arg1, IExpression arg2, IExpression arg3, bool caseInsensitive)
 		{

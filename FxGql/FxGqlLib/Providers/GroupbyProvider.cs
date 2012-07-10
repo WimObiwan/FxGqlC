@@ -6,13 +6,15 @@ namespace FxGqlLib
 {
 	public class GroupbyProvider : IProvider
 	{
-		IProvider provider;
-		IList<IExpression> origGroupbyColumns;
-		IList<IExpression> groupbyColumns;
-		IExpression havingExpression;
-		ColumnName[] columnNameList;
-		IExpression[] outputColumns;
-		StringComparer stringComparer;
+		readonly IProvider provider;
+		readonly IList<IExpression> origGroupbyColumns;
+		readonly IList<IExpression> groupbyColumns;
+		readonly IExpression havingExpression;
+		readonly StringComparer stringComparer;
+		readonly ColumnName[] columnNameList;
+		readonly IExpression[] outputColumns;
+
+		// TODO: Cache
 		Dictionary<ColumnsComparerKey, AggregationState> data;
 		int currentRecord;
 		IEnumerator<KeyValuePair<ColumnsComparerKey, AggregationState>> enumerator;

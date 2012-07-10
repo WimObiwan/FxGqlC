@@ -18,7 +18,7 @@ namespace FxGqlLib
 
 	public class ConvertExpression<ToT> : Expression<ToT> where ToT : IComparable
 	{
-		protected IExpression expression;
+		readonly protected IExpression expression;
 			
 		public ConvertExpression (IExpression  expression)
 		{

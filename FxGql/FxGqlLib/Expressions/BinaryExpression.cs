@@ -7,9 +7,9 @@ namespace FxGqlLib
 		where T2 : IComparable
 		where R : IComparable
 	{
-		Func<T1, T2, R> functor;
-		Expression<T1> arg1;
-		Expression<T2> arg2;
+		readonly Func<T1, T2, R> functor;
+		readonly Expression<T1> arg1;
+		readonly Expression<T2> arg2;
 
 		public BinaryExpression (Func<T1, T2, R> functor, IExpression arg1, IExpression arg2)
 			: this (functor, ExpressionHelper.ConvertIfNeeded<T1>(arg1), ExpressionHelper.ConvertIfNeeded<T2>(arg2))

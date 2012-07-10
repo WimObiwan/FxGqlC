@@ -7,8 +7,10 @@ namespace FxGqlLib
 {
 	public class ZipFileProvider : IProvider
 	{
-		string fileName;
-		long skip;
+		readonly string fileName;
+		readonly long skip;
+
+		// TODO: Cache
 		ZipFile zipFile;
 		long currentFile;
 		StreamReader streamReader;

@@ -5,8 +5,10 @@ namespace FxGqlLib
 {
 	public class ColumnProviderTitleLine : IProvider
 	{
-		IProvider provider;
-		GqlEngineState.HeadingEnum heading;
+		readonly IProvider provider;
+		readonly GqlEngineState.HeadingEnum heading;
+
+		// TODO: Cache
 		ColumnName[] columnNameList;
 
 		public ColumnProviderTitleLine (IProvider provider, GqlEngineState.HeadingEnum heading)

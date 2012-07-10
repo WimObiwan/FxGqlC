@@ -5,9 +5,11 @@ namespace FxGqlLib
 {
 	public class AnySubqueryOperator<T> : Expression<bool> where T: IComparable
 	{
-		Expression<T> arg;
-		IProvider provider;
-		Func<T, T, bool> functor;
+		readonly Expression<T> arg;
+		readonly IProvider provider;
+		readonly Func<T, T, bool> functor;
+
+		// TODO: Cache Values in gqlQueryState
 		List<T> values;
 		
 		public AnySubqueryOperator (Expression<T> arg, 

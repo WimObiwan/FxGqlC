@@ -6,10 +6,10 @@ namespace FxGqlLib
 		where T : IComparable
 		where R : IComparable
 	{
-		Func<T, S> init;
-		Func<S, T, S> aggregator;
-		Func<S, R> calculate;
-		Expression<T> arg;
+		readonly Func<T, S> init;
+		readonly Func<S, T, S> aggregator;
+		readonly Func<S, R> calculate;
+		readonly Expression<T> arg;
 		
 		public AggregationExpression (Func<T, S> init, Func<S, T, S> aggregator, Func<S, R> calculate, Expression<T> arg)
 		{

@@ -5,8 +5,8 @@ namespace FxGqlLib
 {
 	public class CreateViewCommand : IGqlCommand
 	{
-		string name;
-		IProvider provider;
+		readonly string name;
+		readonly IProvider provider;
 
 		public CreateViewCommand (string name, IProvider provider)
 		{

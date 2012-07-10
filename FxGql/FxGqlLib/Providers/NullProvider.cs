@@ -4,6 +4,7 @@ namespace FxGqlLib
 {
 	public class NullProvider : IProvider
 	{
+		// TODO: Cache
 		bool endOfQuery;
 		ProviderRecord record;
 		

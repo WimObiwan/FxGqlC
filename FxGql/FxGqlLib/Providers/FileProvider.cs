@@ -5,8 +5,10 @@ namespace FxGqlLib
 {
 	public class FileProvider : IProvider
 	{
-		string fileName;
-		long skip;
+		readonly string fileName;
+		readonly long skip;
+
+		// TODO: Cache
 		StreamReader streamReader;
 		ProviderRecord record;
 		GqlEngineExecutionState gqlEngineExecutionState;

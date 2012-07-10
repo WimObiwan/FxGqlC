@@ -5,7 +5,7 @@ namespace FxGqlLib
 	public class NullaryExpression<R> : Expression<R>
 		where R : IComparable
 	{
-		Func<R> functor;
+		readonly Func<R> functor;
 		
 		public NullaryExpression (Func<R> functor)
 		{

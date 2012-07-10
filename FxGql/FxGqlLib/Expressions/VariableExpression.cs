@@ -4,8 +4,8 @@ namespace FxGqlLib
 {
 	public class VariableExpression : IExpression
 	{
-		string variable;
-		Type type;
+		readonly string variable;
+		readonly Type type;
 
 		public VariableExpression (string variable, Type type)
 		{

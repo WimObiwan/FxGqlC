@@ -8,10 +8,10 @@ namespace FxGqlLib
 		where T3 : IComparable
 		where R : IComparable
 	{
-		Func<T1, T2, T3, R> functor;
-		Expression<T1> arg1;
-		Expression<T2> arg2;
-		Expression<T3> arg3;
+		readonly Func<T1, T2, T3, R> functor;
+		readonly Expression<T1> arg1;
+		readonly Expression<T2> arg2;
+		readonly Expression<T3> arg3;
 
 		public TernaryExpression (Func<T1, T2, T3, R> functor, IExpression arg1, IExpression arg2, IExpression arg3)
 			: this (functor, ExpressionHelper.ConvertIfNeeded<T1>(arg1), ExpressionHelper.ConvertIfNeeded<T2>(arg2),

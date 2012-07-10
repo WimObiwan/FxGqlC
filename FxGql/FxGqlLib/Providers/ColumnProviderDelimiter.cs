@@ -5,10 +5,11 @@ namespace FxGqlLib
 {
 	public class ColumnProviderDelimiter : IProvider
 	{
-		protected IProvider provider;
-		protected char[] separators;
-		int columnCount;
+		readonly protected IProvider provider;
+		readonly protected char[] separators;
+		readonly int columnCount;
 
+		// TODO: Cache
 		ProviderRecord record;
 		protected ColumnName[] columnNameList;
 		protected string firstLine;

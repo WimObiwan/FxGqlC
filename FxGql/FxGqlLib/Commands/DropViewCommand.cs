@@ -5,7 +5,7 @@ namespace FxGqlLib
 {
 	public class DropViewCommand : IGqlCommand
 	{
-		string name;
+		readonly string name;
 
 		public DropViewCommand (string name)
 		{

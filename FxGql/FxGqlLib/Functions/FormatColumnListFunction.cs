@@ -5,7 +5,7 @@ namespace FxGqlLib
 {
 	public class FormatColumnListFunction : Expression<string>
 	{
-		string separator;
+		readonly string separator;
 		
 		public FormatColumnListFunction (string separator)
 		{
@@ -15,12 +15,12 @@ namespace FxGqlLib
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
 		public override string Evaluate (GqlQueryState gqlQueryState)
 		{
-			string[] columns = gqlQueryState.Record.Columns.Select (p => p.ToString ()).ToArray();
+			string[] columns = gqlQueryState.Record.Columns.Select (p => p.ToString ()).ToArray ();
 			return Evaluate (columns);
 		}
 		#endregion
 
-		public string Evaluate(string[] columns)
+		public string Evaluate (string[] columns)
 		{
 			string[] texts = new string[columns.Length * 2 - 1];
 			for (int i = 0; i < columns.Length; i++) {
