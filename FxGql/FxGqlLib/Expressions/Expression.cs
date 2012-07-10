@@ -23,7 +23,7 @@ namespace FxGqlLib
 		
 		IComparable AggregateCalculate (StateBin state);
 	}
-	
+
 	public abstract class Expression<T> : IExpression where T : IComparable
 	{
 		public Expression ()
@@ -42,7 +42,10 @@ namespace FxGqlLib
 		public virtual Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
 		{
 			T val = Evaluate (gqlQueryState);
-			return (Y)Convert.ChangeType (val, typeof(Y));
+			if (val is IData)
+				return DataConversion.As<Y> ((IData)val);
+			else
+				return (Y)Convert.ChangeType (val, typeof(Y));
 		}
 
 		public virtual string EvaluateAsString (GqlQueryState gqlQueryState)
@@ -71,5 +74,11 @@ namespace FxGqlLib
 		}
 		#endregion
 	}
+
+	/*
+	public class DataExpression : Expression<IData>
+	{
+	}
+	*/
 }
 

@@ -529,9 +529,6 @@ namespace FxGqlLib
 		{
 			IExpression expression;
 			switch (tree.Text.ToUpperInvariant ()) {
-//          case "*":
-//              expression = new LineSystemVar ();
-//              break;
 			case "T_INTEGER":
 				expression = ParseExpressionInteger (tree);
 				break;

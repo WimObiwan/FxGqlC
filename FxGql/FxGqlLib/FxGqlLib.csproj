@@ -111,6 +111,11 @@
     <Compile Include="Commands\DropViewCommand.cs" />
     <Compile Include="Providers\NamedProvider.cs" />
     <Compile Include="Util\StateBin.cs" />
+    <Compile Include="DataTypes\DataType.cs" />
+    <Compile Include="DataTypes\Data.cs" />
+    <Compile Include="DataTypes\DataInteger.cs" />
+    <Compile Include="DataTypes\DataConversion.cs" />
+    <Compile Include="Exceptions\ConversionException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -130,5 +135,6 @@
     <Folder Include="Commands\" />
     <Folder Include="..\" />
     <Folder Include="Util\" />
+    <Folder Include="DataTypes\" />
   </ItemGroup>
 </Project>
