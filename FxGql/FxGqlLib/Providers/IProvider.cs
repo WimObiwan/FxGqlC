@@ -89,7 +89,7 @@ namespace FxGqlLib
 		int GetColumnOrdinal (ColumnName columnName);
 
 		Type[] GetColumnTypes ();
-		
+
 		void Initialize (GqlQueryState gqlQueryState);
 
 		bool GetNextRecord ();

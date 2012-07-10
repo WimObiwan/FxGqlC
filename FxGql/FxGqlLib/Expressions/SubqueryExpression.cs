@@ -4,10 +4,12 @@ namespace FxGqlLib
 {
 	public class SubqueryExpression : IExpression
 	{
+		readonly IProvider parentProvider;
 		readonly IProvider provider;
 
-		public SubqueryExpression (IProvider provider)
+		public SubqueryExpression (IProvider parentProvider, IProvider provider)
 		{
+			this.parentProvider = parentProvider;
 			this.provider = provider;
 		}
 
@@ -24,8 +26,15 @@ namespace FxGqlLib
 			gqlQueryState2.CurrentDirectory = gqlQueryState.CurrentDirectory;
 			try {
 				provider.Initialize (gqlQueryState2);
-				if (!provider.GetNextRecord ())
-					throw new InvalidOperationException ("Expression subquery returned no records");
+				if (!provider.GetNextRecord ()) {
+					Type type = GetResultType ();
+					if (type == typeof(string))
+						return ""; // TODO: Typed!
+					else if (type == typeof(long))
+						return 0;
+					else
+						throw new InvalidOperationException ("Expression subquery returned no records");
+				}
 				if (provider.Record.Columns.Length != 1)
 					throw new InvalidOperationException ("Expression subquery didn't return exactly 1 column");
 				return provider.Record.Columns [0];

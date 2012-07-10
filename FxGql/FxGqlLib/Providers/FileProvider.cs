@@ -41,7 +41,7 @@ namespace FxGqlLib
 		{
 			return new Type[] { typeof(string) };
 		}
-		
+
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			gqlEngineExecutionState = gqlQueryState.CurrentExecutionState;

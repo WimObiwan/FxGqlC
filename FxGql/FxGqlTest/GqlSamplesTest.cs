@@ -400,8 +400,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engineHash.Execute (command);
-						testSummaryWriter.WriteLine (command);
+					engineHash.Execute (command);
+					testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1302,6 +1302,22 @@ namespace FxGqlTest
 				+ " having (count(*) > 20) and ([Player] in (select [Player] from ['test.txt' -Heading=On] where [Tournament] = 'Masters Cup')) order by 2 desc, 1",
 			         "FAE80CD4AE8307D81AFFD7C8CA1E210A62B17CA86B14175E5D72C6C341B0BC83");
 
+			// Subquery with link to outer query
+			TestGql ("select * from (select [Player], count(*) from ['test.txt' -Heading=On] group by [Player] order by 1)"
+				+ " where [Player] in (select [Player] from ['test.txt' -Heading=On] where [Tournament] = 'Masters Cup')",
+			         "02F0342B809A2D52B69B6DB48D2C00A96C6B6E5F262DC93EC159A66D0D9C6DCD");
+			TestGql ("select distinct [Player], (select count(*) from ['test.txt' -Heading=On] [b] where [b].[Player] = [a].[Player])"
+				+ " from ['test.txt' -Heading=On] [a] where [Tournament] = 'Masters Cup' order by [Player]",
+			         "02F0342B809A2D52B69B6DB48D2C00A96C6B6E5F262DC93EC159A66D0D9C6DCD");
+			// Too slow...
+			//TestGql ("select distinct [Player]"
+			//	+ " from ['test.txt' -Heading=On] [a] where [Tournament] = 'Masters Cup' and (select count(*) from ['test.txt' -Heading=On] [b] where [b].[Player] = [a].[Player]) = 16 "
+			//	+ " order by [Player]",
+			//         "B8C8750048007A1418B20235C26291AD848CFFFB523A3961984A82CC59A365A1");
+			TestGql ("select distinct [Winner], (select count(*) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] [b] where [a].[Winner] = [b].[Winner] and [b].[Round] = 'The final') [Wins] "
+				+ " from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] [a] where [Tournament] = 'Masters Cup'",
+			    "33C1FC08642A7DAAB48D1F654CE3E2A937C3D18012B0D462593C456A271F47B4");
+
 			Console.WriteLine ();
 			Console.WriteLine (
                 "{0} tests done, {1} succeeded, {2} failed, {3} unknown",
@@ -1356,12 +1372,10 @@ namespace FxGqlTest
 //			         "33113552334D66A4079155E9DB9A4E1B32A80AE080F7D9EAC5EE023B5E1CB586");
 			//TestGql ("select [Tournament], [Round], [Player] from ['Test.txt' -Heading=On]");
 
-			TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
+			/*TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql ("select [Tournament], 'Tournament', [Winner] [Player] into ['test.txt' -append] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
-			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-//			TestGql ("select [Player], (select count(*) from ['test.txt' -Heading=On] [b] where [b].[Player] = [a].[Player])"
-			//				+ " from ['test.txt' -Heading=On] [a] where [Tournament] = 'Masters Cup');"
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");*/
 
 			// inner select
 			/*
@@ -1383,7 +1397,9 @@ namespace FxGqlTest
             */
 
 
-
+			TestGql ("select [Date], [Tournament], [Round]  "
+				+ " from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] [a] where [Winner] match 'Tsonga'"
+			);
 
 			// join optimization
 			//   http://www.necessaryandsufficient.net/2010/02/join-algorithms-illustrated/

@@ -34,6 +34,7 @@ namespace FxGqlLib
 
 		Dictionary<string, Type> variableTypes = new Dictionary<string, Type> (StringComparer.InvariantCultureIgnoreCase);
 		Dictionary<string, IProvider> views = new Dictionary<string, IProvider> (StringComparer.InvariantCultureIgnoreCase);
+		Stack<IProvider> subQueryProviderStack = new Stack<IProvider> ();
         
 		public GqlParser (GqlEngineState gqlEngineState, string command)
             : this(gqlEngineState, command, CultureInfo.InvariantCulture, true)
@@ -401,7 +402,7 @@ namespace FxGqlLib
 					provider = ParseFileProvider (inputProviderTree);
 					break;
 				case "T_SUBQUERY":
-					provider = ParseSubquery (inputProviderTree);
+					provider = ParseSubquery (null, inputProviderTree);
 					break;
 				case "T_VIEW_NAME":
 					provider = ParseViewProvider (inputProviderTree);
@@ -563,7 +564,7 @@ namespace FxGqlLib
 				expression = ParseExpressionVariable (tree);
 				break;
 			case "T_SUBQUERY":
-				expression = ParseExpressionSubquery (tree);
+				expression = ParseExpressionSubquery (provider, tree);
 				break;
 			default:
 				throw new UnexpectedTokenAntlrException (tree);
@@ -1238,12 +1239,22 @@ namespace FxGqlLib
 			return provider;
 		}
         
-		IProvider ParseSubquery (ITree subqueryTree)
+		IProvider ParseSubquery (IProvider provider, ITree subqueryTree)
 		{
 			AssertAntlrToken (subqueryTree, "T_SUBQUERY");
             
 			ITree selectTree = GetSingleChild (subqueryTree);
-			return ParseCommandSelect (selectTree);
+			try {
+				if (provider != null)
+					this.subQueryProviderStack.Push (provider);
+				return ParseCommandSelect (selectTree);
+			} finally {
+				if (provider != null) {
+					IProvider verify = this.subQueryProviderStack.Pop ();
+//					if (verify != provider)
+//						throw new InvalidProgramException ();
+				}
+			}
 		}
         
 		IProvider ParseViewProvider (ITree tree)
@@ -1824,11 +1835,30 @@ namespace FxGqlLib
 				throw new ParserException (string.Format ("Columnname [{0}] not allowed outside the context of a query", column), expressionTree);
             
 			try {
-				return ConstructColumnExpression (provider, new ColumnName (providerAlias, column));
+				this.subQueryProviderStack.Push (provider);
+				return ConstructColumnExpression (this.subQueryProviderStack.ToArray (), new ColumnName (providerAlias, column));
 			} catch (Exception x) {
 				throw new ParserException (string.Format ("Could not construct column expression for column '{0}'", column), expressionTree, x);
+			} finally {
+				IProvider verify = this.subQueryProviderStack.Pop ();
+//				if (verify != provider)
+//					throw new InvalidProgramException ();
 			}
 		}
+
+		internal static IExpression ConstructColumnExpression (IProvider[] providers, ColumnName columnName)
+		{
+			foreach (IProvider provider in providers) {
+				if (provider.GetColumnNames () == null) {
+					return new ColumnExpression<string> (providers, columnName);
+				} else {
+					int columnOrdinal = provider.GetColumnOrdinal (columnName);
+					if (columnOrdinal >= 0)
+						return ConstructColumnExpression (provider, columnOrdinal);
+				}
+			}
+			throw new NotSupportedException (string.Format ("Column name {0} not found", columnName));
+		}        
 
 		internal static IExpression ConstructColumnExpression (IProvider provider, ColumnName columnName)
 		{
@@ -2047,11 +2077,11 @@ namespace FxGqlLib
 			return Tuple.Create (variable, expression);
 		}
 
-		IExpression ParseExpressionSubquery (ITree subqueryTree)
+		IExpression ParseExpressionSubquery (IProvider parentProvider, ITree subqueryTree)
 		{
-			IProvider provider = ParseSubquery (subqueryTree);
+			IProvider provider = ParseSubquery (parentProvider, subqueryTree);
 
-			return new SubqueryExpression (provider).GetTyped ();
+			return new SubqueryExpression (parentProvider, provider).GetTyped ();
 		}
 
 		Tuple<string, IProvider> ParseCommandCreateView (ITree tree)

@@ -42,7 +42,8 @@ namespace FxGqlLib
 		{
 			if (columnName.Alias != null) {
 				if (StringComparer.InvariantCultureIgnoreCase.Compare (columnName.Alias, this.Alias) != 0)
-					throw new InvalidOperationException (string.Format ("Unexpected provider alias {0} when expecting {1}", columnName.Alias, this.Alias));
+					//throw new InvalidOperationException (string.Format ("Unexpected provider alias {0} when expecting {1}", columnName.Alias, this.Alias));
+					return -1;
 				else
 					columnName = new ColumnName (null, columnName.Name);
 			}

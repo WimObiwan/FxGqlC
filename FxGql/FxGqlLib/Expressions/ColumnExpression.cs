@@ -9,28 +9,41 @@ namespace FxGqlLib
 
 	public class ColumnExpression<T> : Expression<T>, IColumnExpression where T : IComparable
 	{
+		readonly IProvider[] providers;
 		readonly ColumnName columnName;
-		readonly IProvider provider;
 		readonly int origColumnOrdinal;
 
 		int columnOrdinal;
+		int upstreamLevel;
 
-		private ColumnExpression (IProvider provider, ColumnName columnName, int columnOrdinal)
+		private ColumnExpression (IProvider[] providers, ColumnName columnName, int columnOrdinal)
 		{
-			this.columnName = columnName;
-			this.provider = provider;
+			this.providers = providers;
+			if (columnName != null)
+				this.columnName = columnName;
+			else if (providers.Length > 0) {
+				ColumnName[] columns = providers [0].GetColumnNames ();
+				if (columnOrdinal >= 0 && columnOrdinal < columns.Length)
+					this.columnName = columns [columnOrdinal];
+			}
 			this.origColumnOrdinal = columnOrdinal;
 
 			this.columnOrdinal = -1;
+			this.upstreamLevel = -1;
 		}
 
+		public ColumnExpression (IProvider[] providers, ColumnName columnName)
+			: this (providers, columnName, -1)
+		{
+		}
+		
 		public ColumnExpression (IProvider provider, ColumnName columnName)
-			: this (provider, columnName, -1)
+			: this (new IProvider[] { provider }, columnName, -1)
 		{
 		}
 		
 		public ColumnExpression (IProvider provider, int columnOrdinal)
-			: this (provider, null, columnOrdinal)
+			: this (new IProvider[] { provider }, null, columnOrdinal)
 		{
 		}
 
@@ -38,15 +51,14 @@ namespace FxGqlLib
 			get {
 				if (columnName != null)
 					return columnName;
-				else {
-					ColumnName[] columnNames = provider.GetColumnNames ();
+				if (upstreamLevel >= 0 && upstreamLevel < providers.Length) {
+					ColumnName[] columnNames = providers [upstreamLevel].GetColumnNames ();
 					if (origColumnOrdinal >= 0 && origColumnOrdinal < columnNames.Length)
 						return columnNames [origColumnOrdinal];
 					else 					if (columnOrdinal >= 0 && columnOrdinal < columnNames.Length)
 						return columnNames [columnOrdinal];
-					else
-						return null;
 				}
+				return null;
 			}
 		}		
 
@@ -59,22 +71,31 @@ namespace FxGqlLib
 			//	}
 			//}
 
-			if (columnOrdinal == -1) {
-				if (origColumnOrdinal != -1)
+			if (upstreamLevel == -1) {
+				upstreamLevel = 0;
+				if (origColumnOrdinal != -1) {
 					columnOrdinal = origColumnOrdinal;
-				else
-					columnOrdinal = provider.GetColumnOrdinal (columnName);
+				} else {
+					for (upstreamLevel = 0; upstreamLevel < providers.Length; upstreamLevel++) {
+						columnOrdinal = providers [upstreamLevel].GetColumnOrdinal (columnName);
+						if (columnOrdinal != -1)
+							break;
+					}
+				}
 			}
 
-			IComparable[] columns;
-			if (gqlQueryState.UseOriginalColumns)
-				columns = gqlQueryState.Record.OriginalColumns;
-			else
-				columns = gqlQueryState.Record.Columns;
-			if (columnOrdinal >= 0 && columnOrdinal < columns.Length)
-				return (T)columns [columnOrdinal];
-			else
-				throw new Exception (string.Format ("Column {0} not found", columnName));
+			if (upstreamLevel >= 0 && upstreamLevel < providers.Length) {
+				IComparable[] columns;
+				//ProviderRecord record = gqlQueryState.Record;
+				ProviderRecord record = providers [upstreamLevel].Record;
+				if ((gqlQueryState.UseOriginalColumns) && !(origColumnOrdinal != -1))
+					columns = record.OriginalColumns;
+				else
+					columns = record.Columns;
+				if (columnOrdinal >= 0 && columnOrdinal < columns.Length)
+					return (T)columns [columnOrdinal];
+			}
+			throw new Exception (string.Format ("Column {0} not found", columnName));
 		}
 		#endregion
 	}
