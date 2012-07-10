@@ -4,12 +4,10 @@ namespace FxGqlLib
 {
 	public class SubqueryExpression : IExpression
 	{
-		readonly IProvider parentProvider;
 		readonly IProvider provider;
 
-		public SubqueryExpression (IProvider parentProvider, IProvider provider)
+		public SubqueryExpression (IProvider provider)
 		{
-			this.parentProvider = parentProvider;
 			this.provider = provider;
 		}
 

@@ -1251,8 +1251,8 @@ namespace FxGqlLib
 			} finally {
 				if (provider != null) {
 					IProvider verify = this.subQueryProviderStack.Pop ();
-//					if (verify != provider)
-//						throw new InvalidProgramException ();
+					if (verify != provider)
+						throw new InvalidProgramException ();
 				}
 			}
 		}
@@ -1841,8 +1841,8 @@ namespace FxGqlLib
 				throw new ParserException (string.Format ("Could not construct column expression for column '{0}'", column), expressionTree, x);
 			} finally {
 				IProvider verify = this.subQueryProviderStack.Pop ();
-//				if (verify != provider)
-//					throw new InvalidProgramException ();
+				if (verify != provider)
+					throw new InvalidProgramException ();
 			}
 		}
 
@@ -2081,7 +2081,7 @@ namespace FxGqlLib
 		{
 			IProvider provider = ParseSubquery (parentProvider, subqueryTree);
 
-			return new SubqueryExpression (parentProvider, provider).GetTyped ();
+			return new SubqueryExpression (provider).GetTyped ();
 		}
 
 		Tuple<string, IProvider> ParseCommandCreateView (ITree tree)
