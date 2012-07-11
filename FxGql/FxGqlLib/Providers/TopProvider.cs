@@ -5,11 +5,17 @@ namespace FxGqlLib
 	public class TopProvider : IProvider
 	{
 		readonly IProvider provider;
-		readonly Expression<long> topValueExpression;
+		readonly Expression<DataInteger> topValueExpression;
 
 		long linesToGo;
-		
+
+		[Obsolete]
 		public TopProvider (IProvider provider, Expression<long> topValueExpression)
+			: this (provider, ObsoleteExpressionConvertor.Convert(topValueExpression))
+		{
+		}
+
+		public TopProvider (IProvider provider, Expression<DataInteger> topValueExpression)
 		{
 			this.provider = provider;
 			this.topValueExpression = topValueExpression;

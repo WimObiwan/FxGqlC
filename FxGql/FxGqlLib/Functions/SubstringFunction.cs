@@ -5,8 +5,8 @@ namespace FxGqlLib
 	public class SubstringFunction : Expression<string>
 	{
 		readonly Expression<string> arg1;
-		readonly Expression<long> arg2;
-		readonly Expression<long> arg3;
+		readonly Expression<DataInteger> arg2;
+		readonly Expression<DataInteger> arg3;
 		
 		public SubstringFunction (IExpression arg1, IExpression arg2)
 			: this (arg1, arg2, null)
@@ -16,9 +16,9 @@ namespace FxGqlLib
 		public SubstringFunction (IExpression arg1, IExpression arg2, IExpression arg3)
 		{
 			this.arg1 = ExpressionHelper.ConvertToStringIfNeeded (arg1);
-			this.arg2 = ExpressionHelper.ConvertIfNeeded<long> (arg2);
+			this.arg2 = ExpressionHelper.ConvertToDataIntegerIfNeeded (arg2);
 			if (arg3 != null) 
-				this.arg3 = ExpressionHelper.ConvertIfNeeded<long> (arg3);
+				this.arg3 = ExpressionHelper.ConvertToDataIntegerIfNeeded (arg3);
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]

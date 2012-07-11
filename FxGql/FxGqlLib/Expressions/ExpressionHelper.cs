@@ -13,6 +13,17 @@ namespace FxGqlLib
 			}
 		}
 
+		public static Expression<DataInteger> ConvertToDataIntegerIfNeeded (IExpression expression)
+		{
+			if (expression is Expression<DataInteger>) {
+				return expression as Expression<DataInteger>;
+			} else if (expression is Expression<long>) {
+				return ObsoleteExpressionConvertor.Convert (expression as Expression<long>);
+			} else {
+				return new ConvertExpression<DataInteger> (expression);
+			}
+		}
+
 		public static Expression<string> ConvertToStringIfNeeded (IExpression expression)
 		{
 			if (expression is Expression<string>) {

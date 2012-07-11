@@ -577,19 +577,7 @@ namespace FxGqlLib
 			return expression;
 		}
 
-		Expression<T> ParseExpression<T> (IProvider provider, ITree expressionTree) where T : IComparable
-		{
-			IExpression expression = ParseExpression (provider, expressionTree);
-			Expression<T > expressionT = expression as Expression<T>;
-			if (expressionT == null)
-				throw new ParserException (
-                    string.Format ("Expected expression of type '{0}'", typeof(T).Name),
-                    expressionTree
-				);
-			return expressionT;
-		}
-        
-		Expression<long> ParseExpressionInteger (ITree expressionNumberTree)
+		IExpression ParseExpressionInteger (ITree expressionNumberTree)
 		{
 			ITree tree = GetSingleChild (expressionNumberTree);
 			return new ConstExpression<long> (long.Parse (tree.Text));
