@@ -400,8 +400,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engineHash.Execute (command);
-					testSummaryWriter.WriteLine (command);
+						engineHash.Execute (command);
+						testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1318,6 +1318,18 @@ namespace FxGqlTest
 				+ " from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] [a] where [Tournament] = 'Masters Cup'",
 			    "33C1FC08642A7DAAB48D1F654CE3E2A937C3D18012B0D462593C456A271F47B4");
 
+			// Temp tables / drop table
+			TestGql ("select * into ['#temp_table' -overwrite] from ['SampleFiles/*.csv'] where $line like '%belgium%'",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select * from [#temp_table]",
+                	 "118A735B8252E05853FD53AB5BF4D2223899144E763EE87880AEA0534F0B3FFB");
+			TestGql (@"select * from [#temp_table] where $fullfilename match '([\\/]FxGql-.{8}-.{4}-.{4}-.{4}-.{12}[\\/]#temp_table)$'",
+                	 "118A735B8252E05853FD53AB5BF4D2223899144E763EE87880AEA0534F0B3FFB");
+			TestGql (@"drop table [#temp_table]",
+                	 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql (@"select * from [#temp_table] where $fullfilename match '([\\/]FxGql-.{8}-.{4}-.{4}-.{4}-.{12}[\\/]#temp_table)$'",
+                	 typeof(Exception));
+
 			Console.WriteLine ();
 			Console.WriteLine (
                 "{0} tests done, {1} succeeded, {2} failed, {3} unknown",
@@ -1400,16 +1412,6 @@ namespace FxGqlTest
 			//TestGql ("select count(*) from (select distinct [Date] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On])");
 			//TestGql ("select count(distinct [Date]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On])");
 
-			TestGql ("select * into ['#temp_table' -overwrite] from ['SampleFiles/*.csv'] where $line like '%belgium%'",
-			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestGql ("select * from [#temp_table]",
-                	 "118A735B8252E05853FD53AB5BF4D2223899144E763EE87880AEA0534F0B3FFB");
-			TestGql (@"select * from [#temp_table] where $fullfilename match '([\\/]FxGql-.{8}-.{4}-.{4}-.{4}-.{12}[\\/]#temp_table)$'",
-                	 "118A735B8252E05853FD53AB5BF4D2223899144E763EE87880AEA0534F0B3FFB");
-			TestGql (@"drop table [#temp_table]",
-                	 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestGql (@"select * from [#temp_table] where $fullfilename match '([\\/]FxGql-.{8}-.{4}-.{4}-.{4}-.{12}[\\/]#temp_table)$'",
-                	 typeof(Exception));
 
 			// join optimization
 			//   http://www.necessaryandsufficient.net/2010/02/join-algorithms-illustrated/
