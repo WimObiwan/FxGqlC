@@ -178,9 +178,8 @@ namespace FxGqlLib
 
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
-			this.gqlQueryState = new GqlQueryState (gqlQueryState.CurrentExecutionState, gqlQueryState.Variables);
-			this.gqlQueryState.CurrentDirectory = gqlQueryState.CurrentDirectory;
-			
+			this.gqlQueryState = new GqlQueryState (gqlQueryState);
+
 			provider.Initialize (this.gqlQueryState);
 
 			if (outputColumns != null) {

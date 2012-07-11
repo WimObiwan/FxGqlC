@@ -136,7 +136,7 @@ namespace FxGqlLib
 			data = new List<Key> ();
 			nextRecord = -1;
 
-			newGqlQueryState = new GqlQueryState (this.gqlQueryState.CurrentExecutionState, this.gqlQueryState.Variables);
+			newGqlQueryState = new GqlQueryState (this.gqlQueryState);
 			newGqlQueryState.TotalLineNumber = 0;
 			newGqlQueryState.UseOriginalColumns = true;
 

@@ -9,8 +9,6 @@ namespace FxGqlLib
 		}
 		
 		public Expression<string> FileName { get; set; }
-
-		public string ColumnDelimiter { get; set; }
 	}
 
 	public class FileOptionsFromClause : FileOptions
@@ -35,6 +33,8 @@ namespace FxGqlLib
 			Desc
 		}
 		public FileOrderEnum FileOrder { get; set; }
+
+		public string ColumnDelimiter { get; set; }
 	}
 
 	public class FileOptionsIntoClause : FileOptions
@@ -60,6 +60,8 @@ namespace FxGqlLib
 		public bool Overwrite { get; set; }
 
 		public GqlEngineState.HeadingEnum Heading { get; set; }
+
+		public string ColumnDelimiter { get; set; }
 	}
 	
 	static class FileProviderFactory

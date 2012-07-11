@@ -16,6 +16,8 @@ namespace FxGqlLib
 
 		public string CurrentDirectory { get; set; }
 
+		public string TempDirectory { get; set; }
+
 		public enum HeadingEnum
 		{
 			Off,

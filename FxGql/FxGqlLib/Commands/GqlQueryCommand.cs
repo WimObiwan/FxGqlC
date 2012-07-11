@@ -17,8 +17,7 @@ namespace FxGqlLib
 		#region IGqlCommand implementation
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
-			GqlQueryState gqlQueryState = new GqlQueryState (gqlEngineState.ExecutionState, gqlEngineState.Variables);
-			gqlQueryState.CurrentDirectory = gqlEngineState.CurrentDirectory;
+			GqlQueryState gqlQueryState = new GqlQueryState (gqlEngineState);
 
 			IntoProvider.DumpProviderToStream (gqlQuery, outputStream, gqlQueryState, "\t", gqlEngineState.Heading);
 		}

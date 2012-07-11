@@ -45,11 +45,13 @@ namespace FxGqlLib
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			gqlEngineExecutionState = gqlQueryState.CurrentExecutionState;
-			
-			string fileName = Path.Combine (
-				gqlQueryState.CurrentDirectory,
-				this.fileName
-			);
+
+			string fileName;
+			if (this.fileName.StartsWith ("#")) {
+				fileName = Path.Combine (gqlQueryState.TempDirectory, this.fileName);
+			} else {
+				fileName = Path.Combine (gqlQueryState.CurrentDirectory, this.fileName);
+			}
 			streamReader = new StreamReader (new FileStream (
 				fileName,
 				FileMode.Open,

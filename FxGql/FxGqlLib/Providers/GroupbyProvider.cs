@@ -108,8 +108,7 @@ namespace FxGqlLib
 			record = new ProviderRecord ();
 			record.Source = "(aggregated)";
 			
-			newGqlQueryState = new GqlQueryState (this.gqlQueryState.CurrentExecutionState, this.gqlQueryState.Variables);
-			newGqlQueryState.CurrentDirectory = this.gqlQueryState.CurrentDirectory;
+			newGqlQueryState = new GqlQueryState (this.gqlQueryState);
 			newGqlQueryState.TotalLineNumber = 0;
 			newGqlQueryState.UseOriginalColumns = true;
 			

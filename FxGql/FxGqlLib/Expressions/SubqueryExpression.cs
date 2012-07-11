@@ -20,8 +20,7 @@ namespace FxGqlLib
         #region IExpression implementation
 		public IComparable EvaluateAsComparable (GqlQueryState gqlQueryState)
 		{
-			GqlQueryState gqlQueryState2 = new GqlQueryState (gqlQueryState.CurrentExecutionState, gqlQueryState.Variables);
-			gqlQueryState2.CurrentDirectory = gqlQueryState.CurrentDirectory;
+			GqlQueryState gqlQueryState2 = new GqlQueryState (gqlQueryState);
 			try {
 				provider.Initialize (gqlQueryState2);
 				if (!provider.GetNextRecord ()) {

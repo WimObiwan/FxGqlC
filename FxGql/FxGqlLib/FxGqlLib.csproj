@@ -116,6 +116,7 @@
     <Compile Include="DataTypes\DataInteger.cs" />
     <Compile Include="DataTypes\DataConversion.cs" />
     <Compile Include="Exceptions\ConversionException.cs" />
+    <Compile Include="Commands\DropTableCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

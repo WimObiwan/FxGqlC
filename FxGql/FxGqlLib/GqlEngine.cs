@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FxGqlLib
 {
-	public class GqlEngine
+	public class GqlEngine : IDisposable
 	{
 		TextWriter outputStream;
 		TextWriter logStream;
@@ -26,6 +26,16 @@ namespace FxGqlLib
 		{
 			GqlEngineState = new GqlEngineState (gqlEngineExecutionState);
 			GqlEngineState.CurrentDirectory = Environment.CurrentDirectory;
+			GqlEngineState.TempDirectory = Path.Combine (Path.GetTempPath (), "FxGql-" + Guid.NewGuid ().ToString ());
+			Initialize ();
+		}
+
+		private void Initialize ()
+		{
+			try {
+				Directory.CreateDirectory (GqlEngineState.TempDirectory);
+			} catch {
+			}
 		}
 	
 		public void Execute (string commandsText)
@@ -44,16 +54,36 @@ namespace FxGqlLib
 			}
 		}
 
-		public void Reset ()
+		private void Uninitialize ()
 		{
 			GqlEngineState.Variables.Clear ();
 			GqlEngineState.Views.Clear ();
+			if (Directory.Exists (GqlEngineState.TempDirectory)) {
+				try {
+					Directory.Delete (GqlEngineState.TempDirectory, true);
+				} catch {
+				}
+			}
+		}
+
+		public void Reset ()
+		{
+			Uninitialize ();
+			Initialize ();
 		}		
 
 		public void Interrupt ()
 		{
 			gqlEngineExecutionState.InterruptState = GqlEngineExecutionState.InterruptStates.Interrupted;
 		}
+
+		#region IDisposable implementation
+		public void Dispose ()
+		{
+			Uninitialize ();
+		}
+		#endregion
+
 	}
 }
 

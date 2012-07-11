@@ -158,6 +158,10 @@ namespace FxGqlLib
 					views.Remove (view);
 					return new DropViewCommand (view);
 				}
+			case "T_DROP_TABLE":
+				{
+					return new DropTableCommand (ParseCommandDropTable (tree));
+				}
 			default:
 				throw new UnexpectedTokenAntlrException (tree);
 			}
@@ -1079,6 +1083,9 @@ namespace FxGqlLib
 				case "SKIP":
 					fileOptions.Skip = long.Parse (value);
 					break;
+				case "COLUMNDELIMITER":
+					fileOptions.ColumnDelimiter = System.Text.RegularExpressions.Regex.Unescape (value);
+					break;
 				default:
 					throw new ParserException (
                                 string.Format ("Unknown file option '{0}'", option),
@@ -1132,6 +1139,9 @@ namespace FxGqlLib
 						);
 					fileOptions.Heading = heading;
 					break;
+				case "COLUMNDELIMITER":
+					fileOptions.ColumnDelimiter = System.Text.RegularExpressions.Regex.Unescape (value);
+					break;
 				default:
 					throw new ParserException (
                                 string.Format ("Unknown file option '{0}'", option),
@@ -1143,7 +1153,7 @@ namespace FxGqlLib
 			return fileOptions;
 		}
 
-		FileOptions ParseFileUse (ITree tree)
+		FileOptions ParseFileSimple (ITree tree)
 		{
 			FileOptionsIntoClause fileOptions = new FileOptionsIntoClause ();
 
@@ -1194,9 +1204,6 @@ namespace FxGqlLib
 					ParseFileOption (enumerator.Current, out option, out value);
 
 					switch (option.ToUpperInvariant ()) {
-					case "COLUMNDELIMITER":
-						fileOptions.ColumnDelimiter = System.Text.RegularExpressions.Regex.Unescape (value);
-						break;
 					default:
 						options.Add (Tuple.Create (option, value, enumerator.Current));
 						break;
@@ -2023,7 +2030,7 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (tree, "T_USE", 1);
 
-			return ParseFileUse (GetSingleChild (tree));
+			return ParseFileSimple (GetSingleChild (tree));
 		}
 
 		IList<Tuple<string, Type>> ParseCommandDeclare (ITree declareTree)
@@ -2116,6 +2123,14 @@ namespace FxGqlLib
 			AssertAntlrToken (viewNameTree, "T_VIEW_NAME", 1, 1);
 			return viewNameTree.GetChild (0).Text;
 		}
+
+		FileOptions ParseCommandDropTable (ITree tree)
+		{
+			AssertAntlrToken (tree, "T_DROP_TABLE", 1, 1);
+
+			return ParseFileSimple (tree.GetChild (0));
+		}
+
 	}
 }
 

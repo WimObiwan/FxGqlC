@@ -75,6 +75,7 @@ tokens
 	T_ORDERBY_ORIG;
 	T_GROUPBY_ORIG;
 	T_DROP_VIEW;
+	T_DROP_TABLE;
 	T_TABLE_ALIAS;
 	T_ALLCOLUMNS;
 	T_HAVING;
@@ -115,6 +116,7 @@ command
 	| set_command
 	| create_view_command
 	| drop_view_command
+	| drop_table_command
 	;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -250,7 +252,7 @@ declaration
 	;
 
 ///////////////////////////////////////////////////////////////////////////////
-// CREATE VIEW COMMAND
+// VIEW COMMAND
 
 create_view_command
 	: CREATE WS VIEW WS view_name (WS? '(' declaration_list ')')? WS AS WS select_command
@@ -266,6 +268,13 @@ view_name
 	: TOKEN -> ^(T_VIEW_NAME TOKEN)
 	;
 	
+///////////////////////////////////////////////////////////////////////////////
+// DROP TABLE COMMAND
+drop_table_command
+	: DROP WS TABLE WS file
+	-> ^(T_DROP_TABLE file)
+	;
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // DECLARE COMMAND
@@ -498,6 +507,7 @@ DECLARE	: D E C L A R E;
 SET     : S E T;
 CREATE	: C R E A T E;
 VIEW	: V I E W;
+TABLE	: T A B L E;
 DROP	: D R O P;
 HAVING	: H A V I N G;
 

@@ -134,28 +134,30 @@ namespace FxGqlC
 				}
 			};
 
-			gqlEngine = new GqlEngine ();
-			gqlEngine.OutputStream = Console.Out;
-			if (logFile != null)
-				gqlEngine.LogStream = new StreamWriter (logFile);
-			
-			try {
-				if (prompt) {
-					RunPrompt ();
-				} else if (command != null) {
-					ExecuteCommand (command);
-				} else if (gqlFile != null) {
-					ExecuteFile (gqlFile);
-				} else {
-					ShowHelp ();
-				}
-			} finally {
-				if (gqlEngine.LogStream != null) {
-					gqlEngine.LogStream.Close ();
-					gqlEngine.LogStream.Dispose ();
-					gqlEngine.LogStream = null;
-				}
-			}			
+			using (gqlEngine = new GqlEngine ()) {
+				gqlEngine.OutputStream = Console.Out;
+				if (logFile != null)
+					gqlEngine.LogStream = new StreamWriter (logFile);
+
+
+				try {
+					if (prompt) {
+						RunPrompt ();
+					} else if (command != null) {
+						ExecuteCommand (command);
+					} else if (gqlFile != null) {
+						ExecuteFile (gqlFile);
+					} else {
+						ShowHelp ();
+					}
+				} finally {
+					if (gqlEngine.LogStream != null) {
+						gqlEngine.LogStream.Close ();
+						gqlEngine.LogStream.Dispose ();
+						gqlEngine.LogStream = null;
+					}
+				}			
+			}
 		}
 
 		public static void ShowHelp ()

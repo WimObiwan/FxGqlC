@@ -24,7 +24,7 @@ namespace FxGqlTest
 		{
 			testSummaryWriter = new StreamWriter ("TestSummary.gql");
 		}
-        
+
 		static string[] BATHS = {
                 "00",
                 "01",
@@ -1397,9 +1397,19 @@ namespace FxGqlTest
             */
 
 
-			TestGql ("select [Date], [Tournament], [Round]  "
-				+ " from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] [a] where [Winner] match 'Tsonga'"
-			);
+			//TestGql ("select count(*) from (select distinct [Date] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On])");
+			//TestGql ("select count(distinct [Date]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On])");
+
+			TestGql ("select * into ['#temp_table' -overwrite] from ['SampleFiles/*.csv'] where $line like '%belgium%'",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select * from [#temp_table]",
+                	 "118A735B8252E05853FD53AB5BF4D2223899144E763EE87880AEA0534F0B3FFB");
+			TestGql (@"select * from [#temp_table] where $fullfilename match '([\\/]FxGql-.{8}-.{4}-.{4}-.{4}-.{12}[\\/]#temp_table)$'",
+                	 "118A735B8252E05853FD53AB5BF4D2223899144E763EE87880AEA0534F0B3FFB");
+			TestGql (@"drop table [#temp_table]",
+                	 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql (@"select * from [#temp_table] where $fullfilename match '([\\/]FxGql-.{8}-.{4}-.{4}-.{4}-.{12}[\\/]#temp_table)$'",
+                	 typeof(Exception));
 
 			// join optimization
 			//   http://www.necessaryandsufficient.net/2010/02/join-algorithms-illustrated/
@@ -1411,6 +1421,8 @@ namespace FxGqlTest
 		public void Dispose ()
 		{
 			testSummaryWriter.Dispose ();
+			engineOutput.Dispose ();
+			engineHash.Dispose ();
 		}
 		#endregion
 	}
