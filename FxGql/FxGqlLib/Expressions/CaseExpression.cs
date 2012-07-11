@@ -79,6 +79,17 @@ namespace FxGqlLib
 			//TODO: Consistency check on aggregation
 		}
 
+		public bool IsConstant ()
+		{
+			foreach (WhenItem whenItem in whenItems) {
+				if (!whenItem.Check.IsConstant ()) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
 		public void Aggregate (StateBin state, GqlQueryState gqlQueryState)
 		{
 			throw new NotSupportedException ("Aggregation with case expression not supported");

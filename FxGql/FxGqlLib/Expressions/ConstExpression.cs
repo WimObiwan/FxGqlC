@@ -15,6 +15,11 @@ namespace FxGqlLib
 		{
 			return constValue;
 		}
+
+		public override bool IsConstant ()
+		{
+			return true;
+		}
 		
 		#region implemented abstract members of FxGqlLib.Expression[T]
 		public override T Evaluate (GqlQueryState gqlQueryState)

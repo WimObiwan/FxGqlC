@@ -18,7 +18,9 @@ namespace FxGqlLib
 		// TODO: IsTimeDependent(); for optimalisation
 		
 		bool IsAggregated ();
-		
+
+		bool IsConstant ();
+
 		void Aggregate (StateBin state, GqlQueryState gqlQueryState);
 		
 		IComparable AggregateCalculate (StateBin state);
@@ -62,7 +64,12 @@ namespace FxGqlLib
 		{
 			return false;
 		}
-		
+
+		public virtual bool IsConstant ()
+		{
+			return false;
+		}
+
 		public virtual void Aggregate (StateBin state, GqlQueryState gqlQueryState)
 		{
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));

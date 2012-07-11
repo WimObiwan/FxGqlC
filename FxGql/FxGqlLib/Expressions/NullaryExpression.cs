@@ -18,19 +18,9 @@ namespace FxGqlLib
 			return functor ();
 		}
 		
-		public override bool IsAggregated ()
+		public override bool IsConstant ()
 		{
-			return false;
-		}
-		
-		public override void Aggregate (StateBin state, GqlQueryState gqlQueryState)
-		{
-			throw new InvalidOperationException ();
-		}
-		
-		public override IComparable AggregateCalculate (StateBin state)
-		{
-			throw new InvalidOperationException ();
+			return true;
 		}
 		#endregion
 	}

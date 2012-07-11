@@ -31,6 +31,11 @@ namespace FxGqlLib
 			return arg.IsAggregated ();
 		}
 		
+		public override bool IsConstant ()
+		{
+			return arg.IsConstant ();
+		}
+
 		public override void Aggregate (StateBin state, GqlQueryState gqlQueryState)
 		{
 			arg.Aggregate (state, gqlQueryState);
