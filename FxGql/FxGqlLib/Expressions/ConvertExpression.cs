@@ -8,8 +8,6 @@ namespace FxGqlLib
 		{
 			if (type == typeof(string)) {
 				return new ConvertExpression<string> (expression);
-			} else if (type == typeof(long)) {
-				return new ConvertExpression<long> (expression);
 			} else if (type == typeof(DataInteger)) {
 				return new ConvertExpression<DataInteger> (expression);
 			} else {

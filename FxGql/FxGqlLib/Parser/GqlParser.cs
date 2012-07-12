@@ -738,7 +738,7 @@ namespace FxGqlLib
 						throw new InvalidOperationException (string.Format ("Invalid provider alias '{0}'", providerAlias));
 					}
 				}
-				arg = new ConstExpression<long> (1);
+				arg = new ConstExpression<DataInteger> (1);
 			} else {
 				arg = ParseExpression (provider, functionCallTree.GetChild (1));
 			}
@@ -764,11 +764,6 @@ namespace FxGqlLib
                         (s, a) => s + 1, 
                         (s) => s, 
                         (Expression<string>)arg);
-				else if (arg is Expression<long>)
-					result = new AggregationExpression<long, DataInteger, DataInteger> ((a) => 1, 
-                        (s, a) => s + 1, 
-                        (s) => s, 
-                        (Expression<long>)arg);
 				else if (arg is Expression<DataInteger>)
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> ((a) => 1, 
                         (s, a) => s + 1, 
@@ -782,13 +777,7 @@ namespace FxGqlLib
 				}
 				break;
 			case "SUM":
-				if (arg is Expression<long>)
-					result = new AggregationExpression<long, long, long> (
-                        (a) => a, 
-                        (s, a) => s + a, 
-                        (s) => s, 
-                        (Expression<long>)arg);
-				else if (arg is Expression<DataInteger>)
+				if (arg is Expression<DataInteger>)
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
                         (s, a) => s + a, 
@@ -906,20 +895,7 @@ namespace FxGqlLib
 				}
 				break;
 			case "AVG":
-				if (arg is Expression<long>) {
-					Expression<long> resultSum = new AggregationExpression<long, long, long> (
-                        (a) => a, 
-                        (s, a) => s + a, 
-                        (s) => s, 
-                        (Expression<long>)arg);
-					Expression<long> resultCount = new AggregationExpression<long, long, long> (
-                        (a) => 1, 
-                        (s, a) => s + 1, 
-                        (s) => s, 
-                        (Expression<long>)arg);
-					result = new BinaryExpression<long, long, long> (
-                        (a, b) => a / b, resultSum, resultCount);
-				} else if (arg is Expression<DataInteger>) {
+				if (arg is Expression<DataInteger>) {
 					Expression<DataInteger> resultSum = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
                         (s, a) => s + a, 
@@ -1058,9 +1034,7 @@ namespace FxGqlLib
 			);
             
 			IExpression result;
-			if (dataType == typeof(long)) {
-				result = new ConvertExpression<long> (expr);
-			} else if (dataType == typeof(DataInteger)) {
+			if (dataType == typeof(DataInteger)) {
 				result = new ConvertExpression<DataInteger> (expr);
 			} else if (dataType == typeof(string)) {
 				result = new ConvertToStringExpression (expr);
@@ -1367,9 +1341,7 @@ namespace FxGqlLib
 				result = new UnaryExpression<bool, bool> ((a) => !a, arg);
 				break;
 			case "T_PLUS":
-				if (arg is Expression<long>)
-					result = new UnaryExpression<long, long> ((a) => a, arg);
-				else if (arg is Expression<DataInteger>)
+				if (arg is Expression<DataInteger>)
 					result = new UnaryExpression<DataInteger, DataInteger> ((a) => a, arg);
 				else {
 					throw new ParserException (
@@ -1379,9 +1351,7 @@ namespace FxGqlLib
 				}
 				break;
 			case "T_MINUS":
-				if (arg is Expression<long>)
-					result = new UnaryExpression<long, long> ((a) => -a, arg);
-				else if (arg is Expression<DataInteger>)
+				if (arg is Expression<DataInteger>)
 					result = new UnaryExpression<DataInteger, DataInteger> ((a) => -a, arg);
 				else {
 					throw new ParserException (
@@ -1391,9 +1361,7 @@ namespace FxGqlLib
 				}
 				break;
 			case "T_BITWISE_NOT":
-				if (arg is Expression<long>)
-					result = new UnaryExpression<long, long> ((a) => ~a, arg);
-				else if (arg is Expression<DataInteger>)
+				if (arg is Expression<DataInteger>)
 					result = new UnaryExpression<DataInteger, DataInteger> ((a) => ~a, arg);
 				else {
 					throw new ParserException (
@@ -1488,12 +1456,6 @@ namespace FxGqlLib
                             arg1,
                             arg2
 						);
-					else if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> (
-                            (a, b) => a + b,
-                            arg1,
-                            arg2
-						);
 					else if (arg1 is Expression<DataInteger>)
 						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
                             (a, b) => a + b,
@@ -1513,13 +1475,7 @@ namespace FxGqlLib
 				break;
 			case "T_MINUS":
 				{
-					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> (
-                            (a, b) => a - b,
-                            arg1,
-                            arg2
-						);
-					else if (arg1 is Expression<DataInteger>)
+					if (arg1 is Expression<DataInteger>)
 						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
                             (a, b) => a - b,
                             arg1,
@@ -1538,13 +1494,7 @@ namespace FxGqlLib
 				break;
 			case "T_DIVIDE":
 				{
-					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> (
-                            (a, b) => a / b,
-                            arg1,
-                            arg2
-						);
-					else if (arg1 is Expression<DataInteger>)
+					if (arg1 is Expression<DataInteger>)
 						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
                             (a, b) => a / b,
                             arg1,
@@ -1563,13 +1513,7 @@ namespace FxGqlLib
 				break;
 			case "T_PRODUCT":
 				{
-					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> (
-                            (a, b) => a * b,
-                            arg1,
-                            arg2
-						);
-					else if (arg1 is Expression<DataInteger>)
+					if (arg1 is Expression<DataInteger>)
 						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
                             (a, b) => a * b,
                             arg1,
@@ -1588,13 +1532,7 @@ namespace FxGqlLib
 				break;
 			case "T_MODULO":
 				{
-					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> (
-                            (a, b) => a % b,
-                            arg1,
-                            arg2
-						);
-					else if (arg1 is Expression<DataInteger>)
+					if (arg1 is Expression<DataInteger>)
 						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
                             (a, b) => a % b,
                             arg1,
@@ -1613,13 +1551,7 @@ namespace FxGqlLib
 				break;
 			case "T_BITWISE_AND":
 				{
-					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> (
-                            (a, b) => a & b,
-                            arg1,
-                            arg2
-						);
-					else if (arg1 is Expression<DataInteger>)
+					if (arg1 is Expression<DataInteger>)
 						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
                             (a, b) => a & b,
                             arg1,
@@ -1638,13 +1570,7 @@ namespace FxGqlLib
 				break;
 			case "T_BITWISE_OR":
 				{
-					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> (
-                            (a, b) => a | b,
-                            arg1,
-                            arg2
-						);
-					else if (arg1 is Expression<DataInteger>)
+					if (arg1 is Expression<DataInteger>)
 						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
                             (a, b) => a | b,
                             arg1,
@@ -1663,13 +1589,7 @@ namespace FxGqlLib
 				break;
 			case "T_BITWISE_XOR":
 				{
-					if (arg1 is Expression<long>)
-						result = new BinaryExpression<long, long, long> (
-                            (a, b) => a ^ b,
-                            arg1,
-                            arg2
-						);
-					else if (arg1 is Expression<DataInteger>)
+					if (arg1 is Expression<DataInteger>)
 						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
                             (a, b) => a ^ b,
                             arg1,
@@ -1698,13 +1618,6 @@ namespace FxGqlLib
                         operatorText,
                         false,
                         stringComparison
-					),
-                            arg1, arg2);
-				else if (arg1 is Expression<long>)
-					result = 
-                        new BinaryExpression<long, long, bool> (OperatorHelper.GetLongComparer (
-                        operatorText,
-                        false
 					),
                             arg1, arg2);
 				else if (arg1 is Expression<DataInteger>)
@@ -1775,13 +1688,6 @@ namespace FxGqlLib
                     arg2,
                     arg3
 				);
-			else if (arg1 is Expression<long>)
-				result = new TernaryExpression<long, long, long, bool> (
-                    (a, b, c) => (a >= b) && (a <= c),
-                    arg1,
-                    arg2,
-                    arg3
-				);
 			else if (arg1 is Expression<DataInteger>)
 				result = new TernaryExpression<DataInteger, DataInteger, DataInteger, bool> (
                     (a, b, c) => (a >= b) && (a <= c),
@@ -1845,12 +1751,6 @@ namespace FxGqlLib
                         expressionList,
                         OperatorHelper.GetStringComparer (op, all, stringComparison)
 					);
-				else if (arg2 is Expression<long>)
-					result = new AnyListOperator<long> (
-                        (Expression<long>)arg2,
-                        expressionList,
-                        OperatorHelper.GetLongComparer (op, all)
-					);
 				else if (arg2 is Expression<DataInteger>)
 					result = new AnyListOperator<DataInteger> (
                         (Expression<DataInteger>)arg2,
@@ -1873,12 +1773,6 @@ namespace FxGqlLib
                         (Expression<string>)arg2,
                         subProvider,
                         OperatorHelper.GetStringComparer (op, all, stringComparison)
-					);
-				else if (arg2 is Expression<long>)
-					result = new AnySubqueryOperator<long> (
-                        (Expression<long>)arg2,
-                        subProvider,
-                        OperatorHelper.GetLongComparer (op, all)
 					);
 				else if (arg2 is Expression<DataInteger>)
 					result = new AnySubqueryOperator<DataInteger> (
@@ -2001,8 +1895,6 @@ namespace FxGqlLib
 
 			if (type == typeof(string)) {
 				return new ColumnExpression<string> (provider, columnOrdinal);
-			} else if (type == typeof(long)) {
-				return new ColumnExpression<long> (provider, columnOrdinal);
 			} else if (type == typeof(DataInteger)) {
 				return new ColumnExpression<DataInteger> (provider, columnOrdinal);
 			} else {
@@ -2054,13 +1946,6 @@ namespace FxGqlLib
                             "T_EQUAL",
                             false,
                             stringComparison
-						),
-                                source, destination);
-					else if (source is Expression<long>)
-						whenItem.Check = 
-                            new BinaryExpression<long, long, bool> (OperatorHelper.GetLongComparer (
-                            "T_EQUAL",
-                            false
 						),
                                 source, destination);
 					else if (source is Expression<DataInteger>)
