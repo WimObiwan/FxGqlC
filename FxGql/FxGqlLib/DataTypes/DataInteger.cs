@@ -2,7 +2,7 @@ using System;
 
 namespace FxGqlLib
 {
-	public struct DataInteger : IData, IObsoleteDataType<long>
+	public struct DataInteger : IData, IComparable, IComparable<DataInteger>
 	{
 		long value;
 
@@ -52,9 +52,14 @@ namespace FxGqlLib
 		public int CompareTo (object other)
 		{
 			if (other is DataInteger)
-				return this.value.CompareTo (((DataInteger)other).value);
+				return CompareTo ((DataInteger)other);
 
 			throw new NotSupportedException ();
+		}
+
+		public int CompareTo (DataInteger other)
+		{
+			return this.value.CompareTo (other.value);
 		}
 
 		public static implicit operator long (DataInteger value)

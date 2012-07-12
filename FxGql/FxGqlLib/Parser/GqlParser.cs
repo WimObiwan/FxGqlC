@@ -797,12 +797,6 @@ namespace FxGqlLib
                         (s, a) => string.Compare (a, s) < 0 ? a : s, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<string> (arg));
-				else if (arg.GetResultType () == typeof(long))
-					result = new AggregationExpression<long, long, long> (
-                        (a) => a, 
-                        (s, a) => a < s ? a : s, 
-                        (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<long> (arg));
 				else if (arg.GetResultType () == typeof(DataInteger))
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
@@ -823,12 +817,6 @@ namespace FxGqlLib
                         (s, a) => string.Compare (a, s) > 0 ? a : s, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<string> (arg));
-				else if (arg.GetResultType () == typeof(long))
-					result = new AggregationExpression<long, long, long> (
-                        (a) => a, 
-                        (s, a) => a > s ? a : s, 
-                        (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<long> (arg));
 				else if (arg.GetResultType () == typeof(DataInteger))
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
@@ -849,12 +837,6 @@ namespace FxGqlLib
                         (s, a) => s, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<string> (arg));
-				else if (arg.GetResultType () == typeof(long))
-					result = new AggregationExpression<long, long, long> (
-                        (a) => a, 
-                        (s, a) => s, 
-                        (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<long> (arg));
 				else if (arg.GetResultType () == typeof(DataInteger))
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
@@ -875,12 +857,6 @@ namespace FxGqlLib
                         (s, a) => a, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<string> (arg));
-				else if (arg.GetResultType () == typeof(long))
-					result = new AggregationExpression<long, long, long> (
-                        (a) => a, 
-                        (s, a) => a, 
-                        (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<long> (arg));
 				else if (arg.GetResultType () == typeof(DataInteger))
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
@@ -950,7 +926,7 @@ namespace FxGqlLib
 				);
 				break;
 			case "LEFT":
-				result = new BinaryExpression<string, long, string> (
+				result = new BinaryExpression<string, DataInteger, string> (
                     (a, b) => a.Substring (0, Math.Min ((int)b, a.Length)),
                     arg1,
                     arg2
@@ -960,7 +936,7 @@ namespace FxGqlLib
 				result = new MatchRegexFunction (arg1, arg2, caseInsensitive);
 				break;
 			case "RIGHT":
-				result = new BinaryExpression<string, long, string> (
+				result = new BinaryExpression<string, DataInteger, string> (
                     (a, b) => a.Substring (a.Length - Math.Min ((int)b, a.Length)),
                     arg1,
                     arg2

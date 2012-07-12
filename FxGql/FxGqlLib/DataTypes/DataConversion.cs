@@ -9,8 +9,6 @@ namespace FxGqlLib
 		{
 			if (typeof(Y) == typeof(DataInteger))
 				return (Y)(object)AsDataInteger (data);
-			else if (typeof(Y) == typeof(long))
-				return (Y)(object)AsLong (data);
 			else if (typeof(Y) == typeof(string))
 				return (Y)(object)AsString (data);
 			throw new ConversionException (data.GetType (), typeof(Y));

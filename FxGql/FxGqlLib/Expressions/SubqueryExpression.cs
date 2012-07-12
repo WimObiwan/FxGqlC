@@ -27,7 +27,7 @@ namespace FxGqlLib
 					Type type = GetResultType ();
 					if (type == typeof(string))
 						return ""; // TODO: Typed!
-					else if (type == typeof(long))
+					else if (type == typeof(DataInteger))
 						return 0;
 					else
 						throw new InvalidOperationException ("Expression subquery returned no records");
