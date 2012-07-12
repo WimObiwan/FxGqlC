@@ -185,7 +185,7 @@ namespace FxGqlLib
             
             
 			// TOP
-			Expression<long > topExpression;
+			Expression<DataInteger> topExpression;
 			if (enumerator.Current != null && enumerator.Current.Text == "T_TOP") {
 				topExpression = ParseTopClause (enumerator.Current);
 				enumerator.MoveNext ();
@@ -327,10 +327,10 @@ namespace FxGqlLib
 			return provider;
 		}
         
-		Expression<long> ParseTopClause (ITree topClauseTree)
+		Expression<DataInteger> ParseTopClause (ITree topClauseTree)
 		{
 			ITree tree = GetSingleChild (topClauseTree);
-			return ExpressionHelper.ConvertIfNeeded<long> (ParseExpression (null, tree));
+			return ExpressionHelper.ConvertIfNeeded<DataInteger> (ParseExpression (null, tree));
 		}
         
 		IList<Column> ParseColumnList (IProvider provider, ITree outputListTree)
@@ -769,6 +769,11 @@ namespace FxGqlLib
                         (s, a) => s + 1, 
                         (s) => s, 
                         (Expression<long>)arg);
+				else if (arg is Expression<DataInteger>)
+					result = new AggregationExpression<DataInteger, long, long> ((a) => 1, 
+                        (s, a) => s + 1, 
+                        (s) => s, 
+                        (Expression<DataInteger>)arg);
 				else {
 					throw new ParserException (
                         string.Format ("COUNT aggregation function cannot be used on datatype '{0}'",
@@ -783,6 +788,12 @@ namespace FxGqlLib
                         (s, a) => s + a, 
                         (s) => s, 
                         (Expression<long>)arg);
+				else if (arg is Expression<long>)
+					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
+                        (a) => a, 
+                        (s, a) => s + a, 
+                        (s) => s, 
+                        arg as Expression<DataInteger>);
 				else {
 					throw new ParserException (
                         string.Format ("SUM aggregation function cannot be used on datatype '{0}'",
@@ -803,6 +814,12 @@ namespace FxGqlLib
                         (s, a) => a < s ? a : s, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<long> (arg));
+				else if (arg.GetResultType () == typeof(DataInteger))
+					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
+                        (a) => a, 
+                        (s, a) => a < s ? a : s, 
+                        (s) => s, 
+                        ExpressionHelper.ConvertIfNeeded<DataInteger> (arg));
 				else {
 					throw new ParserException (
                         string.Format ("MIN aggregation function cannot be used on datatype '{0}'",
@@ -823,6 +840,12 @@ namespace FxGqlLib
                         (s, a) => a > s ? a : s, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<long> (arg));
+				else if (arg.GetResultType () == typeof(DataInteger))
+					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
+                        (a) => a, 
+                        (s, a) => a > s ? a : s, 
+                        (s) => s, 
+                        ExpressionHelper.ConvertIfNeeded<DataInteger> (arg));
 				else {
 					throw new ParserException (
                         string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
@@ -843,6 +866,12 @@ namespace FxGqlLib
                         (s, a) => s, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<long> (arg));
+				else if (arg.GetResultType () == typeof(DataInteger))
+					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
+                        (a) => a, 
+                        (s, a) => s, 
+                        (s) => s, 
+                        ExpressionHelper.ConvertIfNeeded<DataInteger> (arg));
 				else {
 					throw new ParserException (
                         string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
@@ -863,6 +892,12 @@ namespace FxGqlLib
                         (s, a) => a, 
                         (s) => s, 
                         ExpressionHelper.ConvertIfNeeded<long> (arg));
+				else if (arg.GetResultType () == typeof(DataInteger))
+					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
+                        (a) => a, 
+                        (s, a) => a, 
+                        (s) => s, 
+                        ExpressionHelper.ConvertIfNeeded<DataInteger> (arg));
 				else {
 					throw new ParserException (
                         string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
@@ -883,6 +918,19 @@ namespace FxGqlLib
                         (s) => s, 
                         (Expression<long>)arg);
 					result = new BinaryExpression<long, long, long> (
+                        (a, b) => a / b, resultSum, resultCount);
+				} else if (arg is Expression<DataInteger>) {
+					Expression<DataInteger> resultSum = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
+                        (a) => a, 
+                        (s, a) => s + a, 
+                        (s) => s, 
+                        arg as Expression<DataInteger>);
+					Expression<DataInteger> resultCount = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
+                        (a) => 1, 
+                        (s, a) => s + 1, 
+                        (s) => s, 
+                        arg as Expression<DataInteger>);
+					result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
                         (a, b) => a / b, resultSum, resultCount);
 				} else {
 					throw new ParserException (
@@ -1012,6 +1060,8 @@ namespace FxGqlLib
 			IExpression result;
 			if (dataType == typeof(long)) {
 				result = new ConvertExpression<long> (expr);
+			} else if (dataType == typeof(DataInteger)) {
+				result = new ConvertExpression<DataInteger> (expr);
 			} else if (dataType == typeof(string)) {
 				result = new ConvertToStringExpression (expr);
 			} else {    
@@ -1319,6 +1369,8 @@ namespace FxGqlLib
 			case "T_PLUS":
 				if (arg is Expression<long>)
 					result = new UnaryExpression<long, long> ((a) => a, arg);
+				else if (arg is Expression<DataInteger>)
+					result = new UnaryExpression<DataInteger, DataInteger> ((a) => a, arg);
 				else {
 					throw new ParserException (
                             string.Format ("Unary operator 'PLUS' cannot be used with datatype {0}",
@@ -1329,6 +1381,8 @@ namespace FxGqlLib
 			case "T_MINUS":
 				if (arg is Expression<long>)
 					result = new UnaryExpression<long, long> ((a) => -a, arg);
+				else if (arg is Expression<DataInteger>)
+					result = new UnaryExpression<DataInteger, DataInteger> ((a) => -a, arg);
 				else {
 					throw new ParserException (
                             string.Format ("Unary operator 'MINUS' cannot be used with datatype {0}",
@@ -1339,6 +1393,8 @@ namespace FxGqlLib
 			case "T_BITWISE_NOT":
 				if (arg is Expression<long>)
 					result = new UnaryExpression<long, long> ((a) => ~a, arg);
+				else if (arg is Expression<DataInteger>)
+					result = new UnaryExpression<DataInteger, DataInteger> ((a) => ~a, arg);
 				else {
 					throw new ParserException (
                             string.Format ("Unary operator 'MINUS' cannot be used with datatype {0}",
@@ -1801,13 +1857,13 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (expressionTree, "T_EXISTS", 1, 1);
             
-			return new AnySubqueryOperator<long> (
-                new ConstExpression<long> (1),
+			return new AnySubqueryOperator<DataInteger> (
+                new ConstExpression<DataInteger> (1),
                 new SelectProvider (
-                new IExpression[] { new ConstExpression<long> (1) }, 
+                new IExpression[] { new ConstExpression<DataInteger> (1) }, 
                 new TopProvider (
                 ParseCommandSelect (expressionTree.GetChild (0)),
-                new ConstExpression<long> (1)
+                new ConstExpression<DataInteger> (1)
 			)
 			),
                 (a, b) => a == b);

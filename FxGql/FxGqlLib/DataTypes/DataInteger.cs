@@ -56,6 +56,11 @@ namespace FxGqlLib
 		{
 			return value.value;
 		}
+
+		public static implicit operator DataInteger (long value)
+		{
+			return new DataInteger (value);
+		}
 	}
 }
 

@@ -9,12 +9,6 @@ namespace FxGqlLib
 
 		long linesToGo;
 
-		[Obsolete]
-		public TopProvider (IProvider provider, Expression<long> topValueExpression)
-			: this (provider, ObsoleteExpressionConvertor.Convert(topValueExpression))
-		{
-		}
-
 		public TopProvider (IProvider provider, Expression<DataInteger> topValueExpression)
 		{
 			this.provider = provider;

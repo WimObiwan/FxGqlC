@@ -46,6 +46,8 @@ namespace FxGqlLib
 			T val = Evaluate (gqlQueryState);
 			if (val is IData)
 				return DataConversion.As<Y> ((IData)val);
+			else if (typeof(Y) == typeof(DataInteger))
+				return (Y)(object)new DataInteger ((long)Convert.ChangeType (val, typeof(long)));
 			else
 				return (Y)Convert.ChangeType (val, typeof(Y));
 		}
