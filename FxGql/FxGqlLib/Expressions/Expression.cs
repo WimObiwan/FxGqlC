@@ -6,7 +6,7 @@ namespace FxGqlLib
 {
 	public interface IExpression
 	{
-		IComparable EvaluateAsComparable (GqlQueryState gqlQueryState);
+		IData EvaluateAsData (GqlQueryState gqlQueryState);
 
 		Y EvaluateAs<Y> (GqlQueryState gqlQueryState);
 
@@ -23,10 +23,10 @@ namespace FxGqlLib
 
 		void Aggregate (StateBin state, GqlQueryState gqlQueryState);
 		
-		IComparable AggregateCalculate (StateBin state);
+		IData AggregateCalculate (StateBin state);
 	}
 
-	public abstract class Expression<T> : IExpression where T : IComparable
+	public abstract class Expression<T> : IExpression where T : IData
 	{
 		public Expression ()
 		{
@@ -35,7 +35,7 @@ namespace FxGqlLib
 		public abstract T Evaluate (GqlQueryState gqlQueryState);
 
 		#region IExpression implementation
-		public virtual IComparable EvaluateAsComparable (GqlQueryState gqlQueryState)
+		public virtual IData EvaluateAsData (GqlQueryState gqlQueryState)
 		{
 			T val = Evaluate (gqlQueryState);
 			return val;
@@ -79,7 +79,7 @@ namespace FxGqlLib
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}
 		
-		public virtual IComparable AggregateCalculate (StateBin state)
+		public virtual IData AggregateCalculate (StateBin state)
 		{
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}

@@ -22,7 +22,7 @@ namespace FxGqlLib
 				throw new InvalidOperationException (string.Format ("Variable '{0}' not declared.", this.variable));
 
 			GqlQueryState gqlQueryState = new GqlQueryState (gqlEngineState);
-			variable.Value = this.expression.EvaluateAsComparable (gqlQueryState);
+			variable.Value = this.expression.EvaluateAsData (gqlQueryState);
 		}
         #endregion
 	}

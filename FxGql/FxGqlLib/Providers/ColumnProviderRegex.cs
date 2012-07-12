@@ -60,7 +60,7 @@ namespace FxGqlLib
 						
 			record = new ProviderRecord ();
 			record.ColumnTitles = columnNameList;
-			record.Columns = new IComparable[columnNameList.Length];
+			record.Columns = new IData[columnNameList.Length];
 			record.OriginalColumns = record.Columns;
 		}
 

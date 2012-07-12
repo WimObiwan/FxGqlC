@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace FxGqlLib
 {
-	public class AnySubqueryOperator<T> : Expression<bool> where T: IComparable
+	public class AnySubqueryOperator<T> : Expression<DataBoolean> where T: IData
 	{
 		readonly Expression<T> arg;
 		readonly IProvider provider;
-		readonly Func<T, T, bool> functor;
+		readonly Func<T, T, DataBoolean> functor;
 
 		List<T> values;
 		
 		public AnySubqueryOperator (Expression<T> arg, 
 		                       IProvider provider, 
-		                       Func<T, T, bool> functor)
+		                       Func<T, T, DataBoolean> functor)
 		{
 			this.arg = arg;
 			this.provider = provider;
@@ -21,7 +21,7 @@ namespace FxGqlLib
 		}
 		
 		#region implemented abstract members of FxGqlLib.Expression[System.Boolean]
-		public override bool Evaluate (GqlQueryState gqlQueryState)
+		public override DataBoolean Evaluate (GqlQueryState gqlQueryState)
 		{
 			T value1 = arg.Evaluate (gqlQueryState);
 

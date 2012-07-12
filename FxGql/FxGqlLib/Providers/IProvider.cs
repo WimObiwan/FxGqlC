@@ -13,9 +13,9 @@ namespace FxGqlLib
 
 		public long TotalLineNo { get; set; }
 
-		public IComparable[] Columns { get; set; }
+		public IData[] Columns { get; set; }
 
-		public IComparable[] OriginalColumns { get; set; }
+		public IData[] OriginalColumns { get; set; }
 	}
 
 	public class ColumnName : IComparable<ColumnName>

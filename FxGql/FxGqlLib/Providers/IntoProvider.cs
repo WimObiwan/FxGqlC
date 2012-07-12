@@ -48,8 +48,8 @@ namespace FxGqlLib
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			record = new ProviderRecord ();
-			record.Columns = new IComparable[] { };
-			record.OriginalColumns = new IComparable[] { };
+			record.Columns = new IData[] { };
+			record.OriginalColumns = new IData[] { };
 			record.LineNo = 1;
 			this.gqlQueryState = gqlQueryState;
 		}

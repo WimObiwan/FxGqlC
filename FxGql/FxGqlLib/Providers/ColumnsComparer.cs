@@ -6,31 +6,32 @@ namespace FxGqlLib
 {
 	class ColumnsComparer<K> : IComparer<K>, IEqualityComparer<K> where K : ColumnsComparerKey
 	{
-		readonly IComparer[] comparers;
+		readonly IComparer<IData>[] comparers;
 		readonly bool[] descending;
 		readonly int[] fixedColumns;
 
 		public int[] FixedColumns { get { return fixedColumns; } }
 			
-		public ColumnsComparer (Type[] types, StringComparer stringComparer)
-			: this(types, new bool[types.Length], null, stringComparer)
+		public ColumnsComparer (Type[] types, DataComparer dataComparer)
+			: this(types, new bool[types.Length], null, dataComparer)
 		{
 		}
 		
-		public ColumnsComparer (Type[] types, int[] fixedColumns, StringComparer stringComparer)
-			: this(types, new bool[types.Length], fixedColumns, stringComparer)
+		public ColumnsComparer (Type[] types, int[] fixedColumns, DataComparer dataComparer)
+			: this(types, new bool[types.Length], fixedColumns, dataComparer)
 		{
 		}
 		
-		public ColumnsComparer (Type[] types, bool[] descending, int[] fixedColumns, StringComparer stringComparer)
+		public ColumnsComparer (Type[] types, bool[] descending, int[] fixedColumns, DataComparer dataComparer)
 		{
-			comparers = new IComparer[types.Length];
+			comparers = new IComparer<IData>[types.Length];
 			this.descending = descending;
 			this.fixedColumns = fixedColumns;
 			
 			//TODO: Check array sizes
 			for (int i = 0; i < types.Length; i++) {
-				if (types [i] == typeof(DataString))
+				comparers [i] = dataComparer;
+				/*if (types [i] == typeof(DataString))
 					comparers [i] = stringComparer;
 				else {
 					Type comparerType = typeof(Comparer<>).MakeGenericType (types [i]);
@@ -38,7 +39,7 @@ namespace FxGqlLib
 					//Comparer comparer = obj as Comparer;
 					//Comparer comparer = Activator.CreateInstance (comparerType) as Comparer;
 					comparers [i] = obj as IComparer;
-				}
+				}*/
 			}
 		}
 			
@@ -46,11 +47,7 @@ namespace FxGqlLib
 		public int Compare (K x, K y)
 		{
 			for (int i = 0; i < comparers.Length; i++) {
-				int result;
-				if (comparers [i] is StringComparer) 
-					result = comparers [i].Compare (x.Members [i].ToString (), y.Members [i].ToString ());
-				else
-					result = comparers [i].Compare (x.Members [i], y.Members [i]);
+				int result = comparers [i].Compare (x.Members [i], y.Members [i]);
 				if (result != 0)
 					return descending [i] ? -result : result;
 			}
@@ -78,13 +75,13 @@ namespace FxGqlLib
 			
 	class ColumnsComparerKey : IComparable<ColumnsComparerKey>
 	{
-		public IComparable[] Members { get; set; }
+		public IData[] Members { get; set; }
 			
 		public ColumnsComparerKey ()
 		{
 		}
 
-		public ColumnsComparerKey (IComparable[] members)
+		public ColumnsComparerKey (IData[] members)
 		{
 			Members = members;
 		}

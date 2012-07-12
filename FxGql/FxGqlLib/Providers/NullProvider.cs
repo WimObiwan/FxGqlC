@@ -36,7 +36,7 @@ namespace FxGqlLib
 		{
 			endOfQuery = false;
 			record = new ProviderRecord ();
-			record.Columns = new IComparable[] { };
+			record.Columns = new IData[] { };
 			record.Source = "(nullProvider)";
 			record.LineNo = 0;
 		}

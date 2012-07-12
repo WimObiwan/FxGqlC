@@ -7,7 +7,7 @@ namespace FxGqlLib
 		ColumnName ColumnName { get; }
 	}
 
-	public class ColumnExpression<T> : Expression<T>, IColumnExpression where T : IComparable
+	public class ColumnExpression<T> : Expression<T>, IColumnExpression where T : IData
 	{
 		readonly IProvider[] providers;
 		readonly ColumnName columnName;
@@ -85,7 +85,7 @@ namespace FxGqlLib
 			}
 
 			if (upstreamLevel >= 0 && upstreamLevel < providers.Length) {
-				IComparable[] columns;
+				IData[] columns;
 				//ProviderRecord record = gqlQueryState.Record;
 				ProviderRecord record = providers [upstreamLevel].Record;
 				if ((gqlQueryState.UseOriginalColumns) && !(origColumnOrdinal != -1))

@@ -16,7 +16,7 @@ namespace FxGqlLib
 		}
 	}
 
-	public class ConvertExpression<ToT> : Expression<ToT> where ToT : IComparable
+	public class ConvertExpression<ToT> : Expression<ToT> where ToT : IData
 	{
 		readonly protected IExpression expression;
 			
@@ -41,9 +41,9 @@ namespace FxGqlLib
 			expression.Aggregate (state, gqlQueryState);
 		}
 		
-		public override IComparable AggregateCalculate (StateBin state)
+		public override IData AggregateCalculate (StateBin state)
 		{
-			return (IComparable)Convert.ChangeType (expression.AggregateCalculate (state), typeof(ToT));
+			return (IData)Convert.ChangeType (expression.AggregateCalculate (state), typeof(ToT));
 		}
 		#endregion
 	}

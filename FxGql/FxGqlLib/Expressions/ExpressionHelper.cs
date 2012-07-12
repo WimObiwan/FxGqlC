@@ -4,7 +4,7 @@ namespace FxGqlLib
 {
 	public static class ExpressionHelper
 	{
-		public static Expression<T> ConvertIfNeeded<T> (IExpression expression) where T : IComparable
+		public static Expression<T> ConvertIfNeeded<T> (IExpression expression) where T : IData
 		{
 			if (expression is Expression<T>) {
 				return (Expression<T>)expression;

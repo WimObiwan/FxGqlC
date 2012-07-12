@@ -2,7 +2,7 @@ using System;
 
 namespace FxGqlLib
 {
-	public class FormatListFunction : Expression<string>
+	public class FormatListFunction : Expression<DataString>
 	{
 		readonly IExpression[] expression;
 		readonly string separator;
@@ -14,7 +14,7 @@ namespace FxGqlLib
 		}
 				
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
-		public override string Evaluate (GqlQueryState gqlQueryState)
+		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
 			string[] texts = new string[expression.Length];
 			for (int i = 0; i < expression.Length; i++) {

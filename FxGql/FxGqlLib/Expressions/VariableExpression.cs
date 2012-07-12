@@ -20,7 +20,7 @@ namespace FxGqlLib
 		}
         
         #region IExpression implementation
-		public IComparable EvaluateAsComparable (GqlQueryState gqlQueryState)
+		public IData EvaluateAsData (GqlQueryState gqlQueryState)
 		{
 			Variable variable;
 			if (!gqlQueryState.Variables.TryGetValue (this.variable, out variable))
@@ -31,7 +31,7 @@ namespace FxGqlLib
 
 		public Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
 		{
-			IComparable value = EvaluateAsComparable (gqlQueryState);
+			IData value = EvaluateAsData (gqlQueryState);
 			if (value is Y)
 				return (Y)value;
 			else
@@ -40,7 +40,7 @@ namespace FxGqlLib
 
 		public DataString EvaluateAsString (GqlQueryState gqlQueryState)
 		{
-			IComparable value = EvaluateAsComparable (gqlQueryState);
+			IData value = EvaluateAsData (gqlQueryState);
 			if (value is DataString)
 				return (DataString)value;
 			else
@@ -67,7 +67,7 @@ namespace FxGqlLib
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}
         
-		public IComparable AggregateCalculate (StateBin state)
+		public IData AggregateCalculate (StateBin state)
 		{
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}

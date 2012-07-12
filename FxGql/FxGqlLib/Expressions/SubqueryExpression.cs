@@ -18,7 +18,7 @@ namespace FxGqlLib
 		}
         
         #region IExpression implementation
-		public IComparable EvaluateAsComparable (GqlQueryState gqlQueryState)
+		public IData EvaluateAsData (GqlQueryState gqlQueryState)
 		{
 			GqlQueryState gqlQueryState2 = new GqlQueryState (gqlQueryState);
 			try {
@@ -26,9 +26,9 @@ namespace FxGqlLib
 				if (!provider.GetNextRecord ()) {
 					Type type = GetResultType ();
 					if (type == typeof(string))
-						return ""; // TODO: Typed!
+						return new DataString (""); // TODO: Typed!
 					else if (type == typeof(DataInteger))
-						return 0;
+						return new DataInteger (0);
 					else
 						throw new InvalidOperationException ("Expression subquery returned no records");
 				}
@@ -42,7 +42,7 @@ namespace FxGqlLib
 
 		public Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
 		{
-			IComparable value = EvaluateAsComparable (gqlQueryState);
+			IData value = EvaluateAsData (gqlQueryState);
 			if (value is Y)
 				return (Y)value;
 			else
@@ -51,7 +51,7 @@ namespace FxGqlLib
 
 		public DataString EvaluateAsString (GqlQueryState gqlQueryState)
 		{
-			IComparable value = EvaluateAsComparable (gqlQueryState);
+			IData value = EvaluateAsData (gqlQueryState);
 			if (value is DataString)
 				return (DataString)value;
 			else
@@ -78,7 +78,7 @@ namespace FxGqlLib
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}
         
-		public IComparable AggregateCalculate (StateBin state)
+		public IData AggregateCalculate (StateBin state)
 		{
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}

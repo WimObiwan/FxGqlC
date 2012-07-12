@@ -2,7 +2,7 @@ using System;
 
 namespace FxGqlLib
 {
-	public class ConstExpression<T> : Expression<T> where T : IComparable
+	public class ConstExpression<T> : Expression<T> where T : IData
 	{
 		readonly T constValue;
 		

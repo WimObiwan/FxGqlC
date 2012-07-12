@@ -5,11 +5,11 @@ namespace FxGqlLib
 	public class FilterProvider : IProvider
 	{
 		readonly IProvider provider;
-		readonly Expression<bool> filterExpression;
+		readonly Expression<DataBoolean> filterExpression;
 
 		GqlQueryState gqlQueryState;
 		
-		public FilterProvider (IProvider provider, Expression<bool> filterExpression)
+		public FilterProvider (IProvider provider, Expression<DataBoolean> filterExpression)
 		{
 			this.provider = provider;
 			this.filterExpression = filterExpression;

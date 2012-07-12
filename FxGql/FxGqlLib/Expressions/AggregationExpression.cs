@@ -3,8 +3,8 @@ using System;
 namespace FxGqlLib
 {
 	public class AggregationExpression<T, S, R> : Expression<R>
-		where T : IComparable
-		where R : IComparable
+		where T : IData
+		where R : IData
 	{
 		readonly Func<T, S> init;
 		readonly Func<S, T, S> aggregator;
@@ -41,7 +41,7 @@ namespace FxGqlLib
 			state.SetState (this, stateValue);
 		}
 		
-		public override IComparable AggregateCalculate (StateBin state)
+		public override IData AggregateCalculate (StateBin state)
 		{
 			S stateValue;
 			if (!state.GetState<S> (this, out stateValue))

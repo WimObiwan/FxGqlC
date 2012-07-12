@@ -3,9 +3,9 @@ using System;
 namespace FxGqlLib
 {
 	public class BinaryExpression<T1, T2, R> : Expression<R>
-		where T1 : IComparable
-		where T2 : IComparable
-		where R : IComparable
+		where T1 : IData
+		where T2 : IData
+		where R : IData
 	{
 		readonly Func<T1, T2, R> functor;
 		readonly Expression<T1> arg1;
@@ -45,7 +45,7 @@ namespace FxGqlLib
 			arg2.Aggregate (state, gqlQueryState);
 		}
 		
-		public override IComparable AggregateCalculate (StateBin state)
+		public override IData AggregateCalculate (StateBin state)
 		{
 			T1 t1 = (T1)arg1.AggregateCalculate (state);
 			T2 t2 = (T2)arg2.AggregateCalculate (state);

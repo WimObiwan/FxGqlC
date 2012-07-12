@@ -238,9 +238,9 @@ namespace FxGqlLib
 			gqlQueryState.Record = provider.Record;
 			gqlQueryState.TotalLineNumber++;
 			
-			record.Columns = new IComparable[outputList.Length];
+			record.Columns = new IData[outputList.Length];
 			for (int i = 0; i < outputList.Length; i++) {
-				record.Columns [i] = outputList [i].EvaluateAsComparable (gqlQueryState);
+				record.Columns [i] = outputList [i].EvaluateAsData (gqlQueryState);
 			}
 			
 			record.OriginalColumns = provider.Record.Columns;

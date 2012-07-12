@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace FxGqlLib
 {
-	public class MatchOperator : Expression<bool>
+	public class MatchOperator : Expression<DataBoolean>
 	{
 		readonly IExpression arg1;
 		readonly IExpression arg2;
@@ -19,7 +19,7 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
-		public override bool Evaluate (GqlQueryState gqlQueryState)
+		public override DataBoolean Evaluate (GqlQueryState gqlQueryState)
 		{
 			return Regex.IsMatch (arg1.EvaluateAsString (gqlQueryState), arg2.EvaluateAsString (gqlQueryState), regexOptions);
 		}

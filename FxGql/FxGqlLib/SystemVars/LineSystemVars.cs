@@ -11,7 +11,7 @@ namespace FxGqlLib
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
-			IComparable[] columns;
+			IData[] columns;
 			if (gqlQueryState.UseOriginalColumns)
 				columns = gqlQueryState.Record.OriginalColumns;
 			else

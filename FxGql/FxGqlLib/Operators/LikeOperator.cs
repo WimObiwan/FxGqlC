@@ -5,21 +5,21 @@ namespace FxGqlLib
 {
 	public class LikeOperator : MatchOperator
 	{
-		static readonly ConstExpression<string> PREFIX = new ConstExpression<string> ("^");
-		static readonly ConstExpression<string> SUFFIX = new ConstExpression<string> ("$");
+		static readonly ConstExpression<DataString> PREFIX = new ConstExpression<DataString> ("^");
+		static readonly ConstExpression<DataString> SUFFIX = new ConstExpression<DataString> ("$");
 		
 		public LikeOperator (IExpression arg1, IExpression arg2, bool caseInsensitive)
 			: base(arg1, ConstructLikeExpression(arg2), caseInsensitive)
 		{
 		}
 		
-		static Expression<string> ConstructLikeExpression (IExpression expression)
+		static Expression<DataString> ConstructLikeExpression (IExpression expression)
 		{
-			expression = new UnaryExpression<string, string>((a) => Regex.Escape(a), expression);
-			expression = new ReplaceFunction (expression, new ConstExpression<string> ("%"), new ConstExpression<string> (".*"), false);
-			expression = new ReplaceFunction (expression, new ConstExpression<string> ("_"), new ConstExpression<string> ("."), false);
-			expression = new BinaryExpression<string, string, string>((a, b) => a + b, PREFIX, expression); 
-			return new BinaryExpression<string, string, string>((a, b) => a + b, expression, SUFFIX); 
+			expression = new UnaryExpression<DataString, DataString> ((a) => Regex.Escape (a), expression);
+			expression = new ReplaceFunction (expression, new ConstExpression<DataString> ("%"), new ConstExpression<DataString> (".*"), false);
+			expression = new ReplaceFunction (expression, new ConstExpression<DataString> ("_"), new ConstExpression<DataString> ("."), false);
+			expression = new BinaryExpression<DataString, DataString, DataString> ((a, b) => a + b, PREFIX, expression); 
+			return new BinaryExpression<DataString, DataString, DataString> ((a, b) => a + b, expression, SUFFIX); 
 		}
 	}
 }

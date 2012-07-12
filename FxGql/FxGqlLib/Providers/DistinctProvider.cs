@@ -7,15 +7,15 @@ namespace FxGqlLib
 	public class DistinctProvider : IProvider
 	{
 		readonly IProvider provider;
-		readonly StringComparer stringComparer;
+		readonly DataComparer dataComparer;
 
 		SortedSet<ColumnsComparerKey> recordList;
 		ProviderRecord record;
 
-		public DistinctProvider (IProvider provider, StringComparer stringComparer)
+		public DistinctProvider (IProvider provider, DataComparer dataComparer)
 		{
 			this.provider = provider;
-			this.stringComparer = stringComparer;
+			this.dataComparer = dataComparer;
 		}
 
 		#region IProvider implementation
@@ -42,7 +42,7 @@ namespace FxGqlLib
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			provider.Initialize (gqlQueryState);
-			ColumnsComparer<ColumnsComparerKey > columnsComparer = new ColumnsComparer<ColumnsComparerKey> (provider.GetColumnTypes (), stringComparer);
+			ColumnsComparer<ColumnsComparerKey > columnsComparer = new ColumnsComparer<ColumnsComparerKey> (provider.GetColumnTypes (), dataComparer);
 			recordList = new SortedSet<ColumnsComparerKey> (columnsComparer);
 		}
 

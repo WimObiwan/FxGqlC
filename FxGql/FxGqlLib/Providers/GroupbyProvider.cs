@@ -10,7 +10,7 @@ namespace FxGqlLib
 		readonly IList<IExpression> origGroupbyColumns;
 		readonly IList<IExpression> groupbyColumns;
 		readonly IExpression havingExpression;
-		readonly StringComparer stringComparer;
+		readonly DataComparer dataComparer;
 		readonly ColumnName[] columnNameList;
 		readonly IExpression[] outputColumns;
 
@@ -28,16 +28,16 @@ namespace FxGqlLib
 		static GroupbyProvider ()
 		{
 			GeneralGroupbyExpressionList = new List<IExpression> ();
-			GeneralGroupbyExpressionList.Add (new ConstExpression<int> (0));
+			GeneralGroupbyExpressionList.Add (new ConstExpression<DataString> ("x"));
 		}
 
-		public GroupbyProvider (IProvider provider, IList<Column> outputColumns, StringComparer stringComparer)
-			: this (provider, null, GeneralGroupbyExpressionList, outputColumns, null, stringComparer)
+		public GroupbyProvider (IProvider provider, IList<Column> outputColumns, DataComparer dataComparer)
+			: this (provider, null, GeneralGroupbyExpressionList, outputColumns, null, dataComparer)
 		{
 		}
 
 		public GroupbyProvider (IProvider provider, IList<IExpression> origGroupbyColumns, IList<IExpression> groupbyColumns, 
-		                        IList<Column> outputColumns, Expression<bool> havingExpression, StringComparer stringComparer)
+		                        IList<Column> outputColumns, Expression<DataBoolean> havingExpression, DataComparer dataComparer)
 		{
 			this.provider = provider;
 			if (origGroupbyColumns != null && origGroupbyColumns.Count > 0) 
@@ -50,8 +50,8 @@ namespace FxGqlLib
 			else if (havingExpression.IsAggregated ())
 				this.havingExpression = havingExpression;
 			else
-				this.havingExpression = new InvariantColumn (havingExpression, stringComparer);
-			this.stringComparer = stringComparer;
+				this.havingExpression = new InvariantColumn (havingExpression, dataComparer);
+			this.dataComparer = dataComparer;
 
 			this.columnNameList = outputColumns.ToArray ();
 			this.outputColumns = new IExpression[outputColumns.Count];
@@ -59,7 +59,7 @@ namespace FxGqlLib
 				SingleColumn singleColumn = outputColumns [col] as SingleColumn;
 				if (singleColumn != null) {
 					if (!singleColumn.Expression.IsAggregated ())
-						this.outputColumns [col] = new InvariantColumn (singleColumn.Expression, stringComparer);
+						this.outputColumns [col] = new InvariantColumn (singleColumn.Expression, dataComparer);
 					else
 						this.outputColumns [col] = singleColumn.Expression;
 				} else {
@@ -112,10 +112,10 @@ namespace FxGqlLib
 			newGqlQueryState.TotalLineNumber = 0;
 			newGqlQueryState.UseOriginalColumns = true;
 			
-			ColumnsComparer<ColumnsComparerKey> columnsComparer = CreateComparer (groupbyColumns, stringComparer);
+			ColumnsComparer<ColumnsComparerKey> columnsComparer = CreateComparer (groupbyColumns, dataComparer);
 			data = new Dictionary<ColumnsComparerKey, StateBin> (columnsComparer);			
 			if (origGroupbyColumns != null)
-				origColumnsComparer = CreateComparer (origGroupbyColumns, stringComparer);
+				origColumnsComparer = CreateComparer (origGroupbyColumns, dataComparer);
 			else
 				origColumnsComparer = null;
 
@@ -129,7 +129,7 @@ namespace FxGqlLib
 				while (!found && enumerator.MoveNext ()) {
 					if (havingExpression == null)
 						found = true;
-					else if (havingExpression.AggregateCalculate (enumerator.Current.Value).CompareTo (true) == 0)
+					else if (havingExpression.AggregateCalculate (enumerator.Current.Value).CompareTo (DataBoolean.True) == 0)
 						found = true;
 				}
 
@@ -148,7 +148,7 @@ namespace FxGqlLib
 				while (!found && enumerator.MoveNext ()) {
 					if (havingExpression == null)
 						found = true;
-					else if (havingExpression.AggregateCalculate (enumerator.Current.Value).CompareTo (true) == 0)
+					else if (havingExpression.AggregateCalculate (enumerator.Current.Value).CompareTo (DataBoolean.True) == 0)
 						found = true;
 				}
 
@@ -158,7 +158,7 @@ namespace FxGqlLib
 
 			currentRecord++;
 			record.LineNo = currentRecord;
-			record.Columns = new IComparable[outputColumns.Length];
+			record.Columns = new IData[outputColumns.Length];
 			for (int col = 0; col < outputColumns.Length; col++) {
 				record.Columns [col] = outputColumns [col].AggregateCalculate (enumerator.Current.Value);
 			}
@@ -199,10 +199,10 @@ namespace FxGqlLib
 		{
 			data.Clear ();
 
-			IComparable[] lastOrigColumns = null;
-			IComparable[] currentOrigColumns;
+			IData[] lastOrigColumns = null;
+			IData[] currentOrigColumns;
 			if (origGroupbyColumns != null) {
-				currentOrigColumns = new IComparable[origGroupbyColumns.Count];
+				currentOrigColumns = new IData[origGroupbyColumns.Count];
 			} else {
 				currentOrigColumns = null;
 			}
@@ -218,12 +218,12 @@ namespace FxGqlLib
 								throw new Exception (string.Format ("Order by ordinal {0} is not allowed because only {1} columns are available", origColumnsComparer.FixedColumns [i] + 1, provider.Record.Columns.Length));
 							currentOrigColumns [i] = provider.Record.Columns [origColumnsComparer.FixedColumns [i]];
 						} else {
-							currentOrigColumns [i] = origGroupbyColumns [i].EvaluateAsComparable (newGqlQueryState);
+							currentOrigColumns [i] = origGroupbyColumns [i].EvaluateAsData (newGqlQueryState);
 						}
 					}
 
 					if (lastOrigColumns == null) {
-						lastOrigColumns = new IComparable[origGroupbyColumns.Count];
+						lastOrigColumns = new IData[origGroupbyColumns.Count];
 						currentOrigColumns.CopyTo (lastOrigColumns, 0);
 					} else {
 						if (origColumnsComparer.Compare (new ColumnsComparerKey (lastOrigColumns), new ColumnsComparerKey (currentOrigColumns)) != 0) {
@@ -235,9 +235,9 @@ namespace FxGqlLib
 				}
 
 				ColumnsComparerKey key = new ColumnsComparerKey ();
-				key.Members = new IComparable[groupbyColumns.Count];
+				key.Members = new IData[groupbyColumns.Count];
 				for (int i = 0; i < groupbyColumns.Count; i++) {
-					key.Members [i] = groupbyColumns [i].EvaluateAsComparable (newGqlQueryState);
+					key.Members [i] = groupbyColumns [i].EvaluateAsData (newGqlQueryState);
 				}
 				
 				StateBin state;
@@ -265,7 +265,7 @@ namespace FxGqlLib
 			for (int i = 0; i < convertedGroupByColumns.Count; i++) {
 				IExpression expression = convertedGroupByColumns [i];
 				if (expression.IsConstant () && expression.GetResultType () == typeof(DataInteger)) {
-					int col = (int)expression.EvaluateAs<DataInteger> (null) - 1;
+					int col = (int)expression.EvaluateAsData (null).ToDataInteger () - 1;
 					if (col < 0 || col >= outputColumns.Count) {
 						throw new Exception (string.Format ("Invalid group by column ordinal ({0})", col));
 					}
@@ -281,7 +281,7 @@ namespace FxGqlLib
 			return convertedGroupByColumns;
 		}		
 
-		ColumnsComparer<ColumnsComparerKey> CreateComparer (IList<IExpression> groupbyColumns, StringComparer stringComparer)
+		ColumnsComparer<ColumnsComparerKey> CreateComparer (IList<IExpression> groupbyColumns, DataComparer dataComparer)
 		{
 			Type[] types = new Type[groupbyColumns.Count];
 			int[] fixedColumns = new int[groupbyColumns.Count];
@@ -298,25 +298,25 @@ namespace FxGqlLib
 				}
 			}
 
-			return new ColumnsComparer<ColumnsComparerKey> (types, fixedColumns, stringComparer);
+			return new ColumnsComparer<ColumnsComparerKey> (types, fixedColumns, dataComparer);
 		}
 	}
 
 	class InvariantColumn : IExpression
 	{
 		IExpression expression;
-		StringComparer stringComparer;
+		DataComparer dataComparer;
 			
-		public InvariantColumn (IExpression expression, StringComparer stringComparer)
+		public InvariantColumn (IExpression expression, DataComparer dataComparer)
 		{
 			this.expression = expression;
-			this.stringComparer = stringComparer;
+			this.dataComparer = dataComparer;
 		}
 			
 			#region IExpression implementation
-		public IComparable EvaluateAsComparable (GqlQueryState gqlQueryState)
+		public IData EvaluateAsData (GqlQueryState gqlQueryState)
 		{
-			return expression.EvaluateAsComparable (gqlQueryState);
+			return expression.EvaluateAsData (gqlQueryState);
 		}
 
 		public Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
@@ -346,30 +346,26 @@ namespace FxGqlLib
 
 		public void Aggregate (StateBin state, GqlQueryState gqlQueryState)
 		{
-			IComparable comparable1 = expression.EvaluateAsComparable (gqlQueryState);
-			IComparable comparable2;
-			if (!state.GetState<IComparable> (this, out comparable2)) {
+			IData comparable1 = expression.EvaluateAsData (gqlQueryState);
+			IData comparable2;
+			if (!state.GetState<IData> (this, out comparable2)) {
 				state.SetState (this, comparable1);
 			} else {
 				if (!comparable1.GetType ().Equals (comparable2.GetType ()))
 					throw new Exception ("Expression returned different data types");
-				bool invariant;
-				if (comparable1 is string)
-					invariant = (stringComparer.Compare (comparable1 as string, comparable2 as string) == 0);
-				else
-					invariant = (comparable1.CompareTo (comparable2) == 0);
+				bool invariant = dataComparer.Compare (comparable1, comparable2) == 0;
 					
 				if (!invariant)
 					throw new Exception ("Column Expression is not invariant during group by");
 			}
 		}
 
-		public IComparable AggregateCalculate (StateBin state)
+		public IData AggregateCalculate (StateBin state)
 		{
-			IComparable comparable;
-			state.GetState<IComparable> (this, out comparable);
+			IData data;
+			state.GetState<IData> (this, out data);
 			// TODO: If not found? Shouldn't happen?
-			return comparable;
+			return data;
 		}
 			#endregion
 	}

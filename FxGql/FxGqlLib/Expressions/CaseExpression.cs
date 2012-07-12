@@ -7,7 +7,7 @@ namespace FxGqlLib
 	{
 		public class WhenItem
 		{
-			public Expression<bool> Check { get; set; }
+			public Expression<DataBoolean> Check { get; set; }
 			public IExpression Result { get; set; }
 		}
 		
@@ -32,9 +32,9 @@ namespace FxGqlLib
 			return elseResult;
 		}
 		
-		public IComparable EvaluateAsComparable (GqlQueryState gqlQueryState)
+		public IData EvaluateAsData (GqlQueryState gqlQueryState)
 		{
-			return GetResultExpression (gqlQueryState).EvaluateAsComparable (gqlQueryState);
+			return GetResultExpression (gqlQueryState).EvaluateAsData (gqlQueryState);
 		}
 
 		public Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
@@ -97,7 +97,7 @@ namespace FxGqlLib
 			//GetResultExpression(gqlQueryState).Aggregate(state, gqlQueryState);
 		}
 
-		public IComparable AggregateCalculate (StateBin state)
+		public IData AggregateCalculate (StateBin state)
 		{
 			throw new NotSupportedException ("Aggregation with case expression not supported");
 

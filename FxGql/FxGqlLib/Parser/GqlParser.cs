@@ -28,9 +28,7 @@ namespace FxGqlLib
 		readonly GqlEngineState gqlEngineState;
 		readonly string command;
 		//readonly CultureInfo cultureInfo;
-		readonly bool caseInsensitive;
-		readonly StringComparer stringComparer;
-		readonly StringComparison stringComparison;
+		readonly DataComparer dataComparer;
 
 		Dictionary<string, Type> variableTypes = new Dictionary<string, Type> (StringComparer.InvariantCultureIgnoreCase);
 		Dictionary<string, IProvider> views = new Dictionary<string, IProvider> (StringComparer.InvariantCultureIgnoreCase);
@@ -45,10 +43,7 @@ namespace FxGqlLib
 		{
 			this.gqlEngineState = gqlEngineState;
 			this.command = command;
-			//this.cultureInfo = cultureInfo;
-			this.caseInsensitive = caseInsensitive;
-			this.stringComparer = StringComparer.Create (cultureInfo, true);
-			this.stringComparison = StringComparison.InvariantCultureIgnoreCase;
+			this.dataComparer = new DataComparer (cultureInfo, caseInsensitive);
 		}
 
 		private void AssertAntlrToken (ITree tree, string expectedToken)
@@ -216,7 +211,7 @@ namespace FxGqlLib
 				enumerator.MoveNext ();
                                 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE") {
-					Expression<bool> whereExpression = ParseWhereClause (
+					Expression<DataBoolean> whereExpression = ParseWhereClause (
                         fromProvider,
                         enumerator.Current
 					);
@@ -235,7 +230,7 @@ namespace FxGqlLib
 					);
 					enumerator.MoveNext ();
                     
-					Expression<bool> havingExpression;
+					Expression<DataBoolean> havingExpression;
 					if (enumerator.Current != null && enumerator.Current.Text == "T_HAVING") {
 						havingExpression = ParseHavingClause (
 	                        fromProvider,
@@ -252,7 +247,7 @@ namespace FxGqlLib
                         groupbyColumns.Where (p => p.Order != OrderbyProvider.OrderEnum.ORIG).Select (p => p.Expression).ToList (),
                         outputColumns,
 						havingExpression,
-                        stringComparer
+                        dataComparer
 					);
 				} else {
 					// e.g. select count(1) from [myfile.txt]
@@ -260,7 +255,7 @@ namespace FxGqlLib
 						provider = new GroupbyProvider (
 	                        provider,
 	                        outputColumns,
-	                        stringComparer
+	                        dataComparer
 						);
 					} else {
 						provider = new ColumnProvider (outputColumns, provider);
@@ -268,7 +263,7 @@ namespace FxGqlLib
 				}
                 
 				if (distinct)
-					provider = new DistinctProvider (provider, stringComparer);
+					provider = new DistinctProvider (provider, dataComparer);
                 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_ORDERBY") {
 					IList<OrderbyProvider.Column> orderbyColumns = ParseOrderbyClause (
@@ -277,7 +272,7 @@ namespace FxGqlLib
 					);
 					enumerator.MoveNext ();
                     
-					provider = new OrderbyProvider (provider, orderbyColumns, stringComparer);
+					provider = new OrderbyProvider (provider, orderbyColumns, dataComparer);
 				}
 
 				if (topExpression != null)
@@ -433,34 +428,34 @@ namespace FxGqlLib
 			return fromProvider;
 		}
 
-		Expression<bool> ParseWhereClause (IProvider provider, ITree whereTree)
+		Expression<DataBoolean> ParseWhereClause (IProvider provider, ITree whereTree)
 		{
 			AssertAntlrToken (whereTree, "T_WHERE");
             
 			ITree expressionTree = GetSingleChild (whereTree);
 			IExpression expression = ParseExpression (provider, expressionTree);
-			if (!(expression is Expression<bool>)) {
+			if (!(expression is Expression<DataBoolean>)) {
 				throw new ParserException (
                     "Expected boolean expression in WHERE clause.",
                     expressionTree
 				);
 			}
-			return (Expression<bool>)expression;
+			return (Expression<DataBoolean>)expression;
 		}
         
-		Expression<bool> ParseHavingClause (IProvider provider, ITree whereTree)
+		Expression<DataBoolean> ParseHavingClause (IProvider provider, ITree whereTree)
 		{
 			AssertAntlrToken (whereTree, "T_HAVING");
             
 			ITree expressionTree = GetSingleChild (whereTree);
 			IExpression expression = ParseExpression (provider, expressionTree);
-			if (!(expression is Expression<bool>)) {
+			if (!(expression is Expression<DataBoolean>)) {
 				throw new ParserException (
                     "Expected boolean expression in HAVING clause.",
                     expressionTree
 				);
 			}
-			return (Expression<bool>)expression;
+			return (Expression<DataBoolean>)expression;
 		}
         
 		IList<OrderbyProvider.Column> ParseGroupbyClause (IProvider provider, ITree groupbyTree)
@@ -919,24 +914,24 @@ namespace FxGqlLib
             
 			switch (functionName.ToUpperInvariant ()) {
 			case "CONTAINS":
-				result = new BinaryExpression<DataString, DataString, bool> (
-                    (a, b) => a.Value.IndexOf (b, stringComparison) != -1,
+				result = new BinaryExpression<DataString, DataString, DataBoolean> (
+                    (a, b) => a.Value.IndexOf (b, dataComparer.StringComparison) != -1,
                     arg1,
                     arg2
 				);
 				break;
 			case "LEFT":
-				result = new BinaryExpression<DataString, DataInteger, string> (
+				result = new BinaryExpression<DataString, DataInteger, DataString> (
                     (a, b) => a.Value.Substring (0, Math.Min ((int)b, a.Value.Length)),
                     arg1,
                     arg2
 				);
 				break;
 			case "MATCHREGEX":
-				result = new MatchRegexFunction (arg1, arg2, caseInsensitive);
+				result = new MatchRegexFunction (arg1, arg2, dataComparer.CaseInsensitive);
 				break;
 			case "RIGHT":
-				result = new BinaryExpression<DataString, DataInteger, string> (
+				result = new BinaryExpression<DataString, DataInteger, DataString> (
                     (a, b) => a.Value.Substring (a.Value.Length - Math.Min ((int)b, a.Value.Length)),
                     arg1,
                     arg2
@@ -977,13 +972,13 @@ namespace FxGqlLib
             
 			switch (functionName.ToUpperInvariant ()) {
 			case "MATCHREGEX":
-				result = new MatchRegexFunction (arg1, arg2, caseInsensitive, arg3);
+				result = new MatchRegexFunction (arg1, arg2, dataComparer.CaseInsensitive, arg3);
 				break;
 			case "REPLACE":
-				result = new ReplaceFunction (arg1, arg2, arg3, caseInsensitive);
+				result = new ReplaceFunction (arg1, arg2, arg3, dataComparer.CaseInsensitive);
 				break;
 			case "REPLACEREGEX":
-				result = new ReplaceRegexFunction (arg1, arg2, arg3, caseInsensitive);
+				result = new ReplaceRegexFunction (arg1, arg2, arg3, dataComparer.CaseInsensitive);
 				break;
 			case "SUBSTRING":
 				result = new SubstringFunction (arg1, arg2, arg3);
@@ -1217,10 +1212,10 @@ namespace FxGqlLib
 		{
 			FileOptionsFromClause fileOptions = ParseFileFromClause (fileProvider);
             
-			IProvider provider = FileProviderFactory.Get (fileOptions, stringComparer);
+			IProvider provider = FileProviderFactory.Get (fileOptions, dataComparer.StringComparer);
             
 			if (fileOptions.ColumnsRegex != null) {
-				provider = new ColumnProviderRegex (provider, fileOptions.ColumnsRegex, caseInsensitive);
+				provider = new ColumnProviderRegex (provider, fileOptions.ColumnsRegex, dataComparer.CaseInsensitive);
 			} else if (fileOptions.ColumnDelimiter != null) {
 				provider = new ColumnProviderDelimiter (provider, fileOptions.ColumnDelimiter.ToCharArray ());
 			} else if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
@@ -1283,9 +1278,9 @@ namespace FxGqlLib
 		{
 			if (arg1.IsAggregated () || arg2.IsAggregated ()) {
 				if (!arg1.IsAggregated ())
-					arg1 = new InvariantColumn (arg1, stringComparer);
+					arg1 = new InvariantColumn (arg1, dataComparer);
 				if (!arg2.IsAggregated ())
-					arg2 = new InvariantColumn (arg2, stringComparer);
+					arg2 = new InvariantColumn (arg2, dataComparer);
 			}
 		}        
 
@@ -1293,11 +1288,11 @@ namespace FxGqlLib
 		{
 			if (arg1.IsAggregated () || arg2.IsAggregated () || arg3.IsAggregated ()) {
 				if (!arg1.IsAggregated ())
-					arg1 = new InvariantColumn (arg1, stringComparer);
+					arg1 = new InvariantColumn (arg1, dataComparer);
 				if (!arg2.IsAggregated ())
-					arg2 = new InvariantColumn (arg2, stringComparer);
+					arg2 = new InvariantColumn (arg2, dataComparer);
 				if (!arg3.IsAggregated ())
-					arg3 = new InvariantColumn (arg3, stringComparer);
+					arg3 = new InvariantColumn (arg3, dataComparer);
 			}
 		}        
 
@@ -1314,7 +1309,7 @@ namespace FxGqlLib
 			string operatorText = operatorTree.GetChild (0).Text;
 			switch (operatorText) {
 			case "T_NOT":
-				result = new UnaryExpression<bool, bool> ((a) => !a, arg);
+				result = new UnaryExpression<DataBoolean, DataBoolean> ((a) => !a, arg);
 				break;
 			case "T_PLUS":
 				if (arg is Expression<DataInteger>)
@@ -1364,14 +1359,14 @@ namespace FxGqlLib
 			if (operatorText == "T_BETWEEN") {
 				return ParseExpressionBetween (provider, operatorTree);
 			} else if (operatorText == "T_NOTBETWEEN") {
-				return new UnaryExpression<bool, bool> (
+				return new UnaryExpression<DataBoolean, DataBoolean> (
                     (a) => !a,
                     ParseExpressionBetween (provider, operatorTree)
 				);
 			} else if (operatorText == "T_IN" || operatorText == "T_ANY" || operatorText == "T_ALL") {
 				return ParseExpressionInSomeAnyAll (provider, operatorTree);
 			} else if (operatorText == "T_NOTIN") {
-				return new UnaryExpression<bool, bool> (
+				return new UnaryExpression<DataBoolean, DataBoolean> (
                     (a) => !a,
                     ParseExpressionInSomeAnyAll (provider, operatorTree)
 				);
@@ -1393,41 +1388,41 @@ namespace FxGqlLib
             
 			switch (operatorText) {
 			case "T_AND":
-				result = new BinaryExpression<bool, bool, bool> (
+				result = new BinaryExpression<DataBoolean, DataBoolean, DataBoolean> (
                     (a, b) => a && b,
                     arg1,
                     arg2
 				);
 				break;
 			case "T_OR":
-				result = new BinaryExpression<bool, bool, bool> (
+				result = new BinaryExpression<DataBoolean, DataBoolean, DataBoolean> (
                     (a, b) => a || b,
                     arg1,
                     arg2
 				);
 				break;
 			case "T_MATCH":
-				result = new MatchOperator (arg1, arg2, caseInsensitive);
+				result = new MatchOperator (arg1, arg2, dataComparer.CaseInsensitive);
 				break;
 			case "T_NOTMATCH":
-				result = new UnaryExpression<bool, bool> (
+				result = new UnaryExpression<DataBoolean, DataBoolean> (
                     (a) => !a,
-                    new MatchOperator (arg1, arg2, caseInsensitive)
+                    new MatchOperator (arg1, arg2, dataComparer.CaseInsensitive)
 				);
 				break;
 			case "T_LIKE":
-				result = new LikeOperator (arg1, arg2, caseInsensitive);
+				result = new LikeOperator (arg1, arg2, dataComparer.CaseInsensitive);
 				break;
 			case "T_NOTLIKE":
-				result = new UnaryExpression<bool, bool> (
+				result = new UnaryExpression<DataBoolean, DataBoolean> (
                     (a) => !a,
-                    new LikeOperator (arg1, arg2, caseInsensitive)
+                    new LikeOperator (arg1, arg2, dataComparer.CaseInsensitive)
 				);
 				break;
 			case "T_PLUS":
 				{
 					if (arg1 is Expression<DataString> || arg2 is Expression<DataString>)
-						result = new BinaryExpression<string, string, string> (
+						result = new BinaryExpression<DataString, DataString, DataString> (
                             (a, b) => a + b,
                             arg1,
                             arg2
@@ -1590,15 +1585,15 @@ namespace FxGqlLib
 			case "T_NOTGREATER":
 				if (arg1 is Expression<DataString> || arg2 is Expression<DataString>)
 					result = 
-                        new BinaryExpression<DataString, DataString, bool> (OperatorHelper.GetStringComparer (
+                        new BinaryExpression<DataString, DataString, DataBoolean> (OperatorHelper.GetStringComparer (
                         operatorText,
                         false,
-                        stringComparison
+                        dataComparer.StringComparison
 					),
                             arg1, arg2);
 				else if (arg1 is Expression<DataInteger>)
 					result = 
-                        new BinaryExpression<DataInteger, DataInteger, bool> (OperatorHelper.GetIntegerComparer (
+                        new BinaryExpression<DataInteger, DataInteger, DataBoolean> (OperatorHelper.GetIntegerComparer (
                         operatorText,
                         false
 					),
@@ -1648,24 +1643,24 @@ namespace FxGqlLib
 
 			IExpression result;
 			if (arg1 is Expression<DataString> || arg2 is Expression<DataString> || arg3 is Expression<DataString>)
-				result = new TernaryExpression<string, string, string, bool> (
+				result = new TernaryExpression<DataString, DataString, DataString, DataBoolean> (
                     (a, b, c) => 
                                                                       string.Compare (
                     a,
                     b,
-                    stringComparison
+                    dataComparer.StringComparison
 				) >= 0 
 					&& string.Compare (
                     a,
                     c,
-                    stringComparison
+                    dataComparer.StringComparison
 				) <= 0,
                     arg1,
                     arg2,
                     arg3
 				);
 			else if (arg1 is Expression<DataInteger>)
-				result = new TernaryExpression<DataInteger, DataInteger, DataInteger, bool> (
+				result = new TernaryExpression<DataInteger, DataInteger, DataInteger, DataBoolean> (
                     (a, b, c) => (a >= b) && (a <= c),
                     arg1,
                     arg2,
@@ -1718,14 +1713,14 @@ namespace FxGqlLib
 				);
 			}
                         
-			Expression<bool > result;
+			Expression<DataBoolean> result;
 			if (target.Text == "T_EXPRESSIONLIST") {
 				IExpression[] expressionList = ParseExpressionList (provider, target);
 				if (arg2 is Expression<DataString>)
 					result = new AnyListOperator<DataString> (
                         (Expression<DataString>)arg2,
                         expressionList,
-                        OperatorHelper.GetStringComparer (op, all, stringComparison)
+                        OperatorHelper.GetStringComparer (op, all, dataComparer.StringComparison)
 					);
 				else if (arg2 is Expression<DataInteger>)
 					result = new AnyListOperator<DataInteger> (
@@ -1748,7 +1743,7 @@ namespace FxGqlLib
 					result = new AnySubqueryOperator<DataString> (
                         (Expression<DataString>)arg2,
                         subProvider,
-                        OperatorHelper.GetStringComparer (op, all, stringComparison)
+                        OperatorHelper.GetStringComparer (op, all, dataComparer.StringComparison)
 					);
 				else if (arg2 is Expression<DataInteger>)
 					result = new AnySubqueryOperator<DataInteger> (
@@ -1777,7 +1772,7 @@ namespace FxGqlLib
 			}
         
 			if (all)
-				result = new UnaryExpression<bool, bool> (a => !a, result);
+				result = new UnaryExpression<DataBoolean, DataBoolean> (a => !a, result);
                     
 			return result;
 		}
@@ -1918,15 +1913,15 @@ namespace FxGqlLib
 					//TODO: Don't re-evaluate source for every item
 					if (source is Expression<DataString> || destination is Expression<DataString>)
 						whenItem.Check = 
-                            new BinaryExpression<DataString, DataString, bool> (OperatorHelper.GetStringComparer (
+                            new BinaryExpression<DataString, DataString, DataBoolean> (OperatorHelper.GetStringComparer (
                             "T_EQUAL",
                             false,
-                            stringComparison
+                            dataComparer.StringComparison
 						),
                                 source, destination);
 					else if (source is Expression<DataInteger>)
 						whenItem.Check = 
-                            new BinaryExpression<DataInteger, DataInteger, bool> (OperatorHelper.GetIntegerComparer (
+                            new BinaryExpression<DataInteger, DataInteger, DataBoolean> (OperatorHelper.GetIntegerComparer (
                             "T_EQUAL",
                             false
 						),
@@ -1970,8 +1965,8 @@ namespace FxGqlLib
 					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
                     
 					//TODO: Don't re-evaluate source for every item
-					if (destination is Expression<bool>)
-						whenItem.Check = (Expression<bool>)destination;
+					if (destination is Expression<DataBoolean>)
+						whenItem.Check = (Expression<DataBoolean>)destination;
 					else {
 						throw new ParserException (
                             string.Format ("CASE WHEN expression must evaluate to datatype boolean instead of {0}",

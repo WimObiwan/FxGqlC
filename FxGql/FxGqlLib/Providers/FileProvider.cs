@@ -80,7 +80,7 @@ namespace FxGqlLib
 				return false;
 			
 			string text = streamReader.ReadLine ();
-			record.Columns = new IComparable[] 
+			record.Columns = new IData[] 
 			{ 
 				new DataString (text)
 			};

@@ -3,8 +3,8 @@ using System;
 namespace FxGqlLib
 {
 	public class UnaryExpression<T, R> : Expression<R>
-		where T : IComparable
-		where R : IComparable
+		where T : IData
+		where R : IData
 	{
 		readonly Func<T, R> functor;
 		readonly Expression<T> arg;
@@ -41,7 +41,7 @@ namespace FxGqlLib
 			arg.Aggregate (state, gqlQueryState);
 		}
 		
-		public override IComparable AggregateCalculate (StateBin state)
+		public override IData AggregateCalculate (StateBin state)
 		{
 			return functor ((T)arg.AggregateCalculate (state));
 		}

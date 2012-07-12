@@ -90,7 +90,7 @@ namespace FxGqlLib
 			
 			record.LineNo++;
 			record.TotalLineNo = record.LineNo;
-			record.Columns = new IComparable[] 
+			record.Columns = new IData[] 
 			{ 
 				new DataString (text)
 			};

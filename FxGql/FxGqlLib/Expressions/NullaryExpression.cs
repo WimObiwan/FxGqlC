@@ -3,7 +3,7 @@ using System;
 namespace FxGqlLib
 {
 	public class NullaryExpression<R> : Expression<R>
-		where R : IComparable
+		where R : IData
 	{
 		readonly Func<R> functor;
 		

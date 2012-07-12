@@ -93,7 +93,7 @@ namespace FxGqlLib
 				return false;
 			}
 			
-			record.Columns = line.Split (separators, StringSplitOptions.None).Select (p => (IComparable)new DataString (p)).ToArray ();
+			record.Columns = line.Split (separators, StringSplitOptions.None).Select (p => (IData)new DataString (p)).ToArray ();
 			record.LineNo = provider.Record.LineNo;
 			record.OriginalColumns = provider.Record.Columns;
 			record.Source = provider.Record.Source;

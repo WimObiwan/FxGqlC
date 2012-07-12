@@ -2,15 +2,15 @@ using System;
 
 namespace FxGqlLib
 {
-	public class AnyListOperator<T> : Expression<bool> where T: IComparable
+	public class AnyListOperator<T> : Expression<DataBoolean> where T: IData
 	{
 		readonly Expression<T> arg;
 		readonly Expression<T>[] list;
-		readonly Func<T, T, bool> functor;
+		readonly Func<T, T, DataBoolean> functor;
 		
 		public AnyListOperator (Expression<T> arg, 
 		                       IExpression[] list, 
-		                       Func<T, T, bool> functor)
+		                       Func<T, T, DataBoolean> functor)
 		{
 			this.arg = arg;
 			this.list = new Expression<T>[list.Length];
@@ -21,7 +21,7 @@ namespace FxGqlLib
 		}
 		
 		#region implemented abstract members of FxGqlLib.Expression[System.Boolean]
-		public override bool Evaluate (GqlQueryState gqlQueryState)
+		public override DataBoolean Evaluate (GqlQueryState gqlQueryState)
 		{
 			T value1 = arg.Evaluate (gqlQueryState);
 			foreach (Expression<T> arg2 in list) {
