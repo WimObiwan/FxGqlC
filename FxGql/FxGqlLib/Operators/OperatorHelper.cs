@@ -4,25 +4,34 @@ namespace FxGqlLib
 {
 	static class OperatorHelper
 	{
-		public static Func<long, long, bool> GetLongComparer(string operand, bool negate) 
+		public static Func<string, string, bool> GetStringComparer (string operand, bool negate, StringComparison stringComparison)
 		{
-			Func<int, bool> comparer = GetComparer(operand);
+			Func<int, bool> comparer = GetComparer (operand);
 			if (negate)
-				return (a, b) => !comparer(a.CompareTo(b));
+				return (a, b) => !comparer (string.Compare (a, b, stringComparison));
 			else
-				return (a, b) => comparer(a.CompareTo(b));
-		}
-
-		public static Func<string, string, bool> GetStringComparer(string operand, bool negate, StringComparison stringComparison) 
-		{
-			Func<int, bool> comparer = GetComparer(operand);
-			if (negate)
-				return (a, b) => !comparer(string.Compare(a, b, stringComparison));
-			else
-				return (a, b) => comparer(string.Compare(a, b, stringComparison));
+				return (a, b) => comparer (string.Compare (a, b, stringComparison));
 		}
 		
-		public static Func<int, bool> GetComparer(string operand)
+		public static Func<long, long, bool> GetLongComparer (string operand, bool negate)
+		{
+			Func<int, bool> comparer = GetComparer (operand);
+			if (negate)
+				return (a, b) => !comparer (a.CompareTo (b));
+			else
+				return (a, b) => comparer (a.CompareTo (b));
+		}
+
+		public static Func<DataInteger, DataInteger, bool> GetIntegerComparer (string operand, bool negate)
+		{
+			Func<int, bool> comparer = GetComparer (operand);
+			if (negate)
+				return (a, b) => !comparer (a.CompareTo (b));
+			else
+				return (a, b) => comparer (a.CompareTo (b));
+		}
+
+		public static Func<int, bool> GetComparer (string operand)
 		{
 			switch (operand) {
 			case "T_EQUAL":
@@ -38,7 +47,7 @@ namespace FxGqlLib
 			case "T_NOTGREATER":
 				return a => a <= 0;
 			default:
-				throw new Exception (string.Format("Unknown operator {0}", operand));
+				throw new Exception (string.Format ("Unknown operator {0}", operand));
 			}
 		}
 	}

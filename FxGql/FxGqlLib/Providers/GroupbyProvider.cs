@@ -264,8 +264,8 @@ namespace FxGqlLib
 			List<IExpression> convertedGroupByColumns = new List<IExpression> (groupByColumns);
 			for (int i = 0; i < convertedGroupByColumns.Count; i++) {
 				IExpression expression = convertedGroupByColumns [i];
-				if (expression.IsConstant () && expression.GetResultType () == typeof(long)) {
-					int col = (int)expression.EvaluateAs<long> (null) - 1;
+				if (expression.IsConstant () && expression.GetResultType () == typeof(DataInteger)) {
+					int col = (int)expression.EvaluateAs<DataInteger> (null) - 1;
 					if (col < 0 || col >= outputColumns.Count) {
 						throw new Exception (string.Format ("Invalid group by column ordinal ({0})", col));
 					}

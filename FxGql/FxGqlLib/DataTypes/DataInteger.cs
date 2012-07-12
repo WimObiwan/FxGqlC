@@ -9,6 +9,11 @@ namespace FxGqlLib
 		[Obsolete]
 		public long Value { get { return value; } }
 
+		public override string ToString ()
+		{
+			return value.ToString ();
+		}
+
 		public DataInteger (long value)
 		{
 			this.value = value;

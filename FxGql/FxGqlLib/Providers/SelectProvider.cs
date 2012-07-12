@@ -49,6 +49,8 @@ namespace FxGqlLib
 					this.staticColumnNameList [i] = new ColumnName (i);
 				}
 			}
+			this.outputList = this.staticOutputList;
+			this.columnNameList = this.staticColumnNameList;
 			this.provider = provider;
 		}
 

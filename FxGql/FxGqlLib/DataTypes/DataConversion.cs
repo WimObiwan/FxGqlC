@@ -11,6 +11,8 @@ namespace FxGqlLib
 				return (Y)(object)AsDataInteger (data);
 			else if (typeof(Y) == typeof(long))
 				return (Y)(object)AsLong (data);
+			else if (typeof(Y) == typeof(string))
+				return (Y)(object)AsString (data);
 			throw new ConversionException (data.GetType (), typeof(Y));
 		}
 
@@ -19,6 +21,13 @@ namespace FxGqlLib
 		{
 			DataInteger dataInteger = AsDataInteger (data);
 			return dataInteger.Value;
+		}
+
+		[Obsolete]
+		public static string AsString (IData data)
+		{
+			DataInteger dataInteger = AsDataInteger (data);
+			return dataInteger.ToString ();
 		}
 
 		public static DataInteger AsDataInteger (IData data)

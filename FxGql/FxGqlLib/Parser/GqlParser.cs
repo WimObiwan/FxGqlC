@@ -580,7 +580,7 @@ namespace FxGqlLib
 		IExpression ParseExpressionInteger (ITree expressionNumberTree)
 		{
 			ITree tree = GetSingleChild (expressionNumberTree);
-			return new ConstExpression<long> (long.Parse (tree.Text));
+			return new ConstExpression<DataInteger> (long.Parse (tree.Text));
 		}
 
 		string ParseString (ITree tree)
@@ -760,17 +760,17 @@ namespace FxGqlLib
 				break;
 			case "COUNT":
 				if (arg is Expression<string>)
-					result = new AggregationExpression<string, long, long> ((a) => 1, 
+					result = new AggregationExpression<string, DataInteger, DataInteger> ((a) => 1, 
                         (s, a) => s + 1, 
                         (s) => s, 
                         (Expression<string>)arg);
 				else if (arg is Expression<long>)
-					result = new AggregationExpression<long, long, long> ((a) => 1, 
+					result = new AggregationExpression<long, DataInteger, DataInteger> ((a) => 1, 
                         (s, a) => s + 1, 
                         (s) => s, 
                         (Expression<long>)arg);
 				else if (arg is Expression<DataInteger>)
-					result = new AggregationExpression<DataInteger, long, long> ((a) => 1, 
+					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> ((a) => 1, 
                         (s, a) => s + 1, 
                         (s) => s, 
                         (Expression<DataInteger>)arg);
@@ -788,7 +788,7 @@ namespace FxGqlLib
                         (s, a) => s + a, 
                         (s) => s, 
                         (Expression<long>)arg);
-				else if (arg is Expression<long>)
+				else if (arg is Expression<DataInteger>)
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
                         (s, a) => s + a, 
@@ -974,8 +974,8 @@ namespace FxGqlLib
 				);
 				break;
 			case "LEFT":
-				result = new BinaryExpression<string, int, string> (
-                    (a, b) => a.Substring (0, Math.Min (b, a.Length)),
+				result = new BinaryExpression<string, long, string> (
+                    (a, b) => a.Substring (0, Math.Min ((int)b, a.Length)),
                     arg1,
                     arg2
 				);
@@ -984,8 +984,8 @@ namespace FxGqlLib
 				result = new MatchRegexFunction (arg1, arg2, caseInsensitive);
 				break;
 			case "RIGHT":
-				result = new BinaryExpression<string, int, string> (
-                    (a, b) => a.Substring (a.Length - Math.Min (b, a.Length)),
+				result = new BinaryExpression<string, long, string> (
+                    (a, b) => a.Substring (a.Length - Math.Min ((int)b, a.Length)),
                     arg1,
                     arg2
 				);
@@ -1494,6 +1494,12 @@ namespace FxGqlLib
                             arg1,
                             arg2
 						);
+					else if (arg1 is Expression<DataInteger>)
+						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
+                            (a, b) => a + b,
+                            arg1,
+                            arg2
+						);
 					else {
 						throw new ParserException (
                             string.Format (
@@ -1509,6 +1515,12 @@ namespace FxGqlLib
 				{
 					if (arg1 is Expression<long>)
 						result = new BinaryExpression<long, long, long> (
+                            (a, b) => a - b,
+                            arg1,
+                            arg2
+						);
+					else if (arg1 is Expression<DataInteger>)
+						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
                             (a, b) => a - b,
                             arg1,
                             arg2
@@ -1532,6 +1544,12 @@ namespace FxGqlLib
                             arg1,
                             arg2
 						);
+					else if (arg1 is Expression<DataInteger>)
+						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
+                            (a, b) => a / b,
+                            arg1,
+                            arg2
+						);
 					else {
 						throw new ParserException (
                             string.Format (
@@ -1547,6 +1565,12 @@ namespace FxGqlLib
 				{
 					if (arg1 is Expression<long>)
 						result = new BinaryExpression<long, long, long> (
+                            (a, b) => a * b,
+                            arg1,
+                            arg2
+						);
+					else if (arg1 is Expression<DataInteger>)
+						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
                             (a, b) => a * b,
                             arg1,
                             arg2
@@ -1570,6 +1594,12 @@ namespace FxGqlLib
                             arg1,
                             arg2
 						);
+					else if (arg1 is Expression<DataInteger>)
+						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
+                            (a, b) => a % b,
+                            arg1,
+                            arg2
+						);
 					else {
 						throw new ParserException (
                             string.Format (
@@ -1585,6 +1615,12 @@ namespace FxGqlLib
 				{
 					if (arg1 is Expression<long>)
 						result = new BinaryExpression<long, long, long> (
+                            (a, b) => a & b,
+                            arg1,
+                            arg2
+						);
+					else if (arg1 is Expression<DataInteger>)
+						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
                             (a, b) => a & b,
                             arg1,
                             arg2
@@ -1608,6 +1644,12 @@ namespace FxGqlLib
                             arg1,
                             arg2
 						);
+					else if (arg1 is Expression<DataInteger>)
+						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
+                            (a, b) => a | b,
+                            arg1,
+                            arg2
+						);
 					else {
 						throw new ParserException (
                             string.Format (
@@ -1623,6 +1665,12 @@ namespace FxGqlLib
 				{
 					if (arg1 is Expression<long>)
 						result = new BinaryExpression<long, long, long> (
+                            (a, b) => a ^ b,
+                            arg1,
+                            arg2
+						);
+					else if (arg1 is Expression<DataInteger>)
+						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
                             (a, b) => a ^ b,
                             arg1,
                             arg2
@@ -1655,6 +1703,13 @@ namespace FxGqlLib
 				else if (arg1 is Expression<long>)
 					result = 
                         new BinaryExpression<long, long, bool> (OperatorHelper.GetLongComparer (
+                        operatorText,
+                        false
+					),
+                            arg1, arg2);
+				else if (arg1 is Expression<DataInteger>)
+					result = 
+                        new BinaryExpression<DataInteger, DataInteger, bool> (OperatorHelper.GetIntegerComparer (
                         operatorText,
                         false
 					),
@@ -1727,6 +1782,13 @@ namespace FxGqlLib
                     arg2,
                     arg3
 				);
+			else if (arg1 is Expression<DataInteger>)
+				result = new TernaryExpression<DataInteger, DataInteger, DataInteger, bool> (
+                    (a, b, c) => (a >= b) && (a <= c),
+                    arg1,
+                    arg2,
+                    arg3
+				);
 			else {
 				throw new ParserException (
                     string.Format ("Ternary operator 'BETWEEN' cannot be used with datatypes {0}, {1} and {2}",
@@ -1789,6 +1851,12 @@ namespace FxGqlLib
                         expressionList,
                         OperatorHelper.GetLongComparer (op, all)
 					);
+				else if (arg2 is Expression<DataInteger>)
+					result = new AnyListOperator<DataInteger> (
+                        (Expression<DataInteger>)arg2,
+                        expressionList,
+                        OperatorHelper.GetIntegerComparer (op, all)
+					);
 				else
 					throw new ParserException (
                         string.Format (
@@ -1811,6 +1879,12 @@ namespace FxGqlLib
                         (Expression<long>)arg2,
                         subProvider,
                         OperatorHelper.GetLongComparer (op, all)
+					);
+				else if (arg2 is Expression<DataInteger>)
+					result = new AnySubqueryOperator<DataInteger> (
+                        (Expression<DataInteger>)arg2,
+                        subProvider,
+                        OperatorHelper.GetIntegerComparer (op, all)
 					);
 				else
 					throw new ParserException (
@@ -1925,10 +1999,12 @@ namespace FxGqlLib
 		{
 			Type type = provider.GetColumnTypes () [columnOrdinal];
 
-			if (type == typeof(long)) {
-				return new ColumnExpression<long> (provider, columnOrdinal);
-			} else if (type == typeof(string)) {
+			if (type == typeof(string)) {
 				return new ColumnExpression<string> (provider, columnOrdinal);
+			} else if (type == typeof(long)) {
+				return new ColumnExpression<long> (provider, columnOrdinal);
+			} else if (type == typeof(DataInteger)) {
+				return new ColumnExpression<DataInteger> (provider, columnOrdinal);
 			} else {
 				throw new Exception (string.Format ("Invalid datatype '{0}'", type.ToString ()));
 			}
@@ -1983,6 +2059,13 @@ namespace FxGqlLib
 					else if (source is Expression<long>)
 						whenItem.Check = 
                             new BinaryExpression<long, long, bool> (OperatorHelper.GetLongComparer (
+                            "T_EQUAL",
+                            false
+						),
+                                source, destination);
+					else if (source is Expression<DataInteger>)
+						whenItem.Check = 
+                            new BinaryExpression<DataInteger, DataInteger, bool> (OperatorHelper.GetIntegerComparer (
                             "T_EQUAL",
                             false
 						),
@@ -2109,7 +2192,8 @@ namespace FxGqlLib
 			case "STRING":
 				return typeof(string);
 			case "INT":
-				return typeof(long);
+				//return typeof(long);
+				return typeof(DataInteger);
 			default:
 				throw new ParserException (string.Format ("Unknown datatype '{0}'", text), dataTypeTree);
 			}

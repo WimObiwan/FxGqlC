@@ -301,8 +301,8 @@ namespace FxGqlLib
 			for (int i = 0; i < orderbyColumns.Count; i++) {
 				IExpression expression = orderbyColumns [i].Expression;
 				Type type = expression.GetResultType ();
-				if (expression.IsConstant () && type == typeof(long)) {
-					fixedColumns [i] = (int)(expression.EvaluateAs<long> (null)) - 1;
+				if (expression.IsConstant () && type == typeof(DataInteger)) {
+					fixedColumns [i] = (int)(expression.EvaluateAs<DataInteger> (null)) - 1;
 					if (fixedColumns [i] < 0)
 						throw new Exception (string.Format ("Negative order by column ordinal ({0}) is not allowed", fixedColumns [i] + 1));
 					types [i] = provider.GetColumnTypes () [fixedColumns [i]];

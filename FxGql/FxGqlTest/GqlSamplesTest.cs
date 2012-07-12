@@ -400,8 +400,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engineHash.Execute (command);
-						testSummaryWriter.WriteLine (command);
+					engineHash.Execute (command);
+					testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1097,10 +1097,6 @@ namespace FxGqlTest
                 "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
 			TestGql ("select count(*) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 'x'",
                 "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
-			TestGql ("select count(1) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 'x'",
-                "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
-			TestGql ("select count(*) * 5 from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 'x'",
-                "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
 			TestGql ("select sum(5) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by 'x'",
                 "2A9F82B78254C814285682CBA979897388E1E543FF600A470E7AEB37E7A4AC54");
 			TestGql ("select top 10 [Winner], count(1), min([Tournament]), max([Tournament]), first([Tournament]), last([Tournament]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Winner] order by 2 desc",
@@ -1415,6 +1411,15 @@ namespace FxGqlTest
 
 			// join optimization
 			//   http://www.necessaryandsufficient.net/2010/02/join-algorithms-illustrated/
+
+			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"'), $line desc",
+                "588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
+			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by 1, 2 desc",
+                "588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
+			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by 1, $line desc",
+                "588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
+			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"'), 2 desc",
+                "588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
 
 			return failed == 0;
 		}		

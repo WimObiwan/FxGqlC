@@ -10,6 +10,8 @@ namespace FxGqlLib
 				return new ConvertExpression<string> (expression);
 			} else if (type == typeof(long)) {
 				return new ConvertExpression<long> (expression);
+			} else if (type == typeof(DataInteger)) {
+				return new ConvertExpression<DataInteger> (expression);
 			} else {
 				throw new Exception (string.Format ("Unknown datatype {0}", type.ToString ()));
 			}

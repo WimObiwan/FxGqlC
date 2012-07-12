@@ -2,14 +2,14 @@ using System;
 
 namespace FxGqlLib
 {
-	public class TotalLineNoSystemVar : Expression<long>
+	public class TotalLineNoSystemVar : Expression<DataInteger>
 	{
 		public TotalLineNoSystemVar ()
 		{
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.Int64]
-		public override long Evaluate (GqlQueryState gqlQueryState)
+		public override DataInteger Evaluate (GqlQueryState gqlQueryState)
 		{
 			return gqlQueryState.Record.TotalLineNo;
 		}

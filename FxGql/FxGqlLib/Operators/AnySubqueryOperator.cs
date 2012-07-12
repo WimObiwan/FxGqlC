@@ -28,8 +28,17 @@ namespace FxGqlLib
 
 			if (values == null) {
 				values = new List<T> ();
+
+				Type[] types = this.provider.GetColumnTypes ();
+				if (types.Length != 1) 
+					throw new InvalidOperationException ("Subquery should contain only 1 column");
+				IProvider provider;
+				if (types [0] != typeof(T))
+					provider = new SelectProvider (new List<IExpression> () { new ColumnExpression<T> (this.provider, 0)}, this.provider);
+				else
+					provider = this.provider;
 				provider.Initialize (gqlQueryState);
-				
+
 				while (provider.GetNextRecord()) {
 					values.Add ((T)Convert.ChangeType (provider.Record.Columns [0], typeof(T)));
 				}					
