@@ -2,9 +2,9 @@ using System;
 
 namespace FxGqlLib
 {
-	public class SubstringFunction : Expression<string>
+	public class SubstringFunction : Expression<DataString>
 	{
-		readonly Expression<string> arg1;
+		readonly Expression<DataString> arg1;
 		readonly Expression<DataInteger> arg2;
 		readonly Expression<DataInteger> arg3;
 		
@@ -22,7 +22,7 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
-		public override string Evaluate (GqlQueryState gqlQueryState)
+		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
 			string text = arg1.Evaluate (gqlQueryState);
 			int start = (int)arg2.Evaluate (gqlQueryState) - 1;

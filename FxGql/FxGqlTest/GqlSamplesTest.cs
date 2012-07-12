@@ -1412,14 +1412,9 @@ namespace FxGqlTest
 			// join optimization
 			//   http://www.necessaryandsufficient.net/2010/02/join-algorithms-illustrated/
 
-			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"'), $line desc",
-                "588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
-			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by 1, 2 desc",
-                "588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
-			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by 1, $line desc",
-                "588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
-			TestGql ("select top 15 matchregex($line, ', (.*?) (?:- .*)?\"'), * from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"'), 2 desc",
-                "588182E67471BF2C6EDA2CB5164EFCF1238A8675741CAFC1903515B33E59C08C");
+			TestGql ("select distinct matchregex($line, ', (.*?) (?:- .*)?\"') into ['x.txt' -overwrite] from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"')");
+//			TestGql ("select * from (select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"') order by $line",
+//                "9F7AB835C218FD8C696470805224AEB3570F929AE1179B3D69D50099649BFEBF");
 
 			return failed == 0;
 		}		

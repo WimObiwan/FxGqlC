@@ -611,12 +611,12 @@ namespace FxGqlLib
 			return text;
 		}
 
-		Expression<string> ParseExpressionString (ITree expressionStringTree)
+		Expression<DataString> ParseExpressionString (ITree expressionStringTree)
 		{
 			ITree tree = GetSingleChild (expressionStringTree);
             
 			string text = ParseString (tree);
-			return new ConstExpression<string> (text);
+			return new ConstExpression<DataString> (text);
 		}
 
 		IExpression ParseExpressionSystemVar (ITree expressionSystemVarTree)
@@ -747,23 +747,23 @@ namespace FxGqlLib
             
 			switch (functionNameUpper) {
 			case "ESCAPEREGEX":
-				result = new UnaryExpression<string, string> ((a) => Regex.Escape (a), arg);
+				result = new UnaryExpression<DataString, DataString> ((a) => Regex.Escape (a), arg);
 				break;
 			case "LTRIM":
-				result = new UnaryExpression<string, string> ((a) => a.TrimStart (), arg);
+				result = new UnaryExpression<DataString, DataString> ((a) => a.Value.TrimStart (), arg);
 				break;
 			case "RTRIM":
-				result = new UnaryExpression<string, string> ((a) => a.TrimEnd (), arg);
+				result = new UnaryExpression<DataString, DataString> ((a) => a.Value.TrimEnd (), arg);
 				break;
 			case "TRIM":
-				result = new UnaryExpression<string, string> ((a) => a.Trim (), arg);
+				result = new UnaryExpression<DataString, DataString> ((a) => a.Value.Trim (), arg);
 				break;
 			case "COUNT":
-				if (arg is Expression<string>)
-					result = new AggregationExpression<string, DataInteger, DataInteger> ((a) => 1, 
+				if (arg is Expression<DataString>)
+					result = new AggregationExpression<DataString, DataInteger, DataInteger> ((a) => 1, 
                         (s, a) => s + 1, 
                         (s) => s, 
-                        (Expression<string>)arg);
+                        (Expression<DataString>)arg);
 				else if (arg is Expression<DataInteger>)
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> ((a) => 1, 
                         (s, a) => s + 1, 
@@ -791,12 +791,12 @@ namespace FxGqlLib
 				}
 				break;
 			case "MIN":
-				if (arg.GetResultType () == typeof(string))
-					result = new AggregationExpression<string, string, string> (
+				if (arg.GetResultType () == typeof(DataString))
+					result = new AggregationExpression<DataString, DataString, DataString> (
                         (a) => a, 
                         (s, a) => string.Compare (a, s) < 0 ? a : s, 
                         (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<string> (arg));
+                        ExpressionHelper.ConvertIfNeeded<DataString> (arg));
 				else if (arg.GetResultType () == typeof(DataInteger))
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
@@ -811,12 +811,12 @@ namespace FxGqlLib
 				}
 				break;
 			case "MAX":
-				if (arg.GetResultType () == typeof(string))
-					result = new AggregationExpression<string, string, string> (
+				if (arg.GetResultType () == typeof(DataString))
+					result = new AggregationExpression<DataString, DataString, DataString> (
                         (a) => a, 
                         (s, a) => string.Compare (a, s) > 0 ? a : s, 
                         (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<string> (arg));
+                        ExpressionHelper.ConvertIfNeeded<DataString> (arg));
 				else if (arg.GetResultType () == typeof(DataInteger))
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
@@ -831,12 +831,12 @@ namespace FxGqlLib
 				}
 				break;
 			case "FIRST":
-				if (arg.GetResultType () == typeof(string))
-					result = new AggregationExpression<string, string, string> (
+				if (arg.GetResultType () == typeof(DataString))
+					result = new AggregationExpression<DataString, DataString, DataString> (
                         (a) => a, 
                         (s, a) => s, 
                         (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<string> (arg));
+                        ExpressionHelper.ConvertIfNeeded<DataString> (arg));
 				else if (arg.GetResultType () == typeof(DataInteger))
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
@@ -851,12 +851,12 @@ namespace FxGqlLib
 				}
 				break;
 			case "LAST":
-				if (arg.GetResultType () == typeof(string))
-					result = new AggregationExpression<string, string, string> (
+				if (arg.GetResultType () == typeof(DataString))
+					result = new AggregationExpression<DataString, DataString, DataString> (
                         (a) => a, 
                         (s, a) => a, 
                         (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<string> (arg));
+                        ExpressionHelper.ConvertIfNeeded<DataString> (arg));
 				else if (arg.GetResultType () == typeof(DataInteger))
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
@@ -919,15 +919,15 @@ namespace FxGqlLib
             
 			switch (functionName.ToUpperInvariant ()) {
 			case "CONTAINS":
-				result = new BinaryExpression<string, string, bool> (
-                    (a, b) => a.IndexOf (b, stringComparison) != -1,
+				result = new BinaryExpression<DataString, DataString, bool> (
+                    (a, b) => a.Value.IndexOf (b, stringComparison) != -1,
                     arg1,
                     arg2
 				);
 				break;
 			case "LEFT":
-				result = new BinaryExpression<string, DataInteger, string> (
-                    (a, b) => a.Substring (0, Math.Min ((int)b, a.Length)),
+				result = new BinaryExpression<DataString, DataInteger, string> (
+                    (a, b) => a.Value.Substring (0, Math.Min ((int)b, a.Value.Length)),
                     arg1,
                     arg2
 				);
@@ -936,8 +936,8 @@ namespace FxGqlLib
 				result = new MatchRegexFunction (arg1, arg2, caseInsensitive);
 				break;
 			case "RIGHT":
-				result = new BinaryExpression<string, DataInteger, string> (
-                    (a, b) => a.Substring (a.Length - Math.Min ((int)b, a.Length)),
+				result = new BinaryExpression<DataString, DataInteger, string> (
+                    (a, b) => a.Value.Substring (a.Value.Length - Math.Min ((int)b, a.Value.Length)),
                     arg1,
                     arg2
 				);
@@ -1012,7 +1012,7 @@ namespace FxGqlLib
 			IExpression result;
 			if (dataType == typeof(DataInteger)) {
 				result = new ConvertExpression<DataInteger> (expr);
-			} else if (dataType == typeof(string)) {
+			} else if (dataType == typeof(DataString)) {
 				result = new ConvertToStringExpression (expr);
 			} else {    
 				throw new ParserException (
@@ -1178,7 +1178,7 @@ namespace FxGqlLib
 			List<Tuple<string, string, ITree>> options = new List<Tuple<string, string, ITree>> ();
 			string fileNameText = enumerator.Current.Text;
 			if (fileNameText.StartsWith ("[")) {
-				fileOptions.FileName = new ConstExpression<string> (fileNameText.Substring (1, fileNameText.Length - 2));
+				fileOptions.FileName = new ConstExpression<DataString> (fileNameText.Substring (1, fileNameText.Length - 2));
 			} else if (fileNameText == "T_STRING" || fileNameText == "T_VARIABLE") {
 				ITree fileTree = enumerator.Current;
 				if (fileNameText == "T_VARIABLE")
@@ -1426,7 +1426,7 @@ namespace FxGqlLib
 				break;
 			case "T_PLUS":
 				{
-					if (arg1 is Expression<string> || arg2 is Expression<string>)
+					if (arg1 is Expression<DataString> || arg2 is Expression<DataString>)
 						result = new BinaryExpression<string, string, string> (
                             (a, b) => a + b,
                             arg1,
@@ -1588,9 +1588,9 @@ namespace FxGqlLib
 			case "T_GREATER":
 			case "T_NOTLESS":
 			case "T_NOTGREATER":
-				if (arg1 is Expression<string> || arg2 is Expression<string>)
+				if (arg1 is Expression<DataString> || arg2 is Expression<DataString>)
 					result = 
-                        new BinaryExpression<string, string, bool> (OperatorHelper.GetStringComparer (
+                        new BinaryExpression<DataString, DataString, bool> (OperatorHelper.GetStringComparer (
                         operatorText,
                         false,
                         stringComparison
@@ -1647,7 +1647,7 @@ namespace FxGqlLib
 			AdjustAggregation (ref arg1, ref arg2, ref arg3);
 
 			IExpression result;
-			if (arg1 is Expression<string> || arg2 is Expression<string> || arg3 is Expression<string>)
+			if (arg1 is Expression<DataString> || arg2 is Expression<DataString> || arg3 is Expression<DataString>)
 				result = new TernaryExpression<string, string, string, bool> (
                     (a, b, c) => 
                                                                       string.Compare (
@@ -1721,9 +1721,9 @@ namespace FxGqlLib
 			Expression<bool > result;
 			if (target.Text == "T_EXPRESSIONLIST") {
 				IExpression[] expressionList = ParseExpressionList (provider, target);
-				if (arg2 is Expression<string>)
-					result = new AnyListOperator<string> (
-                        (Expression<string>)arg2,
+				if (arg2 is Expression<DataString>)
+					result = new AnyListOperator<DataString> (
+                        (Expression<DataString>)arg2,
                         expressionList,
                         OperatorHelper.GetStringComparer (op, all, stringComparison)
 					);
@@ -1744,9 +1744,9 @@ namespace FxGqlLib
 					);
 			} else if (target.Text == "T_SELECT") {
 				IProvider subProvider = ParseCommandSelect (target);
-				if (arg2 is Expression<string>)
-					result = new AnySubqueryOperator<string> (
-                        (Expression<string>)arg2,
+				if (arg2 is Expression<DataString>)
+					result = new AnySubqueryOperator<DataString> (
+                        (Expression<DataString>)arg2,
                         subProvider,
                         OperatorHelper.GetStringComparer (op, all, stringComparison)
 					);
@@ -1845,7 +1845,7 @@ namespace FxGqlLib
 		{
 			foreach (IProvider provider in providers) {
 				if (provider.GetColumnNames () == null) {
-					return new ColumnExpression<string> (providers, columnName);
+					return new ColumnExpression<DataString> (providers, columnName);
 				} else {
 					int columnOrdinal = provider.GetColumnOrdinal (columnName);
 					if (columnOrdinal >= 0)
@@ -1858,7 +1858,7 @@ namespace FxGqlLib
 		internal static IExpression ConstructColumnExpression (IProvider provider, ColumnName columnName)
 		{
 			if (provider.GetColumnNames () == null) {
-				return new ColumnExpression<string> (provider, columnName);
+				return new ColumnExpression<DataString> (provider, columnName);
 			} else {
 				int columnOrdinal = provider.GetColumnOrdinal (columnName);
 				return ConstructColumnExpression (provider, columnOrdinal);
@@ -1869,8 +1869,8 @@ namespace FxGqlLib
 		{
 			Type type = provider.GetColumnTypes () [columnOrdinal];
 
-			if (type == typeof(string)) {
-				return new ColumnExpression<string> (provider, columnOrdinal);
+			if (type == typeof(DataString)) {
+				return new ColumnExpression<DataString> (provider, columnOrdinal);
 			} else if (type == typeof(DataInteger)) {
 				return new ColumnExpression<DataInteger> (provider, columnOrdinal);
 			} else {
@@ -1916,9 +1916,9 @@ namespace FxGqlLib
 					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
                     
 					//TODO: Don't re-evaluate source for every item
-					if (source is Expression<string> || destination is Expression<string>)
+					if (source is Expression<DataString> || destination is Expression<DataString>)
 						whenItem.Check = 
-                            new BinaryExpression<string, string, bool> (OperatorHelper.GetStringComparer (
+                            new BinaryExpression<DataString, DataString, bool> (OperatorHelper.GetStringComparer (
                             "T_EQUAL",
                             false,
                             stringComparison
@@ -2051,9 +2051,8 @@ namespace FxGqlLib
 			string text = dataTypeTree.Text;
 			switch (text.ToUpperInvariant ()) {
 			case "STRING":
-				return typeof(string);
+				return typeof(DataString);
 			case "INT":
-				//return typeof(long);
 				return typeof(DataInteger);
 			default:
 				throw new ParserException (string.Format ("Unknown datatype '{0}'", text), dataTypeTree);

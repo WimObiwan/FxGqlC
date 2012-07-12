@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace FxGqlLib
 {
-	public class FormatColumnListFunction : Expression<string>
+	public class FormatColumnListFunction : Expression<DataString>
 	{
 		readonly string separator;
 		
@@ -13,14 +13,14 @@ namespace FxGqlLib
 		}
 				
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
-		public override string Evaluate (GqlQueryState gqlQueryState)
+		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
-			string[] columns = gqlQueryState.Record.Columns.Select (p => p.ToString ()).ToArray ();
+			DataString[] columns = gqlQueryState.Record.Columns.Select (p => new DataString (p.ToString ())).ToArray ();
 			return Evaluate (columns);
 		}
 		#endregion
 
-		public string Evaluate (string[] columns)
+		public DataString Evaluate (DataString[] columns)
 		{
 			string[] texts = new string[columns.Length * 2 - 1];
 			for (int i = 0; i < columns.Length; i++) {

@@ -49,6 +49,16 @@ namespace FxGqlLib
 			return new DataInteger (this.value % other.value);
 		}
 
+		public DataInteger ToDataInteger ()
+		{
+			return this;
+		}
+
+		public DataString ToDataString ()
+		{
+			return new DataString (this.value.ToString ());
+		}
+
 		public int CompareTo (object other)
 		{
 			if (other is DataInteger)

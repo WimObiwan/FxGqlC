@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace FxGqlLib
 {
-	public class ReplaceFunction : Expression<string>
+	public class ReplaceFunction : Expression<DataString>
 	{
 		readonly IExpression arg1;
 		readonly IExpression arg2;
@@ -20,7 +20,7 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
-		public override string Evaluate (GqlQueryState gqlQueryState)
+		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
 			return Regex.Replace (arg1.EvaluateAsString (gqlQueryState), arg2.EvaluateAsString (gqlQueryState), 
 			                      arg3.EvaluateAsString (gqlQueryState), regexOptions);

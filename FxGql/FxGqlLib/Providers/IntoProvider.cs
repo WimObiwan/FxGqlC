@@ -164,12 +164,12 @@ namespace FxGqlLib
 					if (heading != GqlEngineState.HeadingEnum.Off) {
 						FormatColumnListFunction formatColumnListFunction = new FormatColumnListFunction (columnDelimiter);
 						ColumnName[] columnTitles = provider.GetColumnNames ();
-						string[] columnTitleStrings = columnTitles.Select (p => p.ToStringWithoutBrackets ()).ToArray ();
+						DataString[] columnTitleStrings = columnTitles.Select (p => new DataString (p.ToStringWithoutBrackets ())).ToArray ();
 						outputWriter.WriteLine (formatColumnListFunction.Evaluate (columnTitleStrings));
 						if (heading == GqlEngineState.HeadingEnum.OnWithRule) {
-							string[] columnTitlesRule = new string[columnTitles.Length];
+							DataString[] columnTitlesRule = new DataString[columnTitles.Length];
 							for (int i = 0; i < columnTitles.Length; i++)
-								columnTitlesRule [i] = new string ('=', columnTitleStrings [i].Length);
+								columnTitlesRule [i] = new DataString (new string ('=', columnTitleStrings [i].ToString ().Length));
 							outputWriter.WriteLine (formatColumnListFunction.Evaluate (columnTitlesRule));
 						}
 					}

@@ -4,7 +4,7 @@ namespace FxGqlLib
 {
 	static class OperatorHelper
 	{
-		public static Func<string, string, bool> GetStringComparer (string operand, bool negate, StringComparison stringComparison)
+		public static Func<DataString, DataString, bool> GetStringComparer (DataString operand, bool negate, StringComparison stringComparison)
 		{
 			Func<int, bool> comparer = GetComparer (operand);
 			if (negate)
@@ -13,15 +13,6 @@ namespace FxGqlLib
 				return (a, b) => comparer (string.Compare (a, b, stringComparison));
 		}
 		
-		public static Func<long, long, bool> GetLongComparer (string operand, bool negate)
-		{
-			Func<int, bool> comparer = GetComparer (operand);
-			if (negate)
-				return (a, b) => !comparer (a.CompareTo (b));
-			else
-				return (a, b) => comparer (a.CompareTo (b));
-		}
-
 		public static Func<DataInteger, DataInteger, bool> GetIntegerComparer (string operand, bool negate)
 		{
 			Func<int, bool> comparer = GetComparer (operand);

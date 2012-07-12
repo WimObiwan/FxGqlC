@@ -119,6 +119,7 @@
     <Compile Include="Commands\DropTableCommand.cs" />
     <Compile Include="DataTypes\ObsoleteExpressionConvertor.cs" />
     <Compile Include="DataTypes\IObsoleteDataType.cs" />
+    <Compile Include="DataTypes\DataString.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

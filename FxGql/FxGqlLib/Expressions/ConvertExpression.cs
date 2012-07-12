@@ -6,8 +6,8 @@ namespace FxGqlLib
 	{
 		public static IExpression Create (Type type, IExpression expression)
 		{
-			if (type == typeof(string)) {
-				return new ConvertExpression<string> (expression);
+			if (type == typeof(DataString)) {
+				return new ConvertExpression<DataString> (expression);
 			} else if (type == typeof(DataInteger)) {
 				return new ConvertExpression<DataInteger> (expression);
 			} else {

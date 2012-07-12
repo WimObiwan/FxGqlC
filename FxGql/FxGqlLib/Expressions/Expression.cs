@@ -10,7 +10,7 @@ namespace FxGqlLib
 
 		Y EvaluateAs<Y> (GqlQueryState gqlQueryState);
 
-		string EvaluateAsString (GqlQueryState gqlQueryState);
+		DataString EvaluateAsString (GqlQueryState gqlQueryState);
 
 		Type GetResultType ();
 		
@@ -48,11 +48,13 @@ namespace FxGqlLib
 				return DataConversion.As<Y> ((IData)val);
 			else if (typeof(Y) == typeof(DataInteger))
 				return (Y)(object)new DataInteger ((long)Convert.ChangeType (val, typeof(long)));
+			else if (typeof(Y) == typeof(DataString))
+				return (Y)(object)new DataString ((string)Convert.ChangeType (val, typeof(string)));
 			else
 				return (Y)Convert.ChangeType (val, typeof(Y));
 		}
 
-		public virtual string EvaluateAsString (GqlQueryState gqlQueryState)
+		public virtual DataString EvaluateAsString (GqlQueryState gqlQueryState)
 		{
 			return Evaluate (gqlQueryState).ToString ();
 		}

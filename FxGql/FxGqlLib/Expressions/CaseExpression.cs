@@ -42,7 +42,7 @@ namespace FxGqlLib
 			return GetResultExpression (gqlQueryState).EvaluateAs<Y> (gqlQueryState);
 		}
 
-		public string EvaluateAsString (GqlQueryState gqlQueryState)
+		public DataString EvaluateAsString (GqlQueryState gqlQueryState)
 		{
 			return GetResultExpression (gqlQueryState).EvaluateAsString (gqlQueryState);
 		}

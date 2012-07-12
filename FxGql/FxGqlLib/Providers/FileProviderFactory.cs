@@ -8,7 +8,7 @@ namespace FxGqlLib
 		{
 		}
 		
-		public Expression<string> FileName { get; set; }
+		public Expression<DataString> FileName { get; set; }
 	}
 
 	public class FileOptionsFromClause : FileOptions
@@ -69,7 +69,7 @@ namespace FxGqlLib
 		public static IProvider Get (FileOptionsFromClause fileOptions, StringComparer stringComparer)
 		{
 			string fileName;
-			if (fileOptions.FileName is ConstExpression<string>)
+			if (fileOptions.FileName is ConstExpression<DataString>)
 				fileName = fileOptions.FileName.EvaluateAsString (null);
 			else
 				fileName = null;

@@ -43,7 +43,7 @@ namespace FxGqlLib
 		
 		public Type[] GetColumnTypes ()
 		{
-			return new Type[] { typeof(string) };
+			return new Type[] { typeof(DataString) };
 		}
 		
 		public void Initialize (GqlQueryState gqlQueryState)
@@ -90,9 +90,9 @@ namespace FxGqlLib
 			
 			record.LineNo++;
 			record.TotalLineNo = record.LineNo;
-			record.Columns = new string[] 
+			record.Columns = new IComparable[] 
 			{ 
-				text 
+				new DataString (text)
 			};
 			record.OriginalColumns = record.Columns;
 			

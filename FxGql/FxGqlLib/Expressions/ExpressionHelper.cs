@@ -22,10 +22,10 @@ namespace FxGqlLib
 			}
 		}
 
-		public static Expression<string> ConvertToStringIfNeeded (IExpression expression)
+		public static Expression<DataString> ConvertToStringIfNeeded (IExpression expression)
 		{
-			if (expression is Expression<string>) {
-				return (Expression<string>)expression;
+			if (expression is Expression<DataString>) {
+				return (Expression<DataString>)expression;
 			} else {
 				return new ConvertToStringExpression (expression);
 			}

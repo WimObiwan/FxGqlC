@@ -4,7 +4,7 @@ using System.IO;
 
 namespace FxGqlLib
 {
-	public class FileNameSystemVar : Expression<string>
+	public class FileNameSystemVar : Expression<DataString>
 	{
 		bool full;
 
@@ -14,7 +14,7 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
-		public override string Evaluate (GqlQueryState gqlQueryState)
+		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
 			if (full)
 				return gqlQueryState.Record.Source;

@@ -30,7 +30,7 @@ namespace FxGqlLib
 			
 			//TODO: Check array sizes
 			for (int i = 0; i < types.Length; i++) {
-				if (types [i] == typeof(string))
+				if (types [i] == typeof(DataString))
 					comparers [i] = stringComparer;
 				else {
 					Type comparerType = typeof(Comparer<>).MakeGenericType (types [i]);
@@ -46,7 +46,11 @@ namespace FxGqlLib
 		public int Compare (K x, K y)
 		{
 			for (int i = 0; i < comparers.Length; i++) {
-				int result = comparers [i].Compare (x.Members [i], y.Members [i]);
+				int result;
+				if (comparers [i] is StringComparer) 
+					result = comparers [i].Compare (x.Members [i].ToString (), y.Members [i].ToString ());
+				else
+					result = comparers [i].Compare (x.Members [i], y.Members [i]);
 				if (result != 0)
 					return descending [i] ? -result : result;
 			}

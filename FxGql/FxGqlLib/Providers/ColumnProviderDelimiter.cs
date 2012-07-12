@@ -53,7 +53,7 @@ namespace FxGqlLib
 		{
 			Type[] types = new Type[columnNameList.Length];
 			for (int i = 0; i < types.Length; i++) { 
-				types [i] = typeof(string);
+				types [i] = typeof(DataString);
 			}
 			return types;
 		}
@@ -93,7 +93,7 @@ namespace FxGqlLib
 				return false;
 			}
 			
-			record.Columns = line.Split (separators, StringSplitOptions.None);
+			record.Columns = line.Split (separators, StringSplitOptions.None).Select (p => (IComparable)new DataString (p)).ToArray ();
 			record.LineNo = provider.Record.LineNo;
 			record.OriginalColumns = provider.Record.Columns;
 			record.Source = provider.Record.Source;

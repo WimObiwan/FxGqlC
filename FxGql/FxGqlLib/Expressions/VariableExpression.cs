@@ -38,11 +38,11 @@ namespace FxGqlLib
 				return (Y)Convert.ChangeType (value, typeof(Y));
 		}
 
-		public string EvaluateAsString (GqlQueryState gqlQueryState)
+		public DataString EvaluateAsString (GqlQueryState gqlQueryState)
 		{
 			IComparable value = EvaluateAsComparable (gqlQueryState);
-			if (value is string)
-				return (string)value;
+			if (value is DataString)
+				return (DataString)value;
 			else
 				return value.ToString ();
 		}

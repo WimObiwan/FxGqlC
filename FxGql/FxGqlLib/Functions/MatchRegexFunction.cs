@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace FxGqlLib
 {
-	public class MatchRegexFunction : Expression<string>
+	public class MatchRegexFunction : Expression<DataString>
 	{
 		readonly IExpression arg1;
 		readonly IExpression arg2;
@@ -11,7 +11,7 @@ namespace FxGqlLib
 		readonly RegexOptions regexOptions;
 		
 		public MatchRegexFunction (IExpression arg1, IExpression arg2, bool caseInsensitive)
-			: this(arg1, arg2, caseInsensitive, new ConstExpression<string>("$1"))
+			: this(arg1, arg2, caseInsensitive, new ConstExpression<DataString>("$1"))
 		{
 		}
 		
@@ -25,7 +25,7 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
-		public override string Evaluate (GqlQueryState gqlQueryState)
+		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
 			Match match = Regex.Match (arg1.EvaluateAsString (gqlQueryState), arg2.EvaluateAsString (gqlQueryState), regexOptions);
 			if (match.Success)

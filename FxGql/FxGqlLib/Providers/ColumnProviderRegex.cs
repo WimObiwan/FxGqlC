@@ -41,7 +41,7 @@ namespace FxGqlLib
 		{
 			Type[] types = new Type[columnNameList.Length];
 			for (int i = 0; i < types.Length; i++) { 
-				types [i] = typeof(string);
+				types [i] = typeof(DataString);
 			}
 			return types;
 		}
@@ -60,7 +60,7 @@ namespace FxGqlLib
 						
 			record = new ProviderRecord ();
 			record.ColumnTitles = columnNameList;
-			record.Columns = new string[columnNameList.Length];
+			record.Columns = new IComparable[columnNameList.Length];
 			record.OriginalColumns = record.Columns;
 		}
 
@@ -71,7 +71,7 @@ namespace FxGqlLib
 				Match match = regex.Match (line);
 				if (match.Success) {
 					for (int i = 0; i < columnNameList.Length; i++)
-						record.Columns [i] = match.Groups [i + 1].Value;
+						record.Columns [i] = new DataString (match.Groups [i + 1].Value);
 					
 					return true;
 				}
