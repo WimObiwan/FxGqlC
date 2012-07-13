@@ -6,7 +6,6 @@ namespace FxGqlLib
 	{
 		string value;
 
-		[Obsolete]
 		public string Value { get { return value; } }
 
 		public override string ToString ()

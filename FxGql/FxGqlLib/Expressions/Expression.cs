@@ -8,6 +8,7 @@ namespace FxGqlLib
 	{
 		IData EvaluateAsData (GqlQueryState gqlQueryState);
 
+		[Obsolete]
 		Y EvaluateAs<Y> (GqlQueryState gqlQueryState);
 
 		DataString EvaluateAsString (GqlQueryState gqlQueryState);
@@ -40,7 +41,7 @@ namespace FxGqlLib
 			T val = Evaluate (gqlQueryState);
 			return val;
 		}
-		
+
 		public virtual Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
 		{
 			T val = Evaluate (gqlQueryState);

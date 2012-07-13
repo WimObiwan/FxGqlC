@@ -6,7 +6,6 @@ namespace FxGqlLib
 	{
 		long value;
 
-		[Obsolete]
 		public long Value { get { return value; } }
 
 		public override string ToString ()

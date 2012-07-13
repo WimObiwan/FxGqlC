@@ -6,7 +6,6 @@ namespace FxGqlLib
 	{
 		bool value;
 
-		[Obsolete]
 		public bool Value { get { return value; } }
 
 		public override string ToString ()

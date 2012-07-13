@@ -61,6 +61,8 @@ namespace FxGqlLib
 			);
 			record = new ProviderRecord ();
 			record.Source = fileName;
+			record.Columns = new IData[] { };
+			record.OriginalColumns = record.Columns;
 
 			for (long i = 0; i < skip; i++) {
 				if (streamReader.ReadLine () == null) {
@@ -80,11 +82,7 @@ namespace FxGqlLib
 				return false;
 			
 			string text = streamReader.ReadLine ();
-			record.Columns = new IData[] 
-			{ 
-				new DataString (text)
-			};
-			record.OriginalColumns = record.Columns;
+			record.Columns [0] = new DataString (text);
 			record.LineNo++;
 			record.TotalLineNo = record.LineNo;
 			
