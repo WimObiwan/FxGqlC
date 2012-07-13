@@ -15,7 +15,7 @@ namespace FxGqlLib
 			this.arg = arg;
 			this.list = new Expression<T>[list.Length];
 			for (int i = 0; i < list.Length; i++) {
-				this.list [i] = ExpressionHelper.ConvertIfNeeded <T> (list [i]);
+				this.list [i] = (Expression<T>)ConvertExpression.Create (typeof(T), list [i]);
 			}
 			this.functor = functor;
 		}

@@ -8,11 +8,6 @@ namespace FxGqlLib
 	{
 		IData EvaluateAsData (GqlQueryState gqlQueryState);
 
-		[Obsolete]
-		Y EvaluateAs<Y> (GqlQueryState gqlQueryState);
-
-		DataString EvaluateAsString (GqlQueryState gqlQueryState);
-
 		Type GetResultType ();
 		
 		// TODO: IsInputDependent(); for optimalisation
@@ -42,24 +37,6 @@ namespace FxGqlLib
 			return val;
 		}
 
-		public virtual Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
-		{
-			T val = Evaluate (gqlQueryState);
-			if (val is IData)
-				return DataConversion.As<Y> ((IData)val);
-			else if (typeof(Y) == typeof(DataInteger))
-				return (Y)(object)new DataInteger ((long)Convert.ChangeType (val, typeof(long)));
-			else if (typeof(Y) == typeof(DataString))
-				return (Y)(object)new DataString ((string)Convert.ChangeType (val, typeof(string)));
-			else
-				return (Y)Convert.ChangeType (val, typeof(Y));
-		}
-
-		public virtual DataString EvaluateAsString (GqlQueryState gqlQueryState)
-		{
-			return Evaluate (gqlQueryState).ToString ();
-		}
-		
 		public virtual Type GetResultType ()
 		{
 			return typeof(T);

@@ -21,7 +21,7 @@ namespace FxGqlLib
 
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
-			string fileName = this.fileOptions.FileName.EvaluateAsString (null);
+			string fileName = this.fileOptions.FileName.EvaluateAsData (null).ToDataString ();
 			if (fileName.StartsWith ("#")) {
 				fileName = Path.Combine (gqlEngineState.TempDirectory, fileName);
 			} else {

@@ -6,6 +6,7 @@ namespace FxGqlLib
 	{
 		DataInteger ToDataInteger ();
 		DataString ToDataString ();
+		DataBoolean ToDataBoolean ();
 	}
 }
 

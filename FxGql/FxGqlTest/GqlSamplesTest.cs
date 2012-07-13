@@ -1412,9 +1412,13 @@ namespace FxGqlTest
 			// join optimization
 			//   http://www.necessaryandsufficient.net/2010/02/join-algorithms-illustrated/
 
-			TestGql ("select distinct matchregex($line, ', (.*?) (?:- .*)?\"') into ['x.txt' -overwrite] from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"')");
+//			TestGql ("select distinct matchregex($line, ', (.*?) (?:- .*)?\"') into ['x.txt' -overwrite] from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"')");
 //			TestGql ("select * from (select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"') order by $line",
 //                "9F7AB835C218FD8C696470805224AEB3570F929AE1179B3D69D50099649BFEBF");
+
+			TestGql ("select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] --where $line match ', (.*?) (?:- .*)?\"' --order by matchregex($line, ', (.*?) (?:- .*)?\"')" /*,
+                "9F7AB835C218FD8C696470805224AEB3570F929AE1179B3D69D50099649BFEBF"*/
+			);
 
 			return failed == 0;
 		}		

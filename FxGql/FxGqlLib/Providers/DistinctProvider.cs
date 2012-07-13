@@ -51,7 +51,7 @@ namespace FxGqlLib
 			while (provider.GetNextRecord()) {
 				ProviderRecord record = provider.Record;
 				ColumnsComparerKey key = new ColumnsComparerKey ();
-				key.Members = provider.Record.Columns;
+				key.Members = (IData[])provider.Record.Columns.Clone ();
 				if (!recordList.Contains (key)) {
 					recordList.Add (key);
 					this.record = record;

@@ -15,11 +15,11 @@ namespace FxGqlLib
 		
 		static Expression<DataString> ConstructLikeExpression (IExpression expression)
 		{
-			expression = new UnaryExpression<DataString, DataString> ((a) => Regex.Escape (a), expression);
+			expression = UnaryExpression<DataString, DataString>.CreateAutoConvert ((a) => Regex.Escape (a), expression);
 			expression = new ReplaceFunction (expression, new ConstExpression<DataString> ("%"), new ConstExpression<DataString> (".*"), false);
 			expression = new ReplaceFunction (expression, new ConstExpression<DataString> ("_"), new ConstExpression<DataString> ("."), false);
-			expression = new BinaryExpression<DataString, DataString, DataString> ((a, b) => a + b, PREFIX, expression); 
-			return new BinaryExpression<DataString, DataString, DataString> ((a, b) => a + b, expression, SUFFIX); 
+			expression = BinaryExpression<DataString, DataString, DataString>.CreateAutoConvert ((a, b) => a + b, PREFIX, expression); 
+			return BinaryExpression<DataString, DataString, DataString>.CreateAutoConvert ((a, b) => a + b, expression, SUFFIX); 
 		}
 	}
 }

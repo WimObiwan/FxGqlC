@@ -58,6 +58,11 @@ namespace FxGqlLib
 			return new DataString (this.value.ToString ());
 		}
 
+		public DataBoolean ToDataBoolean ()
+		{
+			return new DataBoolean (this.value != 0 ? DataBoolean.True : DataBoolean.False);
+		}
+
 		public int CompareTo (object other)
 		{
 			if (other is DataInteger)

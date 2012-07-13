@@ -22,7 +22,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -43,7 +43,6 @@
     <Compile Include="Expressions\Expression.cs" />
     <Compile Include="Expressions\ConstExpression.cs" />
     <Compile Include="Expressions\ConvertExpression.cs" />
-    <Compile Include="Expressions\ConvertToStringExpression.cs" />
     <Compile Include="GqlEngine.cs" />
     <Compile Include="Parser\GqlAntlrOutput\output\gqlLexer.cs" />
     <Compile Include="Parser\GqlAntlrOutput\output\gqlParser.cs" />
@@ -55,7 +54,6 @@
     <Compile Include="SystemVars\FileNameSystemVar.cs" />
     <Compile Include="SystemVars\TotalLineNoSystemVar.cs" />
     <Compile Include="SystemVars\LineNoSystemVar.cs" />
-    <Compile Include="Expressions\ExpressionHelper.cs" />
     <Compile Include="Functions\SubstringFunction.cs" />
     <Compile Include="Providers\NullProvider.cs" />
     <Compile Include="Providers\TopProvider.cs" />
@@ -114,10 +112,8 @@
     <Compile Include="DataTypes\DataType.cs" />
     <Compile Include="DataTypes\Data.cs" />
     <Compile Include="DataTypes\DataInteger.cs" />
-    <Compile Include="DataTypes\DataConversion.cs" />
     <Compile Include="Exceptions\ConversionException.cs" />
     <Compile Include="Commands\DropTableCommand.cs" />
-    <Compile Include="DataTypes\ObsoleteExpressionConvertor.cs" />
     <Compile Include="DataTypes\IObsoleteDataType.cs" />
     <Compile Include="DataTypes\DataString.cs" />
     <Compile Include="DataTypes\DataComparer.cs" />

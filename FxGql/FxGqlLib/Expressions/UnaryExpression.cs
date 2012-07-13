@@ -8,10 +8,11 @@ namespace FxGqlLib
 	{
 		readonly Func<T, R> functor;
 		readonly Expression<T> arg;
-		
-		public UnaryExpression (Func<T, R> functor, IExpression arg)
-			: this (functor, ExpressionHelper.ConvertIfNeeded<T>(arg))
+
+		public static UnaryExpression<T, R> CreateAutoConvert (Func<T, R> functor, IExpression arg)
 		{
+			Expression<T> typedArg = (Expression<T>)ConvertExpression.Create (typeof(T), arg);
+			return new UnaryExpression<T, R> (functor, typedArg);
 		}
 		
 		public UnaryExpression (Func<T, R> functor, Expression<T> arg)

@@ -180,6 +180,7 @@ namespace FxGqlLib
 			record = new ProviderRecord ();
 			record.Source = "(subQuery)";
 			record.LineNo = 0;
+			record.Columns = new IData[this.outputList.Length];
 		}
 
 		public bool GetNextRecord ()
@@ -189,7 +190,6 @@ namespace FxGqlLib
 			gqlQueryState.Record = provider.Record;
 			gqlQueryState.TotalLineNumber++;
 			
-			record.Columns = new IData[outputList.Length];
 			for (int i = 0; i < outputList.Length; i++) {
 				record.Columns [i] = outputList [i].EvaluateAsData (gqlQueryState);
 			}

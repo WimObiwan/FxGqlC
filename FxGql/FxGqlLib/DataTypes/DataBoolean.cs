@@ -28,6 +28,11 @@ namespace FxGqlLib
 			return this.value.ToString ();
 		}
 
+		public DataBoolean ToDataBoolean ()
+		{
+			return this;
+		}
+
 		public int CompareTo (object other)
 		{
 			if (other is DataBoolean)

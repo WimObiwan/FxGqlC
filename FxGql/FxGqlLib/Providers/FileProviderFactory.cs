@@ -70,7 +70,7 @@ namespace FxGqlLib
 		{
 			string fileName;
 			if (fileOptions.FileName is ConstExpression<DataString>)
-				fileName = fileOptions.FileName.EvaluateAsString (null);
+				fileName = fileOptions.FileName.EvaluateAsData (null).ToDataString ();
 			else
 				fileName = null;
 

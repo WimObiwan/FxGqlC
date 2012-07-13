@@ -13,6 +13,7 @@ namespace FxGqlLib
 		ProviderRecord record;
 		ColumnName[] columnNameList;
 		Regex regex;
+		DataString[] dataStrings;
 		
 		public ColumnProviderRegex (IProvider provider, string regexDefinition, bool caseInsensitive)
 		{
@@ -61,6 +62,9 @@ namespace FxGqlLib
 			record = new ProviderRecord ();
 			record.ColumnTitles = columnNameList;
 			record.Columns = new IData[columnNameList.Length];
+			dataStrings = new DataString[columnNameList.Length];
+			for (int i = 0; i < dataStrings.Length; i++)
+				dataStrings [i] = new DataString ();
 			record.OriginalColumns = record.Columns;
 		}
 
@@ -70,8 +74,10 @@ namespace FxGqlLib
 				string line = provider.Record.Columns [0].ToString ();
 				Match match = regex.Match (line);
 				if (match.Success) {
-					for (int i = 0; i < columnNameList.Length; i++)
-						record.Columns [i] = new DataString (match.Groups [i + 1].Value);
+					for (int i = 0; i < columnNameList.Length; i++) {
+						dataStrings [i].Set (match.Groups [i + 1].Value);
+						record.Columns [i] = dataStrings [i];
+					}
 					
 					return true;
 				}

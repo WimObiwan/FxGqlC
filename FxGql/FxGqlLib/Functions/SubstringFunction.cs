@@ -15,10 +15,10 @@ namespace FxGqlLib
 		
 		public SubstringFunction (IExpression arg1, IExpression arg2, IExpression arg3)
 		{
-			this.arg1 = ExpressionHelper.ConvertToStringIfNeeded (arg1);
-			this.arg2 = ExpressionHelper.ConvertToDataIntegerIfNeeded (arg2);
+			this.arg1 = ConvertExpression.CreateDataString (arg1);
+			this.arg2 = ConvertExpression.CreateDataInteger (arg2);
 			if (arg3 != null) 
-				this.arg3 = ExpressionHelper.ConvertToDataIntegerIfNeeded (arg3);
+				this.arg3 = ConvertExpression.CreateDataInteger (arg3);
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]

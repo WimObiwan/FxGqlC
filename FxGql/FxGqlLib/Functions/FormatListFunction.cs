@@ -20,7 +20,7 @@ namespace FxGqlLib
 			for (int i = 0; i < expression.Length; i++) {
 				if (i > 0)
 					texts [i * 2 - 1] = separator;
-				texts [i * 2] = expression [i].EvaluateAsString (gqlQueryState);
+				texts [i * 2] = expression [i].EvaluateAsData (gqlQueryState).ToDataString ();
 			}
 			
 			return string.Concat (texts);

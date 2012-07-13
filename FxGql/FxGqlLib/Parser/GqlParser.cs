@@ -325,7 +325,7 @@ namespace FxGqlLib
 		Expression<DataInteger> ParseTopClause (ITree topClauseTree)
 		{
 			ITree tree = GetSingleChild (topClauseTree);
-			return ExpressionHelper.ConvertIfNeeded<DataInteger> (ParseExpression (null, tree));
+			return ConvertExpression.CreateDataInteger (ParseExpression (null, tree));
 		}
         
 		IList<Column> ParseColumnList (IProvider provider, ITree outputListTree)
@@ -742,16 +742,16 @@ namespace FxGqlLib
             
 			switch (functionNameUpper) {
 			case "ESCAPEREGEX":
-				result = new UnaryExpression<DataString, DataString> ((a) => Regex.Escape (a), arg);
+				result = UnaryExpression<DataString, DataString>.CreateAutoConvert ((a) => Regex.Escape (a), arg);
 				break;
 			case "LTRIM":
-				result = new UnaryExpression<DataString, DataString> ((a) => a.Value.TrimStart (), arg);
+				result = UnaryExpression<DataString, DataString>.CreateAutoConvert ((a) => a.Value.TrimStart (), arg);
 				break;
 			case "RTRIM":
-				result = new UnaryExpression<DataString, DataString> ((a) => a.Value.TrimEnd (), arg);
+				result = UnaryExpression<DataString, DataString>.CreateAutoConvert ((a) => a.Value.TrimEnd (), arg);
 				break;
 			case "TRIM":
-				result = new UnaryExpression<DataString, DataString> ((a) => a.Value.Trim (), arg);
+				result = UnaryExpression<DataString, DataString>.CreateAutoConvert ((a) => a.Value.Trim (), arg);
 				break;
 			case "COUNT":
 				if (arg is Expression<DataString>)
@@ -791,13 +791,13 @@ namespace FxGqlLib
                         (a) => a, 
                         (s, a) => string.Compare (a, s) < 0 ? a : s, 
                         (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<DataString> (arg));
+                        ConvertExpression.CreateDataString (arg));
 				else if (arg.GetResultType () == typeof(DataInteger))
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
                         (s, a) => a < s ? a : s, 
                         (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<DataInteger> (arg));
+                        ConvertExpression.CreateDataInteger (arg));
 				else {
 					throw new ParserException (
                         string.Format ("MIN aggregation function cannot be used on datatype '{0}'",
@@ -811,13 +811,13 @@ namespace FxGqlLib
                         (a) => a, 
                         (s, a) => string.Compare (a, s) > 0 ? a : s, 
                         (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<DataString> (arg));
+                        ConvertExpression.CreateDataString (arg));
 				else if (arg.GetResultType () == typeof(DataInteger))
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
                         (s, a) => a > s ? a : s, 
                         (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<DataInteger> (arg));
+                        ConvertExpression.CreateDataInteger (arg));
 				else {
 					throw new ParserException (
                         string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
@@ -831,13 +831,13 @@ namespace FxGqlLib
                         (a) => a, 
                         (s, a) => s, 
                         (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<DataString> (arg));
+                        ConvertExpression.CreateDataString (arg));
 				else if (arg.GetResultType () == typeof(DataInteger))
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
                         (s, a) => s, 
-                        (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<DataInteger> (arg));
+						(s) => s, 
+                        ConvertExpression.CreateDataInteger (arg));
 				else {
 					throw new ParserException (
                         string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
@@ -851,13 +851,13 @@ namespace FxGqlLib
                         (a) => a, 
                         (s, a) => a, 
                         (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<DataString> (arg));
+                        ConvertExpression.CreateDataString (arg));
 				else if (arg.GetResultType () == typeof(DataInteger))
 					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
                         (a) => a, 
                         (s, a) => a, 
                         (s) => s, 
-                        ExpressionHelper.ConvertIfNeeded<DataInteger> (arg));
+                        ConvertExpression.CreateDataInteger (arg));
 				else {
 					throw new ParserException (
                         string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
@@ -914,14 +914,14 @@ namespace FxGqlLib
             
 			switch (functionName.ToUpperInvariant ()) {
 			case "CONTAINS":
-				result = new BinaryExpression<DataString, DataString, DataBoolean> (
+				result = BinaryExpression<DataString, DataString, DataBoolean>.CreateAutoConvert (
                     (a, b) => a.Value.IndexOf (b, dataComparer.StringComparison) != -1,
                     arg1,
                     arg2
 				);
 				break;
 			case "LEFT":
-				result = new BinaryExpression<DataString, DataInteger, DataString> (
+				result = BinaryExpression<DataString, DataInteger, DataString>.CreateAutoConvert (
                     (a, b) => a.Value.Substring (0, Math.Min ((int)b, a.Value.Length)),
                     arg1,
                     arg2
@@ -931,7 +931,7 @@ namespace FxGqlLib
 				result = new MatchRegexFunction (arg1, arg2, dataComparer.CaseInsensitive);
 				break;
 			case "RIGHT":
-				result = new BinaryExpression<DataString, DataInteger, DataString> (
+				result = BinaryExpression<DataString, DataInteger, DataString>.CreateAutoConvert (
                     (a, b) => a.Value.Substring (a.Value.Length - Math.Min ((int)b, a.Value.Length)),
                     arg1,
                     arg2
@@ -1004,21 +1004,7 @@ namespace FxGqlLib
                 convertTree.GetChild (1)
 			);
             
-			IExpression result;
-			if (dataType == typeof(DataInteger)) {
-				result = new ConvertExpression<DataInteger> (expr);
-			} else if (dataType == typeof(DataString)) {
-				result = new ConvertToStringExpression (expr);
-			} else {    
-				throw new ParserException (
-                    string.Format (
-                    "Datatype {0} not supported in CONVERT function.",
-                    dataType
-				),
-                    convertTree.GetChild (1)
-				);
-			}
-			return result;
+			return ConvertExpression.Create (dataType, expr);
 		}
 
 		FileOptionsFromClause ParseFileFromClause (ITree fileProvider)
@@ -1177,7 +1163,7 @@ namespace FxGqlLib
 			} else if (fileNameText == "T_STRING" || fileNameText == "T_VARIABLE") {
 				ITree fileTree = enumerator.Current;
 				if (fileNameText == "T_VARIABLE")
-					fileOptions.FileName = ExpressionHelper.ConvertToStringIfNeeded (ParseExpressionVariable (fileTree));
+					fileOptions.FileName = ConvertExpression.CreateDataString (ParseExpressionVariable (fileTree));
 				else
 					fileOptions.FileName = ParseExpressionString (fileTree);
                 
@@ -1309,11 +1295,11 @@ namespace FxGqlLib
 			string operatorText = operatorTree.GetChild (0).Text;
 			switch (operatorText) {
 			case "T_NOT":
-				result = new UnaryExpression<DataBoolean, DataBoolean> ((a) => !a, arg);
+				result = UnaryExpression<DataBoolean, DataBoolean>.CreateAutoConvert ((a) => !a, arg);
 				break;
 			case "T_PLUS":
 				if (arg is Expression<DataInteger>)
-					result = new UnaryExpression<DataInteger, DataInteger> ((a) => a, arg);
+					result = UnaryExpression<DataInteger, DataInteger>.CreateAutoConvert ((a) => a, arg);
 				else {
 					throw new ParserException (
                             string.Format ("Unary operator 'PLUS' cannot be used with datatype {0}",
@@ -1323,7 +1309,7 @@ namespace FxGqlLib
 				break;
 			case "T_MINUS":
 				if (arg is Expression<DataInteger>)
-					result = new UnaryExpression<DataInteger, DataInteger> ((a) => -a, arg);
+					result = UnaryExpression<DataInteger, DataInteger>.CreateAutoConvert ((a) => -a, arg);
 				else {
 					throw new ParserException (
                             string.Format ("Unary operator 'MINUS' cannot be used with datatype {0}",
@@ -1333,7 +1319,7 @@ namespace FxGqlLib
 				break;
 			case "T_BITWISE_NOT":
 				if (arg is Expression<DataInteger>)
-					result = new UnaryExpression<DataInteger, DataInteger> ((a) => ~a, arg);
+					result = UnaryExpression<DataInteger, DataInteger>.CreateAutoConvert ((a) => ~a, arg);
 				else {
 					throw new ParserException (
                             string.Format ("Unary operator 'MINUS' cannot be used with datatype {0}",
@@ -1359,14 +1345,14 @@ namespace FxGqlLib
 			if (operatorText == "T_BETWEEN") {
 				return ParseExpressionBetween (provider, operatorTree);
 			} else if (operatorText == "T_NOTBETWEEN") {
-				return new UnaryExpression<DataBoolean, DataBoolean> (
+				return UnaryExpression<DataBoolean, DataBoolean>.CreateAutoConvert (
                     (a) => !a,
                     ParseExpressionBetween (provider, operatorTree)
 				);
 			} else if (operatorText == "T_IN" || operatorText == "T_ANY" || operatorText == "T_ALL") {
 				return ParseExpressionInSomeAnyAll (provider, operatorTree);
 			} else if (operatorText == "T_NOTIN") {
-				return new UnaryExpression<DataBoolean, DataBoolean> (
+				return UnaryExpression<DataBoolean, DataBoolean>.CreateAutoConvert (
                     (a) => !a,
                     ParseExpressionInSomeAnyAll (provider, operatorTree)
 				);
@@ -1388,14 +1374,14 @@ namespace FxGqlLib
             
 			switch (operatorText) {
 			case "T_AND":
-				result = new BinaryExpression<DataBoolean, DataBoolean, DataBoolean> (
+				result = BinaryExpression<DataBoolean, DataBoolean, DataBoolean>.CreateAutoConvert (
                     (a, b) => a && b,
                     arg1,
                     arg2
 				);
 				break;
 			case "T_OR":
-				result = new BinaryExpression<DataBoolean, DataBoolean, DataBoolean> (
+				result = BinaryExpression<DataBoolean, DataBoolean, DataBoolean>.CreateAutoConvert (
                     (a, b) => a || b,
                     arg1,
                     arg2
@@ -1422,13 +1408,13 @@ namespace FxGqlLib
 			case "T_PLUS":
 				{
 					if (arg1 is Expression<DataString> || arg2 is Expression<DataString>)
-						result = new BinaryExpression<DataString, DataString, DataString> (
+						result = BinaryExpression<DataString, DataString, DataString>.CreateAutoConvert (
                             (a, b) => a + b,
                             arg1,
                             arg2
 						);
 					else if (arg1 is Expression<DataInteger>)
-						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
+						result = BinaryExpression<DataInteger, DataInteger, DataInteger>.CreateAutoConvert (
                             (a, b) => a + b,
                             arg1,
                             arg2
@@ -1447,7 +1433,7 @@ namespace FxGqlLib
 			case "T_MINUS":
 				{
 					if (arg1 is Expression<DataInteger>)
-						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
+						result = BinaryExpression<DataInteger, DataInteger, DataInteger>.CreateAutoConvert (
                             (a, b) => a - b,
                             arg1,
                             arg2
@@ -1466,7 +1452,7 @@ namespace FxGqlLib
 			case "T_DIVIDE":
 				{
 					if (arg1 is Expression<DataInteger>)
-						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
+						result = BinaryExpression<DataInteger, DataInteger, DataInteger>.CreateAutoConvert (
                             (a, b) => a / b,
                             arg1,
                             arg2
@@ -1485,7 +1471,7 @@ namespace FxGqlLib
 			case "T_PRODUCT":
 				{
 					if (arg1 is Expression<DataInteger>)
-						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
+						result = BinaryExpression<DataInteger, DataInteger, DataInteger>.CreateAutoConvert (
                             (a, b) => a * b,
                             arg1,
                             arg2
@@ -1504,7 +1490,7 @@ namespace FxGqlLib
 			case "T_MODULO":
 				{
 					if (arg1 is Expression<DataInteger>)
-						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
+						result = BinaryExpression<DataInteger, DataInteger, DataInteger>.CreateAutoConvert (
                             (a, b) => a % b,
                             arg1,
                             arg2
@@ -1523,7 +1509,7 @@ namespace FxGqlLib
 			case "T_BITWISE_AND":
 				{
 					if (arg1 is Expression<DataInteger>)
-						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
+						result = BinaryExpression<DataInteger, DataInteger, DataInteger>.CreateAutoConvert (
                             (a, b) => a & b,
                             arg1,
                             arg2
@@ -1542,7 +1528,7 @@ namespace FxGqlLib
 			case "T_BITWISE_OR":
 				{
 					if (arg1 is Expression<DataInteger>)
-						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
+						result = BinaryExpression<DataInteger, DataInteger, DataInteger>.CreateAutoConvert (
                             (a, b) => a | b,
                             arg1,
                             arg2
@@ -1561,7 +1547,7 @@ namespace FxGqlLib
 			case "T_BITWISE_XOR":
 				{
 					if (arg1 is Expression<DataInteger>)
-						result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
+						result = BinaryExpression<DataInteger, DataInteger, DataInteger>.CreateAutoConvert (
                             (a, b) => a ^ b,
                             arg1,
                             arg2
@@ -1585,7 +1571,7 @@ namespace FxGqlLib
 			case "T_NOTGREATER":
 				if (arg1 is Expression<DataString> || arg2 is Expression<DataString>)
 					result = 
-                        new BinaryExpression<DataString, DataString, DataBoolean> (OperatorHelper.GetStringComparer (
+                        BinaryExpression<DataString, DataString, DataBoolean>.CreateAutoConvert (OperatorHelper.GetStringComparer (
                         operatorText,
                         false,
                         dataComparer.StringComparison
@@ -1593,7 +1579,7 @@ namespace FxGqlLib
                             arg1, arg2);
 				else if (arg1 is Expression<DataInteger>)
 					result = 
-                        new BinaryExpression<DataInteger, DataInteger, DataBoolean> (OperatorHelper.GetIntegerComparer (
+                        BinaryExpression<DataInteger, DataInteger, DataBoolean>.CreateAutoConvert (OperatorHelper.GetIntegerComparer (
                         operatorText,
                         false
 					),
@@ -1643,7 +1629,7 @@ namespace FxGqlLib
 
 			IExpression result;
 			if (arg1 is Expression<DataString> || arg2 is Expression<DataString> || arg3 is Expression<DataString>)
-				result = new TernaryExpression<DataString, DataString, DataString, DataBoolean> (
+				result = TernaryExpression<DataString, DataString, DataString, DataBoolean>.CreateAutoConvert (
                     (a, b, c) => 
                                                                       string.Compare (
                     a,
@@ -1660,7 +1646,7 @@ namespace FxGqlLib
                     arg3
 				);
 			else if (arg1 is Expression<DataInteger>)
-				result = new TernaryExpression<DataInteger, DataInteger, DataInteger, DataBoolean> (
+				result = TernaryExpression<DataInteger, DataInteger, DataInteger, DataBoolean>.CreateAutoConvert (
                     (a, b, c) => (a >= b) && (a <= c),
                     arg1,
                     arg2,
@@ -1913,7 +1899,7 @@ namespace FxGqlLib
 					//TODO: Don't re-evaluate source for every item
 					if (source is Expression<DataString> || destination is Expression<DataString>)
 						whenItem.Check = 
-                            new BinaryExpression<DataString, DataString, DataBoolean> (OperatorHelper.GetStringComparer (
+                            BinaryExpression<DataString, DataString, DataBoolean>.CreateAutoConvert (OperatorHelper.GetStringComparer (
                             "T_EQUAL",
                             false,
                             dataComparer.StringComparison
@@ -1921,7 +1907,7 @@ namespace FxGqlLib
                                 source, destination);
 					else if (source is Expression<DataInteger>)
 						whenItem.Check = 
-                            new BinaryExpression<DataInteger, DataInteger, DataBoolean> (OperatorHelper.GetIntegerComparer (
+                            BinaryExpression<DataInteger, DataInteger, DataBoolean>.CreateAutoConvert (OperatorHelper.GetIntegerComparer (
                             "T_EQUAL",
                             false
 						),

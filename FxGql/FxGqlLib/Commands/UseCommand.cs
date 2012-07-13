@@ -16,7 +16,7 @@ namespace FxGqlLib
 		#region IGqlCommand implementation
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
-			string fileName = fileOptions.FileName.EvaluateAsString (null);
+			string fileName = fileOptions.FileName.EvaluateAsData (null).ToDataString ();
 			gqlEngineState.CurrentDirectory = Path.Combine (gqlEngineState.CurrentDirectory, fileName);
 			if (logStream != null)
 				logStream.WriteLine ("Current directory changed to '{0}'", gqlEngineState.CurrentDirectory);

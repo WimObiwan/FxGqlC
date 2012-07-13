@@ -47,7 +47,7 @@ namespace FxGqlLib
 		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
-			string fileName = fileOptions.FileName.EvaluateAsString (gqlQueryState);
+			string fileName = fileOptions.FileName.EvaluateAsData (gqlQueryState).ToDataString ();
 
 			this.gqlQueryState = gqlQueryState;
 			string path = Path.GetDirectoryName (fileName);

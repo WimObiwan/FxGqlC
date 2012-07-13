@@ -28,6 +28,11 @@ namespace FxGqlLib
 			return this;
 		}
 
+		public DataBoolean ToDataBoolean ()
+		{
+			return new DataBoolean (bool.Parse (this.value));
+		}
+
 		public int CompareTo (object other)
 		{
 			if (other is DataString)
@@ -49,6 +54,11 @@ namespace FxGqlLib
 		public static implicit operator DataString (string value)
 		{
 			return new DataString (value);
+		}
+
+		public void Set (string value)
+		{
+			this.value = value;
 		}
 	}
 }

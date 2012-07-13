@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace FxGqlLib
 {
@@ -15,21 +16,56 @@ namespace FxGqlLib
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
-			DataString[] columns = gqlQueryState.Record.Columns.Select (p => new DataString (p.ToString ())).ToArray ();
+			IEnumerable<string> columns = gqlQueryState.Record.Columns.Select (p => p.ToString ());
 			return Evaluate (columns);
 		}
 		#endregion
 
-		public DataString Evaluate (DataString[] columns)
+		public DataString Evaluate (IEnumerable<string> columns)
 		{
-			string[] texts = new string[columns.Length * 2 - 1];
-			for (int i = 0; i < columns.Length; i++) {
-				if (i > 0)
-					texts [i * 2 - 1] = separator;
-				texts [i * 2] = columns [i];
+			return new DataString (string.Concat (new SeparatorEnumerable<string> (columns, separator)));
+		}
+
+		class SeparatorEnumerable<T> : IEnumerable<T>
+		{
+			T separator;
+			IEnumerable<T> enumerable;
+
+			public SeparatorEnumerable (IEnumerable<T> enumerable, T separator)
+			{
+				this.separator = separator;
+				this.enumerable = enumerable;
 			}
-			
-			return string.Concat (texts);
+
+			#region IEnumerable implementation
+			public System.Collections.IEnumerator GetEnumerator ()
+			{
+				IEnumerator<T> enumerator = enumerable.GetEnumerator ();
+				bool first = true;
+				while (enumerator.MoveNext()) {
+					if (first) 
+						first = false;
+					else
+						yield return separator;
+					yield return enumerator.Current;
+				}
+			}
+			#endregion
+
+			#region IEnumerable implementation
+			IEnumerator<T> IEnumerable<T>.GetEnumerator ()
+			{
+				IEnumerator<T> enumerator = enumerable.GetEnumerator ();
+				bool first = true;
+				while (enumerator.MoveNext()) {
+					if (first) 
+						first = false;
+					else
+						yield return separator;
+					yield return enumerator.Current;
+				}
+			}
+			#endregion
 		}
 	}
 }

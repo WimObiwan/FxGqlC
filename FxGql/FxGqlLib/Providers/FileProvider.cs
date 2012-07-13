@@ -11,6 +11,7 @@ namespace FxGqlLib
 		StreamReader streamReader;
 		ProviderRecord record;
 		GqlEngineExecutionState gqlEngineExecutionState;
+		DataString dataString;
 		
 		public FileProvider (string fileName, long skip)
 		{
@@ -56,12 +57,14 @@ namespace FxGqlLib
 				fileName,
 				FileMode.Open,
 				FileAccess.Read,
-				FileShare.ReadWrite
+				FileShare.ReadWrite,
+				32 * 1024
 			)
 			);
 			record = new ProviderRecord ();
 			record.Source = fileName;
-			record.Columns = new IData[] { };
+			dataString = new DataString ();
+			record.Columns = new IData[] { dataString };
 			record.OriginalColumns = record.Columns;
 
 			for (long i = 0; i < skip; i++) {
@@ -82,7 +85,8 @@ namespace FxGqlLib
 				return false;
 			
 			string text = streamReader.ReadLine ();
-			record.Columns [0] = new DataString (text);
+			dataString.Set (text);
+			record.Columns [0] = dataString;
 			record.LineNo++;
 			record.TotalLineNo = record.LineNo;
 			

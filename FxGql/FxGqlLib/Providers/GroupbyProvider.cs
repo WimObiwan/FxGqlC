@@ -118,6 +118,7 @@ namespace FxGqlLib
 				origColumnsComparer = CreateComparer (origGroupbyColumns, dataComparer);
 			else
 				origColumnsComparer = null;
+			record.Columns = new IData[outputColumns.Length];
 
 			moreData = this.provider.GetNextRecord ();
 		}
@@ -158,7 +159,6 @@ namespace FxGqlLib
 
 			currentRecord++;
 			record.LineNo = currentRecord;
-			record.Columns = new IData[outputColumns.Length];
 			for (int col = 0; col < outputColumns.Length; col++) {
 				record.Columns [col] = outputColumns [col].AggregateCalculate (enumerator.Current.Value);
 			}
@@ -290,7 +290,7 @@ namespace FxGqlLib
 				types [i] = groupbyColumns [i].GetResultType ();
 				IExpression expression = groupbyColumns [i];
 				if (expression.IsConstant () && expression.GetResultType () == typeof(DataInteger)) {
-					fixedColumns [i] = (int)(expression.EvaluateAs<long> (null)) - 1;
+					fixedColumns [i] = (int)(expression.EvaluateAsData (null).ToDataInteger ()) - 1;
 					if (fixedColumns [i] < 0)
 						throw new Exception (string.Format ("Negative order by column ordinal ({0}) is not allowed", fixedColumns [i] + 1));
 				} else {
@@ -317,16 +317,6 @@ namespace FxGqlLib
 		public IData EvaluateAsData (GqlQueryState gqlQueryState)
 		{
 			return expression.EvaluateAsData (gqlQueryState);
-		}
-
-		public Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
-		{
-			return expression.EvaluateAs<Y> (gqlQueryState);
-		}
-
-		public DataString EvaluateAsString (GqlQueryState gqlQueryState)
-		{
-			return expression.EvaluateAsString (gqlQueryState);
 		}
 
 		public Type GetResultType ()

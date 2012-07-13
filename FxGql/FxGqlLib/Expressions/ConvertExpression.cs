@@ -4,48 +4,87 @@ namespace FxGqlLib
 {
 	public static class ConvertExpression
 	{
-		public static IExpression Create (Type type, IExpression expression)
+		public static IExpression Create (Type type, IExpression expr)
 		{
-			if (type == typeof(DataString)) {
-				return new ConvertExpression<DataString> (expression);
-			} else if (type == typeof(DataInteger)) {
-				return new ConvertExpression<DataInteger> (expression);
+			IExpression result;
+			if (type == typeof(DataInteger)) {
+				result = CreateDataInteger (expr);
+			} else if (type == typeof(DataString)) {
+				result = CreateDataString (expr);
+			} else if (type == typeof(DataBoolean)) {
+				result = CreateDataBoolean (expr);
 			} else {
-				throw new Exception (string.Format ("Unknown datatype {0}", type.ToString ()));
+				throw new Exception (string.Format ("Invalid conversion.  Datatype {0} unknown.", type.ToString ()));
 			}
+
+			return result;
+		}
+
+		public static Expression<DataInteger> CreateDataInteger (IExpression expr)
+		{
+			Expression<DataInteger> result = expr as Expression<DataInteger>;
+			if (result == null)
+				result = new ConvertExpression<DataInteger> ((a) => a.ToDataInteger (), expr);
+
+			return result;
+		}
+
+		public static Expression<DataString> CreateDataString (IExpression expr)
+		{
+			Expression<DataString> result = expr as Expression<DataString>;
+			if (result == null)
+				result = new ConvertExpression<DataString> ((a) => a.ToDataString (), expr);
+
+			return result;
+		}
+
+		public static Expression<DataBoolean> CreateDataBoolean (IExpression expr)
+		{
+			Expression<DataBoolean> result = expr as Expression<DataBoolean>;
+			if (result == null)
+				result = new ConvertExpression<DataBoolean> ((a) => a.ToDataBoolean (), expr);
+
+			return result;
 		}
 	}
 
-	public class ConvertExpression<ToT> : Expression<ToT> where ToT : IData
+	public class ConvertExpression<T> : Expression<T> where T : IData
 	{
-		readonly protected IExpression expression;
-			
-		public ConvertExpression (IExpression  expression)
+		readonly IExpression expr;
+		readonly Func<IData, T> functor;
+
+		public ConvertExpression (Func<IData, T> functor, IExpression expr)
 		{
-			this.expression = expression;
+			this.expr = expr;
+			this.functor = functor;
 		}
-		
-		#region implemented abstract members of FxGqlLib.Expression[ToT]
-		public override ToT Evaluate (GqlQueryState gqlQueryState)
+
+		#region implemented abstract members of FxGqlLib.Expression
+		public override T Evaluate (GqlQueryState gqlQueryState)
 		{
-			return expression.EvaluateAs<ToT> (gqlQueryState);
+			return functor (expr.EvaluateAsData (gqlQueryState));
 		}
-		
+		#endregion
+
 		public override bool IsAggregated ()
 		{
-			return expression.IsAggregated ();
+			return expr.IsAggregated ();
 		}
-		
+
+		public override bool IsConstant ()
+		{
+			return expr.IsConstant ();
+		}
+
 		public override void Aggregate (StateBin state, GqlQueryState gqlQueryState)
 		{
-			expression.Aggregate (state, gqlQueryState);
+			expr.Aggregate (state, gqlQueryState);
 		}
 		
 		public override IData AggregateCalculate (StateBin state)
 		{
-			return (IData)Convert.ChangeType (expression.AggregateCalculate (state), typeof(ToT));
+			return expr.AggregateCalculate (state);
 		}
-		#endregion
 	}
 }
 

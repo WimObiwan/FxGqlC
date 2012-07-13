@@ -13,10 +13,12 @@ namespace FxGqlLib
 		readonly Expression<T2> arg2;
 		readonly Expression<T3> arg3;
 
-		public TernaryExpression (Func<T1, T2, T3, R> functor, IExpression arg1, IExpression arg2, IExpression arg3)
-			: this (functor, ExpressionHelper.ConvertIfNeeded<T1>(arg1), ExpressionHelper.ConvertIfNeeded<T2>(arg2),
-			        ExpressionHelper.ConvertIfNeeded<T3>(arg3))
+		public static TernaryExpression<T1, T2, T3, R> CreateAutoConvert (Func<T1, T2, T3, R> functor, IExpression arg1, IExpression arg2, IExpression arg3)
 		{
+			Expression<T1> typedArg1 = (Expression<T1>)ConvertExpression.Create (typeof(T1), arg1);
+			Expression<T2> typedArg2 = (Expression<T2>)ConvertExpression.Create (typeof(T2), arg2);
+			Expression<T3> typedArg3 = (Expression<T3>)ConvertExpression.Create (typeof(T3), arg3);
+			return new TernaryExpression<T1, T2, T3, R> (functor, typedArg1, typedArg2, typedArg3);
 		}
 		
 		public TernaryExpression (Func<T1, T2, T3, R> functor, Expression<T1> arg1, Expression<T2> arg2, Expression<T3> arg3)

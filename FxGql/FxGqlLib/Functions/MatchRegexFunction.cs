@@ -27,9 +27,9 @@ namespace FxGqlLib
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
-			Match match = Regex.Match (arg1.EvaluateAsString (gqlQueryState), arg2.EvaluateAsString (gqlQueryState), regexOptions);
+			Match match = Regex.Match (arg1.EvaluateAsData (gqlQueryState).ToDataString (), arg2.EvaluateAsData (gqlQueryState).ToDataString (), regexOptions);
 			if (match.Success)
-				return match.Result (arg3.EvaluateAsString (gqlQueryState));
+				return match.Result (arg3.EvaluateAsData (gqlQueryState).ToDataString ());
 			else
 				return "";
 		}

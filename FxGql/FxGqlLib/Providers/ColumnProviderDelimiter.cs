@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace FxGqlLib
 {
@@ -12,7 +14,8 @@ namespace FxGqlLib
 		ProviderRecord record;
 		protected ColumnName[] columnNameList;
 		protected string firstLine;
-		
+		DataString[] dataString;
+
 		public ColumnProviderDelimiter (IProvider provider)
 			: this(provider, null, -1)
 		{
@@ -78,6 +81,8 @@ namespace FxGqlLib
 				for (int i = 0; i < columnNameList.Length; i++)
 					columnNameList [i] = new ColumnName (i);
 				record.ColumnTitles = columnNameList;
+				record.Columns = new IData[columns];
+				dataString = new DataString[columns];
 			}
 		}
 
@@ -92,8 +97,15 @@ namespace FxGqlLib
 			} else {
 				return false;
 			}
-			
-			record.Columns = line.Split (separators, StringSplitOptions.None).Select (p => (IData)new DataString (p)).ToArray ();
+
+			string[] split = line.Split (separators, StringSplitOptions.None);
+			for (int i = 0; i < dataString.Length; i++) {
+				if (i < split.Length)
+					dataString [i].Set (split [i]);
+				else
+					dataString [i].Set (string.Empty);
+				record.Columns [i] = dataString [i];
+			}
 			record.LineNo = provider.Record.LineNo;
 			record.OriginalColumns = provider.Record.Columns;
 			record.Source = provider.Record.Source;

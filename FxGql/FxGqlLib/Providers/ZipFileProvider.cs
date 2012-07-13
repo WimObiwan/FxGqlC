@@ -14,6 +14,7 @@ namespace FxGqlLib
 		long currentFile;
 		StreamReader streamReader;
 		ProviderRecord record;
+		DataString dataString;
 		GqlEngineExecutionState gqlEngineExecutionState;
 		
 		public ZipFileProvider (string fileName, long skip)
@@ -56,6 +57,11 @@ namespace FxGqlLib
 			streamReader = new StreamReader (zipFile.GetInputStream (currentFile));
 			record = new ProviderRecord ();
 			record.Source = fileName;
+			record.Columns = new IData[] 
+			{ 
+				dataString
+			};
+			record.OriginalColumns = record.Columns;
 
 			for (long i = 0; i < skip; i++) {
 				if (streamReader.ReadLine () == null) {
@@ -87,15 +93,13 @@ namespace FxGqlLib
 	
 				text = streamReader.ReadLine ();
 			}
+
+			dataString.Set (text);
+			record.Columns [0] = dataString;
 			
 			record.LineNo++;
 			record.TotalLineNo = record.LineNo;
-			record.Columns = new IData[] 
-			{ 
-				new DataString (text)
-			};
-			record.OriginalColumns = record.Columns;
-			
+
 			return text != null;
 		}
 

@@ -40,24 +40,6 @@ namespace FxGqlLib
 			}
 		}
 
-		public Y EvaluateAs<Y> (GqlQueryState gqlQueryState)
-		{
-			IData value = EvaluateAsData (gqlQueryState);
-			if (value is Y)
-				return (Y)value;
-			else
-				return (Y)Convert.ChangeType (value, typeof(Y));
-		}
-
-		public DataString EvaluateAsString (GqlQueryState gqlQueryState)
-		{
-			IData value = EvaluateAsData (gqlQueryState);
-			if (value is DataString)
-				return (DataString)value;
-			else
-				return value.ToString ();
-		}
-
 		public Type GetResultType ()
 		{
 			return this.provider.GetColumnTypes () [0];

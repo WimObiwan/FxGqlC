@@ -68,7 +68,7 @@ namespace FxGqlLib
 
 		public bool GetNextRecord ()
 		{
-			string fileName = fileOptions.FileName.EvaluateAsString (gqlQueryState);
+			string fileName = fileOptions.FileName.EvaluateAsData (gqlQueryState).ToDataString ();
 
 			if (fileName.StartsWith ("#"))
 				fileName = Path.Combine (gqlQueryState.TempDirectory, fileName);
@@ -164,12 +164,12 @@ namespace FxGqlLib
 					if (heading != GqlEngineState.HeadingEnum.Off) {
 						FormatColumnListFunction formatColumnListFunction = new FormatColumnListFunction (columnDelimiter);
 						ColumnName[] columnTitles = provider.GetColumnNames ();
-						DataString[] columnTitleStrings = columnTitles.Select (p => new DataString (p.ToStringWithoutBrackets ())).ToArray ();
+						string[] columnTitleStrings = columnTitles.Select (p => p.ToStringWithoutBrackets ()).ToArray ();
 						outputWriter.WriteLine (formatColumnListFunction.Evaluate (columnTitleStrings));
 						if (heading == GqlEngineState.HeadingEnum.OnWithRule) {
-							DataString[] columnTitlesRule = new DataString[columnTitles.Length];
+							string[] columnTitlesRule = new string[columnTitles.Length];
 							for (int i = 0; i < columnTitles.Length; i++)
-								columnTitlesRule [i] = new DataString (new string ('=', columnTitleStrings [i].ToString ().Length));
+								columnTitlesRule [i] = new string ('=', columnTitleStrings [i].ToString ().Length);
 							outputWriter.WriteLine (formatColumnListFunction.Evaluate (columnTitlesRule));
 						}
 					}
