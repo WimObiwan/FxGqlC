@@ -381,9 +381,14 @@ namespace FxGqlTest
         
 		private void TestGql (string command, string targetHash)
 		{
+			TestGql (command, targetHash, null);
+		}
+
+		private void TestGql (string command, string targetHash1, string targetHash2)
+		{
 			Console.WriteLine ("Testing GQL '{0}'", command);
             
-			if (targetHash == null) {
+			if (targetHash1 == null) {
 				engineOutput.OutputStream = Console.Out;
 				try {
 					engineOutput.Execute (command);
@@ -400,8 +405,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engineHash.Execute (command);
-					testSummaryWriter.WriteLine (command);
+						engineHash.Execute (command);
+						testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -413,7 +418,7 @@ namespace FxGqlTest
 					engineHash.OutputStream = nullTextWriter;
                     
 					stream.Seek (0, SeekOrigin.Begin);
-					if (!CheckStream (stream, targetHash))
+					if (!CheckStream (stream, targetHash1, targetHash2))
 						failedQueries.Add (command);
 				}
 			}
@@ -1137,10 +1142,13 @@ namespace FxGqlTest
 			         "01F0E5F4A97552890EB9492081D168F0E66CA369E07B46CD763640F52AB3D381");
 			TestGql ("select substring([Date], 4, 7), count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig",
 			         "01F0E5F4A97552890EB9492081D168F0E66CA369E07B46CD763640F52AB3D381");
+			// Different behavior on mono2.10 than on Microsoft.net/mono2.11
 			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, [Round]",
-			         "735E58F3DCD6DF7787A15211A9D26B95A924E8D3248A71B07D7C22081B87330D");
+			         "735E58F3DCD6DF7787A15211A9D26B95A924E8D3248A71B07D7C22081B87330D",
+					 "710210DFC92E34E0CDD4057C15A100F2B96369883C95279490BC8771F89B50FF");
 			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, 2",
-			         "735E58F3DCD6DF7787A15211A9D26B95A924E8D3248A71B07D7C22081B87330D");
+			         "735E58F3DCD6DF7787A15211A9D26B95A924E8D3248A71B07D7C22081B87330D",
+					 "710210DFC92E34E0CDD4057C15A100F2B96369883C95279490BC8771F89B50FF");
             
 			//// To test interrupt (Ctrl-C) of long running query
 			//TestGql (@"select top 10000 * from [/var/log/dpkg.log.1]",

@@ -57,8 +57,7 @@ namespace FxGqlLib
 				fileName,
 				FileMode.Open,
 				FileAccess.Read,
-				FileShare.ReadWrite,
-				32 * 1024
+				FileShare.ReadWrite
 			)
 			);
 			record = new ProviderRecord ();

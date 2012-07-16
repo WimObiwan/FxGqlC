@@ -60,7 +60,7 @@ namespace FxGqlLib
 
 		public DataBoolean ToDataBoolean ()
 		{
-			return new DataBoolean (this.value != 0 ? DataBoolean.True : DataBoolean.False);
+			return this.value != 0 ? DataBoolean.True : DataBoolean.False;
 		}
 
 		public int CompareTo (object other)

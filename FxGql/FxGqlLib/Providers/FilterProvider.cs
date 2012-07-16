@@ -49,7 +49,7 @@ namespace FxGqlLib
 			
 			while (provider.GetNextRecord ()) {
 				gqlQueryState.Record = provider.Record;
-				if (filterExpression.Evaluate (gqlQueryState))					
+				if (filterExpression.Evaluate (gqlQueryState))
 					return true;
 			}
 			
