@@ -88,14 +88,16 @@ namespace FxGqlLib
 				StringComparison.InvariantCultureIgnoreCase
 			) == 0) {
 				using (FileStream fileStream = new FileStream(fileName, FileMode.Create)) {
-					using (ZipOutputStream zipOutputStream = new ZipOutputStream(fileStream)) {
-						zipOutputStream.SetLevel (9);
-						ZipEntry zipEntry = new ZipEntry ("output.txt");
-						zipEntry.DateTime = DateTime.Now;
-						zipOutputStream.PutNextEntry (zipEntry);
+					using (AsyncStreamWriter asyncStreamWriter = new AsyncStreamWriter (fileStream)) {
+						using (ZipOutputStream zipOutputStream = new ZipOutputStream(fileStream)) {
+							zipOutputStream.SetLevel (9);
+							ZipEntry zipEntry = new ZipEntry ("output.txt");
+							zipEntry.DateTime = DateTime.Now;
+							zipOutputStream.PutNextEntry (zipEntry);
 						
-						DumpProviderToStream (provider, zipOutputStream, this.gqlQueryState,
+							DumpProviderToStream (provider, zipOutputStream, this.gqlQueryState,
 						                      columnDelimiter, GetNewLine (fileOptions.NewLine), fileOptions.Heading);
+						}
 					}
 				}
 			} else {
@@ -107,8 +109,10 @@ namespace FxGqlLib
 				else
 					fileMode = FileMode.CreateNew;
 				using (FileStream outputStream = new FileStream(fileName, fileMode, FileAccess.Write, FileShare.None)) {
-					DumpProviderToStream (provider, outputStream, this.gqlQueryState,
+					using (AsyncStreamWriter asyncStreamWriter = new AsyncStreamWriter(outputStream)) {
+						DumpProviderToStream (provider, outputStream, this.gqlQueryState,
 					                      columnDelimiter, GetNewLine (fileOptions.NewLine), fileOptions.Heading);
+					}
 				}
 			}
 

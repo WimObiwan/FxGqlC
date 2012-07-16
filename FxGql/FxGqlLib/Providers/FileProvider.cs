@@ -53,13 +53,7 @@ namespace FxGqlLib
 			} else {
 				fileName = Path.Combine (gqlQueryState.CurrentDirectory, this.fileName);
 			}
-			streamReader = new StreamReader (new FileStream (
-				fileName,
-				FileMode.Open,
-				FileAccess.Read,
-				FileShare.ReadWrite
-			)
-			);
+			streamReader = new StreamReader (new AsyncStreamReader (new FileStream (fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 32 * 1024), 32 * 1024));
 			record = new ProviderRecord ();
 			record.Source = fileName;
 			dataString = new DataString ();

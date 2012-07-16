@@ -118,6 +118,8 @@
     <Compile Include="DataTypes\DataString.cs" />
     <Compile Include="DataTypes\DataComparer.cs" />
     <Compile Include="DataTypes\DataBoolean.cs" />
+    <Compile Include="Providers\AsyncStreamReader.cs" />
+    <Compile Include="Providers\AsyncStreamWriter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

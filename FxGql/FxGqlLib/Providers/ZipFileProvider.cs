@@ -52,9 +52,9 @@ namespace FxGqlLib
 			gqlEngineExecutionState = gqlQueryState.CurrentExecutionState;
 			
 			string fileName = Path.Combine (gqlQueryState.CurrentDirectory, this.fileName);
-			zipFile = new ZipFile (fileName);
+			zipFile = new ZipFile (new FileStream (fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 32 * 1024));
 			zipFile.UseZip64 = UseZip64.On;
-			streamReader = new StreamReader (zipFile.GetInputStream (currentFile));
+			streamReader = new StreamReader (new AsyncStreamReader (zipFile.GetInputStream (currentFile), 32 * 1024));
 			record = new ProviderRecord ();
 			record.Source = fileName;
 			record.Columns = new IData[] 
