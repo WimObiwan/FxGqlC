@@ -719,7 +719,7 @@ namespace FxGqlLib
 			IExpression arg;
 
 			string functionNameUpper = functionName.ToUpperInvariant ();
-			if (functionNameUpper == "COUNT" && functionCallTree.GetChild (1).Text == "T_ALLCOLUMNS") {
+			if ((functionNameUpper == "T_COUNT" || functionNameUpper == "T_DISTINCTCOUNT") && functionCallTree.GetChild (1).Text == "T_ALLCOLUMNS") {
 				ITree allColumnsTree = functionCallTree.GetChild (1);
 				string providerAlias;
 				if (allColumnsTree.ChildCount == 1)
@@ -753,23 +753,24 @@ namespace FxGqlLib
 			case "TRIM":
 				result = UnaryExpression<DataString, DataString>.CreateAutoConvert ((a) => a.Value.Trim (), arg);
 				break;
-			case "COUNT":
-				if (arg is Expression<DataString>)
-					result = new AggregationExpression<DataString, DataInteger, DataInteger> ((a) => 1, 
-                        (s, a) => s + 1, 
-                        (s) => s, 
-                        (Expression<DataString>)arg);
-				else if (arg is Expression<DataInteger>)
-					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> ((a) => 1, 
-                        (s, a) => s + 1, 
-                        (s) => s, 
-                        (Expression<DataInteger>)arg);
-				else {
-					throw new ParserException (
-                        string.Format ("COUNT aggregation function cannot be used on datatype '{0}'",
-                               arg.GetResultType ().ToString ()),
-                        functionCallTree);
-				}
+			//case "COUNT":
+			case "T_COUNT":
+				result = new AggregationExpression<IData, DataInteger, DataInteger> ((a) => 1, 
+                    (s, a) => s + 1, 
+                    (s) => s, 
+                    ConvertExpression.CreateData (arg));
+				break;
+			case "T_DISTINCTCOUNT":
+				result = new AggregationExpression<IData, SortedSet<ColumnsComparerKey>, DataInteger> 
+					((a) => new SortedSet<ColumnsComparerKey> (), 
+					 delegate(SortedSet<ColumnsComparerKey> s, IData a) {
+					ColumnsComparerKey columnsComparerKey = new ColumnsComparerKey (new IData[] { a });
+					if (!s.Contains (columnsComparerKey))
+						s.Add (columnsComparerKey);
+					return s;
+				},
+	                    (s) => s.Count, 
+	                ConvertExpression.CreateData (arg));
 				break;
 			case "SUM":
 				if (arg is Expression<DataInteger>)

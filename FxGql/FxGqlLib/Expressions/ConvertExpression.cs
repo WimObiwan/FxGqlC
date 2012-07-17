@@ -13,6 +13,8 @@ namespace FxGqlLib
 				result = CreateDataString (expr);
 			} else if (type == typeof(DataBoolean)) {
 				result = CreateDataBoolean (expr);
+			} else if (type == typeof(IData)) {
+				result = CreateData (expr);
 			} else {
 				throw new Exception (string.Format ("Invalid conversion.  Datatype {0} unknown.", type.ToString ()));
 			}
@@ -43,6 +45,15 @@ namespace FxGqlLib
 			Expression<DataBoolean> result = expr as Expression<DataBoolean>;
 			if (result == null)
 				result = new ConvertExpression<DataBoolean> ((a) => a.ToDataBoolean (), expr);
+
+			return result;
+		}
+
+		public static Expression<IData> CreateData (IExpression expr)
+		{
+			Expression<IData> result = expr as Expression<IData>;
+			if (result == null)
+				result = new ConvertExpression<IData> ((a) => a, expr);
 
 			return result;
 		}

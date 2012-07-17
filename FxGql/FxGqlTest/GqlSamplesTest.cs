@@ -1074,6 +1074,10 @@ namespace FxGqlTest
 			         "441662F2AB6E6EC6D898758DC68B142C43117BBE6B71BEC956857BECE8A9F60B");
 			TestGql (@"SELECT count(*), min($line), max($line) from [SampleFiles/AirportCodes.csv]", 
 			         "441662F2AB6E6EC6D898758DC68B142C43117BBE6B71BEC956857BECE8A9F60B");
+			TestGql ("select count(*) from (select distinct [Date] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On])",
+			         "E3BC05312D04ECB2B6C64135AB59D2E63C5DC53640A7A4971FE17B5F5447D0A9");
+			TestGql ("select count(distinct [Date]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
+			         "E3BC05312D04ECB2B6C64135AB59D2E63C5DC53640A7A4971FE17B5F5447D0A9");
 
 			// Group By
 			TestGql ("select [Tournament] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Tournament]",
@@ -1411,22 +1415,6 @@ namespace FxGqlTest
 			         + " where [a].[Tournament] = 'Masters Cup'"
 			         + " group by [a].[Player]");
             */
-
-
-			//TestGql ("select count(*) from (select distinct [Date] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On])");
-			//TestGql ("select count(distinct [Date]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On])");
-
-
-			// join optimization
-			//   http://www.necessaryandsufficient.net/2010/02/join-algorithms-illustrated/
-
-//			TestGql ("select distinct matchregex($line, ', (.*?) (?:- .*)?\"') into ['x.txt' -overwrite] from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"' order by matchregex($line, ', (.*?) (?:- .*)?\"')");
-//			TestGql ("select * from (select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] where $line match ', (.*?) (?:- .*)?\"') order by $line",
-//                "9F7AB835C218FD8C696470805224AEB3570F929AE1179B3D69D50099649BFEBF");
-
-			TestGql ("select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv'] --where $line match ', (.*?) (?:- .*)?\"' --order by matchregex($line, ', (.*?) (?:- .*)?\"')" /*,
-                "9F7AB835C218FD8C696470805224AEB3570F929AE1179B3D69D50099649BFEBF"*/
-			);
 
 			return failed == 0;
 		}		

@@ -79,6 +79,8 @@ tokens
 	T_TABLE_ALIAS;
 	T_ALLCOLUMNS;
 	T_HAVING;
+	T_COUNT;
+	T_DISTINCTCOUNT;
 }
 
 @parser::namespace { FxGqlLib }
@@ -402,7 +404,10 @@ expression_atom
 
 functioncall_or_column
 	: TOKEN WS? '(' WS? (expression WS? (',' WS? expression WS?)*)? ')' -> ^(T_FUNCTIONCALL TOKEN expression*)
-	| TOKEN WS? '(' WS? all_columns WS? ')' -> ^(T_FUNCTIONCALL TOKEN all_columns)
+	| COUNT WS? '(' WS? expression WS? ')' -> ^(T_FUNCTIONCALL T_COUNT expression)
+	| COUNT WS? '(' WS? DISTINCT WS expression WS? ')' -> ^(T_FUNCTIONCALL T_DISTINCTCOUNT expression)
+	| COUNT WS? '(' WS? all_columns WS? ')' -> ^(T_FUNCTIONCALL T_COUNT all_columns)
+	| COUNT WS? '(' WS? DISTINCT WS all_columns WS? ')' -> ^(T_FUNCTIONCALL T_DISTINCTCOUNT all_columns)
 	//| TOKEN -> ^(T_COLUMN TOKEN)
 	| (table_alias WS? '.' WS?)? column_name -> ^(T_COLUMN column_name table_alias?)
 	;
@@ -510,6 +515,7 @@ VIEW	: V I E W;
 TABLE	: T A B L E;
 DROP	: D R O P;
 HAVING	: H A V I N G;
+COUNT 	: C O U N T;
 
 TOKEN
 	: ('A'..'Z' | 'a'..'z' | '_') ('A'..'Z' | 'a'..'z' | '_' | '0'..'9')*
