@@ -9,9 +9,50 @@ namespace FxGqlC
 	class MainClass
 	{
 		static GqlEngine gqlEngine;
-		
+		static string version;
+		static string lastRelease;
+		static bool nochecknewversion = false;
+		static bool notracking = false;
+		static DateTime lastCheck = DateTime.MinValue;
+		static int uniqueVisitorId = new Random ((int)(DateTime.Now.Ticks % ((long)int.MaxValue + 1))).Next (100000000, 999999999); // Random
+
+		static string GetVersion ()
+		{
+			var info = System.Diagnostics.FileVersionInfo.GetVersionInfo (Assembly.GetExecutingAssembly ().Location);
+			string type;
+			switch (info.FileBuildPart) {
+			case 0:
+				type = "alpha";
+				break;
+			case 1:
+				type = "beta";
+				break;
+			case 2:
+				type = "rc";
+				break;
+			case 3:
+				type = (info.FilePrivatePart == 0) ? null : "r";
+				break;
+			default:
+				type = "";
+				break;
+			}
+
+			string version;
+			if (type != null)
+				version = string.Format ("v{0}.{1}.{2}{3}", info.FileMajorPart, info.FileMinorPart, type, info.FilePrivatePart);
+			else
+				version = string.Format ("v{0}.{1}", info.FileMajorPart, info.FileMinorPart);
+
+			return version;
+		}
+
 		public static void Main (string[] args)
 		{
+			// Check for updates
+			version = GetVersion ();
+			CheckForUpdates (State.Start);
+
 			bool nologo = false;
 			bool help = false;
 			bool license = false;
@@ -58,6 +99,9 @@ namespace FxGqlC
 						autoexec = args [i];
 					else
 						errors.Add ("Please specify a GQL file after '-autoexec'");
+				} else if (string.Equals (args [i], "-nochecknewversion", StringComparison.InvariantCultureIgnoreCase)) {
+					nochecknewversion = true;
+					notracking = true;
 				} else {
 					errors.Add (string.Format ("Unknown parameter '{0}'", args [i]));
 				}				
@@ -65,31 +109,7 @@ namespace FxGqlC
 						
 			if (!nologo) {
 				var info = System.Diagnostics.FileVersionInfo.GetVersionInfo (Assembly.GetExecutingAssembly ().Location);
-				string type;
-				switch (info.FileBuildPart) {
-				case 0:
-					type = "alpha";
-					break;
-				case 1:
-					type = "beta";
-					break;
-				case 2:
-					type = "rc";
-					break;
-				case 3:
-					type = (info.FilePrivatePart == 0) ? null : "r";
-					break;
-				default:
-					type = "";
-					break;
-				}
-				
-				string version;
-				if (type != null)
-					version = string.Format ("v{0}.{1}.{2}{3}", info.FileMajorPart, info.FileMinorPart, type, info.FilePrivatePart);
-				else
-					version = string.Format ("v{0}.{1}", info.FileMajorPart, info.FileMinorPart);
-				
+
 				Console.WriteLine ();
 				Console.WriteLine ("{0} - {1} - {2}", info.FileDescription, version, info.Comments);				
 				Console.WriteLine (info.LegalCopyright);
@@ -122,7 +142,7 @@ namespace FxGqlC
 				Console.WriteLine ("Distributed under GPLv3.  Run FxGqlC.exe -license for more information.");
 				Console.WriteLine ("===========================================================================");
 			}
-			
+
 			if (help || errors.Count > 0) {
 				foreach (string error in errors) {
 					Console.WriteLine (error);
@@ -156,7 +176,6 @@ namespace FxGqlC
 							string path = Path.GetDirectoryName (new Uri (
 							Assembly.GetAssembly (typeof(MainClass)).CodeBase).LocalPath
 							);
-							Console.WriteLine (Path.Combine (path, "autoexec.gql"));
 							if (File.Exists (Path.Combine (path, "autoexec.gql")))
 								ExecuteFile (Path.Combine (path, "autoexec.gql"));
 						}
@@ -212,6 +231,7 @@ namespace FxGqlC
 				if (command.Trim ().Equals ("exit", StringComparison.InvariantCultureIgnoreCase))
 					break; 
 				ExecuteCommand (command);
+				CheckToDisplayNewVersionMessage ();
 			}
 		}
 
@@ -307,6 +327,144 @@ namespace FxGqlC
 					break;
 				}
 			}
+		}
+
+		enum State
+		{
+			Start,
+			Continue,
+			Stop
+		}
+
+		static void CheckForUpdates (State state)
+		{
+			if (nochecknewversion && notracking)
+				return;
+			DateTime now = DateTime.Now;
+			if (lastCheck == DateTime.MinValue || lastCheck + new TimeSpan (0, 15, 0) < now) {
+				lastCheck = now;
+				System.Threading.ThreadPool.QueueUserWorkItem (new System.Threading.WaitCallback (delegate(object state2) {
+					CheckForUpdatesAsync (state);
+				}
+				)
+				);
+			}
+		}
+
+		static void CheckForUpdatesAsync (State state)
+		{
+			if (nochecknewversion && notracking)
+				return;
+			try {
+				System.Net.ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback (delegate(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors) {
+					return true;
+				}
+				);
+
+				using (var client = new System.Net.WebClient ()) {
+
+					string culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+					//Mozilla/5.0 (Windows; U; Windows NT 6.1
+					string os;
+					os = System.Text.RegularExpressions.Regex.Replace (Environment.OSVersion.VersionString, @"^.*(Windows NT \d+\.\d+).*$", "$1");
+					//client.Headers.Add (System.Net.HttpRequestHeader.UserAgent, "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 7.1; Trident/5.0)");
+					client.Headers.Add (System.Net.HttpRequestHeader.UserAgent, "Mozilla/5.0 (compatible; MSIE 9.0; " + os + "; Trident/5.0)");
+					//client.Headers ["user-agent"] = "Mozilla/5.0 (compatible; MSIE " + version + "; " + os + ")";
+
+					if (!nochecknewversion) {
+						byte[] data = client.DownloadData ("https://sites.google.com/site/fxgqlc/home/downloads/release-last.txt");
+						using (StreamReader r = new StreamReader(new MemoryStream(data))) {
+							lastRelease = r.ReadLine ();
+						}
+					}
+
+					if (!notracking) {
+						Random rnd = new Random ();
+
+						long timestampFirstRun, timestampLastRun, timestampCurrentRun, numberOfRuns;
+
+// Get the first run time
+						timestampFirstRun = 0; //Settings.Default.FirstRun;
+						timestampLastRun = 0; //Settings.Default.LastRun;
+						timestampCurrentRun = 1000000000;
+						numberOfRuns = 1; //Settings.Default.NumberOfRuns + 1;
+
+// If we've never run before, we need to set the same values
+						if (numberOfRuns == 1) {
+							timestampFirstRun = timestampCurrentRun;
+							timestampLastRun = timestampCurrentRun;
+						}
+
+// Some values we need
+						string domainHash = ""; // This can be calcualted for your domain online
+						string source = version;
+						string medium = "FxGqlC";
+						string sessionNumber = "1";
+						string campaignNumber = "1";
+						string screenRes = System.Console.WindowWidth + "x" + System.Console.WindowHeight;
+
+						string stateName;
+						switch (state) {
+						case State.Start:
+							stateName = "AppStartup";
+							break;
+						default:
+						case State.Continue:
+							stateName = "AppContinue";
+							break;
+						case State.Stop:
+							stateName = "AppStop";
+							break;
+						}
+						string requestPath = "%2F" + stateName + "%2FRELEASE%2F" + version;
+						string requestName = stateName + "%20v" + version;
+
+						string statsRequest = "http://www.google-analytics.com/__utm.gif" +
+							"?utmwv=4.6.5" +
+							"&utmn=" + rnd.Next (100000000, 999999999) +
+							"&utmhn=" + Uri.EscapeDataString ("sites.google.com/site/fxgqlc") +
+							"&utmcs=-" +
+							"&utmsr=" + screenRes +
+							"&utmsc=-" +
+							"&utmul=" + culture +
+							"&utmje=-" +
+							"&utmfl=-" +
+							"&utmdt=" + requestName +
+							"&utmhid=1943799692" +
+							"&utmr=0" +
+							"&utmp=" + requestPath +
+							"&utmac=UA-2703249-8" + // Account number
+							"&utmcc=" +
+							"__utma%3D" + domainHash + "." + uniqueVisitorId + "." + timestampFirstRun + "." + timestampLastRun + "." + timestampCurrentRun + "." + numberOfRuns +
+							"%3B%2B__utmz%3D" + domainHash + "." + timestampCurrentRun + "." + sessionNumber + "." + campaignNumber + ".utmcsr%3D" + source + "%7Cutmccn%3D(" + medium + ")%7Cutmcmd%3D" + medium + "%7Cutmcct%3D%2Fd31AaOM%3B";
+
+						client.DownloadString (statsRequest);
+					}
+				}
+
+			} catch {
+			}
+		}
+
+		static void CheckToDisplayNewVersionMessage ()
+		{
+			if (nochecknewversion && notracking)
+				return;
+
+			if (!nochecknewversion && lastRelease != null) {
+#if DEBUG
+				if (true) {
+#else
+				if (lastRelease.CompareTo (version) > 0) {
+#endif
+					Console.WriteLine ("A new version version of FxGqlC is available on https://sites.google.com/site/fxgqlc/home");
+					Console.WriteLine ("Your version is {0} and the new version is {1}", version, lastRelease);
+				}
+
+				nochecknewversion = true;
+			}
+			
+			CheckForUpdates (State.Continue);
 		}
 	}
 }

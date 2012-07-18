@@ -1428,6 +1428,8 @@ namespace FxGqlTest
 			         + " group by [a].[Player]");
             */
 
+
+
 			return failed == 0;
 		}		
 
