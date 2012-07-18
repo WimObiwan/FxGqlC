@@ -19,6 +19,7 @@ namespace FxGqlC
 			string command = null;
 			string gqlFile = null;
 			string logFile = null;
+			string autoexec = null;
 			List<string> errors = new List<string> ();
 			
 			for (int i = 0; i < args.Length; i++) {
@@ -51,6 +52,12 @@ namespace FxGqlC
 						logFile = args [i];
 					else
 						errors.Add ("Please specify an output file after '-logfile'");
+				} else if (string.Equals (args [i], "-autoexec", StringComparison.InvariantCultureIgnoreCase)) {
+					i++;
+					if (i < args.Length)
+						autoexec = args [i];
+					else
+						errors.Add ("Please specify a GQL file after '-autoexec'");
 				} else {
 					errors.Add (string.Format ("Unknown parameter '{0}'", args [i]));
 				}				
@@ -139,6 +146,24 @@ namespace FxGqlC
 				if (logFile != null)
 					gqlEngine.LogStream = new StreamWriter (logFile);
 
+				try {
+					if (autoexec != null) {
+						ExecuteFile (autoexec);
+					} else {
+						if (File.Exists ("autoexec.gql"))
+							ExecuteFile ("autoexec.gql");
+						else {
+							string path = Path.GetDirectoryName (new Uri (
+							Assembly.GetAssembly (typeof(MainClass)).CodeBase).LocalPath
+							);
+							Console.WriteLine (Path.Combine (path, "autoexec.gql"));
+							if (File.Exists (Path.Combine (path, "autoexec.gql")))
+								ExecuteFile (Path.Combine (path, "autoexec.gql"));
+						}
+					}
+				} catch (Exception x) {
+					Console.WriteLine ("Failed to execute autoexec script: {0}", x.Message);
+				}
 
 				try {
 					if (prompt) {
@@ -170,6 +195,9 @@ namespace FxGqlC
 			Console.WriteLine ("        or -c <cmd>         scripts)");
 			Console.WriteLine ("   -gqlfile <file>     Run the commands from a file");
 			Console.WriteLine ("   -logfile <file>     Outputs all GQL commands and query output to a file");
+			Console.WriteLine ("   -autoexec <file>    Runs this file instead of 'autoexec.gql' before");
+			Console.WriteLine ("                            running any other command or before command ");
+			Console.WriteLine ("                            prompt mode is started");
 			//Console.WriteLine ("   -loglevel <#>")
 			Console.WriteLine ("===========================================================================");
 		}
