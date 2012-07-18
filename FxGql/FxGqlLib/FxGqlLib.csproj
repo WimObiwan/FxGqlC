@@ -120,6 +120,8 @@
     <Compile Include="DataTypes\DataBoolean.cs" />
     <Compile Include="Providers\AsyncStreamReader.cs" />
     <Compile Include="Providers\AsyncStreamWriter.cs" />
+    <Compile Include="Providers\ParameterizedProvider.cs" />
+    <Compile Include="Commands\ViewDefinition.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

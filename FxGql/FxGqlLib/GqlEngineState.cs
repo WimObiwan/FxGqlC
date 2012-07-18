@@ -9,7 +9,7 @@ namespace FxGqlLib
 		{
 			ExecutionState = executionState;
 			Variables = new Dictionary<string, Variable> (StringComparer.InvariantCultureIgnoreCase);
-			Views = new Dictionary<string, IProvider> (StringComparer.InvariantCultureIgnoreCase);
+			Views = new Dictionary<string, ViewDefinition> (StringComparer.InvariantCultureIgnoreCase);
 		}
 		
 		public GqlEngineExecutionState ExecutionState { get; private set; }
@@ -27,7 +27,7 @@ namespace FxGqlLib
 		public HeadingEnum Heading { get; set; }
 
 		public Dictionary<string, Variable> Variables { get; private set; }
-		public Dictionary<string, IProvider> Views { get; private set; }
+		public Dictionary<string, ViewDefinition> Views { get; private set; }
 	}
 }
 

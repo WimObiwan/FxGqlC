@@ -31,7 +31,7 @@ namespace FxGqlLib
 		readonly DataComparer dataComparer;
 
 		Dictionary<string, Type> variableTypes = new Dictionary<string, Type> (StringComparer.InvariantCultureIgnoreCase);
-		Dictionary<string, IProvider> views = new Dictionary<string, IProvider> (StringComparer.InvariantCultureIgnoreCase);
+		Dictionary<string, ViewDefinition> views = new Dictionary<string, ViewDefinition> (StringComparer.InvariantCultureIgnoreCase);
 		Stack<IProvider> subQueryProviderStack = new Stack<IProvider> ();
         
 		public GqlParser (GqlEngineState gqlEngineState, string command)
@@ -143,9 +143,9 @@ namespace FxGqlLib
 				{
 					var createView = ParseCommandCreateView (tree);
 					string view = createView.Item1;
-					IProvider provider = createView.Item2;
-					views.Add (view, provider);
-					return new CreateViewCommand (view, provider);
+					ViewDefinition viewDefinition = createView.Item2;
+					views.Add (view, viewDefinition);
+					return new CreateViewCommand (view, viewDefinition);
 				}
 			case "T_DROP_VIEW":
 				{
@@ -403,7 +403,7 @@ namespace FxGqlLib
 				case "T_SUBQUERY":
 					provider = ParseSubquery (null, inputProviderTree);
 					break;
-				case "T_VIEW_NAME":
+				case "T_VIEW":
 					provider = ParseViewProvider (inputProviderTree);
 					break;
 				case "T_TABLE_ALIAS":
@@ -1236,17 +1236,43 @@ namespace FxGqlLib
         
 		IProvider ParseViewProvider (ITree tree)
 		{
-			AssertAntlrToken (tree, "T_VIEW_NAME", 1, 1);
+			AssertAntlrToken (tree, "T_VIEW", 1, 2);
 
-			string viewName = tree.GetChild (0).Text;
-			IProvider provider;
-			if (!views.TryGetValue (viewName, out provider)) {
-				if (!gqlEngineState.Views.TryGetValue (viewName, out provider)) {
+			string viewName = ParseViewName (tree.GetChild (0));
+
+			ViewDefinition viewDefinition;
+			if (!views.TryGetValue (viewName, out viewDefinition)) {
+				if (!gqlEngineState.Views.TryGetValue (viewName, out viewDefinition)) {
 					throw new ParserException (string.Format ("View '{0}' is not declared", viewName), tree);
 				}
 			}
 
+			IExpression[] parameters;
+			if (tree.ChildCount >= 2)
+				parameters = ParseExpressionList (null, tree.GetChild (1));
+			else
+				parameters = null;
+
+			int callerParameterCount = (parameters != null) ? parameters.Length : 0;
+			int definitionParameterCount = (viewDefinition.Parameters != null) ? viewDefinition.Parameters.Count : 0;
+
+			if (callerParameterCount != definitionParameterCount)
+				throw new ParserException (string.Format ("Parameterized view has incorrect number of parameters.  The caller uses {0} parameters, but the definition has {1} parameters.", callerParameterCount, definitionParameterCount), tree);
+
+			IProvider provider;
+			if (definitionParameterCount == 0)
+				provider = viewDefinition.Provider;
+			else
+				provider = new ParameterizedProvider (viewDefinition, parameters);
+
 			return provider;
+		}
+
+		string ParseViewName (ITree tree)
+		{
+			AssertAntlrToken (tree, "T_VIEW_NAME", 1, 1);
+
+			return tree.GetChild (0).Text;
 		}
 
 		string ParseProviderAlias (ITree tree)
@@ -2061,25 +2087,42 @@ namespace FxGqlLib
 			return new SubqueryExpression (provider).GetTyped ();
 		}
 
-		Tuple<string, IProvider> ParseCommandCreateView (ITree tree)
+		Tuple<string, ViewDefinition> ParseCommandCreateView (ITree tree)
 		{
 			AssertAntlrToken (tree, "T_CREATE_VIEW", 2, 3);
 
 			var enumerator = new AntlrTreeChildEnumerable (tree).GetEnumerator ();
 			enumerator.MoveNext ();
 
-			ITree viewNameTree = enumerator.Current;
-			AssertAntlrToken (viewNameTree, "T_VIEW_NAME", 1, 1);
-			string name = viewNameTree.GetChild (0).Text;
-
+			string name = ParseViewName (enumerator.Current);
 			enumerator.MoveNext ();
+
+			IList<Tuple<string, Type>> parameters;
 			if (enumerator.Current.Text == "T_DECLARE") {
+				parameters = ParseCommandDeclare (enumerator.Current);
 				enumerator.MoveNext ();
+			} else {
+				parameters = null;
 			}
 
-			IProvider provider = ParseCommandSelect (enumerator.Current);
+			Dictionary<string, Type> oldVariables = variableTypes;
+			if (parameters != null && parameters.Count > 0) {
+				variableTypes = new Dictionary<string, Type> (variableTypes);
+				foreach (Tuple<string, Type> parameter in parameters)
+					variableTypes [parameter.Item1] = parameter.Item2;
+			}
 
-			return Tuple.Create (name, provider);
+			IProvider provider;
+			try {
+				provider = ParseCommandSelect (enumerator.Current);
+			} finally {
+				variableTypes = oldVariables;
+			}
+
+
+			ViewDefinition viewDefinition = new ViewDefinition (provider, parameters);
+
+			return Tuple.Create (name, viewDefinition);
 		}
 
 		string ParseCommandDropView (ITree tree)
@@ -2089,9 +2132,8 @@ namespace FxGqlLib
 			var enumerator = new AntlrTreeChildEnumerable (tree).GetEnumerator ();
 			enumerator.MoveNext ();
 
-			ITree viewNameTree = enumerator.Current;
-			AssertAntlrToken (viewNameTree, "T_VIEW_NAME", 1, 1);
-			return viewNameTree.GetChild (0).Text;
+			return ParseViewName (enumerator.Current);
+			;
 		}
 
 		FileOptions ParseCommandDropTable (ITree tree)

@@ -6,18 +6,18 @@ namespace FxGqlLib
 	public class CreateViewCommand : IGqlCommand
 	{
 		readonly string name;
-		readonly IProvider provider;
+		readonly ViewDefinition viewDefinition;
 
-		public CreateViewCommand (string name, IProvider provider)
+		public CreateViewCommand (string name, ViewDefinition viewDefinition)
 		{
 			this.name = name;
-			this.provider = provider;
+			this.viewDefinition = viewDefinition;
 		}
 
         #region IGqlCommand implementation
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
-			gqlEngineState.Views.Add (name, provider);
+			gqlEngineState.Views.Add (name, viewDefinition);
 		}
         #endregion
 	}

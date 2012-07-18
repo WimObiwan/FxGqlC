@@ -28,12 +28,20 @@ namespace FxGqlLib
 		}
 
 		public GqlQueryState (GqlQueryState other)
+			: this(other, false)
+		{
+		}
+
+		public GqlQueryState (GqlQueryState other, bool newVariableScope)
 			: this()
 		{
 			this.CurrentDirectory = other.CurrentDirectory;
 			this.TempDirectory = other.TempDirectory;
 			this.CurrentExecutionState = other.CurrentExecutionState;
-			this.Variables = other.Variables;
+			if (newVariableScope)
+				this.Variables = new Dictionary<string, Variable> (other.Variables);
+			else
+				this.Variables = other.Variables;
 		}
 
 		public ProviderRecord Record { get; set; }

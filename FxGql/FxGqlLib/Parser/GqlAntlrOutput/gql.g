@@ -72,6 +72,7 @@ tokens
 	T_VARIABLE;
 	T_CREATE_VIEW;
 	T_VIEW_NAME;
+	T_VIEW;
 	T_ORDERBY_ORIG;
 	T_GROUPBY_ORIG;
 	T_DROP_VIEW;
@@ -166,7 +167,7 @@ from_clause_item
 	: STRING -> ^(T_FILE STRING)
 	| file
 	| subquery
-	| view_name
+	| view_name (WS? '(' expression_list? ')')? -> ^(T_VIEW view_name expression_list?)
 	;
 	
 subquery
