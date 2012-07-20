@@ -32,6 +32,16 @@ namespace FxGqlLib
 			return false;
 		}
 		#endregion
+
+		public override bool IsConstant ()
+		{
+			if (!arg.IsConstant ())
+				return false;
+			foreach (IExpression expr in list)
+				if (!expr.IsConstant ())
+					return false;
+			return true;
+		}
 	}
 }
 

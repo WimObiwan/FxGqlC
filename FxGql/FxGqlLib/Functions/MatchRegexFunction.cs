@@ -65,6 +65,20 @@ namespace FxGqlLib
 			}
 		}
 		#endregion
+
+		public override bool IsConstant ()
+		{
+			if (!origin.IsConstant ()) 
+				return false;
+			if (!regex.IsConstant ()) 
+				return false;
+			// TODO: Optimization: Only one of the 2 below needs to be constant...
+			if (extract != null && !extract.IsConstant ()) 
+				return false;
+			if (extract != null && !def.IsConstant ()) 
+				return false;
+			return true;
+		}
 	}
 }
 

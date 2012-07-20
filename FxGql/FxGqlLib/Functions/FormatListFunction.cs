@@ -26,6 +26,14 @@ namespace FxGqlLib
 			return string.Concat (texts);
 		}
 		#endregion
+
+		public override bool IsConstant ()
+		{
+			foreach (IExpression expr in expression)
+				if (!expr.IsConstant ())
+					return false;
+			return true;
+		}
 	}
 }
 

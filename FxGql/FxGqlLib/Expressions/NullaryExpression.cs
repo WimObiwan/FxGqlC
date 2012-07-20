@@ -17,11 +17,6 @@ namespace FxGqlLib
 		{
 			return functor ();
 		}
-		
-		public override bool IsConstant ()
-		{
-			return true;
-		}
 		#endregion
 	}
 }

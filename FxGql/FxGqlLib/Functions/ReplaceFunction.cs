@@ -26,6 +26,12 @@ namespace FxGqlLib
 			                      arg3.EvaluateAsData (gqlQueryState).ToDataString (), regexOptions);
 		}
 		#endregion
+
+		public override bool IsConstant ()
+		{
+			// TODO: Optimization: Too strong: if no match: arg3 doesn't need to be constant
+			return arg1.IsConstant () && arg2.IsConstant () && arg3.IsConstant ();
+		}
 	}
 }
 

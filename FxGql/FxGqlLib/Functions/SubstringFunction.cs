@@ -41,6 +41,11 @@ namespace FxGqlLib
 			}
 		}
 		#endregion
+
+		public override bool IsConstant ()
+		{
+			return arg1.IsConstant () && arg2.IsConstant () && arg3.IsConstant ();
+		}
 	}
 }
 

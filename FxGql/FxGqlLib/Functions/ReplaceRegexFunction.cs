@@ -5,27 +5,43 @@ namespace FxGqlLib
 {
 	public class ReplaceRegexFunction : Expression<DataString>
 	{
-		readonly IExpression arg1;
-		readonly IExpression arg2;
-		readonly IExpression arg3;
+		readonly IExpression origin;
+		readonly IExpression regex;
+		readonly IExpression replace;
 		readonly RegexOptions regexOptions;
-		
-		public ReplaceRegexFunction (IExpression arg1, IExpression arg2, IExpression arg3, bool caseInsensitive)
+
+		readonly Regex regex2;
+
+		public ReplaceRegexFunction (IExpression origin, IExpression regex, IExpression replace, bool caseInsensitive)
 		{
-			this.arg1 = arg1;
-			this.arg2 = arg2;
-			this.arg3 = arg3;
+			this.origin = origin;
+			this.regex = regex;
+			this.replace = replace;
+			this.regexOptions = RegexOptions.CultureInvariant;
 			if (caseInsensitive)
 				regexOptions = RegexOptions.IgnoreCase;
+
+			if (regex.IsConstant ())
+				regex2 = new Regex (regex.EvaluateAsData (null).ToDataString (), regexOptions);
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
-			return Regex.Replace (arg1.EvaluateAsData (gqlQueryState).ToDataString (), arg2.EvaluateAsData (gqlQueryState).ToDataString (), 
-				arg3.EvaluateAsData (gqlQueryState).ToDataString (), regexOptions);
+			string input = origin.EvaluateAsData (gqlQueryState).ToDataString ();
+			if (regex2 != null)
+				return regex2.Replace (input, replace.EvaluateAsData (gqlQueryState).ToDataString ());
+			else
+				return Regex.Replace (input, regex.EvaluateAsData (gqlQueryState).ToDataString (), 
+					replace.EvaluateAsData (gqlQueryState).ToDataString (), regexOptions);
 		}
 		#endregion
+
+		public override bool IsConstant ()
+		{
+			// TODO: Optimization: Too strong: if no match: arg3 doesn't need to be constant
+			return origin.IsConstant () && regex.IsConstant () && replace.IsConstant ();
+		}
 	}
 }
 
