@@ -1,8 +1,8 @@
 using System;
-using FxGqlLib;
 using System.IO;
 using System.Collections.Generic;
 using System.Reflection;
+using FxGqlLib;
 
 namespace FxGqlC
 {
@@ -15,6 +15,18 @@ namespace FxGqlC
 		static bool notracking = false;
 		static DateTime lastCheck = DateTime.MinValue;
 		static int uniqueVisitorId = new Random ((int)(DateTime.Now.Ticks % ((long)int.MaxValue + 1))).Next (100000000, 999999999); // Random
+		[Flags]
+		enum ReportError
+		{
+			ApplicationExceptions = 0x1,
+			ExecutionExceptions = 0x2,
+			ParsingExceptions = 0x4,
+			NoConfirm = 0x8000,
+			None = 0, 
+			All = 0x7fff,
+			Auto = ApplicationExceptions,
+		};
+		static ReportError reportError = ReportError.Auto;
 
 		static string GetVersion ()
 		{
@@ -182,6 +194,7 @@ namespace FxGqlC
 					}
 				} catch (Exception x) {
 					Console.WriteLine ("Failed to execute autoexec script: {0}", x.Message);
+					ReportException (x);
 				}
 
 				try {
@@ -289,11 +302,13 @@ namespace FxGqlC
 						}
 					}
 				}
+				ReportException (x);
 			} catch (Exception x) {
 
 				Console.WriteLine (x.Message);
 				if (gqlEngine.LogStream != null) 
 					gqlEngine.LogStream.WriteLine (x.ToString ());
+				ReportException (x);
 			}
 #endif
 		}
@@ -320,6 +335,14 @@ namespace FxGqlC
 						gqlEngine.GqlEngineState.Heading = heading;
 					else
 						Console.WriteLine ("Unknown SET HEADING value '{0}'", value);
+
+					break;
+				case "REPORTERROR":
+					ReportError reportError;
+					if (Enum.TryParse<ReportError> (value, true, out reportError)) 
+						MainClass.reportError = reportError;
+					else
+						Console.WriteLine ("Unknown SET REPORTERROR value '{0}'", value);
 
 					break;
 				default:
@@ -451,11 +474,7 @@ namespace FxGqlC
 				return;
 
 			if (!nochecknewversion && lastRelease != null) {
-#if DEBUG
-				if (true) {
-#else
 				if (lastRelease.CompareTo (version) > 0) {
-#endif
 					Console.WriteLine ("A new version version of FxGqlC is available on https://sites.google.com/site/fxgqlc/home");
 					Console.WriteLine ("Your version is {0} and the new version is {1}", version, lastRelease);
 				}
@@ -464,6 +483,37 @@ namespace FxGqlC
 			}
 			
 			CheckForUpdates (State.Continue);
+		}
+
+		static void ReportException (Exception x)
+		{
+			if (x is ParserException) {
+				if ((reportError & ReportError.ParsingExceptions) != 0)
+					ReportExceptionStep2 (x);
+			} else if (x is InvalidOperationException) {
+				if ((reportError & ReportError.ExecutionExceptions) != 0)
+					ReportExceptionStep2 (x);
+			} else {
+				if ((reportError & ReportError.ApplicationExceptions) != 0)
+					ReportExceptionStep2 (x);
+			}
+		}
+
+		static void ReportExceptionStep2 (Exception x)
+		{
+			ExceptionReporting.ExceptionReporter reporter = new ExceptionReporting.ExceptionReporter ();
+			reporter.Config.EmailReportAddress = "wimobiwan+fxgqlc@gmail.com";
+//			if (!(reportError & ReportError.NoConfirm)) {
+////				do {
+////					Console.WriteLine ("Do you want this exception to be sent to the FxGqlC developer?");
+////					Console.WriteLine ("(Look for '!SET ERRORREPORT' in the manual on the FxGqlC website for more ");
+////					Console.WriteLine (" information on enabling/disabling the error reporting)");
+////					Console.Write ("Answer: [0=No, 1=Yes] ");
+////					string result = Console.ReadLine ();
+////					answer.TryParse (result, out answer);
+////				} while (answer != 0 && answer != 1);
+//			}
+			reporter.Show (x);
 		}
 	}
 }
