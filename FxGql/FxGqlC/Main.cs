@@ -194,7 +194,7 @@ namespace FxGqlC
 					}
 				} catch (Exception x) {
 					Console.WriteLine ("Failed to execute autoexec script: {0}", x.Message);
-					ReportException (x);
+					ReportException ("autoexec", x);
 				}
 
 				try {
@@ -302,13 +302,13 @@ namespace FxGqlC
 						}
 					}
 				}
-				ReportException (x);
+				ReportException ("executing server command, " + command, x);
 			} catch (Exception x) {
 
 				Console.WriteLine (x.Message);
 				if (gqlEngine.LogStream != null) 
 					gqlEngine.LogStream.WriteLine (x.ToString ());
-				ReportException (x);
+				ReportException ("executing server command, " + command, x);
 			}
 #endif
 		}
@@ -485,35 +485,57 @@ namespace FxGqlC
 			CheckForUpdates (State.Continue);
 		}
 
-		static void ReportException (Exception x)
+		static void ReportException (string context, Exception x)
 		{
 			if (x is ParserException) {
 				if ((reportError & ReportError.ParsingExceptions) != 0)
-					ReportExceptionStep2 (x);
+					ReportExceptionStep2 (context, x);
 			} else if (x is InvalidOperationException) {
 				if ((reportError & ReportError.ExecutionExceptions) != 0)
-					ReportExceptionStep2 (x);
+					ReportExceptionStep2 (context, x);
 			} else {
 				if ((reportError & ReportError.ApplicationExceptions) != 0)
-					ReportExceptionStep2 (x);
+					ReportExceptionStep2 (context, x);
 			}
 		}
 
-		static void ReportExceptionStep2 (Exception x)
+		static void ReportExceptionStep2 (string context, Exception x)
 		{
-			ExceptionReporting.ExceptionReporter reporter = new ExceptionReporting.ExceptionReporter ();
-			reporter.Config.EmailReportAddress = "wimobiwan+fxgqlc@gmail.com";
-//			if (!(reportError & ReportError.NoConfirm)) {
-////				do {
-////					Console.WriteLine ("Do you want this exception to be sent to the FxGqlC developer?");
-////					Console.WriteLine ("(Look for '!SET ERRORREPORT' in the manual on the FxGqlC website for more ");
-////					Console.WriteLine (" information on enabling/disabling the error reporting)");
-////					Console.Write ("Answer: [0=No, 1=Yes] ");
-////					string result = Console.ReadLine ();
-////					answer.TryParse (result, out answer);
-////				} while (answer != 0 && answer != 1);
+//			System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage ();
+//			message.To.Add (new System.Net.Mail.MailAddress ("wimobiwan+fxgqlc@gmail.com"));
+//			try {
+//				message.From = new System.Net.Mail.MailAddress (fromAddress);
+//			} catch {
 //			}
-			reporter.Show (x);
+//			message.Subject = "ReportException - " + version + " - " + x.Message;
+//			System.Text.StringBuilder sb = new System.Text.StringBuilder ();
+//			sb.Append ("UTC DateTime:");
+//			sb.Append (DateTime.UtcNow);
+//			sb.Append ("Context:");
+//			sb.Append (context);
+//			sb.Append ("Exception:");
+//			sb.Append (x.ToString ());
+//			S
+//			message.Body = sb.ToString ();
+//
+//			string fromAddress;
+//			if ((reportError & ReportError.NoConfirm) != 0) {
+//				fromAddress = null;
+//			} else {
+//				Console.WriteLine ("Do you want this exception to be sent to the FxGqlC developer?");
+//				Console.WriteLine ("(Look for '!SET ERRORREPORT' in the manual on the FxGqlC website for more ");
+//				Console.WriteLine (" information on enabling/disabling the error reporting)");
+//				Console.WriteLine ("Enter your e-mail address when you want this error report to be sent, or ");
+//				Console.WriteLine (" just press enter to ignore the exception.");
+//				Console.Write ("Your E-mail address [or empty]: ");
+//				fromAddress = Console.ReadLine ();
+//			}
+//			if (fromAddress == null || fromAddress != "")
+//				ReportExceptionStep3 (context, x, fromAddress);
+//		}
+//
+//		static void ReportExceptionStep3 (string context, Exception x, string fromAddress)
+//		{
 		}
 	}
 }
