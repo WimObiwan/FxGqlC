@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace FxGqlLib
 {
@@ -28,6 +29,12 @@ namespace FxGqlLib
 		#region implemented abstract members of FxGqlLib.Expression[R]
 		public override R Evaluate (GqlQueryState gqlQueryState)
 		{
+//			Task<T1> task1 = Task.Factory.StartNew (() => arg1.Evaluate (gqlQueryState));
+//			Task<T2> task2 = Task.Factory.StartNew (() => arg2.Evaluate (gqlQueryState));
+//
+//			Task.WaitAll (task1, task2);
+//			return functor (task1.Result, task2.Result);
+
 			return functor (arg1.Evaluate (gqlQueryState), arg2.Evaluate (gqlQueryState));
 		}
 
