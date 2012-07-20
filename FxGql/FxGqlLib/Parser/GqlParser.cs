@@ -682,6 +682,13 @@ namespace FxGqlLib
                     functionName
 				);
 				break;
+			case 4:
+				result = ParseExpressionFunctionCall_4 (
+                    provider,
+                    functionCallTree,
+                    functionName
+				);
+				break;
 			default:
 				throw new ParserException (
                     string.Format (
@@ -983,6 +990,44 @@ namespace FxGqlLib
 				break;
 			case "SUBSTRING":
 				result = new SubstringFunction (arg1, arg2, arg3);
+				break;
+			default:
+				throw new ParserException (string.Format (
+                    "Function call to {0} with 2 parameters not supported.",
+                    functionName
+				), 
+                    functionCallTree);
+			}
+            
+			return result;
+		}
+
+		IExpression ParseExpressionFunctionCall_4 (IProvider provider, ITree functionCallTree, string functionName)
+		{
+			IExpression arg1 = ParseExpression (
+                provider,
+                functionCallTree.GetChild (1)
+			);
+			IExpression arg2 = ParseExpression (
+                provider,
+                functionCallTree.GetChild (2)
+			);
+			IExpression arg3 = ParseExpression (
+                provider,
+                functionCallTree.GetChild (3)
+			);
+			IExpression arg4 = ParseExpression (
+                provider,
+                functionCallTree.GetChild (4)
+			);
+            
+			AdjustAggregation (ref arg1, ref arg2, ref arg3, ref arg4);
+
+			IExpression result;
+            
+			switch (functionName.ToUpperInvariant ()) {
+			case "MATCHREGEX":
+				result = new MatchRegexFunction (arg1, arg2, dataComparer.CaseInsensitive, arg3, arg4);
 				break;
 			default:
 				throw new ParserException (string.Format (
@@ -1306,6 +1351,20 @@ namespace FxGqlLib
 					arg2 = new InvariantColumn (arg2, dataComparer);
 				if (!arg3.IsAggregated ())
 					arg3 = new InvariantColumn (arg3, dataComparer);
+			}
+		}        
+
+		void AdjustAggregation (ref IExpression arg1, ref IExpression arg2, ref IExpression arg3, ref IExpression arg4)
+		{
+			if (arg1.IsAggregated () || arg2.IsAggregated () || arg3.IsAggregated ()) {
+				if (!arg1.IsAggregated ())
+					arg1 = new InvariantColumn (arg1, dataComparer);
+				if (!arg2.IsAggregated ())
+					arg2 = new InvariantColumn (arg2, dataComparer);
+				if (!arg3.IsAggregated ())
+					arg3 = new InvariantColumn (arg3, dataComparer);
+				if (!arg4.IsAggregated ())
+					arg4 = new InvariantColumn (arg4, dataComparer);
 			}
 		}        
 

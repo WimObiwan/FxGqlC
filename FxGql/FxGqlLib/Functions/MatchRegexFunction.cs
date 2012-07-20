@@ -5,42 +5,63 @@ namespace FxGqlLib
 {
 	public class MatchRegexFunction : Expression<DataString>
 	{
-		readonly IExpression arg1;
-		readonly IExpression arg2;
-		readonly IExpression arg3;
+		readonly IExpression origin;
+		readonly IExpression regex;
+		readonly IExpression extract;
+		readonly IExpression def;
 		readonly RegexOptions regexOptions;
+
+		readonly Regex regex2;
 		
-		public MatchRegexFunction (IExpression arg1, IExpression arg2, bool caseInsensitive)
-			: this(arg1, arg2, caseInsensitive, null)
+		public MatchRegexFunction (IExpression origin, IExpression regex, bool caseInsensitive)
+			: this(origin, regex, caseInsensitive, null)
 		{
 		}
 		
-		public MatchRegexFunction (IExpression arg1, IExpression arg2, bool caseInsensitive, IExpression arg3)
+		public MatchRegexFunction (IExpression origin, IExpression regex, bool caseInsensitive, IExpression arg3)
+			: this(origin, regex, caseInsensitive, arg3, null)
 		{
-			this.arg1 = arg1;
-			this.arg2 = arg2;
-			this.arg3 = arg3;
+		}
+
+		public MatchRegexFunction (IExpression origin, IExpression regex, bool caseInsensitive, IExpression extract, IExpression def)
+		{
+			this.origin = origin;
+			this.regex = regex;
+			this.extract = extract;
+			this.def = def;
+			this.regexOptions = RegexOptions.CultureInvariant;
 			if (caseInsensitive)
 				regexOptions = RegexOptions.IgnoreCase;
+
+			if (regex.IsConstant ())
+				regex2 = new Regex (regex.EvaluateAsData (null).ToDataString (), regexOptions);
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
-			Match match = Regex.Match (arg1.EvaluateAsData (gqlQueryState).ToDataString (), arg2.EvaluateAsData (gqlQueryState).ToDataString (), regexOptions);
+			string input = origin.EvaluateAsData (gqlQueryState).ToDataString ();
+			Match match;
+			if (regex2 != null)
+				match = regex2.Match (input);
+			else
+				match = Regex.Match (input, regex.EvaluateAsData (gqlQueryState).ToDataString (), regexOptions);
 			if (match.Success) {
-				if (arg3 != null) {
-					return match.Result (arg3.EvaluateAsData (gqlQueryState).ToDataString ());
+				if (extract != null) {
+					return match.Result (extract.EvaluateAsData (gqlQueryState).ToDataString ());
 				} else if (match.Groups.Count > 1) {
 					return match.Groups [1].Value;
 				} else {
 					return match.Groups [0].Value;
 				}
 			} else {
-				if (gqlQueryState != null) {
-					gqlQueryState.SkipLine = true;
+				if (def == null) {
+					if (gqlQueryState != null) 
+						gqlQueryState.SkipLine = true;
+					return "";
+				} else {
+					return def.EvaluateAsData (gqlQueryState).ToDataString ();
 				}
-				return "";
 			}
 		}
 		#endregion

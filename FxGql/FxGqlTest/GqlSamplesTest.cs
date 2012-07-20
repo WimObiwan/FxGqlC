@@ -548,6 +548,14 @@ namespace FxGqlTest
 			// v2.3: new behavior: matchregex also filters output!
 			TestGql ("select matchregex($line, '^.*belgium.*$') from ['SampleFiles/*.csv']", 
 				"118A735B8252E05853FD53AB5BF4D2223899144E763EE87880AEA0534F0B3FFB");
+			TestGql ("select matchregex($line, '^.*belgium.*$') from ['SampleFiles/AirportCodes.csv']", 
+                "61973C8BD569D17891983EA785471E60EEB704E950787427DD88A5CE4B660136");
+			TestGql ("select matchregex($line, '^.*non-existant country.*$', '$0', $line) from [SampleFiles/AirportCodes.csv]",
+                "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+			TestGql ("select matchregex($line, '^.*belgium.*$', '$0', $line) from ['SampleFiles/AirportCodes.csv']", 
+				"34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+			TestGql ("select matchregex($line, '^.*non-existant country.*$', '$0', $line) from [SampleFiles/AirportCodes.csv]",
+                "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
 			TestGql ("select contains('this is a test string', 'test')",
                 "A9AC0C3AC83C40E1B4C3416066D63D324EE9F8C144641DFEED72D140B6557245");
 			TestGql ("select contains('this is a test string', 'test2')",
@@ -1431,6 +1439,12 @@ namespace FxGqlTest
 			         + " group by [a].[Player]");
             */
 
+			TestGql ("select top 15 *, matchregex($line, ', (.*) \"') from ['SampleFiles/AirportCodes.csv']");
+			//"C82300FF46DDFDE379AF89012BD8EA0B885A4A2BA7D49D6BBF59ACB3AF5568E6");
+			TestGql ("select top 15 *, matchregex($line, ', (.*) \"', '$1') from ['SampleFiles/AirportCodes.csv']");
+			//"C82300FF46DDFDE379AF89012BD8EA0B885A4A2BA7D49D6BBF59ACB3AF5568E6");
+			TestGql ("select top 15 *, matchregex($line, '(, )(.*)( \")', '$2') from ['SampleFiles/AirportCodes.csv']");
+			//"C82300FF46DDFDE379AF89012BD8EA0B885A4A2BA7D49D6BBF59ACB3AF5568E6");
 
 			return failed == 0;
 		}		
