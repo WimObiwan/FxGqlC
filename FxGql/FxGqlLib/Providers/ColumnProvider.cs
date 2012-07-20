@@ -234,14 +234,17 @@ namespace FxGqlLib
 
 		public bool GetNextRecord ()
 		{
-			if (!provider.GetNextRecord ())
-				return false;
-			gqlQueryState.Record = provider.Record;
 			gqlQueryState.TotalLineNumber++;
-			
-			for (int i = 0; i < outputList.Length; i++) {
-				record.Columns [i] = outputList [i].EvaluateAsData (gqlQueryState);
-			}
+
+			do {
+				if (!provider.GetNextRecord ())
+					return false;
+				gqlQueryState.Record = provider.Record;
+				gqlQueryState.SkipLine = false;
+				for (int i = 0; i < outputList.Length; i++) {
+					record.Columns [i] = outputList [i].EvaluateAsData (gqlQueryState);
+				}
+			} while (gqlQueryState.SkipLine);
 			
 			record.OriginalColumns = provider.Record.Columns;
 			record.LineNo = gqlQueryState.TotalLineNumber;

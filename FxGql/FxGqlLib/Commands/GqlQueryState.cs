@@ -59,6 +59,8 @@ namespace FxGqlLib
 		public Dictionary<string, Variable> Variables { get; private set; }
 
 		public StateBin StateBin { get; private set; }
+
+		public bool SkipLine { get; set; }
 	}
 }
 

@@ -11,7 +11,7 @@ namespace FxGqlLib
 		readonly RegexOptions regexOptions;
 		
 		public MatchRegexFunction (IExpression arg1, IExpression arg2, bool caseInsensitive)
-			: this(arg1, arg2, caseInsensitive, new ConstExpression<DataString>("$1"))
+			: this(arg1, arg2, caseInsensitive, null)
 		{
 		}
 		
@@ -28,10 +28,20 @@ namespace FxGqlLib
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
 			Match match = Regex.Match (arg1.EvaluateAsData (gqlQueryState).ToDataString (), arg2.EvaluateAsData (gqlQueryState).ToDataString (), regexOptions);
-			if (match.Success)
-				return match.Result (arg3.EvaluateAsData (gqlQueryState).ToDataString ());
-			else
+			if (match.Success) {
+				if (arg3 != null) {
+					return match.Result (arg3.EvaluateAsData (gqlQueryState).ToDataString ());
+				} else if (match.Groups.Count > 1) {
+					return match.Groups [1].Value;
+				} else {
+					return match.Groups [0].Value;
+				}
+			} else {
+				if (gqlQueryState != null) {
+					gqlQueryState.SkipLine = true;
+				}
 				return "";
+			}
 		}
 		#endregion
 	}
