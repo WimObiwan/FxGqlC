@@ -494,10 +494,6 @@ namespace FxGqlTest
                      "57A1C33AC64612377818E8666AAB79E721598CB0031C86E869C4A135BF5AD472");
 			TestGql (@"select distinct $filename from ['SampleFiles/*.csv' -fileorder='filenamedesc']",
                      "040D35EE741AD7D314234EBF2F1AF130CC9FC3808BC9077B0B2CFFD489A5A1CA");
-			TestGql (@"select distinct $filename from ['SampleFiles/*.csv' -fileorder='modificationtimeasc']",
-                     "57A1C33AC64612377818E8666AAB79E721598CB0031C86E869C4A135BF5AD472");
-			TestGql (@"select distinct $filename from ['SampleFiles/*.csv' -fileorder='modificationtimedesc']",
-                     "040D35EE741AD7D314234EBF2F1AF130CC9FC3808BC9077B0B2CFFD489A5A1CA");
 			File.Delete ("test.txt");
 			File.Delete ("test1.txt");
 			File.Delete ("test2.txt");
