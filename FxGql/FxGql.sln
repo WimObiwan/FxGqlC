@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FxGqlLib", "FxGqlLib\FxGqlL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FxGqlTest", "FxGqlTest\FxGqlTest.csproj", "{4FF1C63E-5206-4378-9846-8C17884F2340}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FxGqlW", "FxGqlW\FxGqlW.csproj", "{5F9E9F24-03CF-4294-81D3-C9C4322363AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,12 @@ Global
 		{4FF1C63E-5206-4378-9846-8C17884F2340}.Default|Any CPU.Build.0 = Debug|Any CPU
 		{4FF1C63E-5206-4378-9846-8C17884F2340}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FF1C63E-5206-4378-9846-8C17884F2340}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F9E9F24-03CF-4294-81D3-C9C4322363AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F9E9F24-03CF-4294-81D3-C9C4322363AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F9E9F24-03CF-4294-81D3-C9C4322363AA}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F9E9F24-03CF-4294-81D3-C9C4322363AA}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{5F9E9F24-03CF-4294-81D3-C9C4322363AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F9E9F24-03CF-4294-81D3-C9C4322363AA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86880209-911D-45B0-8544-80CD33346BA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{86880209-911D-45B0-8544-80CD33346BA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86880209-911D-45B0-8544-80CD33346BA4}.Default|Any CPU.ActiveCfg = Debug|Any CPU
@@ -34,7 +42,7 @@ Global
 		{86880209-911D-45B0-8544-80CD33346BA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = FxGqlTest\FxGqlTest.csproj
+		StartupItem = FxGqlW\FxGqlW.csproj
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = None
