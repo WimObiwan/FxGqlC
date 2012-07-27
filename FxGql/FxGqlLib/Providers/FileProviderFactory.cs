@@ -30,7 +30,11 @@ namespace FxGqlLib
 		{
 			DontCare,
 			Asc,
-			Desc
+			Desc,
+			FileNameAsc,
+			FileNameDesc,
+			ModificationTimeAsc,
+			ModificationTimeDesc,
 		}
 		public FileOrderEnum FileOrder { get; set; }
 

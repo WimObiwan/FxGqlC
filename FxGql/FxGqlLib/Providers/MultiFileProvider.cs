@@ -61,10 +61,16 @@ namespace FxGqlLib
 			path = Path.Combine (gqlQueryState.CurrentDirectory, path); 
 			files = Directory.GetFiles (path + Path.DirectorySeparatorChar, searchPattern, searchOption);
 
-			if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Asc)
+			if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Asc 
+				|| fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameAsc)
 				files = files.OrderBy (p => p, stringComparer).ToArray ();
-			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Desc)
+			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Desc
+				|| fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameDesc)
 				files = files.OrderByDescending (p => p, stringComparer).ToArray ();
+			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.ModificationTimeAsc)
+				files = files.Select (p => new FileInfo (p)).OrderBy (p => p.LastWriteTime).Select (p => p.FullName).ToArray ();
+			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.ModificationTimeDesc)
+				files = files.Select (p => new FileInfo (p)).OrderByDescending (p => p.LastWriteTime).Select (p => p.FullName).ToArray ();
 
 			currentFile = -1;
 			totalLineNo = 0;

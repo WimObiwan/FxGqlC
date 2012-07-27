@@ -405,8 +405,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engineHash.Execute (command);
-					testSummaryWriter.WriteLine (command);
+						engineHash.Execute (command);
+						testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -490,6 +490,27 @@ namespace FxGqlTest
                      "57A1C33AC64612377818E8666AAB79E721598CB0031C86E869C4A135BF5AD472");
 			TestGql (@"select distinct $filename from ['SampleFiles/*.csv' -fileorder='desc']",
                      "040D35EE741AD7D314234EBF2F1AF130CC9FC3808BC9077B0B2CFFD489A5A1CA");
+			TestGql (@"select distinct $filename from ['SampleFiles/*.csv' -fileorder='filenameasc']",
+                     "57A1C33AC64612377818E8666AAB79E721598CB0031C86E869C4A135BF5AD472");
+			TestGql (@"select distinct $filename from ['SampleFiles/*.csv' -fileorder='filenamedesc']",
+                     "040D35EE741AD7D314234EBF2F1AF130CC9FC3808BC9077B0B2CFFD489A5A1CA");
+			TestGql (@"select distinct $filename from ['SampleFiles/*.csv' -fileorder='modificationtimeasc']",
+                     "57A1C33AC64612377818E8666AAB79E721598CB0031C86E869C4A135BF5AD472");
+			TestGql (@"select distinct $filename from ['SampleFiles/*.csv' -fileorder='modificationtimedesc']",
+                     "040D35EE741AD7D314234EBF2F1AF130CC9FC3808BC9077B0B2CFFD489A5A1CA");
+			File.Delete ("test.txt");
+			File.Delete ("test1.txt");
+			File.Delete ("test2.txt");
+			TestGql (@"select * into ['test1.txt' -overwrite] from ['SampleFiles/AirportCodes.csv']",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql (@"select * into ['test2.txt' -overwrite] from ['SampleFiles/AirportCodes.csv']",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql (@"select distinct $filename from ['test?.txt' -fileorder='modificationtimeasc']",
+			         "2405D8CC3ABA8974E695866E695378C7E44E1E140D464ED91167B7E17C0E7631");
+			TestGql (@"select distinct $filename from ['test?.txt' -fileorder='modificationtimedesc']",
+			         "2801FAC150CE2622359D9E2CADCCDD7F9A0EA76AA514A8CF681E80B9C3958FD4");
+			File.Delete ("test1.txt");
+			File.Delete ("test2.txt");
             
 			// TOP clause
 			TestGql ("select top 15 * from ['SampleFiles/AirportCodes.csv']",
@@ -1438,13 +1459,6 @@ namespace FxGqlTest
 			         + " where [a].[Tournament] = 'Masters Cup'"
 			         + " group by [a].[Player]");
             */
-
-			TestGql ("select top 15 *, matchregex($line, ', (.*) \"') from ['SampleFiles/AirportCodes.csv']");
-			//"C82300FF46DDFDE379AF89012BD8EA0B885A4A2BA7D49D6BBF59ACB3AF5568E6");
-			TestGql ("select top 15 *, matchregex($line, ', (.*) \"', '$1') from ['SampleFiles/AirportCodes.csv']");
-			//"C82300FF46DDFDE379AF89012BD8EA0B885A4A2BA7D49D6BBF59ACB3AF5568E6");
-			TestGql ("select top 15 *, matchregex($line, '(, )(.*)( \")', '$2') from ['SampleFiles/AirportCodes.csv']");
-			//"C82300FF46DDFDE379AF89012BD8EA0B885A4A2BA7D49D6BBF59ACB3AF5568E6");
 
 			return failed == 0;
 		}		
