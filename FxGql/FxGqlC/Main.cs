@@ -14,7 +14,9 @@ namespace FxGqlC
 		static bool nochecknewversion = false;
 		static bool notracking = false;
 		static DateTime lastCheck = DateTime.MinValue;
-		static int uniqueVisitorId = new Random ((int)(DateTime.Now.Ticks % ((long)int.MaxValue + 1))).Next (100000000, 999999999); // Random
+
+		static int uniqueVisitorId = GetUniqueId ();
+
 		[Flags]
 		enum ReportError
 		{
@@ -98,13 +100,14 @@ namespace FxGqlC
 					if (i < args.Length)
 						gqlFile = args [i];
 					else
-						errors.Add ("Please specify a GQL file after '-file'");
+						errors.Add ("Please specify a GQL file after '-gqlfile'");
 				} else if (string.Equals (args [i], "-logfile", StringComparison.InvariantCultureIgnoreCase)) {
-					i++;
-					if (i < args.Length)
+					if (i + 1 < args.Length && !args [i + 1].StartsWith ("-")) {
+						i++;
 						logFile = args [i];
-					else
-						errors.Add ("Please specify an output file after '-logfile'");
+					} else {
+						logFile = "log.gql";
+					}
 				} else if (string.Equals (args [i], "-autoexec", StringComparison.InvariantCultureIgnoreCase)) {
 					i++;
 					if (i < args.Length)
@@ -176,7 +179,7 @@ namespace FxGqlC
 			using (gqlEngine = new GqlEngine ()) {
 				gqlEngine.OutputStream = Console.Out;
 				if (logFile != null)
-					gqlEngine.LogStream = new StreamWriter (logFile);
+					gqlEngine.LogStream = new StreamWriter (logFile, true);
 
 				try {
 					if (autoexec != null) {
@@ -483,6 +486,28 @@ namespace FxGqlC
 			}
 			
 			CheckForUpdates (State.Continue);
+		}
+
+		static int GetUniqueId ()
+		{
+			var u = new System.Net.Sockets.UdpClient ("www.google-analytics.com", 1);		
+			var localAddr = ((System.Net.IPEndPoint)u.Client.LocalEndPoint).Address;
+
+			foreach (var nic in System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()) {
+				var ipProps = nic.GetIPProperties ();
+				foreach (var address in ipProps.UnicastAddresses) {
+					if (address.Address.Equals (localAddr)) {
+						var mac = nic.GetPhysicalAddress ().GetAddressBytes ();
+						ulong hash = 0;
+						foreach (byte b in mac) {
+							hash = (hash << 8) | b;
+						}
+						return (int)((hash % 899999999) + 1000000000);
+					}
+				}
+			}
+
+			return new Random ((int)(DateTime.Now.Ticks % ((long)int.MaxValue + 1))).Next (100000000, 999999999); // Random
 		}
 
 		static void ReportException (string context, Exception x)

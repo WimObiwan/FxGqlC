@@ -74,12 +74,16 @@ namespace FxGqlLib
 
 			currentFile = -1;
 			totalLineNo = 0;
-			if (!SetNextProvider ())
-				throw new FileNotFoundException ("No files found that match with the wildcards", fileName);
+			provider = null;
 		}
 
 		public bool GetNextRecord ()
 		{
+			if (provider == null) {
+				if (!SetNextProvider ()) 
+					return false;
+			}
+
 			while (!provider.GetNextRecord()) {
 				if (!SetNextProvider ()) 
 					return false;

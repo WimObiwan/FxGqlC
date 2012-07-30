@@ -28,6 +28,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Externalconsole>true</Externalconsole>
+    <Commandlineparameters>-p</Commandlineparameters>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -9,6 +9,7 @@ namespace FxGqlLib
 		TextWriter outputStream;
 		TextWriter logStream;
 		GqlEngineExecutionState gqlEngineExecutionState = new GqlEngineExecutionState ();
+		int serial;
 
 		public GqlEngineState GqlEngineState { get; private set; }
 		
@@ -33,6 +34,7 @@ namespace FxGqlLib
 		private void Initialize ()
 		{
 			try {
+				serial = 0;
 				Directory.CreateDirectory (GqlEngineState.TempDirectory);
 			} catch {
 			}
@@ -42,9 +44,10 @@ namespace FxGqlLib
 		{
 			gqlEngineExecutionState.InterruptState = GqlEngineExecutionState.InterruptStates.Continue;
 			
+			serial++;
 			if (logStream != null) {
-				logStream.WriteLine ("===========================================================================");				
-				logStream.WriteLine ("Gql> {0}", commandsText);
+				logStream.WriteLine ("-- {0} - {1}", serial, DateTime.Now.ToString ("o"));
+				logStream.WriteLine (commandsText);
 			}
 			GqlParser parser = new GqlParser (GqlEngineState, commandsText);
 			IList<IGqlCommand> commands = parser.Parse ();
