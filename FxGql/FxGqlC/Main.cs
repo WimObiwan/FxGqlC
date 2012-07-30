@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Reflection;
 using FxGqlLib;
+using System.Text;
 
 namespace FxGqlC
 {
@@ -237,9 +238,33 @@ namespace FxGqlC
 			Console.WriteLine ("===========================================================================");
 		}
 
+		static string MakeRelative (string currentDirectory, string file)
+		{
+			Uri uriCurrentDirectory = new Uri (currentDirectory + "/");
+			Uri uriFile = new Uri (file);
+			return uriCurrentDirectory.MakeRelativeUri (uriFile).ToString ();
+		}
+
 		public static void RunPrompt ()
 		{
 			Mono.Terminal.LineEditor lineEditor = new Mono.Terminal.LineEditor ("editor");
+			lineEditor.CtrlOPressed += delegate(object sender, EventArgs args) {
+				//var copy = Console.Error;
+				//Console.SetError (TextWriter.Null);
+				string currentDirectory = gqlEngine.GqlEngineState.CurrentDirectory;
+				string[] files = FxGqlCWin.FileSelector.SelectMultipleFileRead ("Select file(s) for the FROM clause", currentDirectory);
+				//Console.SetError (copy);
+				if (files != null) {
+					StringBuilder sb = new StringBuilder ();
+					foreach (string file in files) {
+						string relativeFile = MakeRelative (currentDirectory, file);
+						if (sb.Length > 0)
+							sb.Append (", ");
+						sb.AppendFormat ("['{0}']", relativeFile);
+					}
+					lineEditor.Type (sb.ToString ());
+				}
+			};
 			while (true) {
 				string command = lineEditor.Edit ("FxGqlC> ", "");
 				//Console.Write ("FxGqlC> ");

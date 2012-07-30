@@ -44,6 +44,10 @@
       <Project>{86880209-911D-45B0-8544-80CD33346BA4}</Project>
       <Name>FxGqlLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FxGqlC-Win\FxGqlC-Win.csproj">
+      <Project>{CBFD18CD-84C6-4879-9163-D084AC0FB5FF}</Project>
+      <Name>FxGqlC-Win</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="FxGqlC License %28GNU GPLv3%29.txt">
