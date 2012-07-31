@@ -62,6 +62,7 @@ namespace FxGqlC
 			return version;
 		}
 
+		[STAThread]
 		public static void Main (string[] args)
 		{
 			// Check for updates
@@ -179,8 +180,14 @@ namespace FxGqlC
 
 			using (gqlEngine = new GqlEngine ()) {
 				gqlEngine.OutputStream = Console.Out;
-				if (logFile != null)
-					gqlEngine.LogStream = new StreamWriter (logFile, true);
+				if (logFile != null) {
+					try {
+						gqlEngine.LogStream = new StreamWriter (logFile, true);
+					} catch (Exception x) {
+						Console.WriteLine ("Unable to open logfile '{0}'.  Continuing without logfile.", logFile);
+						Console.WriteLine (x.Message);
+					}
+				}
 
 				try {
 					if (autoexec != null) {
@@ -242,7 +249,7 @@ namespace FxGqlC
 		{
 			Uri uriCurrentDirectory = new Uri (currentDirectory + "/");
 			Uri uriFile = new Uri (file);
-			return uriCurrentDirectory.MakeRelativeUri (uriFile).ToString ();
+			return Uri.UnescapeDataString (uriCurrentDirectory.MakeRelativeUri (uriFile).ToString ());
 		}
 
 		public static void RunPrompt ()
@@ -288,14 +295,17 @@ namespace FxGqlC
 		static void ExecuteClientCommand (string command)
 		{
 			command = command.TrimStart ().TrimStart ('!');
-			string[] commandComponents = command.Split (new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+			string[] commandComponents = command.Split (new char[] {' '}, 2, StringSplitOptions.RemoveEmptyEntries);
 
 			if (commandComponents.Length < 1) {
 				Console.WriteLine ("Invalid client command syntax");
 			} else {
 				switch (commandComponents [0].ToUpperInvariant ()) {
 				case "SET":
-					ExecuteClientCommandSet (commandComponents);
+					ExecuteClientCommandSet (commandComponents [1]);
+					break;
+				case "EXECUTE":
+					ExecuteClientCommandExecute (commandComponents [1]);
 					break;
 				default:
 					Console.WriteLine ("Unknown client command '{0}'", commandComponents [0]);
@@ -349,13 +359,14 @@ namespace FxGqlC
 			}
 		}
 
-		static void ExecuteClientCommandSet (string[] commandComponents)
+		static void ExecuteClientCommandSet (string command)
 		{
-			if (commandComponents.Length < 3) {
+			string[] commandComponents = command.Split (new char[] {' '}, 2, StringSplitOptions.RemoveEmptyEntries);
+			if (commandComponents.Length < 2) {
 				Console.WriteLine ("Invalid number of components in client command 'SET'");
 			} else {
-				string key = commandComponents [1];
-				string value = commandComponents [2];
+				string key = commandComponents [0];
+				string value = commandComponents [1];
 				switch (key.ToUpperInvariant ()) {
 				case "HEADING":
 					GqlEngineState.HeadingEnum heading;
@@ -377,6 +388,28 @@ namespace FxGqlC
 					Console.WriteLine ("Unknown SET command '{0}'", key);
 					break;
 				}
+			}
+		}
+
+		static int fileExecutionDepth = 0;
+
+		static void ExecuteClientCommandExecute (string file)
+		{
+			try {
+				fileExecutionDepth++;
+
+				int maxFileExecutionDepth = 16;
+				if (fileExecutionDepth > maxFileExecutionDepth)
+					throw new InvalidOperationException ("Maximum file invocation depth (" + maxFileExecutionDepth.ToString () + ") reached.");
+
+				if (file.StartsWith ("[") && file.EndsWith ("]"))
+					file = file.Substring (1, file.Length - 2);
+				if (file.StartsWith ("'") && file.EndsWith ("'"))
+					file = file.Substring (1, file.Length - 2);
+
+				ExecuteFile (file);
+			} finally {
+				fileExecutionDepth--;
 			}
 		}
 
