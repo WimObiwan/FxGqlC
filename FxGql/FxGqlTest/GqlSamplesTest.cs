@@ -405,8 +405,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engineHash.Execute (command);
-					testSummaryWriter.WriteLine (command);
+						engineHash.Execute (command);
+						testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1443,6 +1443,16 @@ namespace FxGqlTest
 			         "CD4BEF29A50048AA66BC0A3F43974205387983290794745CCE6155729CB6EC55");
 			TestGql ("SELECT datediff(hour, getdate(), getutcdate()) <= 12, datepart(year, getdate()) >= 2000",
 			         "6608DA15B28D0AA9E4F7D689CCE99DD74B05F5627B76C8A6319711C49A4DBDD0");
+			TestGql ("SELECT datepart(quarter, '2012-07-12 23:59:50'), datepart(dayofyear, '2012-07-12 23:59:50'), datepart(weekday, '2012-07-12 23:59:50')",
+			         "88CEF24564355E3BD4628D5ADB1A5CBFAC5F6AE5EFDA026B174EC46C39D1D819");
+			TestGql ("SELECT datepart(qq, '2012-07-12 23:59:50'), datepart(dy, '2012-07-12 23:59:50'), datepart(dw, '2012-07-12 23:59:50')",
+			         "88CEF24564355E3BD4628D5ADB1A5CBFAC5F6AE5EFDA026B174EC46C39D1D819");
+			TestGql ("SELECT datepart(q, '2012-07-12 23:59:50'), datepart(y, '2012-07-12 23:59:50'), datepart(w, '2012-07-12 23:59:50')",
+			         "88CEF24564355E3BD4628D5ADB1A5CBFAC5F6AE5EFDA026B174EC46C39D1D819");
+			TestGql ("SELECT datepart(microsecond, '2012-07-12 23:59:50.1234567'), datepart(nanosecond, '2012-07-12 23:59:50.1234567')",
+			         "C72CC643BA8501605655DECE49A21485FF723E063C9D045DCCB017794033DCC0");
+			TestGql ("SELECT datepart(mcs, '2012-07-12 23:59:50.1234567'), datepart(ns, '2012-07-12 23:59:50.1234567')",
+			         "C72CC643BA8501605655DECE49A21485FF723E063C9D045DCCB017794033DCC0");
 
 			Console.WriteLine ();
 			Console.WriteLine (
@@ -1515,8 +1525,6 @@ namespace FxGqlTest
 			         + " where [a].[Tournament] = 'Masters Cup'"
 			         + " group by [a].[Player]");
             */
-
-			TestGql ("SELECT convert(string, dateadd(day, ---10, '2012-07-23'), 'yyyyMMdd HH:mm:ss')");
 
 			return failed == 0;
 		}		

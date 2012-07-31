@@ -1067,7 +1067,7 @@ namespace FxGqlLib
 				break;
 			case "DATEADD":
 				result = BinaryExpression<DataInteger, DataDateTime, DataDateTime>.CreateAutoConvert (
-                    (a, b) => DatePartHelper.Add ((arg1 as Token<DatePartType>).Value, (int)a.Value, b), arg2, arg3);
+                    (a, b) => DatePartHelper.Add ((arg1 as Token<DatePartType>).Value, a.Value, b), arg2, arg3);
 				break;
 			case "DATEDIFF":
 				result = BinaryExpression<DataDateTime, DataDateTime, DataInteger>.CreateAutoConvert (
