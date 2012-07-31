@@ -405,8 +405,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engineHash.Execute (command);
-						testSummaryWriter.WriteLine (command);
+					engineHash.Execute (command);
+					testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1384,6 +1384,66 @@ namespace FxGqlTest
 			TestGql (@"select * from [#temp_table] where $fullfilename match '([\\/]FxGql-.{8}-.{4}-.{4}-.{4}-.{12}[\\/]#temp_table)$'",
                 	 typeof(Exception));
 
+			// DateTime
+			TestGql ("SELECT convert(string, convert(datetime, '2012-07-13'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(day, 10, convert(datetime, '2012-07-03')), 'yyyyMMdd HH:mm:ss')",
+			         "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(day, 10, '2012-07-03'), 'yyyyMMdd HH:mm:ss')",
+			         "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(dd, 10, '2012-07-03'), 'yyyyMMdd HH:mm:ss')",
+			         "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(d, 10, '2012-07-03'), 'yyyyMMdd HH:mm:ss')",
+			         "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(day, -10, '2012-07-23'), 'yyyyMMdd HH:mm:ss')",
+			         "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(year, 10, '2002-07-13'), 'yyyyMMdd HH:mm:ss')",
+			         "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(yy, 10, '2002-07-13'), 'yyyyMMdd HH:mm:ss')",
+			         "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(yyyy, 10, '2002-07-13'), 'yyyyMMdd HH:mm:ss')",
+			         "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(month, 10, '2011-09-13'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(mm, 10, '2011-09-13'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(m, 10, '2011-09-13'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(hour, 10, '2012-07-12 14:00'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(hh, 10, '2012-07-12 14:00'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(minute, 10, '2012-07-12 23:50'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(mi, 10, '2012-07-12 23:50'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(n, 10, '2012-07-12 23:50'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(second, 10, '2012-07-12 23:59:50'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(ss, 10, '2012-07-12 23:59:50'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(s, 10, '2012-07-12 23:59:50'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(millisecond, 10, '2012-07-12 23:59:59.99'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT convert(string, dateadd(ms, 10, '2012-07-12 23:59:59.99'), 'yyyyMMdd HH:mm:ss')",
+					 "793AB7D92A0955FA5F4D2213D18640889D3C978C017EA9546DA4B5590B63DDAF");
+			TestGql ("SELECT datepart(year, '2012-07-12 23:59:50'), datepart(month, '2012-07-12 23:59:50'), datepart(day, '2012-07-12 23:59:50')",
+			         "D69A77764DC9F3E4DCBBDF2533CFCD542BD563ADC63F01AF6B070409E230D9F0");
+			TestGql ("SELECT datepart(hour, '2012-07-12 23:59:50'), datepart(minute, '2012-07-12 23:59:50'), datepart(second, '2012-07-12 23:59:50')",
+			         "DE3DD8599361D252BF7767D590D4AB2643F95923E726CDE6F77B91A12B89A933");
+			TestGql ("SELECT datepart(millisecond, '2012-07-12 23:59:50.123')",
+			         "181210F8F9C779C26DA1D9B2075BDE0127302EE0E3FCA38C9A83F5B1DD8E5D3B");
+			TestGql ("SELECT datediff(year, '2011-12-01 00:00:00', '2012-07-12 23:59:50.123'), datediff(month, '2011-01-01 00:00:00', '2012-07-12 23:59:50.123'), datediff(day, '2011-01-01 00:00:00', '2012-07-12 23:59:50.123')",
+			         "E6DD0896422302E38ED6E595DDDBBBB828128AF9382450BE357B0E0636292112");
+			TestGql ("SELECT datediff(hour, '2011-12-01 00:00:00', '2012-07-12 23:59:50.123'), datediff(minute, '2011-01-01 00:00:00', '2012-07-12 23:59:50.123'), datediff(second, '2011-01-01 00:00:00', '2012-07-12 23:59:50.123')",
+			         "EA9694434CAA5A5DF06939718E3043C9E8C25B23DCE739B7F41956F3F7917151");
+			TestGql ("SELECT datediff(millisecond, '2012-07-01 00:00:00', '2012-07-12 23:59:50.123')",
+			         "CD4BEF29A50048AA66BC0A3F43974205387983290794745CCE6155729CB6EC55");
+			TestGql ("SELECT datediff(hour, getdate(), getutcdate()) <= 12, datepart(year, getdate()) >= 2000",
+			         "6608DA15B28D0AA9E4F7D689CCE99DD74B05F5627B76C8A6319711C49A4DBDD0");
+
 			Console.WriteLine ();
 			Console.WriteLine (
                 "{0} tests done, {1} succeeded, {2} failed, {3} unknown",
@@ -1455,6 +1515,8 @@ namespace FxGqlTest
 			         + " where [a].[Tournament] = 'Masters Cup'"
 			         + " group by [a].[Player]");
             */
+
+			TestGql ("SELECT convert(string, dateadd(day, ---10, '2012-07-23'), 'yyyyMMdd HH:mm:ss')");
 
 			return failed == 0;
 		}		

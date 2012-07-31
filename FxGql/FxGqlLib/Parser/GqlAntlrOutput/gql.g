@@ -82,6 +82,7 @@ tokens
 	T_HAVING;
 	T_COUNT;
 	T_DISTINCTCOUNT;
+	T_DATEPART;
 }
 
 @parser::namespace { FxGqlLib }
@@ -390,14 +391,14 @@ op_1	: '~' -> T_BITWISE_NOT
 	;
 
 expression_atom
-	: NUMBER -> ^(T_INTEGER NUMBER)
+	: number -> ^(T_INTEGER number)
 	| string
 	| SYSTEMVAR -> ^(T_SYSTEMVAR SYSTEMVAR)
 	| variable
 	| subquery
 	| '(' expression ')' -> expression
 	| functioncall_or_column
-	| conversion
+	| specialfunctioncall
 	| case
 	| EXISTS WS? '(' WS? select_command WS? ')' -> ^(T_EXISTS select_command)
 	;
@@ -421,10 +422,19 @@ table_alias
 	: SIMPLE_FILE -> ^(T_TABLE_ALIAS SIMPLE_FILE)
 	;
 	
-conversion
-	: CONVERT WS? '(' WS? TOKEN WS? ',' WS? expression WS? ')' -> ^(T_CONVERT TOKEN expression)
+specialfunctioncall
+	: CONVERT WS? '(' WS? TOKEN WS? ',' WS? expression WS? (',' WS? STRING WS?)? ')' -> ^(T_CONVERT TOKEN expression STRING?)
 	| CAST WS? '(' WS? expression WS AS WS datatype WS? ')' -> ^(T_CONVERT TOKEN expression)
+	| DATEADD WS? '(' WS? datepart WS? ',' WS? expression WS? ',' WS? expression WS? ')' -> ^(T_FUNCTIONCALL DATEADD datepart expression+)
+	| DATEDIFF WS? '(' WS? datepart WS? ',' WS? expression WS? ',' WS? expression WS? ')' -> ^(T_FUNCTIONCALL DATEDIFF datepart expression+)
+	| DATEPART WS? '(' WS? datepart WS? ',' WS? expression WS? ')' -> ^(T_FUNCTIONCALL DATEPART datepart expression)
 	;
+
+datepart 
+	: TOKEN -> ^(T_DATEPART TOKEN)
+	;
+	
+number 	: ('-' WS?)? NUMBER;
 
 string	: STRING -> ^(T_STRING STRING)
 	;
@@ -517,6 +527,9 @@ TABLE	: T A B L E;
 DROP	: D R O P;
 HAVING	: H A V I N G;
 COUNT 	: C O U N T;
+DATEADD : D A T E A D D;
+DATEDIFF: D A T E D I F F;
+DATEPART: D A T E P A R T;
 
 TOKEN
 	: ('A'..'Z' | 'a'..'z' | '_') ('A'..'Z' | 'a'..'z' | '_' | '0'..'9')*

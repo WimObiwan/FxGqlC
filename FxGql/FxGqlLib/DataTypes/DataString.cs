@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace FxGqlLib
 {
@@ -23,7 +24,17 @@ namespace FxGqlLib
 			return new DataInteger (long.Parse (this.value));
 		}
 
+		public DataInteger ToDataInteger (string format)
+		{
+			return new DataInteger (long.Parse (this.value));
+		}
+
 		public DataString ToDataString ()
+		{
+			return this;
+		}
+
+		public DataString ToDataString (string format)
 		{
 			return this;
 		}
@@ -31,6 +42,16 @@ namespace FxGqlLib
 		public DataBoolean ToDataBoolean ()
 		{
 			return new DataBoolean (bool.Parse (this.value));
+		}
+
+		public DataDateTime ToDataDateTime ()
+		{
+			return new DataDateTime (DateTime.Parse (this.value));
+		}
+
+		public DataDateTime ToDataDateTime (string format)
+		{
+			return new DataDateTime (DateTime.ParseExact (this.value, format, System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat));
 		}
 
 		public int CompareTo (object other)

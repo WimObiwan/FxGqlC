@@ -13,6 +13,31 @@ namespace FxGqlLib
 				result = CreateDataString (expr);
 			} else if (type == typeof(DataBoolean)) {
 				result = CreateDataBoolean (expr);
+			} else if (type == typeof(DataDateTime)) {
+				result = CreateDataDateTime (expr);
+			} else if (type == typeof(IData)) {
+				result = CreateData (expr);
+			} else {
+				throw new Exception (string.Format ("Invalid conversion.  Datatype {0} unknown.", type.ToString ()));
+			}
+
+			return result;
+		}
+
+		public static IExpression Create (Type type, IExpression expr, string format)
+		{
+			if (format == null)
+				return Create (type, expr);
+
+			IExpression result;
+			if (type == typeof(DataInteger)) {
+				result = CreateDataInteger (expr, format);
+			} else if (type == typeof(DataString)) {
+				result = CreateDataString (expr, format);
+			} else if (type == typeof(DataBoolean)) {
+				result = CreateDataBoolean (expr);
+			} else if (type == typeof(DataDateTime)) {
+				result = CreateDataDateTime (expr, format);
 			} else if (type == typeof(IData)) {
 				result = CreateData (expr);
 			} else {
@@ -31,6 +56,15 @@ namespace FxGqlLib
 			return result;
 		}
 
+		public static Expression<DataInteger> CreateDataInteger (IExpression expr, string format)
+		{
+			Expression<DataInteger> result = expr as Expression<DataInteger>;
+			if (result == null)
+				result = new ConvertExpression<DataInteger> ((a) => a.ToDataInteger (format), expr);
+
+			return result;
+		}
+
 		public static Expression<DataString> CreateDataString (IExpression expr)
 		{
 			Expression<DataString> result = expr as Expression<DataString>;
@@ -40,11 +74,38 @@ namespace FxGqlLib
 			return result;
 		}
 
+		public static Expression<DataString> CreateDataString (IExpression expr, string format)
+		{
+			Expression<DataString> result = expr as Expression<DataString>;
+			if (result == null)
+				result = new ConvertExpression<DataString> ((a) => a.ToDataString (format), expr);
+
+			return result;
+		}
+
 		public static Expression<DataBoolean> CreateDataBoolean (IExpression expr)
 		{
 			Expression<DataBoolean> result = expr as Expression<DataBoolean>;
 			if (result == null)
 				result = new ConvertExpression<DataBoolean> ((a) => a.ToDataBoolean (), expr);
+
+			return result;
+		}
+
+		static IExpression CreateDataDateTime (IExpression expr)
+		{
+			Expression<DataDateTime> result = expr as Expression<DataDateTime>;
+			if (result == null)
+				result = new ConvertExpression<DataDateTime> ((a) => a.ToDataDateTime (), expr);
+
+			return result;
+		}
+
+		static IExpression CreateDataDateTime (IExpression expr, string format)
+		{
+			Expression<DataDateTime> result = expr as Expression<DataDateTime>;
+			if (result == null)
+				result = new ConvertExpression<DataDateTime> ((a) => a.ToDataDateTime (format), expr);
 
 			return result;
 		}

@@ -122,6 +122,8 @@
     <Compile Include="Providers\AsyncStreamWriter.cs" />
     <Compile Include="Providers\ParameterizedProvider.cs" />
     <Compile Include="Commands\ViewDefinition.cs" />
+    <Compile Include="DataTypes\DataDateTime.cs" />
+    <Compile Include="Functions\DateFunctionsHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

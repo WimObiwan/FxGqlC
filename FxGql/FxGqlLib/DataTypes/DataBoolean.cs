@@ -23,7 +23,17 @@ namespace FxGqlLib
 			return new DataInteger (this.value ? 1 : 0);
 		}
 
+		public DataInteger ToDataInteger (string format)
+		{
+			return new DataInteger (this.value ? 1 : 0);
+		}
+
 		public DataString ToDataString ()
+		{
+			return this.value.ToString ();
+		}
+
+		public DataString ToDataString (string format)
 		{
 			return this.value.ToString ();
 		}
@@ -31,6 +41,16 @@ namespace FxGqlLib
 		public DataBoolean ToDataBoolean ()
 		{
 			return this;
+		}
+
+		public DataDateTime ToDataDateTime ()
+		{
+			throw new ConversionException (typeof(DataInteger), typeof(DataDateTime));
+		}
+
+		public DataDateTime ToDataDateTime (string format)
+		{
+			throw new ConversionException (typeof(DataInteger), typeof(DataDateTime));
 		}
 
 		public int CompareTo (object other)

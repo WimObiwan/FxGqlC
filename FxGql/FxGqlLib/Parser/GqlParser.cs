@@ -565,6 +565,9 @@ namespace FxGqlLib
 			case "T_SUBQUERY":
 				expression = ParseExpressionSubquery (provider, tree);
 				break;
+			case "T_DATEPART":
+				expression = ParseExpressionDatePart (tree);
+				break;
 			default:
 				throw new UnexpectedTokenAntlrException (tree);
 			}
@@ -574,8 +577,12 @@ namespace FxGqlLib
 
 		IExpression ParseExpressionInteger (ITree expressionNumberTree)
 		{
-			ITree tree = GetSingleChild (expressionNumberTree);
-			return new ConstExpression<DataInteger> (long.Parse (tree.Text));
+			string text;
+			if (expressionNumberTree.ChildCount == 1)
+				text = expressionNumberTree.GetChild (0).Text;
+			else
+				text = expressionNumberTree.GetChild (0).Text + expressionNumberTree.GetChild (1).Text;
+			return new ConstExpression<DataInteger> (long.Parse (text));
 		}
 
 		string ParseString (ITree tree)
@@ -604,6 +611,63 @@ namespace FxGqlLib
 			text = text.Substring (1, text.Length - 2);
 			text = text.Replace ("''", "'");
 			return text;
+		}
+
+		class Token<T> : IExpression
+		{
+
+			public T Value { get; set; }
+
+			public Token (T value)
+			{
+				Value = value;
+			}
+
+			#region IExpression implementation
+			public IData EvaluateAsData (GqlQueryState gqlQueryState)
+			{
+				throw new InvalidOperationException ();
+			}
+
+			public Type GetResultType ()
+			{
+				throw new InvalidOperationException ();
+			}
+
+			public bool IsAggregated ()
+			{
+				return false;
+			}
+
+			public bool IsConstant ()
+			{
+				return true;
+			}
+
+			public void Aggregate (StateBin state, GqlQueryState gqlQueryState)
+			{
+				throw new InvalidOperationException ();
+			}
+
+			public IData AggregateCalculate (StateBin state)
+			{
+				throw new InvalidOperationException ();
+			}
+			#endregion
+		}
+
+		IExpression ParseExpressionDatePart (ITree datePartTree)
+		{
+			ITree tree = GetSingleChild (datePartTree);
+
+			DatePartType datePart;
+			try {
+				datePart = DatePartHelper.Parse (tree.Text);
+			} catch (Exception x) {
+				throw new ParserException ("Invalid DatePart type", tree, x);
+			}
+
+			return new Token<DatePartType> (datePart);
 		}
 
 		Expression<DataString> ParseExpressionString (ITree expressionStringTree)
@@ -709,6 +773,12 @@ namespace FxGqlLib
 			switch (functionName.ToUpperInvariant ()) {
 			case "GETCURDIR":
 				result = new GetCurDirFunction ();
+				break;
+			case "GETDATE":
+				result = new NullaryExpression<DataDateTime> (() => DateTime.Now);
+				break;
+			case "GETUTCDATE":
+				result = new NullaryExpression<DataDateTime> (() => DateTime.UtcNow);
 				break;
 			default:
 				throw new ParserException (string.Format (
@@ -948,6 +1018,10 @@ namespace FxGqlLib
 			case "SUBSTRING":
 				result = new SubstringFunction (arg1, arg2);
 				break;
+			case "DATEPART":
+				result = UnaryExpression<DataDateTime, DataInteger>.CreateAutoConvert (
+                    (a) => DatePartHelper.Get ((arg1 as Token<DatePartType>).Value, a), arg2);
+				break;
 			default:
 				throw new ParserException (string.Format (
                     "Function call to {0} with 2 parameters not supported.",
@@ -990,6 +1064,14 @@ namespace FxGqlLib
 				break;
 			case "SUBSTRING":
 				result = new SubstringFunction (arg1, arg2, arg3);
+				break;
+			case "DATEADD":
+				result = BinaryExpression<DataInteger, DataDateTime, DataDateTime>.CreateAutoConvert (
+                    (a, b) => DatePartHelper.Add ((arg1 as Token<DatePartType>).Value, (int)a.Value, b), arg2, arg3);
+				break;
+			case "DATEDIFF":
+				result = BinaryExpression<DataDateTime, DataDateTime, DataInteger>.CreateAutoConvert (
+                    (a, b) => DatePartHelper.Diff ((arg1 as Token<DatePartType>).Value, a.Value, b.Value), arg2, arg3);
 				break;
 			default:
 				throw new ParserException (string.Format (
@@ -1042,15 +1124,21 @@ namespace FxGqlLib
 
 		IExpression ParseExpressionConvert (IProvider provider, ITree convertTree)
 		{
-			AssertAntlrToken (convertTree, "T_CONVERT", 2);
+			AssertAntlrToken (convertTree, "T_CONVERT", 2, 3);
             
 			Type dataType = ParseDataType (convertTree.GetChild (0));
 			IExpression expr = ParseExpression (
                 provider,
                 convertTree.GetChild (1)
 			);
+
+			string format;
+			if (convertTree.ChildCount >= 3)
+				format = ParseString (convertTree.GetChild (2));
+			else
+				format = null;
             
-			return ConvertExpression.Create (dataType, expr);
+			return ConvertExpression.Create (dataType, expr, format);
 		}
 
 		FileOptionsFromClause ParseFileFromClause (ITree fileProvider)
@@ -2117,10 +2205,14 @@ namespace FxGqlLib
 		{
 			string text = dataTypeTree.Text;
 			switch (text.ToUpperInvariant ()) {
+			case "BOOL":
+				return typeof(DataBoolean);
 			case "STRING":
 				return typeof(DataString);
 			case "INT":
 				return typeof(DataInteger);
+			case "DATETIME":
+				return typeof(DataDateTime);
 			default:
 				throw new ParserException (string.Format ("Unknown datatype '{0}'", text), dataTypeTree);
 			}
