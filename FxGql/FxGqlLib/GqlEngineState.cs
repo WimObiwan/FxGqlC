@@ -14,7 +14,21 @@ namespace FxGqlLib
 		
 		public GqlEngineExecutionState ExecutionState { get; private set; }
 
-		public string CurrentDirectory { get; set; }
+		string currentDirectory;
+		public delegate void CurrentDirectoryChangedHandler ();
+		public event CurrentDirectoryChangedHandler CurrentDirectoryChanged;
+		public string CurrentDirectory { 
+			get { 
+				return currentDirectory;
+			}
+			set {
+				if (currentDirectory != value) {
+					currentDirectory = value;
+					if (CurrentDirectoryChanged != null)
+						CurrentDirectoryChanged ();
+				}
+			}
+		}
 
 		public string TempDirectory { get; set; }
 

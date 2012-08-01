@@ -180,14 +180,15 @@ namespace FxGqlC
 
 			using (gqlEngine = new GqlEngine ()) {
 				gqlEngine.OutputStream = Console.Out;
-				if (logFile != null) {
-					try {
-						gqlEngine.LogStream = new StreamWriter (logFile, true);
-					} catch (Exception x) {
-						Console.WriteLine ("Unable to open logfile '{0}'.  Continuing without logfile.", logFile);
-						Console.WriteLine (x.Message);
-					}
-				}
+				gqlEngine.LogFile = logFile;
+//				if (logFile != null) {
+//					try {
+//						//gqlEngine.LogStream = new StreamWriter (logFile, true);
+//					} catch (Exception x) {
+//						Console.WriteLine ("Unable to open logfile '{0}'.  Continuing without logfile.", logFile);
+//						Console.WriteLine (x.Message);
+//					}
+//				}
 
 				try {
 					if (autoexec != null) {
