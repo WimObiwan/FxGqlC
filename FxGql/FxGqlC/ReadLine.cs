@@ -265,7 +265,7 @@ namespace Mono.Terminal
 			// end of a line.
 			Console.Write (' ');
 
-			UpdateHomeRow (max);
+			UpdateHomeRow (max + 1);
 		}
 
 		void UpdateHomeRow (int screenpos)
