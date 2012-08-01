@@ -23,9 +23,13 @@
 //    behind its back (P/Invoke puts for example).
 //    System.Console needs to get the DELETE character, and report accordingly.
 //
+
+
 #if NET_2_0 || NET_1_1
 #define IN_MCS_BUILD
 #endif
+
+using System.Collections.Generic;
 
 // Only compile this code in the 2.0 profile, but not in the Moonlight one
 #if (IN_MCS_BUILD && NET_2_0 && !SMCS_SOURCE) || !IN_MCS_BUILD || true
@@ -241,6 +245,19 @@ namespace Mono.Terminal
 		public void Type (string str)
 		{
 			InsertTextAtCursor (str);
+		}
+
+		public void ShowHistory ()
+		{
+			int i = 1;
+			foreach (string item in history.Items) {
+				Console.WriteLine ("{0:#0} - {1}", i++, item);
+			}
+		}
+
+		public void Close ()
+		{
+			history.Close ();
 		}
 
 		void CmdDebug ()
@@ -993,6 +1010,16 @@ namespace Mono.Terminal
 					// ignore
 				}
 			}
+
+			public IEnumerable<string> Items {
+				get { 
+					int iter = tail;
+					while (iter != head) {
+						yield return history [iter];
+						iter = (iter + 1) % history.Length;
+					}
+				}
+			}
 			
 			//
 			// Appends a value to the history
@@ -1040,11 +1067,8 @@ namespace Mono.Terminal
 				//Console.WriteLine ("h={0} t={1} cursor={2}", head, tail, cursor);
 				if (count == 0)
 					return false;
-				int next = cursor - 1;
-				if (next < 0)
-					next = count - 1;
 
-				if (next == head)
+				if (cursor == tail)
 					return false;
 
 				return true;

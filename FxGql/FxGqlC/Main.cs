@@ -75,7 +75,7 @@ namespace FxGqlC
 			bool prompt = false;
 			string command = null;
 			string gqlFile = null;
-			string logFile = null;
+			string logFile = "log.gql";
 			string autoexec = null;
 			List<string> errors = new List<string> ();
 			
@@ -108,7 +108,7 @@ namespace FxGqlC
 						i++;
 						logFile = args [i];
 					} else {
-						logFile = "log.gql";
+						logFile = null;
 					}
 				} else if (string.Equals (args [i], "-autoexec", StringComparison.InvariantCultureIgnoreCase)) {
 					i++;
@@ -254,7 +254,7 @@ namespace FxGqlC
 
 		public static void RunPrompt ()
 		{
-			Mono.Terminal.LineEditor lineEditor = new Mono.Terminal.LineEditor ("editor");
+			Mono.Terminal.LineEditor lineEditor = new Mono.Terminal.LineEditor ("FxGqlC", 50);
 			lineEditor.CtrlOPressed += delegate(object sender, EventArgs args) {
 				//var copy = Console.Error;
 				//Console.SetError (TextWriter.Null);
@@ -278,39 +278,64 @@ namespace FxGqlC
 				//string command = Console.ReadLine ();
 				if (command.Trim ().Equals ("exit", StringComparison.InvariantCultureIgnoreCase))
 					break; 
-				ExecuteCommand (command);
+				if (!ExecutePromptCommand (command, lineEditor))
+					ExecuteCommand (command);
 				CheckToDisplayNewVersionMessage ();
+			}
+			lineEditor.Close ();
+		}
+
+		static bool ExecutePromptCommand (string command, Mono.Terminal.LineEditor lineEditor)
+		{
+			command = command.Trim ();
+			if (command.StartsWith ("!!")) {
+				command = command.Substring (2);
+				switch (command.ToUpper ()) {
+				case "SHOWHISTORY":
+					lineEditor.ShowHistory ();
+					break;
+				default:
+					Console.WriteLine ("Unknown prompt command '{0}'", command);
+					break;
+				}
+				return true;
+			} else {
+				return false;
 			}
 		}
 
 		public static void ExecuteCommand (string command)
 		{
-			if (command.TrimStart ().StartsWith ("!")) {
-				ExecuteClientCommand (command);
-			} else {
+			if (!ExecuteClientCommand (command)) {
 				ExecuteServerCommand (command);
 			}
 		}
 
-		static void ExecuteClientCommand (string command)
+		static bool ExecuteClientCommand (string command)
 		{
-			command = command.TrimStart ().TrimStart ('!');
-			string[] commandComponents = command.Split (new char[] {' '}, 2, StringSplitOptions.RemoveEmptyEntries);
+			command = command.Trim ();
+			if (command.StartsWith ("!")) {
+				command = command.Substring (1);
+				string[] commandComponents = command.Split (new char[] {' '}, 2, StringSplitOptions.RemoveEmptyEntries);
 
-			if (commandComponents.Length < 1) {
-				Console.WriteLine ("Invalid client command syntax");
-			} else {
-				switch (commandComponents [0].ToUpperInvariant ()) {
-				case "SET":
-					ExecuteClientCommandSet (commandComponents [1]);
-					break;
-				case "EXECUTE":
-					ExecuteClientCommandExecute (commandComponents [1]);
-					break;
-				default:
-					Console.WriteLine ("Unknown client command '{0}'", commandComponents [0]);
-					break;
+				if (commandComponents.Length < 1) {
+					Console.WriteLine ("Invalid client command syntax");
+				} else {
+					switch (commandComponents [0].ToUpperInvariant ()) {
+					case "SET":
+						ExecuteClientCommandSet (commandComponents [1]);
+						break;
+					case "EXECUTE":
+						ExecuteClientCommandExecute (commandComponents [1]);
+						break;
+					default:
+						Console.WriteLine ("Unknown client command '{0}'", commandComponents [0]);
+						break;
+					}
 				}
+				return true;
+			} else {
+				return false;
 			}
 		}
 
