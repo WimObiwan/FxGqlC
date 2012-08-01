@@ -52,12 +52,6 @@ namespace FxGqlLib
 				serial = 0;
 				Directory.CreateDirectory (GqlEngineState.TempDirectory);
 				OnLogFileChanged ();
-
-				if (logStream != null) {
-					logStream.WriteLine (new String ('-', 80));
-					logStream.WriteLine ("-- {0} - {1}", serial, GetDate ());
-					logStream.WriteLine ("-- FxGql engine started");
-				}
 			} catch {
 			}
 		}
@@ -78,7 +72,7 @@ namespace FxGqlLib
 			
 			serial++;
 			if (logStream != null) {
-				logStream.WriteLine ("-- {0} - {1}", serial, GetDate ());
+				logStream.WriteLine ("-- {0} - {1}", GetDate (), serial);
 				logStream.WriteLine (commandsText);
 			}
 
@@ -86,8 +80,9 @@ namespace FxGqlLib
 			IList<IGqlCommand> commands = parser.Parse ();
 			
 			if (logFileStream != null) {
-				logFileStream.WriteLine ("-- {0} - {1}", serial, GetDate ());
+				logFileStream.WriteLine ("-- {0} - {1}", GetDate (), serial);
 				logFileStream.WriteLine (commandsText);
+				logFileStream.Flush ();
 			}
 
 			foreach (IGqlCommand command in commands) {
@@ -102,13 +97,28 @@ namespace FxGqlLib
 
 		void ReopenLogFile ()
 		{
-			string fullFileName = Path.Combine (GqlEngineState.CurrentDirectory, logFile);
+			CloseLogFile ();
+			OpenLogFile ();
+		}
+
+		void CloseLogFile ()
+		{
 			if (logFileStream != null) {
+				logFileStream.WriteLine ("-- {0} - FxGql log file closed", GetDate ());
 				logFileStream.Close ();
 				logFileStream.Dispose ();
+				logFileStream = null;
 			}
+		}
+
+		void OpenLogFile ()
+		{
+			string fullFileName = Path.Combine (GqlEngineState.CurrentDirectory, logFile);
 			try {
 				logFileStream = new StreamWriter (fullFileName, true);
+				logFileStream.WriteLine (new String ('-', 80));
+				logFileStream.WriteLine ("-- {0} - FxGql log file opened", GetDate ());
+				logFileStream.Flush ();
 			} catch {
 			}
 		}
@@ -123,10 +133,7 @@ namespace FxGqlLib
 				} catch {
 				}
 			}
-			if (logFileStream != null) {
-				logFileStream.Close ();
-				logFileStream.Dispose ();
-			}
+			CloseLogFile ();
 		}
 
 		public void Reset ()
