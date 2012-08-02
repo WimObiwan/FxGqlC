@@ -9,6 +9,8 @@ namespace FxGqlLib
 		}
 		
 		public Expression<DataString> FileName { get; set; }
+
+		public string Provider { get; set; }
 	}
 
 	public class FileOptionsFromClause : FileOptions

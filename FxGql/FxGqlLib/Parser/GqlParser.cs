@@ -400,6 +400,9 @@ namespace FxGqlLib
 				case "T_FILE":
 					provider = ParseFileProvider (inputProviderTree);
 					break;
+				case "T_FILESUBQUERY":
+					provider = ParseFileSubqueryProvider (inputProviderTree);
+					break;
 				case "T_SUBQUERY":
 					provider = ParseSubquery (null, inputProviderTree);
 					break;
@@ -1189,6 +1192,9 @@ namespace FxGqlLib
 				case "COLUMNDELIMITER":
 					fileOptions.ColumnDelimiter = System.Text.RegularExpressions.Regex.Unescape (value);
 					break;
+				case "PROVIDER":
+					fileOptions.Provider = value.ToLowerInvariant ();
+					break;
 				default:
 					throw new ParserException (
                                 string.Format ("Unknown file option '{0}'", option),
@@ -1332,23 +1338,39 @@ namespace FxGqlLib
 		{
 			FileOptionsFromClause fileOptions = ParseFileFromClause (fileProvider);
             
-			IProvider provider = FileProviderFactory.Get (fileOptions, dataComparer.StringComparer);
+			IProvider provider;
+			if (fileOptions.Provider == null
+				|| StringComparer.InvariantCultureIgnoreCase.Compare (fileOptions.Provider, "file") == 0) {
+				provider = FileProviderFactory.Get (fileOptions, dataComparer.StringComparer);
             
-			if (fileOptions.ColumnsRegex != null) {
-				provider = new ColumnProviderRegex (provider, fileOptions.ColumnsRegex, dataComparer.CaseInsensitive);
-			} else if (fileOptions.ColumnDelimiter != null) {
-				provider = new ColumnProviderDelimiter (provider, fileOptions.ColumnDelimiter.ToCharArray ());
-			} else if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
-				provider = new ColumnProviderDelimiter (provider);
-			}
+				if (fileOptions.ColumnsRegex != null) {
+					provider = new ColumnProviderRegex (provider, fileOptions.ColumnsRegex, dataComparer.CaseInsensitive);
+				} else if (fileOptions.ColumnDelimiter != null) {
+					provider = new ColumnProviderDelimiter (provider, fileOptions.ColumnDelimiter.ToCharArray ());
+				} else if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
+					provider = new ColumnProviderDelimiter (provider);
+				}
 
-			if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
-				provider = new ColumnProviderTitleLine (provider, fileOptions.Heading);
+				if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
+					provider = new ColumnProviderTitleLine (provider, fileOptions.Heading);
+				}
+			} else if (StringComparer.InvariantCultureIgnoreCase.Compare (fileOptions.Provider, "directory") == 0) {
+				provider = new DirectoryProvider (fileOptions, dataComparer.StringComparer);
+			} else {
+				throw new ParserException (string.Format ("Invalid provider '{0}'", fileOptions.Provider), fileProvider);
 			}
 
 			return provider;
 		}
-        
+
+		IProvider ParseFileSubqueryProvider (ITree fileSubqueryTree)
+		{
+			AssertAntlrToken (fileSubqueryTree, "T_FILESUBQUERY", 1);
+            
+			IProvider fileSubqueryProvider = ParseSubquery (null, fileSubqueryTree.GetChild (0));
+			return new FileSubqueryProvider (fileSubqueryProvider);
+		}
+
 		IProvider ParseSubquery (IProvider provider, ITree subqueryTree)
 		{
 			AssertAntlrToken (subqueryTree, "T_SUBQUERY");
@@ -2028,6 +2050,8 @@ namespace FxGqlLib
 				return new ColumnExpression<DataString> (provider, columnOrdinal);
 			} else if (type == typeof(DataInteger)) {
 				return new ColumnExpression<DataInteger> (provider, columnOrdinal);
+			} else if (type == typeof(DataDateTime)) {
+				return new ColumnExpression<DataDateTime> (provider, columnOrdinal);
 			} else {
 				throw new Exception (string.Format ("Invalid datatype '{0}'", type.ToString ()));
 			}

@@ -113,13 +113,15 @@ namespace FxGqlLib
 
 		void OpenLogFile ()
 		{
-			string fullFileName = Path.Combine (GqlEngineState.CurrentDirectory, logFile);
-			try {
-				logFileStream = new StreamWriter (fullFileName, true);
-				logFileStream.WriteLine (new String ('-', 80));
-				logFileStream.WriteLine ("-- {0} - FxGql log file opened", GetDate ());
-				logFileStream.Flush ();
-			} catch {
+			if (logFile != null) {
+				string fullFileName = Path.Combine (GqlEngineState.CurrentDirectory, logFile);
+				try {
+					logFileStream = new StreamWriter (fullFileName, true);
+					logFileStream.WriteLine (new String ('-', 80));
+					logFileStream.WriteLine ("-- {0} - FxGql log file opened", GetDate ());
+					logFileStream.Flush ();
+				} catch {
+				}
 			}
 		}
 

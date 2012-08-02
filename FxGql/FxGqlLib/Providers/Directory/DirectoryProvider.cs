@@ -1,0 +1,148 @@
+using System;
+using System.IO;
+using System.Linq;
+
+namespace FxGqlLib
+{
+	public class DirectoryProvider : IProvider
+	{
+		readonly static ColumnName[] columnNames = new ColumnName[] {
+				new ColumnName ("FullName"),
+				new ColumnName ("Name"),
+				new ColumnName ("Extension"),
+				new ColumnName ("Length"),
+				new ColumnName ("CreationTime"),
+				new ColumnName ("LastWriteTime"),
+				new ColumnName ("LastAccessTime"),
+				new ColumnName ("Attributes"),
+			};
+		readonly static Type[] columnTypes = new Type[] {
+				typeof(DataString),
+				typeof(DataString),
+				typeof(DataString),
+				typeof(DataInteger),
+				typeof(DataDateTime),
+				typeof(DataDateTime),
+				typeof(DataDateTime),
+				typeof(DataString),
+			};
+
+		readonly FileOptionsFromClause fileOptions;
+		readonly StringComparer stringComparer;
+
+		string[] files;
+		ProviderRecord record;
+
+		public DirectoryProvider (FileOptionsFromClause fileOptions, StringComparer stringComparer)
+		{
+			if (fileOptions.ColumnDelimiter != null)
+				throw new NotSupportedException ("FROM-option 'ColumnDelimiter' is not supported when using the DirectoryProvider");
+			if (fileOptions.ColumnsRegex != null)
+				throw new NotSupportedException ("FROM-option 'ColumnsRegex' is not supported when using the DirectoryProvider");
+			if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off)
+				throw new NotSupportedException ("FROM-option 'Heading' is not supported when using the DirectoryProvider");
+			if (fileOptions.Skip != 0)
+				throw new NotSupportedException ("FROM-option 'Skip' is not supported when using the DirectoryProvider");
+
+			this.fileOptions = fileOptions;
+			this.stringComparer = stringComparer;
+		}
+
+		#region IDisposable implementation
+		public void Dispose ()
+		{
+			files = null;
+		}
+		#endregion
+
+		#region IProvider implementation
+		public string[] GetAliases ()
+		{
+			return null;
+		}
+
+		public ColumnName[] GetColumnNames ()
+		{
+			return columnNames;
+		}
+
+		public int GetColumnOrdinal (ColumnName columnName)
+		{
+			return Array.FindIndex (columnNames, a => a.CompareTo (columnName) == 0);
+		}
+
+		public Type[] GetColumnTypes ()
+		{
+			return columnTypes;
+		}
+
+		public void Initialize (GqlQueryState gqlQueryState)
+		{
+			string fileName = fileOptions.FileName.Evaluate (gqlQueryState);
+			string path = Path.GetDirectoryName (fileName);
+			string searchPattern = Path.GetFileName (fileName);
+			SearchOption searchOption;
+			if (fileOptions.Recurse)
+				searchOption = SearchOption.AllDirectories;
+			else
+				searchOption = SearchOption.TopDirectoryOnly;
+			
+			path = Path.Combine (gqlQueryState.CurrentDirectory, path); 
+			files = Directory.GetFiles (path + Path.DirectorySeparatorChar, searchPattern, searchOption);
+
+			if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Asc 
+				|| fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameAsc)
+				files = files.Select (p => new FileInfo (p)).OrderBy (p => p.Name, stringComparer).Select (p => p.FullName).ToArray ();
+			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Desc
+				|| fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameDesc)
+				files = files.Select (p => new FileInfo (p)).OrderByDescending (p => p.Name, stringComparer).Select (p => p.FullName).ToArray ();
+			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.ModificationTimeAsc)
+				files = files.Select (p => new FileInfo (p)).OrderBy (p => p.LastWriteTime).Select (p => p.FullName).ToArray ();
+			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.ModificationTimeDesc)
+				files = files.Select (p => new FileInfo (p)).OrderByDescending (p => p.LastWriteTime).Select (p => p.FullName).ToArray ();
+
+			record = new ProviderRecord ();
+			record.LineNo = 0;
+			record.TotalLineNo = 0;
+			record.ColumnTitles = columnNames;
+			record.Source = "DirectoryProvider";
+			record.Columns = new IData[columnNames.Length];
+			record.OriginalColumns = record.Columns;
+		}
+
+		public bool GetNextRecord ()
+		{
+			if (record.LineNo >= files.Length)
+				return false;
+		
+			FileInfo fi = new FileInfo (files [record.LineNo]);
+			record.Columns [0] = new DataString (fi.FullName);
+			record.Columns [1] = new DataString (fi.Name);
+			record.Columns [2] = new DataString (fi.Extension);
+			record.Columns [3] = new DataInteger (fi.Length);
+			record.Columns [4] = new DataDateTime (fi.CreationTime);
+			record.Columns [5] = new DataDateTime (fi.LastWriteTime);
+			record.Columns [6] = new DataDateTime (fi.LastAccessTime);
+			record.Columns [7] = new DataString (fi.Attributes.ToString ());
+
+			record.LineNo++;
+			record.TotalLineNo = record.LineNo;
+
+			return true;
+		}
+
+		public void Uninitialize ()
+		{
+			files = null;
+		}
+
+		public ProviderRecord Record {
+			get {
+				return record;
+			}
+		}
+		#endregion
+
+	}
+}
+

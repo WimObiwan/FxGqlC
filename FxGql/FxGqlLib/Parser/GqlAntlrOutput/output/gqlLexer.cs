@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// $ANTLR 3.4 C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g 2012-07-31 14:51:47
+// $ANTLR 3.4 C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g 2012-08-02 14:41:38
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -36,7 +36,6 @@ namespace  FxGqlLib
 public partial class gqlLexer : Antlr.Runtime.Lexer
 {
 	public const int EOF=-1;
-	public const int T__158=158;
 	public const int T__159=159;
 	public const int T__160=160;
 	public const int T__161=161;
@@ -61,6 +60,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 	public const int T__180=180;
 	public const int T__181=181;
 	public const int T__182=182;
+	public const int T__183=183;
 	public const int A=4;
 	public const int ALL=5;
 	public const int AND=6;
@@ -158,63 +158,64 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 	public const int T_EXPRESSIONLIST=98;
 	public const int T_FILE=99;
 	public const int T_FILEOPTION=100;
-	public const int T_FROM=101;
-	public const int T_FUNCTIONCALL=102;
-	public const int T_GREATER=103;
-	public const int T_GROUPBY=104;
-	public const int T_GROUPBY_ORIG=105;
-	public const int T_HAVING=106;
-	public const int T_IN=107;
-	public const int T_INTEGER=108;
-	public const int T_INTO=109;
-	public const int T_LESS=110;
-	public const int T_LIKE=111;
-	public const int T_MATCH=112;
-	public const int T_MINUS=113;
-	public const int T_MODULO=114;
-	public const int T_NOT=115;
-	public const int T_NOTBETWEEN=116;
-	public const int T_NOTEQUAL=117;
-	public const int T_NOTGREATER=118;
-	public const int T_NOTIN=119;
-	public const int T_NOTLESS=120;
-	public const int T_NOTLIKE=121;
-	public const int T_NOTMATCH=122;
-	public const int T_OP_BINARY=123;
-	public const int T_OP_UNARY=124;
-	public const int T_OR=125;
-	public const int T_ORDERBY=126;
-	public const int T_ORDERBY_ASC=127;
-	public const int T_ORDERBY_COLUMN=128;
-	public const int T_ORDERBY_DESC=129;
-	public const int T_ORDERBY_ORIG=130;
-	public const int T_PLUS=131;
-	public const int T_PRODUCT=132;
-	public const int T_ROOT=133;
-	public const int T_SELECT=134;
-	public const int T_SET_VARIABLE=135;
-	public const int T_STRING=136;
-	public const int T_SUBQUERY=137;
-	public const int T_SYSTEMVAR=138;
-	public const int T_TABLE_ALIAS=139;
-	public const int T_TOP=140;
-	public const int T_USE=141;
-	public const int T_VARIABLE=142;
-	public const int T_VIEW=143;
-	public const int T_VIEW_NAME=144;
-	public const int T_WHERE=145;
-	public const int U=146;
-	public const int USE=147;
-	public const int V=148;
-	public const int VARIABLE=149;
-	public const int VIEW=150;
-	public const int W=151;
-	public const int WHEN=152;
-	public const int WHERE=153;
-	public const int WS=154;
-	public const int X=155;
-	public const int Y=156;
-	public const int Z=157;
+	public const int T_FILESUBQUERY=101;
+	public const int T_FROM=102;
+	public const int T_FUNCTIONCALL=103;
+	public const int T_GREATER=104;
+	public const int T_GROUPBY=105;
+	public const int T_GROUPBY_ORIG=106;
+	public const int T_HAVING=107;
+	public const int T_IN=108;
+	public const int T_INTEGER=109;
+	public const int T_INTO=110;
+	public const int T_LESS=111;
+	public const int T_LIKE=112;
+	public const int T_MATCH=113;
+	public const int T_MINUS=114;
+	public const int T_MODULO=115;
+	public const int T_NOT=116;
+	public const int T_NOTBETWEEN=117;
+	public const int T_NOTEQUAL=118;
+	public const int T_NOTGREATER=119;
+	public const int T_NOTIN=120;
+	public const int T_NOTLESS=121;
+	public const int T_NOTLIKE=122;
+	public const int T_NOTMATCH=123;
+	public const int T_OP_BINARY=124;
+	public const int T_OP_UNARY=125;
+	public const int T_OR=126;
+	public const int T_ORDERBY=127;
+	public const int T_ORDERBY_ASC=128;
+	public const int T_ORDERBY_COLUMN=129;
+	public const int T_ORDERBY_DESC=130;
+	public const int T_ORDERBY_ORIG=131;
+	public const int T_PLUS=132;
+	public const int T_PRODUCT=133;
+	public const int T_ROOT=134;
+	public const int T_SELECT=135;
+	public const int T_SET_VARIABLE=136;
+	public const int T_STRING=137;
+	public const int T_SUBQUERY=138;
+	public const int T_SYSTEMVAR=139;
+	public const int T_TABLE_ALIAS=140;
+	public const int T_TOP=141;
+	public const int T_USE=142;
+	public const int T_VARIABLE=143;
+	public const int T_VIEW=144;
+	public const int T_VIEW_NAME=145;
+	public const int T_WHERE=146;
+	public const int U=147;
+	public const int USE=148;
+	public const int V=149;
+	public const int VARIABLE=150;
+	public const int VIEW=151;
+	public const int W=152;
+	public const int WHEN=153;
+	public const int WHERE=154;
+	public const int WS=155;
+	public const int X=156;
+	public const int Y=157;
+	public const int Z=158;
 	 const int HIDDEN = Hidden; 
 
     // delegates
@@ -248,20 +249,20 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 	protected virtual void LeaveRule(string ruleName, int ruleIndex) {}
 
     [Conditional("ANTLR_TRACE")]
-    protected virtual void EnterRule_T__158() {}
+    protected virtual void EnterRule_T__159() {}
     [Conditional("ANTLR_TRACE")]
-    protected virtual void LeaveRule_T__158() {}
+    protected virtual void LeaveRule_T__159() {}
 
-    // $ANTLR start "T__158"
-    [GrammarRule("T__158")]
-    private void mT__158()
+    // $ANTLR start "T__159"
+    [GrammarRule("T__159")]
+    private void mT__159()
     {
-    	EnterRule_T__158();
-    	EnterRule("T__158", 1);
-    	TraceIn("T__158", 1);
+    	EnterRule_T__159();
+    	EnterRule("T__159", 1);
+    	TraceIn("T__159", 1);
     		try
     		{
-    		int _type = T__158;
+    		int _type = T__159;
     		int _channel = DefaultTokenChannel;
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:16:8: ( '!<' )
     		DebugEnterAlt(1);
@@ -278,28 +279,28 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__158", 1);
-    		LeaveRule("T__158", 1);
-    		LeaveRule_T__158();
+    		TraceOut("T__159", 1);
+    		LeaveRule("T__159", 1);
+    		LeaveRule_T__159();
         }
     }
-    // $ANTLR end "T__158"
+    // $ANTLR end "T__159"
 
     [Conditional("ANTLR_TRACE")]
-    protected virtual void EnterRule_T__159() {}
+    protected virtual void EnterRule_T__160() {}
     [Conditional("ANTLR_TRACE")]
-    protected virtual void LeaveRule_T__159() {}
+    protected virtual void LeaveRule_T__160() {}
 
-    // $ANTLR start "T__159"
-    [GrammarRule("T__159")]
-    private void mT__159()
+    // $ANTLR start "T__160"
+    [GrammarRule("T__160")]
+    private void mT__160()
     {
-    	EnterRule_T__159();
-    	EnterRule("T__159", 2);
-    	TraceIn("T__159", 2);
+    	EnterRule_T__160();
+    	EnterRule("T__160", 2);
+    	TraceIn("T__160", 2);
     		try
     		{
-    		int _type = T__159;
+    		int _type = T__160;
     		int _channel = DefaultTokenChannel;
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:17:8: ( '!=' )
     		DebugEnterAlt(1);
@@ -316,28 +317,28 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__159", 2);
-    		LeaveRule("T__159", 2);
-    		LeaveRule_T__159();
+    		TraceOut("T__160", 2);
+    		LeaveRule("T__160", 2);
+    		LeaveRule_T__160();
         }
     }
-    // $ANTLR end "T__159"
+    // $ANTLR end "T__160"
 
     [Conditional("ANTLR_TRACE")]
-    protected virtual void EnterRule_T__160() {}
+    protected virtual void EnterRule_T__161() {}
     [Conditional("ANTLR_TRACE")]
-    protected virtual void LeaveRule_T__160() {}
+    protected virtual void LeaveRule_T__161() {}
 
-    // $ANTLR start "T__160"
-    [GrammarRule("T__160")]
-    private void mT__160()
+    // $ANTLR start "T__161"
+    [GrammarRule("T__161")]
+    private void mT__161()
     {
-    	EnterRule_T__160();
-    	EnterRule("T__160", 3);
-    	TraceIn("T__160", 3);
+    	EnterRule_T__161();
+    	EnterRule("T__161", 3);
+    	TraceIn("T__161", 3);
     		try
     		{
-    		int _type = T__160;
+    		int _type = T__161;
     		int _channel = DefaultTokenChannel;
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:18:8: ( '!>' )
     		DebugEnterAlt(1);
@@ -354,45 +355,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__160", 3);
-    		LeaveRule("T__160", 3);
-    		LeaveRule_T__160();
-        }
-    }
-    // $ANTLR end "T__160"
-
-    [Conditional("ANTLR_TRACE")]
-    protected virtual void EnterRule_T__161() {}
-    [Conditional("ANTLR_TRACE")]
-    protected virtual void LeaveRule_T__161() {}
-
-    // $ANTLR start "T__161"
-    [GrammarRule("T__161")]
-    private void mT__161()
-    {
-    	EnterRule_T__161();
-    	EnterRule("T__161", 4);
-    	TraceIn("T__161", 4);
-    		try
-    		{
-    		int _type = T__161;
-    		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:19:8: ( '%' )
-    		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:19:10: '%'
-    		{
-    		DebugLocation(19, 10);
-    		Match('%'); 
-
-    		}
-
-    		state.type = _type;
-    		state.channel = _channel;
-    	}
-    	finally
-    	{
-    		TraceOut("T__161", 4);
-    		LeaveRule("T__161", 4);
+    		TraceOut("T__161", 3);
+    		LeaveRule("T__161", 3);
     		LeaveRule_T__161();
         }
     }
@@ -408,18 +372,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__162()
     {
     	EnterRule_T__162();
-    	EnterRule("T__162", 5);
-    	TraceIn("T__162", 5);
+    	EnterRule("T__162", 4);
+    	TraceIn("T__162", 4);
     		try
     		{
     		int _type = T__162;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:20:8: ( '&' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:19:8: ( '%' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:20:10: '&'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:19:10: '%'
     		{
-    		DebugLocation(20, 10);
-    		Match('&'); 
+    		DebugLocation(19, 10);
+    		Match('%'); 
 
     		}
 
@@ -428,8 +392,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__162", 5);
-    		LeaveRule("T__162", 5);
+    		TraceOut("T__162", 4);
+    		LeaveRule("T__162", 4);
     		LeaveRule_T__162();
         }
     }
@@ -445,18 +409,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__163()
     {
     	EnterRule_T__163();
-    	EnterRule("T__163", 6);
-    	TraceIn("T__163", 6);
+    	EnterRule("T__163", 5);
+    	TraceIn("T__163", 5);
     		try
     		{
     		int _type = T__163;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:21:8: ( '(' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:20:8: ( '&' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:21:10: '('
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:20:10: '&'
     		{
-    		DebugLocation(21, 10);
-    		Match('('); 
+    		DebugLocation(20, 10);
+    		Match('&'); 
 
     		}
 
@@ -465,8 +429,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__163", 6);
-    		LeaveRule("T__163", 6);
+    		TraceOut("T__163", 5);
+    		LeaveRule("T__163", 5);
     		LeaveRule_T__163();
         }
     }
@@ -482,18 +446,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__164()
     {
     	EnterRule_T__164();
-    	EnterRule("T__164", 7);
-    	TraceIn("T__164", 7);
+    	EnterRule("T__164", 6);
+    	TraceIn("T__164", 6);
     		try
     		{
     		int _type = T__164;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:22:8: ( ')' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:21:8: ( '(' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:22:10: ')'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:21:10: '('
     		{
-    		DebugLocation(22, 10);
-    		Match(')'); 
+    		DebugLocation(21, 10);
+    		Match('('); 
 
     		}
 
@@ -502,8 +466,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__164", 7);
-    		LeaveRule("T__164", 7);
+    		TraceOut("T__164", 6);
+    		LeaveRule("T__164", 6);
     		LeaveRule_T__164();
         }
     }
@@ -519,18 +483,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__165()
     {
     	EnterRule_T__165();
-    	EnterRule("T__165", 8);
-    	TraceIn("T__165", 8);
+    	EnterRule("T__165", 7);
+    	TraceIn("T__165", 7);
     		try
     		{
     		int _type = T__165;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:23:8: ( '*' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:22:8: ( ')' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:23:10: '*'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:22:10: ')'
     		{
-    		DebugLocation(23, 10);
-    		Match('*'); 
+    		DebugLocation(22, 10);
+    		Match(')'); 
 
     		}
 
@@ -539,8 +503,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__165", 8);
-    		LeaveRule("T__165", 8);
+    		TraceOut("T__165", 7);
+    		LeaveRule("T__165", 7);
     		LeaveRule_T__165();
         }
     }
@@ -556,18 +520,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__166()
     {
     	EnterRule_T__166();
-    	EnterRule("T__166", 9);
-    	TraceIn("T__166", 9);
+    	EnterRule("T__166", 8);
+    	TraceIn("T__166", 8);
     		try
     		{
     		int _type = T__166;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:24:8: ( '+' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:23:8: ( '*' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:24:10: '+'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:23:10: '*'
     		{
-    		DebugLocation(24, 10);
-    		Match('+'); 
+    		DebugLocation(23, 10);
+    		Match('*'); 
 
     		}
 
@@ -576,8 +540,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__166", 9);
-    		LeaveRule("T__166", 9);
+    		TraceOut("T__166", 8);
+    		LeaveRule("T__166", 8);
     		LeaveRule_T__166();
         }
     }
@@ -593,18 +557,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__167()
     {
     	EnterRule_T__167();
-    	EnterRule("T__167", 10);
-    	TraceIn("T__167", 10);
+    	EnterRule("T__167", 9);
+    	TraceIn("T__167", 9);
     		try
     		{
     		int _type = T__167;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:25:8: ( ',' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:24:8: ( '+' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:25:10: ','
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:24:10: '+'
     		{
-    		DebugLocation(25, 10);
-    		Match(','); 
+    		DebugLocation(24, 10);
+    		Match('+'); 
 
     		}
 
@@ -613,8 +577,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__167", 10);
-    		LeaveRule("T__167", 10);
+    		TraceOut("T__167", 9);
+    		LeaveRule("T__167", 9);
     		LeaveRule_T__167();
         }
     }
@@ -630,18 +594,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__168()
     {
     	EnterRule_T__168();
-    	EnterRule("T__168", 11);
-    	TraceIn("T__168", 11);
+    	EnterRule("T__168", 10);
+    	TraceIn("T__168", 10);
     		try
     		{
     		int _type = T__168;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:26:8: ( '-' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:25:8: ( ',' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:26:10: '-'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:25:10: ','
     		{
-    		DebugLocation(26, 10);
-    		Match('-'); 
+    		DebugLocation(25, 10);
+    		Match(','); 
 
     		}
 
@@ -650,8 +614,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__168", 11);
-    		LeaveRule("T__168", 11);
+    		TraceOut("T__168", 10);
+    		LeaveRule("T__168", 10);
     		LeaveRule_T__168();
         }
     }
@@ -667,18 +631,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__169()
     {
     	EnterRule_T__169();
-    	EnterRule("T__169", 12);
-    	TraceIn("T__169", 12);
+    	EnterRule("T__169", 11);
+    	TraceIn("T__169", 11);
     		try
     		{
     		int _type = T__169;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:27:8: ( '.' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:26:8: ( '-' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:27:10: '.'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:26:10: '-'
     		{
-    		DebugLocation(27, 10);
-    		Match('.'); 
+    		DebugLocation(26, 10);
+    		Match('-'); 
 
     		}
 
@@ -687,8 +651,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__169", 12);
-    		LeaveRule("T__169", 12);
+    		TraceOut("T__169", 11);
+    		LeaveRule("T__169", 11);
     		LeaveRule_T__169();
         }
     }
@@ -704,18 +668,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__170()
     {
     	EnterRule_T__170();
-    	EnterRule("T__170", 13);
-    	TraceIn("T__170", 13);
+    	EnterRule("T__170", 12);
+    	TraceIn("T__170", 12);
     		try
     		{
     		int _type = T__170;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:28:8: ( '/' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:27:8: ( '.' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:28:10: '/'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:27:10: '.'
     		{
-    		DebugLocation(28, 10);
-    		Match('/'); 
+    		DebugLocation(27, 10);
+    		Match('.'); 
 
     		}
 
@@ -724,8 +688,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__170", 13);
-    		LeaveRule("T__170", 13);
+    		TraceOut("T__170", 12);
+    		LeaveRule("T__170", 12);
     		LeaveRule_T__170();
         }
     }
@@ -741,18 +705,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__171()
     {
     	EnterRule_T__171();
-    	EnterRule("T__171", 14);
-    	TraceIn("T__171", 14);
+    	EnterRule("T__171", 13);
+    	TraceIn("T__171", 13);
     		try
     		{
     		int _type = T__171;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:29:8: ( ';' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:28:8: ( '/' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:29:10: ';'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:28:10: '/'
     		{
-    		DebugLocation(29, 10);
-    		Match(';'); 
+    		DebugLocation(28, 10);
+    		Match('/'); 
 
     		}
 
@@ -761,8 +725,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__171", 14);
-    		LeaveRule("T__171", 14);
+    		TraceOut("T__171", 13);
+    		LeaveRule("T__171", 13);
     		LeaveRule_T__171();
         }
     }
@@ -778,18 +742,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__172()
     {
     	EnterRule_T__172();
-    	EnterRule("T__172", 15);
-    	TraceIn("T__172", 15);
+    	EnterRule("T__172", 14);
+    	TraceIn("T__172", 14);
     		try
     		{
     		int _type = T__172;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:30:8: ( '<' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:29:8: ( ';' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:30:10: '<'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:29:10: ';'
     		{
-    		DebugLocation(30, 10);
-    		Match('<'); 
+    		DebugLocation(29, 10);
+    		Match(';'); 
 
     		}
 
@@ -798,8 +762,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__172", 15);
-    		LeaveRule("T__172", 15);
+    		TraceOut("T__172", 14);
+    		LeaveRule("T__172", 14);
     		LeaveRule_T__172();
         }
     }
@@ -815,11 +779,48 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__173()
     {
     	EnterRule_T__173();
-    	EnterRule("T__173", 16);
-    	TraceIn("T__173", 16);
+    	EnterRule("T__173", 15);
+    	TraceIn("T__173", 15);
     		try
     		{
     		int _type = T__173;
+    		int _channel = DefaultTokenChannel;
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:30:8: ( '<' )
+    		DebugEnterAlt(1);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:30:10: '<'
+    		{
+    		DebugLocation(30, 10);
+    		Match('<'); 
+
+    		}
+
+    		state.type = _type;
+    		state.channel = _channel;
+    	}
+    	finally
+    	{
+    		TraceOut("T__173", 15);
+    		LeaveRule("T__173", 15);
+    		LeaveRule_T__173();
+        }
+    }
+    // $ANTLR end "T__173"
+
+    [Conditional("ANTLR_TRACE")]
+    protected virtual void EnterRule_T__174() {}
+    [Conditional("ANTLR_TRACE")]
+    protected virtual void LeaveRule_T__174() {}
+
+    // $ANTLR start "T__174"
+    [GrammarRule("T__174")]
+    private void mT__174()
+    {
+    	EnterRule_T__174();
+    	EnterRule("T__174", 16);
+    	TraceIn("T__174", 16);
+    		try
+    		{
+    		int _type = T__174;
     		int _channel = DefaultTokenChannel;
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:31:8: ( '<=' )
     		DebugEnterAlt(1);
@@ -836,28 +837,28 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__173", 16);
-    		LeaveRule("T__173", 16);
-    		LeaveRule_T__173();
+    		TraceOut("T__174", 16);
+    		LeaveRule("T__174", 16);
+    		LeaveRule_T__174();
         }
     }
-    // $ANTLR end "T__173"
+    // $ANTLR end "T__174"
 
     [Conditional("ANTLR_TRACE")]
-    protected virtual void EnterRule_T__174() {}
+    protected virtual void EnterRule_T__175() {}
     [Conditional("ANTLR_TRACE")]
-    protected virtual void LeaveRule_T__174() {}
+    protected virtual void LeaveRule_T__175() {}
 
-    // $ANTLR start "T__174"
-    [GrammarRule("T__174")]
-    private void mT__174()
+    // $ANTLR start "T__175"
+    [GrammarRule("T__175")]
+    private void mT__175()
     {
-    	EnterRule_T__174();
-    	EnterRule("T__174", 17);
-    	TraceIn("T__174", 17);
+    	EnterRule_T__175();
+    	EnterRule("T__175", 17);
+    	TraceIn("T__175", 17);
     		try
     		{
-    		int _type = T__174;
+    		int _type = T__175;
     		int _channel = DefaultTokenChannel;
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:32:8: ( '<>' )
     		DebugEnterAlt(1);
@@ -874,45 +875,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__174", 17);
-    		LeaveRule("T__174", 17);
-    		LeaveRule_T__174();
-        }
-    }
-    // $ANTLR end "T__174"
-
-    [Conditional("ANTLR_TRACE")]
-    protected virtual void EnterRule_T__175() {}
-    [Conditional("ANTLR_TRACE")]
-    protected virtual void LeaveRule_T__175() {}
-
-    // $ANTLR start "T__175"
-    [GrammarRule("T__175")]
-    private void mT__175()
-    {
-    	EnterRule_T__175();
-    	EnterRule("T__175", 18);
-    	TraceIn("T__175", 18);
-    		try
-    		{
-    		int _type = T__175;
-    		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:33:8: ( '=' )
-    		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:33:10: '='
-    		{
-    		DebugLocation(33, 10);
-    		Match('='); 
-
-    		}
-
-    		state.type = _type;
-    		state.channel = _channel;
-    	}
-    	finally
-    	{
-    		TraceOut("T__175", 18);
-    		LeaveRule("T__175", 18);
+    		TraceOut("T__175", 17);
+    		LeaveRule("T__175", 17);
     		LeaveRule_T__175();
         }
     }
@@ -928,18 +892,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__176()
     {
     	EnterRule_T__176();
-    	EnterRule("T__176", 19);
-    	TraceIn("T__176", 19);
+    	EnterRule("T__176", 18);
+    	TraceIn("T__176", 18);
     		try
     		{
     		int _type = T__176;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:34:8: ( '>' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:33:8: ( '=' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:34:10: '>'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:33:10: '='
     		{
-    		DebugLocation(34, 10);
-    		Match('>'); 
+    		DebugLocation(33, 10);
+    		Match('='); 
 
     		}
 
@@ -948,8 +912,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__176", 19);
-    		LeaveRule("T__176", 19);
+    		TraceOut("T__176", 18);
+    		LeaveRule("T__176", 18);
     		LeaveRule_T__176();
         }
     }
@@ -965,11 +929,48 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__177()
     {
     	EnterRule_T__177();
-    	EnterRule("T__177", 20);
-    	TraceIn("T__177", 20);
+    	EnterRule("T__177", 19);
+    	TraceIn("T__177", 19);
     		try
     		{
     		int _type = T__177;
+    		int _channel = DefaultTokenChannel;
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:34:8: ( '>' )
+    		DebugEnterAlt(1);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:34:10: '>'
+    		{
+    		DebugLocation(34, 10);
+    		Match('>'); 
+
+    		}
+
+    		state.type = _type;
+    		state.channel = _channel;
+    	}
+    	finally
+    	{
+    		TraceOut("T__177", 19);
+    		LeaveRule("T__177", 19);
+    		LeaveRule_T__177();
+        }
+    }
+    // $ANTLR end "T__177"
+
+    [Conditional("ANTLR_TRACE")]
+    protected virtual void EnterRule_T__178() {}
+    [Conditional("ANTLR_TRACE")]
+    protected virtual void LeaveRule_T__178() {}
+
+    // $ANTLR start "T__178"
+    [GrammarRule("T__178")]
+    private void mT__178()
+    {
+    	EnterRule_T__178();
+    	EnterRule("T__178", 20);
+    	TraceIn("T__178", 20);
+    		try
+    		{
+    		int _type = T__178;
     		int _channel = DefaultTokenChannel;
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:35:8: ( '>=' )
     		DebugEnterAlt(1);
@@ -986,45 +987,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__177", 20);
-    		LeaveRule("T__177", 20);
-    		LeaveRule_T__177();
-        }
-    }
-    // $ANTLR end "T__177"
-
-    [Conditional("ANTLR_TRACE")]
-    protected virtual void EnterRule_T__178() {}
-    [Conditional("ANTLR_TRACE")]
-    protected virtual void LeaveRule_T__178() {}
-
-    // $ANTLR start "T__178"
-    [GrammarRule("T__178")]
-    private void mT__178()
-    {
-    	EnterRule_T__178();
-    	EnterRule("T__178", 21);
-    	TraceIn("T__178", 21);
-    		try
-    		{
-    		int _type = T__178;
-    		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:36:8: ( '[' )
-    		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:36:10: '['
-    		{
-    		DebugLocation(36, 10);
-    		Match('['); 
-
-    		}
-
-    		state.type = _type;
-    		state.channel = _channel;
-    	}
-    	finally
-    	{
-    		TraceOut("T__178", 21);
-    		LeaveRule("T__178", 21);
+    		TraceOut("T__178", 20);
+    		LeaveRule("T__178", 20);
     		LeaveRule_T__178();
         }
     }
@@ -1040,18 +1004,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__179()
     {
     	EnterRule_T__179();
-    	EnterRule("T__179", 22);
-    	TraceIn("T__179", 22);
+    	EnterRule("T__179", 21);
+    	TraceIn("T__179", 21);
     		try
     		{
     		int _type = T__179;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:37:8: ( ']' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:36:8: ( '[' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:37:10: ']'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:36:10: '['
     		{
-    		DebugLocation(37, 10);
-    		Match(']'); 
+    		DebugLocation(36, 10);
+    		Match('['); 
 
     		}
 
@@ -1060,8 +1024,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__179", 22);
-    		LeaveRule("T__179", 22);
+    		TraceOut("T__179", 21);
+    		LeaveRule("T__179", 21);
     		LeaveRule_T__179();
         }
     }
@@ -1077,18 +1041,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__180()
     {
     	EnterRule_T__180();
-    	EnterRule("T__180", 23);
-    	TraceIn("T__180", 23);
+    	EnterRule("T__180", 22);
+    	TraceIn("T__180", 22);
     		try
     		{
     		int _type = T__180;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:38:8: ( '^' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:37:8: ( ']' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:38:10: '^'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:37:10: ']'
     		{
-    		DebugLocation(38, 10);
-    		Match('^'); 
+    		DebugLocation(37, 10);
+    		Match(']'); 
 
     		}
 
@@ -1097,8 +1061,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__180", 23);
-    		LeaveRule("T__180", 23);
+    		TraceOut("T__180", 22);
+    		LeaveRule("T__180", 22);
     		LeaveRule_T__180();
         }
     }
@@ -1114,18 +1078,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__181()
     {
     	EnterRule_T__181();
-    	EnterRule("T__181", 24);
-    	TraceIn("T__181", 24);
+    	EnterRule("T__181", 23);
+    	TraceIn("T__181", 23);
     		try
     		{
     		int _type = T__181;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:39:8: ( '|' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:38:8: ( '^' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:39:10: '|'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:38:10: '^'
     		{
-    		DebugLocation(39, 10);
-    		Match('|'); 
+    		DebugLocation(38, 10);
+    		Match('^'); 
 
     		}
 
@@ -1134,8 +1098,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__181", 24);
-    		LeaveRule("T__181", 24);
+    		TraceOut("T__181", 23);
+    		LeaveRule("T__181", 23);
     		LeaveRule_T__181();
         }
     }
@@ -1151,11 +1115,48 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     private void mT__182()
     {
     	EnterRule_T__182();
-    	EnterRule("T__182", 25);
-    	TraceIn("T__182", 25);
+    	EnterRule("T__182", 24);
+    	TraceIn("T__182", 24);
     		try
     		{
     		int _type = T__182;
+    		int _channel = DefaultTokenChannel;
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:39:8: ( '|' )
+    		DebugEnterAlt(1);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:39:10: '|'
+    		{
+    		DebugLocation(39, 10);
+    		Match('|'); 
+
+    		}
+
+    		state.type = _type;
+    		state.channel = _channel;
+    	}
+    	finally
+    	{
+    		TraceOut("T__182", 24);
+    		LeaveRule("T__182", 24);
+    		LeaveRule_T__182();
+        }
+    }
+    // $ANTLR end "T__182"
+
+    [Conditional("ANTLR_TRACE")]
+    protected virtual void EnterRule_T__183() {}
+    [Conditional("ANTLR_TRACE")]
+    protected virtual void LeaveRule_T__183() {}
+
+    // $ANTLR start "T__183"
+    [GrammarRule("T__183")]
+    private void mT__183()
+    {
+    	EnterRule_T__183();
+    	EnterRule("T__183", 25);
+    	TraceIn("T__183", 25);
+    		try
+    		{
+    		int _type = T__183;
     		int _channel = DefaultTokenChannel;
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:40:8: ( '~' )
     		DebugEnterAlt(1);
@@ -1171,12 +1172,12 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	}
     	finally
     	{
-    		TraceOut("T__182", 25);
-    		LeaveRule("T__182", 25);
-    		LeaveRule_T__182();
+    		TraceOut("T__183", 25);
+    		LeaveRule("T__183", 25);
+    		LeaveRule_T__183();
         }
     }
-    // $ANTLR end "T__182"
+    // $ANTLR end "T__183"
 
     [Conditional("ANTLR_TRACE")]
     protected virtual void EnterRule_COMMENT_LINE() {}
@@ -1194,15 +1195,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = COMMENT_LINE;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:467:2: ( '--' ( . )* ( ( '\\r' '\\n' ) | '\\r' | '\\n' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:469:2: ( '--' ( . )* ( ( '\\r' '\\n' ) | '\\r' | '\\n' ) )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:467:4: '--' ( . )* ( ( '\\r' '\\n' ) | '\\r' | '\\n' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:469:4: '--' ( . )* ( ( '\\r' '\\n' ) | '\\r' | '\\n' )
     		{
-    		DebugLocation(467, 4);
+    		DebugLocation(469, 4);
     		Match("--"); 
 
-    		DebugLocation(467, 9);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:467:9: ( . )*
+    		DebugLocation(469, 9);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:469:9: ( . )*
     		try { DebugEnterSubRule(1);
     		while (true)
     		{
@@ -1229,9 +1230,9 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:467:9: .
+    				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:469:9: .
     				{
-    				DebugLocation(467, 9);
+    				DebugLocation(469, 9);
     				MatchAny(); 
 
     				}
@@ -1247,8 +1248,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 
     		} finally { DebugExitSubRule(1); }
 
-    		DebugLocation(467, 12);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:467:12: ( ( '\\r' '\\n' ) | '\\r' | '\\n' )
+    		DebugLocation(469, 12);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:469:12: ( ( '\\r' '\\n' ) | '\\r' | '\\n' )
     		int alt2=3;
     		try { DebugEnterSubRule(2);
     		try { DebugEnterDecision(2, decisionCanBacktrack[2]);
@@ -1282,16 +1283,16 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		case 1:
     			DebugEnterAlt(1);
-    			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:467:13: ( '\\r' '\\n' )
+    			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:469:13: ( '\\r' '\\n' )
     			{
-    			DebugLocation(467, 13);
-    			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:467:13: ( '\\r' '\\n' )
+    			DebugLocation(469, 13);
+    			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:469:13: ( '\\r' '\\n' )
     			DebugEnterAlt(1);
-    			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:467:14: '\\r' '\\n'
+    			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:469:14: '\\r' '\\n'
     			{
-    			DebugLocation(467, 14);
+    			DebugLocation(469, 14);
     			Match('\r'); 
-    			DebugLocation(467, 19);
+    			DebugLocation(469, 19);
     			Match('\n'); 
 
     			}
@@ -1301,18 +1302,18 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     			break;
     		case 2:
     			DebugEnterAlt(2);
-    			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:467:27: '\\r'
+    			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:469:27: '\\r'
     			{
-    			DebugLocation(467, 27);
+    			DebugLocation(469, 27);
     			Match('\r'); 
 
     			}
     			break;
     		case 3:
     			DebugEnterAlt(3);
-    			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:467:34: '\\n'
+    			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:469:34: '\\n'
     			{
-    			DebugLocation(467, 34);
+    			DebugLocation(469, 34);
     			Match('\n'); 
 
     			}
@@ -1321,7 +1322,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		}
     		} finally { DebugExitSubRule(2); }
 
-    		DebugLocation(467, 40);
+    		DebugLocation(469, 40);
     		 Skip(); 
 
     		}
@@ -1354,15 +1355,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = COMMENT_BLOCK;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:476:2: ( '/*' ( . )* '*/' WS )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:478:2: ( '/*' ( . )* '*/' WS )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:476:4: '/*' ( . )* '*/' WS
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:478:4: '/*' ( . )* '*/' WS
     		{
-    		DebugLocation(476, 4);
+    		DebugLocation(478, 4);
     		Match("/*"); 
 
-    		DebugLocation(476, 9);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:476:9: ( . )*
+    		DebugLocation(478, 9);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:478:9: ( . )*
     		try { DebugEnterSubRule(3);
     		while (true)
     		{
@@ -1407,9 +1408,9 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:476:9: .
+    				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:478:9: .
     				{
-    				DebugLocation(476, 9);
+    				DebugLocation(478, 9);
     				MatchAny(); 
 
     				}
@@ -1425,12 +1426,12 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 
     		} finally { DebugExitSubRule(3); }
 
-    		DebugLocation(476, 12);
+    		DebugLocation(478, 12);
     		Match("*/"); 
 
-    		DebugLocation(476, 17);
+    		DebugLocation(478, 17);
     		mWS(); 
-    		DebugLocation(476, 20);
+    		DebugLocation(478, 20);
     		 Skip(); 
 
     		}
@@ -1463,19 +1464,19 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = STRING;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:480:2: ( '\\'' ( (~ ( '\\'' ) | '\\'' '\\'' )* ) '\\'' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:482:2: ( '\\'' ( (~ ( '\\'' ) | '\\'' '\\'' )* ) '\\'' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:480:4: '\\'' ( (~ ( '\\'' ) | '\\'' '\\'' )* ) '\\''
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:482:4: '\\'' ( (~ ( '\\'' ) | '\\'' '\\'' )* ) '\\''
     		{
-    		DebugLocation(480, 4);
+    		DebugLocation(482, 4);
     		Match('\''); 
-    		DebugLocation(480, 9);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:480:9: ( (~ ( '\\'' ) | '\\'' '\\'' )* )
+    		DebugLocation(482, 9);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:482:9: ( (~ ( '\\'' ) | '\\'' '\\'' )* )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:480:11: (~ ( '\\'' ) | '\\'' '\\'' )*
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:482:11: (~ ( '\\'' ) | '\\'' '\\'' )*
     		{
-    		DebugLocation(480, 11);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:480:11: (~ ( '\\'' ) | '\\'' '\\'' )*
+    		DebugLocation(482, 11);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:482:11: (~ ( '\\'' ) | '\\'' '\\'' )*
     		try { DebugEnterSubRule(4);
     		while (true)
     		{
@@ -1505,9 +1506,9 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:480:12: ~ ( '\\'' )
+    				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:482:12: ~ ( '\\'' )
     				{
-    				DebugLocation(480, 12);
+    				DebugLocation(482, 12);
     				input.Consume();
 
 
@@ -1515,11 +1516,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     				break;
     			case 2:
     				DebugEnterAlt(2);
-    				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:480:20: '\\'' '\\''
+    				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:482:20: '\\'' '\\''
     				{
-    				DebugLocation(480, 20);
+    				DebugLocation(482, 20);
     				Match('\''); 
-    				DebugLocation(480, 24);
+    				DebugLocation(482, 24);
     				Match('\''); 
 
     				}
@@ -1538,7 +1539,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 
     		}
 
-    		DebugLocation(480, 33);
+    		DebugLocation(482, 33);
     		Match('\''); 
 
     		}
@@ -1571,14 +1572,14 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = SIMPLE_FILE;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:484:2: ( '[' (~ ( '@' | '\\'' | ']' ) )* ']' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:486:2: ( '[' (~ ( '@' | '\\'' | '(' | ')' | '[' | ']' ) )* ']' )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:484:4: '[' (~ ( '@' | '\\'' | ']' ) )* ']'
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:486:4: '[' (~ ( '@' | '\\'' | '(' | ')' | '[' | ']' ) )* ']'
     		{
-    		DebugLocation(484, 4);
+    		DebugLocation(486, 4);
     		Match('['); 
-    		DebugLocation(484, 8);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:484:8: (~ ( '@' | '\\'' | ']' ) )*
+    		DebugLocation(486, 8);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:486:8: (~ ( '@' | '\\'' | '(' | ')' | '[' | ']' ) )*
     		try { DebugEnterSubRule(5);
     		while (true)
     		{
@@ -1586,7 +1587,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     			try { DebugEnterDecision(5, decisionCanBacktrack[5]);
     			int LA5_0 = input.LA(1);
 
-    			if (((LA5_0>='\u0000' && LA5_0<='&')||(LA5_0>='(' && LA5_0<='?')||(LA5_0>='A' && LA5_0<='\\')||(LA5_0>='^' && LA5_0<='\uFFFF')))
+    			if (((LA5_0>='\u0000' && LA5_0<='&')||(LA5_0>='*' && LA5_0<='?')||(LA5_0>='A' && LA5_0<='Z')||LA5_0=='\\'||(LA5_0>='^' && LA5_0<='\uFFFF')))
     			{
     				alt5 = 1;
     			}
@@ -1599,7 +1600,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     				DebugEnterAlt(1);
     				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     				{
-    				DebugLocation(484, 8);
+    				DebugLocation(486, 8);
     				input.Consume();
 
 
@@ -1616,7 +1617,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 
     		} finally { DebugExitSubRule(5); }
 
-    		DebugLocation(484, 25);
+    		DebugLocation(486, 37);
     		Match(']'); 
 
     		}
@@ -1649,21 +1650,21 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = SELECT;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:488:9: ( S E L E C T )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:490:9: ( S E L E C T )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:488:11: S E L E C T
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:490:11: S E L E C T
     		{
-    		DebugLocation(488, 11);
+    		DebugLocation(490, 11);
     		mS(); 
-    		DebugLocation(488, 13);
+    		DebugLocation(490, 13);
     		mE(); 
-    		DebugLocation(488, 15);
+    		DebugLocation(490, 15);
     		mL(); 
-    		DebugLocation(488, 17);
+    		DebugLocation(490, 17);
     		mE(); 
-    		DebugLocation(488, 19);
+    		DebugLocation(490, 19);
     		mC(); 
-    		DebugLocation(488, 21);
+    		DebugLocation(490, 21);
     		mT(); 
 
     		}
@@ -1696,15 +1697,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = ALL;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:489:5: ( A L L )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:491:5: ( A L L )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:489:7: A L L
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:491:7: A L L
     		{
-    		DebugLocation(489, 7);
+    		DebugLocation(491, 7);
     		mA(); 
-    		DebugLocation(489, 9);
+    		DebugLocation(491, 9);
     		mL(); 
-    		DebugLocation(489, 11);
+    		DebugLocation(491, 11);
     		mL(); 
 
     		}
@@ -1737,25 +1738,25 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = DISTINCT;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:491:2: ( D I S T I N C T )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:493:2: ( D I S T I N C T )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:491:4: D I S T I N C T
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:493:4: D I S T I N C T
     		{
-    		DebugLocation(491, 4);
+    		DebugLocation(493, 4);
     		mD(); 
-    		DebugLocation(491, 6);
+    		DebugLocation(493, 6);
     		mI(); 
-    		DebugLocation(491, 8);
+    		DebugLocation(493, 8);
     		mS(); 
-    		DebugLocation(491, 10);
+    		DebugLocation(493, 10);
     		mT(); 
-    		DebugLocation(491, 12);
+    		DebugLocation(493, 12);
     		mI(); 
-    		DebugLocation(491, 14);
+    		DebugLocation(493, 14);
     		mN(); 
-    		DebugLocation(491, 16);
+    		DebugLocation(493, 16);
     		mC(); 
-    		DebugLocation(491, 18);
+    		DebugLocation(493, 18);
     		mT(); 
 
     		}
@@ -1788,15 +1789,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = TOP;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:492:5: ( T O P )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:494:5: ( T O P )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:492:7: T O P
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:494:7: T O P
     		{
-    		DebugLocation(492, 7);
+    		DebugLocation(494, 7);
     		mT(); 
-    		DebugLocation(492, 9);
+    		DebugLocation(494, 9);
     		mO(); 
-    		DebugLocation(492, 11);
+    		DebugLocation(494, 11);
     		mP(); 
 
     		}
@@ -1829,17 +1830,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = INTO;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:493:6: ( I N T O )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:495:6: ( I N T O )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:493:8: I N T O
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:495:8: I N T O
     		{
-    		DebugLocation(493, 8);
+    		DebugLocation(495, 8);
     		mI(); 
-    		DebugLocation(493, 10);
+    		DebugLocation(495, 10);
     		mN(); 
-    		DebugLocation(493, 12);
+    		DebugLocation(495, 12);
     		mT(); 
-    		DebugLocation(493, 14);
+    		DebugLocation(495, 14);
     		mO(); 
 
     		}
@@ -1872,17 +1873,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = FROM;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:494:7: ( F R O M )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:496:7: ( F R O M )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:494:9: F R O M
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:496:9: F R O M
     		{
-    		DebugLocation(494, 9);
+    		DebugLocation(496, 9);
     		mF(); 
-    		DebugLocation(494, 11);
+    		DebugLocation(496, 11);
     		mR(); 
-    		DebugLocation(494, 13);
+    		DebugLocation(496, 13);
     		mO(); 
-    		DebugLocation(494, 15);
+    		DebugLocation(496, 15);
     		mM(); 
 
     		}
@@ -1915,19 +1916,19 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = WHERE;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:495:8: ( W H E R E )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:497:8: ( W H E R E )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:495:10: W H E R E
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:497:10: W H E R E
     		{
-    		DebugLocation(495, 10);
+    		DebugLocation(497, 10);
     		mW(); 
-    		DebugLocation(495, 12);
+    		DebugLocation(497, 12);
     		mH(); 
-    		DebugLocation(495, 14);
+    		DebugLocation(497, 14);
     		mE(); 
-    		DebugLocation(495, 16);
+    		DebugLocation(497, 16);
     		mR(); 
-    		DebugLocation(495, 18);
+    		DebugLocation(497, 18);
     		mE(); 
 
     		}
@@ -1960,15 +1961,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = NOT;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:497:6: ( N O T )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:499:6: ( N O T )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:497:8: N O T
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:499:8: N O T
     		{
-    		DebugLocation(497, 8);
+    		DebugLocation(499, 8);
     		mN(); 
-    		DebugLocation(497, 10);
+    		DebugLocation(499, 10);
     		mO(); 
-    		DebugLocation(497, 12);
+    		DebugLocation(499, 12);
     		mT(); 
 
     		}
@@ -2001,15 +2002,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = AND;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:498:6: ( A N D )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:500:6: ( A N D )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:498:8: A N D
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:500:8: A N D
     		{
-    		DebugLocation(498, 8);
+    		DebugLocation(500, 8);
     		mA(); 
-    		DebugLocation(498, 10);
+    		DebugLocation(500, 10);
     		mN(); 
-    		DebugLocation(498, 12);
+    		DebugLocation(500, 12);
     		mD(); 
 
     		}
@@ -2042,13 +2043,13 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = OR;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:499:5: ( O R )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:501:5: ( O R )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:499:7: O R
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:501:7: O R
     		{
-    		DebugLocation(499, 7);
+    		DebugLocation(501, 7);
     		mO(); 
-    		DebugLocation(499, 9);
+    		DebugLocation(501, 9);
     		mR(); 
 
     		}
@@ -2081,17 +2082,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = LIKE;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:500:6: ( L I K E )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:502:6: ( L I K E )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:500:8: L I K E
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:502:8: L I K E
     		{
-    		DebugLocation(500, 8);
+    		DebugLocation(502, 8);
     		mL(); 
-    		DebugLocation(500, 10);
+    		DebugLocation(502, 10);
     		mI(); 
-    		DebugLocation(500, 12);
+    		DebugLocation(502, 12);
     		mK(); 
-    		DebugLocation(500, 14);
+    		DebugLocation(502, 14);
     		mE(); 
 
     		}
@@ -2124,19 +2125,19 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = MATCH;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:501:7: ( M A T C H )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:503:7: ( M A T C H )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:501:9: M A T C H
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:503:9: M A T C H
     		{
-    		DebugLocation(501, 9);
+    		DebugLocation(503, 9);
     		mM(); 
-    		DebugLocation(501, 11);
+    		DebugLocation(503, 11);
     		mA(); 
-    		DebugLocation(501, 13);
+    		DebugLocation(503, 13);
     		mT(); 
-    		DebugLocation(501, 15);
+    		DebugLocation(503, 15);
     		mC(); 
-    		DebugLocation(501, 17);
+    		DebugLocation(503, 17);
     		mH(); 
 
     		}
@@ -2169,19 +2170,19 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = GROUP;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:502:7: ( G R O U P )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:504:7: ( G R O U P )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:502:9: G R O U P
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:504:9: G R O U P
     		{
-    		DebugLocation(502, 9);
+    		DebugLocation(504, 9);
     		mG(); 
-    		DebugLocation(502, 11);
+    		DebugLocation(504, 11);
     		mR(); 
-    		DebugLocation(502, 13);
+    		DebugLocation(504, 13);
     		mO(); 
-    		DebugLocation(502, 15);
+    		DebugLocation(504, 15);
     		mU(); 
-    		DebugLocation(502, 17);
+    		DebugLocation(504, 17);
     		mP(); 
 
     		}
@@ -2214,19 +2215,19 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = ORDER;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:503:7: ( O R D E R )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:505:7: ( O R D E R )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:503:9: O R D E R
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:505:9: O R D E R
     		{
-    		DebugLocation(503, 9);
+    		DebugLocation(505, 9);
     		mO(); 
-    		DebugLocation(503, 11);
+    		DebugLocation(505, 11);
     		mR(); 
-    		DebugLocation(503, 13);
+    		DebugLocation(505, 13);
     		mD(); 
-    		DebugLocation(503, 15);
+    		DebugLocation(505, 15);
     		mE(); 
-    		DebugLocation(503, 17);
+    		DebugLocation(505, 17);
     		mR(); 
 
     		}
@@ -2259,13 +2260,13 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = BY;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:504:4: ( B Y )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:506:4: ( B Y )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:504:6: B Y
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:506:6: B Y
     		{
-    		DebugLocation(504, 6);
+    		DebugLocation(506, 6);
     		mB(); 
-    		DebugLocation(504, 8);
+    		DebugLocation(506, 8);
     		mY(); 
 
     		}
@@ -2298,15 +2299,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = ASC;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:505:5: ( A S C )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:507:5: ( A S C )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:505:7: A S C
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:507:7: A S C
     		{
-    		DebugLocation(505, 7);
+    		DebugLocation(507, 7);
     		mA(); 
-    		DebugLocation(505, 9);
+    		DebugLocation(507, 9);
     		mS(); 
-    		DebugLocation(505, 11);
+    		DebugLocation(507, 11);
     		mC(); 
 
     		}
@@ -2339,17 +2340,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = DESC;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:506:6: ( D E S C )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:508:6: ( D E S C )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:506:8: D E S C
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:508:8: D E S C
     		{
-    		DebugLocation(506, 8);
+    		DebugLocation(508, 8);
     		mD(); 
-    		DebugLocation(506, 10);
+    		DebugLocation(508, 10);
     		mE(); 
-    		DebugLocation(506, 12);
+    		DebugLocation(508, 12);
     		mS(); 
-    		DebugLocation(506, 14);
+    		DebugLocation(508, 14);
     		mC(); 
 
     		}
@@ -2382,17 +2383,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = ORIG;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:507:6: ( O R I G )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:509:6: ( O R I G )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:507:8: O R I G
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:509:8: O R I G
     		{
-    		DebugLocation(507, 8);
+    		DebugLocation(509, 8);
     		mO(); 
-    		DebugLocation(507, 10);
+    		DebugLocation(509, 10);
     		mR(); 
-    		DebugLocation(507, 12);
+    		DebugLocation(509, 12);
     		mI(); 
-    		DebugLocation(507, 14);
+    		DebugLocation(509, 14);
     		mG(); 
 
     		}
@@ -2425,23 +2426,23 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = CONVERT;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:508:9: ( C O N V E R T )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:510:9: ( C O N V E R T )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:508:11: C O N V E R T
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:510:11: C O N V E R T
     		{
-    		DebugLocation(508, 11);
+    		DebugLocation(510, 11);
     		mC(); 
-    		DebugLocation(508, 13);
+    		DebugLocation(510, 13);
     		mO(); 
-    		DebugLocation(508, 15);
+    		DebugLocation(510, 15);
     		mN(); 
-    		DebugLocation(508, 17);
+    		DebugLocation(510, 17);
     		mV(); 
-    		DebugLocation(508, 19);
+    		DebugLocation(510, 19);
     		mE(); 
-    		DebugLocation(508, 21);
+    		DebugLocation(510, 21);
     		mR(); 
-    		DebugLocation(508, 23);
+    		DebugLocation(510, 23);
     		mT(); 
 
     		}
@@ -2474,17 +2475,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = CAST;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:509:7: ( C A S T )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:511:7: ( C A S T )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:509:9: C A S T
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:511:9: C A S T
     		{
-    		DebugLocation(509, 9);
+    		DebugLocation(511, 9);
     		mC(); 
-    		DebugLocation(509, 11);
+    		DebugLocation(511, 11);
     		mA(); 
-    		DebugLocation(509, 13);
+    		DebugLocation(511, 13);
     		mS(); 
-    		DebugLocation(509, 15);
+    		DebugLocation(511, 15);
     		mT(); 
 
     		}
@@ -2517,13 +2518,13 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = AS;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:510:9: ( A S )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:512:9: ( A S )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:510:11: A S
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:512:11: A S
     		{
-    		DebugLocation(510, 11);
+    		DebugLocation(512, 11);
     		mA(); 
-    		DebugLocation(510, 13);
+    		DebugLocation(512, 13);
     		mS(); 
 
     		}
@@ -2556,23 +2557,23 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = BETWEEN;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:511:9: ( B E T W E E N )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:513:9: ( B E T W E E N )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:511:11: B E T W E E N
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:513:11: B E T W E E N
     		{
-    		DebugLocation(511, 11);
+    		DebugLocation(513, 11);
     		mB(); 
-    		DebugLocation(511, 13);
+    		DebugLocation(513, 13);
     		mE(); 
-    		DebugLocation(511, 15);
+    		DebugLocation(513, 15);
     		mT(); 
-    		DebugLocation(511, 17);
+    		DebugLocation(513, 17);
     		mW(); 
-    		DebugLocation(511, 19);
+    		DebugLocation(513, 19);
     		mE(); 
-    		DebugLocation(511, 21);
+    		DebugLocation(513, 21);
     		mE(); 
-    		DebugLocation(511, 23);
+    		DebugLocation(513, 23);
     		mN(); 
 
     		}
@@ -2605,13 +2606,13 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = IN;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:512:4: ( I N )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:514:4: ( I N )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:512:6: I N
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:514:6: I N
     		{
-    		DebugLocation(512, 6);
+    		DebugLocation(514, 6);
     		mI(); 
-    		DebugLocation(512, 8);
+    		DebugLocation(514, 8);
     		mN(); 
 
     		}
@@ -2644,15 +2645,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = ANY;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:513:5: ( A N Y )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:515:5: ( A N Y )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:513:7: A N Y
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:515:7: A N Y
     		{
-    		DebugLocation(513, 7);
+    		DebugLocation(515, 7);
     		mA(); 
-    		DebugLocation(513, 9);
+    		DebugLocation(515, 9);
     		mN(); 
-    		DebugLocation(513, 11);
+    		DebugLocation(515, 11);
     		mY(); 
 
     		}
@@ -2685,17 +2686,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = SOME;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:514:6: ( S O M E )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:516:6: ( S O M E )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:514:8: S O M E
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:516:8: S O M E
     		{
-    		DebugLocation(514, 8);
+    		DebugLocation(516, 8);
     		mS(); 
-    		DebugLocation(514, 10);
+    		DebugLocation(516, 10);
     		mO(); 
-    		DebugLocation(514, 12);
+    		DebugLocation(516, 12);
     		mM(); 
-    		DebugLocation(514, 14);
+    		DebugLocation(516, 14);
     		mE(); 
 
     		}
@@ -2728,21 +2729,21 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = EXISTS;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:515:9: ( E X I S T S )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:517:9: ( E X I S T S )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:515:11: E X I S T S
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:517:11: E X I S T S
     		{
-    		DebugLocation(515, 11);
+    		DebugLocation(517, 11);
     		mE(); 
-    		DebugLocation(515, 13);
+    		DebugLocation(517, 13);
     		mX(); 
-    		DebugLocation(515, 15);
+    		DebugLocation(517, 15);
     		mI(); 
-    		DebugLocation(515, 17);
+    		DebugLocation(517, 17);
     		mS(); 
-    		DebugLocation(515, 19);
+    		DebugLocation(517, 19);
     		mT(); 
-    		DebugLocation(515, 21);
+    		DebugLocation(517, 21);
     		mS(); 
 
     		}
@@ -2775,17 +2776,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = CASE;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:516:7: ( C A S E )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:518:7: ( C A S E )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:516:9: C A S E
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:518:9: C A S E
     		{
-    		DebugLocation(516, 9);
+    		DebugLocation(518, 9);
     		mC(); 
-    		DebugLocation(516, 11);
+    		DebugLocation(518, 11);
     		mA(); 
-    		DebugLocation(516, 13);
+    		DebugLocation(518, 13);
     		mS(); 
-    		DebugLocation(516, 15);
+    		DebugLocation(518, 15);
     		mE(); 
 
     		}
@@ -2818,17 +2819,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = WHEN;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:517:6: ( W H E N )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:519:6: ( W H E N )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:517:8: W H E N
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:519:8: W H E N
     		{
-    		DebugLocation(517, 8);
+    		DebugLocation(519, 8);
     		mW(); 
-    		DebugLocation(517, 10);
+    		DebugLocation(519, 10);
     		mH(); 
-    		DebugLocation(517, 12);
+    		DebugLocation(519, 12);
     		mE(); 
-    		DebugLocation(517, 14);
+    		DebugLocation(519, 14);
     		mN(); 
 
     		}
@@ -2861,17 +2862,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = THEN;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:518:6: ( T H E N )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:520:6: ( T H E N )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:518:8: T H E N
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:520:8: T H E N
     		{
-    		DebugLocation(518, 8);
+    		DebugLocation(520, 8);
     		mT(); 
-    		DebugLocation(518, 10);
+    		DebugLocation(520, 10);
     		mH(); 
-    		DebugLocation(518, 12);
+    		DebugLocation(520, 12);
     		mE(); 
-    		DebugLocation(518, 14);
+    		DebugLocation(520, 14);
     		mN(); 
 
     		}
@@ -2904,17 +2905,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = ELSE;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:519:6: ( E L S E )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:521:6: ( E L S E )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:519:8: E L S E
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:521:8: E L S E
     		{
-    		DebugLocation(519, 8);
+    		DebugLocation(521, 8);
     		mE(); 
-    		DebugLocation(519, 10);
+    		DebugLocation(521, 10);
     		mL(); 
-    		DebugLocation(519, 12);
+    		DebugLocation(521, 12);
     		mS(); 
-    		DebugLocation(519, 14);
+    		DebugLocation(521, 14);
     		mE(); 
 
     		}
@@ -2947,15 +2948,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = END;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:520:5: ( E N D )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:522:5: ( E N D )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:520:7: E N D
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:522:7: E N D
     		{
-    		DebugLocation(520, 7);
+    		DebugLocation(522, 7);
     		mE(); 
-    		DebugLocation(520, 9);
+    		DebugLocation(522, 9);
     		mN(); 
-    		DebugLocation(520, 11);
+    		DebugLocation(522, 11);
     		mD(); 
 
     		}
@@ -2988,15 +2989,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = USE;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:521:9: ( U S E )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:523:9: ( U S E )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:521:11: U S E
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:523:11: U S E
     		{
-    		DebugLocation(521, 11);
+    		DebugLocation(523, 11);
     		mU(); 
-    		DebugLocation(521, 13);
+    		DebugLocation(523, 13);
     		mS(); 
-    		DebugLocation(521, 15);
+    		DebugLocation(523, 15);
     		mE(); 
 
     		}
@@ -3029,23 +3030,23 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = DECLARE;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:522:9: ( D E C L A R E )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:524:9: ( D E C L A R E )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:522:11: D E C L A R E
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:524:11: D E C L A R E
     		{
-    		DebugLocation(522, 11);
+    		DebugLocation(524, 11);
     		mD(); 
-    		DebugLocation(522, 13);
+    		DebugLocation(524, 13);
     		mE(); 
-    		DebugLocation(522, 15);
+    		DebugLocation(524, 15);
     		mC(); 
-    		DebugLocation(522, 17);
+    		DebugLocation(524, 17);
     		mL(); 
-    		DebugLocation(522, 19);
+    		DebugLocation(524, 19);
     		mA(); 
-    		DebugLocation(522, 21);
+    		DebugLocation(524, 21);
     		mR(); 
-    		DebugLocation(522, 23);
+    		DebugLocation(524, 23);
     		mE(); 
 
     		}
@@ -3078,15 +3079,15 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = SET;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:523:9: ( S E T )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:525:9: ( S E T )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:523:11: S E T
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:525:11: S E T
     		{
-    		DebugLocation(523, 11);
+    		DebugLocation(525, 11);
     		mS(); 
-    		DebugLocation(523, 13);
+    		DebugLocation(525, 13);
     		mE(); 
-    		DebugLocation(523, 15);
+    		DebugLocation(525, 15);
     		mT(); 
 
     		}
@@ -3119,21 +3120,21 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = CREATE;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:524:8: ( C R E A T E )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:526:8: ( C R E A T E )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:524:10: C R E A T E
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:526:10: C R E A T E
     		{
-    		DebugLocation(524, 10);
+    		DebugLocation(526, 10);
     		mC(); 
-    		DebugLocation(524, 12);
+    		DebugLocation(526, 12);
     		mR(); 
-    		DebugLocation(524, 14);
+    		DebugLocation(526, 14);
     		mE(); 
-    		DebugLocation(524, 16);
+    		DebugLocation(526, 16);
     		mA(); 
-    		DebugLocation(524, 18);
+    		DebugLocation(526, 18);
     		mT(); 
-    		DebugLocation(524, 20);
+    		DebugLocation(526, 20);
     		mE(); 
 
     		}
@@ -3166,17 +3167,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = VIEW;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:525:6: ( V I E W )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:527:6: ( V I E W )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:525:8: V I E W
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:527:8: V I E W
     		{
-    		DebugLocation(525, 8);
+    		DebugLocation(527, 8);
     		mV(); 
-    		DebugLocation(525, 10);
+    		DebugLocation(527, 10);
     		mI(); 
-    		DebugLocation(525, 12);
+    		DebugLocation(527, 12);
     		mE(); 
-    		DebugLocation(525, 14);
+    		DebugLocation(527, 14);
     		mW(); 
 
     		}
@@ -3209,19 +3210,19 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = TABLE;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:526:7: ( T A B L E )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:528:7: ( T A B L E )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:526:9: T A B L E
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:528:9: T A B L E
     		{
-    		DebugLocation(526, 9);
+    		DebugLocation(528, 9);
     		mT(); 
-    		DebugLocation(526, 11);
+    		DebugLocation(528, 11);
     		mA(); 
-    		DebugLocation(526, 13);
+    		DebugLocation(528, 13);
     		mB(); 
-    		DebugLocation(526, 15);
+    		DebugLocation(528, 15);
     		mL(); 
-    		DebugLocation(526, 17);
+    		DebugLocation(528, 17);
     		mE(); 
 
     		}
@@ -3254,17 +3255,17 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = DROP;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:527:6: ( D R O P )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:529:6: ( D R O P )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:527:8: D R O P
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:529:8: D R O P
     		{
-    		DebugLocation(527, 8);
+    		DebugLocation(529, 8);
     		mD(); 
-    		DebugLocation(527, 10);
+    		DebugLocation(529, 10);
     		mR(); 
-    		DebugLocation(527, 12);
+    		DebugLocation(529, 12);
     		mO(); 
-    		DebugLocation(527, 14);
+    		DebugLocation(529, 14);
     		mP(); 
 
     		}
@@ -3297,21 +3298,21 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = HAVING;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:528:8: ( H A V I N G )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:530:8: ( H A V I N G )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:528:10: H A V I N G
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:530:10: H A V I N G
     		{
-    		DebugLocation(528, 10);
+    		DebugLocation(530, 10);
     		mH(); 
-    		DebugLocation(528, 12);
+    		DebugLocation(530, 12);
     		mA(); 
-    		DebugLocation(528, 14);
+    		DebugLocation(530, 14);
     		mV(); 
-    		DebugLocation(528, 16);
+    		DebugLocation(530, 16);
     		mI(); 
-    		DebugLocation(528, 18);
+    		DebugLocation(530, 18);
     		mN(); 
-    		DebugLocation(528, 20);
+    		DebugLocation(530, 20);
     		mG(); 
 
     		}
@@ -3344,19 +3345,19 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = COUNT;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:529:8: ( C O U N T )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:531:8: ( C O U N T )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:529:10: C O U N T
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:531:10: C O U N T
     		{
-    		DebugLocation(529, 10);
+    		DebugLocation(531, 10);
     		mC(); 
-    		DebugLocation(529, 12);
+    		DebugLocation(531, 12);
     		mO(); 
-    		DebugLocation(529, 14);
+    		DebugLocation(531, 14);
     		mU(); 
-    		DebugLocation(529, 16);
+    		DebugLocation(531, 16);
     		mN(); 
-    		DebugLocation(529, 18);
+    		DebugLocation(531, 18);
     		mT(); 
 
     		}
@@ -3389,23 +3390,23 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = DATEADD;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:530:9: ( D A T E A D D )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:532:9: ( D A T E A D D )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:530:11: D A T E A D D
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:532:11: D A T E A D D
     		{
-    		DebugLocation(530, 11);
+    		DebugLocation(532, 11);
     		mD(); 
-    		DebugLocation(530, 13);
+    		DebugLocation(532, 13);
     		mA(); 
-    		DebugLocation(530, 15);
+    		DebugLocation(532, 15);
     		mT(); 
-    		DebugLocation(530, 17);
+    		DebugLocation(532, 17);
     		mE(); 
-    		DebugLocation(530, 19);
+    		DebugLocation(532, 19);
     		mA(); 
-    		DebugLocation(530, 21);
+    		DebugLocation(532, 21);
     		mD(); 
-    		DebugLocation(530, 23);
+    		DebugLocation(532, 23);
     		mD(); 
 
     		}
@@ -3438,25 +3439,25 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = DATEDIFF;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:531:9: ( D A T E D I F F )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:533:9: ( D A T E D I F F )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:531:11: D A T E D I F F
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:533:11: D A T E D I F F
     		{
-    		DebugLocation(531, 11);
+    		DebugLocation(533, 11);
     		mD(); 
-    		DebugLocation(531, 13);
+    		DebugLocation(533, 13);
     		mA(); 
-    		DebugLocation(531, 15);
+    		DebugLocation(533, 15);
     		mT(); 
-    		DebugLocation(531, 17);
+    		DebugLocation(533, 17);
     		mE(); 
-    		DebugLocation(531, 19);
+    		DebugLocation(533, 19);
     		mD(); 
-    		DebugLocation(531, 21);
+    		DebugLocation(533, 21);
     		mI(); 
-    		DebugLocation(531, 23);
+    		DebugLocation(533, 23);
     		mF(); 
-    		DebugLocation(531, 25);
+    		DebugLocation(533, 25);
     		mF(); 
 
     		}
@@ -3489,25 +3490,25 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = DATEPART;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:532:9: ( D A T E P A R T )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:534:9: ( D A T E P A R T )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:532:11: D A T E P A R T
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:534:11: D A T E P A R T
     		{
-    		DebugLocation(532, 11);
+    		DebugLocation(534, 11);
     		mD(); 
-    		DebugLocation(532, 13);
+    		DebugLocation(534, 13);
     		mA(); 
-    		DebugLocation(532, 15);
+    		DebugLocation(534, 15);
     		mT(); 
-    		DebugLocation(532, 17);
+    		DebugLocation(534, 17);
     		mE(); 
-    		DebugLocation(532, 19);
+    		DebugLocation(534, 19);
     		mP(); 
-    		DebugLocation(532, 21);
+    		DebugLocation(534, 21);
     		mA(); 
-    		DebugLocation(532, 23);
+    		DebugLocation(534, 23);
     		mR(); 
-    		DebugLocation(532, 25);
+    		DebugLocation(534, 25);
     		mT(); 
 
     		}
@@ -3540,11 +3541,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = TOKEN;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:535:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:537:2: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:535:4: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:537:4: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
     		{
-    		DebugLocation(535, 4);
+    		DebugLocation(537, 4);
     		if ((input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z'))
     		{
     			input.Consume();
@@ -3557,8 +3558,8 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     			throw mse;
     		}
 
-    		DebugLocation(535, 32);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:535:32: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
+    		DebugLocation(537, 32);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:537:32: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
     		try { DebugEnterSubRule(6);
     		while (true)
     		{
@@ -3579,7 +3580,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     				DebugEnterAlt(1);
     				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     				{
-    				DebugLocation(535, 32);
+    				DebugLocation(537, 32);
     				input.Consume();
 
 
@@ -3627,13 +3628,13 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = SYSTEMVAR;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:539:2: ( '$' TOKEN )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:541:2: ( '$' TOKEN )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:539:4: '$' TOKEN
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:541:4: '$' TOKEN
     		{
-    		DebugLocation(539, 4);
+    		DebugLocation(541, 4);
     		Match('$'); 
-    		DebugLocation(539, 8);
+    		DebugLocation(541, 8);
     		mTOKEN(); 
 
     		}
@@ -3666,13 +3667,13 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = VARIABLE;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:543:2: ( '@' TOKEN )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:545:2: ( '@' TOKEN )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:543:4: '@' TOKEN
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:545:4: '@' TOKEN
     		{
-    		DebugLocation(543, 4);
+    		DebugLocation(545, 4);
     		Match('@'); 
-    		DebugLocation(543, 8);
+    		DebugLocation(545, 8);
     		mTOKEN(); 
 
     		}
@@ -3705,12 +3706,12 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = NUMBER;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:547:2: ( ( DIGIT )+ )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:549:2: ( ( DIGIT )+ )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:547:4: ( DIGIT )+
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:549:4: ( DIGIT )+
     		{
-    		DebugLocation(547, 4);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:547:4: ( DIGIT )+
+    		DebugLocation(549, 4);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:549:4: ( DIGIT )+
     		int cnt7=0;
     		try { DebugEnterSubRule(7);
     		while (true)
@@ -3732,7 +3733,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     				DebugEnterAlt(1);
     				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     				{
-    				DebugLocation(547, 4);
+    				DebugLocation(549, 4);
     				input.Consume();
 
 
@@ -3785,12 +3786,12 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = WS;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:551:2: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:553:2: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+ )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:551:4: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:553:4: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
     		{
-    		DebugLocation(551, 4);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:551:4: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
+    		DebugLocation(553, 4);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:553:4: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
     		int cnt8=0;
     		try { DebugEnterSubRule(8);
     		while (true)
@@ -3812,7 +3813,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     				DebugEnterAlt(1);
     				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     				{
-    				DebugLocation(551, 4);
+    				DebugLocation(553, 4);
     				input.Consume();
 
 
@@ -3863,11 +3864,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("DIGIT", 78);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:556:16: ( '0' .. '9' )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:558:16: ( '0' .. '9' )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(556, 16);
+    		DebugLocation(558, 16);
     		if ((input.LA(1)>='0' && input.LA(1)<='9'))
     		{
     			input.Consume();
@@ -3907,11 +3908,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("A", 79);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:558:11: ( ( 'a' | 'A' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:560:11: ( ( 'a' | 'A' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(558, 11);
+    		DebugLocation(560, 11);
     		if (input.LA(1)=='A'||input.LA(1)=='a')
     		{
     			input.Consume();
@@ -3951,11 +3952,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("B", 80);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:559:11: ( ( 'b' | 'B' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:561:11: ( ( 'b' | 'B' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(559, 11);
+    		DebugLocation(561, 11);
     		if (input.LA(1)=='B'||input.LA(1)=='b')
     		{
     			input.Consume();
@@ -3995,11 +3996,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("C", 81);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:560:11: ( ( 'c' | 'C' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:562:11: ( ( 'c' | 'C' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(560, 11);
+    		DebugLocation(562, 11);
     		if (input.LA(1)=='C'||input.LA(1)=='c')
     		{
     			input.Consume();
@@ -4039,11 +4040,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("D", 82);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:561:11: ( ( 'd' | 'D' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:563:11: ( ( 'd' | 'D' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(561, 11);
+    		DebugLocation(563, 11);
     		if (input.LA(1)=='D'||input.LA(1)=='d')
     		{
     			input.Consume();
@@ -4083,11 +4084,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("E", 83);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:562:11: ( ( 'e' | 'E' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:564:11: ( ( 'e' | 'E' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(562, 11);
+    		DebugLocation(564, 11);
     		if (input.LA(1)=='E'||input.LA(1)=='e')
     		{
     			input.Consume();
@@ -4127,11 +4128,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("F", 84);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:563:11: ( ( 'f' | 'F' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:565:11: ( ( 'f' | 'F' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(563, 11);
+    		DebugLocation(565, 11);
     		if (input.LA(1)=='F'||input.LA(1)=='f')
     		{
     			input.Consume();
@@ -4171,11 +4172,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("G", 85);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:564:11: ( ( 'g' | 'G' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:566:11: ( ( 'g' | 'G' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(564, 11);
+    		DebugLocation(566, 11);
     		if (input.LA(1)=='G'||input.LA(1)=='g')
     		{
     			input.Consume();
@@ -4215,11 +4216,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("H", 86);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:565:11: ( ( 'h' | 'H' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:567:11: ( ( 'h' | 'H' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(565, 11);
+    		DebugLocation(567, 11);
     		if (input.LA(1)=='H'||input.LA(1)=='h')
     		{
     			input.Consume();
@@ -4259,11 +4260,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("I", 87);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:566:11: ( ( 'i' | 'I' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:568:11: ( ( 'i' | 'I' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(566, 11);
+    		DebugLocation(568, 11);
     		if (input.LA(1)=='I'||input.LA(1)=='i')
     		{
     			input.Consume();
@@ -4303,11 +4304,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("J", 88);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:567:11: ( ( 'j' | 'J' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:569:11: ( ( 'j' | 'J' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(567, 11);
+    		DebugLocation(569, 11);
     		if (input.LA(1)=='J'||input.LA(1)=='j')
     		{
     			input.Consume();
@@ -4347,11 +4348,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("K", 89);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:568:11: ( ( 'k' | 'K' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:570:11: ( ( 'k' | 'K' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(568, 11);
+    		DebugLocation(570, 11);
     		if (input.LA(1)=='K'||input.LA(1)=='k')
     		{
     			input.Consume();
@@ -4391,11 +4392,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("L", 90);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:569:11: ( ( 'l' | 'L' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:571:11: ( ( 'l' | 'L' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(569, 11);
+    		DebugLocation(571, 11);
     		if (input.LA(1)=='L'||input.LA(1)=='l')
     		{
     			input.Consume();
@@ -4435,11 +4436,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("M", 91);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:570:11: ( ( 'm' | 'M' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:572:11: ( ( 'm' | 'M' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(570, 11);
+    		DebugLocation(572, 11);
     		if (input.LA(1)=='M'||input.LA(1)=='m')
     		{
     			input.Consume();
@@ -4479,11 +4480,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("N", 92);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:571:11: ( ( 'n' | 'N' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:573:11: ( ( 'n' | 'N' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(571, 11);
+    		DebugLocation(573, 11);
     		if (input.LA(1)=='N'||input.LA(1)=='n')
     		{
     			input.Consume();
@@ -4523,11 +4524,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("O", 93);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:572:11: ( ( 'o' | 'O' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:574:11: ( ( 'o' | 'O' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(572, 11);
+    		DebugLocation(574, 11);
     		if (input.LA(1)=='O'||input.LA(1)=='o')
     		{
     			input.Consume();
@@ -4567,11 +4568,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("P", 94);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:573:11: ( ( 'p' | 'P' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:575:11: ( ( 'p' | 'P' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(573, 11);
+    		DebugLocation(575, 11);
     		if (input.LA(1)=='P'||input.LA(1)=='p')
     		{
     			input.Consume();
@@ -4611,11 +4612,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("Q", 95);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:574:11: ( ( 'q' | 'Q' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:576:11: ( ( 'q' | 'Q' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(574, 11);
+    		DebugLocation(576, 11);
     		if (input.LA(1)=='Q'||input.LA(1)=='q')
     		{
     			input.Consume();
@@ -4655,11 +4656,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("R", 96);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:575:11: ( ( 'r' | 'R' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:577:11: ( ( 'r' | 'R' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(575, 11);
+    		DebugLocation(577, 11);
     		if (input.LA(1)=='R'||input.LA(1)=='r')
     		{
     			input.Consume();
@@ -4699,11 +4700,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("S", 97);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:576:11: ( ( 's' | 'S' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:578:11: ( ( 's' | 'S' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(576, 11);
+    		DebugLocation(578, 11);
     		if (input.LA(1)=='S'||input.LA(1)=='s')
     		{
     			input.Consume();
@@ -4743,11 +4744,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("T", 98);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:577:11: ( ( 't' | 'T' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:579:11: ( ( 't' | 'T' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(577, 11);
+    		DebugLocation(579, 11);
     		if (input.LA(1)=='T'||input.LA(1)=='t')
     		{
     			input.Consume();
@@ -4787,11 +4788,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("U", 99);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:578:11: ( ( 'u' | 'U' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:580:11: ( ( 'u' | 'U' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(578, 11);
+    		DebugLocation(580, 11);
     		if (input.LA(1)=='U'||input.LA(1)=='u')
     		{
     			input.Consume();
@@ -4831,11 +4832,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("V", 100);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:579:11: ( ( 'v' | 'V' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:581:11: ( ( 'v' | 'V' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(579, 11);
+    		DebugLocation(581, 11);
     		if (input.LA(1)=='V'||input.LA(1)=='v')
     		{
     			input.Consume();
@@ -4875,11 +4876,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("W", 101);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:580:11: ( ( 'w' | 'W' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:582:11: ( ( 'w' | 'W' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(580, 11);
+    		DebugLocation(582, 11);
     		if (input.LA(1)=='W'||input.LA(1)=='w')
     		{
     			input.Consume();
@@ -4919,11 +4920,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("X", 102);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:581:11: ( ( 'x' | 'X' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:583:11: ( ( 'x' | 'X' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(581, 11);
+    		DebugLocation(583, 11);
     		if (input.LA(1)=='X'||input.LA(1)=='x')
     		{
     			input.Consume();
@@ -4963,11 +4964,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("Y", 103);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:582:11: ( ( 'y' | 'Y' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:584:11: ( ( 'y' | 'Y' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(582, 11);
+    		DebugLocation(584, 11);
     		if (input.LA(1)=='Y'||input.LA(1)=='y')
     		{
     			input.Consume();
@@ -5007,11 +5008,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	TraceIn("Z", 104);
     		try
     		{
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:583:11: ( ( 'z' | 'Z' ) )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:585:11: ( ( 'z' | 'Z' ) )
     		DebugEnterAlt(1);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     		{
-    		DebugLocation(583, 11);
+    		DebugLocation(585, 11);
     		if (input.LA(1)=='Z'||input.LA(1)=='z')
     		{
     			input.Consume();
@@ -5039,7 +5040,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 
     public override void mTokens()
     {
-    	// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:8: ( T__158 | T__159 | T__160 | T__161 | T__162 | T__163 | T__164 | T__165 | T__166 | T__167 | T__168 | T__169 | T__170 | T__171 | T__172 | T__173 | T__174 | T__175 | T__176 | T__177 | T__178 | T__179 | T__180 | T__181 | T__182 | COMMENT_LINE | COMMENT_BLOCK | STRING | SIMPLE_FILE | SELECT | ALL | DISTINCT | TOP | INTO | FROM | WHERE | NOT | AND | OR | LIKE | MATCH | GROUP | ORDER | BY | ASC | DESC | ORIG | CONVERT | CAST | AS | BETWEEN | IN | ANY | SOME | EXISTS | CASE | WHEN | THEN | ELSE | END | USE | DECLARE | SET | CREATE | VIEW | TABLE | DROP | HAVING | COUNT | DATEADD | DATEDIFF | DATEPART | TOKEN | SYSTEMVAR | VARIABLE | NUMBER | WS )
+    	// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:8: ( T__159 | T__160 | T__161 | T__162 | T__163 | T__164 | T__165 | T__166 | T__167 | T__168 | T__169 | T__170 | T__171 | T__172 | T__173 | T__174 | T__175 | T__176 | T__177 | T__178 | T__179 | T__180 | T__181 | T__182 | T__183 | COMMENT_LINE | COMMENT_BLOCK | STRING | SIMPLE_FILE | SELECT | ALL | DISTINCT | TOP | INTO | FROM | WHERE | NOT | AND | OR | LIKE | MATCH | GROUP | ORDER | BY | ASC | DESC | ORIG | CONVERT | CAST | AS | BETWEEN | IN | ANY | SOME | EXISTS | CASE | WHEN | THEN | ELSE | END | USE | DECLARE | SET | CREATE | VIEW | TABLE | DROP | HAVING | COUNT | DATEADD | DATEDIFF | DATEPART | TOKEN | SYSTEMVAR | VARIABLE | NUMBER | WS )
     	int alt9=77;
     	try { DebugEnterDecision(9, decisionCanBacktrack[9]);
     	try
@@ -5056,226 +5057,226 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     	{
     	case 1:
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:10: T__158
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:10: T__159
     		{
     		DebugLocation(1, 10);
-    		mT__158(); 
+    		mT__159(); 
 
     		}
     		break;
     	case 2:
     		DebugEnterAlt(2);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:17: T__159
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:17: T__160
     		{
     		DebugLocation(1, 17);
-    		mT__159(); 
+    		mT__160(); 
 
     		}
     		break;
     	case 3:
     		DebugEnterAlt(3);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:24: T__160
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:24: T__161
     		{
     		DebugLocation(1, 24);
-    		mT__160(); 
+    		mT__161(); 
 
     		}
     		break;
     	case 4:
     		DebugEnterAlt(4);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:31: T__161
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:31: T__162
     		{
     		DebugLocation(1, 31);
-    		mT__161(); 
+    		mT__162(); 
 
     		}
     		break;
     	case 5:
     		DebugEnterAlt(5);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:38: T__162
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:38: T__163
     		{
     		DebugLocation(1, 38);
-    		mT__162(); 
+    		mT__163(); 
 
     		}
     		break;
     	case 6:
     		DebugEnterAlt(6);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:45: T__163
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:45: T__164
     		{
     		DebugLocation(1, 45);
-    		mT__163(); 
+    		mT__164(); 
 
     		}
     		break;
     	case 7:
     		DebugEnterAlt(7);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:52: T__164
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:52: T__165
     		{
     		DebugLocation(1, 52);
-    		mT__164(); 
+    		mT__165(); 
 
     		}
     		break;
     	case 8:
     		DebugEnterAlt(8);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:59: T__165
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:59: T__166
     		{
     		DebugLocation(1, 59);
-    		mT__165(); 
+    		mT__166(); 
 
     		}
     		break;
     	case 9:
     		DebugEnterAlt(9);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:66: T__166
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:66: T__167
     		{
     		DebugLocation(1, 66);
-    		mT__166(); 
+    		mT__167(); 
 
     		}
     		break;
     	case 10:
     		DebugEnterAlt(10);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:73: T__167
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:73: T__168
     		{
     		DebugLocation(1, 73);
-    		mT__167(); 
+    		mT__168(); 
 
     		}
     		break;
     	case 11:
     		DebugEnterAlt(11);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:80: T__168
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:80: T__169
     		{
     		DebugLocation(1, 80);
-    		mT__168(); 
+    		mT__169(); 
 
     		}
     		break;
     	case 12:
     		DebugEnterAlt(12);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:87: T__169
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:87: T__170
     		{
     		DebugLocation(1, 87);
-    		mT__169(); 
+    		mT__170(); 
 
     		}
     		break;
     	case 13:
     		DebugEnterAlt(13);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:94: T__170
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:94: T__171
     		{
     		DebugLocation(1, 94);
-    		mT__170(); 
+    		mT__171(); 
 
     		}
     		break;
     	case 14:
     		DebugEnterAlt(14);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:101: T__171
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:101: T__172
     		{
     		DebugLocation(1, 101);
-    		mT__171(); 
+    		mT__172(); 
 
     		}
     		break;
     	case 15:
     		DebugEnterAlt(15);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:108: T__172
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:108: T__173
     		{
     		DebugLocation(1, 108);
-    		mT__172(); 
+    		mT__173(); 
 
     		}
     		break;
     	case 16:
     		DebugEnterAlt(16);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:115: T__173
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:115: T__174
     		{
     		DebugLocation(1, 115);
-    		mT__173(); 
+    		mT__174(); 
 
     		}
     		break;
     	case 17:
     		DebugEnterAlt(17);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:122: T__174
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:122: T__175
     		{
     		DebugLocation(1, 122);
-    		mT__174(); 
+    		mT__175(); 
 
     		}
     		break;
     	case 18:
     		DebugEnterAlt(18);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:129: T__175
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:129: T__176
     		{
     		DebugLocation(1, 129);
-    		mT__175(); 
+    		mT__176(); 
 
     		}
     		break;
     	case 19:
     		DebugEnterAlt(19);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:136: T__176
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:136: T__177
     		{
     		DebugLocation(1, 136);
-    		mT__176(); 
+    		mT__177(); 
 
     		}
     		break;
     	case 20:
     		DebugEnterAlt(20);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:143: T__177
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:143: T__178
     		{
     		DebugLocation(1, 143);
-    		mT__177(); 
+    		mT__178(); 
 
     		}
     		break;
     	case 21:
     		DebugEnterAlt(21);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:150: T__178
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:150: T__179
     		{
     		DebugLocation(1, 150);
-    		mT__178(); 
+    		mT__179(); 
 
     		}
     		break;
     	case 22:
     		DebugEnterAlt(22);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:157: T__179
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:157: T__180
     		{
     		DebugLocation(1, 157);
-    		mT__179(); 
+    		mT__180(); 
 
     		}
     		break;
     	case 23:
     		DebugEnterAlt(23);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:164: T__180
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:164: T__181
     		{
     		DebugLocation(1, 164);
-    		mT__180(); 
+    		mT__181(); 
 
     		}
     		break;
     	case 24:
     		DebugEnterAlt(24);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:171: T__181
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:171: T__182
     		{
     		DebugLocation(1, 171);
-    		mT__181(); 
+    		mT__182(); 
 
     		}
     		break;
     	case 25:
     		DebugEnterAlt(25);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:178: T__182
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:178: T__183
     		{
     		DebugLocation(1, 178);
-    		mT__182(); 
+    		mT__183(); 
 
     		}
     		break;
@@ -5858,7 +5859,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 				"\x1\x34\x1\x35",
 				"",
 				"\x1\x37",
-				"\x27\x3A\x1\xFFFF\x18\x3A\x1\xFFFF\xFFBF\x3A",
+				"\x27\x3A\x3\xFFFF\x16\x3A\x1\xFFFF\x1A\x3A\x1\xFFFF\xFFA4\x3A",
 				"",
 				"",
 				"",
@@ -6119,7 +6120,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 			this.transition = DFA9_transition;
 		}
 
-		public override string Description { get { return "1:1: Tokens : ( T__158 | T__159 | T__160 | T__161 | T__162 | T__163 | T__164 | T__165 | T__166 | T__167 | T__168 | T__169 | T__170 | T__171 | T__172 | T__173 | T__174 | T__175 | T__176 | T__177 | T__178 | T__179 | T__180 | T__181 | T__182 | COMMENT_LINE | COMMENT_BLOCK | STRING | SIMPLE_FILE | SELECT | ALL | DISTINCT | TOP | INTO | FROM | WHERE | NOT | AND | OR | LIKE | MATCH | GROUP | ORDER | BY | ASC | DESC | ORIG | CONVERT | CAST | AS | BETWEEN | IN | ANY | SOME | EXISTS | CASE | WHEN | THEN | ELSE | END | USE | DECLARE | SET | CREATE | VIEW | TABLE | DROP | HAVING | COUNT | DATEADD | DATEDIFF | DATEPART | TOKEN | SYSTEMVAR | VARIABLE | NUMBER | WS );"; } }
+		public override string Description { get { return "1:1: Tokens : ( T__159 | T__160 | T__161 | T__162 | T__163 | T__164 | T__165 | T__166 | T__167 | T__168 | T__169 | T__170 | T__171 | T__172 | T__173 | T__174 | T__175 | T__176 | T__177 | T__178 | T__179 | T__180 | T__181 | T__182 | T__183 | COMMENT_LINE | COMMENT_BLOCK | STRING | SIMPLE_FILE | SELECT | ALL | DISTINCT | TOP | INTO | FROM | WHERE | NOT | AND | OR | LIKE | MATCH | GROUP | ORDER | BY | ASC | DESC | ORIG | CONVERT | CAST | AS | BETWEEN | IN | ANY | SOME | EXISTS | CASE | WHEN | THEN | ELSE | END | USE | DECLARE | SET | CREATE | VIEW | TABLE | DROP | HAVING | COUNT | DATEADD | DATEDIFF | DATEPART | TOKEN | SYSTEMVAR | VARIABLE | NUMBER | WS );"; } }
 
 		public override void Error(NoViableAltException nvae)
 		{
@@ -6137,7 +6138,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 				int LA9_16 = input.LA(1);
 
 				s = -1;
-				if (((LA9_16>='\u0000' && LA9_16<='&')||(LA9_16>='(' && LA9_16<='?')||(LA9_16>='A' && LA9_16<='\uFFFF'))) {s = 58;}
+				if (((LA9_16>='\u0000' && LA9_16<='&')||(LA9_16>='*' && LA9_16<='?')||(LA9_16>='A' && LA9_16<='Z')||(LA9_16>='\\' && LA9_16<='\uFFFF'))) {s = 58;}
 
 				else s = 57;
 

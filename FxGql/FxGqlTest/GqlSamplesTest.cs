@@ -405,8 +405,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engineHash.Execute (command);
-						testSummaryWriter.WriteLine (command);
+					engineHash.Execute (command);
+					testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1454,6 +1454,67 @@ namespace FxGqlTest
 			TestGql ("SELECT datepart(mcs, '2012-07-12 23:59:50.1234567'), datepart(ns, '2012-07-12 23:59:50.1234567')",
 			         "C72CC643BA8501605655DECE49A21485FF723E063C9D045DCCB017794033DCC0");
 
+			// Directory provider
+			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -provider='file']",
+                "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -provider='unknown']",
+                typeof(Exception));
+			TestGql ("select [FullName], [Name], [Extension], [Length], [CreationTime], [LastWriteTime], [LastAccessTime], [Attributes] into ['test.txt' -overwrite] from ['SampleFiles/*.*' -provider='directory']",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select [FullName], [Name], [Extension], [Length], [CreationTime], [LastWriteTime], [LastAccessTime], [Attributes] into ['test.txt' -overwrite] from ['SampleFiles/*.log' -provider='directory']",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select [FullName], [Name], [Extension], [Length], [CreationTime], [LastWriteTime], [LastAccessTime], [Attributes] into ['test.txt' -overwrite] from ['SampleFiles/*.*' -provider='directory' -recurse]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			//// OS/FileSystem dependent
+			//TestGql ("select [Name], [Extension], [Length] from ['SampleFiles/*.*' -provider='directory']",
+			//         "85AC8E2EC8BA8AA27B86641222626195D2E41137D16093C73F9AB82CE636A296");
+			//TestGql ("select [Name], [Extension], [Length] from ['SampleFiles/*.csv' -provider='directory']",
+			//         "D3BE6F9171CD26D6C6EBD7913EB6B36FC241ED4E58828D77D685599201C1231D");
+			//TestGql ("select [Name], [Extension], [Length] from ['SampleFiles/*.*' -provider='directory' -recurse]",
+			//         "81E4F34A2B4BE5062DB1C2F541EA8DFB22A0BF02C80E8A96B941468769BE79BA");
+			TestGql ("select [Name], [Extension], [Length] from ['SampleFiles/*.*' -provider='directory' -fileorder='asc']",
+			         "85AC8E2EC8BA8AA27B86641222626195D2E41137D16093C73F9AB82CE636A296");
+			TestGql ("select [Name], [Extension], [Length] from ['SampleFiles/*.csv' -provider='directory' -fileorder='asc']",
+			         "D3BE6F9171CD26D6C6EBD7913EB6B36FC241ED4E58828D77D685599201C1231D");
+			TestGql ("select [Name], [Extension], [Length] from ['SampleFiles/*.*' -provider='directory' -recurse -fileorder='asc']",
+			         "7959AD9BE60A5735404AC899E99BC1CFCD9C774C40512922EB850E82095F1F4E");
+			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse -fileorder='asc']",
+			         "5D0445CB8B6986CBF8E4CD3EA81CD7AFEC134488D7274FF853DE3B3A1736E502");
+			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse] order by [Name]",
+			         "5D0445CB8B6986CBF8E4CD3EA81CD7AFEC134488D7274FF853DE3B3A1736E502");
+			//// too slow
+			//TestGql ("select distinct $filename from ['SampleFiles/*.*' -recurse -fileorder='asc']",
+			//         "5D0445CB8B6986CBF8E4CD3EA81CD7AFEC134488D7274FF853DE3B3A1736E502");
+			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse -fileorder='desc']",
+					 "55FAC23FB574B12DB4D0A40B25BB67AC51215976B3BC325C47ADDCE2A1D865C4");
+			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse] order by [Name] desc",
+					 "55FAC23FB574B12DB4D0A40B25BB67AC51215976B3BC325C47ADDCE2A1D865C4");
+			//// too slow
+			//TestGql ("select distinct $filename from ['SampleFiles/*.*' -recurse -fileorder='desc']",
+			//         "55FAC23FB574B12DB4D0A40B25BB67AC51215976B3BC325C47ADDCE2A1D865C4");
+			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse -fileorder='modificationtimeasc']",
+			         "46B882B50845C70167C5D6CB91A99A49E334C701ADA18B6E7FD86B0E1678BC08");
+			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse] order by [LastWriteTime]",
+			         "46B882B50845C70167C5D6CB91A99A49E334C701ADA18B6E7FD86B0E1678BC08");
+			//// too slow
+			//TestGql ("select distinct $filename from ['SampleFiles/*.*' -recurse -fileorder='modificationtimeasc']",
+			//         "46B882B50845C70167C5D6CB91A99A49E334C701ADA18B6E7FD86B0E1678BC08");
+			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse -fileorder='modificationtimedesc']",
+			         "005BD0DA1ADFBADBBBE316F2F70B24E1CB289B172DB886F792B66CF90B4F6C22");
+			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse] order by [LastWriteTime] desc",
+			         "005BD0DA1ADFBADBBBE316F2F70B24E1CB289B172DB886F792B66CF90B4F6C22");
+			//// too slow
+			//TestGql ("select distinct $filename from ['SampleFiles/*.*' -recurse -fileorder='modificationtimedesc']",
+			//         "005BD0DA1ADFBADBBBE316F2F70B24E1CB289B172DB886F792B66CF90B4F6C22");
+			TestGql ("select * from ['SampleFiles/*.csv']",
+                "061A433CD5329B48CB1FAC416F4505AFEE5D79632DF2A363991711FB8788D573");
+			TestGql ("select * from [(select [FullName] from ['SampleFiles/*.*' -provider='directory'] where right([Name], 4) = '.csv')]",
+                "061A433CD5329B48CB1FAC416F4505AFEE5D79632DF2A363991711FB8788D573");
+			TestGql ("select * from [(select * from ['SampleFiles/*.*' -provider='directory'] where right([Name], 4) = '.csv')]",
+                "061A433CD5329B48CB1FAC416F4505AFEE5D79632DF2A363991711FB8788D573");
+			TestGql ("select * from [(select * from ['SampleFiles/*.*' -provider='directory' -recurse] where [Name] = 'AirportCodes.csv')]",
+			    "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+
 			Console.WriteLine ();
 			Console.WriteLine (
                 "{0} tests done, {1} succeeded, {2} failed, {3} unknown",
@@ -1525,6 +1586,9 @@ namespace FxGqlTest
 			         + " where [a].[Tournament] = 'Masters Cup'"
 			         + " group by [a].[Player]");
             */
+				
+			TestGql ("use [SampleFiles]; select * into ['test.txt' -overwrite] from ['AirportCodes.csv']; use [..]",
+                "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 
 			return failed == 0;
 		}		

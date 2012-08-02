@@ -47,31 +47,17 @@
     <Compile Include="Parser\GqlAntlrOutput\output\gqlLexer.cs" />
     <Compile Include="Parser\GqlAntlrOutput\output\gqlParser.cs" />
     <Compile Include="Providers\IProvider.cs" />
-    <Compile Include="Providers\FileProvider.cs">
-      <DeployService-Deploy>true</DeployService-Deploy>
-    </Compile>
     <Compile Include="SystemVars\LineSystemVars.cs" />
     <Compile Include="SystemVars\FileNameSystemVar.cs" />
     <Compile Include="SystemVars\TotalLineNoSystemVar.cs" />
     <Compile Include="SystemVars\LineNoSystemVar.cs" />
     <Compile Include="Functions\SubstringFunction.cs" />
-    <Compile Include="Providers\NullProvider.cs" />
-    <Compile Include="Providers\TopProvider.cs" />
-    <Compile Include="Providers\MergeProvider.cs" />
     <Compile Include="Functions\MatchRegexFunction.cs" />
-    <Compile Include="Providers\DistinctProvider.cs" />
-    <Compile Include="Providers\SelectProvider.cs" />
-    <Compile Include="Providers\FilterProvider.cs" />
     <Compile Include="Operators\MatchOperator.cs" />
     <Compile Include="Operators\LikeOperator.cs" />
     <Compile Include="Functions\ReplaceFunction.cs" />
-    <Compile Include="Providers\OrderbyProvider.cs" />
-    <Compile Include="Providers\IntoProvider.cs" />
     <Compile Include="Functions\FormatListFunction.cs" />
     <Compile Include="Functions\FormatColumnListFunction.cs" />
-    <Compile Include="Providers\MultiFileProvider.cs" />
-    <Compile Include="Providers\ZipFileProvider.cs" />
-    <Compile Include="Providers\FileProviderFactory.cs" />
     <Compile Include="Functions\ReplaceRegexFunction.cs" />
     <Compile Include="Expressions\BinaryExpression.cs" />
     <Compile Include="Expressions\UnaryExpression.cs" />
@@ -79,9 +65,7 @@
     <Compile Include="Operators\AnyListOperator.cs" />
     <Compile Include="Operators\AnySubqueryOperator.cs" />
     <Compile Include="Operators\OperatorHelper.cs" />
-    <Compile Include="Providers\ColumnsComparer.cs" />
     <Compile Include="Expressions\ColumnExpression.cs" />
-    <Compile Include="Providers\GroupbyProvider.cs" />
     <Compile Include="Expressions\AggregationExpression.cs" />
     <Compile Include="Expressions\CaseExpression.cs" />
     <Compile Include="Expressions\NullaryExpression.cs" />
@@ -93,7 +77,6 @@
     <Compile Include="Commands\GqlQueryCommand.cs" />
     <Compile Include="Commands\IGqlCommand.cs" />
     <Compile Include="Commands\UseCommand.cs" />
-    <Compile Include="Providers\ColumnProviderRegex.cs" />
     <Compile Include="Commands\DeclareCommand.cs" />
     <Compile Include="Commands\SetVariableCommand.cs" />
     <Compile Include="Commands\Variable.cs" />
@@ -101,13 +84,9 @@
     <Compile Include="Expressions\SubqueryExpression.cs" />
     <Compile Include="Exceptions\ParserException.cs" />
     <Compile Include="Parser\AntlrTreeChildEnumerable.cs" />
-    <Compile Include="Providers\ColumnProvider.cs" />
-    <Compile Include="Providers\ColumnProviderDelimiter.cs" />
-    <Compile Include="Providers\ColumnProviderTitleLine.cs" />
     <Compile Include="Commands\DummyCommand.cs" />
     <Compile Include="Commands\CreateViewCommand.cs" />
     <Compile Include="Commands\DropViewCommand.cs" />
-    <Compile Include="Providers\NamedProvider.cs" />
     <Compile Include="Util\StateBin.cs" />
     <Compile Include="DataTypes\DataType.cs" />
     <Compile Include="DataTypes\Data.cs" />
@@ -118,12 +97,36 @@
     <Compile Include="DataTypes\DataString.cs" />
     <Compile Include="DataTypes\DataComparer.cs" />
     <Compile Include="DataTypes\DataBoolean.cs" />
-    <Compile Include="Providers\AsyncStreamReader.cs" />
-    <Compile Include="Providers\AsyncStreamWriter.cs" />
-    <Compile Include="Providers\ParameterizedProvider.cs" />
     <Compile Include="Commands\ViewDefinition.cs" />
     <Compile Include="DataTypes\DataDateTime.cs" />
     <Compile Include="Functions\DateFunctionsHelper.cs" />
+    <Compile Include="Providers\File\ZipFileProvider.cs" />
+    <Compile Include="Providers\Flow\NamedProvider.cs" />
+    <Compile Include="Providers\Flow\NullProvider.cs" />
+    <Compile Include="Providers\Flow\OrderbyProvider.cs" />
+    <Compile Include="Providers\Flow\ParameterizedProvider.cs" />
+    <Compile Include="Providers\Flow\SelectProvider.cs" />
+    <Compile Include="Providers\Flow\TopProvider.cs" />
+    <Compile Include="Providers\Flow\MergeProvider.cs" />
+    <Compile Include="Providers\File\MultiFileProvider.cs" />
+    <Compile Include="Providers\Flow\GroupbyProvider.cs" />
+    <Compile Include="Providers\File\FileProviderFactory.cs" />
+    <Compile Include="Providers\Flow\DistinctProvider.cs" />
+    <Compile Include="Providers\File\FileProvider.cs">
+      <DeployService-Deploy>true</DeployService-Deploy>
+    </Compile>
+    <Compile Include="Providers\Flow\FilterProvider.cs" />
+    <Compile Include="Providers\Flow\IntoProvider.cs" />
+    <Compile Include="Providers\Flow\ColumnsComparer.cs" />
+    <Compile Include="Providers\Flow\ColumnProviderTitleLine.cs" />
+    <Compile Include="Providers\Flow\ColumnProviderRegex.cs" />
+    <Compile Include="Providers\Flow\ColumnProviderDelimiter.cs" />
+    <Compile Include="Providers\Flow\ColumnProvider.cs" />
+    <Compile Include="Providers\File\AsyncStreamWriter.cs" />
+    <Compile Include="Providers\File\AsyncStreamReader.cs" />
+    <Compile Include="Providers\Directory\DirectoryProvider.cs" />
+    <Compile Include="Providers\File\FileSubqueryProvider.cs" />
+    <Compile Include="Providers\File\MultiFileProviderBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -144,5 +147,8 @@
     <Folder Include="..\" />
     <Folder Include="Util\" />
     <Folder Include="DataTypes\" />
+    <Folder Include="Providers\Flow\" />
+    <Folder Include="Providers\File\" />
+    <Folder Include="Providers\Directory\" />
   </ItemGroup>
 </Project>

@@ -21,6 +21,7 @@ tokens
 	T_GROUPBY;
 	T_ORDERBY;
 	T_FILE;
+	T_FILESUBQUERY;
 	T_FILEOPTION;
 	T_SUBQUERY;
 	T_INTEGER;
@@ -177,6 +178,7 @@ subquery
 
 file
 	: '[' WS? file_spec (WS file_option)* WS? ']' -> ^(T_FILE file_spec file_option*) 
+	| '[' WS? subquery WS? ']' -> ^(T_FILESUBQUERY subquery)
 	| SIMPLE_FILE -> ^(T_FILE SIMPLE_FILE)
 	;
 
@@ -481,7 +483,7 @@ STRING
 	;
 
 SIMPLE_FILE
-	: '[' ~('@'|'\''|']')* ']'
+	: '[' ~('@'|'\''|'('|')'|'['|']')* ']'
 	;
 
 
