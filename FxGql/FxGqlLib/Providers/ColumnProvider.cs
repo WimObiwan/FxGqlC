@@ -122,8 +122,8 @@ namespace FxGqlLib
 					}
 					this.staticOutputList = outputList.ToArray ();
 					this.staticColumnNameList = columnNameList.ToArray ();
-					for (int i = 0; i < columnNameList.Count; i++)
-						if (this.staticColumnNameList [i] == null)
+					for (int i = 0; i < staticColumnNameList.Length; i++)
+						if (this.staticColumnNameList [i] == null || string.IsNullOrEmpty (this.staticColumnNameList [i].Name))
 							this.staticColumnNameList [i] = new ColumnName (i);
 				}
 			} else {
