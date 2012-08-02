@@ -35,15 +35,6 @@ namespace FxGqlLib
 
 		public DirectoryProvider (FileOptionsFromClause fileOptions, StringComparer stringComparer)
 		{
-			if (fileOptions.ColumnDelimiter != null)
-				throw new NotSupportedException ("FROM-option 'ColumnDelimiter' is not supported when using the DirectoryProvider");
-			if (fileOptions.ColumnsRegex != null)
-				throw new NotSupportedException ("FROM-option 'ColumnsRegex' is not supported when using the DirectoryProvider");
-			if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off)
-				throw new NotSupportedException ("FROM-option 'Heading' is not supported when using the DirectoryProvider");
-			if (fileOptions.Skip != 0)
-				throw new NotSupportedException ("FROM-option 'Skip' is not supported when using the DirectoryProvider");
-
 			this.fileOptions = fileOptions;
 			this.stringComparer = stringComparer;
 		}

@@ -127,6 +127,7 @@
     <Compile Include="Providers\Directory\DirectoryProvider.cs" />
     <Compile Include="Providers\File\FileSubqueryProvider.cs" />
     <Compile Include="Providers\File\MultiFileProviderBase.cs" />
+    <Compile Include="Providers\FileOptions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

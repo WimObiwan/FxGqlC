@@ -128,7 +128,9 @@ namespace FxGqlLib
 			case "T_SELECT":
 				return new GqlQueryCommand (ParseCommandSelect (tree));
 			case "T_USE":
-				return new UseCommand (ParseCommandUse (tree));
+				FileOptions fileOptions = ParseCommandUse (tree);
+				fileOptions.ValidateProviderOptions ();
+				return new UseCommand (fileOptions);
 			case "T_DECLARE":
 				{
 					var variableDeclaration = ParseCommandDeclare (tree);
@@ -382,8 +384,9 @@ namespace FxGqlLib
 			AssertAntlrToken (intoClauseTree, "T_INTO", 1);
                 
 			ITree fileTree = GetSingleChild (intoClauseTree);
-			FileOptionsIntoClause intoFile = ParseFileIntoClause (fileTree);
-            
+			FileOptionsIntoClause intoFile = ParseFileIntoClause (fileTree);            
+			intoFile.ValidateProviderOptions ();
+
 			return intoFile;
 		}
         
@@ -1193,7 +1196,13 @@ namespace FxGqlLib
 					fileOptions.ColumnDelimiter = System.Text.RegularExpressions.Regex.Unescape (value);
 					break;
 				case "PROVIDER":
-					fileOptions.Provider = value.ToLowerInvariant ();
+					FileOptions.ProviderEnum provider;
+					if (!Enum.TryParse<FileOptions.ProviderEnum> (value, true, out provider))
+						throw new ParserException (
+                                    string.Format ("Unknown file option Provider={0}", value),
+                                    tree
+						);
+					fileOptions.Provider = provider;
 					break;
 				default:
 					throw new ParserException (
@@ -1264,7 +1273,7 @@ namespace FxGqlLib
 
 		FileOptions ParseFileSimple (ITree tree)
 		{
-			FileOptionsIntoClause fileOptions = new FileOptionsIntoClause ();
+			FileOptions fileOptions = new FileOptions ();
 
 			List<Tuple<string, string, ITree>> options = ParseFileCommon (
                 tree,
@@ -1337,10 +1346,11 @@ namespace FxGqlLib
 		IProvider ParseFileProvider (ITree fileProvider)
 		{
 			FileOptionsFromClause fileOptions = ParseFileFromClause (fileProvider);
+			fileOptions.ValidateProviderOptions ();
             
 			IProvider provider;
-			if (fileOptions.Provider == null
-				|| StringComparer.InvariantCultureIgnoreCase.Compare (fileOptions.Provider, "file") == 0) {
+			if (fileOptions.Provider == FileOptions.ProviderEnum.DontCare
+				|| fileOptions.Provider == FileOptions.ProviderEnum.File) {
 				provider = FileProviderFactory.Get (fileOptions, dataComparer.StringComparer);
             
 				if (fileOptions.ColumnsRegex != null) {
@@ -1354,7 +1364,7 @@ namespace FxGqlLib
 				if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
 					provider = new ColumnProviderTitleLine (provider, fileOptions.Heading);
 				}
-			} else if (StringComparer.InvariantCultureIgnoreCase.Compare (fileOptions.Provider, "directory") == 0) {
+			} else if (fileOptions.Provider == FileOptions.ProviderEnum.Directory) {
 				provider = new DirectoryProvider (fileOptions, dataComparer.StringComparer);
 			} else {
 				throw new ParserException (string.Format ("Invalid provider '{0}'", fileOptions.Provider), fileProvider);
