@@ -938,7 +938,7 @@ namespace Mono.Terminal
 			}
 
 			string result = text.ToString ();
-			if (result != "")
+			if (result != "" && result != history.GetLast ())
 				history.Accept (result);
 			else
 				history.RemoveLast ();
@@ -1051,6 +1051,16 @@ namespace Mono.Terminal
 				head = head - 1;
 				if (head < 0)
 					head = history.Length - 1;
+			}
+			
+			public string GetLast ()
+			{
+				if (head == tail)
+					return null;
+				int pos = head - 2;
+				if (pos < 0)
+					pos += history.Length;
+				return history [pos];
 			}
 			
 			public void Accept (string s)
