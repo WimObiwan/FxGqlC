@@ -290,7 +290,8 @@ namespace FxGqlC
 		{
 			command = command.Trim ();
 			if (command.StartsWith ("!!")) {
-				command = command.Substring (2);
+				command = command.Substring (2).TrimStart ();
+				lineEditor.RemoveLast ();
 				switch (command.ToUpper ()) {
 				case "SHOWHISTORY":
 					lineEditor.ShowHistory ();
@@ -316,7 +317,7 @@ namespace FxGqlC
 		{
 			command = command.Trim ();
 			if (command.StartsWith ("!")) {
-				command = command.Substring (1);
+				command = command.Substring (1).TrimStart ();
 				string[] commandComponents = command.Split (new char[] {' '}, 2, StringSplitOptions.RemoveEmptyEntries);
 
 				if (commandComponents.Length < 1) {

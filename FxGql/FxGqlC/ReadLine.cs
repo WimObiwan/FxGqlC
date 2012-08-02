@@ -255,6 +255,11 @@ namespace Mono.Terminal
 			}
 		}
 
+		public void RemoveLast ()
+		{
+			history.RemoveLast ();
+		}
+
 		public void Close ()
 		{
 			history.Close ();
