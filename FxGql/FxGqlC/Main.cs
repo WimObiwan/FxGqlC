@@ -15,6 +15,7 @@ namespace FxGqlC
 		static bool nochecknewversion = false;
 		static bool notracking = false;
 		static DateTime lastCheck = DateTime.MinValue;
+		static bool continuePromptMode = true;
 
 		static int uniqueVisitorId = GetUniqueId ();
 
@@ -273,12 +274,14 @@ namespace FxGqlC
 					lineEditor.Type (sb.ToString ());
 				}
 			};
-			while (true) {
+
+			while (continuePromptMode) {
 				string command = lineEditor.Edit ("FxGqlC> ", "");
 				//Console.Write ("FxGqlC> ");
 				//string command = Console.ReadLine ();
-				if (command.Trim ().Equals ("exit", StringComparison.InvariantCultureIgnoreCase))
-					break; 
+				if (command.Trim ().Equals ("exit", StringComparison.InvariantCultureIgnoreCase)
+					|| command.Trim ().Equals ("quit", StringComparison.InvariantCultureIgnoreCase))
+					command = "!!exit"; 
 				if (!ExecutePromptCommand (command, lineEditor))
 					ExecuteCommand (command);
 				CheckToDisplayNewVersionMessage ();
@@ -295,6 +298,10 @@ namespace FxGqlC
 				switch (command.ToUpper ()) {
 				case "SHOWHISTORY":
 					lineEditor.ShowHistory ();
+					break;
+				case "EXIT":
+				case "QUIT":
+					continuePromptMode = false;
 					break;
 				default:
 					Console.WriteLine ("Unknown prompt command '{0}'", command);
