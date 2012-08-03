@@ -63,14 +63,15 @@ namespace FxGqlLib
 			record.Columns = new IData[columnNames.Length];
 			for (int i = 0; i < dataReader.FieldCount; i++) {
 				columnNames [i] = new ColumnName (dataReader.GetName (i));
-				Type type = dataReader.GetFieldType (i);
+				/*Type type = dataReader.GetFieldType (i);
 				if (type == typeof(Boolean)) {
 					columnTypes [i] = typeof(DataBoolean);
 				} else if (type == typeof(Byte) || type == typeof(Int16) || type == typeof(Int32) || type == typeof(Int64)) {
 					columnTypes [i] = typeof(DataInteger);
 				} else if (type == typeof(DateTime) || type == typeof(TimeSpan)) {
 					columnTypes [i] = typeof(DataDateTime);
-				} else {
+				} else*/
+				{
 					columnTypes [i] = typeof(DataString);
 				}
 			}
@@ -88,7 +89,7 @@ namespace FxGqlLib
 			record.LineNo++;
 			record.TotalLineNo = record.LineNo;
 			for (int i = 0; i < record.Columns.Length; i++) {
-				try {
+				/*try {
 					IData data;
 					if (columnTypes [i] == typeof(DataBoolean)) {
 						if (!dataReader.IsDBNull (i))							data = new DataBoolean (Convert.ToBoolean (dataReader.GetValue (i)));
@@ -113,7 +114,8 @@ namespace FxGqlLib
 					record.Columns [i] = data;
 				} catch (InvalidCastException) {
 					throw new ConversionException (dataReader.GetFieldType (i), columnTypes [i]);
-				}
+				}*/
+				record.Columns [i] = new DataString (dataReader.GetValue (i).ToString ());
 			}
 
 			return true;
