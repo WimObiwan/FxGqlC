@@ -405,8 +405,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engineHash.Execute (command);
-					testSummaryWriter.WriteLine (command);
+						engineHash.Execute (command);
+						testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1177,10 +1177,12 @@ namespace FxGqlTest
 			// Different behavior on mono2.10 than on Microsoft.net/mono2.11
 			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, [Round]",
 			         "735E58F3DCD6DF7787A15211A9D26B95A924E8D3248A71B07D7C22081B87330D",
-					 "710210DFC92E34E0CDD4057C15A100F2B96369883C95279490BC8771F89B50FF");
+					 //"710210DFC92E34E0CDD4057C15A100F2B96369883C95279490BC8771F89B50FF",
+			         "623CDB671AFEDE37924DEC744727B09A234CD697C10CA4E675440DC6B1AC1A9F");
 			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, 2",
 			         "735E58F3DCD6DF7787A15211A9D26B95A924E8D3248A71B07D7C22081B87330D",
-					 "710210DFC92E34E0CDD4057C15A100F2B96369883C95279490BC8771F89B50FF");
+					 //"710210DFC92E34E0CDD4057C15A100F2B96369883C95279490BC8771F89B50FF",
+			         "623CDB671AFEDE37924DEC744727B09A234CD697C10CA4E675440DC6B1AC1A9F");
             
 			//// To test interrupt (Ctrl-C) of long running query
 			//TestGql (@"select top 10000 * from [/var/log/dpkg.log.1]",
