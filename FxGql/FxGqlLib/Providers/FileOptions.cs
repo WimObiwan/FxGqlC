@@ -9,15 +9,20 @@ namespace FxGqlLib
 			Provider = ProviderEnum.DontCare;
 		}
 		
-		public Expression<DataString> FileName { get; set; }
-
 		public enum ProviderEnum
 		{
 			DontCare,
 			File,
 			Directory,
+			Data,
 		}
 		public ProviderEnum Provider { get; set; }
+
+		public Expression<DataString> FileName { get; set; }
+
+		public string Client { get; set; }
+
+		public string ConnectionString { get; set; }
 
 		public void ValidateProviderOptions ()
 		{
@@ -29,6 +34,9 @@ namespace FxGqlLib
 			case ProviderEnum.Directory:
 				ValidateDirectoryProviderOptions ();
 				break;
+			case ProviderEnum.Data:
+				ValidateDataProviderOptions ();
+				break;
 			default:
 				throw new NotSupportedException (string.Format ("Unknown FROM-clause option -Provider='{0}'", Provider));
 			}
@@ -36,8 +44,21 @@ namespace FxGqlLib
 
 		public virtual void ValidateFileProviderOptions ()
 		{
+			if (Client != null)
+				throw new NotSupportedException ("FROM-option 'Client' is not supported when using the FileProvider");
+			if (ConnectionString != null)
+				throw new NotSupportedException ("FROM-option 'ConnectionString' is not supported when using the FileProvider");
 		}
+
 		public virtual void ValidateDirectoryProviderOptions ()
+		{
+			if (Client != null)
+				throw new NotSupportedException ("FROM-option 'Client' is not supported when using the DirectoryProvider");
+			if (ConnectionString != null)
+				throw new NotSupportedException ("FROM-option 'ConnectionString' is not supported when using the DirectoryProvider");
+		}
+
+		public virtual void ValidateDataProviderOptions ()
 		{
 		}
 	}
@@ -73,10 +94,12 @@ namespace FxGqlLib
 
 		public override void ValidateFileProviderOptions ()
 		{
+			base.ValidateFileProviderOptions ();
 		}
 
 		public override void ValidateDirectoryProviderOptions ()
 		{
+			base.ValidateDirectoryProviderOptions ();
 			if (ColumnDelimiter != null)
 				throw new NotSupportedException ("FROM-option 'ColumnDelimiter' is not supported when using the DirectoryProvider");
 			if (ColumnsRegex != null)
@@ -85,6 +108,24 @@ namespace FxGqlLib
 				throw new NotSupportedException ("FROM-option 'Heading' is not supported when using the DirectoryProvider");
 			if (Skip != 0)
 				throw new NotSupportedException ("FROM-option 'Skip' is not supported when using the DirectoryProvider");
+
+		}
+
+		public override void ValidateDataProviderOptions ()
+		{
+			base.ValidateDataProviderOptions ();
+			if (ColumnDelimiter != null)
+				throw new NotSupportedException ("FROM-option 'ColumnDelimiter' is not supported when using the DataProvider");
+			if (ColumnsRegex != null)
+				throw new NotSupportedException ("FROM-option 'ColumnsRegex' is not supported when using the DataProvider");
+			if (Heading != GqlEngineState.HeadingEnum.Off)
+				throw new NotSupportedException ("FROM-option 'Heading' is not supported when using the DataProvider");
+			if (Skip != 0)
+				throw new NotSupportedException ("FROM-option 'Skip' is not supported when using the DataProvider");
+			if (FileOrder != FileOrderEnum.DontCare)
+				throw new NotSupportedException ("FROM-option 'Skip' is not supported when using the DataProvider");
+			if (Recurse != false)
+				throw new NotSupportedException ("FROM-option 'Skip' is not supported when using the DataProvider");
 		}
 	}
 
@@ -116,12 +157,29 @@ namespace FxGqlLib
 
 		public override void ValidateFileProviderOptions ()
 		{
+			base.ValidateFileProviderOptions ();
 		}
 
 		public override void ValidateDirectoryProviderOptions ()
 		{
-			throw new NotSupportedException (string.Format ("INTO-clause option -Provider does not support 'Directory' provider"));
+			base.ValidateDirectoryProviderOptions ();
+			throw new NotSupportedException ("INTO-clause option -Provider does not support 'Directory' provider");
 		}
-	}
-	
+
+		public override void ValidateDataProviderOptions ()
+		{
+			base.ValidateDataProviderOptions ();
+			throw new NotImplementedException ("INTO-clause option -Provider does not support 'Data' provider - yet");
+//			if (NewLine != NewLineEnum.Default)
+//				throw new NotSupportedException ("INTO-option 'NewLine' is not supported when using the DataProvider");
+//			if (Append != false)
+//				throw new NotSupportedException ("INTO-option 'Append' is not supported when using the DataProvider");
+//			if (Overwrite != false)
+//				throw new NotSupportedException ("INTO-option 'Overwrite' is not supported when using the DataProvider");
+//			if (Heading != GqlEngineState.HeadingEnum.Off)
+//				throw new NotSupportedException ("INTO-option 'Heading' is not supported when using the DataProvider");
+//			if (ColumnDelimiter != null)
+//				throw new NotSupportedException ("INTO-option 'ColumnDelimiter' is not supported when using the DataProvider");
+		}
+	}	
 }

@@ -1587,8 +1587,14 @@ namespace FxGqlTest
 			         + " group by [a].[Player]");
             */
 				
-			TestGql ("use [SampleFiles]; select * into ['test.txt' -overwrite] from ['AirportCodes.csv']; use [..]",
-                "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+//SELECT from and/or into database
+//select * from ['select * from MyTable' -provider='System.Data.SqlClient' -connectionstring='Data Source=(local);Initial Catalog=cars;Integrated Security=SSPI']
+//-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateCommand, DbCommand.ExecuteReader,...
+//select * into ['insert into MyTable (col1, col2) values (?, ?)' -provider='System.Data.SqlClient' -connectionstring='Data Source=(local);Initial Catalog=cars;Integrated Security=SSPI'] from [*.log]
+//-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateDataAdapter, DbDataAdapter.InsertCommand,...
+//select * from ['*.log' -provider='files']  --default provider = filesystem
+
+			TestGql ("select * from ['select * from sys.tables' -provider='data' -client='System.Data.SqlClient' -connectionstring='Data Source=127.0.0.1\\SqlExpress;Initial Catalog=master;Integrated Security=SSPI']");
 
 			return failed == 0;
 		}		

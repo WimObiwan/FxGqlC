@@ -93,7 +93,11 @@ namespace FxGqlLib
 				else
 					columns = record.Columns;
 				if (columnOrdinal >= 0 && columnOrdinal < columns.Length)
-					return (T)columns [columnOrdinal];
+					try {
+						return (T)columns [columnOrdinal];
+					} catch (InvalidCastException) {
+						throw new ConversionException (columns [columnOrdinal].GetType (), typeof(T));
+					}
 			}
 			throw new Exception (string.Format ("Column {0} not found", columnName));
 		}

@@ -1204,6 +1204,12 @@ namespace FxGqlLib
 						);
 					fileOptions.Provider = provider;
 					break;
+				case "CLIENT":
+					fileOptions.Client = value;
+					break;
+				case "CONNECTIONSTRING":
+					fileOptions.ConnectionString = value;
+					break;
 				default:
 					throw new ParserException (
                                 string.Format ("Unknown file option '{0}'", option),
@@ -1366,6 +1372,8 @@ namespace FxGqlLib
 				}
 			} else if (fileOptions.Provider == FileOptions.ProviderEnum.Directory) {
 				provider = new DirectoryProvider (fileOptions, dataComparer.StringComparer);
+			} else if (fileOptions.Provider == FileOptions.ProviderEnum.Data) {
+				provider = new DataProvider (fileOptions);
 			} else {
 				throw new ParserException (string.Format ("Invalid provider '{0}'", fileOptions.Provider), fileProvider);
 			}
@@ -1771,6 +1779,39 @@ namespace FxGqlLib
 				break;
 			case "T_EQUAL":
 			case "T_NOTEQUAL":
+				if (arg1 is Expression<DataString> || arg2 is Expression<DataString>)
+					result = 
+                        BinaryExpression<DataString, DataString, DataBoolean>.CreateAutoConvert (OperatorHelper.GetStringComparer (
+                        operatorText,
+                        false,
+                        dataComparer.StringComparison
+					),
+                            arg1, arg2);
+				else if (arg1 is Expression<DataBoolean> || arg2 is Expression<DataBoolean>)
+					result = 
+                        BinaryExpression<DataBoolean, DataBoolean, DataBoolean>.CreateAutoConvert (OperatorHelper.GetBooleanComparer (
+                        operatorText,
+                        false
+					),
+                            arg1, arg2);
+				else if (arg1 is Expression<DataInteger>)
+					result = 
+                        BinaryExpression<DataInteger, DataInteger, DataBoolean>.CreateAutoConvert (OperatorHelper.GetIntegerComparer (
+                        operatorText,
+                        false
+					),
+                            arg1, arg2);
+				else {
+					throw new ParserException (
+                        string.Format (
+                        "Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
+                        arg1.GetResultType ().ToString (),
+                        arg2.GetResultType ().ToString ()
+					),
+                        operatorTree);
+				}
+				break;
+				break;
 			case "T_LESS":
 			case "T_GREATER":
 			case "T_NOTLESS":
@@ -2058,6 +2099,8 @@ namespace FxGqlLib
 
 			if (type == typeof(DataString)) {
 				return new ColumnExpression<DataString> (provider, columnOrdinal);
+			} else if (type == typeof(DataBoolean)) {
+				return new ColumnExpression<DataBoolean> (provider, columnOrdinal);
 			} else if (type == typeof(DataInteger)) {
 				return new ColumnExpression<DataInteger> (provider, columnOrdinal);
 			} else if (type == typeof(DataDateTime)) {

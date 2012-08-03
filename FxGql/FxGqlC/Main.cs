@@ -16,6 +16,7 @@ namespace FxGqlC
 		static bool notracking = false;
 		static DateTime lastCheck = DateTime.MinValue;
 		static bool continuePromptMode = true;
+		static bool verbose = false;
 
 		static int uniqueVisitorId = GetUniqueId ();
 
@@ -31,6 +32,13 @@ namespace FxGqlC
 			Auto = ApplicationExceptions,
 		};
 		static ReportError reportError = ReportError.Auto;
+
+		enum OnOffEnum
+		{
+			Default =0,
+			On = 1,
+			Off = 2,
+		}
 
 		static string GetVersion ()
 		{
@@ -356,7 +364,10 @@ namespace FxGqlC
 			try {
 				gqlEngine.Execute (command);
 			} catch (FxGqlLib.ParserException x) {
-				Console.WriteLine (x.Message);
+				if (verbose)
+					Console.WriteLine (x);
+				else
+					Console.WriteLine (x.Message);
 				if (gqlEngine.LogStream != null) 
 					gqlEngine.LogStream.WriteLine (x.ToString ());
 
@@ -376,8 +387,10 @@ namespace FxGqlC
 				}
 				ReportException ("executing server command, " + command, x);
 			} catch (Exception x) {
-
-				Console.WriteLine (x.Message);
+				if (verbose)
+					Console.WriteLine (x);
+				else
+					Console.WriteLine (x.Message);
 				if (gqlEngine.LogStream != null) 
 					gqlEngine.LogStream.WriteLine (x.ToString ());
 				ReportException ("executing server command, " + command, x);
@@ -417,6 +430,13 @@ namespace FxGqlC
 					else
 						Console.WriteLine ("Unknown SET REPORTERROR value '{0}'", value);
 
+					break;
+				case "VERBOSE":
+					OnOffEnum onOff;
+					if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) 
+						verbose = (onOff == OnOffEnum.On);
+					else
+						Console.WriteLine ("Unknown SET REPORTERROR value '{0}'", value);
 					break;
 				default:
 					Console.WriteLine ("Unknown SET command '{0}'", key);
