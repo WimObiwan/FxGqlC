@@ -379,9 +379,9 @@ namespace FxGqlC
 							gqlEngine.LogStream.WriteLine ("{0,3}: {1}", no + 1, line);
 						
 						if (no + 1 == x.Line) {
-							Console.WriteLine ("     {0}^", new string (' ', Math.Max (0, x.Pos - 1)));
+							Console.WriteLine ("     {0}^", new string (' ', Math.Max (0, x.Pos)));
 							if (gqlEngine.LogStream != null) 
-								gqlEngine.LogStream.WriteLine ("     {0}^", new string (' ', Math.Max (0, x.Pos - 1)));
+								gqlEngine.LogStream.WriteLine ("     {0}^", new string (' ', Math.Max (0, x.Pos)));
 						}
 					}
 				}
