@@ -1,9 +1,11 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 using FxGqlLib;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace FxGqlC
 {
@@ -291,6 +293,7 @@ namespace FxGqlC
 					|| command.Trim ().Equals ("quit", StringComparison.InvariantCultureIgnoreCase))
 					command = "!!exit"; 
 				if (!ExecutePromptCommand (command, lineEditor))
+				if (!ExecuteAliasCommand (command))
 					ExecuteCommand (command);
 				CheckToDisplayNewVersionMessage ();
 			}
@@ -321,6 +324,54 @@ namespace FxGqlC
 			}
 		}
 
+		public static IEnumerable<string> SplitCommandLine (string commandLine)
+		{
+			bool inQuotes = false;
+
+			return commandLine.Split (c =>
+			{
+				if (c == '\"')
+					inQuotes = !inQuotes;
+
+				return !inQuotes && c == ' ';
+			}
+			)
+                          .Select (arg => arg.Trim ().TrimMatchingQuotes ('\"'))
+                          .Where (arg => !string.IsNullOrEmpty (arg));
+		}
+
+		static string EmptyToNull (string value)
+		{
+			return string.IsNullOrEmpty (value) ? null : value;
+		}
+
+		static string GetValue (string[] components, string id)
+		{
+			int id2 = int.Parse (id);
+			return id2 > 0 && id2 < components.Length ? EmptyToNull (components [id2]) : null;
+
+		}
+
+		static bool ExecuteAliasCommand (string command)
+		{
+			command = command.Trim ();
+			if (command.StartsWith ("@")) {
+				command = command.Substring (1).TrimStart ();
+				string[] components = SplitCommandLine (command).ToArray ();
+				string definition;
+				if (aliases.TryGetValue (components [0], out definition)) {
+					definition = Regex.Replace (definition, @"(?:\$\((?<id>\d+)(?:,(?<def>[^\)]+))?\))|(?:\$(?<id>\d+))", 
+					                            m => GetValue (components, m.Groups ["id"].Value) ?? EmptyToNull (m.Groups ["def"].Value) ?? "");
+					ExecuteCommand (definition);
+				} else {
+					Console.WriteLine ("Unknown command alias '{0}'", command);
+				}
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 		public static void ExecuteCommand (string command)
 		{
 			if (!ExecuteClientCommand (command)) {
@@ -344,6 +395,9 @@ namespace FxGqlC
 						break;
 					case "EXECUTE":
 						ExecuteClientCommandExecute (commandComponents [1]);
+						break;
+					case "ALIAS":
+						ExecuteClientCommandAlias (commandComponents [1]);
 						break;
 					default:
 						Console.WriteLine ("Unknown client command '{0}'", commandComponents [0]);
@@ -464,6 +518,21 @@ namespace FxGqlC
 				ExecuteFile (file);
 			} finally {
 				fileExecutionDepth--;
+			}
+		}
+
+		static Dictionary<string, string> aliases = new Dictionary<string, string> ();
+
+		static void ExecuteClientCommandAlias (string command)
+		{
+			string[] commandComponents = command.Split (new char[] {' '}, 2, StringSplitOptions.RemoveEmptyEntries);
+			if (commandComponents.Length < 2) {
+				Console.WriteLine ("Invalid number of components in client command 'ALIAS'");
+			} else {
+				string alias = commandComponents [0];
+				string definition = commandComponents [1];
+
+				aliases [alias] = definition;
 			}
 		}
 
