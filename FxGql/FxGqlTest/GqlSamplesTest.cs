@@ -405,8 +405,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engineHash.Execute (command);
-						testSummaryWriter.WriteLine (command);
+					engineHash.Execute (command);
+					testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1517,6 +1517,9 @@ namespace FxGqlTest
 			TestGql ("select * from [(select * from ['SampleFiles/*.*' -provider='directory' -recurse] where [Name] = 'AirportCodes.csv')]",
 			    "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
 
+			// SELECT from database
+			//TestGql ("select * from ['select * from sys.tables' -provider='data' -client='System.Data.SqlClient' -connectionstring='Data Source=127.0.0.1\\SqlExpress;Initial Catalog=master;Integrated Security=SSPI']");
+
 			Console.WriteLine ();
 			Console.WriteLine (
                 "{0} tests done, {1} succeeded, {2} failed, {3} unknown",
@@ -1596,7 +1599,18 @@ namespace FxGqlTest
 //-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateDataAdapter, DbDataAdapter.InsertCommand,...
 //select * from ['*.log' -provider='files']  --default provider = filesystem
 
-			TestGql ("select * from ['select * from sys.tables' -provider='data' -client='System.Data.SqlClient' -connectionstring='Data Source=127.0.0.1\\SqlExpress;Initial Catalog=master;Integrated Security=SSPI']");
+			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.On;
+			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.On;
+			/*File.Delete ("test.txt");
+			TestGql ("select * into ['test.txt'] from ['SampleFiles/AirportCodes.csv']",
+                "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile ("test.txt",
+                "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2", // unix
+                "2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
+			File.Delete ("test.txt");*/
+			engineHash.GqlEngineState.AutoSize = 10;
+			engineOutput.GqlEngineState.AutoSize = 10;
+			TestGql ("select [Name], [Length], [LastWriteTime], [Attributes] from ['*.*' -provider='directory']");
 
 			return failed == 0;
 		}		

@@ -19,7 +19,8 @@ namespace FxGqlLib
 		{
 			GqlQueryState gqlQueryState = new GqlQueryState (gqlEngineState);
 
-			IntoProvider.DumpProviderToStream (gqlQuery, outputStream, gqlQueryState, "\t", gqlEngineState.Heading);
+			IntoProvider.DumpProviderToStream (gqlQuery, outputStream, gqlQueryState, "\t", gqlEngineState.Heading,
+			                                   gqlEngineState.AutoSize);
 		}
 		#endregion
 	}

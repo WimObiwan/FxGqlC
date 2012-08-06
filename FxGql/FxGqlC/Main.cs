@@ -19,6 +19,8 @@ namespace FxGqlC
 		static DateTime lastCheck = DateTime.MinValue;
 		static bool continuePromptMode = true;
 		static bool verbose = false;
+		static bool autoSize = false;
+		static int autoSizeRows = -1;
 
 		static int uniqueVisitorId = GetUniqueId ();
 
@@ -470,28 +472,60 @@ namespace FxGqlC
 				string value = commandComponents [1];
 				switch (key.ToUpperInvariant ()) {
 				case "HEADING":
-					GqlEngineState.HeadingEnum heading;
-					if (Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading)) 
-						gqlEngine.GqlEngineState.Heading = heading;
-					else
-						Console.WriteLine ("Unknown SET HEADING value '{0}'", value);
+					{
+						GqlEngineState.HeadingEnum heading;
+						if (Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading)) 
+							gqlEngine.GqlEngineState.Heading = heading;
+						else
+							Console.WriteLine ("Unknown SET HEADING value '{0}'", value);
 
-					break;
+						break;
+					}
 				case "REPORTERROR":
-					ReportError reportError;
-					if (Enum.TryParse<ReportError> (value, true, out reportError)) 
-						MainClass.reportError = reportError;
-					else
-						Console.WriteLine ("Unknown SET REPORTERROR value '{0}'", value);
+					{
+						ReportError reportError;
+						if (Enum.TryParse<ReportError> (value, true, out reportError)) 
+							MainClass.reportError = reportError;
+						else
+							Console.WriteLine ("Unknown SET REPORTERROR value '{0}'", value);
 
-					break;
+						break;
+					}
 				case "VERBOSE":
-					OnOffEnum onOff;
-					if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) 
-						verbose = (onOff == OnOffEnum.On);
-					else
-						Console.WriteLine ("Unknown SET REPORTERROR value '{0}'", value);
-					break;
+					{
+						OnOffEnum onOff;
+						if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) 
+							verbose = (onOff == OnOffEnum.On);
+						else
+							Console.WriteLine ("Unknown SET REPORTERROR value '{0}'", value);
+						break;
+					}
+				case "AUTOSIZE":
+					{
+						OnOffEnum onOff;
+						if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) {
+							autoSize = (onOff == OnOffEnum.On);
+							if (autoSize) 
+								gqlEngine.GqlEngineState.AutoSize = autoSizeRows;
+							else
+								gqlEngine.GqlEngineState.AutoSize = 0;
+						} else {
+							Console.WriteLine ("Unknown SET AUTOSIZE value '{0}'", value);
+						}
+						break;
+					}
+				case "AUTOSIZEROWS":
+					{
+						if (int.TryParse (value, out autoSizeRows)) {
+							if (autoSize) 
+								gqlEngine.GqlEngineState.AutoSize = autoSizeRows;
+							else
+								gqlEngine.GqlEngineState.AutoSize = 0;
+						} else {
+							Console.WriteLine ("Unknown SET AUTOSIZEROWS value '{0}'", value);
+						}
+						break;
+					}
 				default:
 					Console.WriteLine ("Unknown SET command '{0}'", key);
 					break;
