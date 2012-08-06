@@ -42,7 +42,7 @@ Global
 		{CBFD18CD-84C6-4879-9163-D084AC0FB5FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = FxGqlC\FxGqlC.csproj
+		StartupItem = FxGqlTest\FxGqlTest.csproj
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = None

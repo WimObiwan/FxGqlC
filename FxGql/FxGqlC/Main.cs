@@ -526,6 +526,11 @@ namespace FxGqlC
 						}
 						break;
 					}
+				case "COLUMNDELIMITER":
+					if (value.Length >= 3 && value.StartsWith ("\'") && value.EndsWith ("\'"))
+						value = value.Substring (1, value.Length - 2);
+					gqlEngine.GqlEngineState.ColumnDelimiter = Regex.Unescape (value);
+					break;
 				default:
 					Console.WriteLine ("Unknown SET command '{0}'", key);
 					break;

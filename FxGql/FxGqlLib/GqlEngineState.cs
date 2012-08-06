@@ -11,6 +11,7 @@ namespace FxGqlLib
 			Variables = new Dictionary<string, Variable> (StringComparer.InvariantCultureIgnoreCase);
 			Views = new Dictionary<string, ViewDefinition> (StringComparer.InvariantCultureIgnoreCase);
 			AutoSize = 0;
+			ColumnDelimiter = "\t";
 		}
 		
 		public GqlEngineExecutionState ExecutionState { get; private set; }
@@ -44,6 +45,7 @@ namespace FxGqlLib
 		public Dictionary<string, Variable> Variables { get; private set; }
 		public Dictionary<string, ViewDefinition> Views { get; private set; }
 		public int AutoSize { get; set; }
+		public string ColumnDelimiter { get; set; }
 	}
 }
 
