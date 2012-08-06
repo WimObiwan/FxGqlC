@@ -497,7 +497,7 @@ namespace FxGqlC
 						if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) 
 							verbose = (onOff == OnOffEnum.On);
 						else
-							Console.WriteLine ("Unknown SET REPORTERROR value '{0}'", value);
+							Console.WriteLine ("Unknown SET VERBOSE value '{0}'", value);
 						break;
 					}
 				case "AUTOSIZE":
