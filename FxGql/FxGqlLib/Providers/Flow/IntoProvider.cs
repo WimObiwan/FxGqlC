@@ -108,7 +108,7 @@ namespace FxGqlLib
 					fileMode = FileMode.Create;
 				else
 					fileMode = FileMode.CreateNew;
-				using (FileStream outputStream = new FileStream(fileName, fileMode, FileAccess.Write, FileShare.None)) {
+				using (FileStream outputStream = new FileStream(fileName, fileMode, FileAccess.Write, FileShare.Read)) {
 					using (AsyncStreamWriter asyncStreamWriter = new AsyncStreamWriter(outputStream)) {
 						DumpProviderToStream (provider, outputStream, this.gqlQueryState,
 					                      columnDelimiter, GetNewLine (fileOptions.NewLine), fileOptions.Heading);
