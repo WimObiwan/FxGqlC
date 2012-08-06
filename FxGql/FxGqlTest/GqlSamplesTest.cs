@@ -529,14 +529,14 @@ namespace FxGqlTest
                 "B7B20E3D1807D5638954EE155A94608D1492D0C9FAB4E5D346E50E8816AD63CC");
 			TestGql ("select $line from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
                 "B7B20E3D1807D5638954EE155A94608D1492D0C9FAB4E5D346E50E8816AD63CC");
-			TestGql (@"SELECT $filename, $totallineno FROM ['SampleFiles\*' -recurse] WHERE $lineno = 1", 
+			TestGql (@"SELECT $filename, $totallineno FROM ['SampleFiles/*' -recurse] WHERE $lineno = 1", 
 			    "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
-			TestGql (@"SELECT $totallineno, $lineno, $line FROM ['SampleFiles\AirportCodes.csv'], ['SampleFiles\AirportCodes.csv'] WHERE $line match 'belgium'
-				SELECT count(1) FROM ['SampleFiles\AirportCodes.csv']", 
+			TestGql (@"SELECT $totallineno, $lineno, $line FROM ['SampleFiles/AirportCodes.csv'], ['SampleFiles/AirportCodes.csv'] WHERE $line match 'belgium'
+				SELECT count(1) FROM ['SampleFiles/AirportCodes.csv']", 
 			    "C5540814A5C695DFEC4D4A7791A6EACC2E3ED0562FCAB27DD3CD88A464E24AB4");
-			TestGql (@"SELECT count(1) FROM ['SampleFiles\*' -recurse]
-				SELECT (SELECT max($totallineno) FROM ['SampleFiles\*' -recurse] WHERE $lineno = 1)
-					+ (SELECT count(1) FROM [SampleFiles\SubFolder\AirportCodes2.csv.zip]) - 1", 
+			TestGql (@"SELECT count(1) FROM ['SampleFiles/*' -recurse]
+				SELECT (SELECT max($totallineno) FROM ['SampleFiles/*' -recurse] WHERE $lineno = 1)
+					+ (SELECT count(1) FROM [SampleFiles/SubFolder/AirportCodes2.csv.zip]) - 1", 
 			    "405F3EC7933CF21E92C2EB1DE7EEFE91FB9C574BD4FC7EC6EE820AB7106033A4");
 
 			// Function call:
@@ -1062,7 +1062,7 @@ namespace FxGqlTest
 			File.Delete ("test.txt");
 			TestGql (
 				@"
-				SELECT [f], [tl] FROM (SELECT $filename [f], $totallineno [tl], $lineno [l] FROM ['SampleFiles\*' -recurse]) WHERE [l] = 1
+				SELECT [f], [tl] FROM (SELECT $filename [f], $totallineno [tl], $lineno [l] FROM ['SampleFiles/*' -recurse]) WHERE [l] = 1
 				", "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
 			TestGql ("select * into [test.txt] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.{3}))|(?:(?<Column1>.*),(?<Column2>.{3}))']",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
@@ -1174,15 +1174,10 @@ namespace FxGqlTest
 			         "01F0E5F4A97552890EB9492081D168F0E66CA369E07B46CD763640F52AB3D381");
 			TestGql ("select substring([Date], 4, 7), count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig",
 			         "01F0E5F4A97552890EB9492081D168F0E66CA369E07B46CD763640F52AB3D381");
-			// Different behavior on mono2.10 than on Microsoft.net/mono2.11
-			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, [Round]",
-			         "735E58F3DCD6DF7787A15211A9D26B95A924E8D3248A71B07D7C22081B87330D",
-					 //"710210DFC92E34E0CDD4057C15A100F2B96369883C95279490BC8771F89B50FF",
-			         "623CDB671AFEDE37924DEC744727B09A234CD697C10CA4E675440DC6B1AC1A9F");
-			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, 2",
-			         "735E58F3DCD6DF7787A15211A9D26B95A924E8D3248A71B07D7C22081B87330D",
-					 //"710210DFC92E34E0CDD4057C15A100F2B96369883C95279490BC8771F89B50FF",
-			         "623CDB671AFEDE37924DEC744727B09A234CD697C10CA4E675440DC6B1AC1A9F");
+			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, [Round] order by 1 orig, [Round]",
+			         "F7FF55E000D8C5DD58356F8B23255160352213AC370B9EA979AD9F8C9FF39618");
+			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, 2 order by 1 orig, 2",
+			         "F7FF55E000D8C5DD58356F8B23255160352213AC370B9EA979AD9F8C9FF39618");
             
 			//// To test interrupt (Ctrl-C) of long running query
 			//TestGql (@"select top 10000 * from [/var/log/dpkg.log.1]",
@@ -1596,7 +1591,12 @@ namespace FxGqlTest
 //-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateDataAdapter, DbDataAdapter.InsertCommand,...
 //select * from ['*.log' -provider='files']  --default provider = filesystem
 
-			TestGql ("select * from ['select * from sys.tables' -provider='data' -client='System.Data.SqlClient' -connectionstring='Data Source=127.0.0.1\\SqlExpress;Initial Catalog=master;Integrated Security=SSPI']");
+			//TestGql ("select * from ['select * from sys.tables' -provider='data' -client='System.Data.SqlClient' -connectionstring='Data Source=127.0.0.1\\SqlExpress;Initial Catalog=master;Integrated Security=SSPI']");
+			
+			TestGql ("select * into ['Test.txt' -heading=On -overwrite] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=On] order by substring([Date], 4, 7)",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			
+			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, [Round] order by 1 orig, [Round]");
 
 			return failed == 0;
 		}		
