@@ -501,10 +501,19 @@ namespace FxGqlTest
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql (@"select * into ['test2.txt' -overwrite] from ['SampleFiles/AirportCodes.csv']",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			File.SetLastWriteTime("test1.txt", DateTime.Now.AddSeconds(-1));
 			TestGql (@"select distinct $filename from ['test?.txt' -fileorder='modificationtimeasc']",
 			         "2405D8CC3ABA8974E695866E695378C7E44E1E140D464ED91167B7E17C0E7631");
 			TestGql (@"select distinct $filename from ['test?.txt' -fileorder='modificationtimedesc']",
 			         "2801FAC150CE2622359D9E2CADCCDD7F9A0EA76AA514A8CF681E80B9C3958FD4");
+			TestGql (@"select [Name] from ['test?.txt' -provider='directory' -fileorder='modificationtimeasc']",
+			         "2405D8CC3ABA8974E695866E695378C7E44E1E140D464ED91167B7E17C0E7631");
+			TestGql (@"select [Name] from ['test?.txt' -provider='directory' -fileorder='modificationtimedesc']",
+			         "2801FAC150CE2622359D9E2CADCCDD7F9A0EA76AA514A8CF681E80B9C3958FD4");			         
+			TestGql (@"select [Name] from ['test?.txt' -provider='directory'] order by [LastWriteTime]",
+			         "2405D8CC3ABA8974E695866E695378C7E44E1E140D464ED91167B7E17C0E7631");
+			TestGql (@"select [Name] from ['test?.txt' -provider='directory'] order by [LastWriteTime] desc",
+			         "2801FAC150CE2622359D9E2CADCCDD7F9A0EA76AA514A8CF681E80B9C3958FD4");			         
 			File.Delete ("test1.txt");
 			File.Delete ("test2.txt");
             
@@ -1489,17 +1498,17 @@ namespace FxGqlTest
 			//// too slow
 			//TestGql ("select distinct $filename from ['SampleFiles/*.*' -recurse -fileorder='desc']",
 			//         "55FAC23FB574B12DB4D0A40B25BB67AC51215976B3BC325C47ADDCE2A1D865C4");
-			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse -fileorder='modificationtimeasc']",
-			         "46B882B50845C70167C5D6CB91A99A49E334C701ADA18B6E7FD86B0E1678BC08");
-			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse] order by [LastWriteTime]",
-			         "46B882B50845C70167C5D6CB91A99A49E334C701ADA18B6E7FD86B0E1678BC08");
+			//TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse -fileorder='modificationtimeasc']",
+			//         "46B882B50845C70167C5D6CB91A99A49E334C701ADA18B6E7FD86B0E1678BC08");
+			//TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse] order by [LastWriteTime]",
+			//         "46B882B50845C70167C5D6CB91A99A49E334C701ADA18B6E7FD86B0E1678BC08");
 			//// too slow
 			//TestGql ("select distinct $filename from ['SampleFiles/*.*' -recurse -fileorder='modificationtimeasc']",
 			//         "46B882B50845C70167C5D6CB91A99A49E334C701ADA18B6E7FD86B0E1678BC08");
-			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse -fileorder='modificationtimedesc']",
-			         "005BD0DA1ADFBADBBBE316F2F70B24E1CB289B172DB886F792B66CF90B4F6C22");
-			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse] order by [LastWriteTime] desc",
-			         "005BD0DA1ADFBADBBBE316F2F70B24E1CB289B172DB886F792B66CF90B4F6C22");
+			//TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse -fileorder='modificationtimedesc']",
+			//         "005BD0DA1ADFBADBBBE316F2F70B24E1CB289B172DB886F792B66CF90B4F6C22");
+			//TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse] order by [LastWriteTime] desc",
+			//         "005BD0DA1ADFBADBBBE316F2F70B24E1CB289B172DB886F792B66CF90B4F6C22");
 			//// too slow
 			//TestGql ("select distinct $filename from ['SampleFiles/*.*' -recurse -fileorder='modificationtimedesc']",
 			//         "005BD0DA1ADFBADBBBE316F2F70B24E1CB289B172DB886F792B66CF90B4F6C22");
