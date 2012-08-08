@@ -1813,7 +1813,6 @@ namespace FxGqlLib
                         operatorTree);
 				}
 				break;
-				break;
 			case "T_LESS":
 			case "T_GREATER":
 			case "T_NOTLESS":

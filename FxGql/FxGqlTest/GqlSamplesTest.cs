@@ -405,8 +405,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engineHash.Execute (command);
-						testSummaryWriter.WriteLine (command);
+					engineHash.Execute (command);
+					testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1520,6 +1520,9 @@ namespace FxGqlTest
                 "061A433CD5329B48CB1FAC416F4505AFEE5D79632DF2A363991711FB8788D573");
 			TestGql ("select * from [(select * from ['SampleFiles/*.*' -provider='directory' -recurse] where [Name] = 'AirportCodes.csv')]",
 			    "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
+
+			// SELECT from database
+			//TestGql ("select * from ['select * from sys.tables' -provider='data' -client='System.Data.SqlClient' -connectionstring='Data Source=127.0.0.1\\SqlExpress;Initial Catalog=master;Integrated Security=SSPI']");
 
 			Console.WriteLine ();
 			Console.WriteLine (

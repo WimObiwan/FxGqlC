@@ -50,21 +50,17 @@ namespace FxGqlLib
 		public bool GetNextRecord ()
 		{
 			bool result = providers [currentProvider].GetNextRecord ();
-			if (!result) {
-				if (currentProvider + 1 >= providers.Count)
-					return false;
-				do {
-					providers [currentProvider].Uninitialize ();
-					currentProvider++;
-					providers [currentProvider].Initialize (gqlQueryState);
-					result = providers [currentProvider].GetNextRecord ();
-				} while (!result && currentProvider < providers.Count);
+			while (!result && currentProvider + 1 < providers.Count) {
+				providers [currentProvider].Uninitialize ();
+				currentProvider++;
+				providers [currentProvider].Initialize (gqlQueryState);
+				result = providers [currentProvider].GetNextRecord ();
 			}
 
-			if (result)
+			if (result) {
 				totalLineNo++;
-
-			Record.TotalLineNo = totalLineNo;
+				Record.TotalLineNo = totalLineNo;
+			}
 				
 			return result;
 		}

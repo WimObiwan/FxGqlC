@@ -1,9 +1,11 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 using FxGqlLib;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace FxGqlC
 {
@@ -17,6 +19,8 @@ namespace FxGqlC
 		static DateTime lastCheck = DateTime.MinValue;
 		static bool continuePromptMode = true;
 		static bool verbose = false;
+		static bool autoSize = false;
+		static int autoSizeRows = -1;
 
 		static int uniqueVisitorId = GetUniqueId ();
 
@@ -291,6 +295,7 @@ namespace FxGqlC
 					|| command.Trim ().Equals ("quit", StringComparison.InvariantCultureIgnoreCase))
 					command = "!!exit"; 
 				if (!ExecutePromptCommand (command, lineEditor))
+				if (!ExecuteAliasCommand (command))
 					ExecuteCommand (command);
 				CheckToDisplayNewVersionMessage ();
 			}
@@ -321,6 +326,54 @@ namespace FxGqlC
 			}
 		}
 
+		public static IEnumerable<string> SplitCommandLine (string commandLine)
+		{
+			bool inQuotes = false;
+
+			return commandLine.Split (c =>
+			{
+				if (c == '\"')
+					inQuotes = !inQuotes;
+
+				return !inQuotes && c == ' ';
+			}
+			)
+                          .Select (arg => arg.Trim ().TrimMatchingQuotes ('\"'))
+                          .Where (arg => !string.IsNullOrEmpty (arg));
+		}
+
+		static string EmptyToNull (string value)
+		{
+			return string.IsNullOrEmpty (value) ? null : value;
+		}
+
+		static string GetValue (string[] components, string id)
+		{
+			int id2 = int.Parse (id);
+			return id2 > 0 && id2 < components.Length ? EmptyToNull (components [id2]) : null;
+
+		}
+
+		static bool ExecuteAliasCommand (string command)
+		{
+			command = command.Trim ();
+			if (command.StartsWith ("@")) {
+				command = command.Substring (1).TrimStart ();
+				string[] components = SplitCommandLine (command).ToArray ();
+				string definition;
+				if (aliases.TryGetValue (components [0], out definition)) {
+					definition = Regex.Replace (definition, @"(?:\$\((?<id>\d+)(?:,(?<def>[^\)]+))?\))|(?:\$(?<id>\d+))", 
+					                            m => GetValue (components, m.Groups ["id"].Value) ?? EmptyToNull (m.Groups ["def"].Value) ?? "");
+					ExecuteCommand (definition);
+				} else {
+					Console.WriteLine ("Unknown command alias '{0}'", command);
+				}
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 		public static void ExecuteCommand (string command)
 		{
 			if (!ExecuteClientCommand (command)) {
@@ -344,6 +397,9 @@ namespace FxGqlC
 						break;
 					case "EXECUTE":
 						ExecuteClientCommandExecute (commandComponents [1]);
+						break;
+					case "ALIAS":
+						ExecuteClientCommandAlias (commandComponents [1]);
 						break;
 					default:
 						Console.WriteLine ("Unknown client command '{0}'", commandComponents [0]);
@@ -416,27 +472,64 @@ namespace FxGqlC
 				string value = commandComponents [1];
 				switch (key.ToUpperInvariant ()) {
 				case "HEADING":
-					GqlEngineState.HeadingEnum heading;
-					if (Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading)) 
-						gqlEngine.GqlEngineState.Heading = heading;
-					else
-						Console.WriteLine ("Unknown SET HEADING value '{0}'", value);
+					{
+						GqlEngineState.HeadingEnum heading;
+						if (Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading)) 
+							gqlEngine.GqlEngineState.Heading = heading;
+						else
+							Console.WriteLine ("Unknown SET HEADING value '{0}'", value);
 
-					break;
+						break;
+					}
 				case "REPORTERROR":
-					ReportError reportError;
-					if (Enum.TryParse<ReportError> (value, true, out reportError)) 
-						MainClass.reportError = reportError;
-					else
-						Console.WriteLine ("Unknown SET REPORTERROR value '{0}'", value);
+					{
+						ReportError reportError;
+						if (Enum.TryParse<ReportError> (value, true, out reportError)) 
+							MainClass.reportError = reportError;
+						else
+							Console.WriteLine ("Unknown SET REPORTERROR value '{0}'", value);
 
-					break;
+						break;
+					}
 				case "VERBOSE":
-					OnOffEnum onOff;
-					if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) 
-						verbose = (onOff == OnOffEnum.On);
-					else
-						Console.WriteLine ("Unknown SET REPORTERROR value '{0}'", value);
+					{
+						OnOffEnum onOff;
+						if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) 
+							verbose = (onOff == OnOffEnum.On);
+						else
+							Console.WriteLine ("Unknown SET VERBOSE value '{0}'", value);
+						break;
+					}
+				case "AUTOSIZE":
+					{
+						OnOffEnum onOff;
+						if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) {
+							autoSize = (onOff == OnOffEnum.On);
+							if (autoSize) 
+								gqlEngine.GqlEngineState.AutoSize = autoSizeRows;
+							else
+								gqlEngine.GqlEngineState.AutoSize = 0;
+						} else {
+							Console.WriteLine ("Unknown SET AUTOSIZE value '{0}'", value);
+						}
+						break;
+					}
+				case "AUTOSIZEROWS":
+					{
+						if (int.TryParse (value, out autoSizeRows)) {
+							if (autoSize) 
+								gqlEngine.GqlEngineState.AutoSize = autoSizeRows;
+							else
+								gqlEngine.GqlEngineState.AutoSize = 0;
+						} else {
+							Console.WriteLine ("Unknown SET AUTOSIZEROWS value '{0}'", value);
+						}
+						break;
+					}
+				case "COLUMNDELIMITER":
+					if (value.Length >= 3 && value.StartsWith ("\'") && value.EndsWith ("\'"))
+						value = value.Substring (1, value.Length - 2);
+					gqlEngine.GqlEngineState.ColumnDelimiter = Regex.Unescape (value);
 					break;
 				default:
 					Console.WriteLine ("Unknown SET command '{0}'", key);
@@ -464,6 +557,21 @@ namespace FxGqlC
 				ExecuteFile (file);
 			} finally {
 				fileExecutionDepth--;
+			}
+		}
+
+		static Dictionary<string, string> aliases = new Dictionary<string, string> ();
+
+		static void ExecuteClientCommandAlias (string command)
+		{
+			string[] commandComponents = command.Split (new char[] {' '}, 2, StringSplitOptions.RemoveEmptyEntries);
+			if (commandComponents.Length < 2) {
+				Console.WriteLine ("Invalid number of components in client command 'ALIAS'");
+			} else {
+				string alias = commandComponents [0];
+				string definition = commandComponents [1];
+
+				aliases [alias] = definition;
 			}
 		}
 

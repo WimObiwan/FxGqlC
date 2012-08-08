@@ -108,7 +108,7 @@ namespace FxGqlLib
 					fileMode = FileMode.Create;
 				else
 					fileMode = FileMode.CreateNew;
-				using (FileStream outputStream = new FileStream(fileName, fileMode, FileAccess.Write, FileShare.None)) {
+				using (FileStream outputStream = new FileStream(fileName, fileMode, FileAccess.Write, FileShare.Read)) {
 					using (AsyncStreamWriter asyncStreamWriter = new AsyncStreamWriter(outputStream)) {
 						DumpProviderToStream (provider, outputStream, this.gqlQueryState,
 					                      columnDelimiter, GetNewLine (fileOptions.NewLine), fileOptions.Heading);
@@ -150,41 +150,61 @@ namespace FxGqlLib
 					writer,
 					gqlQueryState,
 					columnDelimiter,
-					heading
+					heading,
+					0
 				);
 			}
 		}
 		
 		public static void DumpProviderToStream (IProvider provider, TextWriter outputWriter, GqlQueryState gqlQueryState, 
-		                                         string columnDelimiter, GqlEngineState.HeadingEnum heading)
+		                                         string columnDelimiter, GqlEngineState.HeadingEnum heading, int autoSize)
 		{
-			using (SelectProvider selectProvider = new SelectProvider (
-								new List<IExpression> () { new FormatColumnListFunction (columnDelimiter) },
-								provider)) {
-	
-				selectProvider.Initialize (gqlQueryState);
+			provider.Initialize (gqlQueryState);
 
-				if (selectProvider.GetNextRecord ()) {
-					if (heading != GqlEngineState.HeadingEnum.Off) {
-						FormatColumnListFunction formatColumnListFunction = new FormatColumnListFunction (columnDelimiter);
-						ColumnName[] columnTitles = provider.GetColumnNames ();
-						string[] columnTitleStrings = columnTitles.Select (p => p.ToStringWithoutBrackets ()).ToArray ();
-						outputWriter.WriteLine (formatColumnListFunction.Evaluate (columnTitleStrings));
-						if (heading == GqlEngineState.HeadingEnum.OnWithRule) {
-							string[] columnTitlesRule = new string[columnTitles.Length];
-							for (int i = 0; i < columnTitles.Length; i++)
-								columnTitlesRule [i] = new string ('=', columnTitleStrings [i].ToString ().Length);
-							outputWriter.WriteLine (formatColumnListFunction.Evaluate (columnTitlesRule));
-						}
+			List<string[]> list = new List<string[]> ();
+			if (heading != GqlEngineState.HeadingEnum.Off) {
+				ColumnName[] columnTitles = provider.GetColumnNames ();
+				if (columnTitles.Length > 0) {
+					string[] columnTitleStrings = columnTitles.Select (p => p.ToStringWithoutBrackets ()).ToArray ();
+					list.Add (columnTitleStrings);
+					if (heading == GqlEngineState.HeadingEnum.OnWithRule) {
+						string[] columnTitlesRule = new string[columnTitles.Length];
+						for (int i = 0; i < columnTitles.Length; i++)
+							columnTitlesRule [i] = new string ('=', columnTitleStrings [i].ToString ().Length);
+						list.Add (columnTitlesRule);
 					}
-
-					do {
-						outputWriter.WriteLine (selectProvider.Record.Columns [0].ToString ());
-					} while (selectProvider.GetNextRecord());
 				}
+			}
 
-				selectProvider.Uninitialize ();
-			}	
+			for (int record = 0; (autoSize == -1 || record < autoSize) && provider.GetNextRecord (); record++) {
+				list.Add (provider.Record.Columns.Select (p => p.ToString ()).ToArray ());
+			}
+
+			FormatColumnListFunction formatColumnListFunction;
+			if (autoSize == 0) {
+				formatColumnListFunction = new FormatColumnListFunction (columnDelimiter);
+			} else {
+				int[] max = new int[list [0].Length];
+				foreach (string[] item in list) {
+					for (int col = 0; col < max.Length; col++)
+						max [col] = Math.Max (item [col].Length, max [col]);
+				}
+				Type[] types = provider.GetColumnTypes ();
+				for (int col = 0; col < max.Length; col++)
+					if (types [col] != typeof(DataString))
+						max [col] = -max [col];
+				formatColumnListFunction = new FormatColumnListFunction (columnDelimiter, max);
+			}
+
+			foreach (var item in list) {
+				outputWriter.WriteLine (formatColumnListFunction.Evaluate (item));
+			}
+
+			while (provider.GetNextRecord ()) {
+				outputWriter.WriteLine (formatColumnListFunction.Evaluate (provider.Record.Columns.Select (p => p.ToString ())));
+			}
+
+			provider.Uninitialize ();
 		}
 		
 		/*class ProviderToStream : Stream
