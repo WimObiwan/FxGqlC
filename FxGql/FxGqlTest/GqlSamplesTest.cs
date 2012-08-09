@@ -854,45 +854,49 @@ namespace FxGqlTest
 			TestGql ("select * into ['test.txt'] from ['SampleFiles/AirportCodes.csv']",
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
-                "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2", // unix
+                "06AB2DDF21B0DF016E2D3F79E9A42A8869CCD56C635009C5CEC0F11EF1A4E864", // unix
                 "2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
 			File.Delete ("test.txt");
 			TestGql ("select 17, '<this is a test>' into ['test.txt']", 
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
-                "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8", // unix
+                "6782122237445EBF340D9B5C8A4785AFA2E2B8D405F487C22B826BADE7B99974", // unix
                 "0B99DAF34499129ACC727D61F3F43A481DA2D4AE50A87DAFFAC799DA1325D46C"); // windows
 			File.Delete ("test.txt");
 			TestGql ("select * into [test.txt] from ['SampleFiles/AirportCodes.csv']",
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
-                "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2", // unix
+                "06AB2DDF21B0DF016E2D3F79E9A42A8869CCD56C635009C5CEC0F11EF1A4E864", // unix
                 "2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
 			File.Delete ("test.txt");
 			TestGql ("select 17, '<this is a test>' into [test.txt]", 
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
-                "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8", // unix
+                "6782122237445EBF340D9B5C8A4785AFA2E2B8D405F487C22B826BADE7B99974", // unix
                 "0B99DAF34499129ACC727D61F3F43A481DA2D4AE50A87DAFFAC799DA1325D46C"); // windows
 			File.Delete ("test.txt");
 			TestGql ("select * into ['test.txt' -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
+			    "06AB2DDF21B0DF016E2D3F79E9A42A8869CCD56C635009C5CEC0F11EF1A4E864", // unix
                 "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
 			File.Delete ("test.txt");
-			TestGql ("select 17, '<this is a test>' into ['test.txt' -lineend=unix]", 
+			TestGql ("select 17, '<this is a test>' into ['test.txt' -lineend=unix]",
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
+			    "6782122237445EBF340D9B5C8A4785AFA2E2B8D405F487C22B826BADE7B99974", // unix
                 "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
 			File.Delete ("test.txt");
 			TestGql ("select * into ['test.txt' -lineend=dos] from ['SampleFiles/AirportCodes.csv']",
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
+			    "1BC3BA3A2E25CA9DB33E98251ADDF76AF96ACA10E54AAF7AD126A7488F6A3EA4", // unix
                 "2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5");
 			File.Delete ("test.txt");
 			TestGql ("select 17, '<this is a test>' into ['test.txt' -lineend=dos]", 
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
+			    "7E9CBDC5BA79D335BDC12F21A1D8FA496BF0FA7D78ECB7514094E2D920BAEE59", // unix
                 "0B99DAF34499129ACC727D61F3F43A481DA2D4AE50A87DAFFAC799DA1325D46C");
 			File.Delete ("test.txt");
 			TestGql ("select * into ['test.zip' -lineend=dos] from ['SampleFiles/AirportCodes.csv']",
@@ -905,10 +909,12 @@ namespace FxGqlTest
 			TestGql ("select * into ['test.txt' -append -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
+			    "65816E12B7ED19E780380A0A3AF90F7837FD185A777D49D356D34A2B86835D7C",
                 "593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
 			TestGql ("select * into ['test.txt' -overwrite -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
+			    "06AB2DDF21B0DF016E2D3F79E9A42A8869CCD56C635009C5CEC0F11EF1A4E864", // unix
                 "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
 			TestGql ("select * into ['test.txt' -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
                 typeof(InvalidOperationException));
@@ -918,7 +924,7 @@ namespace FxGqlTest
 			TestGql ("use [SampleFiles]; select * into ['test.txt' -overwrite] from ['AirportCodes.csv']; use [..]",
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("SampleFiles/test.txt",
-                "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2", // unix
+                "06AB2DDF21B0DF016E2D3F79E9A42A8869CCD56C635009C5CEC0F11EF1A4E864", // unix
                 "2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
 			File.Delete ("SampleFiles/test.txt");
 			//TestGql ("select * into ['test.zip' -lineend=unix] from ['SampleFiles/AirportCodes.csv']",
@@ -1002,7 +1008,7 @@ namespace FxGqlTest
 			TestGql ("select * into ['test.txt'] from ['SampleFiles/AirportCodes.csv']",
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
-                "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2", // unix
+                "06AB2DDF21B0DF016E2D3F79E9A42A8869CCD56C635009C5CEC0F11EF1A4E864", // unix
                 "2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
 			File.Delete ("test.txt");
 			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.OnWithRule;
@@ -1024,49 +1030,47 @@ namespace FxGqlTest
 			TestGql ("select * into ['test.txt'] from ['SampleFiles/AirportCodes.csv']",
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
-                "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2", // unix
+                "06AB2DDF21B0DF016E2D3F79E9A42A8869CCD56C635009C5CEC0F11EF1A4E864", // unix
                 "2E548FF714E3A398E8A86857E1584AC9277269E5B61CD619800CBBE0F141AAE5"); // windows
 			File.Delete ("test.txt");
 			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
 			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
 			TestGql ("select [FieldA], [FieldB] into ['test.txt' -overwrite -lineend=unix] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=on])",
                      "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestFile (
-                "test.txt",
-                "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7"
-			);
+			TestFile ("test.txt",
+			    "D26E5ACE05A5267EFDBD65E66D8DDC6D82D991A740AC00914C6C66BF1B93E707", // unix
+                "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7");
 			TestGql ("select [FieldA], [FieldB] into ['test.txt' -overwrite -lineend=unix -heading=off] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=on])",
                      "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestFile (
-                "test.txt",
-                "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7"
-			);
+			TestFile ("test.txt",
+			    "D26E5ACE05A5267EFDBD65E66D8DDC6D82D991A740AC00914C6C66BF1B93E707", // unix
+                "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7");
 			TestGql ("select * from [test.txt]",
                      "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7");
 			TestGql ("select [FieldA], [FieldB] into ['test.txt' -overwrite -lineend=unix -heading=on] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=on])",
                      "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestFile (
-                "test.txt",
-                "020453668AEBE2F8C3E1F540B6647B1BFB154FBEEF4C0D6546C16561B34B05D5"
-			);
+			TestFile ("test.txt",
+			    "E6526529737C8935EB37306BB44C531F7C48FB758B8C5056EF59057CA31EC21C", //unix
+                "020453668AEBE2F8C3E1F540B6647B1BFB154FBEEF4C0D6546C16561B34B05D5");
 			TestGql ("select * from ['test.txt' -heading=on]",
                      "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7");
 			TestGql ("select [FieldA], [FieldB] into ['test.txt' -overwrite -lineend=unix -heading=onwithrule] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=on])",
                      "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestFile (
-                "test.txt",
-                "559B790700A2A0C0FBCCE4B1BDBCEE9571F51DD76EF57B5D351B9CFB0B46A88B"
-			);
+			TestFile ("test.txt",
+			    "5BA32738382B8B3148A7DDF25BFBF299C8A445AA148B06A4D8515D5E1EEE8CCF", // unix
+                "559B790700A2A0C0FBCCE4B1BDBCEE9571F51DD76EF57B5D351B9CFB0B46A88B");
 			TestGql ("select * from ['test.txt' -heading=onwithrule]",
                      "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7");
 			TestGql ("select [FieldA], [FieldB] into ['test.txt' -overwrite -columndelimiter='\t' -lineend=unix -heading=off] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=on])",
                      "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
+			          "D26E5ACE05A5267EFDBD65E66D8DDC6D82D991A740AC00914C6C66BF1B93E707", // unix
 			          "92FC55AFDE226DF5839120AE34894485E3F37CFFAA23C05E05139762F48692F7");
 
 			TestGql ("select [FieldA], [FieldB] into ['test.txt' -overwrite -columndelimiter='+' -lineend=unix -heading=off] from (select distinct top 15 matchregex($line, '^.*?\t.*?\t(.*?)\t') [FieldA], matchregex($line, '^.*?\t(.*?)\t.*?\t') [FieldB] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=on])",
                      "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
+			          "F71CDF95BD0E3BC11F0CAF23F2D1AC9F9B82D100407612C9932A65AACC0B5F5D", // unix
 			          "CDFDDF029C3BAA437F242109A66270756970ABED039AC1500A991073A987BFE9");
 			File.Delete ("test.txt");
 			TestGql (
@@ -1075,7 +1079,9 @@ namespace FxGqlTest
 				", "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
 			TestGql ("select * into ['test.txt' -lineend=dos] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.{3}))|(?:(?<Column1>.*),(?<Column2>.{3}))']",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestFile ("test.txt", "408B2F3D4DA0AC76D6D836F7D93980754EB72D4BCD9C7704C7F8287E28CC029D");
+			TestFile ("test.txt", 
+			         "2085CBB2DCBE67459334E7A28B9150DE60BE92EBFC151B1723C1EF2B4977B150", // unix
+			         "408B2F3D4DA0AC76D6D836F7D93980754EB72D4BCD9C7704C7F8287E28CC029D");
 			TestGql ("select * from [test.txt] where contains($line, 'Brussels') and contains($line, 'National')",
 			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
 			TestGql ("select * from ['test.txt' -columndelimiter='\t'] where [Column2] = 'BRU'",
@@ -1090,7 +1096,9 @@ namespace FxGqlTest
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql ("select * into ['test.txt' -append -lineend=unix] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(.*)\",(.{3}))|(?:(.*),(.{3}))']",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestFile ("test.txt", "1AB4DD15D1463AC548F2B67EB32D976884613082836F731BE1EE24C6DE49594D");
+			TestFile ("test.txt", 
+			         "E7E239FEE8E5D4A456F255F122CE64AEDFC60C2EDB7B26DBF730CBADA3F59658", // unix
+			         "1AB4DD15D1463AC548F2B67EB32D976884613082836F731BE1EE24C6DE49594D");
 			TestGql ("select * from ['test.txt' -heading=onwithrule] where [Code] = 'BRU'",
 			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.{3}))|(?:(?<Column1>.*),(?<Column2>.{3}))'] where [Column2] = 'BRU'",
@@ -1102,7 +1110,9 @@ namespace FxGqlTest
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql ("select [Column1] + '$' + [Column2] into ['test.txt' -append -lineend=unix] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.{3}))|(?:(?<Column1>.*),(?<Column2>.{3}))']",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestFile ("test.txt", "DD095E137DC942BE15B6856507D3E8AD76399E3B6EC13BA20BF3052895023ABF");
+			TestFile ("test.txt", 
+			         "BF1A2913FBA7E94327F412400CF6F8A34275B77E4520DB7B4EC8F180E64D5253", // unix
+			         "DD095E137DC942BE15B6856507D3E8AD76399E3B6EC13BA20BF3052895023ABF");
 			TestGql ("select * from ['test.txt' -heading=onwithrule -columns='^(.*)\\$(.*)$'] where [Code] = 'BRU'",
 			         "91C3C0AA1BAAEA4334F899E950B27C28A0971849DB0158C1465957D3736082B1");
 
