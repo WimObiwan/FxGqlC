@@ -405,8 +405,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engineHash.Execute (command);
-					testSummaryWriter.WriteLine (command);
+						engineHash.Execute (command);
+						testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -501,7 +501,7 @@ namespace FxGqlTest
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql (@"select * into ['test2.txt' -overwrite] from ['SampleFiles/AirportCodes.csv']",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			File.SetLastWriteTime("test1.txt", DateTime.Now.AddSeconds(-1));
+			File.SetLastWriteTime ("test1.txt", DateTime.Now.AddSeconds (-1));
 			TestGql (@"select distinct $filename from ['test?.txt' -fileorder='modificationtimeasc']",
 			         "2405D8CC3ABA8974E695866E695378C7E44E1E140D464ED91167B7E17C0E7631");
 			TestGql (@"select distinct $filename from ['test?.txt' -fileorder='modificationtimedesc']",
@@ -1073,7 +1073,7 @@ namespace FxGqlTest
 				@"
 				SELECT [f], [tl] FROM (SELECT $filename [f], $totallineno [tl], $lineno [l] FROM ['SampleFiles/*' -recurse]) WHERE [l] = 1
 				", "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
-			TestGql ("select * into [test.txt] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.{3}))|(?:(?<Column1>.*),(?<Column2>.{3}))']",
+			TestGql ("select * into ['test.txt' -lineend=dos] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.{3}))|(?:(?<Column1>.*),(?<Column2>.{3}))']",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt", "408B2F3D4DA0AC76D6D836F7D93980754EB72D4BCD9C7704C7F8287E28CC029D");
 			TestGql ("select * from [test.txt] where contains($line, 'Brussels') and contains($line, 'National')",
@@ -1184,9 +1184,11 @@ namespace FxGqlTest
 			TestGql ("select substring([Date], 4, 7), count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig",
 			         "01F0E5F4A97552890EB9492081D168F0E66CA369E07B46CD763640F52AB3D381");
 			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, [Round] order by 1 orig, [Round]",
-			         "F7FF55E000D8C5DD58356F8B23255160352213AC370B9EA979AD9F8C9FF39618");
+			         "F7FF55E000D8C5DD58356F8B23255160352213AC370B9EA979AD9F8C9FF39618",
+			         "2255422986F0565ECA946B11A42995C08E55E12D666B249526C3A86FD497C906");
 			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, 2 order by 1 orig, 2",
-			         "F7FF55E000D8C5DD58356F8B23255160352213AC370B9EA979AD9F8C9FF39618");
+			         "F7FF55E000D8C5DD58356F8B23255160352213AC370B9EA979AD9F8C9FF39618",
+			         "2255422986F0565ECA946B11A42995C08E55E12D666B249526C3A86FD497C906");
             
 			//// To test interrupt (Ctrl-C) of long running query
 			//TestGql (@"select top 10000 * from [/var/log/dpkg.log.1]",
@@ -1607,8 +1609,12 @@ namespace FxGqlTest
 			
 			TestGql ("select * into ['Test.txt' -heading=On -overwrite] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=On] order by substring([Date], 4, 7)",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			
-			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, [Round] order by 1 orig, [Round]");
+			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, [Round] order by 1 orig, [Round]",
+			         "F7FF55E000D8C5DD58356F8B23255160352213AC370B9EA979AD9F8C9FF39618",
+			         "2255422986F0565ECA946B11A42995C08E55E12D666B249526C3A86FD497C906");
+			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, 2 order by 1 orig, 2",
+			         "F7FF55E000D8C5DD58356F8B23255160352213AC370B9EA979AD9F8C9FF39618",
+			         "2255422986F0565ECA946B11A42995C08E55E12D666B249526C3A86FD497C906");
 
 			return failed == 0;
 		}		
