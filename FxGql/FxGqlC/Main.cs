@@ -16,7 +16,7 @@ namespace FxGqlC
 		static string lastRelease;
 		static bool nochecknewversion = false;
 		static bool notracking = false;
-		static DateTime lastCheck = DateTime.MinValue;
+		//static DateTime lastCheck = DateTime.MinValue;
 		static bool continuePromptMode = true;
 		static bool verbose = false;
 		static bool autoSize = false;
@@ -240,6 +240,8 @@ namespace FxGqlC
 					}
 				}			
 			}
+			CheckForUpdates (State.Stop);
+			System.Threading.Thread.Sleep (100);
 		}
 
 		public static void ShowHelp ()
@@ -297,7 +299,6 @@ namespace FxGqlC
 				if (!ExecutePromptCommand (command, lineEditor))
 				if (!ExecuteAliasCommand (command))
 					ExecuteCommand (command);
-				CheckToDisplayNewVersionMessage ();
 			}
 			lineEditor.Close ();
 		}
@@ -379,6 +380,7 @@ namespace FxGqlC
 			if (!ExecuteClientCommand (command)) {
 				ExecuteServerCommand (command);
 			}
+			CheckToDisplayNewVersionMessage ();
 		}
 
 		static bool ExecuteClientCommand (string command)
@@ -586,108 +588,116 @@ namespace FxGqlC
 		{
 			if (nochecknewversion && notracking)
 				return;
-			DateTime now = DateTime.Now;
-			if (lastCheck == DateTime.MinValue || lastCheck + new TimeSpan (0, 15, 0) < now) {
-				lastCheck = now;
-				System.Threading.ThreadPool.QueueUserWorkItem (new System.Threading.WaitCallback (delegate(object state2) {
-					CheckForUpdatesAsync (state);
-				}
-				)
-				);
+			//DateTime now = DateTime.Now;
+			//if (lastCheck == DateTime.MinValue || lastCheck + new TimeSpan (0, 15, 0) < now) {
+			//	lastCheck = now;
+			System.Threading.ThreadPool.QueueUserWorkItem (new System.Threading.WaitCallback (delegate(object state2) {
+				CheckForUpdatesAsync (state);
 			}
+			)
+			);
+			//}
 		}
 
 		static void CheckForUpdatesAsync (State state)
 		{
 			if (nochecknewversion && notracking)
 				return;
-			try {
-				System.Net.ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback (delegate(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors) {
-					return true;
-				}
-				);
+			for (int i = 0; i < 3; i++) {
+				try {
+					System.Net.ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback (delegate(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors) {
+						return true;
+					}
+					);
 
-				using (var client = new System.Net.WebClient ()) {
+					using (var client = new System.Net.WebClient ()) {
 
-					string culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+						string culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
 //					string os;
 //					os = System.Text.RegularExpressions.Regex.Replace (Environment.OSVersion.VersionString, @"^.*(Windows NT \d+\.\d+).*$", "$1");
 //					//client.Headers.Add (System.Net.HttpRequestHeader.UserAgent, "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 7.1; Trident/5.0)");
 //					client.Headers.Add (System.Net.HttpRequestHeader.UserAgent, "Mozilla/5.0 (compatible; MSIE 9.0; " + os + "; Trident/5.0)");
 //					//client.Headers ["user-agent"] = "Mozilla/5.0 (compatible; MSIE " + version + "; " + os + ")";
 
-					if (!nochecknewversion) {
-						byte[] data = client.DownloadData ("https://sites.google.com/site/fxgqlc/home/downloads/release-last.txt");
-						using (StreamReader r = new StreamReader(new MemoryStream(data))) {
-							lastRelease = r.ReadLine ();
+						client.Headers.Add (System.Net.HttpRequestHeader.UserAgent, string.Format ("FxGqlC/{3} ({0}; {1}; {2})", Environment.OSVersion.Platform, Environment.OSVersion.Version, Environment.OSVersion.VersionString, version));
+
+						if (!nochecknewversion) {
+							byte[] data = client.DownloadData ("https://sites.google.com/site/fxgqlc/home/downloads/release-last.txt");
+							using (StreamReader r = new StreamReader(new MemoryStream(data))) {
+								lastRelease = r.ReadLine ();
+							}
 						}
-					}
 
-					if (!notracking) {
-						Random rnd = new Random ();
+						if (!notracking) {
+							Random rnd = new Random ();
 
-						long timestampFirstRun, timestampLastRun, timestampCurrentRun, numberOfRuns;
+							long timestampFirstRun, timestampLastRun, timestampCurrentRun, numberOfRuns;
 
 // Get the first run time
-						timestampFirstRun = 0; //Settings.Default.FirstRun;
-						timestampLastRun = 0; //Settings.Default.LastRun;
-						timestampCurrentRun = 1000000000;
-						numberOfRuns = 1; //Settings.Default.NumberOfRuns + 1;
+							timestampFirstRun = 0; //Settings.Default.FirstRun;
+							timestampLastRun = 0; //Settings.Default.LastRun;
+							timestampCurrentRun = 1000000000;
+							numberOfRuns = 1; //Settings.Default.NumberOfRuns + 1;
 
 // If we've never run before, we need to set the same values
-						if (numberOfRuns == 1) {
-							timestampFirstRun = timestampCurrentRun;
-							timestampLastRun = timestampCurrentRun;
-						}
+							if (numberOfRuns == 1) {
+								timestampFirstRun = timestampCurrentRun;
+								timestampLastRun = timestampCurrentRun;
+							}
 
 // Some values we need
-						string domainHash = ""; // This can be calcualted for your domain online
-						string source = version;
-						string medium = "FxGqlC";
-						string sessionNumber = "1";
-						string campaignNumber = "1";
-						string screenRes = System.Console.WindowWidth + "x" + System.Console.WindowHeight;
+							string domainHash = ""; // This can be calcualted for your domain online
+							string source = version;
+							string medium = "FxGqlC";
+							string sessionNumber = "1";
+							string campaignNumber = "1";
+							string screenRes = System.Console.WindowWidth + "x" + System.Console.WindowHeight;
 
-						string stateName;
-						switch (state) {
-						case State.Start:
-							stateName = "AppStartup";
-							break;
-						default:
-						case State.Continue:
-							stateName = "AppContinue";
-							break;
-						case State.Stop:
-							stateName = "AppStop";
+							string stateName;
+							switch (state) {
+							case State.Start:
+								stateName = "B";
+								break;
+							default:
+							case State.Continue:
+								stateName = "C";
+								break;
+							case State.Stop:
+								stateName = "E";
+								break;
+							}
+							string requestPath = "%2F" + stateName + "%2F" + version;
+							string requestName = stateName + "%20" + version;
+
+							string statsRequest = "http://www.google-analytics.com/__utm.gif" +
+								"?utmwv=4.6.5" +
+								"&utmn=" + rnd.Next (100000000, 999999999) +
+								"&utmhn=" + Uri.EscapeDataString (System.Net.Dns.GetHostName ()) +
+								"&utmcs=" + Uri.EscapeDataString (Console.OutputEncoding.WebName) +
+								"&utmsr=" + screenRes +
+								"&utmsc=-" +
+								"&utmul=" + culture +
+								"&utmje=-" +
+								"&utmfl=-" +
+								"&utmdt=" + requestName +
+								"&utmhid=1943799692" +
+								"&utmr=0" +
+								"&utmp=" + requestPath +
+								"&utmac=UA-2703249-8" + // Account number
+								"&utmcc=" +
+								"__utma%3D" + domainHash + "." + uniqueVisitorId + "." + timestampFirstRun + "." + timestampLastRun + "." + timestampCurrentRun + "." + numberOfRuns +
+								"%3B%2B__utmz%3D" + domainHash + "." + timestampCurrentRun + "." + sessionNumber + "." + campaignNumber + ".utmcsr%3D" + source + "%7Cutmccn%3D(" + medium + ")%7Cutmcmd%3D" + medium + "%7Cutmcct%3D%2Fd31AaOM%3B";
+
+							//Console.WriteLine (statsRequest);
+							client.DownloadString (statsRequest);
+							//Console.WriteLine ("OK");
 							break;
 						}
-						string requestPath = "%2F" + stateName + "%2FRELEASE%2F" + version;
-						string requestName = stateName + "%20v" + version;
-
-						string statsRequest = "http://www.google-analytics.com/__utm.gif" +
-							"?utmwv=4.6.5" +
-							"&utmn=" + rnd.Next (100000000, 999999999) +
-							"&utmhn=" + Uri.EscapeDataString ("sites.google.com/site/fxgqlc") +
-							"&utmcs=-" +
-							"&utmsr=" + screenRes +
-							"&utmsc=-" +
-							"&utmul=" + culture +
-							"&utmje=-" +
-							"&utmfl=-" +
-							"&utmdt=" + requestName +
-							"&utmhid=1943799692" +
-							"&utmr=0" +
-							"&utmp=" + requestPath +
-							"&utmac=UA-2703249-8" + // Account number
-							"&utmcc=" +
-							"__utma%3D" + domainHash + "." + uniqueVisitorId + "." + timestampFirstRun + "." + timestampLastRun + "." + timestampCurrentRun + "." + numberOfRuns +
-							"%3B%2B__utmz%3D" + domainHash + "." + timestampCurrentRun + "." + sessionNumber + "." + campaignNumber + ".utmcsr%3D" + source + "%7Cutmccn%3D(" + medium + ")%7Cutmcmd%3D" + medium + "%7Cutmcct%3D%2Fd31AaOM%3B";
-
-						client.DownloadString (statsRequest);
 					}
+				} catch { /*(Exception x)*/
+					//Console.WriteLine (x);
+					System.Threading.Thread.Sleep (5000);
 				}
-
-			} catch {
 			}
 		}
 
@@ -704,7 +714,6 @@ namespace FxGqlC
 
 				nochecknewversion = true;
 			}
-			
 			CheckForUpdates (State.Continue);
 		}
 
@@ -722,6 +731,7 @@ namespace FxGqlC
 						foreach (byte b in mac) {
 							hash = (hash << 8) | b;
 						}
+						hash ^= 0x00000003; // 'version'
 						return (int)((hash % 899999999) + 1000000000);
 					}
 				}
