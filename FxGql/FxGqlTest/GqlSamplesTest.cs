@@ -17,6 +17,7 @@ namespace FxGqlTest
 		List<string> failedQueries = new List<string> ();
 		public GqlEngine engineOutput = new GqlEngine ();
 		public GqlEngine engineHash = new GqlEngine ();
+		public bool Performance { get; set; }
 
 		readonly TextWriter nullTextWriter = new StreamWriter (Stream.Null);
 
@@ -319,7 +320,8 @@ namespace FxGqlTest
 				unknown++;
 			} else {
 				if (targetHash1 == hashString || targetHash2 == hashString) {
-					Console.WriteLine ("   Test OK");
+					if (!Performance)
+						Console.WriteLine ("   Test OK");
 					succeeded++;
 				} else {
 					Console.WriteLine ("   Test FAILED");
@@ -343,7 +345,8 @@ namespace FxGqlTest
         
 		private void TestFile (string fileName, string targetHash1, string targetHash2)
 		{
-			Console.WriteLine ("Testing file '{0}'", fileName);
+			if (!Performance)
+				Console.WriteLine ("Testing file '{0}'", fileName);
 			//string filePath = Path.Combine (samplesPath, fileName);
 			using (FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read)) {
 				CheckStream (stream, targetHash1, targetHash2);
@@ -357,7 +360,8 @@ namespace FxGqlTest
         
 		private void TestGql (string command, Type exceptionType)
 		{
-			Console.WriteLine ("Testing GQL '{0}'", command);
+			if (!Performance)
+				Console.WriteLine ("Testing GQL '{0}'", command);
 
 			try {
 				engineHash.OutputStream = nullTextWriter;
@@ -368,7 +372,8 @@ namespace FxGqlTest
 				failed++;
 			} catch (Exception exception) {
 				if (exceptionType.IsAssignableFrom (exception.GetType ())) {
-					Console.WriteLine ("   Test OK, {0}", exception.Message);
+					if (!Performance)
+						Console.WriteLine ("   Test OK, {0}", exception.Message);
 					succeeded++;
 				} else {
 					Console.WriteLine ("   Test FAILED");
@@ -386,7 +391,8 @@ namespace FxGqlTest
 
 		private void TestGql (string command, string targetHash1, string targetHash2)
 		{
-			Console.WriteLine ("Testing GQL '{0}'", command);
+			if (!Performance)
+				Console.WriteLine ("Testing GQL '{0}'", command);
             
 			if (targetHash1 == null) {
 				engineOutput.OutputStream = Console.Out;
@@ -1536,14 +1542,16 @@ namespace FxGqlTest
 			// SELECT from database
 			//TestGql ("select * from ['select * from sys.tables' -provider='data' -client='System.Data.SqlClient' -connectionstring='Data Source=127.0.0.1\\SqlExpress;Initial Catalog=master;Integrated Security=SSPI']");
 
-			Console.WriteLine ();
-			Console.WriteLine (
+			if (!Performance) {
+				Console.WriteLine ();
+				Console.WriteLine (
                 "{0} tests done, {1} succeeded, {2} failed, {3} unknown",
                 succeeded + failed + unknown,
                 succeeded,
                 failed,
                 unknown
-			);
+				);
+			}
             
 			foreach (string failedQuery in failedQueries)
 				Console.WriteLine ("FAILED:" + Environment.NewLine + failedQuery + Environment.NewLine);
