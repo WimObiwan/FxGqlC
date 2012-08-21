@@ -6,27 +6,39 @@ namespace FxGqlLib
 	public struct DataString : IData, IComparable, IComparable<DataString>
 	{
 		string value;
+		char[] buffer;
+		int start;
+		int len;
 
-		public string Value { get { return value; } }
+		public string Value { 
+			get { 
+				if (value == null && buffer != null)
+					value = new string (buffer, start, len);
+				return value;
+			}
+		}
 
 		public override string ToString ()
 		{
-			return value;
+			return Value;
 		}
 
 		public DataString (string value)
 		{
 			this.value = value;
+			this.buffer = null;
+			this.start = -1;
+			this.len = -1;
 		}
 
 		public DataInteger ToDataInteger ()
 		{
-			return new DataInteger (long.Parse (this.value));
+			return new DataInteger (long.Parse (Value));
 		}
 
 		public DataInteger ToDataInteger (string format)
 		{
-			return new DataInteger (long.Parse (this.value));
+			return new DataInteger (long.Parse (Value));
 		}
 
 		public DataString ToDataString ()
@@ -41,17 +53,17 @@ namespace FxGqlLib
 
 		public DataBoolean ToDataBoolean ()
 		{
-			return new DataBoolean (bool.Parse (this.value));
+			return new DataBoolean (bool.Parse (Value));
 		}
 
 		public DataDateTime ToDataDateTime ()
 		{
-			return new DataDateTime (DateTime.Parse (this.value));
+			return new DataDateTime (DateTime.Parse (Value));
 		}
 
 		public DataDateTime ToDataDateTime (string format)
 		{
-			return new DataDateTime (DateTime.ParseExact (this.value, format, System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat));
+			return new DataDateTime (DateTime.ParseExact (Value, format, System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat));
 		}
 
 		public int CompareTo (object other)
@@ -64,12 +76,12 @@ namespace FxGqlLib
 
 		public int CompareTo (DataString other)
 		{
-			return this.value.CompareTo (other.value);
+			return Value.CompareTo (other.value);
 		}
 
 		public static implicit operator string (DataString value)
 		{
-			return value.value;
+			return value.Value;
 		}
 
 		public static implicit operator DataString (string value)
@@ -80,6 +92,17 @@ namespace FxGqlLib
 		public void Set (string value)
 		{
 			this.value = value;
+			this.buffer = null;
+			this.start = -1;
+			this.len = -1;
+		}
+
+		public void Set (char[] buffer, int start, int len)
+		{
+			this.value = null;
+			this.buffer = buffer;
+			this.start = start;
+			this.len = len;
 		}
 	}
 }

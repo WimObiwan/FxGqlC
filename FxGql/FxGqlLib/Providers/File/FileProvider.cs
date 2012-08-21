@@ -8,11 +8,12 @@ namespace FxGqlLib
 		readonly string fileName;
 		readonly long skip;
 
-		StreamReader streamReader;
+		CharArrayReader streamReader;
+		//StreamReader streamReader;
 		ProviderRecord record;
 		GqlEngineExecutionState gqlEngineExecutionState;
 		DataString dataString;
-		
+
 		public FileProvider (string fileName, long skip)
 		{
 			this.fileName = fileName;
@@ -53,7 +54,8 @@ namespace FxGqlLib
 			} else {
 				fileName = Path.Combine (gqlQueryState.CurrentDirectory, this.fileName);
 			}
-			streamReader = new StreamReader (new AsyncStreamReader (new FileStream (fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 32 * 1024), 32 * 1024));
+			streamReader = new CharArrayReader (new StreamReader (new AsyncStreamReader (new FileStream (fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 32 * 1024), 32 * 1024)));
+			//streamReader = new StreamReader (new AsyncStreamReader (new FileStream (fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 32 * 1024), 32 * 1024));
 			record = new ProviderRecord ();
 			record.Source = fileName;
 			dataString = new DataString ();
@@ -76,14 +78,22 @@ namespace FxGqlLib
 			
 			if (streamReader == null)
 				return false;
-			
-			string text = streamReader.ReadLine ();
-			dataString.Set (text);
+
+			//string text = streamReader.ReadLine ();
+			//dataString.Set (text);
+			char[] buffer;
+			int start, len;
+			streamReader.ReadLine (out buffer, out start, out len);
+			if (start >= 0)
+				dataString.Set (buffer, start, len);
+			else
+				dataString.Set (null);
 			record.Columns [0] = dataString;
 			record.LineNo++;
 			record.TotalLineNo = record.LineNo;
 			
-			return text != null;
+			//return text != null;
+			return start >= 0;
 		}
 
 		public void Uninitialize ()
