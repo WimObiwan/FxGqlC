@@ -13,7 +13,7 @@ namespace FxGqlLib
 
 		ProviderRecord record;
 		protected ColumnName[] columnNameList;
-		protected string firstLine;
+		protected string[] firstLine;
 		DataString[] dataString;
 
 		public ColumnProviderDelimiter (IProvider provider)
@@ -61,21 +61,25 @@ namespace FxGqlLib
 			return types;
 		}
 
+		protected virtual string[] ReadLine ()
+		{
+			if (!provider.GetNextRecord ())
+				return null;
+
+			string line = provider.Record.Columns [0].ToString ();
+
+			return line.Split (separators, StringSplitOptions.None);
+		}
+
 		public virtual void Initialize (GqlQueryState gqlQueryState)
 		{
 			provider.Initialize (gqlQueryState);
-			if (provider.GetNextRecord ()) {
-				firstLine = provider.Record.Columns [0].ToString ();
-			} else {
-				firstLine = null;
-			}
+			firstLine = ReadLine ();
+			int columns = columnCount;
+			if (columns == -1)
+				columns = firstLine != null ? firstLine.Length : 0;
 
 			record = new ProviderRecord ();
-			int columns = columnCount;
-			if (columns == -1) {
-				columns = firstLine.Split (separators).Length;
-			}
-
 			if (columns >= 0) {
 				columnNameList = new ColumnName[columns];
 				for (int i = 0; i < columnNameList.Length; i++)
@@ -88,20 +92,19 @@ namespace FxGqlLib
 
 		public bool GetNextRecord ()
 		{
-			string line;
+			string[] line;
 			if (firstLine != null) {
 				line = firstLine;
 				firstLine = null;
-			} else if (provider.GetNextRecord ()) {
-				line = provider.Record.Columns [0].ToString ();
 			} else {
-				return false;
+				line = ReadLine ();
+				if (line == null)
+					return false;
 			}
 
-			string[] split = line.Split (separators, StringSplitOptions.None);
 			for (int i = 0; i < dataString.Length; i++) {
-				if (i < split.Length)
-					dataString [i].Set (split [i]);
+				if (i < line.Length)
+					dataString [i].Set (line [i]);
 				else
 					dataString [i].Set (string.Empty);
 				record.Columns [i] = dataString [i];

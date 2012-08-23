@@ -130,6 +130,7 @@
     <Compile Include="Providers\File\MultiFileProviderBase.cs" />
     <Compile Include="Providers\FileOptions.cs" />
     <Compile Include="Providers\Data\DataProvider.cs" />
+    <Compile Include="Providers\Flow\ColumnProviderCsv.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -1194,6 +1194,19 @@ namespace FxGqlLib
 				case "SKIP":
 					fileOptions.Skip = long.Parse (value);
 					break;
+				case "FORMAT":
+					FileOptionsFromClause.FormatEnum format;
+					if (!Enum.TryParse<FileOptionsFromClause.FormatEnum> (
+                        value,
+                        true,
+                        out format
+					))
+						throw new ParserException (
+                                    string.Format ("Unknown file option Format={0}", format),
+                                    tree
+						);
+					fileOptions.Format = format;
+					break;
 				case "COLUMNDELIMITER":
 					fileOptions.ColumnDelimiter = System.Text.RegularExpressions.Regex.Unescape (value);
 					break;
@@ -1361,7 +1374,10 @@ namespace FxGqlLib
 				|| fileOptions.Provider == FileOptions.ProviderEnum.File) {
 				provider = FileProviderFactory.Get (fileOptions, dataComparer.StringComparer);
             
-				if (fileOptions.ColumnsRegex != null) {
+				if (fileOptions.Format == FileOptionsFromClause.FormatEnum.Csv) {
+					char[] separators = fileOptions.ColumnDelimiter != null ? fileOptions.ColumnDelimiter.ToCharArray () : new char[] { ',' };
+					provider = new ColumnProviderCsv (provider, separators);
+				} else if (fileOptions.ColumnsRegex != null) {
 					provider = new ColumnProviderRegex (provider, fileOptions.ColumnsRegex, dataComparer.CaseInsensitive);
 				} else if (fileOptions.ColumnDelimiter != null) {
 					provider = new ColumnProviderDelimiter (provider, fileOptions.ColumnDelimiter.ToCharArray ());

@@ -1542,6 +1542,12 @@ namespace FxGqlTest
 			// SELECT from database
 			//TestGql ("select * from ['select * from sys.tables' -provider='data' -client='System.Data.SqlClient' -connectionstring='Data Source=127.0.0.1\\SqlExpress;Initial Catalog=master;Integrated Security=SSPI']");
 
+			// FROM-option -format=csv 
+			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.*))|(?:(?<Column1>.*),(?<Column2>.{3}))']",
+			         "A7A17A0483767BC54B4082F64BA82141A4F0EC2759AD582547ADF99B5FE93782");
+			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -format=csv]",
+			         "A7A17A0483767BC54B4082F64BA82141A4F0EC2759AD582547ADF99B5FE93782");
+
 			if (!Performance) {
 				Console.WriteLine ();
 				Console.WriteLine (
@@ -1622,17 +1628,6 @@ namespace FxGqlTest
 //select * into ['insert into MyTable (col1, col2) values (?, ?)' -provider='System.Data.SqlClient' -connectionstring='Data Source=(local);Initial Catalog=cars;Integrated Security=SSPI'] from [*.log]
 //-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateDataAdapter, DbDataAdapter.InsertCommand,...
 //select * from ['*.log' -provider='files']  --default provider = filesystem
-
-			//TestGql ("select * from ['select * from sys.tables' -provider='data' -client='System.Data.SqlClient' -connectionstring='Data Source=127.0.0.1\\SqlExpress;Initial Catalog=master;Integrated Security=SSPI']");
-			
-			TestGql ("select * into ['Test.txt' -heading=On -overwrite] from ['SampleFiles/Tennis-ATP-2011.csv' -heading=On] order by substring([Date], 4, 7)",
-			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, [Round] order by 1 orig, [Round]",
-			         "F7FF55E000D8C5DD58356F8B23255160352213AC370B9EA979AD9F8C9FF39618",
-			         "2255422986F0565ECA946B11A42995C08E55E12D666B249526C3A86FD497C906");
-			TestGql ("select substring([Date], 4, 7), [Round], count(*), min([Tournament]), max([Tournament]) from ['Test.txt' -Heading=On] group by 1 orig, 2 order by 1 orig, 2",
-			         "F7FF55E000D8C5DD58356F8B23255160352213AC370B9EA979AD9F8C9FF39618",
-			         "2255422986F0565ECA946B11A42995C08E55E12D666B249526C3A86FD497C906");
 
 			return failed == 0;
 		}		
