@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace FxGqlLib
 {
@@ -27,14 +28,11 @@ namespace FxGqlLib
 
 		protected override string[] ReadLine ()
 		{
-			// TODO: Support for NewLine inside a field - http://tools.ietf.org/html/rfc4180
-
 			if (!provider.GetNextRecord ())
 				return null;
+			string line = provider.Record.Columns [0].ToString ();
 
 			List<string> fields = new List<string> ();
-
-			string line = provider.Record.Columns [0].ToString ();
 
 			int pos = 0;
 			bool done = false;
@@ -53,24 +51,42 @@ namespace FxGqlLib
 						done = true;
 					}
 				} else {
-					// Look for <",> with no <"",>
-					int beginField = pos;
+					++pos;
+					StringBuilder sb = null;
 					do {
-						int nextSep = line.IndexOfAny (separators, pos);
-						int endQuote = (nextSep == -1 ? line.Length : nextSep) - 1;
-						if (line [endQuote] != '"' || (endQuote - 1 != beginField && line [endQuote - 1] == '"')) {
-							// Field is not terminated yet
-							if (nextSep != -1)
-								pos = nextSep + 1;
-							else
-								throw new NotImplementedException ("Multiline fields in CSV file not yet supported");
+						int nextQuote = line.IndexOf ('"', pos);
+						if (nextQuote == -1) {
+							if (sb == null)
+								sb = new StringBuilder ();
+							sb.Append (line, pos, line.Length - pos);
+							sb.AppendLine ();
+							if (!provider.GetNextRecord ())
+								return null;
+							line = provider.Record.Columns [0].ToString ();
+							pos = 0;
 							continue;
+						} else {
+							done = nextQuote + 1 >= line.Length;
+							char nextChar = line [nextQuote + 1];
+							if (done || Array.Exists (separators, p => p == nextChar)) {
+								// Valid field terminator
+								string str = line.Substring (pos, nextQuote - pos);
+								if (sb == null) {
+									fields.Add (str);
+								} else {
+									sb.Append (str);
+									fields.Add (sb.ToString ());
+								}
+								pos = nextQuote + 2;
+								break;
+							} else if (nextChar == '"') {
+								if (sb == null)
+									sb = new StringBuilder ();
+								sb.Append (line, pos, nextQuote - pos + 1);
+								pos = nextQuote + 2;
+								continue;
+							}
 						}
-						fields.Add (line.Substring (beginField + 1, endQuote - beginField - 1).Replace ("\"\"", "\""));
-						if (nextSep == -1)
-							done = true;
-						pos = endQuote + 2;
-						break;
 					} while (true);
 				}
 			} while (!done);

@@ -411,8 +411,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engineHash.Execute (command);
-						testSummaryWriter.WriteLine (command);
+					engineHash.Execute (command);
+					testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1547,6 +1547,20 @@ namespace FxGqlTest
 			         "A7A17A0483767BC54B4082F64BA82141A4F0EC2759AD582547ADF99B5FE93782");
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -format=csv]",
 			         "A7A17A0483767BC54B4082F64BA82141A4F0EC2759AD582547ADF99B5FE93782");
+			TestGql ("select 'Year,Make,Model,Description,Price' into ['test.txt' -overwrite]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select '1997,Ford,E350,\"ac, abs, moon\",3000.00' into ['test.txt' -append]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select '1999,Chevy,\"Venture \"\"Extended Edition\"\"\",\"\",4900.00' into ['test.txt' -append]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select '1999,Chevy,\"Venture \"\"Extended Edition, Very Large\"\"\",\"\",5000.00' into ['test.txt' -append]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select '1996,Jeep,Grand Cherokee,\"MUST SELL!' into ['test.txt' -append]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select 'air, moon roof, loaded\",4799.00' into ['test.txt' -append]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select * from ['test.txt' -format=csv]",
+			         "8E8B666C34F16022E232EB60C1BCCD6D38B7DBEB1E9DC29D640B9EE429DAD7BC");
 
 			if (!Performance) {
 				Console.WriteLine ();
