@@ -333,10 +333,6 @@ expression_7 //: expression_6 (WS op_5 WS expression_6)*
 	;
 
 op_7	: OR -> T_OR
-	| LIKE -> T_LIKE
-	| NOT WS LIKE -> T_NOTLIKE
-	| MATCH -> T_MATCH
-	| NOT WS MATCH -> T_NOTMATCH
 	| BETWEEN -> T_BETWEEN
 	| NOT WS BETWEEN -> T_NOTBETWEEN
 	;
@@ -369,6 +365,10 @@ op_4	: '=' -> T_EQUAL
 	| '!<' -> T_NOTLESS
 	| '>' -> T_GREATER 
 	| '<' -> T_LESS
+	| LIKE -> T_LIKE
+	| NOT WS LIKE -> T_NOTLIKE
+	| MATCH -> T_MATCH
+	| NOT WS MATCH -> T_NOTMATCH
 	;
 
 expression_3 //: expression_4 (WS op_3 WS expression_4)*

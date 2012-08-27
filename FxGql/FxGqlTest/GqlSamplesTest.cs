@@ -617,9 +617,10 @@ namespace FxGqlTest
 			//              '+' (Add), '+' (Concatenate), '-' (Subtract), 
 			//              '&' (Bitwise AND), '^' (Bitwise Exclusive OR), '|' (Bitwise OR)
 			//     Level 4: '=', '>', '<', '>=', '<=', '<>', '!=', '!>', '!<' (Comparison operators)
+			//                   specific: LIKE, MATCH
 			//     Level 5: NOT
 			//     Level 6: AND
-			//     Level 7: ALL, ANY, BETWEEN, IN, LIKE, OR, SOME
+			//     Level 7: ALL, ANY, BETWEEN, IN, OR, SOME  (specific: removed LIKE !!!)
 			//     [  Level 8: '=' (Assignment)  ]
 			//   Boolean
 			//     NOT, AND, OR
@@ -1589,6 +1590,12 @@ namespace FxGqlTest
 				"union " +
 				"(select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Netherlands' order by 2) " +
 				"order by 1",
+			         "5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");
+
+			// Changed precedence order of LIKE and MATCH
+			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' or [Column1] match 'Netherlands' order by 1",
+			         "5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");
+			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] like '%Belgium%' or [Column1] like '%Netherlands%' order by 1",
 			         "5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");
 
 			if (!Performance) {
