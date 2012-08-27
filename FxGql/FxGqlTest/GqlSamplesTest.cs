@@ -546,10 +546,10 @@ namespace FxGqlTest
                 "B7B20E3D1807D5638954EE155A94608D1492D0C9FAB4E5D346E50E8816AD63CC");
 			TestGql (@"SELECT $filename, $totallineno FROM ['SampleFiles/*' -recurse] WHERE $lineno = 1", 
 			    "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
-			TestGql (@"SELECT $totallineno, $lineno, $line FROM ['SampleFiles/AirportCodes.csv'], ['SampleFiles/AirportCodes.csv'] WHERE $line match 'belgium'
+			TestGql (@"SELECT $totallineno, $lineno, $line FROM ['SampleFiles/AirportCodes.csv'], ['SampleFiles/AirportCodes.csv'] WHERE $line match 'belgium';
 				SELECT count(1) FROM ['SampleFiles/AirportCodes.csv']", 
 			    "C5540814A5C695DFEC4D4A7791A6EACC2E3ED0562FCAB27DD3CD88A464E24AB4");
-			TestGql (@"SELECT count(1) FROM ['SampleFiles/*' -recurse]
+			TestGql (@"SELECT count(1) FROM ['SampleFiles/*' -recurse];
 				SELECT (SELECT max($totallineno) FROM ['SampleFiles/*' -recurse] WHERE $lineno = 1)
 					+ (SELECT count(1) FROM [SampleFiles/SubFolder/AirportCodes2.csv.zip]) - 1", 
 			    "405F3EC7933CF21E92C2EB1DE7EEFE91FB9C574BD4FC7EC6EE820AB7106033A4");
@@ -941,8 +941,6 @@ namespace FxGqlTest
 			//  "593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
             
 			// Query batch
-			TestGql ("select * from ['SampleFiles/AirportCodes.csv'] select * from ['SampleFiles/AirportCodes.csv']", 
-                "593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv']; select * from ['SampleFiles/AirportCodes.csv']", 
                 "593F4746169CEF911AC64760DE052B41C5352124397BC0CDF8B50C692AFBC780");
             
@@ -1258,8 +1256,6 @@ namespace FxGqlTest
 			TestGql ("SELECT * FROM MyView", typeof(ParserException));
 			TestGql ("CREATE VIEW MyView AS SELECT 17, '<this is a test>'; SELECT * FROM MyView; DROP VIEW MyView; SELECT * FROM MyView",
                 typeof(ParserException));
-			TestGql ("CREATE VIEW MyView AS SELECT 17, '<this is a test>' SELECT * FROM MyView DROP VIEW MyView",
-                "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
 			TestGql ("CREATE VIEW MyView AS SELECT * FROM ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]; SELECT TOP 10 * FROM MyView",
 			         "6FA8275370BA25E2BF8C37D1676FDEFA020F3F702A7204092658C19A59CF7531");
 			TestGql ("SELECT TOP 10 * FROM MyView", 
@@ -1295,8 +1291,8 @@ namespace FxGqlTest
                 typeof(Exception));
 			TestGql (@"DROP VIEW MyView",
                 "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-			TestGql (@"CREATE VIEW MyView(@file string) AS SELECT [Tournament] from [@file -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament]
-				SELECT * FROM MyView('SampleFiles/Tennis-ATP-2011.csv')
+			TestGql (@"CREATE VIEW MyView(@file string) AS SELECT [Tournament] from [@file -skip=1 -columns='^(?<ATP>.*?)\t(?<Location>.*?)\t(?<Tournament>.*?)\t.*?$'] group by [Tournament];
+                SELECT * FROM MyView('SampleFiles/Tennis-ATP-2011.csv');
 				DROP VIEW MyView",
                 "BD8F1A8E6C382AD16D3DC742E3F455BD35AAC26262250D68AB1669AE480CF7CB");
 
@@ -1561,6 +1557,29 @@ namespace FxGqlTest
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql ("select * from ['test.txt' -format=csv]",
 			         "8E8B666C34F16022E232EB60C1BCCD6D38B7DBEB1E9DC29D640B9EE429DAD7BC");
+
+			// Union clause
+			TestGql ("select 18 union select 17",
+			         "E380B93A69AAE5DBDC8FD8F84A19BD7FF75897A5FD3E40B5B074B3CDA3273A94");
+			TestGql ("select 17 union select 18 order by 1 desc",
+			         "E380B93A69AAE5DBDC8FD8F84A19BD7FF75897A5FD3E40B5B074B3CDA3273A94");
+			TestGql ("(select 17) union (select 18) order by 1 desc",
+			         "E380B93A69AAE5DBDC8FD8F84A19BD7FF75897A5FD3E40B5B074B3CDA3273A94");
+			TestGql ("((select 17) union (select 18)) order by 1 desc",
+			         "E380B93A69AAE5DBDC8FD8F84A19BD7FF75897A5FD3E40B5B074B3CDA3273A94");
+			TestGql ("select 17 union select 18 order by 1 desc union select 19", typeof(Exception));
+			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium|Netherlands' order by 1",
+			         "5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");
+			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' " +
+				"union " +
+				"select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Netherlands' " +
+				"order by 1",
+			         "5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");
+			TestGql ("(select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' order by 2) " +
+				"union " +
+				"(select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Netherlands' order by 2) " +
+				"order by 1",
+			         "5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");
 
 			if (!Performance) {
 				Console.WriteLine ();

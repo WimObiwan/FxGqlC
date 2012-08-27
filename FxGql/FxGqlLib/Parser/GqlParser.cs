@@ -166,11 +166,72 @@ namespace FxGqlLib
 
 		IProvider ParseCommandSelect (ITree tree)
 		{
-			AssertAntlrToken (tree, "T_SELECT");
-            
+			AssertAntlrToken (tree, "T_SELECT", 1, 2);
+
 			var enumerator = new AntlrTreeChildEnumerable (tree).GetEnumerator ();
 			if (!enumerator.MoveNext ())
 				throw new NotEnoughSubTokensAntlrException (tree);
+
+			ITree selectSimpleOrUnionTree = enumerator.Current;
+			ITree orderByClauseTree;
+			if (enumerator.MoveNext ())
+				orderByClauseTree = enumerator.Current;
+			else
+				orderByClauseTree = null;
+
+			IProvider provider;
+			if (selectSimpleOrUnionTree.Text == "T_SELECT_SIMPLE"
+				|| selectSimpleOrUnionTree.Text == "T_SUBQUERY") {
+				provider = ParseCommandSelectSimple (selectSimpleOrUnionTree, orderByClauseTree);
+			} else {
+				List<IProvider> unionProviders = new List<IProvider> ();
+				do {
+					AssertAntlrToken (selectSimpleOrUnionTree, "T_SELECT_UNION", 2);
+					unionProviders.Add (ParseCommandSelectSimple (selectSimpleOrUnionTree.GetChild (0), null));
+					selectSimpleOrUnionTree = selectSimpleOrUnionTree.GetChild (1);
+				} while (selectSimpleOrUnionTree.Text == "T_SELECT_UNION");
+
+				unionProviders.Add (ParseCommandSelectSimple (selectSimpleOrUnionTree, null));
+
+				provider = new MergeProvider (unionProviders);
+
+				if (orderByClauseTree != null) {
+					AssertAntlrToken (orderByClauseTree, "T_ORDERBY");
+					IList<OrderbyProvider.Column> orderbyColumns = ParseOrderbyClause (
+                        provider,
+                        orderByClauseTree
+					);
+                    
+					provider = new OrderbyProvider (provider, orderbyColumns, dataComparer);
+				}
+			}
+
+			return provider;
+		}
+
+		IProvider ParseCommandSelectSimple (ITree selectSimpleTree, ITree orderByClauseTree)
+		{
+			if (selectSimpleTree.Text == "T_SUBQUERY") {
+				IProvider providerSubQuery = ParseSubquery (null, selectSimpleTree);
+
+				if (orderByClauseTree != null) {
+					AssertAntlrToken (orderByClauseTree, "T_ORDERBY");
+					IList<OrderbyProvider.Column> orderbyColumns = ParseOrderbyClause (
+                        providerSubQuery,
+                        orderByClauseTree
+					);
+                    
+					providerSubQuery = new OrderbyProvider (providerSubQuery, orderbyColumns, dataComparer);
+				}
+
+				return providerSubQuery;
+			}
+
+			AssertAntlrToken (selectSimpleTree, "T_SELECT_SIMPLE");
+            
+			var enumerator = new AntlrTreeChildEnumerable (selectSimpleTree).GetEnumerator ();
+			if (!enumerator.MoveNext ())
+				throw new NotEnoughSubTokensAntlrException (selectSimpleTree);
             
 			// DISTINCT / ALL
 			bool distinct = false;
@@ -192,7 +253,7 @@ namespace FxGqlLib
 
 			// columns
 			if (enumerator.Current == null)
-				throw new NotEnoughSubTokensAntlrException (tree);
+				throw new NotEnoughSubTokensAntlrException (selectSimpleTree);
 			ITree columnListEnumerator = enumerator.Current;
 			enumerator.MoveNext ();
                 
@@ -269,12 +330,12 @@ namespace FxGqlLib
 				if (distinct)
 					provider = new DistinctProvider (provider, dataComparer);
                 
-				if (enumerator.Current != null && enumerator.Current.Text == "T_ORDERBY") {
+				if (orderByClauseTree != null) {
+					AssertAntlrToken (orderByClauseTree, "T_ORDERBY");
 					IList<OrderbyProvider.Column> orderbyColumns = ParseOrderbyClause (
                         groupbyProvider ?? fromProvider,
-                        enumerator.Current
+                        orderByClauseTree
 					);
-					enumerator.MoveNext ();
                     
 					provider = new OrderbyProvider (provider, orderbyColumns, dataComparer);
 				}
@@ -287,31 +348,25 @@ namespace FxGqlLib
 				if (distinct)
 					throw new ParserException (
                         "DISTINCT clause not allowed without a FROM clause.",
-                        tree
+                        selectSimpleTree
 					);
                 
 				if (topExpression != null) 
 					throw new ParserException (
                         "TOP clause not allowed without a FROM clause.",
-                        tree
+                        selectSimpleTree
 					);
 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE")
 					throw new ParserException (
                         "WHERE clause not allowed without a FROM clause.",
-                        tree
+                        selectSimpleTree
 					);
                 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY")
 					throw new ParserException (
                         "GROUP BY clause not allowed without a FROM clause.",
-                        tree
-					);
-
-				if (enumerator.Current != null && enumerator.Current.Text == "T_ORDERBY")
-					throw new ParserException (
-                        "ORDER BY clause not allowed without a FROM clause.",
-                        tree
+                        selectSimpleTree
 					);
 
 				IList<Column > outputColumns;

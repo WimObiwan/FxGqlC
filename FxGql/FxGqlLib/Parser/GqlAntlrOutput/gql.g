@@ -4,12 +4,15 @@ options
 {
 	language = CSharp2;
 	output = AST;
+	//k=11;
 }
 
 tokens
 {
 	T_ROOT;
 	T_SELECT;
+	T_SELECT_UNION;
+	T_SELECT_SIMPLE;
 	T_ALL;
 	T_DISTINCT;
 	T_TOP;
@@ -110,7 +113,7 @@ parse
 	;
 	
 commands 
-	: command (WS? (';' WS?)? command)* (WS? ';')?
+	: command (WS? ';' WS? command)* (WS? ';')?
 	-> command+
 	;
 	
@@ -128,8 +131,21 @@ command
 // SELECT COMMAND
 
 select_command
-	: SELECT (WS distinct_clause)? (WS top_clause)? WS column_list (WS into_clause)? (WS from_clause)? (WS where_clause)? (WS groupby_clause)? (WS having_clause)? (WS orderby_clause)?
-		-> ^(T_SELECT distinct_clause? top_clause? column_list into_clause? from_clause? where_clause? groupby_clause? having_clause? orderby_clause?)
+	: select_command_union (WS orderby_clause)?
+		-> ^(T_SELECT select_command_union orderby_clause?)
+	;
+
+// select top x ... order by y
+// select top x1 ... union select top x2 ... order by y
+
+select_command_union
+	: (a=select_command_simple->$a) (WS UNION WS b=select_command_simple -> ^(T_SELECT_UNION $select_command_union $b))*
+	;
+	
+select_command_simple
+	: ('(') => subquery
+	| SELECT (WS distinct_clause)? (WS top_clause)? WS column_list (WS into_clause)? (WS from_clause)? (WS where_clause)? (WS groupby_clause)? (WS having_clause)?
+		-> ^(T_SELECT_SIMPLE distinct_clause? top_clause? column_list into_clause? from_clause? where_clause? groupby_clause? having_clause?)
 	;
 	
 distinct_clause
@@ -298,7 +314,8 @@ expression_list
 	;
 	
 expression_list_or_select_command
-	: expression_list | select_command
+	: (SELECT) => select_command
+	| expression_list 
 	;
 	
 expression
@@ -389,7 +406,7 @@ expression_atom
 	| string
 	| SYSTEMVAR -> ^(T_SYSTEMVAR SYSTEMVAR)
 	| variable
-	| subquery
+	| (subquery) => subquery
 	| '(' expression ')' -> expression
 	| functioncall_or_column
 	| specialfunctioncall
@@ -524,6 +541,7 @@ COUNT 	: C O U N T;
 DATEADD : D A T E A D D;
 DATEDIFF: D A T E D I F F;
 DATEPART: D A T E P A R T;
+UNION 	: U N I O N;
 
 TOKEN
 	: ('A'..'Z' | 'a'..'z' | '_') ('A'..'Z' | 'a'..'z' | '_' | '0'..'9')*
