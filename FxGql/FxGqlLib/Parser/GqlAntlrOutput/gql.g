@@ -365,12 +365,6 @@ op_3	: '+' -> T_PLUS
 	| '^' -> T_BITWISE_XOR
 	;
 	
-/*expression_3b //: (op_7 WS)* expression_8
-	//: (op_3b WS? -> ^(T_OP_UNARY op_3b $expression_3b))* expression_2
-	: op_3b WS? expression_3b -> ^(T_OP_UNARY op_3b expression_3b)
-	| expression_2
-	;
-*/
 expression_2 //: expression_5 (WS op_4 WS expression_5)*
 	: (a=expression_1->$a) (WS? op_2 WS? b=expression_1 -> ^(T_OP_BINARY op_2 $expression_2 $b))*
 	;
