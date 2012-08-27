@@ -411,8 +411,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engineHash.Execute (command);
-					testSummaryWriter.WriteLine (command);
+						engineHash.Execute (command);
+						testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1557,6 +1557,16 @@ namespace FxGqlTest
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql ("select * from ['test.txt' -format=csv]",
 			         "8E8B666C34F16022E232EB60C1BCCD6D38B7DBEB1E9DC29D640B9EE429DAD7BC");
+
+			// Extra tests for unary operators
+			TestGql ("select - -+17", 
+                "54183F4323F377B737433A1E98229EAD0FDC686F93BAB057ECB612DAA94002B5");
+			TestGql ("select -(-17)", 
+                "54183F4323F377B737433A1E98229EAD0FDC686F93BAB057ECB612DAA94002B5");
+			TestGql ("select -1*-17", 
+                "54183F4323F377B737433A1E98229EAD0FDC686F93BAB057ECB612DAA94002B5");
+			TestGql ("select -1*(-17)", 
+                "54183F4323F377B737433A1E98229EAD0FDC686F93BAB057ECB612DAA94002B5");
 
 			// Union clause
 			TestGql ("select 18 union select 17",
