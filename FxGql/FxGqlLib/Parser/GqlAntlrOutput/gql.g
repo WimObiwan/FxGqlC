@@ -138,8 +138,8 @@ distinct_clause
 	;
 	
 top_clause
-	: TOP WS expression
-	-> ^(T_TOP expression)
+	: TOP WS expression_atom
+	-> ^(T_TOP expression_atom)
 	;
 		
 column_list
@@ -381,9 +381,7 @@ op_2	: '*' -> T_PRODUCT
 	;
 
 expression_1
-	//: (op_1 WS? -> ^(T_OP_UNARY op_1 $expression_1))* expression_atom
-	: '(' WS? op_1 WS? expression_1 WS? ')' -> ^(T_OP_UNARY op_1 expression_1)
-	//: op_1 expression_1 -> ^(T_OP_UNARY op_1 expression_1)
+	: op_1 WS? expression_1 -> ^(T_OP_UNARY op_1 expression_1)
 	| expression_atom
 	;
 
@@ -436,7 +434,7 @@ datepart
 	: TOKEN -> ^(T_DATEPART TOKEN)
 	;
 	
-number 	: ('-' WS?)? NUMBER;
+number 	: NUMBER;
 
 string	: STRING -> ^(T_STRING STRING)
 	;
