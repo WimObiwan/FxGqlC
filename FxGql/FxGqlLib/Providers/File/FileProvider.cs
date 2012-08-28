@@ -8,6 +8,7 @@ namespace FxGqlLib
 		readonly string fileName;
 		readonly long skip;
 
+		GqlQueryState gqlQueryState;
 		StreamReader streamReader;
 		ProviderRecord record;
 		GqlEngineExecutionState gqlEngineExecutionState;
@@ -45,6 +46,7 @@ namespace FxGqlLib
 
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
+			this.gqlQueryState = gqlQueryState;
 			gqlEngineExecutionState = gqlQueryState.CurrentExecutionState;
 
 			string fileName;
@@ -76,14 +78,20 @@ namespace FxGqlLib
 			
 			if (streamReader == null)
 				return false;
+			try {
+				string text = streamReader.ReadLine ();
+				dataString.Set (text);
+				record.Columns [0] = dataString;
+				record.LineNo++;
+				record.TotalLineNo = record.LineNo;
 			
-			string text = streamReader.ReadLine ();
-			dataString.Set (text);
-			record.Columns [0] = dataString;
-			record.LineNo++;
-			record.TotalLineNo = record.LineNo;
-			
-			return text != null;
+				return text != null;
+			} catch (Exception x) {
+				gqlQueryState.Warnings.Add (
+					new Exception (string.Format ("Unable to read from file '{0}'", fileName), x)
+				);
+				return false;
+			}
 		}
 
 		public void Uninitialize ()

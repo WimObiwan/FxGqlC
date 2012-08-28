@@ -43,6 +43,12 @@ namespace FxGqlLib
 		{
 			OnInitialize (gqlQueryState, out files, out skip);
 
+			if (files.Length == 0) {
+				gqlQueryState.Warnings.Add (
+					new Exception ("No input files are matching")
+				);
+			}
+
 			this.gqlQueryState = gqlQueryState;
 			currentFile = -1;
 			totalLineNo = 0;

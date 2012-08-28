@@ -99,7 +99,7 @@ namespace FxGqlLib
 						throw new ConversionException (columns [columnOrdinal].GetType (), typeof(T));
 					}
 			}
-			throw new Exception (string.Format ("Column {0} not found", columnName));
+			throw new InvalidOperationException (string.Format ("Column {0} not found", columnName));
 		}
 		#endregion
 	}

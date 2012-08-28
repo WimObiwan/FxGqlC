@@ -45,7 +45,7 @@ namespace FxGqlLib
 		{
 			S stateValue;
 			if (!state.GetState<S> (this, out stateValue))
-				throw new NotSupportedException ("Aggregation state not found"); // TODO: Aggregation without values
+				throw new InvalidOperationException ("Aggregation state not found"); // TODO: Aggregation without values
 			return calculate (stateValue);
 		}
 		#endregion

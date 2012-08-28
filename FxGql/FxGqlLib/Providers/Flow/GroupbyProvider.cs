@@ -82,7 +82,7 @@ namespace FxGqlLib
 		public int GetColumnOrdinal (ColumnName columnName)
 		{
 			if (columnNameList == null)
-				throw new NotSupportedException (string.Format ("Column name {0} not found", columnName));
+				throw new InvalidOperationException (string.Format ("Column name {0} not found", columnName));
 			
 			return Array.FindIndex (columnNameList, a => a.CompareTo (columnName) == 0);
 		}

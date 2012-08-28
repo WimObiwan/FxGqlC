@@ -25,6 +25,7 @@ namespace FxGqlLib
 			this.TempDirectory = other.TempDirectory;
 			this.CurrentExecutionState = other.ExecutionState;
 			this.Variables = other.Variables;
+			this.Warnings = other.Warnings;
 		}
 
 		public GqlQueryState (GqlQueryState other)
@@ -42,6 +43,7 @@ namespace FxGqlLib
 				this.Variables = new Dictionary<string, Variable> (other.Variables);
 			else
 				this.Variables = other.Variables;
+			this.Warnings = other.Warnings;
 		}
 
 		public ProviderRecord Record { get; set; }
@@ -61,6 +63,8 @@ namespace FxGqlLib
 		public StateBin StateBin { get; private set; }
 
 		public bool SkipLine { get; set; }
+
+		public IList<Exception> Warnings { get; private set; }
 	}
 }
 

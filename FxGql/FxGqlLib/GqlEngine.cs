@@ -69,6 +69,7 @@ namespace FxGqlLib
 		public void Execute (string commandsText)
 		{
 			gqlEngineExecutionState.InterruptState = GqlEngineExecutionState.InterruptStates.Continue;
+			GqlEngineState.Warnings.Clear ();
 			
 			serial++;
 			if (logStream != null) {

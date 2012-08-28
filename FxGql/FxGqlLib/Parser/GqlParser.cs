@@ -2178,7 +2178,7 @@ namespace FxGqlLib
 						return ConstructColumnExpression (provider, columnOrdinal);
 				}
 			}
-			throw new NotSupportedException (string.Format ("Column name {0} not found", columnName));
+			throw new InvalidOperationException (string.Format ("Column name {0} not found", columnName));
 		}        
 
 		internal static IExpression ConstructColumnExpression (IProvider provider, ColumnName columnName)

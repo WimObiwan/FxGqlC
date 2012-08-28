@@ -424,6 +424,15 @@ namespace FxGqlC
 #else
 			try {
 				gqlEngine.Execute (command);
+
+				foreach (Exception x in gqlEngine.GqlEngineState.Warnings) {
+					if (verbose)
+						Console.WriteLine ("WARNING: {0}", x);
+					else
+						Console.WriteLine ("WARNING: {0}", x.Message);
+					if (gqlEngine.LogStream != null) 
+						gqlEngine.LogStream.WriteLine (x.ToString ());
+				}
 			} catch (FxGqlLib.ParserException x) {
 				if (verbose)
 					Console.WriteLine (x);

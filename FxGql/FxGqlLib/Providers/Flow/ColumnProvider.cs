@@ -150,7 +150,7 @@ namespace FxGqlLib
 		{
 			ColumnName[] columnNameList = GetColumnNames ();
 			if (columnNameList == null)
-				throw new NotSupportedException (string.Format (
+				throw new InvalidOperationException (string.Format (
 					"Column name {0} not found",
 					columnName
 				)

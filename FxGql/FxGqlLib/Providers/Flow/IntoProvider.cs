@@ -162,52 +162,74 @@ namespace FxGqlLib
 		public static void DumpProviderToStream (IProvider provider, TextWriter outputWriter, GqlQueryState gqlQueryState, 
 		                                         string columnDelimiter, GqlEngineState.HeadingEnum heading, int autoSize)
 		{
-			provider.Initialize (gqlQueryState);
+			try {
+				provider.Initialize (gqlQueryState);
 
-			List<string[]> list = new List<string[]> ();
-			if (heading != GqlEngineState.HeadingEnum.Off) {
-				ColumnName[] columnTitles = provider.GetColumnNames ();
-				if (columnTitles.Length > 0) {
-					string[] columnTitleStrings = columnTitles.Select (p => p.ToStringWithoutBrackets ()).ToArray ();
-					list.Add (columnTitleStrings);
-					if (heading == GqlEngineState.HeadingEnum.OnWithRule) {
-						string[] columnTitlesRule = new string[columnTitles.Length];
-						for (int i = 0; i < columnTitles.Length; i++)
-							columnTitlesRule [i] = new string ('=', columnTitleStrings [i].ToString ().Length);
-						list.Add (columnTitlesRule);
+				List<string[]> list = new List<string[]> ();
+				if (heading != GqlEngineState.HeadingEnum.Off) {
+					ColumnName[] columnTitles = provider.GetColumnNames ();
+					if (columnTitles.Length > 0) {
+						string[] columnTitleStrings = columnTitles.Select (p => p.ToStringWithoutBrackets ()).ToArray ();
+						list.Add (columnTitleStrings);
+						if (heading == GqlEngineState.HeadingEnum.OnWithRule) {
+							string[] columnTitlesRule = new string[columnTitles.Length];
+							for (int i = 0; i < columnTitles.Length; i++)
+								columnTitlesRule [i] = new string ('=', columnTitleStrings [i].ToString ().Length);
+							list.Add (columnTitlesRule);
+						}
 					}
 				}
-			}
 
-			for (int record = 0; (autoSize == -1 || record < autoSize) && provider.GetNextRecord (); record++) {
-				list.Add (provider.Record.Columns.Select (p => p.ToString ()).ToArray ());
-			}
-
-			FormatColumnListFunction formatColumnListFunction;
-			if (autoSize == 0) {
-				formatColumnListFunction = new FormatColumnListFunction (columnDelimiter);
-			} else {
-				int[] max = new int[list [0].Length];
-				foreach (string[] item in list) {
-					for (int col = 0; col < max.Length; col++)
-						max [col] = Math.Max (item [col].Length, max [col]);
+				for (int record = 0; (autoSize == -1 || record < autoSize); record++) {
+					try {
+						if (!provider.GetNextRecord ())
+							break;
+					} catch (Exception x) {
+						gqlQueryState.Warnings.Add (
+						new Exception (string.Format ("Line ignored, {0}", x.Message), x)
+						);
+						record --;
+						continue;
+					}
+					list.Add (provider.Record.Columns.Select (p => p.ToString ()).ToArray ());
 				}
-				Type[] types = provider.GetColumnTypes ();
-				for (int col = 0; col < max.Length; col++)
-					if (types [col] != typeof(DataString))
-						max [col] = -max [col];
-				formatColumnListFunction = new FormatColumnListFunction (columnDelimiter, max);
-			}
 
-			foreach (var item in list) {
-				outputWriter.WriteLine (formatColumnListFunction.Evaluate (item));
-			}
+				FormatColumnListFunction formatColumnListFunction;
+				if (autoSize == 0) {
+					formatColumnListFunction = new FormatColumnListFunction (columnDelimiter);
+				} else {
+					int[] max = new int[list [0].Length];
+					foreach (string[] item in list) {
+						for (int col = 0; col < max.Length; col++)
+							max [col] = Math.Max (item [col].Length, max [col]);
+					}
+					Type[] types = provider.GetColumnTypes ();
+					for (int col = 0; col < max.Length; col++)
+						if (types [col] != typeof(DataString))
+							max [col] = -max [col];
+					formatColumnListFunction = new FormatColumnListFunction (columnDelimiter, max);
+				}
 
-			while (provider.GetNextRecord ()) {
-				outputWriter.WriteLine (formatColumnListFunction.Evaluate (provider.Record.Columns.Select (p => p.ToString ())));
-			}
+				foreach (var item in list) {
+					outputWriter.WriteLine (formatColumnListFunction.Evaluate (item));
+				}
 
-			provider.Uninitialize ();
+				do {
+					try {
+						if (!provider.GetNextRecord ())
+							break;
+						outputWriter.WriteLine (formatColumnListFunction.Evaluate (provider.Record.Columns.Select (p => p.ToString ())));
+					} catch (InvalidOperationException) {
+						throw;
+					} catch (Exception x) {
+						gqlQueryState.Warnings.Add (
+						new Exception (string.Format ("Line ignored, {0}", x.Message), x)
+						);
+					}
+				} while (true);
+			} finally {
+				provider.Uninitialize ();
+			}
 		}
 		
 		/*class ProviderToStream : Stream
