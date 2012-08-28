@@ -15,6 +15,7 @@ namespace FxGqlC
 		static string version;
 		static string lastRelease;
 		static bool nochecknewversion = false;
+		static bool noautoupdate = false;
 		static bool notracking = false;
 		//static DateTime lastCheck = DateTime.MinValue;
 		static bool continuePromptMode = true;
@@ -132,6 +133,8 @@ namespace FxGqlC
 				} else if (string.Equals (args [i], "-nochecknewversion", StringComparison.InvariantCultureIgnoreCase)) {
 					nochecknewversion = true;
 					notracking = true;
+				} else if (string.Equals (args [i], "-nochecknewversion", StringComparison.InvariantCultureIgnoreCase)) {
+					noautoupdate = true;
 				} else {
 					errors.Add (string.Format ("Unknown parameter '{0}'", args [i]));
 				}				
@@ -623,8 +626,63 @@ namespace FxGqlC
 
 						if (!nochecknewversion) {
 							byte[] data = client.DownloadData ("https://sites.google.com/site/fxgqlc/home/downloads/release-last.txt");
+							string url;
 							using (StreamReader r = new StreamReader(new MemoryStream(data))) {
 								lastRelease = r.ReadLine ();
+								url = r.ReadLine ();
+							}
+
+							//Console.WriteLine (lastRelease);
+							//Console.WriteLine (version);
+							//Console.WriteLine (url);
+							if (lastRelease.CompareTo (version) > 0 && url != null) {
+								string fileName = null;
+								try {
+									fileName = System.IO.Path.GetTempFileName ();
+									client.DownloadFile (url, fileName);
+
+									string appDir = Path.GetDirectoryName (Assembly.GetExecutingAssembly ().Location);
+									string newVersionDir = 
+										Path.Combine (
+											appDir,
+											"NewVersion");
+									if (Directory.Exists (newVersionDir))
+										Directory.Delete (newVersionDir, true);
+									Directory.CreateDirectory (newVersionDir);
+									ExtractZipFile (fileName, null, newVersionDir);
+
+									string oldVersionDir = 
+										Path.Combine (
+											appDir,
+											"OldVersion");
+									if (Directory.Exists (oldVersionDir))
+										Directory.Delete (oldVersionDir, true);
+									Directory.CreateDirectory (oldVersionDir);
+
+									string[] files = Directory.GetFiles (newVersionDir);
+									foreach (string file in files) {
+										//Console.WriteLine (file);
+										string fileName2 = Path.GetFileName (file);
+										string appDirFile = Path.Combine (appDir, fileName2);
+										//Console.WriteLine (appDirFile);
+										//Console.WriteLine (Path.Combine (oldVersionDir, fileName2));
+										//Console.WriteLine (appDirFile);
+										if (File.Exists (appDirFile))
+											File.Move (appDirFile, Path.Combine (oldVersionDir, fileName2));
+										File.Move (file, appDirFile);
+									}
+									// Silent upgrade: No more display message to the user about the new version
+									nochecknewversion = true;
+								} catch (Exception) {
+									//Console.WriteLine (x);
+								} finally {
+									try {
+										if (fileName != null && File.Exists (fileName))
+											File.Delete (fileName);
+									} catch {
+									}
+								}
+
 							}
 						}
 
@@ -706,7 +764,7 @@ namespace FxGqlC
 			if (nochecknewversion && notracking)
 				return;
 
-			if (!nochecknewversion && lastRelease != null) {
+			if (!nochecknewversion && noautoupdate && lastRelease != null) {
 				if (lastRelease.CompareTo (version) > 0) {
 					Console.WriteLine ("A new version version of FxGqlC is available on https://sites.google.com/site/fxgqlc/home");
 					Console.WriteLine ("Your version is {0} and the new version is {1}", version, lastRelease);
@@ -791,6 +849,48 @@ namespace FxGqlC
 //
 //		static void ReportExceptionStep3 (string context, Exception x, string fromAddress)
 //		{
+		}
+
+		public static void ExtractZipFile (string archiveFilenameIn, string password, string outFolder)
+		{
+			ICSharpCode.SharpZipLib.Zip.ZipFile zf = null;
+			try {
+				FileStream fs = File.OpenRead (archiveFilenameIn);
+				zf = new ICSharpCode.SharpZipLib.Zip.ZipFile (fs);
+				if (!String.IsNullOrEmpty (password)) {
+					zf.Password = password;		// AES encrypted entries are handled automatically
+				}
+				foreach (ICSharpCode.SharpZipLib.Zip.ZipEntry zipEntry in zf) {
+					if (!zipEntry.IsFile) {
+						continue;			// Ignore directories
+					}
+					String entryFileName = zipEntry.Name;
+					// to remove the folder from the entry:- entryFileName = Path.GetFileName(entryFileName);
+					// Optionally match entrynames against a selection list here to skip as desired.
+					// The unpacked length is available in the zipEntry.Size property.
+
+					byte[] buffer = new byte[4096];		// 4K is optimum
+					Stream zipStream = zf.GetInputStream (zipEntry);
+
+					// Manipulate the output filename here as desired.
+					String fullZipToPath = Path.Combine (outFolder, entryFileName);
+					string directoryName = Path.GetDirectoryName (fullZipToPath);
+					if (directoryName.Length > 0)
+						Directory.CreateDirectory (directoryName);
+
+					// Unzip file in buffered chunks. This is just as fast as unpacking to a buffer the full size
+					// of the file, but does not waste memory.
+					// The "using" will close the stream even if an exception occurs.
+					using (FileStream streamWriter = File.Create(fullZipToPath)) {
+						ICSharpCode.SharpZipLib.Core.StreamUtils.Copy (zipStream, streamWriter, buffer);
+					}
+				}
+			} finally {
+				if (zf != null) {
+					zf.IsStreamOwner = true; // Makes close also shut the underlying stream
+					zf.Close (); // Ensure we release resources
+				}
+			}
 		}
 	}
 }
