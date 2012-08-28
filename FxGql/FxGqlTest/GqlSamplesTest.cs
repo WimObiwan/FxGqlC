@@ -1591,6 +1591,29 @@ namespace FxGqlTest
 				"(select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Netherlands' order by 2) " +
 				"order by 1",
 			         "5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");
+			TestGql ("select * into ['test.txt' -overwrite] from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' " +
+				"union " +
+				"select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Netherlands' " +
+				"order by 1",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile ("test.txt",
+			          "E5548C251AF2BFBA3549D7C4F4F09769AA9E1ACAD087058E0624B60F92B8A08C", // dos
+			          "5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");// unix
+			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' " +
+				"union " +
+				"select * into ['test.txt' -overwrite] from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Netherlands' " +
+				"order by 1",
+			         typeof(ParserException));
+			TestGql ("(select * into ['test.txt' -overwrite] from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' order by 2) " +
+				"union " +
+				"(select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Netherlands' order by 2) " +
+				"order by 1",
+			         typeof(ParserException));
+			TestGql ("(select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' order by 2) " +
+				"union " +
+				"(select * into ['test.txt' -overwrite] from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Netherlands' order by 2) " +
+				"order by 1",
+			         typeof(ParserException));
 
 			// Changed precedence order of LIKE and MATCH
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' or [Column1] match 'Netherlands' order by 1",

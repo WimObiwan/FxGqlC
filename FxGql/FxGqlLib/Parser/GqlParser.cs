@@ -184,14 +184,33 @@ namespace FxGqlLib
 				|| selectSimpleOrUnionTree.Text == "T_SUBQUERY") {
 				provider = ParseCommandSelectSimple (selectSimpleOrUnionTree, orderByClauseTree);
 			} else {
+				FileOptionsIntoClause intoClause = null;
+
 				List<IProvider> unionProviders = new List<IProvider> ();
+				bool first = true;
 				do {
 					AssertAntlrToken (selectSimpleOrUnionTree, "T_SELECT_UNION", 2);
-					unionProviders.Add (ParseCommandSelectSimple (selectSimpleOrUnionTree.GetChild (0), null));
+					ITree firstChildTree = selectSimpleOrUnionTree.GetChild (0);
+					IProvider itemProvider = ParseCommandSelectSimple (firstChildTree, null);
+					if (first) {
+						first = false;
+						IntoProvider intoProvider = itemProvider as IntoProvider;
+						if (intoProvider != null) {
+							itemProvider = intoProvider.InnerProvider;
+							intoClause = intoProvider.FileOptions;
+						}
+					} else {
+						if (itemProvider is IntoProvider)
+							throw new ParserException ("INTO clause is only supported on first UNION select query", firstChildTree);
+					}
+					unionProviders.Add (itemProvider);
 					selectSimpleOrUnionTree = selectSimpleOrUnionTree.GetChild (1);
 				} while (selectSimpleOrUnionTree.Text == "T_SELECT_UNION");
 
-				unionProviders.Add (ParseCommandSelectSimple (selectSimpleOrUnionTree, null));
+				IProvider lastProvider = ParseCommandSelectSimple (selectSimpleOrUnionTree, null);
+				if (lastProvider is IntoProvider)
+					throw new ParserException ("INTO clause is only supported on first UNION select query", selectSimpleOrUnionTree);
+				unionProviders.Add (lastProvider);
 
 				provider = new MergeProvider (unionProviders);
 
@@ -203,6 +222,10 @@ namespace FxGqlLib
 					);
                     
 					provider = new OrderbyProvider (provider, orderbyColumns, dataComparer);
+				}
+
+				if (intoClause != null) {
+					provider = new IntoProvider (provider, intoClause);
 				}
 			}
 
@@ -1470,7 +1493,10 @@ namespace FxGqlLib
 			try {
 				if (provider != null)
 					this.subQueryProviderStack.Push (provider);
-				return ParseCommandSelect (selectTree);
+				IProvider subQueryProvider = ParseCommandSelect (selectTree);
+				if (subQueryProvider is IntoProvider)
+					throw new ParserException ("INTO clause is not supported in a subquery", subqueryTree);
+				return subQueryProvider;
 			} finally {
 				if (provider != null) {
 					IProvider verify = this.subQueryProviderStack.Pop ();

@@ -15,6 +15,9 @@ namespace FxGqlLib
 		ProviderRecord record;
 		GqlQueryState gqlQueryState;
 
+		public IProvider InnerProvider { get { return provider; } }
+		public FileOptionsIntoClause FileOptions { get { return fileOptions; } }
+
 		public IntoProvider (IProvider provider, FileOptionsIntoClause fileOptions)
 		{
 			this.provider = provider;
