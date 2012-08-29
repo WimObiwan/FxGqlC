@@ -6,6 +6,7 @@ using System.Reflection;
 using FxGqlLib;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace FxGqlC
 {
@@ -24,6 +25,9 @@ namespace FxGqlC
 		static int autoSizeRows = -1;
 
 		static int uniqueVisitorId = GetUniqueId ();
+		
+		static int updatesBusy = 0;
+		static ManualResetEvent manualResetEvent = new ManualResetEvent(false);
 
 		[Flags]
 		enum ReportError
@@ -242,9 +246,9 @@ namespace FxGqlC
 						gqlEngine.LogStream = null;
 					}
 				}			
-			}
+			}			
 			CheckForUpdates (State.Stop);
-			System.Threading.Thread.Sleep (100);
+			manualResetEvent.WaitOne (500);
 		}
 
 		public static void ShowHelp ()
@@ -603,12 +607,14 @@ namespace FxGqlC
 			//DateTime now = DateTime.Now;
 			//if (lastCheck == DateTime.MinValue || lastCheck + new TimeSpan (0, 15, 0) < now) {
 			//	lastCheck = now;
-			System.Threading.ThreadPool.QueueUserWorkItem (new System.Threading.WaitCallback (delegate(object state2) {
+			
+			System.Threading.Interlocked.Increment(ref updatesBusy);
+			manualResetEvent.Reset ();
+			
+			System.Threading.WaitCallback waitCallback = new System.Threading.WaitCallback (delegate(object state2) {
 				CheckForUpdatesAsync (state);
-			}
-			)
-			);
-			//}
+				});
+			System.Threading.ThreadPool.QueueUserWorkItem (waitCallback);
 		}
 
 		static void CheckForUpdatesAsync (State state)
@@ -764,6 +770,10 @@ namespace FxGqlC
 				} catch { /*(Exception x)*/
 					//Console.WriteLine (x);
 					System.Threading.Thread.Sleep (5000);
+				}
+
+				if (System.Threading.Interlocked.Decrement(ref updatesBusy) == 0) {
+					manualResetEvent.Set ();
 				}
 			}
 		}
