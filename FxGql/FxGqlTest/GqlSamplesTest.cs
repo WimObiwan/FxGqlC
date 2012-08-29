@@ -1621,6 +1621,10 @@ namespace FxGqlTest
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] like '%Belgium%' or [Column1] like '%Netherlands%' order by 1",
 			         "5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");
 
+			// Support for function LEN, support for aggregation function PREFIX
+			TestGql ("select left([Column1], 2), prefix([column1]) from ['SampleFiles/AirportCodes.csv' -format=csv] group by left([column1], 2) having len(prefix([column1])) > 2",
+			         "B5AD26DEE5D93A2A0805968EF40F6D8C15E394101DE4676249A414B40D4050F7");
+
 			if (!Performance) {
 				Console.WriteLine ();
 				Console.WriteLine (

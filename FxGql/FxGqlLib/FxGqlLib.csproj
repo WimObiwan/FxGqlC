@@ -131,6 +131,7 @@
     <Compile Include="Providers\FileOptions.cs" />
     <Compile Include="Providers\Data\DataProvider.cs" />
     <Compile Include="Providers\Flow\ColumnProviderCsv.cs" />
+    <Compile Include="Util\StringExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

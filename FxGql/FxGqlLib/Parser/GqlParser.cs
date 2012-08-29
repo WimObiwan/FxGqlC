@@ -916,6 +916,9 @@ namespace FxGqlLib
 			case "TRIM":
 				result = UnaryExpression<DataString, DataString>.CreateAutoConvert ((a) => a.Value.Trim (), arg);
 				break;
+			case "LEN":
+				result = UnaryExpression<DataString, DataInteger>.CreateAutoConvert ((a) => a.Value.Length, arg);
+				break;
 			//case "COUNT":
 			case "T_COUNT":
 				result = new AggregationExpression<IData, DataInteger, DataInteger> ((a) => 1, 
@@ -1049,6 +1052,13 @@ namespace FxGqlLib
                                arg.GetResultType ().ToString ()),
                         functionCallTree);
 				}
+				break;
+			case "PREFIX":
+				result = new AggregationExpression<DataString, DataString, DataString> (
+                    (a) => a, 
+                    (s, a) => s.CommonPrefix (a), 
+                    (s) => s, 
+                    ConvertExpression.CreateDataString (arg));
 				break;
 			default:
 				throw new ParserException (string.Format (

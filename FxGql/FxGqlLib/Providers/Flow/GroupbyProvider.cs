@@ -346,7 +346,7 @@ namespace FxGqlLib
 				bool invariant = dataComparer.Compare (comparable1, comparable2) == 0;
 					
 				if (!invariant)
-					throw new Exception ("Column Expression is not invariant during group by");
+					throw new InvalidOperationException ("Column Expression is not invariant during group by");
 			}
 		}
 

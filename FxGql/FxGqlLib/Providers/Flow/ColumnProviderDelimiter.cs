@@ -110,7 +110,7 @@ namespace FxGqlLib
 				record.Columns [i] = dataString [i];
 			}
 			record.LineNo = provider.Record.LineNo;
-			record.OriginalColumns = provider.Record.Columns;
+			record.OriginalColumns = record.Columns;
 			record.Source = provider.Record.Source;
 			return true;
 		}
