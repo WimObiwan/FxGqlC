@@ -18,6 +18,7 @@ namespace FxGqlTest
 		public GqlEngine engineOutput = new GqlEngine ();
 		public GqlEngine engineHash = new GqlEngine ();
 		public bool Performance { get; set; }
+		public bool BreakOnFailed { get; set; }
 
 		readonly TextWriter nullTextWriter = new StreamWriter (Stream.Null);
 
@@ -331,6 +332,8 @@ namespace FxGqlTest
 					Console.WriteLine ("      {0}", targetHash1);
 					if (targetHash2 != null)
 						Console.WriteLine ("      {0}", targetHash2);
+					if (BreakOnFailed)
+						System.Diagnostics.Debugger.Break();
 					failed++;
 					result = false;
 				}
@@ -369,6 +372,9 @@ namespace FxGqlTest
 				Console.WriteLine ("   Test FAILED");
 				Console.WriteLine ("      Expected: {0}", exceptionType.ToString ());
 				Console.WriteLine ("      No exception happened");
+				if (BreakOnFailed)
+					System.Diagnostics.Debugger.Break();
+
 				failed++;
 			} catch (Exception exception) {
 				if (exceptionType.IsAssignableFrom (exception.GetType ())) {
@@ -379,6 +385,9 @@ namespace FxGqlTest
 					Console.WriteLine ("   Test FAILED");
 					Console.WriteLine ("      Expected: {0}", exceptionType.ToString ());
 					Console.WriteLine ("      Catched: {0}", exception.GetType ().ToString ());
+					if (BreakOnFailed)
+						System.Diagnostics.Debugger.Break();
+
 					failed++;
 				}
 			}
@@ -1557,7 +1566,8 @@ namespace FxGqlTest
 			TestGql ("select 'air, moon roof, loaded\",4799.00' into ['test.txt' -append]",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql ("select * from ['test.txt' -format=csv]",
-			         "8E8B666C34F16022E232EB60C1BCCD6D38B7DBEB1E9DC29D640B9EE429DAD7BC");
+			         "8E8B666C34F16022E232EB60C1BCCD6D38B7DBEB1E9DC29D640B9EE429DAD7BC",
+			         "061A3EFBDFD2476D0EF6EE67F01DD924EEF4EE1177AE4DCA62C5E650E02356E4");
 
 			// Extra tests for unary operators
 			TestGql ("select - -+17", 
@@ -1597,7 +1607,7 @@ namespace FxGqlTest
 				"order by 1",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
-			          "E5548C251AF2BFBA3549D7C4F4F09769AA9E1ACAD087058E0624B60F92B8A08C", // dos
+			          "758074F1FEAE50EE490C55A9176B551D441E379D60044B73F01303813A7DA9E7", // dos
 			          "5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");// unix
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' " +
 				"union " +
@@ -1705,6 +1715,8 @@ namespace FxGqlTest
 //select * into ['insert into MyTable (col1, col2) values (?, ?)' -provider='System.Data.SqlClient' -connectionstring='Data Source=(local);Initial Catalog=cars;Integrated Security=SSPI'] from [*.log]
 //-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateDataAdapter, DbDataAdapter.InsertCommand,...
 //select * from ['*.log' -provider='files']  --default provider = filesystem
+
+						TestGql ("select * from ['test.txt' -format=csv]");
 
 			return failed == 0;
 		}		
