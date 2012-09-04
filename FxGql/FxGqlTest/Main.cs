@@ -51,6 +51,9 @@ namespace FxGqlTest
 						Console.WriteLine ("TOTAL  : {0}, CPU: {1} ({2:0.00}%)", stopwatch, processorTime, processorTime.Ticks * 100.0 / stopwatch.Ticks);
 					}
 				} else {
+					if (args.Length > 0 && args [0] == "breakonfailed") {
+						gqlSamplesTest.BreakOnFailed = true;
+					}					
 					result = gqlSamplesTest.Run ();
 				}
 
