@@ -13,6 +13,7 @@ namespace FxGqlC
 	{
 		static GqlEngine gqlEngine;
 		static string version;
+		static int versionType;
 		static string lastRelease;
 		static bool nochecknewversion = false;
 		static bool noautoupdate = false;
@@ -49,7 +50,8 @@ namespace FxGqlC
 		{
 			var info = System.Diagnostics.FileVersionInfo.GetVersionInfo (Assembly.GetExecutingAssembly ().Location);
 			string type;
-			switch (info.FileBuildPart) {
+			versionType = info.FileBuildPart;
+			switch (versionType) {
 			case 0:
 				type = "alpha";
 				break;
@@ -634,7 +636,13 @@ namespace FxGqlC
 						client.Headers.Add (System.Net.HttpRequestHeader.UserAgent, string.Format ("FxGqlC/{3} ({0}; {1}; {2})", Environment.OSVersion.Platform, Environment.OSVersion.Version, Environment.OSVersion.VersionString, version));
 
 						if (!nochecknewversion) {
-							byte[] data = client.DownloadData ("https://sites.google.com/site/fxgqlc/home/downloads/release-last.txt");
+							string type;
+							if (versionType == 3)
+								type = "";
+							else
+								type = "beta-";
+							string urlRelease = string.Format ("https://sites.google.com/site/fxgqlc/home/downloads/release-{0}last.txt", type);
+							byte[] data = client.DownloadData (urlRelease);
 							string url;
 							using (StreamReader r = new StreamReader(new MemoryStream(data))) {
 								lastRelease = r.ReadLine ();
