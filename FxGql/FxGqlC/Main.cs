@@ -251,7 +251,8 @@ namespace FxGqlC
 						gqlEngine.LogStream = null;
 					}
 				}			
-			}			
+			}
+
 			CheckForUpdates (State.Stop);
 			manualResetEvent.WaitOne (500);
 		}
@@ -735,6 +736,9 @@ namespace FxGqlC
 									}
 								}
 
+							} else {
+								// only check version 1 time
+								nochecknewversion = true;
 							}
 						}
 
