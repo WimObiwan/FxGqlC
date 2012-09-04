@@ -175,6 +175,7 @@ namespace FxGqlC
 				Console.WriteLine ("* SharpZipLib, licensed under GPLv2, Copyright 2001-2010 Mike Krueger, ");
 				Console.WriteLine ("  John Reilly.");
 				Console.WriteLine ("* Antlr v3, Antlr3 license (BSD), Copyright (c) 2010 Terence Parr.");
+				Console.WriteLine ("* Mono MCS getline.cs, MIT X11 / Apache License 2.0A,  Copyright 2008 Novell.");
 				Console.WriteLine ();
 				Console.WriteLine ("Contact Information: Wim Devos, wim AT obiwan DOT be");
 				Console.WriteLine ("===========================================================================");
