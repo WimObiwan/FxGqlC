@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle("FxGqlC")]
-[assembly: AssemblyDescription("Fox Innovations Grep Query Language for Console")]
+[assembly: AssemblyDescription("Fox Innovations Grep Query Language")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Fox Innovations")]
 [assembly: AssemblyProduct("FxGqlC")]
