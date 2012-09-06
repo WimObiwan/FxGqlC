@@ -333,7 +333,7 @@ namespace FxGqlTest
 					if (targetHash2 != null)
 						Console.WriteLine ("      {0}", targetHash2);
 					if (BreakOnFailed)
-						System.Diagnostics.Debugger.Break();
+						System.Diagnostics.Debugger.Break ();
 					failed++;
 					result = false;
 				}
@@ -373,7 +373,7 @@ namespace FxGqlTest
 				Console.WriteLine ("      Expected: {0}", exceptionType.ToString ());
 				Console.WriteLine ("      No exception happened");
 				if (BreakOnFailed)
-					System.Diagnostics.Debugger.Break();
+					System.Diagnostics.Debugger.Break ();
 
 				failed++;
 			} catch (Exception exception) {
@@ -386,7 +386,7 @@ namespace FxGqlTest
 					Console.WriteLine ("      Expected: {0}", exceptionType.ToString ());
 					Console.WriteLine ("      Catched: {0}", exception.GetType ().ToString ());
 					if (BreakOnFailed)
-						System.Diagnostics.Debugger.Break();
+						System.Diagnostics.Debugger.Break ();
 
 					failed++;
 				}
@@ -1568,6 +1568,16 @@ namespace FxGqlTest
 			TestGql ("select * from ['test.txt' -format=csv]",
 			         "8E8B666C34F16022E232EB60C1BCCD6D38B7DBEB1E9DC29D640B9EE429DAD7BC",
 			         "061A3EFBDFD2476D0EF6EE67F01DD924EEF4EE1177AE4DCA62C5E650E02356E4");
+			TestGql ("select * into ['test.csv' -format=csv -overwrite] from ['SampleFiles/AirportCodes.csv' -format=csv]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select * from ['test.csv' -format=csv]",
+			         "A7A17A0483767BC54B4082F64BA82141A4F0EC2759AD582547ADF99B5FE93782");
+			File.Delete ("test.csv");
+			TestGql ("select * into ['test.csv' -format=csv -overwrite -heading=on] from ['SampleFiles/AirportCodes.csv' -format=csv -heading=on]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select * from ['test.csv' -format=csv]",
+			         "A7A17A0483767BC54B4082F64BA82141A4F0EC2759AD582547ADF99B5FE93782");
+			File.Delete ("test.csv");
 
 			// Extra tests for unary operators
 			TestGql ("select - -+17", 
@@ -1601,13 +1611,22 @@ namespace FxGqlTest
 				"(select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Netherlands' order by 2) " +
 				"order by 1",
 			         "5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");
+			TestGql ("select * into ['test.txt' -overwrite] from " +
+				"( select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' " +
+				"union " +
+				"select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Netherlands' " +
+				"order by 1)",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestFile ("test.txt",
+			          "E5548C251AF2BFBA3549D7C4F4F09769AA9E1ACAD087058E0624B60F92B8A08C", // dos
+			          "5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");// unix
 			TestGql ("select * into ['test.txt' -overwrite] from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' " +
 				"union " +
 				"select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Netherlands' " +
 				"order by 1",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
-			          "758074F1FEAE50EE490C55A9176B551D441E379D60044B73F01303813A7DA9E7", // dos
+			          "E5548C251AF2BFBA3549D7C4F4F09769AA9E1ACAD087058E0624B60F92B8A08C", // dos
 			          "5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");// unix
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' " +
 				"union " +
@@ -1715,8 +1734,6 @@ namespace FxGqlTest
 //select * into ['insert into MyTable (col1, col2) values (?, ?)' -provider='System.Data.SqlClient' -connectionstring='Data Source=(local);Initial Catalog=cars;Integrated Security=SSPI'] from [*.log]
 //-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateDataAdapter, DbDataAdapter.InsertCommand,...
 //select * from ['*.log' -provider='files']  --default provider = filesystem
-
-						TestGql ("select * from ['test.txt' -format=csv]");
 
 			return failed == 0;
 		}		

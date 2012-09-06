@@ -29,6 +29,9 @@ namespace FxGqlLib
 
 		string EscapeCsv (string str)
 		{
+			if (str.IndexOfAny (new char[] { '"', '\r', '\n' }) == -1
+				&& !str.Contains (this.separator))
+				return str;
 			StringBuilder sb = new StringBuilder ();
 			sb.Append ('"');
 			sb.Append (str.Replace ("\"", "\"\""));
