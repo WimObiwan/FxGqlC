@@ -161,6 +161,14 @@ namespace FxGqlLib
 
 		public GqlEngineState.HeadingEnum Heading { get; set; }
 
+		public enum FormatEnum
+		{
+			DontCare,
+			PlainText,
+			Csv,
+		}
+		public FormatEnum Format { get; set; }
+
 		public string ColumnDelimiter { get; set; }
 
 		public override void ValidateFileProviderOptions ()

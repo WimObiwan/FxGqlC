@@ -23,8 +23,12 @@ namespace FxGqlLib
 			this.provider = provider;
 			this.fileOptions = fileOptions;
 			columnDelimiter = fileOptions.ColumnDelimiter;
-			if (columnDelimiter == null)
-				columnDelimiter = "\t";
+			if (columnDelimiter == null) {
+				if (fileOptions.Format == FileOptionsIntoClause.FormatEnum.Csv)
+					columnDelimiter = ",";
+				else
+					columnDelimiter = "\t";
+			}
 		}
 
 		#region IProvider implementation
@@ -99,7 +103,8 @@ namespace FxGqlLib
 							zipOutputStream.PutNextEntry (zipEntry);
 						
 							DumpProviderToStream (provider, zipOutputStream, this.gqlQueryState,
-						                      columnDelimiter, GetNewLine (fileOptions.NewLine), fileOptions.Heading);
+						                          columnDelimiter, GetNewLine (fileOptions.NewLine), fileOptions.Heading,
+							                      fileOptions.Format);
 						}
 					}
 				}
@@ -114,7 +119,8 @@ namespace FxGqlLib
 				using (FileStream outputStream = new FileStream(fileName, fileMode, FileAccess.Write, FileShare.Read)) {
 					using (AsyncStreamWriter asyncStreamWriter = new AsyncStreamWriter(outputStream)) {
 						DumpProviderToStream (provider, outputStream, this.gqlQueryState,
-					                      columnDelimiter, GetNewLine (fileOptions.NewLine), fileOptions.Heading);
+					                          columnDelimiter, GetNewLine (fileOptions.NewLine), fileOptions.Heading,
+						                      fileOptions.Format);
 					}
 				}
 			}
@@ -143,7 +149,8 @@ namespace FxGqlLib
 		#endregion
 
 		public static void DumpProviderToStream (IProvider provider, Stream outputStream, GqlQueryState gqlQueryState, 
-		                                         string columnDelimiter, string recordDelimiter, GqlEngineState.HeadingEnum heading)
+		                                         string columnDelimiter, string recordDelimiter, GqlEngineState.HeadingEnum heading,
+		                                         FileOptionsIntoClause.FormatEnum format)
 		{
 			using (TextWriter writer = new StreamWriter(outputStream, System.Text.Encoding.GetEncoding (0))) {
 				writer.NewLine = recordDelimiter;
@@ -154,13 +161,15 @@ namespace FxGqlLib
 					gqlQueryState,
 					columnDelimiter,
 					heading,
-					0
+					0,
+					format
 				);
 			}
 		}
 		
 		public static void DumpProviderToStream (IProvider provider, TextWriter outputWriter, GqlQueryState gqlQueryState, 
-		                                         string columnDelimiter, GqlEngineState.HeadingEnum heading, int autoSize)
+		                                         string columnDelimiter, GqlEngineState.HeadingEnum heading, int autoSize, 
+		                                         FileOptionsIntoClause.FormatEnum format)
 		{
 			try {
 				provider.Initialize (gqlQueryState);
@@ -194,9 +203,12 @@ namespace FxGqlLib
 					list.Add (provider.Record.Columns.Select (p => p.ToString ()).ToArray ());
 				}
 
-				FormatColumnListFunction formatColumnListFunction;
+				FormatColumnsFunction formatColumnListFunction;
 				if (autoSize == 0) {
-					formatColumnListFunction = new FormatColumnListFunction (columnDelimiter);
+					if (format == FileOptionsIntoClause.FormatEnum.Csv)
+						formatColumnListFunction = new FormatCsvFunction (columnDelimiter);
+					else
+						formatColumnListFunction = new FormatColumnListFunction (columnDelimiter);
 				} else {
 					int[] max = new int[list [0].Length];
 					foreach (string[] item in list) {

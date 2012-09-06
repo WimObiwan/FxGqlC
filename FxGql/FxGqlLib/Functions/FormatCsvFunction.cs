@@ -1,25 +1,19 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text;
 
 namespace FxGqlLib
 {
-	public class FormatColumnListFunction : Expression<DataString>, FormatColumnsFunction
+	public class FormatCsvFunction : Expression<DataString>, FormatColumnsFunction
 	{
 		readonly string separator;
-		readonly int[] columnSizes;
-		
-		public FormatColumnListFunction (string separator)
-			: this(separator, null)
-		{
-		}
 
-		public FormatColumnListFunction (string separator, int[] columnSizes)
+		public FormatCsvFunction (string separator)
 		{
 			this.separator = separator;
-			this.columnSizes = columnSizes;
 		}
-				
+
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
@@ -30,22 +24,16 @@ namespace FxGqlLib
 
 		public DataString Evaluate (IEnumerable<string> columns)
 		{
-			if (columnSizes != null) {
-				string[] columns2 = columns.ToArray ();
-				for (int i = 0; i < Math.Min (columns2.Length, columnSizes.Length); i++)
-					if (columnSizes [i] != 0) {
-						if (columns2 [i].Length > Math.Abs (columnSizes [i])) {
-							columns2 [i] = columns2 [i].Substring (0, Math.Abs (columnSizes [i]) - 1) + '~';
-						} else {
-							if (columnSizes [i] > 0)
-								columns2 [i] = columns2 [i].PadRight (columnSizes [i]);
-							else //if (columnSizes [i] < 0)
-								columns2 [i] = columns2 [i].PadLeft (-columnSizes [i]);
-						}
-					}
-				columns = columns2;
-			}
-			return new DataString (string.Concat (new SeparatorEnumerable<string> (columns, separator)));
+			return new DataString (string.Concat (new SeparatorEnumerable<string> (columns.Select (p => EscapeCsv (p)), separator)));
+		}
+
+		string EscapeCsv (string str)
+		{
+			StringBuilder sb = new StringBuilder ();
+			sb.Append ('"');
+			sb.Append (str.Replace ("\"", "\"\""));
+			sb.Append ('"');
+			return sb.ToString ();
 		}
 
 		class SeparatorEnumerable<T> : IEnumerable<T>

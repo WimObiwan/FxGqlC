@@ -1369,6 +1369,19 @@ namespace FxGqlLib
 				case "COLUMNDELIMITER":
 					fileOptions.ColumnDelimiter = System.Text.RegularExpressions.Regex.Unescape (value);
 					break;
+				case "FORMAT":
+					FileOptionsIntoClause.FormatEnum format;
+					if (!Enum.TryParse<FileOptionsIntoClause.FormatEnum> (
+                        value,
+                        true,
+                        out format
+					))
+						throw new ParserException (
+                                    string.Format ("Unknown file option Format={0}", format),
+                                    tree
+						);
+					fileOptions.Format = format;
+					break;
 				default:
 					throw new ParserException (
                                 string.Format ("Unknown file option '{0}'", option),
