@@ -33,6 +33,8 @@ version=`cat /tmp/_fxgqlc_versionoutput2.txt`
 
 zip -j /tmp/FxGqlC-$version.zip FxGql/FxGqlC/bin/Release/*
 
+rm log.gql
+rm TestSummary.gql
 git add ./FxGql/FxGqlC/AssemblyInfo.cs
 git commit -m "$version"
 git push
