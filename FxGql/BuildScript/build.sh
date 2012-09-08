@@ -31,6 +31,8 @@ mdtool build --target:Build --configuration:Release FxGql/FxGql.sln
 
 version=`cat /tmp/_fxgqlc_versionoutput2.txt`
 
+version=`echo "$version" | sed -E 's/([^-]*)-[0-9]{8}/\1/'`
+
 zip -j /tmp/FxGqlC-$version.zip FxGql/FxGqlC/bin/Release/*
 
 rm log.gql
