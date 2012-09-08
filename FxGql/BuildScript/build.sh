@@ -1,10 +1,11 @@
 scriptdir=`dirname $0`
 cd "$scriptdir/../.."
 pwd
+mkdir -p /tmp/FxGqlC
 
 git pull
-git status --porcelain > /tmp/_fxgqlc_gitchanges.txt
-if [[ -s /tmp/_fxgqlc_gitchanges.txt ]] ; then
+git status --porcelain > /tmp/FxGqlC/_fxgqlc_gitchanges.txt
+if [[ -s /tmp/FxGqlC/_fxgqlc_gitchanges.txt ]] ; then
 	echo "There are pending changes. Build canceled."
 	exit
 fi;
@@ -13,27 +14,35 @@ mdtool build --target:Clean --configuration:Release FxGql/FxGql.sln
 rm ./FxGql/FxGqlC/bin/Release/* --force
 
 #INCREMENT BUILD NUMBER
-#select (case when ($line match 'assembly\: AssemblyVersion\(\"\d+\.\d+\.\d+\.(\d+)\"\)') then matchregex($line, '^(.*\(\"\d+\.\d+\.\d+)\.\d+(\"\).*)$', '$1.' + (1 + convert(int, matchregex($line, 'assembly\: AssemblyVersion\(\"\d+\.\d+\.\d+\.(\d+)\"\)'))) + '$2') else $line end) into ['/tmp/_fxgqlc_AssemblyInfo.cs' -overwrite] from [FxGqlC/AssemblyInfo.cs]
+#select (case when ($line match 'assembly\: AssemblyVersion\(\"\d+\.\d+\.\d+\.(\d+)\"\)') then matchregex($line, '^(.*\(\"\d+\.\d+\.\d+)\.\d+(\"\).*)$', '$1.' + (1 + convert(int, matchregex($line, 'assembly\: AssemblyVersion\(\"\d+\.\d+\.\d+\.(\d+)\"\)'))) + '$2') else $line end) into ['/tmp/FxGqlC/_fxgqlc_AssemblyInfo.cs' -overwrite] from [FxGqlC/AssemblyInfo.cs]
 
 # First build FxGqlC to have a working FxGqlC.exe
 mdtool build --target:Build --configuration:Release FxGql/FxGql.sln
 
 # Update version number
 ./FxGql/FxGqlC/bin/Release/FxGqlC.exe -gqlfile ./FxGql/BuildScript/IncrementBuildNumber.gql
-mv /tmp/_fxgqlc_AssemblyInfo.cs ./FxGql/FxGqlC/AssemblyInfo.cs
+mv /tmp/FxGqlC/_fxgqlc_AssemblyInfo.cs ./FxGql/FxGqlC/AssemblyInfo.cs
 
 #select matchregex($line, 'assembly\: AssemblyVersion\(\"(\d+\.\d+\.\d+\.\d+)\"\)') from [FxGqlC/AssemblyInfo.cs] where ($line match 'assembly\: AssemblyVersion\(\"\d+\.\d+\.\d+\.(\d+)\"\)')
 
 mdtool build --target:Build --configuration:Release FxGql/FxGql.sln
 
-./FxGql/FxGqlC/bin/Release/FxGqlC.exe > /tmp/_fxgqlc_versionoutput.txt
-./FxGql/FxGqlC/bin/Release/FxGqlC.exe -c "select matchregex(\$line, '- (v.*) -') into ['/tmp/_fxgqlc_versionoutput2.txt' -overwrite] from ['/tmp/_fxgqlc_versionoutput.txt'] where \$line match '- (v.*) -'"
+./FxGql/FxGqlC/bin/Release/FxGqlC.exe > /tmp/FxGqlC/_fxgqlc_versionoutput.txt
+./FxGql/FxGqlC/bin/Release/FxGqlC.exe -c "select matchregex(\$line, '- (v.*) -') into ['/tmp/FxGqlC/_fxgqlc_versionoutput2.txt' -overwrite] from ['/tmp/FxGqlC/_fxgqlc_versionoutput.txt'] where \$line match '- (v.*) -'"
 
-version=`cat /tmp/_fxgqlc_versionoutput2.txt`
+version=`cat /tmp/FxGqlC/_fxgqlc_versionoutput2.txt`
+shortversion=`echo "$version" | sed -E 's/([^-]*)-[0-9]{8}/\1/'`
 
-version=`echo "$version" | sed -E 's/([^-]*)-[0-9]{8}/\1/'`
+if [[ "$string" == *alpha* || "$string" == *beta* || "$string" == *rc* ]]
+then
+	echo "$version" > /tmp/FxGqlC/release-beta-last.txt
+	echo "https://sites.google.com/site/fxgqlc/home/downloads/FxGqlC-$shortversion.zip" > /tmp/FxGqlC/release-beta-last.txt
+else
+	echo "$version" > /tmp/FxGqlC/release-last.txt
+	echo "https://sites.google.com/site/fxgqlc/home/downloads/FxGqlC-$shortversion.zip" > /tmp/FxGqlC/release-last.txt
+fi
 
-zip -j /tmp/FxGqlC-$version.zip FxGql/FxGqlC/bin/Release/*
+zip -j /tmp/FxGqlC/FxGqlC-$shortversion.zip FxGql/FxGqlC/bin/Release/*
 
 rm log.gql
 rm TestSummary.gql
