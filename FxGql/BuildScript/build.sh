@@ -33,7 +33,7 @@ mdtool build --target:Build --configuration:Release FxGql/FxGql.sln
 version=`cat /tmp/FxGqlC/_fxgqlc_versionoutput2.txt`
 shortversion=`echo "$version" | sed -E 's/([^-]*)-[0-9]{8}/\1/'`
 
-if [[ "$string" == *alpha* || "$string" == *beta* || "$string" == *rc* ]]
+if [[ "$version" == *alpha* || "$version" == *beta* || "$version" == *rc* ]]
 then
 	echo "$version" > /tmp/FxGqlC/release-beta-last.txt
 	echo "https://sites.google.com/site/fxgqlc/home/downloads/FxGqlC-$shortversion.zip" > /tmp/FxGqlC/release-beta-last.txt
