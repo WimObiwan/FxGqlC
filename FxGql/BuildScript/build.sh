@@ -42,6 +42,8 @@ else
 	echo "https://sites.google.com/site/fxgqlc/home/downloads/FxGqlC-$shortversion.zip" >> /tmp/FxGqlC/release-last.txt
 fi
 
+chmod 777 FxGql/FxGqlC/bin/Release/*.exe
+
 zip -j /tmp/FxGqlC/FxGqlC-$shortversion.zip FxGql/FxGqlC/bin/Release/*
 
 rm log.gql
