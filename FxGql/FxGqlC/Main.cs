@@ -729,7 +729,6 @@ namespace FxGqlC
 											Process ExeScript = new Process();
 											ExeScript.StartInfo.FileName = "chmod";
 											ExeScript.StartInfo.Arguments = "+x \"" + appDirFile + "\"";
-											Console.WriteLine (ExeScript.StartInfo.Arguments);
 											ExeScript.Start ();
 										}
 									}
