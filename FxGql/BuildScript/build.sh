@@ -36,10 +36,10 @@ shortversion=`echo "$version" | sed -E 's/([^-]*)-[0-9]{8}/\1/'`
 if [[ "$version" == *alpha* || "$version" == *beta* || "$version" == *rc* ]]
 then
 	echo "$version" > /tmp/FxGqlC/release-beta-last.txt
-	echo "https://sites.google.com/site/fxgqlc/home/downloads/FxGqlC-$shortversion.zip" > /tmp/FxGqlC/release-beta-last.txt
+	echo "https://sites.google.com/site/fxgqlc/home/downloads/FxGqlC-$shortversion.zip" >> /tmp/FxGqlC/release-beta-last.txt
 else
 	echo "$version" > /tmp/FxGqlC/release-last.txt
-	echo "https://sites.google.com/site/fxgqlc/home/downloads/FxGqlC-$shortversion.zip" > /tmp/FxGqlC/release-last.txt
+	echo "https://sites.google.com/site/fxgqlc/home/downloads/FxGqlC-$shortversion.zip" >> /tmp/FxGqlC/release-last.txt
 fi
 
 zip -j /tmp/FxGqlC/FxGqlC-$shortversion.zip FxGql/FxGqlC/bin/Release/*
