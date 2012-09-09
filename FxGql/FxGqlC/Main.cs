@@ -7,6 +7,7 @@ using FxGqlLib;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Diagnostics;
 
 namespace FxGqlC
 {
@@ -723,7 +724,16 @@ namespace FxGqlC
 										if (File.Exists (appDirFile))
 											File.Move (appDirFile, Path.Combine (oldVersionDir, fileName2));
 										File.Move (file, appDirFile);
+							
+										if (Path.GetExtension (appDirFile).Equals (".exe", StringComparison.InvariantCultureIgnoreCase)) {
+											Process ExeScript = new Process();
+											ExeScript.StartInfo.FileName = "chmod";
+											ExeScript.StartInfo.Arguments = "+x \"" + appDirFile + "\"";
+											Console.WriteLine (ExeScript.StartInfo.Arguments);
+											ExeScript.Start ();
+										}
 									}
+																		
 									// Silent upgrade: No more display message to the user about the new version
 									nochecknewversion = true;
 								} catch (Exception) {
