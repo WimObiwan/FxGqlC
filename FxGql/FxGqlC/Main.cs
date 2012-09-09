@@ -725,11 +725,14 @@ namespace FxGqlC
 											File.Move (appDirFile, Path.Combine (oldVersionDir, fileName2));
 										File.Move (file, appDirFile);
 							
-										if (Path.GetExtension (appDirFile).Equals (".exe", StringComparison.InvariantCultureIgnoreCase)) {
-											Process ExeScript = new Process();
-											ExeScript.StartInfo.FileName = "chmod";
-											ExeScript.StartInfo.Arguments = "+x \"" + appDirFile + "\"";
-											ExeScript.Start ();
+										try {
+											if (Path.GetExtension (appDirFile).Equals (".exe", StringComparison.InvariantCultureIgnoreCase)) {
+												Process ExeScript = new Process();
+												ExeScript.StartInfo.FileName = "chmod";
+												ExeScript.StartInfo.Arguments = "+x \"" + appDirFile + "\"";
+												ExeScript.Start ();
+											}
+										} catch {
 										}
 									}
 																		
