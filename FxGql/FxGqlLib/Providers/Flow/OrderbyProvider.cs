@@ -39,7 +39,7 @@ namespace FxGqlLib
 		bool dataRetrieved;
 		List<Key> data;
 		int nextRecord;
-		ProviderRecord record = new ProviderRecord ();
+		ProviderRecord record;
 		GqlQueryState gqlQueryState;
 		GqlQueryState newGqlQueryState;
 		ColumnsComparer<Key > columnsComparer;
@@ -135,6 +135,7 @@ namespace FxGqlLib
 			dataRetrieved = false;
 			data = new List<Key> ();
 			nextRecord = -1;
+			record = new ProviderRecord (this);
 
 			newGqlQueryState = new GqlQueryState (this.gqlQueryState);
 			newGqlQueryState.TotalLineNumber = 0;

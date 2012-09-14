@@ -105,7 +105,7 @@ namespace FxGqlLib
 			data = null;
 			currentRecord = -1;
 			enumerator = null;
-			record = new ProviderRecord ();
+			record = new ProviderRecord (this);
 			record.Source = "(aggregated)";
 			
 			newGqlQueryState = new GqlQueryState (this.gqlQueryState);

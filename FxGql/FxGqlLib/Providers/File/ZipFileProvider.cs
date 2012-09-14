@@ -55,13 +55,10 @@ namespace FxGqlLib
 			zipFile = new ZipFile (new FileStream (fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 32 * 1024));
 			zipFile.UseZip64 = UseZip64.On;
 			streamReader = new StreamReader (new AsyncStreamReader (zipFile.GetInputStream (currentFile), 32 * 1024));
-			record = new ProviderRecord ();
+			record = new ProviderRecord (this, true);
 			record.Source = fileName;
-			record.Columns = new IData[] 
-			{ 
-				dataString
-			};
-			record.OriginalColumns = record.Columns;
+			record.Columns [0] = dataString;
+			// same record.OriginalColumns [0] = dataString;
 
 			for (long i = 0; i < skip; i++) {
 				if (streamReader.ReadLine () == null) {

@@ -59,8 +59,6 @@ namespace FxGqlLib
 			dataReader = command.ExecuteReader (System.Data.CommandBehavior.SingleResult | System.Data.CommandBehavior.CloseConnection);
 			columnNames = new ColumnName[dataReader.FieldCount];
 			columnTypes = new Type[dataReader.FieldCount];
-			record = new ProviderRecord ();
-			record.Columns = new IData[columnNames.Length];
 			for (int i = 0; i < dataReader.FieldCount; i++) {
 				columnNames [i] = new ColumnName (dataReader.GetName (i));
 				/*Type type = dataReader.GetFieldType (i);
@@ -75,10 +73,9 @@ namespace FxGqlLib
 					columnTypes [i] = typeof(DataString);
 				}
 			}
+			record = new ProviderRecord (this, true);
 			record.LineNo = 0;
-			record.OriginalColumns = record.Columns;
 			record.Source = client;
-			record.ColumnTitles = columnNames;
 		}
 
 		public bool GetNextRecord ()

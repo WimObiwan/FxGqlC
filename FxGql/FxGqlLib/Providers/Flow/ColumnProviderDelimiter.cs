@@ -79,15 +79,15 @@ namespace FxGqlLib
 			if (columns == -1)
 				columns = firstLine != null ? firstLine.Length : 0;
 
-			record = new ProviderRecord ();
-			if (columns >= 0) {
-				columnNameList = new ColumnName[columns];
-				for (int i = 0; i < columnNameList.Length; i++)
-					columnNameList [i] = new ColumnName (i);
-				record.ColumnTitles = columnNameList;
-				record.Columns = new IData[columns];
-				dataString = new DataString[columns];
-			}
+			if (columns == -1)
+				throw new Exception ("No columns found in delimited file");
+
+			columnNameList = new ColumnName[columns];
+			for (int i = 0; i < columnNameList.Length; i++)
+				columnNameList [i] = new ColumnName (i);
+			dataString = new DataString[columns];
+
+			record = new ProviderRecord (this, false);
 		}
 
 		public bool GetNextRecord ()

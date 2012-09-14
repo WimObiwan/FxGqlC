@@ -4,9 +4,31 @@ namespace FxGqlLib
 {
 	public class ProviderRecord
 	{
-		public ColumnName[] ColumnTitles { get; set; }
+		IProvider provider;
 
-		//public string Text { get; set; }
+		public ProviderRecord (IProvider provider)
+		{
+			this.provider = provider;
+			
+			int columnCount = provider.GetColumnNames ().Length;
+			if (columnCount != provider.GetColumnTypes ().Length)
+				throw new InvalidOperationException ("Inconsistent column names/types");
+		}
+
+		public ProviderRecord (IProvider provider, bool sameOriginalColumns)
+			: this (provider)
+		{
+			int columnCount = provider.GetColumnNames ().Length;
+			this.Columns = new IData[columnCount];
+
+			if (sameOriginalColumns)
+				this.OriginalColumns = this.Columns;
+			else
+				this.OriginalColumns = new IData[columnCount];
+		}
+		
+		public ColumnName[] ColumnTitles { get { return provider.GetColumnNames (); } }
+
 		public string Source { get; set; }
 
 		public long LineNo { get; set; }

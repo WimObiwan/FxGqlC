@@ -35,8 +35,7 @@ namespace FxGqlLib
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			endOfQuery = false;
-			record = new ProviderRecord ();
-			record.Columns = new IData[] { };
+			record = new ProviderRecord (this, true);
 			record.Source = "(nullProvider)";
 			record.LineNo = 0;
 		}

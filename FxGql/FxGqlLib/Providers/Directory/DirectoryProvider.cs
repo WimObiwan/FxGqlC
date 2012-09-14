@@ -92,13 +92,10 @@ namespace FxGqlLib
 			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.ModificationTimeDesc)
 				files = files.Select (p => new FileInfo (p)).OrderByDescending (p => p.LastWriteTime).Select (p => p.FullName).ToArray ();
 
-			record = new ProviderRecord ();
+			record = new ProviderRecord (this, true);
 			record.LineNo = 0;
 			record.TotalLineNo = 0;
-			record.ColumnTitles = columnNames;
 			record.Source = "DirectoryProvider";
-			record.Columns = new IData[columnNames.Length];
-			record.OriginalColumns = record.Columns;
 		}
 
 		public bool GetNextRecord ()

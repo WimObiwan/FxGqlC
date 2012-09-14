@@ -56,11 +56,10 @@ namespace FxGqlLib
 				fileName = Path.Combine (gqlQueryState.CurrentDirectory, this.fileName);
 			}
 			streamReader = new StreamReader (new AsyncStreamReader (new FileStream (fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 32 * 1024), 32 * 1024));
-			record = new ProviderRecord ();
+			record = new ProviderRecord (this, true);
 			record.Source = fileName;
 			dataString = new DataString ();
-			record.Columns = new IData[] { dataString };
-			record.OriginalColumns = record.Columns;
+			record.Columns [0] = dataString;
 
 			for (long i = 0; i < skip; i++) {
 				if (streamReader.ReadLine () == null) {

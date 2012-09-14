@@ -59,13 +59,12 @@ namespace FxGqlLib
 					columnNameList [i] = new ColumnName (groups [i + 1]);
 			provider.Initialize (gqlQueryState);
 						
-			record = new ProviderRecord ();
-			record.ColumnTitles = columnNameList;
-			record.Columns = new IData[columnNameList.Length];
+			record = new ProviderRecord (this, true);
 			dataStrings = new DataString[columnNameList.Length];
-			for (int i = 0; i < dataStrings.Length; i++)
+			for (int i = 0; i < dataStrings.Length; i++) {
 				dataStrings [i] = new DataString ();
-			record.OriginalColumns = record.Columns;
+				record.Columns [i] = dataStrings [i];
+			}
 		}
 
 		public bool GetNextRecord ()

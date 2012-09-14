@@ -193,10 +193,9 @@ namespace FxGqlLib
 			}
 
 			gqlQueryState.TotalLineNumber = 0;
-			record = new ProviderRecord ();
+			record = new ProviderRecord (this, false);
 			record.Source = "(subQuery)";
 			record.LineNo = 0;
-			record.Columns = new IData[this.outputList.Length];
 		}
 
 		public bool GetNextRecord ()
