@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FxGqlTest", "FxGqlTest\FxGq
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FxGqlC-Win", "FxGqlC-Win\FxGqlC-Win.csproj", "{CBFD18CD-84C6-4879-9163-D084AC0FB5FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground", "Playground\Playground.csproj", "{8D5F889A-7596-4679-810B-C1668D60D538}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,12 @@ Global
 		{86880209-911D-45B0-8544-80CD33346BA4}.Default|Any CPU.Build.0 = Debug|Any CPU
 		{86880209-911D-45B0-8544-80CD33346BA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86880209-911D-45B0-8544-80CD33346BA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D5F889A-7596-4679-810B-C1668D60D538}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D5F889A-7596-4679-810B-C1668D60D538}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D5F889A-7596-4679-810B-C1668D60D538}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D5F889A-7596-4679-810B-C1668D60D538}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{8D5F889A-7596-4679-810B-C1668D60D538}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D5F889A-7596-4679-810B-C1668D60D538}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CBFD18CD-84C6-4879-9163-D084AC0FB5FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CBFD18CD-84C6-4879-9163-D084AC0FB5FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBFD18CD-84C6-4879-9163-D084AC0FB5FF}.Default|Any CPU.ActiveCfg = Debug|Any CPU
