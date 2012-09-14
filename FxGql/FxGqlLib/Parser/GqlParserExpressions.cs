@@ -1205,7 +1205,7 @@ namespace FxGqlLib
 			
 			return new AnySubqueryOperator<DataInteger> (
 				new ConstExpression<DataInteger> (1),
-				new SelectProvider (
+				new ColumnProvider (
 				new IExpression[] { new ConstExpression<DataInteger> (1) }, 
 			new TopProvider (
 				ParseCommandSelect (expressionTree.GetChild (0)),

@@ -106,7 +106,6 @@
     <Compile Include="Providers\Flow\NullProvider.cs" />
     <Compile Include="Providers\Flow\OrderbyProvider.cs" />
     <Compile Include="Providers\Flow\ParameterizedProvider.cs" />
-    <Compile Include="Providers\Flow\SelectProvider.cs" />
     <Compile Include="Providers\Flow\TopProvider.cs" />
     <Compile Include="Providers\Flow\MergeProvider.cs" />
     <Compile Include="Providers\File\MultiFileProvider.cs" />

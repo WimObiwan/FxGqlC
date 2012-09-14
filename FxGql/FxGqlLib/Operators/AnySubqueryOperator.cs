@@ -34,7 +34,7 @@ namespace FxGqlLib
 					throw new InvalidOperationException ("Subquery should contain only 1 column");
 				IProvider provider;
 				if (types [0] != typeof(T))
-					provider = new SelectProvider (new List<IExpression> () { new ColumnExpression<T> (this.provider, 0)}, this.provider);
+					provider = new ColumnProvider (new List<IExpression> () { new ColumnExpression<T> (this.provider, 0)}, this.provider);
 				else
 					provider = this.provider;
 				provider.Initialize (gqlQueryState);

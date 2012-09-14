@@ -395,7 +395,7 @@ namespace FxGqlLib
 				IList<Column > outputColumns;
 				outputColumns = ParseColumnList (provider, columnListEnumerator);
 
-				provider = new SelectProvider (outputColumns, provider);
+				provider = new ColumnProvider (outputColumns, provider);
 			}
             
 			if (intoFile != null)
