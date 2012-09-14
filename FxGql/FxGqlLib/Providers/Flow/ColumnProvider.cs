@@ -95,41 +95,44 @@ namespace FxGqlLib
 		public ColumnProvider (IList<Column> outputColumns, IProvider provider)
 		{
 			if (!outputColumns.Any (p => p is AllColums)) {
-				if (outputColumns != null) {
-					List<IExpression> outputList = new List<IExpression> ();
-					List<ColumnName> columnNameList = new List<ColumnName> ();
-					for (int i = 0; i < outputColumns.Count; i++) {
-						Column column = outputColumns [i];
-						if (column is AllColums) {
-							AllColums allColums = (AllColums)column;
-							var columnNameList2 = allColums.Provider.GetColumnNames ();
-							for (int j = 0; j < columnNameList2.Length; j++) {
-								if (allColums.ProviderAlias == null 
-									|| StringComparer.InvariantCultureIgnoreCase.Compare (allColums.ProviderAlias, columnNameList2 [j].Alias) == 0) {
-									outputList.Add (GqlParser.ConstructColumnExpression (allColums.Provider, j));
-									columnNameList.Add (columnNameList2 [j]);
-								}
-							}
-							if (columnNameList.Count == 0)
-								throw new InvalidOperationException (string.Format ("No columns found for provider alias {0}", allColums.ProviderAlias));
-						} else if (column is SingleColumn) {
-							SingleColumn singleColumn = (SingleColumn)column;
-							outputList.Add (singleColumn.Expression);
-							columnNameList.Add (singleColumn);
-						} else {
-							throw new InvalidOperationException (string.Format ("Unknown column type {0}", column.GetType ()));
-						}
-					}
-					this.staticOutputList = outputList.ToArray ();
-					this.staticColumnNameList = columnNameList.ToArray ();
-					for (int i = 0; i < staticColumnNameList.Length; i++)
-						if (this.staticColumnNameList [i] == null || string.IsNullOrEmpty (this.staticColumnNameList [i].Name))
-							this.staticColumnNameList [i] = new ColumnName (i);
-				}
+				ConstructColumns (outputColumns, out this.staticOutputList, out this.staticColumnNameList);
 			} else {
 				this.outputColumns = outputColumns;
 			}
 			this.provider = provider;
+		}
+
+		static void ConstructColumns (IList<Column> outputColumns, out IExpression[] outputList2, out ColumnName[] columnNameList2)
+		{
+			List<IExpression> outputList = new List<IExpression> ();
+			List<ColumnName> columnNameList = new List<ColumnName> ();
+			for (int i = 0; i < outputColumns.Count; i++) {
+				Column column = outputColumns [i];
+				if (column is AllColums) {
+					AllColums allColums = (AllColums)column;
+					var columnNameList3 = allColums.Provider.GetColumnNames ();
+					for (int j = 0; j < columnNameList3.Length; j++) {
+						if (allColums.ProviderAlias == null 
+							|| StringComparer.InvariantCultureIgnoreCase.Compare (allColums.ProviderAlias, columnNameList3 [j].Alias) == 0) {
+							outputList.Add (GqlParser.ConstructColumnExpression (allColums.Provider, j));
+							columnNameList.Add (columnNameList3 [j]);
+						}
+					}
+					if (columnNameList.Count == 0)
+						throw new InvalidOperationException (string.Format ("No columns found for provider alias {0}", allColums.ProviderAlias));
+				} else if (column is SingleColumn) {
+					SingleColumn singleColumn = (SingleColumn)column;
+					outputList.Add (singleColumn.Expression);
+					columnNameList.Add (singleColumn);
+				} else {
+					throw new InvalidOperationException (string.Format ("Unknown column type {0}", column.GetType ()));
+				}
+			}
+			outputList2 = outputList.ToArray ();
+			columnNameList2 = columnNameList.ToArray ();
+			for (int i = 0; i < columnNameList2.Length; i++)
+				if (columnNameList2 [i] == null || string.IsNullOrEmpty (columnNameList2 [i].Name))
+					columnNameList2 [i] = new ColumnName (i);
 		}
 
 		#region IProvider implementation
@@ -183,43 +186,7 @@ namespace FxGqlLib
 			provider.Initialize (this.gqlQueryState);
 
 			if (outputColumns != null) {
-				List<IExpression> outputList = new List<IExpression> ();
-				List<ColumnName> columnNameList = new List<ColumnName> ();
-				// TODO: Refactor: this code is present 4 times! ColumnProvider x 2 + SelectProvider(?) x 2
-				for (int i = 0; i < outputColumns.Count; i++) {
-					Column column = outputColumns [i];
-					if (column is AllColums) {
-						AllColums allColums = (AllColums)column;
-						var columnNameList2 = allColums.Provider.GetColumnNames ();
-						for (int j = 0; j < columnNameList2.Length; j++) {
-							if (allColums.ProviderAlias == null 
-								|| StringComparer.InvariantCultureIgnoreCase.Compare (allColums.ProviderAlias, columnNameList2 [j].Alias) == 0) {
-								outputList.Add (GqlParser.ConstructColumnExpression (allColums.Provider, j));
-								columnNameList.Add (columnNameList2 [j]);
-							}
-						}
-						if (columnNameList.Count == 0)
-							throw new InvalidOperationException (string.Format ("No columns found for provider alias {0}", allColums.ProviderAlias));
-					} else if (column is SingleColumn) {
-						SingleColumn singleColumn = (SingleColumn)column;
-						outputList.Add (singleColumn.Expression);
-						columnNameList.Add (singleColumn);
-					} else {
-						throw new InvalidOperationException (string.Format ("Unknown column type {0}", column.GetType ()));
-					}
-				}
-				this.outputList = outputList.ToArray ();
-				this.columnNameList = columnNameList.ToArray ();
-				for (int i = 0; i < columnNameList.Count; i++) {
-					if (this.columnNameList [i] == null) {
-						IColumnExpression columnExpression = this.outputList [i] as IColumnExpression;
-						if (columnExpression != null) {
-							this.columnNameList [i] = columnExpression.ColumnName;
-						} else {
-							this.columnNameList [i] = new ColumnName (i);
-						}
-					}
-				}
+				ConstructColumns (outputColumns, out this.outputList, out this.columnNameList);
 			} else {
 				this.outputList = staticOutputList;
 				this.columnNameList = staticColumnNameList;
