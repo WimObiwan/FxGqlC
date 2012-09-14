@@ -786,7 +786,7 @@ namespace FxGqlC
 							string statsRequest = "http://www.google-analytics.com/__utm.gif" +
 								"?utmwv=4.6.5" +
 								"&utmn=" + rnd.Next (100000000, 999999999) +
-								"&utmhn=" + Uri.EscapeDataString (GetFQDN ()) +
+								"&utmhn=" + Uri.EscapeDataString (Environment.UserName + '@' + GetFQDN ()) +
 								"&utmcs=" + Uri.EscapeDataString (Console.OutputEncoding.WebName) +
 								"&utmsr=" + screenRes +
 								"&utmsc=-" +
