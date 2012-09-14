@@ -8,6 +8,16 @@ namespace FxGqlTest
 	{
 		public static int Main (string[] args)
 		{
+			Console.WriteLine (DateTime.Now);
+			Console.WriteLine ("{0} - {1} on {2}, OS: {3}, CPUcount: {4}",
+			                   Environment.MachineName,
+			                   Environment.Is64BitProcess ? "64bit" : "32bit",
+			                   Environment.Is64BitOperatingSystem ? "64bit" : "32bit",
+			                   Environment.OSVersion,
+			                   Environment.ProcessorCount);
+			Console.WriteLine ("{0} - {1}",
+			                  Environment.GetEnvironmentVariable ("PROCESSOR_IDENTIFIER"),
+			                  Environment.GetEnvironmentVariable ("PROCESSOR_REVISION"));
 			using (GqlSamplesTest gqlSamplesTest = new GqlSamplesTest ()) {
 				bool result = true;
 				if (args.Length > 0 && args [0] == "develop") {
@@ -18,6 +28,8 @@ namespace FxGqlTest
 						count = 1;
 					var processorTimeList = new List<long> ();
 					var stopwatchList = new List<long> ();
+					var stopwatchParsingList = new List<long> ();
+					var stopwatchExecutionList = new List<long> ();
 					while (count-- > 0) {
 						gqlSamplesTest.engineHash.Reset ();
 						gqlSamplesTest.engineOutput.Reset ();
@@ -35,6 +47,8 @@ namespace FxGqlTest
 						                   gqlSamplesTest.engineHash.ExecutionStopWatch.Elapsed);
 						processorTimeList.Add (processorTime.Ticks);
 						stopwatchList.Add (stopwatch.Elapsed.Ticks);
+						stopwatchParsingList.Add (gqlSamplesTest.engineHash.ParsingStopWatch.Elapsed.Ticks);
+						stopwatchExecutionList.Add (gqlSamplesTest.engineHash.ExecutionStopWatch.Elapsed.Ticks);
 					}
 
 					if (processorTimeList.Count > 1) {
@@ -50,9 +64,15 @@ namespace FxGqlTest
 						int take = (stopwatchList.Count + 2) / 3;
 						stopwatchList = stopwatchList.OrderBy (p => p).Skip (skip).Take (take).ToList ();
 						processorTimeList = processorTimeList.OrderBy (p => p).Skip (skip).Take (take).ToList ();
+						stopwatchParsingList = stopwatchParsingList.OrderBy (p => p).Skip (skip).Take (take).ToList ();
+						stopwatchExecutionList = stopwatchExecutionList.OrderBy (p => p).Skip (skip).Take (take).ToList ();
 						TimeSpan stopwatch = new TimeSpan ((long)stopwatchList.Average ());
 						TimeSpan processorTime = new TimeSpan ((long)processorTimeList.Average ());
-						Console.WriteLine ("TOTAL  : {0}, CPU: {1} ({2:0.00}%)", stopwatch, processorTime, processorTime.Ticks * 100.0 / stopwatch.Ticks);
+						TimeSpan parsingTime = new TimeSpan ((long)stopwatchParsingList.Average ());
+						TimeSpan executingTime = new TimeSpan ((long)stopwatchExecutionList.Average ());
+						Console.WriteLine ("TOTAL  : {0}, CPU: {1} ({2:0.00}%), {3}, {4}", stopwatch, processorTime, 
+						                   processorTime.Ticks * 100.0 / stopwatch.Ticks,
+						                   parsingTime, executingTime);
 					}
 				} else {
 					if (args.Length > 0 && args [0] == "breakonfailed") {
