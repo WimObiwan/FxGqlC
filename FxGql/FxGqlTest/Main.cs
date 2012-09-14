@@ -28,7 +28,11 @@ namespace FxGqlTest
 						result = gqlSamplesTest.Run ();
 						stopwatch.Stop ();
 						processorTime = System.Diagnostics.Process.GetCurrentProcess ().TotalProcessorTime - processorTime;
-						Console.WriteLine ("Elapsed: {0}, CPU: {1} ({2:0.00}%)", stopwatch.Elapsed, processorTime, processorTime.Ticks * 100.0 / stopwatch.Elapsed.Ticks);
+						Console.WriteLine ("Elapsed: {0}, CPU: {1} ({2:0.00}%), {3}, {4}", 
+						                   stopwatch.Elapsed, processorTime, 
+						                   processorTime.Ticks * 100.0 / stopwatch.Elapsed.Ticks,
+						                   gqlSamplesTest.engineHash.ParsingStopWatch.Elapsed,
+						                   gqlSamplesTest.engineHash.ExecutionStopWatch.Elapsed);
 						processorTimeList.Add (processorTime.Ticks);
 						stopwatchList.Add (stopwatch.Elapsed.Ticks);
 					}

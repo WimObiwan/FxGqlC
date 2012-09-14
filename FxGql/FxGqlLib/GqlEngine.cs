@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace FxGqlLib
 {
@@ -11,6 +12,8 @@ namespace FxGqlLib
 		TextWriter logFileStream;
 		GqlEngineExecutionState gqlEngineExecutionState = new GqlEngineExecutionState ();
 		int serial;
+		public Stopwatch ParsingStopWatch { get; private set; }
+		public Stopwatch ExecutionStopWatch { get; private set; }
 
 		public GqlEngineState GqlEngineState { get; private set; }
 		
@@ -49,6 +52,10 @@ namespace FxGqlLib
 		private void Initialize ()
 		{
 			try {
+				ParsingStopWatch = new Stopwatch ();
+				ExecutionStopWatch = new Stopwatch ();
+				ParsingStopWatch.Reset ();
+				ExecutionStopWatch.Reset ();
 				serial = 0;
 				Directory.CreateDirectory (GqlEngineState.TempDirectory);
 				OnLogFileChanged ();
@@ -78,17 +85,21 @@ namespace FxGqlLib
 			}
 
 			GqlParser parser = new GqlParser (GqlEngineState, commandsText);
+			ParsingStopWatch.Start ();
 			IList<IGqlCommand> commands = parser.Parse ();
-			
+			ParsingStopWatch.Stop ();
+
 			if (logFileStream != null) {
 				logFileStream.WriteLine ("-- {0} - {1}", GetDate (), serial);
 				logFileStream.WriteLine (commandsText);
 				logFileStream.Flush ();
 			}
 
+			ExecutionStopWatch.Start ();
 			foreach (IGqlCommand command in commands) {
 				command.Execute (outputStream, logStream, GqlEngineState);
 			}
+			ExecutionStopWatch.Stop ();
 		}
 
 		void OnLogFileChanged ()
