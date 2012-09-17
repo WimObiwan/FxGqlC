@@ -4,6 +4,24 @@ namespace FxGqlLib
 {
 	public static class ConvertExpression
 	{
+		public static IExpression Create (DataType type, IExpression expr)
+		{
+			IExpression result;
+			if (type == DataType.Integer) {
+				result = CreateDataInteger (expr);
+			} else if (type == DataType.String) {
+				result = CreateDataString (expr);
+			} else if (type == DataType.Boolean) {
+				result = CreateDataBoolean (expr);
+			} else if (type == DataType.DateTime) {
+				result = CreateDataDateTime (expr);
+			} else {
+				throw new Exception (string.Format ("Invalid conversion.  Datatype {0} unknown.", type.ToString ()));
+			}
+			
+			return result;
+		}
+		
 		public static IExpression Create (Type type, IExpression expr)
 		{
 			IExpression result;
