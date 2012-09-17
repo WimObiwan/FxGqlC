@@ -35,6 +35,7 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\FxGqlLib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
