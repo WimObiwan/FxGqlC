@@ -68,35 +68,7 @@ namespace FxGqlLib
 				text = expressionNumberTree.GetChild (0).Text + expressionNumberTree.GetChild (1).Text;
 			return new ConstExpression<DataInteger> (long.Parse (text));
 		}
-		
-		string ParseString (ITree tree)
-		{
-			string text = tree.Text;
-			if (text.Length < 2 || text [0] != '\'' || text [text.Length - 1] != '\'')
-				throw new ParserException ("Invalid string format.", tree);
-			return ParseString (text);
-		}
-		
-		string ParseStringValue (ITree tree)
-		{
-			string text = tree.Text;
-			if (text [0] == '\'') {
-				if (text [text.Length - 1] != '\'')
-					throw new ParserException ("Invalid string format.", tree);
-				
-				return ParseString (text);
-			} else {
-				return text;
-			}
-		}
-		
-		string ParseString (string text)
-		{
-			text = text.Substring (1, text.Length - 2);
-			text = text.Replace ("''", "'");
-			return text;
-		}
-		
+
 		class Token<T> : IExpression
 		{
 			
@@ -1419,56 +1391,34 @@ namespace FxGqlLib
 			
 			return new VariableExpression (variableName, type).GetTyped ();
 		}
-		
-		FileOptions ParseCommandUse (ITree tree)
+
+		string ParseString (ITree tree)
 		{
-			AssertAntlrToken (tree, "T_USE", 1);
-			
-			return ParseFileSimple (GetSingleChild (tree));
+			string text = tree.Text;
+			if (text.Length < 2 || text [0] != '\'' || text [text.Length - 1] != '\'')
+				throw new ParserException ("Invalid string format.", tree);
+			return ParseString (text);
 		}
 		
-		IList<Tuple<string, Type>> ParseCommandDeclare (ITree declareTree)
+		string ParseStringValue (ITree tree)
 		{
-			AssertAntlrToken (declareTree, "T_DECLARE", 1, -1);
-			
-			List<Tuple<string, Type>> declarations = new List<Tuple<string, Type>> ();
-			foreach (ITree declarationTree in new AntlrTreeChildEnumerable(declareTree)) {
-				declarations.Add (ParseDeclaration (declarationTree));
-			}
-			
-			return declarations;
-		}
-		
-		Tuple<string, Type> ParseDeclaration (ITree declarationTree)
-		{
-			AssertAntlrToken (declarationTree, "T_DECLARATION", 2, 2);
-			
-			ITree variableName = declarationTree.GetChild (0);
-			AssertAntlrToken (variableName, "T_VARIABLE", 1, 1);
-			
-			string variable = variableName.GetChild (0).Text;
-			Type datatype = ParseDataType (declarationTree.GetChild (1));
-			
-			return Tuple.Create (variable, datatype);
-		}
-		
-		Type ParseDataType (ITree dataTypeTree)
-		{
-			string text = dataTypeTree.Text;
-			switch (text.ToUpperInvariant ()) {
-			case "BOOL":
-				return typeof(DataBoolean);
-			case "STRING":
-				return typeof(DataString);
-			case "INT":
-				return typeof(DataInteger);
-			case "DATETIME":
-				return typeof(DataDateTime);
-			default:
-				throw new ParserException (string.Format ("Unknown datatype '{0}'", text), dataTypeTree);
+			string text = tree.Text;
+			if (text [0] == '\'') {
+				if (text [text.Length - 1] != '\'')
+					throw new ParserException ("Invalid string format.", tree);
+				
+				return ParseString (text);
+			} else {
+				return text;
 			}
 		}
 		
+		string ParseString (string text)
+		{
+			text = text.Substring (1, text.Length - 2);
+			text = text.Replace ("''", "'");
+			return text;
+		}		
 	}
 }
 
