@@ -33,7 +33,9 @@ namespace FxGqlLib
 		Dictionary<string, Type> variableTypes = new Dictionary<string, Type> (StringComparer.InvariantCultureIgnoreCase);
 		Dictionary<string, ViewDefinition> views = new Dictionary<string, ViewDefinition> (StringComparer.InvariantCultureIgnoreCase);
 		Stack<IProvider> subQueryProviderStack = new Stack<IProvider> ();
-        
+		Stack<System.Linq.Expressions.ParameterExpression> subQueryParameterExpressionStack = 
+			new Stack<System.Linq.Expressions.ParameterExpression> ();
+
 		public GqlParser (GqlEngineState gqlEngineState, string command)
             : this(gqlEngineState, command, CultureInfo.InvariantCulture, true)
 		{
@@ -517,20 +519,20 @@ namespace FxGqlLib
 		System.Linq.Expressions.Expression<Func<GqlQueryState, bool>> ParseWhereClause (IProvider provider, ITree whereTree)
 		{
 			AssertAntlrToken (whereTree, "T_WHERE");
-            
+
+			this.queryStatePrm = 
+				System.Linq.Expressions.Expression.Parameter (typeof(GqlQueryState));
+
 			ITree expressionTree = GetSingleChild (whereTree);
-			IExpression expression = ParseExpression (provider, expressionTree);
-			if (!(expression is Expression<DataBoolean>)) {
+			System.Linq.Expressions.Expression expression = ParseNewExpression (provider, expressionTree);
+			if (expression.Type != typeof(bool)) {
 				throw new ParserException (
                     "Expected boolean expression in WHERE clause.",
                     expressionTree
 				);
 			}
 
-			System.Linq.Expressions.ParameterExpression queryStatePrm = 
-				System.Linq.Expressions.Expression.Parameter (typeof(GqlQueryState));
-			System.Linq.Expressions.Expression whereExpression = ExpressionBridge.Create (expression, queryStatePrm);
-			return ExpressionDelegateCreator.CreateBoolean (whereExpression, queryStatePrm);
+			return ExpressionDelegateCreator.CreateBoolean (expression, queryStatePrm);
 		}
         
 		Expression<DataBoolean> ParseHavingClause (IProvider provider, ITree whereTree)
@@ -892,8 +894,12 @@ namespace FxGqlLib
             
 			ITree selectTree = GetSingleChild (subqueryTree);
 			try {
-				if (provider != null)
+				if (provider != null) {
 					this.subQueryProviderStack.Push (provider);
+					this.subQueryParameterExpressionStack.Push (this.queryStatePrm);
+					this.queryStatePrm = 
+						System.Linq.Expressions.Expression.Parameter (typeof(GqlQueryState));
+				}
 				IProvider subQueryProvider = ParseCommandSelect (selectTree);
 				if (subQueryProvider is IntoProvider)
 					throw new ParserException ("INTO clause is not supported in a subquery", subqueryTree);
@@ -903,6 +909,8 @@ namespace FxGqlLib
 					IProvider verify = this.subQueryProviderStack.Pop ();
 					if (verify != provider)
 						throw new InvalidProgramException ();
+					this.queryStatePrm = 
+						this.subQueryParameterExpressionStack.Pop ();
 				}
 			}
 		}
