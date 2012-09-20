@@ -297,7 +297,7 @@ namespace FxGqlLib
 				enumerator.MoveNext ();
                                 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE") {
-					Expression<DataBoolean> whereExpression = ParseWhereClause (
+					System.Linq.Expressions.Expression<Func<GqlQueryState, bool>> whereExpression = ParseWhereClause (
                         fromProvider,
                         enumerator.Current
 					);
@@ -514,7 +514,7 @@ namespace FxGqlLib
 			return fromProvider;
 		}
 
-		Expression<DataBoolean> ParseWhereClause (IProvider provider, ITree whereTree)
+		System.Linq.Expressions.Expression<Func<GqlQueryState, bool>> ParseWhereClause (IProvider provider, ITree whereTree)
 		{
 			AssertAntlrToken (whereTree, "T_WHERE");
             
@@ -526,7 +526,11 @@ namespace FxGqlLib
                     expressionTree
 				);
 			}
-			return (Expression<DataBoolean>)expression;
+
+			System.Linq.Expressions.ParameterExpression queryStatePrm = 
+				System.Linq.Expressions.Expression.Parameter (typeof(GqlQueryState));
+			System.Linq.Expressions.Expression whereExpression = ExpressionBridge.Create (expression, queryStatePrm);
+			return ExpressionDelegateCreator.CreateBoolean (whereExpression, queryStatePrm);
 		}
         
 		Expression<DataBoolean> ParseHavingClause (IProvider provider, ITree whereTree)

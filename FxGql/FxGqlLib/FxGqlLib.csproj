@@ -135,6 +135,9 @@
     <Compile Include="Functions\FormatCsvFunction.cs" />
     <Compile Include="Functions\FormatColumnsFunction.cs" />
     <Compile Include="Parser\GqlParserExpressions.cs" />
+    <Compile Include="Expressions\ExpressionBridge.cs" />
+    <Compile Include="Parser\GqlParserNewExpressions.cs" />
+    <Compile Include="Expressions\ExpressionDelegateCreator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
