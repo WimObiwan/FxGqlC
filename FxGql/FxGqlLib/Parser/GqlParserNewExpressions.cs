@@ -164,10 +164,13 @@ namespace FxGqlLib
 			switch (operatorText) {
 			case "T_MATCH":
 			case "T_NOTMATCH":
+				return CreateMatchExpression (arg1, arg2, operatorText == "T_NOTMATCH");
 			case "T_LIKE":
 			case "T_NOTLIKE":
-				IExpression oldExpr = ParseExpressionOperatorBinary (provider, operatorTree);
-				return ExpressionBridge.Create (oldExpr, queryStatePrm);
+				{
+					IExpression oldExpr = ParseExpressionOperatorBinary (provider, operatorTree);
+					return ExpressionBridge.Create (oldExpr, queryStatePrm);
+				}
 			default:
 				System.Linq.Expressions.ExpressionType op = GetBinaryExpressionType (operatorTree);
 
@@ -205,6 +208,31 @@ namespace FxGqlLib
 			return System.Linq.Expressions.Expression.MakeBinary (
 				op, compareExpression, 
 				System.Linq.Expressions.Expression.Constant (0));
+		}
+
+		static MethodInfo RegexIsMatchMethod = typeof(Regex).GetMethod (
+			"IsMatch", new Type[] { typeof(string), typeof(string), typeof(RegexOptions)});
+
+		System.Linq.Expressions.Expression CreateMatchExpression (
+			System.Linq.Expressions.Expression arg1, 
+			System.Linq.Expressions.Expression arg2, 
+			bool not)
+		{
+			RegexOptions regexOptions = RegexOptions.None;
+			if (dataComparer.CaseInsensitive)
+				regexOptions |= RegexOptions.IgnoreCase;
+
+			System.Linq.Expressions.Expression expr =
+				System.Linq.Expressions.Expression.Call (
+					RegexIsMatchMethod, 
+					arg1,
+					arg2,
+					System.Linq.Expressions.Expression.Constant (regexOptions));
+
+			if (not)
+				expr = System.Linq.Expressions.Expression.Not (expr);
+
+			return expr;
 		}
 
 		System.Linq.Expressions.ExpressionType GetUnaryExpressionType (ITree operatorTree)
