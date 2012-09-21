@@ -113,7 +113,7 @@ namespace FxGqlLib
 				operatorTree.GetChild (1)
 			);
 
-			System.Linq.Expressions.ExpressionType op = GetUnaryExpressionType (operatorTree);
+			System.Linq.Expressions.ExpressionType op = GetUnaryExpressionType (operatorTree.GetChild (0));
 			return System.Linq.Expressions.Expression.MakeUnary (op, arg, arg.Type);
 		}
 
@@ -125,16 +125,7 @@ namespace FxGqlLib
 			if (operatorText == "T_BETWEEN" || operatorText == "T_NOTBETWEEN") {
 				return ParseNewExpressionBetween (provider, operatorTree, operatorText == "T_NOTBETWEEN");
 			} else if (operatorText == "T_IN" || operatorText == "T_ANY" || operatorText == "T_ALL") {
-				IExpression oldExpr = 
-					ParseExpressionInSomeAnyAll (provider, operatorTree);
-				return ExpressionBridge.Create (oldExpr, queryStatePrm);
-			} else if (operatorText == "T_NOTIN") {
-				IExpression oldExpr = 
-					UnaryExpression<DataBoolean, DataBoolean>.CreateAutoConvert (
-					(a) => !a,
-					ParseExpressionInSomeAnyAll (provider, operatorTree)
-				);
-				return ExpressionBridge.Create (oldExpr, queryStatePrm);
+				return ParseNewExpressionInSomeAnyAll (provider, operatorTree);
 			} 
 			
 			AssertAntlrToken (operatorTree, "T_OP_BINARY", 3);
@@ -161,7 +152,7 @@ namespace FxGqlLib
 			case "T_NOTLIKE":
 				return CreateLikeExpression (arg1, arg2, operatorText == "T_NOTLIKE");
 			default:
-				System.Linq.Expressions.ExpressionType op = GetBinaryExpressionType (operatorTree);
+				System.Linq.Expressions.ExpressionType op = GetBinaryExpressionType (operatorTree.GetChild (0));
 
 				switch (op) {
 				case System.Linq.Expressions.ExpressionType.Equal:
@@ -298,7 +289,7 @@ namespace FxGqlLib
 
 		System.Linq.Expressions.ExpressionType GetUnaryExpressionType (ITree operatorTree)
 		{
-			string operatorText = operatorTree.GetChild (0).Text;
+			string operatorText = operatorTree.Text;
 			switch (operatorText) {
 			case "T_NOT":
 				return System.Linq.Expressions.ExpressionType.Not;
@@ -318,7 +309,7 @@ namespace FxGqlLib
 
 		System.Linq.Expressions.ExpressionType GetBinaryExpressionType (ITree operatorTree)
 		{
-			string operatorText = operatorTree.GetChild (0).Text;
+			string operatorText = operatorTree.Text;
 			switch (operatorText) {
 			case "T_AND":
 				return System.Linq.Expressions.ExpressionType.AndAlso;
@@ -385,6 +376,116 @@ namespace FxGqlLib
 
 			return CreateBetweenExpression (arg1, arg2, arg3, not);
 		}
+
+		System.Linq.Expressions.Expression ParseNewExpressionInSomeAnyAll (IProvider provider, ITree inTree)
+		{
+			AssertAntlrToken (inTree, "T_OP_BINARY", 3, 4);
+			//AssertAntlrToken (inTree.Children [0], "T_IN"); or T_NOTIN, T_ANY, T_ALL
+			
+			System.Linq.Expressions.Expression arg2;
+			ITree target;          
+			bool all;
+			bool not;
+			System.Linq.Expressions.ExpressionType op;
+			switch (inTree.GetChild (0).Text) {
+			case "T_IN":
+			case "T_NOTIN":
+				arg2 = ParseNewExpression (provider, inTree.GetChild (1));
+				target = inTree.GetChild (2);
+				all = false;
+				not = inTree.GetChild (0).Text == "T_NOTIN";
+				op = System.Linq.Expressions.ExpressionType.Equal;
+				break;
+			case "T_ANY":
+				arg2 = ParseNewExpression (provider, inTree.GetChild (2));
+				target = inTree.GetChild (3);
+				all = false;
+				not = false;
+				op = GetBinaryExpressionType (inTree.GetChild (1));
+				break;
+			case "T_ALL":
+				arg2 = ParseNewExpression (provider, inTree.GetChild (2));
+				target = inTree.GetChild (3);
+				all = true;
+				not = false;
+				op = GetBinaryExpressionType (inTree.GetChild (1));
+				break;
+			default:
+				throw new ParserException (
+					string.Format ("Unexpected token {0}", inTree.GetChild (0).Text),
+					inTree.GetChild (0)
+				);
+			}
+
+			System.Linq.Expressions.Expression result;
+			if (target.Text == "T_EXPRESSIONLIST") {
+				System.Linq.Expressions.Expression[] expressionList = ParseNewExpressionList (provider, target);
+				result = CreateAnyListExpression (arg2, expressionList, op, all, not);
+			} else if (target.Text == "T_SELECT") {
+				IExpression oldExpr = ParseExpressionInSomeAnyAll (provider, inTree);
+				return ExpressionBridge.Create (oldExpr, queryStatePrm);
+				//IProvider subProvider = ParseInnerSelect (null, target);
+				//result = CreateAnySubqueryExpression (arg2, subProvider, op, all, not);
+			} else {
+				throw new ParserException (
+					string.Format (
+					"Binary operator '{0}' cannot be used with argument {1}",
+					inTree.GetChild (0).Text,
+					target.Text
+				),
+					target
+				);
+			}
+			
+			return result;
+		}
+
+		System.Linq.Expressions.Expression CreateAnyListExpression (
+			System.Linq.Expressions.Expression arg2, 
+			System.Linq.Expressions.Expression[] expressionList, 
+			System.Linq.Expressions.ExpressionType op,
+			bool all, bool not)
+		{
+			System.Linq.Expressions.ExpressionType aggregator;
+			if (all)
+				aggregator = System.Linq.Expressions.ExpressionType.AndAlso;
+			else
+				aggregator = System.Linq.Expressions.ExpressionType.OrElse;
+
+			System.Linq.Expressions.Expression expr = null;
+			foreach (var expressionListItem in expressionList.Reverse ()) {
+				System.Linq.Expressions.Expression item = CreateComparerExpression (op, arg2, expressionListItem);
+				if (expr == null) {
+					expr = item;
+				} else {
+					expr = System.Linq.Expressions.Expression.MakeBinary (aggregator, item, expr);
+				}
+			}
+
+			if (expr == null) {
+				expr = System.Linq.Expressions.Expression.Constant (false);
+			}
+
+			if (not)
+				expr = System.Linq.Expressions.Expression.Not (expr);
+
+			return expr;
+		}
+
+		System.Linq.Expressions.Expression[] ParseNewExpressionList (IProvider provider, ITree expressionListTree)
+		{
+			AssertAntlrToken (expressionListTree, "T_EXPRESSIONLIST", 1, -1);
+			
+			System.Linq.Expressions.Expression[] result = new System.Linq.Expressions.Expression[expressionListTree.ChildCount];
+			for (int i = 0; i < expressionListTree.ChildCount; i++) {
+				result [i] = ParseNewExpression (
+					provider,
+					expressionListTree.GetChild (i)
+				);
+			}           
+			
+			return result;
+		}		
 	}
 }
 
