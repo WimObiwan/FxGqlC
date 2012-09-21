@@ -122,16 +122,8 @@ namespace FxGqlLib
 			AssertAntlrToken (operatorTree, "T_OP_BINARY", 3, 4);
 			
 			string operatorText = operatorTree.GetChild (0).Text;
-			if (operatorText == "T_BETWEEN") {
-				IExpression oldExpr = ParseExpressionBetween (provider, operatorTree);
-				return ExpressionBridge.Create (oldExpr, queryStatePrm);
-			} else if (operatorText == "T_NOTBETWEEN") {
-				IExpression oldExpr = 
-					UnaryExpression<DataBoolean, DataBoolean>.CreateAutoConvert (
-					(a) => !a,
-					ParseExpressionBetween (provider, operatorTree)
-				);
-				return ExpressionBridge.Create (oldExpr, queryStatePrm);
+			if (operatorText == "T_BETWEEN" || operatorText == "T_NOTBETWEEN") {
+				return ParseNewExpressionBetween (provider, operatorTree, operatorText == "T_NOTBETWEEN");
 			} else if (operatorText == "T_IN" || operatorText == "T_ANY" || operatorText == "T_ALL") {
 				IExpression oldExpr = 
 					ParseExpressionInSomeAnyAll (provider, operatorTree);
@@ -171,21 +163,30 @@ namespace FxGqlLib
 			default:
 				System.Linq.Expressions.ExpressionType op = GetBinaryExpressionType (operatorTree);
 
-				//Special treatment for string comparison
-				if (arg1.Type == typeof(string)) {
-					switch (op) {
-					case System.Linq.Expressions.ExpressionType.Equal:
-					case System.Linq.Expressions.ExpressionType.NotEqual:
-					case System.Linq.Expressions.ExpressionType.LessThan:
-					case System.Linq.Expressions.ExpressionType.GreaterThan:
-					case System.Linq.Expressions.ExpressionType.GreaterThanOrEqual:
-					case System.Linq.Expressions.ExpressionType.LessThanOrEqual:
-						return CreateStringComparerExpression (op, arg1, arg2);
-					}
+				switch (op) {
+				case System.Linq.Expressions.ExpressionType.Equal:
+				case System.Linq.Expressions.ExpressionType.NotEqual:
+				case System.Linq.Expressions.ExpressionType.LessThan:
+				case System.Linq.Expressions.ExpressionType.GreaterThan:
+				case System.Linq.Expressions.ExpressionType.GreaterThanOrEqual:
+				case System.Linq.Expressions.ExpressionType.LessThanOrEqual:
+					return CreateComparerExpression (op, arg1, arg2);
+				default:
+					return System.Linq.Expressions.Expression.MakeBinary (op, arg1, arg2);
 				}
-
-				return System.Linq.Expressions.Expression.MakeBinary (op, arg1, arg2);
 			}
+		}
+
+		System.Linq.Expressions.Expression CreateComparerExpression (
+			System.Linq.Expressions.ExpressionType op, 
+			System.Linq.Expressions.Expression arg1, 
+			System.Linq.Expressions.Expression arg2)
+		{
+			//Special treatment for string comparison
+			if (arg1.Type == typeof(string))
+				return CreateStringComparerExpression (op, arg1, arg2);
+			else
+				return System.Linq.Expressions.Expression.MakeBinary (op, arg1, arg2);
 		}
 
 		static MethodInfo StringComparerCompareMethod = typeof(StringComparer).GetMethod (
@@ -271,6 +272,26 @@ namespace FxGqlLib
 					System.Linq.Expressions.Expression.Constant ("$"));
 
 			return CreateMatchExpression (arg1, expr, not);
+		}
+
+		System.Linq.Expressions.Expression CreateBetweenExpression (
+			System.Linq.Expressions.Expression arg1, 
+			System.Linq.Expressions.Expression arg2, 
+			System.Linq.Expressions.Expression arg3, 
+			bool not)
+		{
+			System.Linq.Expressions.Expression expr = 
+				System.Linq.Expressions.Expression.AndAlso (
+					CreateComparerExpression (
+						System.Linq.Expressions.ExpressionType.GreaterThanOrEqual,
+						arg1, arg2),
+					CreateComparerExpression (
+						System.Linq.Expressions.ExpressionType.LessThanOrEqual,
+						arg1, arg3)
+			);
+
+			if (not)
+				expr = System.Linq.Expressions.Expression.Not (expr);
 			
 			return expr;
 		}
@@ -337,6 +358,32 @@ namespace FxGqlLib
 					operatorTree
 				);
 			}
+		}
+
+		System.Linq.Expressions.Expression ParseNewExpressionBetween (IProvider provider, ITree betweenTree, bool not)
+		{
+			AssertAntlrToken (betweenTree, "T_OP_BINARY", 3);
+			//AssertAntlrToken (betweenTree.Children [0], "T_BETWEEN"); or T_NOTBETWEEN
+			ITree andTree = betweenTree.GetChild (2);
+			AssertAntlrToken (andTree, "T_OP_BINARY", 3);
+			AssertAntlrToken (andTree.GetChild (0), "T_AND");
+			
+			System.Linq.Expressions.Expression arg1 = ParseNewExpression (
+				provider,
+				betweenTree.GetChild (1)
+			);
+			System.Linq.Expressions.Expression arg2 = ParseNewExpression (
+				provider,
+				andTree.GetChild (1)
+			);
+			System.Linq.Expressions.Expression arg3 = ParseNewExpression (
+				provider,
+				andTree.GetChild (2)
+			);
+			
+			//AdjustAggregation (ref arg1, ref arg2, ref arg3);
+
+			return CreateBetweenExpression (arg1, arg2, arg3, not);
 		}
 	}
 }
