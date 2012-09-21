@@ -888,31 +888,37 @@ namespace FxGqlLib
 			return new FileSubqueryProvider (fileSubqueryProvider);
 		}
 
-		IProvider ParseSubquery (IProvider provider, ITree subqueryTree)
+		IProvider ParseInnerSelect (IProvider provider, ITree selectTree)
 		{
-			AssertAntlrToken (subqueryTree, "T_SUBQUERY");
-            
-			ITree selectTree = GetSingleChild (subqueryTree);
 			try {
 				if (provider != null) {
 					this.subQueryProviderStack.Push (provider);
-					this.subQueryParameterExpressionStack.Push (this.queryStatePrm);
-					this.queryStatePrm = 
-						System.Linq.Expressions.Expression.Parameter (typeof(GqlQueryState));
 				}
+				this.subQueryParameterExpressionStack.Push (this.queryStatePrm);
+				this.queryStatePrm = 
+					System.Linq.Expressions.Expression.Parameter (typeof(GqlQueryState));
 				IProvider subQueryProvider = ParseCommandSelect (selectTree);
 				if (subQueryProvider is IntoProvider)
-					throw new ParserException ("INTO clause is not supported in a subquery", subqueryTree);
+					throw new ParserException ("INTO clause is not supported in a subquery", selectTree);
 				return subQueryProvider;
 			} finally {
 				if (provider != null) {
 					IProvider verify = this.subQueryProviderStack.Pop ();
 					if (verify != provider)
 						throw new InvalidProgramException ();
-					this.queryStatePrm = 
-						this.subQueryParameterExpressionStack.Pop ();
 				}
+				this.queryStatePrm = 
+					this.subQueryParameterExpressionStack.Pop ();
 			}
+		}
+
+
+		IProvider ParseSubquery (IProvider provider, ITree subqueryTree)
+		{
+			AssertAntlrToken (subqueryTree, "T_SUBQUERY");
+            
+			ITree selectTree = GetSingleChild (subqueryTree);
+			return ParseInnerSelect (provider, selectTree);
 		}
         
 		IProvider ParseViewProvider (ITree tree)

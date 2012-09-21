@@ -1117,7 +1117,7 @@ namespace FxGqlLib
 						target
 					);
 			} else if (target.Text == "T_SELECT") {
-				IProvider subProvider = ParseCommandSelect (target);
+				IProvider subProvider = ParseInnerSelect (null, target);
 				if (arg2 is Expression<DataString>)
 					result = new AnySubqueryOperator<DataString> (
 						(Expression<DataString>)arg2,
@@ -1180,7 +1180,7 @@ namespace FxGqlLib
 				new ColumnProvider (
 				new IExpression[] { new ConstExpression<DataInteger> (1) }, 
 			new TopProvider (
-				ParseCommandSelect (expressionTree.GetChild (0)),
+				ParseInnerSelect (null, expressionTree.GetChild (0)),
 				new ConstExpression<DataInteger> (1)
 			)
 			),

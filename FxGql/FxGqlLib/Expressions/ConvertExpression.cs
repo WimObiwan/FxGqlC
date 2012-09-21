@@ -110,7 +110,7 @@ namespace FxGqlLib
 			return result;
 		}
 
-		static IExpression CreateDataDateTime (IExpression expr)
+		public static Expression<DataDateTime> CreateDataDateTime (IExpression expr)
 		{
 			Expression<DataDateTime> result = expr as Expression<DataDateTime>;
 			if (result == null)
@@ -119,7 +119,7 @@ namespace FxGqlLib
 			return result;
 		}
 
-		static IExpression CreateDataDateTime (IExpression expr, string format)
+		public static Expression<DataDateTime> CreateDataDateTime (IExpression expr, string format)
 		{
 			Expression<DataDateTime> result = expr as Expression<DataDateTime>;
 			if (result == null)
