@@ -23,6 +23,7 @@ namespace FxGqlTest
 				if (args.Length > 0 && args [0] == "develop") {
 					result = gqlSamplesTest.RunDevelop ();
 				} else if (args.Length > 0 && args [0] == "performance") {
+					System.Diagnostics.Process.GetCurrentProcess ().PriorityClass = System.Diagnostics.ProcessPriorityClass.High;
 					int count;
 					if (args.Length <= 1 || !int.TryParse (args [1], out count))
 						count = 1;

@@ -167,10 +167,7 @@ namespace FxGqlLib
 				return CreateMatchExpression (arg1, arg2, operatorText == "T_NOTMATCH");
 			case "T_LIKE":
 			case "T_NOTLIKE":
-				{
-					IExpression oldExpr = ParseExpressionOperatorBinary (provider, operatorTree);
-					return ExpressionBridge.Create (oldExpr, queryStatePrm);
-				}
+				return CreateLikeExpression (arg1, arg2, operatorText == "T_NOTLIKE");
 			default:
 				System.Linq.Expressions.ExpressionType op = GetBinaryExpressionType (operatorTree);
 
@@ -221,17 +218,60 @@ namespace FxGqlLib
 			RegexOptions regexOptions = RegexOptions.None;
 			if (dataComparer.CaseInsensitive)
 				regexOptions |= RegexOptions.IgnoreCase;
-
+			
 			System.Linq.Expressions.Expression expr =
 				System.Linq.Expressions.Expression.Call (
 					RegexIsMatchMethod, 
 					arg1,
 					arg2,
 					System.Linq.Expressions.Expression.Constant (regexOptions));
-
+			
 			if (not)
 				expr = System.Linq.Expressions.Expression.Not (expr);
+			
+			return expr;
+		}
 
+		static MethodInfo RegexEscapeMethod = typeof(Regex).GetMethod (
+			"Escape", new Type[] { typeof(string) });
+		static MethodInfo StringConcatMethod = typeof(String).GetMethod (
+			"Concat", new Type[] { typeof(string), typeof(string), typeof(string) });
+		static MethodInfo StringReplaceStringMethod = typeof(String).GetMethod (
+			"Replace", new Type[] { typeof(string), typeof(string) });
+		static MethodInfo StringReplaceCharMethod = typeof(String).GetMethod (
+			"Replace", new Type[] { typeof(char), typeof(char) });
+
+		System.Linq.Expressions.Expression CreateLikeExpression (
+			System.Linq.Expressions.Expression arg1, 
+			System.Linq.Expressions.Expression arg2, 
+			bool not)
+		{
+			System.Linq.Expressions.Expression expr = 
+				System.Linq.Expressions.Expression.Call (RegexEscapeMethod, arg2);
+
+			expr = 
+				System.Linq.Expressions.Expression.Call (
+					expr,
+					StringReplaceCharMethod, 
+					System.Linq.Expressions.Expression.Constant ('_'),
+					System.Linq.Expressions.Expression.Constant ('.'));
+			
+			expr = 
+				System.Linq.Expressions.Expression.Call (
+					expr,
+					StringReplaceStringMethod, 
+					System.Linq.Expressions.Expression.Constant ("%"),
+					System.Linq.Expressions.Expression.Constant (".*"));
+
+			expr = 
+				System.Linq.Expressions.Expression.Call (
+					StringConcatMethod, 
+					System.Linq.Expressions.Expression.Constant ("^"),
+					expr,
+					System.Linq.Expressions.Expression.Constant ("$"));
+
+			return CreateMatchExpression (arg1, expr, not);
+			
 			return expr;
 		}
 
