@@ -744,44 +744,36 @@ namespace FxGqlLib
 				}
 			} else {
 				// CASE WHEN a THEN x ELSE y END
-				IExpression oldExpr = ParseExpressionCase (provider, expressionTree);
-				return ExpressionBridge.Create (oldExpr, queryStatePrm);
-//				int whenNo;
-//				for (whenNo = 0; expressionTree.GetChild(whenNo).Text == "T_CASE_WHEN"; whenNo++) {
-//					ITree whenTree = expressionTree.GetChild (whenNo);
-//					IExpression destination = ParseExpression (
-//						provider,
-//						whenTree.GetChild (0)
-//						);
-//					IExpression target = ParseExpression (
-//						provider,
-//						whenTree.GetChild (1)
-//						);
-//					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
-//					
-//					//TODO: Don't re-evaluate source for every item
-//					if (destination is Expression<DataBoolean>)
-//						whenItem.Check = (Expression<DataBoolean>)destination;
-//					else {
-//						throw new ParserException (
-//							string.Format ("CASE WHEN expression must evaluate to datatype boolean instead of {0}",
-//						               destination.GetResultType ().ToString ()),
-//							whenTree);
-//					}
-//					whenItem.Result = target;
-//					
-//					whenItems.Add (whenItem);
-//				}
-//				
-//				if (whenNo < expressionTree.ChildCount - 1)
-//					throw new Exception ("Invalid case statement");
-//				
-//				if (whenNo == expressionTree.ChildCount - 1) {
-//					ITree elseTree = expressionTree.GetChild (whenNo);
-//					AssertAntlrToken (elseTree, "T_CASE_ELSE", 1, 1);
-//					
-//					elseResult = ParseExpression (provider, elseTree.GetChild (0));
-//				}
+				Type resultType = null;
+				int whenNo;
+				for (whenNo = 0; expressionTree.GetChild(whenNo).Text == "T_CASE_WHEN"; whenNo++) {
+					ITree whenTree = expressionTree.GetChild (whenNo);
+					System.Linq.Expressions.Expression testExpr = ParseNewExpression (
+						provider,
+						whenTree.GetChild (0)
+					);
+					System.Linq.Expressions.Expression target = ParseNewExpression (
+						provider,
+						whenTree.GetChild (1)
+					);
+
+					if (whenNo == 1)
+						resultType = target.Type;
+					
+					whenItems.Add (Tuple.Create (testExpr, target));
+				}
+				
+				if (whenNo < expressionTree.ChildCount - 1)
+					throw new Exception ("Invalid case statement");
+				
+				if (whenNo == expressionTree.ChildCount - 1) {
+					ITree elseTree = expressionTree.GetChild (whenNo);
+					AssertAntlrToken (elseTree, "T_CASE_ELSE", 1, 1);
+					
+					elseResult = ParseNewExpression (provider, elseTree.GetChild (0));
+				} else {
+					elseResult = GetNullValue (resultType);
+				}
 			}
 
 			System.Linq.Expressions.Expression expr = elseResult;
