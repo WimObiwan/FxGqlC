@@ -7,6 +7,7 @@ using FxGqlLib;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Diagnostics;
 
 namespace FxGqlC
 {
@@ -688,7 +689,7 @@ namespace FxGqlC
 							//Console.WriteLine (lastRelease);
 							//Console.WriteLine (version);
 							//Console.WriteLine (url);
-							if (lastRelease.CompareTo (version) > 0 && url != null) {
+							if (CompareVersion(lastRelease, version) > 0 && url != null) {
 								string fileName = null;
 								try {
 									fileName = System.IO.Path.GetTempFileName ();
@@ -723,7 +724,18 @@ namespace FxGqlC
 										if (File.Exists (appDirFile))
 											File.Move (appDirFile, Path.Combine (oldVersionDir, fileName2));
 										File.Move (file, appDirFile);
+							
+										try {
+											if (Path.GetExtension (appDirFile).Equals (".exe", StringComparison.InvariantCultureIgnoreCase)) {
+												Process ExeScript = new Process();
+												ExeScript.StartInfo.FileName = "chmod";
+												ExeScript.StartInfo.Arguments = "+x \"" + appDirFile + "\"";
+												ExeScript.Start ();
+											}
+										} catch {
+										}
 									}
+																		
 									// Silent upgrade: No more display message to the user about the new version
 									nochecknewversion = true;
 								} catch (Exception) {
@@ -817,6 +829,63 @@ namespace FxGqlC
 					manualResetEvent.Set ();
 				}
 			}
+		}
+
+		static int CompareVersion (string lastRelease, string version)
+		{
+			string [] lastReleaseItems = lastRelease.Split('.');
+			string [] versionItems = version.Split('.');
+			
+			int a, b, comp;
+			if (int.TryParse(lastReleaseItems[0].Trim('v'), out a)
+			    && int.TryParse(versionItems[0].Trim('v'), out b)) {
+				comp = a.CompareTo(b);
+				if (comp != 0)
+					return comp;
+			}
+			
+			if (int.TryParse(lastReleaseItems[1], out a)
+			    && int.TryParse(versionItems[1], out b)) {
+				comp = a.CompareTo(b);
+				if (comp != 0)
+					return comp;
+			}
+			
+			if (lastReleaseItems[2].StartsWith("alpha"))
+				a = 0;
+			else if (lastReleaseItems[2].StartsWith("beta"))
+				a = 1;
+			else if (lastReleaseItems[2].StartsWith("rc"))
+				a = 2;
+			else
+				a = 3;
+
+			if (versionItems[2].StartsWith("alpha"))
+				b = 0;
+			else if (versionItems[2].StartsWith("beta"))
+				b = 1;
+			else if (versionItems[2].StartsWith("rc"))
+				b = 2;
+			else
+				b = 3;
+			
+			comp = a.CompareTo (b);
+			if (comp != 0)
+				return comp;
+			
+			Match matchA, matchB;
+			matchA = Regex.Match (lastReleaseItems[2], @"\d+");
+			matchB = Regex.Match (versionItems[2], @"\d+");
+			
+			if (matchA.Success && matchB.Success
+			    && int.TryParse (matchA.Value, out a)
+			    && int.TryParse (matchB.Value, out b)) {
+				comp = a.CompareTo(b);
+				if (comp != 0)
+					return comp;
+			}
+			
+			return lastRelease.CompareTo(version);
 		}
 
 		public static string GetFQDN ()
