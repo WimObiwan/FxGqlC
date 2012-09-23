@@ -32,6 +32,9 @@ namespace FxGqlLib
 			case "T_OP_BINARY":
 				expression = ParseNewExpressionOperatorBinary (provider, tree);
 				break;
+			case "T_CASE":
+				expression = ParseNewExpressionCase (provider, tree);
+				break;
 			/*case "T_SYSTEMVAR":
 				expression = ParseExpressionSystemVar (tree);
 				break;
@@ -43,9 +46,6 @@ namespace FxGqlLib
 				break;
 			case "T_COLUMN":
 				expression = ParseExpressionColumn (provider, tree);
-				break;
-			case "T_CASE":
-				expression = ParseExpressionCase (provider, tree);
 				break;
 			case "T_VARIABLE":
 				expression = ParseExpressionVariable (tree);
@@ -693,6 +693,109 @@ namespace FxGqlLib
 				});
 
 			return expr;
+		}
+
+		System.Linq.Expressions.Expression ParseNewExpressionCase (IProvider provider, ITree expressionTree)
+		{
+			AssertAntlrToken (expressionTree, "T_CASE", 1, -1);
+			
+			List<Tuple<System.Linq.Expressions.Expression, System.Linq.Expressions.Expression>> whenItems = 
+				new List<Tuple<System.Linq.Expressions.Expression, System.Linq.Expressions.Expression>> ();
+			System.Linq.Expressions.Expression elseResult;
+
+			string text = expressionTree.GetChild (0).Text;
+			if (text != "T_CASE_WHEN" && text != "T_CASE_ELSE") {
+				// CASE source WHEN destination THEN target ELSE other END
+				System.Linq.Expressions.Expression source = ParseNewExpression (
+					provider,
+					expressionTree.GetChild (0)
+				);
+
+				Type resultType = null;
+				int whenNo;
+				for (whenNo = 1; expressionTree.GetChild(whenNo).Text == "T_CASE_WHEN"; whenNo++) {
+					ITree whenTree = expressionTree.GetChild (whenNo);
+					System.Linq.Expressions.Expression destination = ParseNewExpression (
+						provider,
+						whenTree.GetChild (0)
+					);
+					System.Linq.Expressions.Expression target = ParseNewExpression (
+						provider,
+						whenTree.GetChild (1)
+					);
+					if (whenNo == 1)
+						resultType = target.Type;
+
+					System.Linq.Expressions.Expression testExpr = CreateComparerExpression (
+						System.Linq.Expressions.ExpressionType.Equal, source, destination);
+					whenItems.Add (Tuple.Create (testExpr, target));
+				}
+				
+				if (whenNo < expressionTree.ChildCount - 1)
+					throw new Exception ("Invalid case statement");
+
+				if (whenNo == expressionTree.ChildCount - 1) {
+					ITree elseTree = expressionTree.GetChild (whenNo);
+					AssertAntlrToken (elseTree, "T_CASE_ELSE", 1, 1);
+					
+					elseResult = ParseNewExpression (provider, elseTree.GetChild (0));
+				} else {
+					elseResult = GetNullValue (resultType);
+				}
+			} else {
+				// CASE WHEN a THEN x ELSE y END
+				IExpression oldExpr = ParseExpressionCase (provider, expressionTree);
+				return ExpressionBridge.Create (oldExpr, queryStatePrm);
+//				int whenNo;
+//				for (whenNo = 0; expressionTree.GetChild(whenNo).Text == "T_CASE_WHEN"; whenNo++) {
+//					ITree whenTree = expressionTree.GetChild (whenNo);
+//					IExpression destination = ParseExpression (
+//						provider,
+//						whenTree.GetChild (0)
+//						);
+//					IExpression target = ParseExpression (
+//						provider,
+//						whenTree.GetChild (1)
+//						);
+//					CaseExpression.WhenItem whenItem = new CaseExpression.WhenItem ();
+//					
+//					//TODO: Don't re-evaluate source for every item
+//					if (destination is Expression<DataBoolean>)
+//						whenItem.Check = (Expression<DataBoolean>)destination;
+//					else {
+//						throw new ParserException (
+//							string.Format ("CASE WHEN expression must evaluate to datatype boolean instead of {0}",
+//						               destination.GetResultType ().ToString ()),
+//							whenTree);
+//					}
+//					whenItem.Result = target;
+//					
+//					whenItems.Add (whenItem);
+//				}
+//				
+//				if (whenNo < expressionTree.ChildCount - 1)
+//					throw new Exception ("Invalid case statement");
+//				
+//				if (whenNo == expressionTree.ChildCount - 1) {
+//					ITree elseTree = expressionTree.GetChild (whenNo);
+//					AssertAntlrToken (elseTree, "T_CASE_ELSE", 1, 1);
+//					
+//					elseResult = ParseExpression (provider, elseTree.GetChild (0));
+//				}
+			}
+
+			System.Linq.Expressions.Expression expr = elseResult;
+			foreach (var item in 
+			         ((IEnumerable<Tuple<System.Linq.Expressions.Expression, System.Linq.Expressions.Expression>>)whenItems).Reverse ()) {
+				expr = System.Linq.Expressions.Expression.IfThenElse (item.Item1, item.Item2, expr);
+			}
+
+			return expr;
+		}
+		
+		System.Linq.Expressions.Expression GetNullValue (Type resultType)
+		{
+			return System.Linq.Expressions.Expression.Default (resultType);
 		}
 	}
 }
