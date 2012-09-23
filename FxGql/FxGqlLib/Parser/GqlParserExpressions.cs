@@ -1419,6 +1419,13 @@ namespace FxGqlLib
 			text = text.Replace ("''", "'");
 			return text;
 		}		
+
+		IExpression ParseExpressionSubquery (IProvider parentProvider, ITree subqueryTree)
+		{
+			IProvider provider = ParseSubquery (parentProvider, subqueryTree);
+			
+			return new SubqueryExpression (provider).GetTyped ();
+		}
 	}
 }
 

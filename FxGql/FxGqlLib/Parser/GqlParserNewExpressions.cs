@@ -38,6 +38,9 @@ namespace FxGqlLib
 			case "T_EXISTS":
 				expression = ParseNewExpressionExists (tree);
 				break;
+			case "T_SUBQUERY":
+				expression = ParseNewExpressionSubquery (provider, tree);
+				break;
 			/*case "T_SYSTEMVAR":
 				expression = ParseExpressionSystemVar (tree);
 				break;
@@ -49,9 +52,6 @@ namespace FxGqlLib
 				break;
 			case "T_VARIABLE":
 				expression = ParseExpressionVariable (tree);
-				break;
-			case "T_SUBQUERY":
-				expression = ParseExpressionSubquery (provider, tree);
 				break;
 			case "T_DATEPART":
 				expression = ParseExpressionDatePart (tree);
@@ -613,18 +613,29 @@ namespace FxGqlLib
 		{
 			try {
 				provider.Initialize (gqlQueryState);
-
+				
 				List<T> values = new List<T> ();
 				while (provider.GetNextRecord()) {
 					values.Add (ExpressionBridge.ConvertFromOld<T> (provider.Record.Columns [0]));
 				}
-
+				
 				return values;
 			} finally {
 				provider.Uninitialize ();
 			}
 		}
+		
+		static T GetValueFromSubquery<T> (IProvider provider, GqlQueryState gqlQueryState)
+		{
+			try {
+				provider.Initialize (gqlQueryState);
 
+				return ExpressionBridge.ConvertFromOld<T> (provider.Record.Columns [0]);
+			} finally {
+				provider.Uninitialize ();
+			}
+		}
+		
 		System.Linq.Expressions.Expression[] ParseNewExpressionList (IProvider provider, ITree expressionListTree)
 		{
 			AssertAntlrToken (expressionListTree, "T_EXPRESSIONLIST", 1, -1);
@@ -799,7 +810,30 @@ namespace FxGqlLib
 
 				subProvider, System.Linq.Expressions.ExpressionType.Equal, false, false);
 		}
-		
+
+		static MethodInfo GetValueFromSubqueryMethod = typeof(GqlParser).GetMethod (
+			"GetValueFromSubquery", BindingFlags.Static | BindingFlags.NonPublic, 
+			null,
+			new Type[] { typeof(IProvider), typeof(GqlQueryState) },
+		null);
+
+		System.Linq.Expressions.Expression ParseNewExpressionSubquery (IProvider parentProvider, ITree subqueryTree)
+		{
+			IProvider provider = ParseSubquery (parentProvider, subqueryTree);
+			provider = new TopProvider (provider, new ConstExpression<DataInteger> (1));
+
+			Type[] types = provider.GetColumnTypes ();
+			if (types.Length != 1) 
+				throw new InvalidOperationException ("Subquery should contain only 1 column");
+			
+			Type type = ExpressionBridge.GetNewType (types [0]);
+
+			return System.Linq.Expressions.Expression.Call (
+				GetValuesFromSubqueryMethod.MakeGenericMethod (type),
+				System.Linq.Expressions.Expression.Constant (provider),
+				this.queryStatePrm);
+		}
+
 		System.Linq.Expressions.Expression GetNullValue (Type resultType)
 		{
 			return System.Linq.Expressions.Expression.Default (resultType);

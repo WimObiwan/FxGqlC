@@ -1036,13 +1036,6 @@ namespace FxGqlLib
 			return Tuple.Create (variable, expression);
 		}
 
-		IExpression ParseExpressionSubquery (IProvider parentProvider, ITree subqueryTree)
-		{
-			IProvider provider = ParseSubquery (parentProvider, subqueryTree);
-
-			return new SubqueryExpression (provider).GetTyped ();
-		}
-
 		Tuple<string, ViewDefinition> ParseCommandCreateView (ITree tree)
 		{
 			AssertAntlrToken (tree, "T_CREATE_VIEW", 2, 3);
