@@ -41,6 +41,9 @@ namespace FxGqlLib
 			case "T_SUBQUERY":
 				expression = ParseNewExpressionSubquery (provider, tree);
 				break;
+			case "T_VARIABLE":
+				expression = ParseNewExpressionVariable (tree);
+				break;
 			/*case "T_SYSTEMVAR":
 				expression = ParseExpressionSystemVar (tree);
 				break;
@@ -49,9 +52,6 @@ namespace FxGqlLib
 				break;
 			case "T_COLUMN":
 				expression = ParseExpressionColumn (provider, tree);
-				break;
-			case "T_VARIABLE":
-				expression = ParseExpressionVariable (tree);
 				break;
 			case "T_DATEPART":
 				expression = ParseExpressionDatePart (tree);
@@ -832,6 +832,44 @@ namespace FxGqlLib
 				GetValuesFromSubqueryMethod.MakeGenericMethod (type),
 				System.Linq.Expressions.Expression.Constant (provider),
 				this.queryStatePrm);
+		}
+
+		static MethodInfo GetVariableValueMethod = typeof(GqlParser).GetMethod (
+			"GetVariableValue", BindingFlags.Static | BindingFlags.NonPublic, 
+			null,
+			new Type[] { typeof(GqlQueryState), typeof(string) },
+			null);
+		
+
+		System.Linq.Expressions.Expression ParseNewExpressionVariable (ITree expressionTree)
+		{
+			AssertAntlrToken (expressionTree, "T_VARIABLE", 1, 1);
+			
+			string variableName = expressionTree.GetChild (0).Text;
+
+			Type type;
+			if (!variableTypes.TryGetValue (variableName, out type)) {
+				Variable variable;
+				if (!gqlEngineState.Variables.TryGetValue (variableName, out variable))
+					throw new ParserException (string.Format ("Variable {0} not declared", variable), expressionTree);
+				type = variable.Type;
+			}
+
+			return System.Linq.Expressions.Expression.Call (
+					GetVariableValueMethod,
+					queryStatePrm,
+					System.Linq.Expressions.Expression.Constant (variableName));
+		}
+
+		static T GetVariableValue<T> (GqlQueryState gqlQueryState, string variableName)
+		{
+			Variable variable;
+			if (!gqlQueryState.Variables.TryGetValue (variableName, out variable))
+				throw new InvalidOperationException (string.Format ("Variable '{0}' not declared", variableName));
+
+			throw new Exception ();
+
+			return ExpressionBridge.ConvertFromOld<T> (variable.Value);
 		}
 
 		System.Linq.Expressions.Expression GetNullValue (Type resultType)
