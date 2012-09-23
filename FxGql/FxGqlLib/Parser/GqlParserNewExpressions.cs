@@ -35,14 +35,14 @@ namespace FxGqlLib
 			case "T_CASE":
 				expression = ParseNewExpressionCase (provider, tree);
 				break;
+			case "T_EXISTS":
+				expression = ParseNewExpressionExists (tree);
+				break;
 			/*case "T_SYSTEMVAR":
 				expression = ParseExpressionSystemVar (tree);
 				break;
 			case "T_FUNCTIONCALL":
 				expression = ParseExpressionFunctionCall (provider, tree);
-				break;
-			case "T_EXISTS":
-				expression = ParseExpressionExists (tree);
 				break;
 			case "T_COLUMN":
 				expression = ParseExpressionColumn (provider, tree);
@@ -783,6 +783,21 @@ namespace FxGqlLib
 			}
 
 			return expr;
+		}
+		
+		System.Linq.Expressions.Expression ParseNewExpressionExists (ITree expressionTree)
+		{
+			AssertAntlrToken (expressionTree, "T_EXISTS", 1, 1);
+
+			IProvider subProvider = new ColumnProvider (
+				new IExpression[] { new ConstExpression<DataInteger> (1) }, 
+				new TopProvider (
+					ParseInnerSelect (null, expressionTree.GetChild (0)), new ConstExpression<DataInteger> (1)));
+
+			return CreateAnySubqueryExpression (
+				System.Linq.Expressions.Expression.Constant (1), 
+
+				subProvider, System.Linq.Expressions.ExpressionType.Equal, false, false);
 		}
 		
 		System.Linq.Expressions.Expression GetNullValue (Type resultType)
