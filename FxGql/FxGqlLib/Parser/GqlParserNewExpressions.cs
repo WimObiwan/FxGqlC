@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
 using System.Reflection;
+using System.Collections;
 
 namespace FxGqlLib
 {
@@ -422,10 +423,8 @@ namespace FxGqlLib
 				System.Linq.Expressions.Expression[] expressionList = ParseNewExpressionList (provider, target);
 				result = CreateAnyListExpression (arg2, expressionList, op, all, not);
 			} else if (target.Text == "T_SELECT") {
-				IExpression oldExpr = ParseExpressionInSomeAnyAll (provider, inTree);
-				return ExpressionBridge.Create (oldExpr, queryStatePrm);
-				//IProvider subProvider = ParseInnerSelect (null, target);
-				//result = CreateAnySubqueryExpression (arg2, subProvider, op, all, not);
+				IProvider subProvider = ParseInnerSelect (null, target);
+				result = CreateAnySubqueryExpression (arg2, subProvider, op, all, not);
 			} else {
 				throw new ParserException (
 					string.Format (
@@ -472,6 +471,160 @@ namespace FxGqlLib
 			return expr;
 		}
 
+		static MethodInfo GetValuesFromSubqueryMethod = typeof(GqlParser).GetMethod (
+			"GetValuesFromSubquery", BindingFlags.Static | BindingFlags.NonPublic, 
+			null,
+			new Type[] { typeof(IProvider), typeof(GqlQueryState) },
+			null);
+
+		System.Linq.Expressions.Expression CreateAnySubqueryExpression (System.Linq.Expressions.Expression arg, IProvider provider, System.Linq.Expressions.ExpressionType op, bool all, bool not)
+		{
+			Type[] types = provider.GetColumnTypes ();
+			if (types.Length != 1) 
+				throw new InvalidOperationException ("Subquery should contain only 1 column");
+
+			Type type = ExpressionBridge.GetNewType (types [0]);
+
+			PropertyInfo ListCountProperty = typeof(ICollection<>).MakeGenericType (type).GetProperty ("Count");
+
+			Type listType = typeof(IList<>).MakeGenericType (type);
+			System.Linq.Expressions.ParameterExpression valuesVariable =
+				System.Linq.Expressions.Expression.Variable (listType, "ValueList");
+			System.Linq.Expressions.LabelTarget returnTarget = 
+				System.Linq.Expressions.Expression.Label (typeof(bool));
+
+			System.Linq.Expressions.Expression expr =
+				System.Linq.Expressions.Expression.Block (
+					typeof(bool), 
+					new System.Linq.Expressions.ParameterExpression[] {
+						valuesVariable
+					},
+					new System.Linq.Expressions.Expression[] {
+						System.Linq.Expressions.Expression.Assign (
+							valuesVariable, 
+						    GetCachedExpression (
+								System.Linq.Expressions.Expression.Call (
+									GetValuesFromSubqueryMethod.MakeGenericMethod (type),
+									System.Linq.Expressions.Expression.Constant (provider),
+									this.queryStatePrm))),
+
+						System.Linq.Expressions.Expression.IfThen (
+							System.Linq.Expressions.Expression.Equal (
+								System.Linq.Expressions.Expression.Property (valuesVariable, ListCountProperty),
+								System.Linq.Expressions.Expression.Constant (0)),
+							System.Linq.Expressions.Expression.Return (returnTarget, System.Linq.Expressions.Expression.Constant (false))),
+
+						System.Linq.Expressions.Expression.Return (
+							returnTarget,
+							CreateCheckCollectionExpression (type, valuesVariable, arg, op, all)),
+
+						System.Linq.Expressions.Expression.Label (
+							returnTarget, 
+							System.Linq.Expressions.Expression.Constant (false))
+				}
+			);
+
+			if (not)
+				expr = System.Linq.Expressions.Expression.Not (expr);
+			
+			return expr;
+		}
+
+		static MethodInfo EnumeratorMoveNextMethod = typeof(IEnumerator).GetMethod ("MoveNext");
+
+		System.Linq.Expressions.Expression CreateCheckCollectionExpression (
+			Type type,
+			System.Linq.Expressions.ParameterExpression valuesVariable, 
+			System.Linq.Expressions.Expression arg, 
+			System.Linq.Expressions.ExpressionType op,
+			bool all)
+		{
+			//return System.Linq.Expressions.Expression.Constant (true);
+			MethodInfo EnumerableGetEnumeratorMethod = typeof(IEnumerable<>).MakeGenericType (type).GetMethod (
+				"GetEnumerator");
+			PropertyInfo EnumeratorCurrentProperty = typeof(IEnumerator<>).MakeGenericType (type).GetProperty (
+				"Current");
+			Type enumeratorType = typeof(IEnumerator<>).MakeGenericType (type);
+			System.Linq.Expressions.ParameterExpression enumeratorVariable =
+				System.Linq.Expressions.Expression.Variable (enumeratorType);
+
+			System.Linq.Expressions.LabelTarget returnTarget = 
+				System.Linq.Expressions.Expression.Label (typeof(bool));
+
+			System.Linq.Expressions.Expression compareExpression =
+				CreateComparerExpression (
+					op,
+					arg,
+					System.Linq.Expressions.Expression.Property (
+						enumeratorVariable,
+						EnumeratorCurrentProperty));
+
+			System.Linq.Expressions.Expression bodyExpression;
+			if (all) {
+				bodyExpression = System.Linq.Expressions.Expression.IfThen (
+					System.Linq.Expressions.Expression.Not (compareExpression),
+					System.Linq.Expressions.Expression.Return (
+						returnTarget,
+						System.Linq.Expressions.Expression.Constant (false)));
+			} else {
+				bodyExpression = System.Linq.Expressions.Expression.IfThen (
+					compareExpression,
+					System.Linq.Expressions.Expression.Return (
+						returnTarget,
+						System.Linq.Expressions.Expression.Constant (true)));
+			}
+
+			bodyExpression = 
+				System.Linq.Expressions.Expression.IfThenElse (
+					System.Linq.Expressions.Expression.Call (
+						enumeratorVariable,
+						EnumeratorMoveNextMethod),
+					bodyExpression,
+					System.Linq.Expressions.Expression.Return (returnTarget, System.Linq.Expressions.Expression.Constant (all)));
+
+			System.Linq.Expressions.Expression expr =
+				System.Linq.Expressions.Expression.Block (
+					typeof(bool), 
+					new System.Linq.Expressions.ParameterExpression[] {
+					enumeratorVariable
+				},
+				new System.Linq.Expressions.Expression[] {
+					System.Linq.Expressions.Expression.Assign (
+						enumeratorVariable, 
+						System.Linq.Expressions.Expression.Call (
+							valuesVariable,
+							EnumerableGetEnumeratorMethod)),
+
+					System.Linq.Expressions.Expression.Loop (bodyExpression),
+
+			// When we arrive here,
+			//    When "all", ==> all compare expressions were true  --> return true
+			//    otherwise   ==> none of the compare expressions were true --> return false
+					System.Linq.Expressions.Expression.Label (
+						returnTarget, 
+						System.Linq.Expressions.Expression.Constant (all))
+				}
+			);
+
+			return expr;
+		}
+
+		static List<T> GetValuesFromSubquery<T> (IProvider provider, GqlQueryState gqlQueryState)
+		{
+			try {
+				provider.Initialize (gqlQueryState);
+
+				List<T> values = new List<T> ();
+				while (provider.GetNextRecord()) {
+					values.Add (ExpressionBridge.ConvertFromOld<T> (provider.Record.Columns [0]));
+				}
+
+				return values;
+			} finally {
+				provider.Uninitialize ();
+			}
+		}
+
 		System.Linq.Expressions.Expression[] ParseNewExpressionList (IProvider provider, ITree expressionListTree)
 		{
 			AssertAntlrToken (expressionListTree, "T_EXPRESSIONLIST", 1, -1);
@@ -485,7 +638,62 @@ namespace FxGqlLib
 			}           
 			
 			return result;
-		}		
+		}
+
+		MethodInfo GqlQueryStateGetCacheMethod = typeof(GqlQueryState).GetMethod ("GetCache");
+		MethodInfo GqlQueryStateSetCacheMethod = typeof(GqlQueryState).GetMethod ("SetCache");
+
+		System.Linq.Expressions.Expression GetCachedExpression (System.Linq.Expressions.Expression creationExpr)
+		{
+			Guid cacheKey = Guid.NewGuid ();
+			Type type = creationExpr.Type;
+
+			System.Linq.Expressions.ParameterExpression cacheVariable =
+				System.Linq.Expressions.Expression.Variable (type, "Cache");
+
+			System.Linq.Expressions.Expression expr =
+				System.Linq.Expressions.Expression.Block (
+					type, 
+					new System.Linq.Expressions.ParameterExpression[] {
+					cacheVariable
+				},
+				new System.Linq.Expressions.Expression[] {
+					System.Linq.Expressions.Expression.Assign (
+						cacheVariable, 
+
+						System.Linq.Expressions.Expression.Convert (
+							System.Linq.Expressions.Expression.Call (
+								queryStatePrm,
+								GqlQueryStateGetCacheMethod,
+								System.Linq.Expressions.Expression.Constant (cacheKey)),
+							type)),
+
+					System.Linq.Expressions.Expression.IfThen (
+						System.Linq.Expressions.Expression.Equal (
+							cacheVariable,
+							System.Linq.Expressions.Expression.Constant (null)),
+
+						System.Linq.Expressions.Expression.Block (
+							type,
+							new System.Linq.Expressions.Expression[] {
+								System.Linq.Expressions.Expression.Assign (
+									cacheVariable, 
+									creationExpr),
+
+								System.Linq.Expressions.Expression.Call (
+									queryStatePrm,
+									GqlQueryStateSetCacheMethod,
+									System.Linq.Expressions.Expression.Constant (cacheKey),
+									cacheVariable),
+
+								cacheVariable
+							})),
+
+					cacheVariable
+				});
+
+			return expr;
+		}
 	}
 }
 

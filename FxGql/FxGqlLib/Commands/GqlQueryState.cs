@@ -46,6 +46,21 @@ namespace FxGqlLib
 			this.Warnings = other.Warnings;
 		}
 
+		Dictionary<Guid, object> cache = new Dictionary<Guid, object> ();
+
+		public void SetCache (Guid key, object val)
+		{
+			cache [key] = val;
+		}
+
+		public object GetCache (Guid key)
+		{
+			object obj;
+			if (!cache.TryGetValue (key, out obj))
+				obj = null;
+			return obj;
+		}
+
 		public ProviderRecord Record { get; set; }
 
 		public long TotalLineNumber { get; set; }

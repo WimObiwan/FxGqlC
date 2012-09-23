@@ -7,6 +7,35 @@ namespace FxGqlLib
 	[Obsolete]
 	public static class ExpressionBridge
 	{
+		public static T ConvertFromOld<T> (IData data)
+		{
+			if (typeof(T) == typeof(bool))
+				return (T)(object)data.ToDataBoolean ().Value;
+			else if (typeof(T) == typeof(string))
+				return (T)(object)data.ToDataString ().Value;
+			else if (typeof(T) == typeof(long))
+				return (T)(object)data.ToDataInteger ().Value;
+			else if (typeof(T) == typeof(DateTime))
+				return (T)(object)data.ToDataDateTime ().Value;
+			else 
+				throw new NotSupportedException ();
+		}
+
+		public static Type GetNewType (Type type)
+		{
+			if (type == typeof(DataBoolean)) {
+				return typeof(bool);
+			} else if (type == typeof(DataString)) {
+				return typeof(string);
+			} else if (type == typeof(DataInteger)) {
+				return typeof(long);
+			} else if (type == typeof(DataDateTime)) {
+				return typeof(DateTime);
+			} else {
+				throw new NotSupportedException ();
+			}
+		}
+
 		public static System.Linq.Expressions.Expression Create (IExpression expr, System.Linq.Expressions.ParameterExpression queryStatePrm)
 		{
 			Type type = expr.GetResultType ();
