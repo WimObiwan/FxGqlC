@@ -47,10 +47,10 @@ namespace FxGqlLib
 			case "T_SYSTEMVAR":
 				expression = ParseNewExpressionSystemVar (tree);
 				break;
-			/*case "T_FUNCTIONCALL":
-				expression = ParseExpressionFunctionCall (provider, tree);
+			case "T_FUNCTIONCALL":
+				expression = ParseNewExpressionFunctionCall (provider, tree);
 				break;
-			case "T_COLUMN":
+			/*case "T_COLUMN":
 				expression = ParseExpressionColumn (provider, tree);
 				break;
 			case "T_DATEPART":

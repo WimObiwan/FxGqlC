@@ -139,6 +139,7 @@
     <Compile Include="Parser\GqlParserNewExpressions.cs" />
     <Compile Include="Expressions\ExpressionDelegateCreator.cs" />
     <Compile Include="Expressions\NewConvertExpression.cs" />
+    <Compile Include="Parser\GqlParserNewExpressionsFunctions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
