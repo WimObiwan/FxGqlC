@@ -38,6 +38,26 @@ namespace FxGqlLib
 		public IData[] Columns { get; set; }
 
 		public IData[] OriginalColumns { get; set; }
+
+		public string GetLine (bool useOriginalColumns)
+		{
+			// TODO: optimize...
+			IData[] columns;
+			if (useOriginalColumns)
+				columns = OriginalColumns;
+			else
+				columns = Columns;
+				
+			string column = "";
+			for (int i = 0; i < columns.Length; i++) {
+				if (i == 0)
+					column = columns [i].ToString ();
+				else
+					column += '\t' + columns [i].ToString ();
+			}
+				
+			return column;
+		}
 	}
 
 	public class ColumnName : IComparable<ColumnName>

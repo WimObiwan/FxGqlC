@@ -44,10 +44,10 @@ namespace FxGqlLib
 			case "T_VARIABLE":
 				expression = ParseNewExpressionVariable (tree);
 				break;
-			/*case "T_SYSTEMVAR":
-				expression = ParseExpressionSystemVar (tree);
+			case "T_SYSTEMVAR":
+				expression = ParseNewExpressionSystemVar (tree);
 				break;
-			case "T_FUNCTIONCALL":
+			/*case "T_FUNCTIONCALL":
 				expression = ParseExpressionFunctionCall (provider, tree);
 				break;
 			case "T_COLUMN":
@@ -840,7 +840,6 @@ namespace FxGqlLib
 			new Type[] { typeof(GqlQueryState), typeof(string) },
 			null);
 		
-
 		System.Linq.Expressions.Expression ParseNewExpressionVariable (ITree expressionTree)
 		{
 			AssertAntlrToken (expressionTree, "T_VARIABLE", 1, 1);
@@ -874,6 +873,72 @@ namespace FxGqlLib
 			return ExpressionBridge.ConvertFromOld<T> (variable.Value);
 		}
 
+		static PropertyInfo GqlQueryStateRecordProperty = typeof(GqlQueryState).GetProperty ("Record");
+		static PropertyInfo GqlQueryStateUseOriginalColumnsProperty = typeof(GqlQueryState).GetProperty ("UseOriginalColumns");
+		static PropertyInfo ProviderRecordLineNoProperty = typeof(ProviderRecord).GetProperty ("LineNo");
+		static PropertyInfo ProviderRecordTotalLineNoProperty = typeof(ProviderRecord).GetProperty ("TotalLineNo");
+		static PropertyInfo ProviderRecordSourceProperty = typeof(ProviderRecord).GetProperty ("Source");
+		static MethodInfo PathGetFileNameMethod = typeof(System.IO.Path).GetMethod ("GetFileName");
+		static MethodInfo ProviderRecordGetLineMethod = typeof(ProviderRecord).GetMethod ("GetLine");
+
+		System.Linq.Expressions.Expression ParseNewExpressionSystemVar (ITree expressionSystemVarTree)
+		{
+			ITree tree = GetSingleChild (expressionSystemVarTree);
+			
+			System.Linq.Expressions.Expression expression;
+			switch (tree.Text.ToUpperInvariant ()) {
+			case "$LINE":
+				expression = 
+					System.Linq.Expressions.Expression.Call (
+						System.Linq.Expressions.Expression.Property (
+							queryStatePrm, GqlQueryStateRecordProperty),
+						ProviderRecordGetLineMethod,
+						System.Linq.Expressions.Expression.Property (
+							queryStatePrm, GqlQueryStateUseOriginalColumnsProperty));
+				break;
+			case "$LINENO":
+				expression = 
+					System.Linq.Expressions.Expression.Property (
+						System.Linq.Expressions.Expression.Property (
+							queryStatePrm, GqlQueryStateRecordProperty),
+						ProviderRecordLineNoProperty);
+				break;
+			case "$TOTALLINENO":
+				expression = 
+					System.Linq.Expressions.Expression.Property (
+						System.Linq.Expressions.Expression.Property (
+							queryStatePrm, GqlQueryStateRecordProperty),
+						ProviderRecordTotalLineNoProperty);
+				break;
+			case "$FILENAME":
+				expression = 
+					System.Linq.Expressions.Expression.Call (
+						PathGetFileNameMethod,
+						System.Linq.Expressions.Expression.Property (
+							System.Linq.Expressions.Expression.Property (
+							queryStatePrm, GqlQueryStateRecordProperty),
+							ProviderRecordSourceProperty));
+				break;
+			case "$FULLFILENAME":
+				expression = 
+					System.Linq.Expressions.Expression.Property (
+						System.Linq.Expressions.Expression.Property (
+							queryStatePrm, GqlQueryStateRecordProperty),
+						ProviderRecordSourceProperty);
+				break;
+			default:
+				IExpression oldExpr = ParseExpressionSystemVar (expressionSystemVarTree);
+				expression = ExpressionBridge.Create (oldExpr, queryStatePrm);
+				break;
+//				throw new ParserException (
+//					string.Format ("Unknown system variable '{0}'.", tree.Text),
+//					tree
+//				);
+			}
+			
+			return expression;
+		}
+		
 		System.Linq.Expressions.Expression GetNullValue (Type resultType)
 		{
 			return System.Linq.Expressions.Expression.Default (resultType);
