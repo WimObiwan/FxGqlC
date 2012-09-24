@@ -829,7 +829,7 @@ namespace FxGqlLib
 			Type type = ExpressionBridge.GetNewType (types [0]);
 
 			return System.Linq.Expressions.Expression.Call (
-				GetValuesFromSubqueryMethod.MakeGenericMethod (type),
+				GetValueFromSubqueryMethod.MakeGenericMethod (type),
 				System.Linq.Expressions.Expression.Constant (provider),
 				this.queryStatePrm);
 		}
@@ -855,8 +855,12 @@ namespace FxGqlLib
 				type = variable.Type;
 			}
 
+			type = ExpressionBridge.GetNewType (type);
+
+			MethodInfo GetVariableValueMethodSpecialized = GetVariableValueMethod.MakeGenericMethod (type);
+
 			return System.Linq.Expressions.Expression.Call (
-					GetVariableValueMethod,
+					GetVariableValueMethodSpecialized,
 					queryStatePrm,
 					System.Linq.Expressions.Expression.Constant (variableName));
 		}
@@ -866,8 +870,6 @@ namespace FxGqlLib
 			Variable variable;
 			if (!gqlQueryState.Variables.TryGetValue (variableName, out variable))
 				throw new InvalidOperationException (string.Format ("Variable '{0}' not declared", variableName));
-
-			throw new Exception ();
 
 			return ExpressionBridge.ConvertFromOld<T> (variable.Value);
 		}
