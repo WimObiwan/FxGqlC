@@ -36,14 +36,10 @@ namespace FxGqlLib
 		Stack<System.Linq.Expressions.ParameterExpression> subQueryParameterExpressionStack = 
 			new Stack<System.Linq.Expressions.ParameterExpression> ();
 
-		static GqlParser ()
-		{
-			InitializeFunctionMap ();
-		}
-
 		public GqlParser (GqlEngineState gqlEngineState, string command)
             : this(gqlEngineState, command, CultureInfo.InvariantCulture, true)
 		{
+			InitializeFunctionMap ();
 		}
         
 		public GqlParser (GqlEngineState gqlEngineState, string command, CultureInfo cultureInfo, bool caseInsensitive)

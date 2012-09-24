@@ -8,20 +8,45 @@ namespace FxGqlLib
 {
 	partial class GqlParser
 	{
-		delegate System.Linq.Expressions.Expression GqlFunction (GqlParser gqlParser,params System.Linq.Expressions.Expression[] prms);
-		static List<Dictionary<string, GqlFunction>> functionMap = new List<Dictionary<string, GqlFunction>> ();
+		List<Dictionary<string, System.Linq.Expressions.Expression>> functionMap = 
+			new List<Dictionary<string, System.Linq.Expressions.Expression>> ();
 
-		static void FnAdd (string functionName, int prmCount, GqlFunction function)
+		void FnAdd (string functionName, int prmCount, System.Linq.Expressions.Expression function)
 		{
 			for (int i = functionMap.Count; i <= prmCount; i++)
-				functionMap.Add (new Dictionary<string, GqlFunction> ());
+				functionMap.Add (new Dictionary<string, System.Linq.Expressions.Expression> ());
 			
 			functionMap [prmCount].Add (functionName, function);
 		}
 
-		GqlFunction FnGet (string functionName, int argCount)
+		void FnAdd<R> (string functionName, System.Linq.Expressions.Expression<Func<GqlQueryState, R>> functorExpr)
 		{
-			GqlFunction function = null;
+			FnAdd (functionName, 0, functorExpr);
+		}
+		
+		void FnAdd<T1, R> (string functionName, System.Linq.Expressions.Expression<Func<GqlQueryState, T1, R>> functorExpr)
+		{
+			FnAdd (functionName, 1, functorExpr);
+		}
+		
+		void FnAdd<T1, T2, R> (string functionName, System.Linq.Expressions.Expression<Func<GqlQueryState, T1, T2, R>> functorExpr)
+		{
+			FnAdd (functionName, 2, functorExpr);
+		}
+		
+		void FnAdd<T1, T2, T3, R> (string functionName, System.Linq.Expressions.Expression<Func<GqlQueryState, T1, T2, T3, R>> functorExpr)
+		{
+			FnAdd (functionName, 3, functorExpr);
+		}
+		
+		void FnAdd<T1, T2, T3, T4, R> (string functionName, System.Linq.Expressions.Expression<Func<GqlQueryState, T1, T2, T3, T4, R>> functorExpr)
+		{
+			FnAdd (functionName, 4, functorExpr);
+		}
+		
+		System.Linq.Expressions.Expression FnGet (string functionName, int argCount)
+		{
+			System.Linq.Expressions.Expression function = null;
 			if (argCount < functionMap.Count) {
 				var functionMapItem = functionMap [argCount];
 				functionMapItem.TryGetValue (functionName.ToUpperInvariant (), out function);
@@ -29,7 +54,7 @@ namespace FxGqlLib
 
 			if (function == null)
 				throw new NotSupportedException (
-				string.Format ("Function '{0}' with {1} arguments does not exist.", functionName, argCount));
+					string.Format ("Function '{0}' with {1} arguments does not exist.", functionName, argCount));
 
 			return function;
 		}
@@ -44,8 +69,12 @@ namespace FxGqlLib
 			System.Linq.Expressions.Expression result;
 			// TODO: Remove fallback
 			try {
-				GqlFunction gqlFunction = FnGet (functionName, argCount);
-				result = gqlFunction (this);
+				result = FnGet (functionName, argCount);
+				System.Linq.Expressions.Expression[] args = new System.Linq.Expressions.Expression[argCount + 1];
+				args [0] = queryStatePrm;
+				for (int i = 0; i < argCount; i++)
+					args [i + 1] = ParseNewExpression (provider, functionCallTree.GetChild (i + 1));
+				result = System.Linq.Expressions.Expression.Invoke (result, args);
 			} catch {
 				IExpression oldExpr = ParseExpressionFunctionCall (provider, functionCallTree);
 				result = ExpressionBridge.Create (oldExpr, queryStatePrm);
@@ -54,37 +83,35 @@ namespace FxGqlLib
 			return result;
 		}
 
-		static void InitializeFunctionMap ()
+		void InitializeFunctionMap ()
 		{
-			FnAdd ("GETCURDIR", 0, new GqlFunction (FnGetCurDir));
-			FnAdd ("GETDATE", 0, new GqlFunction (FnGetDate));
-			FnAdd ("GETUTCDATE", 0, new GqlFunction (FnGetUtcDate));
-		}
-		
-		static PropertyInfo GqlQueryStateCurrentDirectoryProperty = typeof(GqlQueryState).GetProperty ("CurrentDirectory");
-
-		static System.Linq.Expressions.Expression FnGetCurDir (GqlParser gqlParser, params System.Linq.Expressions.Expression[] prms)
-		{
-			return
-				System.Linq.Expressions.Expression.Property (
-					gqlParser.queryStatePrm, GqlQueryStateCurrentDirectoryProperty);
-		}
-
-		static PropertyInfo DateTimeNowProperty = typeof(DateTime).GetProperty ("Now");
-		
-		static System.Linq.Expressions.Expression FnGetDate (GqlParser gqlParser, params System.Linq.Expressions.Expression[] prms)
-		{
-			return
-				System.Linq.Expressions.Expression.Property (null, DateTimeNowProperty);
-		}
-
-		static PropertyInfo DateTimeUtcNowProperty = typeof(DateTime).GetProperty ("UtcNow");
-		
-		static System.Linq.Expressions.Expression FnGetUtcDate (GqlParser gqlParser, params System.Linq.Expressions.Expression[] prms)
-		{
-			return
-				System.Linq.Expressions.Expression.Property (null, DateTimeUtcNowProperty);
+			// State
+			FnAdd<string> ("GETCURDIR", (qs) => qs.CurrentDirectory);
+			// Dates
+			FnAdd<DateTime> ("GETDATE", (qs) => DateTime.Now);
+			FnAdd<DateTime> ("GETUTCDATE", (qs) => DateTime.UtcNow);
+			// Strings
+			FnAdd<string, string> ("ESCAPEREGEX", (qs, s) => System.Text.RegularExpressions.Regex.Escape (s));
+			FnAdd<string, string> ("LTRIM", (qs, s) => s.TrimStart ());
+			FnAdd<string, string> ("RTRIM", (qs, s) => s.TrimEnd ());
+			FnAdd<string, string> ("TRIM", (qs, s) => s.Trim ());
+			FnAdd<string, long> ("LEN", (qs, s) => s.Length);
+			FnAdd<string, string, bool> ("CONTAINS", (qs, s1, s2) => s1.IndexOf (s2, dataComparer.StringComparison) != -1);
+			FnAdd<string, long, string> ("LEFT", (qs, s, l) => s.Substring (0, Math.Min ((int)l, s.Length)));
+			FnAdd<string, long, string> ("RIGHT", (qs, s, l) => s.Substring (s.Length - Math.Min ((int)l, s.Length)));
+			FnAdd<string, long, string> ("SUBSTRING", (qs, s, p) => s.Substring (Math.Min ((int)p, s.Length)));
+			FnAdd<string, long, long, string> ("SUBSTRING", (qs, s, p, l) => s.Substring (Math.Min ((int)p, s.Length) - 1, Math.Min ((int)l, s.Length - Math.Min ((int)p, s.Length))));
+			// Regex
+			FnAdd<string, string, bool> (
+				"MATCHREGEX", 
+				(qs, s, p) => System.Text.RegularExpressions.Regex.IsMatch (
+					s, p, dataComparer.CaseInsensitive ? 
+						System.Text.RegularExpressions.RegexOptions.IgnoreCase : 
+						System.Text.RegularExpressions.RegexOptions.None));
+			/*case "DATEPART":
+			result = UnaryExpression<DataDateTime, DataInteger>.CreateAutoConvert (
+				(a) => DatePartHelper.Get ((arg1 as Token<DatePartType>).Value, a), arg2);
+			break;		}*/
 		}
 	}
 }
-
