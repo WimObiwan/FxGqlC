@@ -11,11 +11,6 @@ namespace FxGqlLib
 		delegate System.Linq.Expressions.Expression GqlFunction (GqlParser gqlParser,params System.Linq.Expressions.Expression[] prms);
 		static List<Dictionary<string, GqlFunction>> functionMap = new List<Dictionary<string, GqlFunction>> ();
 
-		static void InitializeFunctionMap ()
-		{
-			FnAdd ("GETCURDIR", 0, new GqlFunction (FnGetCurDir));
-		}
-
 		static void FnAdd (string functionName, int prmCount, GqlFunction function)
 		{
 			for (int i = functionMap.Count; i <= prmCount; i++)
@@ -39,22 +34,13 @@ namespace FxGqlLib
 			return function;
 		}
 
-		static PropertyInfo GqlQueryStateCurrentDirectoryProperty = typeof(GqlQueryState).GetProperty ("CurrentDirectory");
-
-		static System.Linq.Expressions.Expression FnGetCurDir (GqlParser gqlParser, params System.Linq.Expressions.Expression[] prms)
-		{
-			return
-				System.Linq.Expressions.Expression.Property (
-					gqlParser.queryStatePrm, GqlQueryStateCurrentDirectoryProperty);
-		}
-
 		System.Linq.Expressions.Expression ParseNewExpressionFunctionCall (IProvider provider, ITree functionCallTree)
 		{
 			AssertAntlrToken (functionCallTree, "T_FUNCTIONCALL", 1, -1);
 			
 			string functionName = functionCallTree.GetChild (0).Text;
 			int argCount = functionCallTree.ChildCount - 1;
-
+			
 			System.Linq.Expressions.Expression result;
 			// TODO: Remove fallback
 			try {
@@ -64,8 +50,40 @@ namespace FxGqlLib
 				IExpression oldExpr = ParseExpressionFunctionCall (provider, functionCallTree);
 				result = ExpressionBridge.Create (oldExpr, queryStatePrm);
 			}
-
+			
 			return result;
+		}
+
+		static void InitializeFunctionMap ()
+		{
+			FnAdd ("GETCURDIR", 0, new GqlFunction (FnGetCurDir));
+			FnAdd ("GETDATE", 0, new GqlFunction (FnGetDate));
+			FnAdd ("GETUTCDATE", 0, new GqlFunction (FnGetUtcDate));
+		}
+		
+		static PropertyInfo GqlQueryStateCurrentDirectoryProperty = typeof(GqlQueryState).GetProperty ("CurrentDirectory");
+
+		static System.Linq.Expressions.Expression FnGetCurDir (GqlParser gqlParser, params System.Linq.Expressions.Expression[] prms)
+		{
+			return
+				System.Linq.Expressions.Expression.Property (
+					gqlParser.queryStatePrm, GqlQueryStateCurrentDirectoryProperty);
+		}
+
+		static PropertyInfo DateTimeNowProperty = typeof(DateTime).GetProperty ("Now");
+		
+		static System.Linq.Expressions.Expression FnGetDate (GqlParser gqlParser, params System.Linq.Expressions.Expression[] prms)
+		{
+			return
+				System.Linq.Expressions.Expression.Property (null, DateTimeNowProperty);
+		}
+
+		static PropertyInfo DateTimeUtcNowProperty = typeof(DateTime).GetProperty ("UtcNow");
+		
+		static System.Linq.Expressions.Expression FnGetUtcDate (GqlParser gqlParser, params System.Linq.Expressions.Expression[] prms)
+		{
+			return
+				System.Linq.Expressions.Expression.Property (null, DateTimeUtcNowProperty);
 		}
 	}
 }
