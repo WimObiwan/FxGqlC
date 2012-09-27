@@ -50,19 +50,14 @@ namespace FxGqlLib
 			case "T_FUNCTIONCALL":
 				expression = ParseNewExpressionFunctionCall (provider, tree);
 				break;
-			/*case "T_COLUMN":
-				expression = ParseExpressionColumn (provider, tree);
-				break;*/
+			case "T_COLUMN":
+				expression = ParseNewExpressionColumn (provider, tree);
+				break;
 			case "T_DATEPART":
 				expression = ParseNewExpressionDatePart (tree);
 				break;
 			default:
-				{
-					IExpression oldExpr = ParseExpression (provider, tree);
-					expression = ExpressionBridge.Create (oldExpr, queryStatePrm);
-					break;
-				}
-			//throw new UnexpectedTokenAntlrException (tree);
+				throw new UnexpectedTokenAntlrException (tree);
 			}
 			
 			return expression;
@@ -929,13 +924,10 @@ namespace FxGqlLib
 						ProviderRecordSourceProperty);
 				break;
 			default:
-				IExpression oldExpr = ParseExpressionSystemVar (expressionSystemVarTree);
-				expression = ExpressionBridge.Create (oldExpr, queryStatePrm);
-				break;
-//				throw new ParserException (
-//					string.Format ("Unknown system variable '{0}'.", tree.Text),
-//					tree
-//				);
+				throw new ParserException (
+					string.Format ("Unknown system variable '{0}'.", tree.Text),
+					tree
+				);
 			}
 			
 			return expression;
@@ -959,6 +951,103 @@ namespace FxGqlLib
 			
 			return System.Linq.Expressions.Expression.Constant (datePart);
 		}		
+
+		System.Linq.Expressions.Expression ParseNewExpressionColumn (IProvider provider, ITree expressionTree)
+		{
+			AssertAntlrToken (expressionTree, "T_COLUMN", 1, 2);
+			
+			string column = ParseColumnName (expressionTree.GetChild (0));
+			
+			string providerAlias;
+			if (expressionTree.ChildCount > 1)
+				providerAlias = ParseProviderAlias (expressionTree.GetChild (1));
+			else
+				providerAlias = null;
+			
+			if (provider == null)
+				throw new ParserException (string.Format ("Columnname [{0}] not allowed outside the context of a query", column), expressionTree);
+			
+			try {
+				this.subQueryProviderStack.Push (provider);
+				return ConstructNewColumnExpression (this.subQueryProviderStack.ToArray (), new ColumnName (providerAlias, column));
+			} catch (Exception x) {
+				throw new ParserException (string.Format ("Could not construct column expression for column '{0}'", column), expressionTree, x);
+			} finally {
+				IProvider verify = this.subQueryProviderStack.Pop ();
+				if (verify != provider)
+					throw new InvalidProgramException ();
+			}
+		}
+		
+		internal System.Linq.Expressions.Expression ConstructNewColumnExpression (IProvider[] providers, ColumnName columnName)
+		{
+			foreach (IProvider provider in providers) {
+				if (provider.GetColumnNames () == null) {
+					return ConstructNewDynamicColumnExpression (providers, columnName);
+				} else {
+					int columnOrdinal = provider.GetColumnOrdinal (columnName);
+					if (columnOrdinal >= 0)
+						return ConstructNewStaticColumnExpression (provider, columnOrdinal);
+				}
+			}
+			throw new InvalidOperationException (string.Format ("Column name {0} not found", columnName));
+		}        
+		
+		static MethodInfo GetColumnValueMethod = typeof(GqlParser).GetMethod (
+			"GetColumnValue", BindingFlags.Static | BindingFlags.NonPublic, 
+			null,
+			new Type[] { typeof(Tuple<IProvider, int>) },
+		null);
+		
+		internal System.Linq.Expressions.Expression ConstructNewStaticColumnExpression (IProvider provider, int columnOrdinal)
+		{
+			Type type = ExpressionBridge.GetNewType (provider.GetColumnTypes () [columnOrdinal]);
+			
+			MethodInfo GetColumnValueMethodSpecialized = GetColumnValueMethod.MakeGenericMethod (type);
+			
+			return System.Linq.Expressions.Expression.Call (
+				GetColumnValueMethodSpecialized,
+				System.Linq.Expressions.Expression.Constant (Tuple.Create (provider, columnOrdinal)));
+		}
+		
+		static T GetColumnValue<T> (Tuple<IProvider, int> providerAndOrdinal)
+		{
+			IProvider provider = providerAndOrdinal.Item1;
+			int columnOrdinal = providerAndOrdinal.Item2;
+			IData columnValue = provider.Record.Columns [columnOrdinal];
+			return ExpressionBridge.ConvertFromOld<T> (columnValue);
+		}
+
+		static MethodInfo ResolveColumnMethod = typeof(GqlParser).GetMethod (
+			"ResolveColumn", BindingFlags.Static | BindingFlags.NonPublic, 
+			null,
+			new Type[] { typeof(IProvider[]), typeof(ColumnName) },
+		null);
+		
+		internal System.Linq.Expressions.Expression ConstructNewDynamicColumnExpression (IProvider[] providers, ColumnName columnName)
+		{
+			MethodInfo GetColumnValueMethodSpecialized = GetColumnValueMethod.MakeGenericMethod (typeof(string));
+
+			return 
+				System.Linq.Expressions.Expression.Call (
+					GetColumnValueMethodSpecialized,
+					GetCachedExpression (
+						System.Linq.Expressions.Expression.Call (
+							ResolveColumnMethod,
+							System.Linq.Expressions.Expression.Constant (providers),
+							System.Linq.Expressions.Expression.Constant (columnName))));
+		}
+		
+		static Tuple<IProvider, int> ResolveColumn (IProvider[] providers, ColumnName columnName)
+		{
+			for (int upstreamLevel = 0; upstreamLevel < providers.Length; upstreamLevel++) {
+				int columnOrdinal = providers [upstreamLevel].GetColumnOrdinal (columnName);
+				if (columnOrdinal != -1)
+					return Tuple.Create (providers [upstreamLevel], columnOrdinal);
+			}
+			
+			throw new InvalidOperationException (string.Format ("Column {0} not found", columnName));
+		}
 	}
 }
 
