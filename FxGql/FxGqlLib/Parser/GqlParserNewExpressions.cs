@@ -52,10 +52,10 @@ namespace FxGqlLib
 				break;
 			/*case "T_COLUMN":
 				expression = ParseExpressionColumn (provider, tree);
-				break;
-			case "T_DATEPART":
-				expression = ParseExpressionDatePart (tree);
 				break;*/
+			case "T_DATEPART":
+				expression = ParseNewExpressionDatePart (tree);
+				break;
 			default:
 				{
 					IExpression oldExpr = ParseExpression (provider, tree);
@@ -499,6 +499,8 @@ namespace FxGqlLib
 					new System.Linq.Expressions.ParameterExpression[] {
 						valuesVariable
 					},
+
+					// TODO: This caching is only valid for independent subqueries!  --> Should be part of optimizer!
 					new System.Linq.Expressions.Expression[] {
 						System.Linq.Expressions.Expression.Assign (
 							valuesVariable, 
@@ -943,6 +945,20 @@ namespace FxGqlLib
 		{
 			return System.Linq.Expressions.Expression.Default (resultType);
 		}
+
+		System.Linq.Expressions.Expression ParseNewExpressionDatePart (ITree datePartTree)
+		{
+			ITree tree = GetSingleChild (datePartTree);
+			
+			DatePartType datePart;
+			try {
+				datePart = DatePartHelper.Parse (tree.Text);
+			} catch (Exception x) {
+				throw new ParserException ("Invalid DatePart type", tree, x);
+			}
+			
+			return System.Linq.Expressions.Expression.Constant (datePart);
+		}		
 	}
 }
 

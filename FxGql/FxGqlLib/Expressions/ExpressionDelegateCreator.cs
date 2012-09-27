@@ -16,7 +16,6 @@ namespace FxGqlLib
 					expr,
 					new System.Linq.Expressions.ParameterExpression[] { queryStatePrm });
 		}
-
 	}
 }
 
