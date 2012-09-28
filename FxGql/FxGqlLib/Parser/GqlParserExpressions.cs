@@ -1181,7 +1181,7 @@ namespace FxGqlLib
 				new IExpression[] { new ConstExpression<DataInteger> (1) }, 
 			new TopProvider (
 				ParseInnerSelect (null, expressionTree.GetChild (0)),
-				new ConstExpression<DataInteger> (1)
+				(qs) => 1
 			)
 			),
 				(a, b) => a == b);

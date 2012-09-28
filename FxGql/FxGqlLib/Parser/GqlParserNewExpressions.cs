@@ -800,7 +800,7 @@ namespace FxGqlLib
 			IProvider subProvider = new ColumnProvider (
 				new IExpression[] { new ConstExpression<DataInteger> (1) }, 
 				new TopProvider (
-					ParseInnerSelect (null, expressionTree.GetChild (0)), new ConstExpression<DataInteger> (1)));
+					ParseInnerSelect (null, expressionTree.GetChild (0)), (qs) => 1));
 
 			return CreateAnySubqueryExpression (
 				System.Linq.Expressions.Expression.Constant (1), 
@@ -817,7 +817,7 @@ namespace FxGqlLib
 		System.Linq.Expressions.Expression ParseNewExpressionSubquery (IProvider parentProvider, ITree subqueryTree)
 		{
 			IProvider provider = ParseSubquery (parentProvider, subqueryTree);
-			provider = new TopProvider (provider, new ConstExpression<DataInteger> (1));
+			provider = new TopProvider (provider, (qs) => 1);
 
 			Type[] types = provider.GetColumnTypes ();
 			if (types.Length != 1) 

@@ -269,7 +269,7 @@ namespace FxGqlLib
             
             
 			// TOP
-			Expression<DataInteger> topExpression;
+			System.Linq.Expressions.Expression<Func<GqlQueryState, long>> topExpression;
 			if (enumerator.Current != null && enumerator.Current.Text == "T_TOP") {
 				topExpression = ParseTopClause (enumerator.Current);
 				enumerator.MoveNext ();
@@ -407,10 +407,11 @@ namespace FxGqlLib
 			return provider;
 		}
         
-		Expression<DataInteger> ParseTopClause (ITree topClauseTree)
+		System.Linq.Expressions.Expression<Func<GqlQueryState, long>> ParseTopClause (ITree topClauseTree)
 		{
 			ITree tree = GetSingleChild (topClauseTree);
-			return ConvertExpression.CreateDataInteger (ParseExpression (null, tree));
+
+			return ParseFuncExpression<long> (null, tree);
 		}
         
 		IList<Column> ParseColumnList (IProvider provider, ITree outputListTree)
@@ -520,22 +521,27 @@ namespace FxGqlLib
 		System.Linq.Expressions.Expression<Func<GqlQueryState, bool>> ParseWhereClause (IProvider provider, ITree whereTree)
 		{
 			AssertAntlrToken (whereTree, "T_WHERE");
+			ITree expressionTree = GetSingleChild (whereTree);
 
+			return ParseFuncExpression<bool> (provider, expressionTree);
+		}
+
+		System.Linq.Expressions.Expression<Func<GqlQueryState, T>> ParseFuncExpression<T> (IProvider provider, ITree expressionTree)
+		{
 			this.queryStatePrm = 
 				System.Linq.Expressions.Expression.Parameter (typeof(GqlQueryState));
-
-			ITree expressionTree = GetSingleChild (whereTree);
+			
 			System.Linq.Expressions.Expression expression = ParseNewExpression (provider, expressionTree);
-			if (expression.Type != typeof(bool)) {
+			if (expression.Type != typeof(T)) {
 				throw new ParserException (
-                    "Expected boolean expression in WHERE clause.",
-                    expressionTree
+					"Wrong datatype in expression.",
+					expressionTree
 				);
 			}
-
-			return ExpressionDelegateCreator.CreateBoolean (expression, queryStatePrm);
+			
+			return ExpressionDelegateCreator.Create<T> (expression, queryStatePrm);
 		}
-        
+
 		Expression<DataBoolean> ParseHavingClause (IProvider provider, ITree whereTree)
 		{
 			AssertAntlrToken (whereTree, "T_HAVING");
