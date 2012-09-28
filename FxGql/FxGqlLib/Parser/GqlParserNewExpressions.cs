@@ -998,24 +998,43 @@ namespace FxGqlLib
 			null,
 			new Type[] { typeof(Tuple<IProvider, int>) },
 		null);
-		
+		static FieldInfo DataStringProperty = typeof(NewData).GetField ("String");
+		static FieldInfo DataIntegerProperty = typeof(NewData).GetField ("Integer");
+		static FieldInfo DataDateTimeProperty = typeof(NewData).GetField ("DateTime");
+		static FieldInfo DataBoolProperty = typeof(NewData).GetField ("Bool");
+
 		internal System.Linq.Expressions.Expression ConstructNewStaticColumnExpression (IProvider provider, int columnOrdinal)
 		{
 			Type type = ExpressionBridge.GetNewType (provider.GetColumnTypes () [columnOrdinal]);
+
+			return 
+				System.Linq.Expressions.Expression.Field (
+					System.Linq.Expressions.Expression.Call (
+						GetColumnValueMethod,
+						System.Linq.Expressions.Expression.Constant (Tuple.Create (provider, columnOrdinal))),
+					GetFieldInfoForDataType (type));
+		}
+
+		FieldInfo GetFieldInfoForDataType (Type type)
+		{
+			if (type == typeof(string))
+				return DataStringProperty;
+			else if (type == typeof(long))
+				return DataIntegerProperty;
+			else if (type == typeof(DateTime))
+				return DataDateTimeProperty;
+			else if (type == typeof(bool))
+				return DataBoolProperty;
+			else
+				throw new NotSupportedException ();
 			
-			MethodInfo GetColumnValueMethodSpecialized = GetColumnValueMethod.MakeGenericMethod (type);
-			
-			return System.Linq.Expressions.Expression.Call (
-				GetColumnValueMethodSpecialized,
-				System.Linq.Expressions.Expression.Constant (Tuple.Create (provider, columnOrdinal)));
 		}
 		
-		static T GetColumnValue<T> (Tuple<IProvider, int> providerAndOrdinal)
+		static NewData GetColumnValue (Tuple<IProvider, int> providerAndOrdinal)
 		{
 			IProvider provider = providerAndOrdinal.Item1;
 			int columnOrdinal = providerAndOrdinal.Item2;
-			IData columnValue = provider.Record.Columns [columnOrdinal];
-			return ExpressionBridge.ConvertFromOld<T> (columnValue);
+			return provider.Record.NewColumns [columnOrdinal];
 		}
 
 		static MethodInfo ResolveColumnMethod = typeof(GqlParser).GetMethod (
@@ -1026,16 +1045,16 @@ namespace FxGqlLib
 		
 		internal System.Linq.Expressions.Expression ConstructNewDynamicColumnExpression (IProvider[] providers, ColumnName columnName)
 		{
-			MethodInfo GetColumnValueMethodSpecialized = GetColumnValueMethod.MakeGenericMethod (typeof(string));
-
 			return 
-				System.Linq.Expressions.Expression.Call (
-					GetColumnValueMethodSpecialized,
-					GetCachedExpression (
-						System.Linq.Expressions.Expression.Call (
-							ResolveColumnMethod,
-							System.Linq.Expressions.Expression.Constant (providers),
-							System.Linq.Expressions.Expression.Constant (columnName))));
+				System.Linq.Expressions.Expression.Field (
+					System.Linq.Expressions.Expression.Call (
+						GetColumnValueMethod,
+						GetCachedExpression (
+							System.Linq.Expressions.Expression.Call (
+								ResolveColumnMethod,
+								System.Linq.Expressions.Expression.Constant (providers),
+								System.Linq.Expressions.Expression.Constant (columnName)))),
+					GetFieldInfoForDataType (typeof(string)));
 		}
 		
 		static Tuple<IProvider, int> ResolveColumn (IProvider[] providers, ColumnName columnName)

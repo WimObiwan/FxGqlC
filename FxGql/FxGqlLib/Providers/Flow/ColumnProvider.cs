@@ -208,11 +208,14 @@ namespace FxGqlLib
 				gqlQueryState.Record = provider.Record;
 				gqlQueryState.SkipLine = false;
 				for (int i = 0; i < outputList.Length; i++) {
-					record.Columns [i] = outputList [i].EvaluateAsData (gqlQueryState);
+					IData data = outputList [i].EvaluateAsData (gqlQueryState);
+					record.Columns [i] = data;
+					ExpressionBridge.ConvertFromOld (ref record.NewColumns [i], data);
 				}
 			} while (gqlQueryState.SkipLine);
 			
 			record.OriginalColumns = provider.Record.Columns;
+			record.NewOriginalColumns = provider.Record.NewColumns;
 			record.LineNo = gqlQueryState.TotalLineNumber;
 			
 			return true;

@@ -60,6 +60,7 @@ namespace FxGqlLib
 			record.Source = fileName;
 			dataString = new DataString ();
 			record.Columns [0] = dataString;
+			record.NewColumns [0].Type = typeof(string);
 
 			for (long i = 0; i < skip; i++) {
 				if (streamReader.ReadLine () == null) {
@@ -81,6 +82,7 @@ namespace FxGqlLib
 				string text = streamReader.ReadLine ();
 				dataString.Set (text);
 				record.Columns [0] = dataString;
+				record.NewColumns [0].String = text;
 				record.LineNo++;
 				record.TotalLineNo = record.LineNo;
 			

@@ -64,6 +64,7 @@ namespace FxGqlLib
 			for (int i = 0; i < dataStrings.Length; i++) {
 				dataStrings [i] = new DataString ();
 				record.Columns [i] = dataStrings [i];
+				record.NewColumns [i].Type = typeof(string);
 			}
 		}
 
@@ -74,8 +75,10 @@ namespace FxGqlLib
 				Match match = regex.Match (line);
 				if (match.Success) {
 					for (int i = 0; i < columnNameList.Length; i++) {
-						dataStrings [i].Set (match.Groups [i + 1].Value);
+						string text = match.Groups [i + 1].Value;
+						dataStrings [i].Set (text);
 						record.Columns [i] = dataStrings [i];
+						record.NewColumns [i].String = text;
 					}
 					
 					return true;

@@ -105,9 +105,7 @@ namespace FxGqlLib
 			data = null;
 			currentRecord = -1;
 			enumerator = null;
-			record = new ProviderRecord (this);
-			record.Source = "(aggregated)";
-			
+
 			newGqlQueryState = new GqlQueryState (this.gqlQueryState);
 			newGqlQueryState.TotalLineNumber = 0;
 			newGqlQueryState.UseOriginalColumns = true;
@@ -118,7 +116,11 @@ namespace FxGqlLib
 				origColumnsComparer = CreateComparer (origGroupbyColumns, dataComparer);
 			else
 				origColumnsComparer = null;
-			record.Columns = new IData[outputColumns.Length];
+
+			record = new ProviderRecord (this, false);
+			record.Source = "(aggregated)";
+			//record.Columns = new IData[outputColumns.Length];
+			//record.NewColumns = new NewData[outputColumns.Length];
 
 			moreData = this.provider.GetNextRecord ();
 		}
@@ -160,11 +162,14 @@ namespace FxGqlLib
 			currentRecord++;
 			record.LineNo = currentRecord;
 			for (int col = 0; col < outputColumns.Length; col++) {
-				record.Columns [col] = outputColumns [col].AggregateCalculate (enumerator.Current.Value);
+				IData data = outputColumns [col].AggregateCalculate (enumerator.Current.Value);
+				record.Columns [col] = data;
+				ExpressionBridge.ConvertFromOld (ref record.NewColumns [col], data);
 			}
 			
 			record.OriginalColumns = record.Columns;
-		
+			record.NewOriginalColumns = record.NewColumns;
+
 			return true;
 		}
 

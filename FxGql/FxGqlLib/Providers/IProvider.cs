@@ -20,11 +20,22 @@ namespace FxGqlLib
 		{
 			int columnCount = provider.GetColumnNames ().Length;
 			this.Columns = new IData[columnCount];
+			this.NewColumns = new NewData[columnCount];
+			Type[] types = provider.GetColumnTypes ();
+			for (int i = 0; i < columnCount; i++) {
+				this.NewColumns [i].Type = ExpressionBridge.GetNewType (types [i]);
+			}
 
-			if (sameOriginalColumns)
+			if (sameOriginalColumns) {
 				this.OriginalColumns = this.Columns;
-			else
+				this.NewOriginalColumns = this.NewColumns;
+			} else {
 				this.OriginalColumns = new IData[columnCount];
+				this.NewOriginalColumns = new NewData[columnCount];
+				for (int i = 0; i < columnCount; i++) {
+					this.NewOriginalColumns [i].Type = ExpressionBridge.GetNewType (types [i]);
+				}
+			}
 		}
 		
 		public ColumnName[] ColumnTitles { get { return provider.GetColumnNames (); } }
@@ -36,17 +47,19 @@ namespace FxGqlLib
 		public long TotalLineNo { get; set; }
 
 		public IData[] Columns { get; set; }
+		public NewData[] NewColumns { get; set; }
 
 		public IData[] OriginalColumns { get; set; }
+		public NewData[] NewOriginalColumns { get; set; }
 
 		public string GetLine (bool useOriginalColumns)
 		{
 			// TODO: optimize...
-			IData[] columns;
+			NewData[] columns;
 			if (useOriginalColumns)
-				columns = OriginalColumns;
+				columns = NewOriginalColumns;
 			else
-				columns = Columns;
+				columns = NewColumns;
 				
 			string column = "";
 			for (int i = 0; i < columns.Length; i++) {

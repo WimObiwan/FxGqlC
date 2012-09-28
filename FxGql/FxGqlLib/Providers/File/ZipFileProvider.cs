@@ -58,6 +58,7 @@ namespace FxGqlLib
 			record = new ProviderRecord (this, true);
 			record.Source = fileName;
 			record.Columns [0] = dataString;
+			record.NewColumns [0].Type = typeof(string);
 			// same record.OriginalColumns [0] = dataString;
 
 			for (long i = 0; i < skip; i++) {
@@ -93,7 +94,8 @@ namespace FxGqlLib
 
 			dataString.Set (text);
 			record.Columns [0] = dataString;
-			
+			record.NewColumns [0].String = text;
+
 			record.LineNo++;
 			record.TotalLineNo = record.LineNo;
 

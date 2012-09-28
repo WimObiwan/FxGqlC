@@ -21,6 +21,21 @@ namespace FxGqlLib
 				throw new NotSupportedException ();
 		}
 
+		public static void ConvertFromOld (ref NewData newData, IData oldData)
+		{
+			Type type = newData.Type;
+			if (type == typeof(bool))
+				newData.Bool = ((DataBoolean)oldData).Value;
+			else if (type == typeof(string))
+				newData.String = ((DataString)oldData).Value;
+			else if (type == typeof(long))
+				newData.Integer = ((DataInteger)oldData).Value;
+			else if (type == typeof(DateTime))
+				newData.DateTime = ((DataDateTime)oldData).Value;
+			else 
+				throw new NotSupportedException ();
+		}
+
 		public static Type GetNewType (Type type)
 		{
 			if (type == typeof(DataBoolean)) {
