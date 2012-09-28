@@ -143,7 +143,10 @@ namespace FxGqlLib
 
 		int GetColumnOrdinal (ColumnName columnName);
 
+		[Obsolete]
 		Type[] GetColumnTypes ();
+
+		Type[] GetNewColumnTypes ();
 
 		void Initialize (GqlQueryState gqlQueryState);
 

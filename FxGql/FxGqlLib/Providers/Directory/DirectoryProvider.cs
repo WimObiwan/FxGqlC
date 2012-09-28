@@ -17,16 +17,26 @@ namespace FxGqlLib
 				new ColumnName ("Attributes"),
 			};
 		readonly static Type[] columnTypes = new Type[] {
-				typeof(DataString),
-				typeof(DataString),
-				typeof(DataString),
-				typeof(DataInteger),
-				typeof(DataDateTime),
-				typeof(DataDateTime),
-				typeof(DataDateTime),
-				typeof(DataString),
-			};
-
+			typeof(DataString),
+			typeof(DataString),
+			typeof(DataString),
+			typeof(DataInteger),
+			typeof(DataDateTime),
+			typeof(DataDateTime),
+			typeof(DataDateTime),
+			typeof(DataString),
+		};
+		readonly static Type[] newColumnTypes = new Type[] {
+			typeof(string),
+			typeof(string),
+			typeof(string),
+			typeof(int),
+			typeof(DateTime),
+			typeof(DateTime),
+			typeof(DateTime),
+			typeof(string),
+		};
+		
 		readonly FileOptionsFromClause fileOptions;
 		readonly StringComparer stringComparer;
 
@@ -66,7 +76,12 @@ namespace FxGqlLib
 		{
 			return columnTypes;
 		}
-
+		
+		public Type[] GetNewColumnTypes ()
+		{
+			return newColumnTypes;
+		}
+		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			string fileName = fileOptions.FileName.Evaluate (gqlQueryState);

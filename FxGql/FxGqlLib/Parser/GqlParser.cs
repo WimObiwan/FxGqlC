@@ -31,6 +31,7 @@ namespace FxGqlLib
 		readonly DataComparer dataComparer;
 
 		Dictionary<string, Type> variableTypes = new Dictionary<string, Type> (StringComparer.InvariantCultureIgnoreCase);
+		Dictionary<string, Type> variableNewTypes = new Dictionary<string, Type> (StringComparer.InvariantCultureIgnoreCase);
 		Dictionary<string, ViewDefinition> views = new Dictionary<string, ViewDefinition> (StringComparer.InvariantCultureIgnoreCase);
 		Stack<IProvider> subQueryProviderStack = new Stack<IProvider> ();
 		Stack<System.Linq.Expressions.ParameterExpression> subQueryParameterExpressionStack = 
@@ -139,6 +140,7 @@ namespace FxGqlLib
 					var variableDeclaration = ParseCommandDeclare (tree);
 					foreach (var variable in variableDeclaration) {
 						variableTypes [variable.Item1] = variable.Item2;
+						variableNewTypes [variable.Item1] = ExpressionBridge.GetNewType (variable.Item2);
 					}
 					return new DeclareCommand (variableDeclaration);
 				}
@@ -1061,18 +1063,23 @@ namespace FxGqlLib
 				parameters = null;
 			}
 
-			Dictionary<string, Type> oldVariables = variableTypes;
+			Dictionary<string, Type> oldVariableTypes = variableTypes;
+			Dictionary<string, Type> oldVariableNewTypes = variableNewTypes;
 			if (parameters != null && parameters.Count > 0) {
 				variableTypes = new Dictionary<string, Type> (variableTypes);
-				foreach (Tuple<string, Type> parameter in parameters)
+				variableNewTypes = new Dictionary<string, Type> (variableNewTypes);
+				foreach (Tuple<string, Type> parameter in parameters) {
 					variableTypes [parameter.Item1] = parameter.Item2;
+					variableNewTypes [parameter.Item1] = ExpressionBridge.GetNewType (parameter.Item2);
+				}
 			}
 
 			IProvider provider;
 			try {
 				provider = ParseCommandSelect (enumerator.Current);
 			} finally {
-				variableTypes = oldVariables;
+				variableTypes = oldVariableTypes;
+				variableNewTypes = oldVariableNewTypes;
 			}
 
 

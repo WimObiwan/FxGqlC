@@ -12,6 +12,7 @@ namespace FxGqlLib
 		DbDataReader dataReader;
 		ColumnName[] columnNames;
 		Type[] columnTypes;
+		Type[] newColumnTypes;
 		ProviderRecord record;
 
 		public DataProvider (FileOptionsFromClause fileOptions)
@@ -46,7 +47,12 @@ namespace FxGqlLib
 		{
 			return columnTypes;
 		}
-
+		
+		public Type[] GetNewColumnTypes ()
+		{
+			return newColumnTypes;
+		}
+		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			string client = fileOptions.Client ?? "System.Data.SqlClient";
@@ -59,6 +65,7 @@ namespace FxGqlLib
 			dataReader = command.ExecuteReader (System.Data.CommandBehavior.SingleResult | System.Data.CommandBehavior.CloseConnection);
 			columnNames = new ColumnName[dataReader.FieldCount];
 			columnTypes = new Type[dataReader.FieldCount];
+			newColumnTypes = new Type[dataReader.FieldCount];
 			for (int i = 0; i < dataReader.FieldCount; i++) {
 				columnNames [i] = new ColumnName (dataReader.GetName (i));
 				/*Type type = dataReader.GetFieldType (i);
@@ -71,6 +78,7 @@ namespace FxGqlLib
 				} else*/
 				{
 					columnTypes [i] = typeof(DataString);
+					newColumnTypes [i] = typeof(string);
 				}
 			}
 			record = new ProviderRecord (this, true);

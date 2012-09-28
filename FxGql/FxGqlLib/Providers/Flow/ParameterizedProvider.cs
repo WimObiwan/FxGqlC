@@ -53,17 +53,21 @@ namespace FxGqlLib
 		{
 			return provider.GetColumnTypes ();
 		}
-
+		
+		public Type[] GetNewColumnTypes ()
+		{
+			return provider.GetNewColumnTypes ();
+		}
+		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			this.gqlQueryState = new GqlQueryState (gqlQueryState, true);
 
 			for (int i = 0; i < parameters.Length; i++) {
 				IData result = parameters [i].EvaluateAsData (gqlQueryState);
-				Variable variable = new Variable ();
-				variable.Name = parameterNames [i];
-				variable.Type = result.GetType ();
+				Variable variable = new Variable (parameterNames [i], result.GetType ());
 				variable.Value = result;
+				variable.NewValue.Overwrite (variable.Value);
 
 				this.gqlQueryState.Variables [variable.Name] = variable;
 			}

@@ -123,7 +123,12 @@ namespace FxGqlLib
 		{
 			return provider.GetColumnTypes ();
 		}
-		
+
+		public Type[] GetNewColumnTypes ()
+		{
+			return provider.GetNewColumnTypes ();
+		}
+
 		/// <summary>
 		/// Initialize the specified gqlQueryState.
 		/// </summary>

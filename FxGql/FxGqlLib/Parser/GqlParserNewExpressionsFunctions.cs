@@ -143,19 +143,12 @@ namespace FxGqlLib
 			int argCount = functionCallTree.ChildCount - 1;
 			
 			System.Linq.Expressions.Expression result;
-			// TODO: Remove fallback
-			try {
-				ExpressionBuilder expressionBuilder = FnGetExpressionBuilder (functionName, argCount);
-				System.Linq.Expressions.Expression[] args = new System.Linq.Expressions.Expression[argCount + 1];
-				args [0] = queryStatePrm;
-				for (int i = 0; i < argCount; i++)
-					args [i + 1] = ParseNewExpression (provider, functionCallTree.GetChild (i + 1));
-				result = expressionBuilder (args);
-			} catch {
-				throw;
-				IExpression oldExpr = ParseExpressionFunctionCall (provider, functionCallTree);
-				result = ExpressionBridge.Create (oldExpr, queryStatePrm);
-			}
+			ExpressionBuilder expressionBuilder = FnGetExpressionBuilder (functionName, argCount);
+			System.Linq.Expressions.Expression[] args = new System.Linq.Expressions.Expression[argCount + 1];
+			args [0] = queryStatePrm;
+			for (int i = 0; i < argCount; i++)
+				args [i + 1] = ParseNewExpression (provider, functionCallTree.GetChild (i + 1));
+			result = expressionBuilder (args);
 			
 			return result;
 		}

@@ -31,6 +31,11 @@ namespace FxGqlLib
 			return provider.GetColumnOrdinal (columnName);
 		}
 		
+		public Type[] GetNewColumnTypes ()
+		{
+			return provider.GetNewColumnTypes ();
+		}
+		
 		public Type[] GetColumnTypes ()
 		{
 			return provider.GetColumnTypes ();

@@ -60,7 +60,16 @@ namespace FxGqlLib
 			}
 			return types;
 		}
-
+		
+		public Type[] GetNewColumnTypes ()
+		{
+			Type[] types = new Type[columnNameList.Length];
+			for (int i = 0; i < types.Length; i++) { 
+				types [i] = typeof(string);
+			}
+			return types;
+		}
+		
 		protected virtual string[] ReadLine ()
 		{
 			if (!provider.GetNextRecord ())

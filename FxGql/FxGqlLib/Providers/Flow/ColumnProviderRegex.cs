@@ -46,7 +46,16 @@ namespace FxGqlLib
 			}
 			return types;
 		}
-
+		
+		public Type[] GetNewColumnTypes ()
+		{
+			Type[] types = new Type[columnNameList.Length];
+			for (int i = 0; i < types.Length; i++) { 
+				types [i] = typeof(string);
+			}
+			return types;
+		}
+		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			regex = new Regex (regexDefinition, caseInsensitive ? RegexOptions.IgnoreCase : RegexOptions.None);

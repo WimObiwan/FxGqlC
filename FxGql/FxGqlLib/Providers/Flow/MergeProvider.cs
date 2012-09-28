@@ -39,6 +39,11 @@ namespace FxGqlLib
 			return providers [0].GetColumnTypes ();
 		}
 		
+		public Type[] GetNewColumnTypes ()
+		{
+			return providers [0].GetNewColumnTypes ();
+		}
+		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			this.gqlQueryState = gqlQueryState;

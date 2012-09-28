@@ -474,11 +474,11 @@ namespace FxGqlLib
 
 		System.Linq.Expressions.Expression CreateAnySubqueryExpression (System.Linq.Expressions.Expression arg, IProvider provider, System.Linq.Expressions.ExpressionType op, bool all, bool not)
 		{
-			Type[] types = provider.GetColumnTypes ();
+			Type[] types = provider.GetNewColumnTypes ();
 			if (types.Length != 1) 
-				throw new InvalidOperationException ("Subquery should contain only 1 column");
+				throw new InvalidOperationException ("Subquery in an expression should contain exactly 1 column");
 
-			Type type = ExpressionBridge.GetNewType (types [0]);
+			Type type = types [0];
 
 			PropertyInfo ListCountProperty = typeof(ICollection<>).MakeGenericType (type).GetProperty ("Count");
 
@@ -610,10 +610,12 @@ namespace FxGqlLib
 		{
 			try {
 				provider.Initialize (gqlQueryState);
-				
+
+				Func<NewData, T> func = BuildColumnRetriever<T> ();
+
 				List<T> values = new List<T> ();
 				while (provider.GetNextRecord()) {
-					values.Add (ExpressionBridge.ConvertFromOld<T> (provider.Record.Columns [0]));
+					values.Add (func (provider.Record.NewColumns [0]));
 				}
 				
 				return values;
@@ -621,13 +623,47 @@ namespace FxGqlLib
 				provider.Uninitialize ();
 			}
 		}
+
+		static Func<NewData, T> BuildColumnRetriever<T> ()
+		{
+			if (typeof(T) == typeof(string))
+				return (d) => (T)(object)d.String;
+			else if (typeof(T) == typeof(long))
+				return (d) => (T)(object)d.Integer;
+			else if (typeof(T) == typeof(DateTime))
+				return (d) => (T)(object)d.DateTime;
+			else if (typeof(T) == typeof(bool))
+				return (d) => (T)(object)d.Bool;
+			else
+				throw new NotSupportedException ();
+		}
+
+		/*
+		static System.Linq.Expressions.Expression BuildColumnRetrieverExpression (IProvider provider, Type type)
+		{
+			System.Linq.Expressions.Expression record = 
+				System.Linq.Expressions.Expression.Property (
+					System.Linq.Expressions.Expression.Constant (provider),
+					"Record");
+			if (type == typeof(string))
+				return (d) => (T)(object)d.String;
+			else if (type == typeof(long))
+				return (d) => (T)(object)d.Integer;
+			else if (type == typeof(DateTime))
+				return (d) => (T)(object)d.DateTime;
+			else if (type == typeof(bool))
+				return (d) => (T)(object)d.Bool;
+			else
+				throw new NotSupportedException ();
+		}
+		*/
 		
 		static T GetValueFromSubquery<T> (IProvider provider, GqlQueryState gqlQueryState)
 		{
 			try {
 				provider.Initialize (gqlQueryState);
 
-				return ExpressionBridge.ConvertFromOld<T> (provider.Record.Columns [0]);
+				return BuildColumnRetriever<T> () (provider.Record.NewColumns [0]);
 			} finally {
 				provider.Uninitialize ();
 			}
@@ -819,11 +855,11 @@ namespace FxGqlLib
 			IProvider provider = ParseSubquery (parentProvider, subqueryTree);
 			provider = new TopProvider (provider, (qs) => 1);
 
-			Type[] types = provider.GetColumnTypes ();
+			Type[] types = provider.GetNewColumnTypes ();
 			if (types.Length != 1) 
 				throw new InvalidOperationException ("Subquery should contain only 1 column");
 			
-			Type type = ExpressionBridge.GetNewType (types [0]);
+			Type type = types [0];
 
 			return System.Linq.Expressions.Expression.Call (
 				GetValueFromSubqueryMethod.MakeGenericMethod (type),
@@ -844,14 +880,12 @@ namespace FxGqlLib
 			string variableName = expressionTree.GetChild (0).Text;
 
 			Type type;
-			if (!variableTypes.TryGetValue (variableName, out type)) {
+			if (!variableNewTypes.TryGetValue (variableName, out type)) {
 				Variable variable;
 				if (!gqlEngineState.Variables.TryGetValue (variableName, out variable))
 					throw new ParserException (string.Format ("Variable {0} not declared", variable), expressionTree);
 				type = variable.Type;
 			}
-
-			type = ExpressionBridge.GetNewType (type);
 
 			MethodInfo GetVariableValueMethodSpecialized = GetVariableValueMethod.MakeGenericMethod (type);
 
@@ -867,7 +901,7 @@ namespace FxGqlLib
 			if (!gqlQueryState.Variables.TryGetValue (variableName, out variable))
 				throw new InvalidOperationException (string.Format ("Variable '{0}' not declared", variableName));
 
-			return ExpressionBridge.ConvertFromOld<T> (variable.Value);
+			return BuildColumnRetriever<T> () (variable.NewValue);
 		}
 
 		static PropertyInfo GqlQueryStateRecordProperty = typeof(GqlQueryState).GetProperty ("Record");
@@ -1005,7 +1039,7 @@ namespace FxGqlLib
 
 		internal System.Linq.Expressions.Expression ConstructNewStaticColumnExpression (IProvider provider, int columnOrdinal)
 		{
-			Type type = ExpressionBridge.GetNewType (provider.GetColumnTypes () [columnOrdinal]);
+			Type type = provider.GetNewColumnTypes () [columnOrdinal];
 
 			return 
 				System.Linq.Expressions.Expression.Field (

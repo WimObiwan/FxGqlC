@@ -23,6 +23,7 @@ namespace FxGqlLib
 
 			GqlQueryState gqlQueryState = new GqlQueryState (gqlEngineState);
 			variable.Value = this.expression.EvaluateAsData (gqlQueryState);
+			variable.NewValue.Overwrite (variable.Value);
 		}
         #endregion
 	}

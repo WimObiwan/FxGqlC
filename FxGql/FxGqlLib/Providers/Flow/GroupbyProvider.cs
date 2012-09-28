@@ -97,7 +97,18 @@ namespace FxGqlLib
 			
 			return types;
 		}
-
+		
+		public Type[] GetNewColumnTypes ()
+		{
+			Type[] types = new Type[outputColumns.Length];
+			
+			for (int i = 0; i < outputColumns.Length; i++) {
+				types [i] = ExpressionBridge.GetNewType (outputColumns [i].GetResultType ());
+			}
+			
+			return types;
+		}
+		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			this.gqlQueryState = gqlQueryState;

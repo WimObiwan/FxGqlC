@@ -43,7 +43,12 @@ namespace FxGqlLib
 		{
 			return new Type[] { typeof(DataString) };
 		}
-
+		
+		public Type[] GetNewColumnTypes ()
+		{
+			return new Type[] { typeof(string) };
+		}
+		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			this.gqlQueryState = gqlQueryState;

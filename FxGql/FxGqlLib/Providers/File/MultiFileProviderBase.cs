@@ -37,7 +37,12 @@ namespace FxGqlLib
 		{
 			return new Type[] { typeof(DataString) };
 		}
-
+		
+		public Type[] GetNewColumnTypes ()
+		{
+			return new Type[] { typeof(string) };
+		}
+		
 		public abstract void OnInitialize (GqlQueryState gqlQueryState, out string[] files, out long skip);
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
