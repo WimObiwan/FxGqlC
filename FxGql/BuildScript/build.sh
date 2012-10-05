@@ -52,7 +52,7 @@ git add ./FxGql/FxGqlC/AssemblyInfo.cs
 git commit -m "$version"
 git push
 echo "Increased version to $version"
-git tag -a -f "$version" -m "$version"
+git tag -a -f -m "$version" "$version"
 git push --tags
 
 echo $version
