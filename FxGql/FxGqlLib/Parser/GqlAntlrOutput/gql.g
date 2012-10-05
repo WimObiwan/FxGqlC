@@ -561,7 +561,7 @@ VARIABLE
 	;
 
 NUMBER
-	: DIGIT+
+	: DIGIT+ ('k' | 'M' | 'G' | 'T' | 'P' | 'E')?
 	;
 
 WS

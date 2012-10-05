@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// $ANTLR 3.4 C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g 2012-10-05 14:21:04
+// $ANTLR 3.4 C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g 2012-10-05 14:30:43
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -1875,7 +1875,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: groupby_clause, column_list, bottom_clause, distinct_clause, into_clause, having_clause, top_clause, from_clause, where_clause
+				// elements: from_clause, top_clause, groupby_clause, column_list, bottom_clause, having_clause, distinct_clause, into_clause, where_clause
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -2922,7 +2922,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: SIMPLE_FILE, expression
+				// elements: expression, SIMPLE_FILE
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -4891,7 +4891,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: file_option_value, file_option_name
+			// elements: file_option_name, file_option_value
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -7046,7 +7046,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: declaration_list, view_name, select_command
+			// elements: select_command, view_name, declaration_list
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -7606,7 +7606,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: expression, variable
+			// elements: variable, expression
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -8979,7 +8979,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						{
 						// AST REWRITE
-						// elements: expression_7, op_7, b
+						// elements: expression_7, b, op_7
 						// token labels: 
 						// rule labels: retval, b
 						// token list labels: 
@@ -9131,7 +9131,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						{
 						// AST REWRITE
-						// elements: expression_7, expression_list_or_select_command
+						// elements: expression_list_or_select_command, expression_7
 						// token labels: 
 						// rule labels: retval
 						// token list labels: 
@@ -9473,7 +9473,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						{
 						// AST REWRITE
-						// elements: expression_7, op_4, expression_list_or_select_command
+						// elements: op_4, expression_list_or_select_command, expression_7
 						// token labels: 
 						// rule labels: retval
 						// token list labels: 
@@ -9603,7 +9603,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						{
 						// AST REWRITE
-						// elements: expression_list_or_select_command, op_4, expression_7
+						// elements: expression_list_or_select_command, expression_7, op_4
 						// token labels: 
 						// rule labels: retval
 						// token list labels: 
@@ -10038,7 +10038,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 					{
 					// AST REWRITE
-					// elements: op_6, b, expression_6
+					// elements: b, expression_6, op_6
 					// token labels: 
 					// rule labels: retval, b
 					// token list labels: 
@@ -10288,7 +10288,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: expression_5, op_5
+				// elements: op_5, expression_5
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -11907,7 +11907,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 					{
 					// AST REWRITE
-					// elements: b, expression_3, op_3
+					// elements: expression_3, op_3, b
 					// token labels: 
 					// rule labels: retval, b
 					// token list labels: 
@@ -12463,7 +12463,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 					{
 					// AST REWRITE
-					// elements: b, expression_2, op_2
+					// elements: expression_2, op_2, b
 					// token labels: 
 					// rule labels: retval, b
 					// token list labels: 
@@ -12850,7 +12850,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: expression_1, op_1
+				// elements: op_1, expression_1
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -15666,7 +15666,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: TOKEN, expression
+				// elements: expression, TOKEN
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -16442,7 +16442,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: column_name, table_alias
+				// elements: table_alias, column_name
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -17158,7 +17158,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: expression, TOKEN, STRING
+				// elements: TOKEN, expression, STRING
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -17619,7 +17619,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: expression, datepart, DATEADD
+				// elements: datepart, expression, DATEADD
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -18145,7 +18145,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: DATEPART, datepart, expression
+				// elements: datepart, DATEPART, expression
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -18834,7 +18834,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: expression, case_else, case_when
+			// elements: expression, case_when, case_else
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 

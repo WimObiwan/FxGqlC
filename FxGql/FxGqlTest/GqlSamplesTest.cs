@@ -462,6 +462,8 @@ namespace FxGqlTest
                 "0FE5F56203BC4BC543402061628C85DF046C637918C3724390F97C3C39159CAD");
 			TestGql ("select 17, '<this is a test>'", 
                 "A71433033AF787897648946340A9361E32A8098E83F4C11E4E434E8660D01EC8");
+			TestGql ("SELECT 1, 3k, 6M, 9G, 12T, 15P, 1E",
+			         "34325202EFAEED93077E7EA936755E8C5D9794545BA73F6E6F53DC97D350A491");
 
 			// Select from text-files
 			TestFile ("SampleFiles/AirportCodes.csv", 
@@ -539,6 +541,12 @@ namespace FxGqlTest
 			         "2F60626813A0DFD2F19698B2351EFEFCBE9DB962F5D3D8F8ABDEB522EC96D8FF");
 			TestGql ("select top 20 bottom 15 * from ['SampleFiles/AirportCodes.csv']",
 			         "37E8C96FD7B3DF20E7ED94A7F147003983C42A4013620C2D7D9FF5C39D29C3D4");
+			TestGql ("select top 0k * from ['SampleFiles/AirportCodes.csv']",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select top 1k * from ['SampleFiles/AirportCodes.csv']",
+			         "55751FA2F9AE687FDD0E839CF7352E8C804D52F136F12608499851C0DCC5C2DF");
+			TestGql ("select top 1M * from ['SampleFiles/AirportCodes.csv']",
+			         "34FDBAA2EB778B55E3174213B9B8282E7F5FA78EF68C22A046572F825F9473F2");
 
 			// DISTINCT clause
 			TestGql ("select * from (select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv']) where contains($line, 'Canada')",
@@ -1738,6 +1746,7 @@ namespace FxGqlTest
 //select * into ['insert into MyTable (col1, col2) values (?, ?)' -provider='System.Data.SqlClient' -connectionstring='Data Source=(local);Initial Catalog=cars;Integrated Security=SSPI'] from [*.log]
 //-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateDataAdapter, DbDataAdapter.InsertCommand,...
 //select * from ['*.log' -provider='files']  --default provider = filesystem
+
 
 			return failed == 0;
 		}		
