@@ -38,6 +38,19 @@ namespace FxGqlLib
 			}
 		}
 		
+		public ProviderRecord Clone ()
+		{
+			ProviderRecord record = new ProviderRecord (provider);
+			record.LineNo = this.LineNo;
+			record.TotalLineNo = this.TotalLineNo;
+			record.Columns = (IData[])this.Columns.Clone ();
+			if (this.Columns == this.OriginalColumns)
+				record.OriginalColumns = record.Columns;
+			else
+				record.OriginalColumns = (IData[])this.OriginalColumns.Clone ();
+			return record;
+		}
+		
 		public ColumnName[] ColumnTitles { get { return provider.GetColumnNames (); } }
 
 		public string Source { get; set; }

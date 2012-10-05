@@ -66,7 +66,38 @@ namespace FxGqlLib
 				text = expressionNumberTree.GetChild (0).Text;
 			else
 				text = expressionNumberTree.GetChild (0).Text + expressionNumberTree.GetChild (1).Text;
-			return new ConstExpression<DataInteger> (long.Parse (text));
+
+			long multiplier = 1;
+			if (text.Length > 0) {
+				char suffix = text [text.Length - 1];
+				if (!char.IsDigit (suffix)) {
+					switch (suffix) {
+					case 'k':
+						multiplier = 1000L;
+						break;
+					case 'M':
+						multiplier = 1000L * 1000;
+						break;
+					case 'G':
+						multiplier = 1000L * 1000 * 1000;
+						break;
+					case 'T':
+						multiplier = 1000L * 1000 * 1000 * 1000;
+						break;
+					case 'P':
+						multiplier = 1000L * 1000 * 1000 * 1000 * 1000;
+						break;
+					case 'E':
+						multiplier = 1000L * 1000 * 1000 * 1000 * 1000 * 1000;
+						break;
+					default:
+						throw new Exception (string.Format ("Unknown number suffix '{0}'", suffix));
+					}
+					text = text.Substring (0, text.Length - 1);
+				}
+			}
+
+			return new ConstExpression<DataInteger> (long.Parse (text) * multiplier);
 		}
 
 		class Token<T> : IExpression

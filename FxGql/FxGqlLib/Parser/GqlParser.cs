@@ -273,12 +273,21 @@ namespace FxGqlLib
 			// TOP
 			System.Linq.Expressions.Expression<Func<GqlQueryState, long>> topExpression;
 			if (enumerator.Current != null && enumerator.Current.Text == "T_TOP") {
-				topExpression = ParseTopClause (enumerator.Current);
+				topExpression = ParseTopOrBottomClause (enumerator.Current);
 				enumerator.MoveNext ();
 			} else {
 				topExpression = null;
 			}
 
+			// BOTTOM
+			System.Linq.Expressions.Expression<Func<GqlQueryState, long>> bottomExpression;
+			if (enumerator.Current != null && enumerator.Current.Text == "T_BOTTOM") {
+				bottomExpression = ParseTopOrBottomClause (enumerator.Current);
+				enumerator.MoveNext ();
+			} else {
+				bottomExpression = null;
+			}
+			
 			// columns
 			if (enumerator.Current == null)
 				throw new NotEnoughSubTokensAntlrException (selectSimpleTree);
@@ -370,6 +379,9 @@ namespace FxGqlLib
 
 				if (topExpression != null)
 					provider = new TopProvider (provider, topExpression);
+
+				if (bottomExpression != null)
+					provider = new BottomProvider (provider, bottomExpression);
 			} else {
 				provider = new NullProvider ();
             
@@ -381,10 +393,16 @@ namespace FxGqlLib
                 
 				if (topExpression != null) 
 					throw new ParserException (
-                        "TOP clause not allowed without a FROM clause.",
-                        selectSimpleTree
+						"TOP clause not allowed without a FROM clause.",
+						selectSimpleTree
 					);
-
+				
+				if (bottomExpression != null) 
+					throw new ParserException (
+						"BOTTOM clause not allowed without a FROM clause.",
+						selectSimpleTree
+					);
+				
 				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE")
 					throw new ParserException (
                         "WHERE clause not allowed without a FROM clause.",
@@ -409,13 +427,13 @@ namespace FxGqlLib
 			return provider;
 		}
         
-		System.Linq.Expressions.Expression<Func<GqlQueryState, long>> ParseTopClause (ITree topClauseTree)
+		System.Linq.Expressions.Expression<Func<GqlQueryState, long>> ParseTopOrBottomClause (ITree topClauseTree)
 		{
 			ITree tree = GetSingleChild (topClauseTree);
 
 			return ParseFuncExpression<long> (null, tree);
 		}
-        
+		
 		IList<Column> ParseColumnList (IProvider provider, ITree outputListTree)
 		{
 			List<Column > outputColumnExpressions = new List<Column> ();
