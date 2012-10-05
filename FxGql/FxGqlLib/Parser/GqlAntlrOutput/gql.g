@@ -16,6 +16,7 @@ tokens
 	T_ALL;
 	T_DISTINCT;
 	T_TOP;
+	T_BOTTOM;
 	T_COLUMNLIST;
 	T_EXPRESSIONLIST;
 	T_INTO;
@@ -144,8 +145,8 @@ select_command_union
 	
 select_command_simple
 	: ('(') => subquery
-	| SELECT (WS distinct_clause)? (WS top_clause)? WS column_list (WS into_clause)? (WS from_clause)? (WS where_clause)? (WS groupby_clause)? (WS having_clause)?
-		-> ^(T_SELECT_SIMPLE distinct_clause? top_clause? column_list into_clause? from_clause? where_clause? groupby_clause? having_clause?)
+	| SELECT (WS distinct_clause)? (WS top_clause)? (WS bottom_clause)? WS column_list (WS into_clause)? (WS from_clause)? (WS where_clause)? (WS groupby_clause)? (WS having_clause)?
+		-> ^(T_SELECT_SIMPLE distinct_clause? top_clause? bottom_clause? column_list into_clause? from_clause? where_clause? groupby_clause? having_clause?)
 	;
 	
 distinct_clause
@@ -154,8 +155,11 @@ distinct_clause
 	;
 	
 top_clause
-	: TOP WS expression_atom
-	-> ^(T_TOP expression_atom)
+	: TOP WS expression_atom -> ^(T_TOP expression_atom)
+	;
+		
+bottom_clause
+	: BOTTOM WS expression_atom -> ^(T_BOTTOM expression_atom)
 	;
 		
 column_list
@@ -501,6 +505,7 @@ ALL	: A L L;
 DISTINCT
 	: D I S T I N C T;
 TOP	: T O P;
+BOTTOM	: B O T T O M;
 INTO	: I N T O;
 FROM 	: F R O M;
 WHERE 	: W H E R E;

@@ -420,8 +420,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engineHash.Execute (command);
-						testSummaryWriter.WriteLine (command);
+					engineHash.Execute (command);
+					testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -534,8 +534,12 @@ namespace FxGqlTest
             
 			// TOP clause
 			TestGql ("select top 15 * from ['SampleFiles/AirportCodes.csv']",
-                "A2D73DC9E4603A0BFAE02DF9245C1EECA79D50F5EC5A844F8A1357D26EFB78B9");
-            
+                	 "A2D73DC9E4603A0BFAE02DF9245C1EECA79D50F5EC5A844F8A1357D26EFB78B9");
+			TestGql ("select bottom 15 * from ['SampleFiles/AirportCodes.csv']",
+			         "2F60626813A0DFD2F19698B2351EFEFCBE9DB962F5D3D8F8ABDEB522EC96D8FF");
+			TestGql ("select top 20 bottom 15 * from ['SampleFiles/AirportCodes.csv']",
+			         "37E8C96FD7B3DF20E7ED94A7F147003983C42A4013620C2D7D9FF5C39D29C3D4");
+
 			// DISTINCT clause
 			TestGql ("select * from (select distinct matchregex($line, ', (.*?) (?:- .*)?\"') from ['SampleFiles/AirportCodes.csv']) where contains($line, 'Canada')",
                 "68ED9EB7F6C5973ED46F3C15CBC48607501042BF4A85E675D563EF1759FBCF80");
