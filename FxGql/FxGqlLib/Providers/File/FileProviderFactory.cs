@@ -28,10 +28,20 @@ namespace FxGqlLib
 		{
 			IProvider provider;
 				
-			if (System.IO.Path.GetExtension (fileName).ToUpper () == ".ZIP")
+			string extension = System.IO.Path.GetExtension (fileName).ToUpper ();
+			switch (extension) {
+			case ".ZIP":
+			case ".RAR":
+			case ".TAR":
+			case ".GZIP":
+			case ".GZ":
+			case ".7Z":
 				provider = new ZipFileProvider (fileName, skip);
-			else
+				break;
+			default:
 				provider = new FileProvider (fileName, skip);
+				break;
+			}
 			
 			return provider;
 		}

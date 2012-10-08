@@ -1,7 +1,9 @@
 using System;
 using System.IO;
-using ICSharpCode.SharpZipLib.Zip;
 using System.Collections;
+using System.Collections.Generic;
+using SharpCompress.Archive;
+using SharpCompress.Reader;
 
 namespace FxGqlLib
 {
@@ -10,8 +12,9 @@ namespace FxGqlLib
 		readonly string fileName;
 		readonly long skip;
 
-		ZipFile zipFile;
-		long currentFile;
+		FileStream zipStream;
+		IArchive zipFile;
+		IReader zipFileReader;
 		StreamReader streamReader;
 		ProviderRecord record;
 		DataString dataString;
@@ -52,9 +55,11 @@ namespace FxGqlLib
 			gqlEngineExecutionState = gqlQueryState.CurrentExecutionState;
 			
 			string fileName = Path.Combine (gqlQueryState.CurrentDirectory, this.fileName);
-			zipFile = new ZipFile (new FileStream (fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 32 * 1024));
-			zipFile.UseZip64 = UseZip64.On;
-			streamReader = new StreamReader (new AsyncStreamReader (zipFile.GetInputStream (currentFile), 32 * 1024));
+
+			zipStream = new FileStream (fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 32 * 1024);
+			zipFile = ArchiveFactory.Open (zipStream);
+			zipFileReader = zipFile.ExtractAllEntries ();
+
 			record = new ProviderRecord (this, true);
 			record.Source = fileName;
 			record.Columns [0] = dataString;
@@ -67,6 +72,8 @@ namespace FxGqlLib
 					return;
 				}
 			}
+
+			OpenNextEntry ();
 		}
 
 		public bool GetNextRecord ()
@@ -79,14 +86,13 @@ namespace FxGqlLib
 						
 			string text = streamReader.ReadLine ();
 			while (text == null) {
-				currentFile++;
-				if (currentFile >= zipFile.Count)
+				OpenNextEntry ();
+				if (streamReader == null)
 					return false;
-				streamReader = new StreamReader (zipFile.GetInputStream (currentFile));
 
 				for (long i = 0; i < skip; i++)
 					if (streamReader.ReadLine () == null) 
-						return false;
+						continue;
 	
 				text = streamReader.ReadLine ();
 			}
@@ -103,14 +109,19 @@ namespace FxGqlLib
 		public void Uninitialize ()
 		{
 			record = null;
-			if (zipFile != null) {
-				zipFile.Close ();
-				zipFile = null;
-			}
 			if (streamReader != null) {
 				streamReader.Close ();
 				streamReader.Dispose ();
 				streamReader = null;
+			}
+			if (zipFile != null) {
+				zipFile.Dispose ();
+				zipFile = null;
+			}
+			if (zipStream != null) {
+				zipStream.Close ();
+				zipStream.Dispose ();
+				zipStream = null;
 			}
 			gqlEngineExecutionState = null;
 		}
@@ -129,6 +140,17 @@ namespace FxGqlLib
 				streamReader.Dispose ();
 		}
 		#endregion
+
+		void OpenNextEntry ()
+		{
+			while (zipFileReader.MoveToNextEntry ()) {
+				if (!zipFileReader.Entry.IsDirectory) {
+					streamReader = new StreamReader (new AsyncStreamReader (zipFileReader.OpenEntryStream (), 32 * 1024));
+					return;
+				}
+			}
+			streamReader = null;
+		}
 	}
 }
 
