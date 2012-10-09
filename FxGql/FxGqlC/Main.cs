@@ -892,8 +892,9 @@ namespace FxGqlC
 		{
 			string domainName = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties ().DomainName;
 			string hostName = System.Net.Dns.GetHostName ();
+			if (domainName == "(local)") domainName = "";
 			string fqdn = "";
-			if (!hostName.Contains (domainName))
+			if (!hostName.Contains (domainName) && domainName != "")
 				fqdn = hostName + "." + domainName;
 			else
 				fqdn = hostName;
