@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using SharpCompress.Archive;
 using SharpCompress.Reader;
+using SharpCompress.Common;
 
 namespace FxGqlLib
 {
@@ -15,6 +16,7 @@ namespace FxGqlLib
 		FileStream zipStream;
 		IArchive zipFile;
 		IReader zipFileReader;
+		EntryStream entryStream;
 		StreamReader streamReader;
 		ProviderRecord record;
 		DataString dataString;
@@ -109,6 +111,12 @@ namespace FxGqlLib
 		public void Uninitialize ()
 		{
 			record = null;
+			if (entryStream != null) {
+				entryStream.SkipEntry();
+				entryStream.Close();
+				entryStream.Dispose();
+				entryStream = null;
+			}
 			if (streamReader != null) {
 				streamReader.Close ();
 				streamReader.Dispose ();
@@ -143,9 +151,21 @@ namespace FxGqlLib
 
 		void OpenNextEntry ()
 		{
+			if (entryStream != null) {
+				entryStream.SkipEntry();
+				entryStream.Close();
+				entryStream.Dispose();
+				entryStream = null;
+			}
+			if (streamReader != null) {
+				streamReader.Close();
+				streamReader.Dispose();
+				streamReader = null;
+			}
 			while (zipFileReader.MoveToNextEntry ()) {
 				if (!zipFileReader.Entry.IsDirectory) {
-					streamReader = new StreamReader (new AsyncStreamReader (zipFileReader.OpenEntryStream (), 32 * 1024));
+					entryStream = zipFileReader.OpenEntryStream ();
+					streamReader = new StreamReader (new AsyncStreamReader (entryStream, 32 * 1024));
 					return;
 				}
 			}
