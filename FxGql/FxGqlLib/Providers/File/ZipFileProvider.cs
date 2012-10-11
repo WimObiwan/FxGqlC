@@ -112,9 +112,9 @@ namespace FxGqlLib
 		{
 			record = null;
 			if (entryStream != null) {
-				entryStream.SkipEntry();
-				entryStream.Close();
-				entryStream.Dispose();
+				entryStream.SkipEntry (true);
+				entryStream.Close ();
+				entryStream.Dispose ();
 				entryStream = null;
 			}
 			if (streamReader != null) {
@@ -152,14 +152,14 @@ namespace FxGqlLib
 		void OpenNextEntry ()
 		{
 			if (entryStream != null) {
-				entryStream.SkipEntry();
-				entryStream.Close();
-				entryStream.Dispose();
+				entryStream.SkipEntry ();
+				entryStream.Close ();
+				entryStream.Dispose ();
 				entryStream = null;
 			}
 			if (streamReader != null) {
-				streamReader.Close();
-				streamReader.Dispose();
+				streamReader.Close ();
+				streamReader.Dispose ();
 				streamReader = null;
 			}
 			while (zipFileReader.MoveToNextEntry ()) {
