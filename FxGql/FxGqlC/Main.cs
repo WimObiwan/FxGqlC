@@ -689,7 +689,7 @@ namespace FxGqlC
 							//Console.WriteLine (lastRelease);
 							//Console.WriteLine (version);
 							//Console.WriteLine (url);
-							if (CompareVersion(lastRelease, version) > 0 && url != null) {
+							if (CompareVersion (lastRelease, version) > 0 && url != null) {
 								string fileName = null;
 								try {
 									fileName = System.IO.Path.GetTempFileName ();
@@ -727,7 +727,7 @@ namespace FxGqlC
 							
 										try {
 											if (Path.GetExtension (appDirFile).Equals (".exe", StringComparison.InvariantCultureIgnoreCase)) {
-												Process ExeScript = new Process();
+												Process ExeScript = new Process ();
 												ExeScript.StartInfo.FileName = "chmod";
 												ExeScript.StartInfo.Arguments = "+x \"" + appDirFile + "\"";
 												ExeScript.Start ();
@@ -792,7 +792,16 @@ namespace FxGqlC
 								stateName = "E";
 								break;
 							}
-							string requestPath = "%2F" + stateName + "%2F" + version;
+
+							// Replace second '.'
+							string requestPath = version;
+							int pos = version.IndexOf ('.');
+							if (pos != -1)
+								pos = version.IndexOf ('.', pos + 1);
+							if (pos != -1)
+								requestPath = version.Substring (0, pos) + '/' + version.Substring (pos + 1);
+
+							requestPath = "%2F" + stateName + "%2F" + requestPath;
 							string requestName = stateName + "%20" + version;
 
 							string statsRequest = "http://www.google-analytics.com/__utm.gif" +
@@ -833,38 +842,38 @@ namespace FxGqlC
 
 		static int CompareVersion (string lastRelease, string version)
 		{
-			string [] lastReleaseItems = lastRelease.Split('.');
-			string [] versionItems = version.Split('.');
+			string [] lastReleaseItems = lastRelease.Split ('.');
+			string [] versionItems = version.Split ('.');
 			
 			int a, b, comp;
-			if (int.TryParse(lastReleaseItems[0].Trim('v'), out a)
-			    && int.TryParse(versionItems[0].Trim('v'), out b)) {
-				comp = a.CompareTo(b);
+			if (int.TryParse (lastReleaseItems [0].Trim ('v'), out a)
+				&& int.TryParse (versionItems [0].Trim ('v'), out b)) {
+				comp = a.CompareTo (b);
 				if (comp != 0)
 					return comp;
 			}
 			
-			if (int.TryParse(lastReleaseItems[1], out a)
-			    && int.TryParse(versionItems[1], out b)) {
-				comp = a.CompareTo(b);
+			if (int.TryParse (lastReleaseItems [1], out a)
+				&& int.TryParse (versionItems [1], out b)) {
+				comp = a.CompareTo (b);
 				if (comp != 0)
 					return comp;
 			}
 			
-			if (lastReleaseItems[2].StartsWith("alpha"))
+			if (lastReleaseItems [2].StartsWith ("alpha"))
 				a = 0;
-			else if (lastReleaseItems[2].StartsWith("beta"))
+			else if (lastReleaseItems [2].StartsWith ("beta"))
 				a = 1;
-			else if (lastReleaseItems[2].StartsWith("rc"))
+			else if (lastReleaseItems [2].StartsWith ("rc"))
 				a = 2;
 			else
 				a = 3;
 
-			if (versionItems[2].StartsWith("alpha"))
+			if (versionItems [2].StartsWith ("alpha"))
 				b = 0;
-			else if (versionItems[2].StartsWith("beta"))
+			else if (versionItems [2].StartsWith ("beta"))
 				b = 1;
-			else if (versionItems[2].StartsWith("rc"))
+			else if (versionItems [2].StartsWith ("rc"))
 				b = 2;
 			else
 				b = 3;
@@ -874,25 +883,26 @@ namespace FxGqlC
 				return comp;
 			
 			Match matchA, matchB;
-			matchA = Regex.Match (lastReleaseItems[2], @"\d+");
-			matchB = Regex.Match (versionItems[2], @"\d+");
+			matchA = Regex.Match (lastReleaseItems [2], @"\d+");
+			matchB = Regex.Match (versionItems [2], @"\d+");
 			
 			if (matchA.Success && matchB.Success
-			    && int.TryParse (matchA.Value, out a)
-			    && int.TryParse (matchB.Value, out b)) {
-				comp = a.CompareTo(b);
+				&& int.TryParse (matchA.Value, out a)
+				&& int.TryParse (matchB.Value, out b)) {
+				comp = a.CompareTo (b);
 				if (comp != 0)
 					return comp;
 			}
 			
-			return lastRelease.CompareTo(version);
+			return lastRelease.CompareTo (version);
 		}
 
 		public static string GetFQDN ()
 		{
 			string domainName = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties ().DomainName;
 			string hostName = System.Net.Dns.GetHostName ();
-			if (domainName == "(local)") domainName = "";
+			if (domainName == "(local)")
+				domainName = "";
 			string fqdn = "";
 			if (!hostName.Contains (domainName) && domainName != "")
 				fqdn = hostName + "." + domainName;
