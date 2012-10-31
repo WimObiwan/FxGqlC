@@ -188,16 +188,19 @@ from_clause
 from_clause_item
 	: STRING -> ^(T_FILE STRING)
 	| file
+	| (subquery WS SIMPLEPIVOT) => simplepivot
 	| subquery
 	| view_name (WS? '(' expression_list? ')')? -> ^(T_VIEW view_name expression_list?)
 	;
+simplepivot
+	: subquery WS SIMPLEPIVOT WS '(' WS? column_list WS FOR WS expression_atom WS IN WS '(' WS? expression_list WS? ')' (WS WITH WS '(' WS? with_options WS? ')') WS? ')';
 	
 subquery
 	: '(' WS? select_command WS? ')' -> ^(T_SUBQUERY select_command)
 	;
 
 file
-	: '[' WS? file_spec (WS file_option)* WS? ']' -> ^(T_FILE file_spec file_option*) 
+	: '[' WS? file_spec (WS file_options)? WS? ']' -> ^(T_FILE file_spec file_options) 
 	| '[' WS? subquery WS? ']' -> ^(T_FILESUBQUERY subquery)
 	| SIMPLE_FILE -> ^(T_FILE SIMPLE_FILE)
 	;
@@ -205,6 +208,10 @@ file
 file_spec
 	: string
 	| variable
+	;
+	
+file_options
+	: file_option (WS file_option)*
 	;
 	
 file_option
@@ -217,6 +224,14 @@ file_option_name
 	
 file_option_value
 	: TOKEN | STRING | NUMBER | variable
+	;
+	
+with_options
+	: with_option (WS? ',' WS? with_option)*
+	;
+	
+with_option
+	: file_option_name ( WS? '=' WS? file_option_value)? -> ^(T_FILEOPTION file_option_name file_option_value?)
 	;
 	
 where_clause
@@ -547,6 +562,10 @@ DATEADD : D A T E A D D;
 DATEDIFF: D A T E D I F F;
 DATEPART: D A T E P A R T;
 UNION 	: U N I O N;
+SIMPLEPIVOT   
+	: S I M P L E P I V O T;
+FOR	: F O R;
+WITH	: W I T H;
 
 TOKEN
 	: ('A'..'Z' | 'a'..'z' | '_') ('A'..'Z' | 'a'..'z' | '_' | '0'..'9')*
