@@ -930,8 +930,13 @@ namespace FxGqlC
 
 		static int GetUniqueId ()
 		{
-			var u = new System.Net.Sockets.UdpClient ("www.google-analytics.com", 1);		
-			var localAddr = ((System.Net.IPEndPoint)u.Client.LocalEndPoint).Address;
+			System.Net.IPAddress localAddr;
+			try {
+				var u = new System.Net.Sockets.UdpClient ("www.google-analytics.com", 1);		
+				localAddr = ((System.Net.IPEndPoint)u.Client.LocalEndPoint).Address;
+			} catch {
+				localAddr = System.Net.IPAddress.None;
+			}
 
 			foreach (var nic in System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()) {
 				var ipProps = nic.GetIPProperties ();
