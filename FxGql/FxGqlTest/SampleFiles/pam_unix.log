@@ -1,0 +1,104 @@
+﻿Nov 18 20:17:02 Medion CRON[31571]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 18 20:17:02 Medion CRON[31571]: pam_unix(cron:session): session closed for user root
+Nov 18 20:39:01 Medion CRON[31638]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 18 20:39:06 Medion CRON[31638]: pam_unix(cron:session): session closed for user root
+Nov 18 21:09:02 Medion CRON[31720]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 18 21:09:05 Medion CRON[31720]: pam_unix(cron:session): session closed for user root
+Nov 18 21:10:16 Medion su[31745]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 18 21:10:18 Medion su[31745]: pam_unix(su:session): session closed for user wim
+Nov 18 21:17:01 Medion CRON[31870]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 18 21:17:01 Medion CRON[31870]: pam_unix(cron:session): session closed for user root
+Nov 18 21:39:01 Medion CRON[31951]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 18 21:39:03 Medion CRON[31951]: pam_unix(cron:session): session closed for user root
+Nov 18 21:42:47 Medion su[31987]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 18 21:42:47 Medion su[31987]: pam_unix(su:session): session closed for user wim
+Nov 18 22:09:02 Medion CRON[32162]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 18 22:09:04 Medion CRON[32162]: pam_unix(cron:session): session closed for user root
+Nov 18 22:17:01 Medion CRON[32220]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 18 22:17:01 Medion CRON[32220]: pam_unix(cron:session): session closed for user root
+Nov 18 22:30:00 Medion su[32292]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 18 22:30:00 Medion su[32292]: pam_unix(su:session): session closed for user wim
+Nov 19 18:38:40 Medion su[32704]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 18:38:40 Medion su[32704]: pam_unix(su:session): session closed for user wim
+Nov 19 18:38:40 Medion su[32735]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 18:38:40 Medion su[32735]: pam_unix(su:session): session closed for user wim
+Nov 19 18:39:25 Medion CRON[887]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 18:39:25 Medion CRON[887]: pam_unix(cron:session): session closed for user root
+Nov 19 18:40:13 Medion su[914]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 18:40:13 Medion su[914]: pam_unix(su:session): session closed for user wim
+Nov 19 18:59:04 Medion su[1354]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 18:59:04 Medion su[1354]: pam_unix(su:session): session closed for user wim
+Nov 19 19:02:24 Medion su[1849]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 19:02:24 Medion su[1849]: pam_unix(su:session): session closed for user wim
+Nov 19 19:02:24 Medion su[1976]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 19:02:24 Medion su[1976]: pam_unix(su:session): session closed for user wim
+Nov 19 19:06:29 Medion su[2299]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 19:06:29 Medion su[2299]: pam_unix(su:session): session closed for user wim
+Nov 19 19:31:36 Medion su[2785]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 19:31:36 Medion su[2785]: pam_unix(su:session): session closed for user wim
+Nov 19 19:31:36 Medion su[2985]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 19:31:36 Medion su[2985]: pam_unix(su:session): session closed for user wim
+Nov 19 19:31:45 Medion su[3327]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 19:31:45 Medion su[3327]: pam_unix(su:session): session closed for user wim
+Nov 19 19:31:46 Medion su[3460]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 19:31:46 Medion su[3460]: pam_unix(su:session): session closed for user wim
+Nov 19 19:31:50 Medion su[3500]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 19:31:50 Medion su[3500]: pam_unix(su:session): session closed for user wim
+Nov 19 19:39:01 Medion CRON[3563]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 19:39:01 Medion CRON[3563]: pam_unix(cron:session): session closed for user root
+Nov 19 20:03:06 Medion su[3689]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 20:03:07 Medion su[3689]: pam_unix(su:session): session closed for user wim
+Nov 19 20:09:01 Medion CRON[3763]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 20:09:01 Medion CRON[3763]: pam_unix(cron:session): session closed for user root
+Nov 19 20:17:01 Medion CRON[3813]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 20:17:01 Medion CRON[3813]: pam_unix(cron:session): session closed for user root
+Nov 19 20:20:52 Medion su[3845]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 20:20:52 Medion su[3845]: pam_unix(su:session): session closed for user wim
+Nov 19 20:39:01 Medion CRON[4194]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 20:39:04 Medion CRON[4194]: pam_unix(cron:session): session closed for user root
+Nov 19 21:09:01 Medion CRON[4643]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 21:09:03 Medion CRON[4643]: pam_unix(cron:session): session closed for user root
+Nov 19 21:17:01 Medion CRON[4665]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 21:17:02 Medion CRON[4665]: pam_unix(cron:session): session closed for user root
+Nov 19 21:39:01 Medion CRON[4928]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 21:39:03 Medion CRON[4928]: pam_unix(cron:session): session closed for user root
+Nov 19 22:09:01 Medion CRON[5366]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 22:09:02 Medion CRON[5366]: pam_unix(cron:session): session closed for user root
+Nov 19 22:17:01 Medion CRON[5471]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 22:17:01 Medion CRON[5471]: pam_unix(cron:session): session closed for user root
+Nov 19 22:39:01 Medion CRON[5609]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 22:39:01 Medion CRON[5609]: pam_unix(cron:session): session closed for user root
+Nov 19 22:45:33 Medion su[5660]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 22:45:34 Medion su[5660]: pam_unix(su:session): session closed for user wim
+Nov 19 22:45:35 Medion su[5801]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 22:45:35 Medion su[5801]: pam_unix(su:session): session closed for user wim
+Nov 19 22:49:15 Medion su[5980]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 22:49:15 Medion su[5980]: pam_unix(su:session): session closed for user wim
+Nov 19 23:09:01 Medion CRON[6844]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 23:09:02 Medion CRON[6844]: pam_unix(cron:session): session closed for user root
+Nov 19 23:17:01 Medion CRON[7564]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 23:17:01 Medion CRON[7564]: pam_unix(cron:session): session closed for user root
+Nov 19 23:39:01 Medion CRON[9255]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 19 23:39:02 Medion CRON[9255]: pam_unix(cron:session): session closed for user root
+Nov 19 23:42:05 Medion su[9288]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 19 23:42:05 Medion su[9288]: pam_unix(su:session): session closed for user wim
+Nov 20 19:14:27 Medion su[9708]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 20 19:14:27 Medion su[9708]: pam_unix(su:session): session closed for user wim
+Nov 20 19:14:27 Medion su[9747]: pam_unix(su:session): session opened for user wim by (uid=0)
+Nov 20 19:14:27 Medion su[9747]: pam_unix(su:session): session closed for user wim
+Nov 20 19:17:01 Medion CRON[10202]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 20 19:17:01 Medion CRON[10202]: pam_unix(cron:session): session closed for user root
+Nov 20 19:39:02 Medion CRON[11633]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 20 19:39:03 Medion CRON[11633]: pam_unix(cron:session): session closed for user root
+Nov 20 20:09:01 Medion CRON[12200]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 20 20:09:01 Medion CRON[12200]: pam_unix(cron:session): session closed for user root
+Nov 20 20:17:01 Medion CRON[12302]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 20 20:17:02 Medion CRON[12302]: pam_unix(cron:session): session closed for user root
+Nov 20 20:39:01 Medion CRON[12418]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 20 20:39:01 Medion CRON[12418]: pam_unix(cron:session): session closed for user root
+Nov 20 21:09:01 Medion CRON[12712]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 20 21:09:02 Medion CRON[12712]: pam_unix(cron:session): session closed for user root
+Nov 20 21:17:01 Medion CRON[12746]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 20 21:17:01 Medion CRON[12746]: pam_unix(cron:session): session closed for user root
+Nov 20 21:39:01 Medion CRON[13137]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 20 21:39:02 Medion CRON[13137]: pam_unix(cron:session): session closed for user root
