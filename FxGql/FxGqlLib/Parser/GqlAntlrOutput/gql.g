@@ -88,6 +88,7 @@ tokens
 	T_COUNT;
 	T_DISTINCTCOUNT;
 	T_DATEPART;
+	T_SIMPLEPIVOT;
 }
 
 @parser::namespace { FxGqlLib }
@@ -193,7 +194,9 @@ from_clause_item
 	| view_name (WS? '(' expression_list? ')')? -> ^(T_VIEW view_name expression_list?)
 	;
 simplepivot
-	: subquery WS SIMPLEPIVOT WS '(' WS? column_list WS FOR WS expression_atom WS IN WS '(' WS? expression_list WS? ')' (WS WITH WS '(' WS? with_options WS? ')') WS? ')';
+	: subquery WS SIMPLEPIVOT WS '(' WS? column_list WS 
+	FOR WS expression_atom WS IN WS '(' WS? expression_list WS? ')' (WS WITH WS '(' WS? with_options WS? ')')? WS? ')'
+	-> T_SIMPLEPIVOT subquery column_list expression_atom expression_list with_options?;
 	
 subquery
 	: '(' WS? select_command WS? ')' -> ^(T_SUBQUERY select_command)
