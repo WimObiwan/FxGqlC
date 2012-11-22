@@ -1747,6 +1747,12 @@ namespace FxGqlTest
 //-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateDataAdapter, DbDataAdapter.InsertCommand,...
 //select * from ['*.log' -provider='files']  --default provider = filesystem
 
+			TestGql (@"select * into ['#pam_unix' -heading=On -overwrite] from ['SampleFiles/pam_unix.log' -columns='^.*(?<Time>\d{2}\:\d{2}\:\d{2}).*\[(?<Pid>\d+)\].*session (?<Type>\w+).*$']",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql (@"select * from ['#pam_unix' -heading=On]",
+			         "EB845C91FE574C04D82159224D1922622038440017ED797DD47D18DDC87EA8FB");
+			TestGql (@"select * from (select * from ['#pam_unix' -heading=On])"
+			         + @" SIMPLEPIVOT ([Time] for [Type] in ('opened', 'closed'))");
 
 			return failed == 0;
 		}		

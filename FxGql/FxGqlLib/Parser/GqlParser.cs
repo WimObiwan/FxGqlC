@@ -513,6 +513,9 @@ namespace FxGqlLib
 				case "T_TABLE_ALIAS":
 					providerAlias = ParseProviderAlias (inputProviderTree);
 					continue;
+				case "T_SIMPLEPIVOT":
+					provider = ParseSimplePivot (inputProviderTree);
+					break;
 				default:
 					throw new UnexpectedTokenAntlrException (inputProviderTree);
 				}
@@ -953,6 +956,29 @@ namespace FxGqlLib
 				provider = new ParameterizedProvider (viewDefinition, parameters);
 
 			return provider;
+		}
+
+		IProvider ParseSimplePivot (ITree tree)
+		{
+			AssertAntlrToken (tree, "T_SIMPLEPIVOT", 4, 5);
+
+			var enumerator = new AntlrTreeChildEnumerable (tree).GetEnumerator ();
+			enumerator.MoveNext ();
+
+			var subquery = ParseSubquery (null, enumerator.Current);
+			enumerator.MoveNext ();
+
+			var columnList = ParseColumnList (subquery, enumerator.Current);
+			enumerator.MoveNext ();
+
+			var expression = ParseExpression (subquery, enumerator.Current);
+			enumerator.MoveNext ();
+
+			var expressionList = ParseExpressionList (subquery, enumerator.Current);
+			//enumerator.MoveNext ();
+
+			// Options...
+			throw new NotImplementedException();
 		}
 
 		string ParseViewName (ITree tree)

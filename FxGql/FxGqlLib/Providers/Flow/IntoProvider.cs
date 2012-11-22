@@ -191,7 +191,7 @@ namespace FxGqlLib
 					try {
 						if (!provider.GetNextRecord ())
 							break;
-					} catch (Exception x) {
+					} catch (InvalidOperationException x) {
 						gqlQueryState.Warnings.Add (
 						new Exception (string.Format ("Line ignored, {0}", x.Message), x)
 						);

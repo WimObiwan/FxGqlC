@@ -196,14 +196,15 @@ from_clause_item
 simplepivot
 	: subquery WS SIMPLEPIVOT WS '(' WS? column_list WS 
 	FOR WS expression_atom WS IN WS '(' WS? expression_list WS? ')' (WS WITH WS '(' WS? with_options WS? ')')? WS? ')'
-	-> T_SIMPLEPIVOT subquery column_list expression_atom expression_list with_options?;
+	-> ^(T_SIMPLEPIVOT subquery column_list expression_atom expression_list with_options?)
+	;
 	
 subquery
 	: '(' WS? select_command WS? ')' -> ^(T_SUBQUERY select_command)
 	;
 
 file
-	: '[' WS? file_spec (WS file_options)? WS? ']' -> ^(T_FILE file_spec file_options) 
+	: '[' WS? file_spec (WS file_options)? WS? ']' -> ^(T_FILE file_spec file_options?) 
 	| '[' WS? subquery WS? ']' -> ^(T_FILESUBQUERY subquery)
 	| SIMPLE_FILE -> ^(T_FILE SIMPLE_FILE)
 	;
@@ -214,7 +215,7 @@ file_spec
 	;
 	
 file_options
-	: file_option (WS file_option)*
+	: file_option (WS file_option)* -> file_option* 
 	;
 	
 file_option
