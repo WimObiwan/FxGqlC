@@ -173,12 +173,19 @@ namespace FxGqlC
 				Console.WriteLine ();
 				Console.WriteLine ("FxGqlC depends on (and/or contains redistributables of) these open source");
 				Console.WriteLine ("products:");
-				Console.WriteLine ("* SharpZipLib, licensed under GPLv2, Copyright 2001-2010 Mike Krueger, ");
-				Console.WriteLine ("  John Reilly.");
+				Console.WriteLine ("* SharpZipLib, GPLv2 license, Copyright 2001-2010 Mike Krueger, John Reilly.");
 				Console.WriteLine ("* Antlr v3, Antlr3 license (BSD), Copyright (c) 2010 Terence Parr.");
 				Console.WriteLine ("* Mono MCS getline.cs, MIT X11 / Apache License 2.0A,  Copyright 2008 Novell.");
+				Console.WriteLine ("* unRAR, Copyright Alexander Roshal. 'The unRAR sources cannot be used to");
+				Console.WriteLine ("  re-create the RAR compression algorithm, which is proprietary. Distribution");
+				Console.WriteLine ("  of modified unRAR sources in separate form or as a part of other software is");
+				Console.WriteLine ("  permitted, provided that it is clearly stated in the documentation and");
+				Console.WriteLine ("  source comments that the code may not be used to develop a RAR (WinRAR)");
+				Console.WriteLine ("  compatible archiver.'");
+				Console.WriteLine ("* JUnrar, GPL license, Copyright (c) 2007 innoSysTec (R) GmbH, Edmund Wagner.");
+				Console.WriteLine ("* SharpCompress, MsPL license, Copyright (c) Adam Hathcock.");
 				Console.WriteLine ();
-				Console.WriteLine ("Contact Information: Wim Devos, wim AT obiwan DOT be");
+				Console.WriteLine ("Contact Information: Wim Devos, wimobiwan+fxgqlc AT gmail DOT com");
 				Console.WriteLine ("===========================================================================");
 				return;
 			} else if (!nologo) {
