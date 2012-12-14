@@ -23,12 +23,14 @@ namespace FxGqlLib
 		class Key : ColumnsComparerKey
 		{
 			public IData[] OriginalColumns { get; set; }
+			public NewData[] NewOriginalColumns { get; set; }
 
 			public long LineNo { get; set; }
 
 			public string Source { get; set; }
 
 			public IData[] Columns { get; set; }
+			public NewData[] NewColumns { get; set; }
 		}
 		
 		readonly IProvider provider;
@@ -121,7 +123,12 @@ namespace FxGqlLib
 		{
 			return provider.GetColumnTypes ();
 		}
-		
+
+		public Type[] GetNewColumnTypes ()
+		{
+			return provider.GetNewColumnTypes ();
+		}
+
 		/// <summary>
 		/// Initialize the specified gqlQueryState.
 		/// </summary>
@@ -175,6 +182,8 @@ namespace FxGqlLib
 			record.Source = data [nextRecord].Source;
 			record.LineNo = data [nextRecord].LineNo;
 			record.Columns = data [nextRecord].Columns;
+			record.NewColumns = data [nextRecord].NewColumns;
+			record.NewOriginalColumns = data [nextRecord].NewOriginalColumns;
 			nextRecord++;
 
 			if (nextRecord >= data.Count) {
@@ -270,9 +279,11 @@ namespace FxGqlLib
 				Key key = new Key ();
 				key.Members = new IData[orderbyColumns.Count];
 				key.OriginalColumns = (IData[])provider.Record.OriginalColumns;
+				key.NewOriginalColumns = provider.Record.NewOriginalColumns;
 				key.LineNo = provider.Record.LineNo;
 				key.Source = provider.Record.Source;
 				key.Columns = (IData[])provider.Record.Columns.Clone ();
+				key.NewColumns = (NewData[])provider.Record.NewColumns.Clone ();
 				for (int i = 0; i < orderbyColumns.Count; i++) {
 					if (columnsComparer.FixedColumns [i] >= 0) {
 						if (columnsComparer.FixedColumns [i] >= provider.Record.Columns.Length)

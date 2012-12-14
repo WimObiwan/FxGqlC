@@ -6,13 +6,13 @@ namespace FxGqlLib
 	public class BottomProvider : IProvider
 	{
 		readonly IProvider provider;
-		readonly Expression<DataInteger> bottomValueExpression;
+		readonly System.Linq.Expressions.Expression<Func<GqlQueryState, long>> bottomValueExpression;
 
 		GqlQueryState gqlQueryState;
 		Queue<ProviderRecord> recordsQueue;
 		ProviderRecord record;
 
-		public BottomProvider (IProvider provider, Expression<DataInteger> bottomValueExpression)
+		public BottomProvider (IProvider provider, System.Linq.Expressions.Expression<Func<GqlQueryState, long>> bottomValueExpression)
 		{
 			this.provider = provider;
 			this.bottomValueExpression = bottomValueExpression;
@@ -39,6 +39,11 @@ namespace FxGqlLib
 			return provider.GetColumnTypes ();
 		}
 		
+		public Type[] GetNewColumnTypes ()
+		{
+			return provider.GetNewColumnTypes ();
+		}
+		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			this.gqlQueryState = gqlQueryState;
@@ -48,7 +53,7 @@ namespace FxGqlLib
 		public bool GetNextRecord ()
 		{
 			if (recordsQueue == null) {
-				long maxCount = bottomValueExpression.Evaluate (gqlQueryState);
+				long maxCount = bottomValueExpression.Compile () (gqlQueryState);
 				recordsQueue = new Queue<ProviderRecord> ();
 				try {
 					provider.Initialize (gqlQueryState);

@@ -60,7 +60,16 @@ namespace FxGqlLib
 			}
 			return types;
 		}
-
+		
+		public Type[] GetNewColumnTypes ()
+		{
+			Type[] types = new Type[columnNameList.Length];
+			for (int i = 0; i < types.Length; i++) { 
+				types [i] = typeof(string);
+			}
+			return types;
+		}
+		
 		protected virtual string[] ReadLine ()
 		{
 			if (!provider.GetNextRecord ())
@@ -103,11 +112,14 @@ namespace FxGqlLib
 			}
 
 			for (int i = 0; i < dataString.Length; i++) {
+				string text;
 				if (i < line.Length)
-					dataString [i].Set (line [i]);
+					text = line [i];
 				else
-					dataString [i].Set (string.Empty);
+					text = string.Empty;
+				dataString [i].Set (text);
 				record.Columns [i] = dataString [i];
+				record.NewColumns [i].String = text;
 			}
 			record.LineNo = provider.Record.LineNo;
 			record.OriginalColumns = record.Columns;

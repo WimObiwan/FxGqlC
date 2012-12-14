@@ -52,6 +52,11 @@ namespace FxGqlLib
 			return new Type[] { };
 		}
 		
+		public Type[] GetNewColumnTypes ()
+		{
+			return new Type[] { };
+		}
+		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			record = new ProviderRecord (this, true);

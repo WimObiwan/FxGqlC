@@ -17,16 +17,26 @@ namespace FxGqlLib
 				new ColumnName ("Attributes"),
 			};
 		readonly static Type[] columnTypes = new Type[] {
-				typeof(DataString),
-				typeof(DataString),
-				typeof(DataString),
-				typeof(DataInteger),
-				typeof(DataDateTime),
-				typeof(DataDateTime),
-				typeof(DataDateTime),
-				typeof(DataString),
-			};
-
+			typeof(DataString),
+			typeof(DataString),
+			typeof(DataString),
+			typeof(DataInteger),
+			typeof(DataDateTime),
+			typeof(DataDateTime),
+			typeof(DataDateTime),
+			typeof(DataString),
+		};
+		readonly static Type[] newColumnTypes = new Type[] {
+			typeof(string),
+			typeof(string),
+			typeof(string),
+			typeof(int),
+			typeof(DateTime),
+			typeof(DateTime),
+			typeof(DateTime),
+			typeof(string),
+		};
+		
 		readonly FileOptionsFromClause fileOptions;
 		readonly StringComparer stringComparer;
 
@@ -66,7 +76,12 @@ namespace FxGqlLib
 		{
 			return columnTypes;
 		}
-
+		
+		public Type[] GetNewColumnTypes ()
+		{
+			return newColumnTypes;
+		}
+		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			string fileName = fileOptions.FileName.Evaluate (gqlQueryState);
@@ -104,6 +119,14 @@ namespace FxGqlLib
 				return false;
 		
 			FileInfo fi = new FileInfo (files [record.LineNo]);
+			record.NewColumns [0].String = fi.FullName;
+			record.NewColumns [1].String = fi.Name;
+			record.NewColumns [2].String = fi.Extension;
+			record.NewColumns [3].Integer = fi.Length;
+			record.NewColumns [4].DateTime = fi.CreationTime;
+			record.NewColumns [5].DateTime = fi.LastWriteTime;
+			record.NewColumns [6].DateTime = fi.LastAccessTime;
+			record.NewColumns [7].String = fi.Attributes.ToString ();
 			record.Columns [0] = new DataString (fi.FullName);
 			record.Columns [1] = new DataString (fi.Name);
 			record.Columns [2] = new DataString (fi.Extension);

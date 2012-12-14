@@ -25,7 +25,6 @@ namespace FxGqlLib
 		{
 			T value1 = arg.Evaluate (gqlQueryState);
 
-
 			if (values == null) {
 				values = new List<T> ();
 

@@ -1162,7 +1162,7 @@ namespace FxGqlLib
 						target
 					);
 			} else if (target.Text == "T_SELECT") {
-				IProvider subProvider = ParseCommandSelect (target);
+				IProvider subProvider = ParseInnerSelect (null, target);
 				if (arg2 is Expression<DataString>)
 					result = new AnySubqueryOperator<DataString> (
 						(Expression<DataString>)arg2,
@@ -1225,8 +1225,8 @@ namespace FxGqlLib
 				new ColumnProvider (
 				new IExpression[] { new ConstExpression<DataInteger> (1) }, 
 			new TopProvider (
-				ParseCommandSelect (expressionTree.GetChild (0)),
-				new ConstExpression<DataInteger> (1)
+				ParseInnerSelect (null, expressionTree.GetChild (0)),
+				(qs) => 1
 			)
 			),
 				(a, b) => a == b);
@@ -1464,6 +1464,13 @@ namespace FxGqlLib
 			text = text.Replace ("''", "'");
 			return text;
 		}		
+
+		IExpression ParseExpressionSubquery (IProvider parentProvider, ITree subqueryTree)
+		{
+			IProvider provider = ParseSubquery (parentProvider, subqueryTree);
+			
+			return new SubqueryExpression (provider).GetTyped ();
+		}
 	}
 }
 

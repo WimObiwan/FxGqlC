@@ -5,11 +5,12 @@ namespace FxGqlLib
 	public class FilterProvider : IProvider
 	{
 		readonly IProvider provider;
-		readonly Expression<DataBoolean> filterExpression;
+		readonly System.Linq.Expressions.Expression<Func<GqlQueryState, bool>> filterExpression;
 
 		GqlQueryState gqlQueryState;
+		Func<GqlQueryState, bool> compiledExpr;
 		
-		public FilterProvider (IProvider provider, Expression<DataBoolean> filterExpression)
+		public FilterProvider (IProvider provider, System.Linq.Expressions.Expression<Func<GqlQueryState, bool>> filterExpression)
 		{
 			this.provider = provider;
 			this.filterExpression = filterExpression;
@@ -36,11 +37,18 @@ namespace FxGqlLib
 			return provider.GetColumnTypes ();
 		}
 		
+		public Type[] GetNewColumnTypes ()
+		{
+			return provider.GetNewColumnTypes ();
+		}
+		
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			provider.Initialize (gqlQueryState);
 			this.gqlQueryState = new GqlQueryState (gqlQueryState);
 			this.gqlQueryState.TotalLineNumber = 0;
+
+			this.compiledExpr = this.filterExpression.Compile ();
 		}
 
 		public bool GetNextRecord ()
@@ -49,7 +57,7 @@ namespace FxGqlLib
 			
 			while (provider.GetNextRecord ()) {
 				gqlQueryState.Record = provider.Record;
-				if (filterExpression.Evaluate (gqlQueryState))
+				if (compiledExpr (gqlQueryState))
 					return true;
 			}
 			

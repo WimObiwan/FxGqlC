@@ -5,11 +5,11 @@ namespace FxGqlLib
 	public class TopProvider : IProvider
 	{
 		readonly IProvider provider;
-		readonly Expression<DataInteger> topValueExpression;
+		readonly System.Linq.Expressions.Expression<Func<GqlQueryState, long>> topValueExpression;
 
 		long linesToGo;
 
-		public TopProvider (IProvider provider, Expression<DataInteger> topValueExpression)
+		public TopProvider (IProvider provider, System.Linq.Expressions.Expression<Func<GqlQueryState, long>> topValueExpression)
 		{
 			this.provider = provider;
 			this.topValueExpression = topValueExpression;
@@ -31,6 +31,11 @@ namespace FxGqlLib
 			return provider.GetColumnOrdinal (columnName);
 		}
 		
+		public Type[] GetNewColumnTypes ()
+		{
+			return provider.GetNewColumnTypes ();
+		}
+		
 		public Type[] GetColumnTypes ()
 		{
 			return provider.GetColumnTypes ();
@@ -39,7 +44,7 @@ namespace FxGqlLib
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			provider.Initialize (gqlQueryState);
-			linesToGo = topValueExpression.Evaluate (gqlQueryState);
+			linesToGo = topValueExpression.Compile () (gqlQueryState);
 		}
 
 		public bool GetNextRecord ()

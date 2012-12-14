@@ -20,11 +20,22 @@ namespace FxGqlLib
 		{
 			int columnCount = provider.GetColumnNames ().Length;
 			this.Columns = new IData[columnCount];
+			this.NewColumns = new NewData[columnCount];
+			Type[] types = provider.GetColumnTypes ();
+			for (int i = 0; i < columnCount; i++) {
+				this.NewColumns [i].Type = ExpressionBridge.GetNewType (types [i]);
+			}
 
-			if (sameOriginalColumns)
+			if (sameOriginalColumns) {
 				this.OriginalColumns = this.Columns;
-			else
+				this.NewOriginalColumns = this.NewColumns;
+			} else {
 				this.OriginalColumns = new IData[columnCount];
+				this.NewOriginalColumns = new NewData[columnCount];
+				for (int i = 0; i < columnCount; i++) {
+					this.NewOriginalColumns [i].Type = ExpressionBridge.GetNewType (types [i]);
+				}
+			}
 		}
 		
 		public ProviderRecord Clone ()
@@ -49,8 +60,30 @@ namespace FxGqlLib
 		public long TotalLineNo { get; set; }
 
 		public IData[] Columns { get; set; }
+		public NewData[] NewColumns { get; set; }
 
 		public IData[] OriginalColumns { get; set; }
+		public NewData[] NewOriginalColumns { get; set; }
+
+		public string GetLine (bool useOriginalColumns)
+		{
+			// TODO: optimize...
+			NewData[] columns;
+			if (useOriginalColumns)
+				columns = NewOriginalColumns;
+			else
+				columns = NewColumns;
+				
+			string column = "";
+			for (int i = 0; i < columns.Length; i++) {
+				if (i == 0)
+					column = columns [i].ToString ();
+				else
+					column += '\t' + columns [i].ToString ();
+			}
+				
+			return column;
+		}
 	}
 
 	public class ColumnName : IComparable<ColumnName>
@@ -123,7 +156,10 @@ namespace FxGqlLib
 
 		int GetColumnOrdinal (ColumnName columnName);
 
+		[Obsolete]
 		Type[] GetColumnTypes ();
+
+		Type[] GetNewColumnTypes ();
 
 		void Initialize (GqlQueryState gqlQueryState);
 

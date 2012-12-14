@@ -441,6 +441,9 @@ namespace FxGqlTest
         
 		public bool Run ()
 		{
+			if (File.Exists ("SampleFiles/test.txt"))
+				File.Delete ("SampleFiles/test.txt");
+
 			// Empty command
 			TestGql ("",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
@@ -1726,6 +1729,14 @@ namespace FxGqlTest
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql ("select [Tournament], 'Tournament', [Winner] [Player] into ['test.txt' -append] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");*/
+
+			TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select [Tournament], 'Tournament', [Winner] [Player] into ['test.txt' -append] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
+			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+			TestGql ("select * from (select [Player], count(*) from ['test.txt' -Heading=On] group by [Player] order by 1)"
+				+ " where [Player] in (select [Player] from ['test.txt' -Heading=On] where [Tournament] = 'Masters Cup')",
+			         "02F0342B809A2D52B69B6DB48D2C00A96C6B6E5F262DC93EC159A66D0D9C6DCD");
 
 			// inner select
 			/*

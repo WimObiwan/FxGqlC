@@ -31,12 +31,16 @@ namespace FxGqlLib
 		readonly DataComparer dataComparer;
 
 		Dictionary<string, Type> variableTypes = new Dictionary<string, Type> (StringComparer.InvariantCultureIgnoreCase);
+		Dictionary<string, Type> variableNewTypes = new Dictionary<string, Type> (StringComparer.InvariantCultureIgnoreCase);
 		Dictionary<string, ViewDefinition> views = new Dictionary<string, ViewDefinition> (StringComparer.InvariantCultureIgnoreCase);
 		Stack<IProvider> subQueryProviderStack = new Stack<IProvider> ();
-        
+		Stack<System.Linq.Expressions.ParameterExpression> subQueryParameterExpressionStack = 
+			new Stack<System.Linq.Expressions.ParameterExpression> ();
+
 		public GqlParser (GqlEngineState gqlEngineState, string command)
             : this(gqlEngineState, command, CultureInfo.InvariantCulture, true)
 		{
+			InitializeFunctionMap ();
 		}
         
 		public GqlParser (GqlEngineState gqlEngineState, string command, CultureInfo cultureInfo, bool caseInsensitive)
@@ -136,6 +140,7 @@ namespace FxGqlLib
 					var variableDeclaration = ParseCommandDeclare (tree);
 					foreach (var variable in variableDeclaration) {
 						variableTypes [variable.Item1] = variable.Item2;
+						variableNewTypes [variable.Item1] = ExpressionBridge.GetNewType (variable.Item2);
 					}
 					return new DeclareCommand (variableDeclaration);
 				}
@@ -266,7 +271,7 @@ namespace FxGqlLib
             
             
 			// TOP
-			Expression<DataInteger> topExpression;
+			System.Linq.Expressions.Expression<Func<GqlQueryState, long>> topExpression;
 			if (enumerator.Current != null && enumerator.Current.Text == "T_TOP") {
 				topExpression = ParseTopOrBottomClause (enumerator.Current);
 				enumerator.MoveNext ();
@@ -275,7 +280,7 @@ namespace FxGqlLib
 			}
 
 			// BOTTOM
-			Expression<DataInteger> bottomExpression;
+			System.Linq.Expressions.Expression<Func<GqlQueryState, long>> bottomExpression;
 			if (enumerator.Current != null && enumerator.Current.Text == "T_BOTTOM") {
 				bottomExpression = ParseTopOrBottomClause (enumerator.Current);
 				enumerator.MoveNext ();
@@ -306,7 +311,7 @@ namespace FxGqlLib
 				enumerator.MoveNext ();
                                 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE") {
-					Expression<DataBoolean> whereExpression = ParseWhereClause (
+					System.Linq.Expressions.Expression<Func<GqlQueryState, bool>> whereExpression = ParseWhereClause (
                         fromProvider,
                         enumerator.Current
 					);
@@ -422,10 +427,11 @@ namespace FxGqlLib
 			return provider;
 		}
         
-		Expression<DataInteger> ParseTopOrBottomClause (ITree topClauseTree)
+		System.Linq.Expressions.Expression<Func<GqlQueryState, long>> ParseTopOrBottomClause (ITree topClauseTree)
 		{
 			ITree tree = GetSingleChild (topClauseTree);
-			return ConvertExpression.CreateDataInteger (ParseExpression (null, tree));
+
+			return ParseFuncExpression<long> (null, tree);
 		}
 		
 		IList<Column> ParseColumnList (IProvider provider, ITree outputListTree)
@@ -532,21 +538,30 @@ namespace FxGqlLib
 			return fromProvider;
 		}
 
-		Expression<DataBoolean> ParseWhereClause (IProvider provider, ITree whereTree)
+		System.Linq.Expressions.Expression<Func<GqlQueryState, bool>> ParseWhereClause (IProvider provider, ITree whereTree)
 		{
 			AssertAntlrToken (whereTree, "T_WHERE");
-            
 			ITree expressionTree = GetSingleChild (whereTree);
-			IExpression expression = ParseExpression (provider, expressionTree);
-			if (!(expression is Expression<DataBoolean>)) {
+
+			return ParseFuncExpression<bool> (provider, expressionTree);
+		}
+
+		System.Linq.Expressions.Expression<Func<GqlQueryState, T>> ParseFuncExpression<T> (IProvider provider, ITree expressionTree)
+		{
+			this.queryStatePrm = 
+				System.Linq.Expressions.Expression.Parameter (typeof(GqlQueryState));
+			
+			System.Linq.Expressions.Expression expression = ParseNewExpression (provider, expressionTree);
+			if (expression.Type != typeof(T)) {
 				throw new ParserException (
-                    "Expected boolean expression in WHERE clause.",
-                    expressionTree
+					"Wrong datatype in expression.",
+					expressionTree
 				);
 			}
-			return (Expression<DataBoolean>)expression;
+			
+			return ExpressionDelegateCreator.Create<T> (expression, queryStatePrm);
 		}
-        
+
 		Expression<DataBoolean> ParseHavingClause (IProvider provider, ITree whereTree)
 		{
 			AssertAntlrToken (whereTree, "T_HAVING");
@@ -900,17 +915,18 @@ namespace FxGqlLib
 			return new FileSubqueryProvider (fileSubqueryProvider);
 		}
 
-		IProvider ParseSubquery (IProvider provider, ITree subqueryTree)
+		IProvider ParseInnerSelect (IProvider provider, ITree selectTree)
 		{
-			AssertAntlrToken (subqueryTree, "T_SUBQUERY");
-            
-			ITree selectTree = GetSingleChild (subqueryTree);
 			try {
-				if (provider != null)
+				if (provider != null) {
 					this.subQueryProviderStack.Push (provider);
+				}
+				this.subQueryParameterExpressionStack.Push (this.queryStatePrm);
+				this.queryStatePrm = 
+					System.Linq.Expressions.Expression.Parameter (typeof(GqlQueryState));
 				IProvider subQueryProvider = ParseCommandSelect (selectTree);
 				if (subQueryProvider is IntoProvider)
-					throw new ParserException ("INTO clause is not supported in a subquery", subqueryTree);
+					throw new ParserException ("INTO clause is not supported in a subquery", selectTree);
 				return subQueryProvider;
 			} finally {
 				if (provider != null) {
@@ -918,7 +934,18 @@ namespace FxGqlLib
 					if (verify != provider)
 						throw new InvalidProgramException ();
 				}
+				this.queryStatePrm = 
+					this.subQueryParameterExpressionStack.Pop ();
 			}
+		}
+
+
+		IProvider ParseSubquery (IProvider provider, ITree subqueryTree)
+		{
+			AssertAntlrToken (subqueryTree, "T_SUBQUERY");
+            
+			ITree selectTree = GetSingleChild (subqueryTree);
+			return ParseInnerSelect (provider, selectTree);
 		}
         
 		IProvider ParseViewProvider (ITree tree)
@@ -1036,13 +1063,6 @@ namespace FxGqlLib
 			return Tuple.Create (variable, expression);
 		}
 
-		IExpression ParseExpressionSubquery (IProvider parentProvider, ITree subqueryTree)
-		{
-			IProvider provider = ParseSubquery (parentProvider, subqueryTree);
-
-			return new SubqueryExpression (provider).GetTyped ();
-		}
-
 		Tuple<string, ViewDefinition> ParseCommandCreateView (ITree tree)
 		{
 			AssertAntlrToken (tree, "T_CREATE_VIEW", 2, 3);
@@ -1061,18 +1081,23 @@ namespace FxGqlLib
 				parameters = null;
 			}
 
-			Dictionary<string, Type> oldVariables = variableTypes;
+			Dictionary<string, Type> oldVariableTypes = variableTypes;
+			Dictionary<string, Type> oldVariableNewTypes = variableNewTypes;
 			if (parameters != null && parameters.Count > 0) {
 				variableTypes = new Dictionary<string, Type> (variableTypes);
-				foreach (Tuple<string, Type> parameter in parameters)
+				variableNewTypes = new Dictionary<string, Type> (variableNewTypes);
+				foreach (Tuple<string, Type> parameter in parameters) {
 					variableTypes [parameter.Item1] = parameter.Item2;
+					variableNewTypes [parameter.Item1] = ExpressionBridge.GetNewType (parameter.Item2);
+				}
 			}
 
 			IProvider provider;
 			try {
 				provider = ParseCommandSelect (enumerator.Current);
 			} finally {
-				variableTypes = oldVariables;
+				variableTypes = oldVariableTypes;
+				variableNewTypes = oldVariableNewTypes;
 			}
 
 
