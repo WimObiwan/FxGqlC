@@ -420,8 +420,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engineHash.Execute (command);
-					testSummaryWriter.WriteLine (command);
+						engineHash.Execute (command);
+						testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1666,6 +1666,12 @@ namespace FxGqlTest
 			TestGql ("select left([Column1], 2), prefix([column1]) from ['SampleFiles/AirportCodes.csv' -format=csv] group by left([column1], 2) having len(prefix([column1])) > 2",
 			         "B5AD26DEE5D93A2A0805968EF40F6D8C15E394101DE4676249A414B40D4050F7");
 
+			// Support for function STARTSWITH/ENDSWITH
+			TestGql ("select [Column1] from ['SampleFiles/AirportCodes.csv' -format=csv] where ENDSWITH([Column1], 'France ')",
+			         "EDD27AFE4ED48F7ADBBC402077413ED165896171054728E621C369CA18CE018F");
+			TestGql ("select [Column1] from ['SampleFiles/AirportCodes.csv' -format=csv] where STARTSWITH([Column1], 'Z')",
+			         "29A7253D9A843FEA4E399316AB7ACCC9A82CB897FD76DC6A5A45E7BC4D79D02C");
+
 			if (!Performance) {
 				Console.WriteLine ();
 				Console.WriteLine (
@@ -1746,7 +1752,6 @@ namespace FxGqlTest
 //select * into ['insert into MyTable (col1, col2) values (?, ?)' -provider='System.Data.SqlClient' -connectionstring='Data Source=(local);Initial Catalog=cars;Integrated Security=SSPI'] from [*.log]
 //-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateDataAdapter, DbDataAdapter.InsertCommand,...
 //select * from ['*.log' -provider='files']  --default provider = filesystem
-
 
 			return failed == 0;
 		}		

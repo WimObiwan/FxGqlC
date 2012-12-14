@@ -519,6 +519,20 @@ namespace FxGqlLib
 				result = UnaryExpression<DataDateTime, DataInteger>.CreateAutoConvert (
 					(a) => DatePartHelper.Get ((arg1 as Token<DatePartType>).Value, a), arg2);
 				break;
+			case "STARTSWITH":
+				result = BinaryExpression<DataString, DataString, DataBoolean>.CreateAutoConvert (
+					(a, b) => a.Value.StartsWith (b, dataComparer.StringComparison),
+					arg1,
+					arg2
+				);
+				break;
+			case "ENDSWITH":
+				result = BinaryExpression<DataString, DataString, DataBoolean>.CreateAutoConvert (
+					(a, b) => a.Value.EndsWith (b, dataComparer.StringComparison),
+					arg1,
+					arg2
+				);
+				break;
 			default:
 				throw new ParserException (string.Format (
 					"Function call to {0} with 2 parameters not supported.",
