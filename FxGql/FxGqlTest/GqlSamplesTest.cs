@@ -1672,6 +1672,17 @@ namespace FxGqlTest
 			TestGql ("select [Column1] from ['SampleFiles/AirportCodes.csv' -format=csv] where STARTSWITH([Column1], 'Z')",
 			         "29A7253D9A843FEA4E399316AB7ACCC9A82CB897FD76DC6A5A45E7BC4D79D02C");
 
+			// Support for function PREFIX
+			TestGql ("select PREFIX('test', 'test')", 
+			         "F2CA1BB6C7E907D06DAFE4687E579FCE76B37E4E93B7605022DA52E6CCC26FD2");
+			TestGql ("select PREFIX('test1234', 'test')", 
+			         "F2CA1BB6C7E907D06DAFE4687E579FCE76B37E4E93B7605022DA52E6CCC26FD2");
+			TestGql ("select PREFIX('test', 'test1234')", 
+			         "F2CA1BB6C7E907D06DAFE4687E579FCE76B37E4E93B7605022DA52E6CCC26FD2");
+			TestGql ("select PREFIX('test7890', 'test1234')", 
+			         "F2CA1BB6C7E907D06DAFE4687E579FCE76B37E4E93B7605022DA52E6CCC26FD2");
+
+
 			if (!Performance) {
 				Console.WriteLine ();
 				Console.WriteLine (

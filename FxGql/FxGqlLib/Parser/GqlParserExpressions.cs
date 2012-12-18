@@ -533,6 +533,13 @@ namespace FxGqlLib
 					arg2
 				);
 				break;
+			case "PREFIX":
+				result = BinaryExpression<DataString, DataString, DataString>.CreateAutoConvert (
+					(a, b) => a.CommonPrefix (b),
+					arg1,
+					arg2
+				);
+				break;
 			default:
 				throw new ParserException (string.Format (
 					"Function call to {0} with 2 parameters not supported.",
