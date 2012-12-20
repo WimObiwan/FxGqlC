@@ -497,7 +497,7 @@ namespace FxGqlLib
 				break;
 			case "LEFT":
 				result = BinaryExpression<DataString, DataInteger, DataString>.CreateAutoConvert (
-					(a, b) => a.Value.Substring (0, Math.Min ((int)b, a.Value.Length)),
+					(a, b) => a.Value.Substring (0, Math.Max (0, Math.Min ((int)b, a.Value.Length))),
 					arg1,
 					arg2
 				);
@@ -507,7 +507,7 @@ namespace FxGqlLib
 				break;
 			case "RIGHT":
 				result = BinaryExpression<DataString, DataInteger, DataString>.CreateAutoConvert (
-					(a, b) => a.Value.Substring (a.Value.Length - Math.Min ((int)b, a.Value.Length)),
+					(a, b) => a.Value.Substring (Math.Max (0, a.Value.Length - Math.Min ((int)b, a.Value.Length))),
 					arg1,
 					arg2
 				);
