@@ -1687,7 +1687,14 @@ namespace FxGqlTest
 			         "7BF291CCE5EE6EC97A4BF755ACC570EDFFF5B8232C214C8BC161F3BAA2F2960D");
 			TestGql ("select top 1 [Winner], count(*), enlistdistinct([Tournament]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Winner] order by 2 desc",
 			         "8273C269A1DF13684CEEFCFEAA706F88294A7F0C06B818D22CB04F1F0E241DE3");
-			
+
+			// Support for number conversion functions TOSTRINGRADIX(a,b) ; TOSTRINGRADIX(a,b,c) ; FROMSTRINGRADIX(a,b) 
+			TestGql ("select tostringradix(1024, 2), tostringradix(1024, 8), tostringradix(1024, 10), tostringradix(1024, 16)",
+			         "903EC19A6170E3D1367FF670F225BA21ED13EF7E7EBC7816D6E3F762BC4A5407");
+			TestGql ("select tostringradix(1024, 2, 8), tostringradix(1024, 8, 8), tostringradix(1024, 10, 8), tostringradix(1024, 16, 8)",
+			         "12C4A05F6EFAFAC37E616B93C3087B5A473591C0416E4C4524898827E52A3F45");
+			TestGql ("select fromstringradix('1024', 10), fromstringradix('400', 16), fromstringradix('2000', 8), fromstringradix('00400', 16), fromstringradix('002000', 8)",
+			         "8C18BE1A00FC6808330684517475DCDF4AA224371F13DF746ACA9499053B148E");
 
 			if (!Performance) {
 				Console.WriteLine ();
@@ -1769,6 +1776,7 @@ namespace FxGqlTest
 //select * into ['insert into MyTable (col1, col2) values (?, ?)' -provider='System.Data.SqlClient' -connectionstring='Data Source=(local);Initial Catalog=cars;Integrated Security=SSPI'] from [*.log]
 //-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateDataAdapter, DbDataAdapter.InsertCommand,...
 //select * from ['*.log' -provider='files']  --default provider = filesystem
+
 
 			return failed == 0;
 		}		

@@ -562,6 +562,20 @@ namespace FxGqlLib
 					arg2
 				);
 				break;
+			case "TOSTRINGRADIX":
+				result = BinaryExpression<DataInteger, DataInteger, DataString>.CreateAutoConvert (
+					(a, b) => Convert.ToString (a.Value, (int)b.Value),
+					arg1,
+					arg2
+				);
+				break;
+			case "FROMSTRINGRADIX":
+				result = BinaryExpression<DataString, DataInteger, DataInteger>.CreateAutoConvert (
+					(a, b) => Convert.ToInt64 (a.Value, (int)b.Value),
+					arg1,
+					arg2
+				);
+				break;
 			default:
 				throw new ParserException (string.Format (
 					"Function call to {0} with 2 parameters not supported.",
@@ -612,6 +626,14 @@ namespace FxGqlLib
 			case "DATEDIFF":
 				result = BinaryExpression<DataDateTime, DataDateTime, DataInteger>.CreateAutoConvert (
 					(a, b) => DatePartHelper.Diff ((arg1 as Token<DatePartType>).Value, a.Value, b.Value), arg2, arg3);
+				break;
+			case "TOSTRINGRADIX":
+				result = TernaryExpression<DataInteger, DataInteger, DataInteger, DataString>.CreateAutoConvert (
+					(a, b, c) => Convert.ToString (a.Value, (int)b.Value).PadLeft ((int)c.Value, '0'),
+					arg1,
+					arg2,
+					arg3
+				);
 				break;
 			default:
 				throw new ParserException (string.Format (
