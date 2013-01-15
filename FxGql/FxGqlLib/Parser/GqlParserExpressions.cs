@@ -461,6 +461,28 @@ namespace FxGqlLib
 					(s) => s, 
 					ConvertExpression.CreateDataString (arg));
 				break;
+			case "ENLIST":
+				result = new AggregationExpression<IData, List<IData>, DataString> 
+					((a) => new List<IData> (), 
+					 delegate(List<IData> s, IData a) {
+					s.Add (a);
+					return s;
+				},
+					(s) => s.Enlist ((i) => i.ToString ()), 
+					ConvertExpression.CreateData (arg));
+				break;
+			case "ENLISTDISTINCT":
+				result = new AggregationExpression<IData, SortedSet<ColumnsComparerKey>, DataString> 
+					((a) => new SortedSet<ColumnsComparerKey> (), 
+					 delegate(SortedSet<ColumnsComparerKey> s, IData a) {
+					ColumnsComparerKey columnsComparerKey = new ColumnsComparerKey (new IData[] { a });
+					if (!s.Contains (columnsComparerKey))
+						s.Add (columnsComparerKey);
+					return s;
+				},
+					(s) => s.Enlist ((i) => i.Members [0].ToString ()), 
+					ConvertExpression.CreateData (arg));
+				break;
 			default:
 				throw new ParserException (string.Format (
 					"Function call to {0} with 1 parameters not supported.",

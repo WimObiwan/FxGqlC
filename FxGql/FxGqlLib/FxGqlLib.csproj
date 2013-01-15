@@ -139,6 +139,7 @@
     <Compile Include="Functions\FormatColumnsFunction.cs" />
     <Compile Include="Parser\GqlParserExpressions.cs" />
     <Compile Include="Providers\Flow\BottomProvider.cs" />
+    <Compile Include="Util\IEnumerableExtension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

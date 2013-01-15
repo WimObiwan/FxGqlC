@@ -1672,7 +1672,7 @@ namespace FxGqlTest
 			TestGql ("select [Column1] from ['SampleFiles/AirportCodes.csv' -format=csv] where STARTSWITH([Column1], 'Z')",
 			         "29A7253D9A843FEA4E399316AB7ACCC9A82CB897FD76DC6A5A45E7BC4D79D02C");
 
-			// Support for function PREFIX
+			// Support for aggregation function PREFIX
 			TestGql ("select PREFIX('test', 'test')", 
 			         "F2CA1BB6C7E907D06DAFE4687E579FCE76B37E4E93B7605022DA52E6CCC26FD2");
 			TestGql ("select PREFIX('test1234', 'test')", 
@@ -1682,6 +1682,12 @@ namespace FxGqlTest
 			TestGql ("select PREFIX('test7890', 'test1234')", 
 			         "F2CA1BB6C7E907D06DAFE4687E579FCE76B37E4E93B7605022DA52E6CCC26FD2");
 
+			// Support for aggregation functions ENLIST and ENLISTDISTINCT
+			TestGql ("select top 1 [Winner], count(*), enlist([Tournament]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Winner] order by 2 desc",
+			         "7BF291CCE5EE6EC97A4BF755ACC570EDFFF5B8232C214C8BC161F3BAA2F2960D");
+			TestGql ("select top 1 [Winner], count(*), enlistdistinct([Tournament]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Winner] order by 2 desc",
+			         "8273C269A1DF13684CEEFCFEAA706F88294A7F0C06B818D22CB04F1F0E241DE3");
+			
 
 			if (!Performance) {
 				Console.WriteLine ();
