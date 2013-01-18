@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Fox Innovations")]
 [assembly: AssemblyProduct("FxGqlC")]
-[assembly: AssemblyCopyright("(c) Copyright 2006-2012 Fox Innovations / Wim Devos")]
+[assembly: AssemblyCopyright("(c) Copyright 2006-2013 Fox Innovations / Wim Devos")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
