@@ -25,9 +25,7 @@ namespace FxGqlC
 		static bool verbose = false;
 		static bool autoSize = false;
 		static int autoSizeRows = -1;
-
 		static int uniqueVisitorId = GetUniqueId ();
-		
 		static int updatesBusy = 0;
 		static ManualResetEvent manualResetEvent = new ManualResetEvent (false);
 
@@ -155,7 +153,25 @@ namespace FxGqlC
 				Console.WriteLine ();
 				Console.WriteLine ("{0} - {1} - {2}", info.FileDescription, version, info.Comments);				
 				Console.WriteLine (info.LegalCopyright);
+
+				string clr = "CLR " + System.Environment.Version.ToString ();
+				string runtime = "?";
+				Type type = Type.GetType ("Mono.Runtime");
+				if (type != null) {                                          
+					MethodInfo displayName = type.GetMethod ("GetDisplayName", BindingFlags.NonPublic | BindingFlags.Static); 
+					if (displayName != null)                   
+						runtime = "Mono " + displayName.Invoke (null, null) + ", " + clr;
+				} else {
+					runtime = "Microsoft.NET " + clr;
+				}
+
+				Console.WriteLine ("Using Runtime: {0}", runtime);
+//					Environment.OSVersion,
+//					Environment.Is64BitProcess ? "64bit" : "32bit",
+//					Environment.Is64BitOperatingSystem ? "64bit" : "32bit",
+//					Environment.ProcessorCount);
 			}
+
 							
 			if (license) {
 				Console.WriteLine ("This program is free software: you can redistribute it and/or modify");
