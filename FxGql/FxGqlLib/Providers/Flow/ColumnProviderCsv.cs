@@ -67,7 +67,7 @@ namespace FxGqlLib
 							continue;
 						} else {
 							done = nextQuote + 1 >= line.Length;
-							char nextChar = line [nextQuote + 1];
+							char nextChar = done ? '\0' : line [nextQuote + 1];
 							if (done || Array.Exists (separators, p => p == nextChar)) {
 								// Valid field terminator
 								string str = line.Substring (pos, nextQuote - pos);
