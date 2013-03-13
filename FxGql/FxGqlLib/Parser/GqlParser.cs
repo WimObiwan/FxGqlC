@@ -1030,6 +1030,8 @@ namespace FxGqlLib
 				return typeof(DataString);
 			case "INT":
 				return typeof(DataInteger);
+			case "FLOAT":
+				return typeof(DataFloat);
 			case "DATETIME":
 				return typeof(DataDateTime);
 			default:

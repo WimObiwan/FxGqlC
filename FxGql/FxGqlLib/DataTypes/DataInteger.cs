@@ -52,12 +52,22 @@ namespace FxGqlLib
 		{
 			return this;
 		}
-
+		
 		public DataInteger ToDataInteger (string format)
 		{
 			return this;
 		}
-
+		
+		public DataFloat ToDataFloat ()
+		{
+			return new DataFloat ((double)this.value);
+		}
+		
+		public DataFloat ToDataFloat (string format)
+		{
+			return new DataFloat ((double)this.value);
+		}
+		
 		public DataString ToDataString ()
 		{
 			return new DataString (this.value.ToString ());

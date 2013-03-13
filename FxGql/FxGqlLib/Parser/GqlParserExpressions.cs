@@ -346,6 +346,12 @@ namespace FxGqlLib
 						(s, a) => s + a, 
 						(s) => s, 
 						arg as Expression<DataInteger>);
+				else if (arg is Expression<DataFloat>)
+					result = new AggregationExpression<DataFloat, DataFloat, DataFloat> (
+						(a) => a, 
+						(s, a) => s + a, 
+						(s) => s, 
+						arg as Expression<DataFloat>);
 				else {
 					throw new ParserException (
 						string.Format ("SUM aggregation function cannot be used on datatype '{0}'",
@@ -366,6 +372,12 @@ namespace FxGqlLib
 						(s, a) => a < s ? a : s, 
 						(s) => s, 
 						ConvertExpression.CreateDataInteger (arg));
+				else if (arg.GetResultType () == typeof(DataFloat))
+					result = new AggregationExpression<DataFloat, DataFloat, DataFloat> (
+						(a) => a, 
+						(s, a) => a < s ? a : s, 
+						(s) => s, 
+						ConvertExpression.CreateDataFloat (arg));
 				else {
 					throw new ParserException (
 						string.Format ("MIN aggregation function cannot be used on datatype '{0}'",
@@ -386,6 +398,12 @@ namespace FxGqlLib
 						(s, a) => a > s ? a : s, 
 						(s) => s, 
 						ConvertExpression.CreateDataInteger (arg));
+				else if (arg.GetResultType () == typeof(DataFloat))
+					result = new AggregationExpression<DataFloat, DataFloat, DataFloat> (
+						(a) => a, 
+						(s, a) => a > s ? a : s, 
+						(s) => s, 
+						ConvertExpression.CreateDataFloat (arg));
 				else {
 					throw new ParserException (
 						string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
@@ -394,44 +412,18 @@ namespace FxGqlLib
 				}
 				break;
 			case "FIRST":
-				if (arg.GetResultType () == typeof(DataString))
-					result = new AggregationExpression<DataString, DataString, DataString> (
-						(a) => a, 
-						(s, a) => s, 
-						(s) => s, 
-						ConvertExpression.CreateDataString (arg));
-				else if (arg.GetResultType () == typeof(DataInteger))
-					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
-						(a) => a, 
-						(s, a) => s, 
-						(s) => s, 
-						ConvertExpression.CreateDataInteger (arg));
-				else {
-					throw new ParserException (
-						string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
-					               arg.GetResultType ().ToString ()),
-						functionCallTree);
-				}
+				result = new AggregationExpression<IData, IData, IData> (
+					(a) => a, 
+					(s, a) => s, 
+					(s) => s, 
+					ConvertExpression.CreateData (arg));
 				break;
 			case "LAST":
-				if (arg.GetResultType () == typeof(DataString))
-					result = new AggregationExpression<DataString, DataString, DataString> (
-						(a) => a, 
-						(s, a) => a, 
-						(s) => s, 
-						ConvertExpression.CreateDataString (arg));
-				else if (arg.GetResultType () == typeof(DataInteger))
-					result = new AggregationExpression<DataInteger, DataInteger, DataInteger> (
-						(a) => a, 
-						(s, a) => a, 
-						(s) => s, 
-						ConvertExpression.CreateDataInteger (arg));
-				else {
-					throw new ParserException (
-						string.Format ("MAX aggregation function cannot be used on datatype '{0}'",
-					               arg.GetResultType ().ToString ()),
-						functionCallTree);
-				}
+				result = new AggregationExpression<IData, IData, IData> (
+					(a) => a, 
+					(s, a) => a, 
+					(s) => s, 
+					ConvertExpression.CreateData (arg));
 				break;
 			case "AVG":
 				if (arg is Expression<DataInteger>) {
@@ -446,6 +438,19 @@ namespace FxGqlLib
 						(s) => s, 
 						arg as Expression<DataInteger>);
 					result = new BinaryExpression<DataInteger, DataInteger, DataInteger> (
+						(a, b) => a / b, resultSum, resultCount);
+				} else if (arg is Expression<DataFloat>) {
+					Expression<DataFloat> resultSum = new AggregationExpression<DataFloat, DataFloat, DataFloat> (
+						(a) => a, 
+						(s, a) => s + a, 
+						(s) => s, 
+						arg as Expression<DataFloat>);
+					Expression<DataInteger> resultCount = new AggregationExpression<DataFloat, DataInteger, DataInteger> (
+						(a) => 1, 
+						(s, a) => s + 1, 
+						(s) => s, 
+						arg as Expression<DataFloat>);
+					result = new BinaryExpression<DataFloat, DataInteger, DataFloat> (
 						(a, b) => a / b, resultSum, resultCount);
 				} else {
 					throw new ParserException (

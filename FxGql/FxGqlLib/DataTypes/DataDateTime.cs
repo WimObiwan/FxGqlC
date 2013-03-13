@@ -28,6 +28,16 @@ namespace FxGqlLib
 			throw new ConversionException (typeof(DataDateTime), typeof(DataInteger));
 		}
 
+		public DataFloat ToDataFloat ()
+		{
+			throw new ConversionException (typeof(DataDateTime), typeof(DataFloat));
+		}
+		
+		public DataFloat ToDataFloat (string format)
+		{
+			throw new ConversionException (typeof(DataDateTime), typeof(DataFloat));
+		}
+		
 		public DataString ToDataString ()
 		{
 			return this.value.ToString ();

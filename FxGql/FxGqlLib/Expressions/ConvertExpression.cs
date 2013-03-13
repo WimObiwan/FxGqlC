@@ -9,6 +9,8 @@ namespace FxGqlLib
 			IExpression result;
 			if (type == DataType.Integer) {
 				result = CreateDataInteger (expr);
+			} else if (type == DataType.Float) {
+				result = CreateDataFloat (expr);
 			} else if (type == DataType.String) {
 				result = CreateDataString (expr);
 			} else if (type == DataType.Boolean) {
@@ -27,6 +29,8 @@ namespace FxGqlLib
 			IExpression result;
 			if (type == typeof(DataInteger)) {
 				result = CreateDataInteger (expr);
+			} else if (type == typeof(DataFloat)) {
+				result = CreateDataFloat (expr);
 			} else if (type == typeof(DataString)) {
 				result = CreateDataString (expr);
 			} else if (type == typeof(DataBoolean)) {
@@ -50,6 +54,8 @@ namespace FxGqlLib
 			IExpression result;
 			if (type == typeof(DataInteger)) {
 				result = CreateDataInteger (expr, format);
+			} else if (type == typeof(DataFloat)) {
+				result = CreateDataFloat (expr, format);
 			} else if (type == typeof(DataString)) {
 				result = CreateDataString (expr, format);
 			} else if (type == typeof(DataBoolean)) {
@@ -70,19 +76,37 @@ namespace FxGqlLib
 			Expression<DataInteger> result = expr as Expression<DataInteger>;
 			if (result == null)
 				result = new ConvertExpression<DataInteger> ((a) => a.ToDataInteger (), expr);
-
+			
 			return result;
 		}
-
+		
 		public static Expression<DataInteger> CreateDataInteger (IExpression expr, string format)
 		{
 			Expression<DataInteger> result = expr as Expression<DataInteger>;
 			if (result == null)
 				result = new ConvertExpression<DataInteger> ((a) => a.ToDataInteger (format), expr);
-
+			
 			return result;
 		}
-
+		
+		public static Expression<DataFloat> CreateDataFloat (IExpression expr)
+		{
+			Expression<DataFloat> result = expr as Expression<DataFloat>;
+			if (result == null)
+				result = new ConvertExpression<DataFloat> ((a) => a.ToDataFloat (), expr);
+			
+			return result;
+		}
+		
+		public static Expression<DataFloat> CreateDataFloat (IExpression expr, string format)
+		{
+			Expression<DataFloat> result = expr as Expression<DataFloat>;
+			if (result == null)
+				result = new ConvertExpression<DataFloat> ((a) => a.ToDataFloat (format), expr);
+			
+			return result;
+		}
+		
 		public static Expression<DataString> CreateDataString (IExpression expr)
 		{
 			Expression<DataString> result = expr as Expression<DataString>;

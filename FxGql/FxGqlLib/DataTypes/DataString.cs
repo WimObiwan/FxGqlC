@@ -29,6 +29,16 @@ namespace FxGqlLib
 			return new DataInteger (long.Parse (this.value));
 		}
 
+		public DataFloat ToDataFloat ()
+		{
+			return new DataFloat (double.Parse (this.value));
+		}
+		
+		public DataFloat ToDataFloat (string format)
+		{
+			return new DataFloat (double.Parse (this.value));
+		}
+		
 		public DataString ToDataString ()
 		{
 			return this;

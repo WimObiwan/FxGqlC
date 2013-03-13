@@ -420,8 +420,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-					engineHash.Execute (command);
-					testSummaryWriter.WriteLine (command);
+						engineHash.Execute (command);
+						testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -629,7 +629,7 @@ namespace FxGqlTest
                 "A4B2C5DB15348C29451E18B8307E5EF81625EA638E807935F39CEAA8D9AC7758");
 			TestGql ("select 17 + convert(string, 19)", 
                 "F8486352CBFF39416E12F52C5E5A7D570A4742C11A8E84F51DD935985CD0F3F7");
-            
+
 			// Operators & expressions:
 			//   Operator precedence http://msdn.microsoft.com/en-us/library/ms190276.aspx
 			//     Level 1: '~' (Bitwise NOT)
@@ -1704,6 +1704,16 @@ namespace FxGqlTest
 			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
 			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
 
+			// Data type float
+			TestGql ("select convert(float, '19.5')",
+			         "1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
+			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.OnWithRule;
+			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.OnWithRule;
+			TestGql (@"select top 3 [Time], avg(convert(float, [Drift])), first(convert(float, [Drift])), last(convert(float, [Drift])), min(convert(float, [Drift])), max(convert(float, [Drift])) from ['SampleFiles/ntp.7z' -columndelimiterregex='\s+' -heading=onwithrule] group by 1 orig",
+			         "18DD8F0EBBE4052249B38146FD4874CD379662BCA7EEF1C9EC6B8FF38B8A4FDA");
+			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
+			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
+
 			if (!Performance) {
 				Console.WriteLine ();
 				Console.WriteLine (
@@ -1723,7 +1733,6 @@ namespace FxGqlTest
          
 		public bool RunDevelop ()
 		{
-
 			// TODO: create "view" or "function"
 			// TODO: skip clause (select top 10 skip 2 from ...
 

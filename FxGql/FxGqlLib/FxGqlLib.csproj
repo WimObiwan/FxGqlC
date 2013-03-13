@@ -141,6 +141,7 @@
     <Compile Include="Providers\Flow\BottomProvider.cs" />
     <Compile Include="Util\IEnumerableExtension.cs" />
     <Compile Include="Providers\Flow\ColumnProviderDelimiterLineSplitter.cs" />
+    <Compile Include="DataTypes\DataFloat.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

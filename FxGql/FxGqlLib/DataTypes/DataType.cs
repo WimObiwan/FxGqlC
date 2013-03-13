@@ -6,6 +6,7 @@ namespace FxGqlLib
 	{
 		String,
 		Integer,
+		Float,
 		Boolean,
 		DateTime,
 	}
