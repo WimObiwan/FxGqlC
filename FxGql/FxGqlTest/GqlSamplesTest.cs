@@ -420,8 +420,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engineHash.Execute (command);
-						testSummaryWriter.WriteLine (command);
+					engineHash.Execute (command);
+					testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -566,14 +566,14 @@ namespace FxGqlTest
 			TestGql ("select $line from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
                 "B7B20E3D1807D5638954EE155A94608D1492D0C9FAB4E5D346E50E8816AD63CC");
 			TestGql (@"SELECT $filename, $totallineno FROM ['SampleFiles/*' -recurse] WHERE $lineno = 1", 
-			    "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
+			    "CF9373D37C3E1DA43CD7FB4132A5A25B5EFF6457544D8B2C6331D24D3E3F7A29");
 			TestGql (@"SELECT $totallineno, $lineno, $line FROM ['SampleFiles/AirportCodes.csv'], ['SampleFiles/AirportCodes.csv'] WHERE $line match 'belgium';
 				SELECT count(1) FROM ['SampleFiles/AirportCodes.csv']", 
 			    "C5540814A5C695DFEC4D4A7791A6EACC2E3ED0562FCAB27DD3CD88A464E24AB4");
 			TestGql (@"SELECT count(1) FROM ['SampleFiles/*' -recurse];
 				SELECT (SELECT max($totallineno) FROM ['SampleFiles/*' -recurse] WHERE $lineno = 1)
 					+ (SELECT count(1) FROM [SampleFiles/SubFolder/AirportCodes2.csv.zip]) - 1", 
-			    "405F3EC7933CF21E92C2EB1DE7EEFE91FB9C574BD4FC7EC6EE820AB7106033A4");
+			    "EC11308C5498BF4FFD9922900C3129322ED71DA216160E1AE2565A6C13801B64");
 
 			// Function call:
 			//    String: 
@@ -1102,7 +1102,7 @@ namespace FxGqlTest
 			TestGql (
 				@"
 				SELECT [f], [tl] FROM (SELECT $filename [f], $totallineno [tl], $lineno [l] FROM ['SampleFiles/*' -recurse]) WHERE [l] = 1
-				", "475083027C4306A7D3204512D77B0AF4C307FF90CD75ABDA8077D7FDAE6EDD3D");
+				", "CF9373D37C3E1DA43CD7FB4132A5A25B5EFF6457544D8B2C6331D24D3E3F7A29");
 			TestGql ("select * into ['test.txt' -lineend=dos] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.{3}))|(?:(?<Column1>.*),(?<Column2>.{3}))']",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt", 
@@ -1509,31 +1509,31 @@ namespace FxGqlTest
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			//// OS/FileSystem dependent
 			//TestGql ("select [Name], [Extension], [Length] from ['SampleFiles/*.*' -provider='directory']",
-			//         "85AC8E2EC8BA8AA27B86641222626195D2E41137D16093C73F9AB82CE636A296");
+			//         "D02C8B3B0E4D530AAAE71CD7EBABF1FFE5A786282BB20B1B0108E592276EF962");
 			//TestGql ("select [Name], [Extension], [Length] from ['SampleFiles/*.csv' -provider='directory']",
 			//         "D3BE6F9171CD26D6C6EBD7913EB6B36FC241ED4E58828D77D685599201C1231D");
 			//TestGql ("select [Name], [Extension], [Length] from ['SampleFiles/*.*' -provider='directory' -recurse]",
 			//         "81E4F34A2B4BE5062DB1C2F541EA8DFB22A0BF02C80E8A96B941468769BE79BA");
 			TestGql ("select [Name], [Extension], [Length] from ['SampleFiles/*.*' -provider='directory' -fileorder='asc']",
-			         "85AC8E2EC8BA8AA27B86641222626195D2E41137D16093C73F9AB82CE636A296");
+			         "D02C8B3B0E4D530AAAE71CD7EBABF1FFE5A786282BB20B1B0108E592276EF962");
 			TestGql ("select [Name], [Extension], [Length] from ['SampleFiles/*.csv' -provider='directory' -fileorder='asc']",
 			         "D3BE6F9171CD26D6C6EBD7913EB6B36FC241ED4E58828D77D685599201C1231D");
 			TestGql ("select [Name], [Extension], [Length] from ['SampleFiles/*.*' -provider='directory' -recurse -fileorder='asc']",
-			         "7959AD9BE60A5735404AC899E99BC1CFCD9C774C40512922EB850E82095F1F4E");
+			         "E46505F6FAD3440A022E745D9DB54F257576B125754930C2C0ADFE7C388AE67F");
 			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse -fileorder='asc']",
-			         "5D0445CB8B6986CBF8E4CD3EA81CD7AFEC134488D7274FF853DE3B3A1736E502");
+			         "AE345211A8A6E47BB566224D4AEA1CD1F1DF3886C9366D79DCF55E3669890C5A");
 			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse] order by [Name]",
-			         "5D0445CB8B6986CBF8E4CD3EA81CD7AFEC134488D7274FF853DE3B3A1736E502");
+			         "AE345211A8A6E47BB566224D4AEA1CD1F1DF3886C9366D79DCF55E3669890C5A");
 			//// too slow
 			//TestGql ("select distinct $filename from ['SampleFiles/*.*' -recurse -fileorder='asc']",
-			//         "5D0445CB8B6986CBF8E4CD3EA81CD7AFEC134488D7274FF853DE3B3A1736E502");
+			//         "AE345211A8A6E47BB566224D4AEA1CD1F1DF3886C9366D79DCF55E3669890C5A");
 			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse -fileorder='desc']",
-					 "55FAC23FB574B12DB4D0A40B25BB67AC51215976B3BC325C47ADDCE2A1D865C4");
+			         "91B076596578EB0F1F88E17BB89B29A31B266541831E91D2DEEEE85CA34807DC");
 			TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse] order by [Name] desc",
-					 "55FAC23FB574B12DB4D0A40B25BB67AC51215976B3BC325C47ADDCE2A1D865C4");
+			         "91B076596578EB0F1F88E17BB89B29A31B266541831E91D2DEEEE85CA34807DC");
 			//// too slow
 			//TestGql ("select distinct $filename from ['SampleFiles/*.*' -recurse -fileorder='desc']",
-			//         "55FAC23FB574B12DB4D0A40B25BB67AC51215976B3BC325C47ADDCE2A1D865C4");
+			//         "91B076596578EB0F1F88E17BB89B29A31B266541831E91D2DEEEE85CA34807DC");
 			//TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse -fileorder='modificationtimeasc']",
 			//         "46B882B50845C70167C5D6CB91A99A49E334C701ADA18B6E7FD86B0E1678BC08");
 			//TestGql ("select [Name] from ['SampleFiles/*.*' -provider='directory' -recurse] order by [LastWriteTime]",
@@ -1696,6 +1696,14 @@ namespace FxGqlTest
 			TestGql ("select fromstringradix('1024', 10), fromstringradix('400', 16), fromstringradix('2000', 8), fromstringradix('00400', 16), fromstringradix('002000', 8)",
 			         "8C18BE1A00FC6808330684517475DCDF4AA224371F13DF746ACA9499053B148E");
 
+			// FROM option '-columndelimiterregex'
+			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.OnWithRule;
+			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.OnWithRule;
+			TestGql (@"select top 100 * from ['SampleFiles/ntp.7z' -columndelimiterregex='\s+' -heading=onwithrule]",
+			         "7D5ECFE090C5ECD08439FB70B3F0D2E612C640EB7C3760B2DDF506F9FB049D03");
+			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
+			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
+
 			if (!Performance) {
 				Console.WriteLine ();
 				Console.WriteLine (
@@ -1715,6 +1723,7 @@ namespace FxGqlTest
          
 		public bool RunDevelop ()
 		{
+
 			// TODO: create "view" or "function"
 			// TODO: skip clause (select top 10 skip 2 from ...
 

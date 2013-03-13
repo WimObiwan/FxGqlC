@@ -99,6 +99,7 @@ namespace FxGqlLib
 		public FormatEnum Format { get; set; }
 
 		public string ColumnDelimiter { get; set; }
+		public string ColumnDelimiterRegex { get; set; }
 
 		public override void ValidateFileProviderOptions ()
 		{
@@ -110,6 +111,8 @@ namespace FxGqlLib
 			base.ValidateDirectoryProviderOptions ();
 			if (ColumnDelimiter != null)
 				throw new NotSupportedException ("FROM-option 'ColumnDelimiter' is not supported when using the DirectoryProvider");
+			if (ColumnDelimiterRegex != null)
+				throw new NotSupportedException ("FROM-option 'ColumnDelimiterRegex' is not supported when using the DirectoryProvider");
 			if (ColumnsRegex != null)
 				throw new NotSupportedException ("FROM-option 'ColumnsRegex' is not supported when using the DirectoryProvider");
 			if (Heading != GqlEngineState.HeadingEnum.Off)
@@ -124,6 +127,8 @@ namespace FxGqlLib
 			base.ValidateDataProviderOptions ();
 			if (ColumnDelimiter != null)
 				throw new NotSupportedException ("FROM-option 'ColumnDelimiter' is not supported when using the DataProvider");
+			if (ColumnDelimiterRegex != null)
+				throw new NotSupportedException ("FROM-option 'ColumnDelimiterRegex' is not supported when using the DataProvider");
 			if (ColumnsRegex != null)
 				throw new NotSupportedException ("FROM-option 'ColumnsRegex' is not supported when using the DataProvider");
 			if (Heading != GqlEngineState.HeadingEnum.Off)

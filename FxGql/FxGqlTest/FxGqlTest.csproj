@@ -66,6 +66,9 @@
     <None Include="SampleFiles\Tennis-ATP-2011.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="SampleFiles\ntp.7z">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FxGqlLib\FxGqlLib.csproj">

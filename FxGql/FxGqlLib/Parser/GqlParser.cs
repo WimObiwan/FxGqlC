@@ -690,6 +690,9 @@ namespace FxGqlLib
 				case "COLUMNDELIMITER":
 					fileOptions.ColumnDelimiter = System.Text.RegularExpressions.Regex.Unescape (value);
 					break;
+				case "COLUMNDELIMITERREGEX":
+					fileOptions.ColumnDelimiterRegex = value;
+					break;
 				case "PROVIDER":
 					FileOptions.ProviderEnum provider;
 					if (!Enum.TryParse<FileOptions.ProviderEnum> (value, true, out provider))
@@ -868,14 +871,25 @@ namespace FxGqlLib
 				provider = FileProviderFactory.Get (fileOptions, dataComparer.StringComparer);
             
 				if (fileOptions.Format == FileOptionsFromClause.FormatEnum.Csv) {
-					char[] separators = fileOptions.ColumnDelimiter != null ? fileOptions.ColumnDelimiter.ToCharArray () : new char[] { ',' };
-					provider = new ColumnProviderCsv (provider, separators);
+					ColumnProviderDelimiterLineSplitter splitter = 
+						ColumnProviderDelimiterLineSplitter.Create (
+							fileOptions.ColumnDelimiter, 
+							fileOptions.ColumnDelimiterRegex, 
+							new char[] { ','});
+					provider = new ColumnProviderCsv (provider, splitter);
 				} else if (fileOptions.ColumnsRegex != null) {
 					provider = new ColumnProviderRegex (provider, fileOptions.ColumnsRegex, dataComparer.CaseInsensitive);
-				} else if (fileOptions.ColumnDelimiter != null) {
-					provider = new ColumnProviderDelimiter (provider, fileOptions.ColumnDelimiter.ToCharArray ());
+				} else if (fileOptions.ColumnDelimiter != null || fileOptions.ColumnDelimiterRegex != null) {
+					ColumnProviderDelimiterLineSplitter splitter = 
+							ColumnProviderDelimiterLineSplitter.Create (
+								fileOptions.ColumnDelimiter, 
+								fileOptions.ColumnDelimiterRegex, 
+								new char[] { '\t'});
+					provider = new ColumnProviderDelimiter (provider, splitter);
 				} else if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
-					provider = new ColumnProviderDelimiter (provider);
+					ColumnProviderDelimiterLineSplitter splitter = 
+						ColumnProviderDelimiterLineSplitter.Create (new char[] { '\t'});
+					provider = new ColumnProviderDelimiter (provider, splitter);
 				}
 
 				if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {

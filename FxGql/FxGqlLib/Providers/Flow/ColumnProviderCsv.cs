@@ -11,19 +11,14 @@ namespace FxGqlLib
 		{
 		}
 
-		public ColumnProviderCsv (IProvider provider, char[] separators)
-			: this(provider, separators, -1)
+		public ColumnProviderCsv (IProvider provider, ColumnProviderDelimiterLineSplitter splitter)
+			: this(provider, splitter, -1)
 		{
 		}
 
-		public ColumnProviderCsv (IProvider provider, char[] separators, int columnCount)
-			: base(provider, separators, columnCount)
+		public ColumnProviderCsv (IProvider provider, ColumnProviderDelimiterLineSplitter splitter, int columnCount)
+			: base(provider, splitter, columnCount)
 		{
-		}
-
-		bool IsSeparator (char ch)
-		{
-			return Array.Exists (separators, p => p == ch);
 		}
 
 		protected override string[] ReadLine ()
@@ -42,10 +37,11 @@ namespace FxGqlLib
 					fields.Add ("");
 					done = true;
 				} else if (line [pos] != '"') {
-					int nextSep = line.IndexOfAny (separators, pos);
-					if (nextSep != -1) {
-						fields.Add (line.Substring (pos, nextSep - pos));
-						pos = nextSep + 1;
+					int newPos;
+					int nextStep = splitter.IndexOfNextSeparator (line, pos, out newPos);
+					if (nextStep != -1) {
+						fields.Add (line.Substring (pos, nextStep - pos));
+						pos = newPos;
 					} else {
 						fields.Add (line.Substring (pos));
 						done = true;
@@ -66,9 +62,9 @@ namespace FxGqlLib
 							pos = 0;
 							continue;
 						} else {
-							done = nextQuote + 1 >= line.Length;
-							char nextChar = done ? '\0' : line [nextQuote + 1];
-							if (done || Array.Exists (separators, p => p == nextChar)) {
+							done = (nextQuote + 1 >= line.Length);
+							int separatorLen;
+							if (done || splitter.IsSeparator (line, nextQuote + 1, out separatorLen)) {
 								// Valid field terminator
 								string str = line.Substring (pos, nextQuote - pos);
 								if (sb == null) {
@@ -77,9 +73,9 @@ namespace FxGqlLib
 									sb.Append (str);
 									fields.Add (sb.ToString ());
 								}
-								pos = nextQuote + 2;
+								pos = nextQuote + separatorLen + 1;
 								break;
-							} else if (nextChar == '"') {
+							} else if (line [nextQuote + 1] == '"') {
 								if (sb == null)
 									sb = new StringBuilder ();
 								sb.Append (line, pos, nextQuote - pos + 1);

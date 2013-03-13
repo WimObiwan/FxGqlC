@@ -8,7 +8,7 @@ namespace FxGqlLib
 	public class ColumnProviderDelimiter : IProvider
 	{
 		readonly protected IProvider provider;
-		readonly protected char[] separators;
+		readonly protected ColumnProviderDelimiterLineSplitter splitter;
 		readonly int columnCount;
 
 		ProviderRecord record;
@@ -16,23 +16,15 @@ namespace FxGqlLib
 		protected string[] firstLine;
 		DataString[] dataString;
 
-		public ColumnProviderDelimiter (IProvider provider)
-			: this(provider, null, -1)
+		public ColumnProviderDelimiter (IProvider provider, ColumnProviderDelimiterLineSplitter splitter)
+			: this(provider, splitter, -1)
 		{
 		}
 
-		public ColumnProviderDelimiter (IProvider provider, char[] separators)
-			: this(provider, separators, -1)
-		{
-		}
-
-		public ColumnProviderDelimiter (IProvider provider, char[] separators, int columnCount)
+		public ColumnProviderDelimiter (IProvider provider, ColumnProviderDelimiterLineSplitter splitter, int columnCount)
 		{
 			this.provider = provider;
-			if (separators != null)
-				this.separators = separators;
-			else
-				this.separators = new char[] { '\t' };
+			this.splitter = splitter;
 			this.columnCount = columnCount;
 		}
 
@@ -67,8 +59,7 @@ namespace FxGqlLib
 				return null;
 
 			string line = provider.Record.Columns [0].ToString ();
-
-			return line.Split (separators, StringSplitOptions.None);
+			return splitter.Split (line);
 		}
 
 		public virtual void Initialize (GqlQueryState gqlQueryState)
