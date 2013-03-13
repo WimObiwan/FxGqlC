@@ -45,12 +45,12 @@ namespace FxGqlLib
 
 		public DataDateTime ToDataDateTime ()
 		{
-			throw new ConversionException (typeof(DataInteger), typeof(DataDateTime));
+			throw new ConversionException (typeof(DataBoolean), typeof(DataDateTime));
 		}
 
 		public DataDateTime ToDataDateTime (string format)
 		{
-			throw new ConversionException (typeof(DataInteger), typeof(DataDateTime));
+			throw new ConversionException (typeof(DataBoolean), typeof(DataDateTime));
 		}
 
 		public int CompareTo (object other)
