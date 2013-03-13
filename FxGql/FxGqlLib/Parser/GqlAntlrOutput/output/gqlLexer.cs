@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// $ANTLR 3.4 C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g 2012-10-05 14:30:43
+// $ANTLR 3.4 C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g 2013-03-13 13:44:03
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -168,21 +168,21 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 	public const int T_GROUPBY_ORIG=108;
 	public const int T_HAVING=109;
 	public const int T_IN=110;
-	public const int T_INTEGER=111;
-	public const int T_INTO=112;
-	public const int T_LESS=113;
-	public const int T_LIKE=114;
-	public const int T_MATCH=115;
-	public const int T_MINUS=116;
-	public const int T_MODULO=117;
-	public const int T_NOT=118;
-	public const int T_NOTBETWEEN=119;
-	public const int T_NOTEQUAL=120;
-	public const int T_NOTGREATER=121;
-	public const int T_NOTIN=122;
-	public const int T_NOTLESS=123;
-	public const int T_NOTLIKE=124;
-	public const int T_NOTMATCH=125;
+	public const int T_INTO=111;
+	public const int T_LESS=112;
+	public const int T_LIKE=113;
+	public const int T_MATCH=114;
+	public const int T_MINUS=115;
+	public const int T_MODULO=116;
+	public const int T_NOT=117;
+	public const int T_NOTBETWEEN=118;
+	public const int T_NOTEQUAL=119;
+	public const int T_NOTGREATER=120;
+	public const int T_NOTIN=121;
+	public const int T_NOTLESS=122;
+	public const int T_NOTLIKE=123;
+	public const int T_NOTMATCH=124;
+	public const int T_NUMBER=125;
 	public const int T_OP_BINARY=126;
 	public const int T_OP_UNARY=127;
 	public const int T_OR=128;
@@ -3803,34 +3803,103 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		int _type = NUMBER;
     		int _channel = DefaultTokenChannel;
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:564:2: ( ( DIGIT )+ ( 'k' | 'M' | 'G' | 'T' | 'P' | 'E' )? )
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:564:2: ( ( ( DIGIT )* '.' )? ( DIGIT )+ ( 'k' | 'M' | 'G' | 'T' | 'P' | 'E' )? )
     		DebugEnterAlt(1);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:564:4: ( DIGIT )+ ( 'k' | 'M' | 'G' | 'T' | 'P' | 'E' )?
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:564:4: ( ( DIGIT )* '.' )? ( DIGIT )+ ( 'k' | 'M' | 'G' | 'T' | 'P' | 'E' )?
     		{
     		DebugLocation(564, 4);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:564:4: ( DIGIT )+
-    		int cnt7=0;
-    		try { DebugEnterSubRule(7);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:564:4: ( ( DIGIT )* '.' )?
+    		int alt8=2;
+    		try { DebugEnterSubRule(8);
+    		try { DebugEnterDecision(8, decisionCanBacktrack[8]);
+    		try
+    		{
+    			alt8 = dfa8.Predict(input);
+    		}
+    		catch (NoViableAltException nvae)
+    		{
+    			DebugRecognitionException(nvae);
+    			throw;
+    		}
+    		} finally { DebugExitDecision(8); }
+    		switch (alt8)
+    		{
+    		case 1:
+    			DebugEnterAlt(1);
+    			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:564:5: ( DIGIT )* '.'
+    			{
+    			DebugLocation(564, 5);
+    			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:564:5: ( DIGIT )*
+    			try { DebugEnterSubRule(7);
+    			while (true)
+    			{
+    				int alt7=2;
+    				try { DebugEnterDecision(7, decisionCanBacktrack[7]);
+    				int LA7_0 = input.LA(1);
+
+    				if (((LA7_0>='0' && LA7_0<='9')))
+    				{
+    					alt7 = 1;
+    				}
+
+
+    				} finally { DebugExitDecision(7); }
+    				switch ( alt7 )
+    				{
+    				case 1:
+    					DebugEnterAlt(1);
+    					// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
+    					{
+    					DebugLocation(564, 5);
+    					input.Consume();
+
+
+    					}
+    					break;
+
+    				default:
+    					goto loop7;
+    				}
+    			}
+
+    			loop7:
+    				;
+
+    			} finally { DebugExitSubRule(7); }
+
+    			DebugLocation(564, 12);
+    			Match('.'); 
+
+    			}
+    			break;
+
+    		}
+    		} finally { DebugExitSubRule(8); }
+
+    		DebugLocation(564, 18);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:564:18: ( DIGIT )+
+    		int cnt9=0;
+    		try { DebugEnterSubRule(9);
     		while (true)
     		{
-    			int alt7=2;
-    			try { DebugEnterDecision(7, decisionCanBacktrack[7]);
-    			int LA7_0 = input.LA(1);
+    			int alt9=2;
+    			try { DebugEnterDecision(9, decisionCanBacktrack[9]);
+    			int LA9_0 = input.LA(1);
 
-    			if (((LA7_0>='0' && LA7_0<='9')))
+    			if (((LA9_0>='0' && LA9_0<='9')))
     			{
-    				alt7 = 1;
+    				alt9 = 1;
     			}
 
 
-    			} finally { DebugExitDecision(7); }
-    			switch (alt7)
+    			} finally { DebugExitDecision(9); }
+    			switch (alt9)
     			{
     			case 1:
     				DebugEnterAlt(1);
     				// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     				{
-    				DebugLocation(564, 4);
+    				DebugLocation(564, 18);
     				input.Consume();
 
 
@@ -3838,39 +3907,39 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     				break;
 
     			default:
-    				if (cnt7 >= 1)
-    					goto loop7;
+    				if (cnt9 >= 1)
+    					goto loop9;
 
-    				EarlyExitException eee7 = new EarlyExitException( 7, input );
-    				DebugRecognitionException(eee7);
-    				throw eee7;
+    				EarlyExitException eee9 = new EarlyExitException( 9, input );
+    				DebugRecognitionException(eee9);
+    				throw eee9;
     			}
-    			cnt7++;
+    			cnt9++;
     		}
-    		loop7:
+    		loop9:
     			;
 
-    		} finally { DebugExitSubRule(7); }
+    		} finally { DebugExitSubRule(9); }
 
-    		DebugLocation(564, 11);
-    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:564:11: ( 'k' | 'M' | 'G' | 'T' | 'P' | 'E' )?
-    		int alt8=2;
-    		try { DebugEnterSubRule(8);
-    		try { DebugEnterDecision(8, decisionCanBacktrack[8]);
-    		int LA8_0 = input.LA(1);
+    		DebugLocation(564, 25);
+    		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:564:25: ( 'k' | 'M' | 'G' | 'T' | 'P' | 'E' )?
+    		int alt10=2;
+    		try { DebugEnterSubRule(10);
+    		try { DebugEnterDecision(10, decisionCanBacktrack[10]);
+    		int LA10_0 = input.LA(1);
 
-    		if ((LA8_0=='E'||LA8_0=='G'||LA8_0=='M'||LA8_0=='P'||LA8_0=='T'||LA8_0=='k'))
+    		if ((LA10_0=='E'||LA10_0=='G'||LA10_0=='M'||LA10_0=='P'||LA10_0=='T'||LA10_0=='k'))
     		{
-    			alt8 = 1;
+    			alt10 = 1;
     		}
-    		} finally { DebugExitDecision(8); }
-    		switch (alt8)
+    		} finally { DebugExitDecision(10); }
+    		switch (alt10)
     		{
     		case 1:
     			DebugEnterAlt(1);
     			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:
     			{
-    			DebugLocation(564, 11);
+    			DebugLocation(564, 25);
     			input.Consume();
 
 
@@ -3878,7 +3947,7 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     			break;
 
     		}
-    		} finally { DebugExitSubRule(8); }
+    		} finally { DebugExitSubRule(10); }
 
 
     		}
@@ -3917,22 +3986,22 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     		{
     		DebugLocation(568, 4);
     		// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:568:4: ( ' ' | '\\t' | '\\n' | '\\r' | '\\u000C' )+
-    		int cnt9=0;
-    		try { DebugEnterSubRule(9);
+    		int cnt11=0;
+    		try { DebugEnterSubRule(11);
     		while (true)
     		{
-    			int alt9=2;
-    			try { DebugEnterDecision(9, decisionCanBacktrack[9]);
-    			int LA9_0 = input.LA(1);
+    			int alt11=2;
+    			try { DebugEnterDecision(11, decisionCanBacktrack[11]);
+    			int LA11_0 = input.LA(1);
 
-    			if (((LA9_0>='\t' && LA9_0<='\n')||(LA9_0>='\f' && LA9_0<='\r')||LA9_0==' '))
+    			if (((LA11_0>='\t' && LA11_0<='\n')||(LA11_0>='\f' && LA11_0<='\r')||LA11_0==' '))
     			{
-    				alt9 = 1;
+    				alt11 = 1;
     			}
 
 
-    			} finally { DebugExitDecision(9); }
-    			switch (alt9)
+    			} finally { DebugExitDecision(11); }
+    			switch (alt11)
     			{
     			case 1:
     				DebugEnterAlt(1);
@@ -3946,19 +4015,19 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     				break;
 
     			default:
-    				if (cnt9 >= 1)
-    					goto loop9;
+    				if (cnt11 >= 1)
+    					goto loop11;
 
-    				EarlyExitException eee9 = new EarlyExitException( 9, input );
-    				DebugRecognitionException(eee9);
-    				throw eee9;
+    				EarlyExitException eee11 = new EarlyExitException( 11, input );
+    				DebugRecognitionException(eee11);
+    				throw eee11;
     			}
-    			cnt9++;
+    			cnt11++;
     		}
-    		loop9:
+    		loop11:
     			;
 
-    		} finally { DebugExitSubRule(9); }
+    		} finally { DebugExitSubRule(11); }
 
 
     		}
@@ -5166,19 +5235,19 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
     public override void mTokens()
     {
     	// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:1:8: ( T__164 | T__165 | T__166 | T__167 | T__168 | T__169 | T__170 | T__171 | T__172 | T__173 | T__174 | T__175 | T__176 | T__177 | T__178 | T__179 | T__180 | T__181 | T__182 | T__183 | T__184 | T__185 | T__186 | T__187 | T__188 | COMMENT_LINE | COMMENT_BLOCK | STRING | SIMPLE_FILE | SELECT | ALL | DISTINCT | TOP | BOTTOM | INTO | FROM | WHERE | NOT | AND | OR | LIKE | MATCH | GROUP | ORDER | BY | ASC | DESC | ORIG | CONVERT | CAST | AS | BETWEEN | IN | ANY | SOME | EXISTS | CASE | WHEN | THEN | ELSE | END | USE | DECLARE | SET | CREATE | VIEW | TABLE | DROP | HAVING | COUNT | DATEADD | DATEDIFF | DATEPART | UNION | TOKEN | SYSTEMVAR | VARIABLE | NUMBER | WS )
-    	int alt10=79;
-    	try { DebugEnterDecision(10, decisionCanBacktrack[10]);
+    	int alt12=79;
+    	try { DebugEnterDecision(12, decisionCanBacktrack[12]);
     	try
     	{
-    		alt10 = dfa10.Predict(input);
+    		alt12 = dfa12.Predict(input);
     	}
     	catch (NoViableAltException nvae)
     	{
     		DebugRecognitionException(nvae);
     		throw;
     	}
-    	} finally { DebugExitDecision(10); }
-    	switch (alt10)
+    	} finally { DebugExitDecision(12); }
+    	switch (alt12)
     	{
     	case 1:
     		DebugEnterAlt(1);
@@ -5898,37 +5967,100 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 
 
 	#region DFA
-	DFA10 dfa10;
+	DFA8 dfa8;
+	DFA12 dfa12;
 
 	protected override void InitDFAs()
 	{
 		base.InitDFAs();
-		dfa10 = new DFA10(this, SpecialStateTransition10);
+		dfa8 = new DFA8(this);
+		dfa12 = new DFA12(this, SpecialStateTransition12);
 	}
 
-	private class DFA10 : DFA
+	private class DFA8 : DFA
 	{
-		private const string DFA10_eotS =
-			"\x9\xFFFF\x1\x31\x1\xFFFF\x1\x33\x1\xFFFF\x1\x36\x1\xFFFF\x1\x38\x1\x39"+
-			"\x5\xFFFF\x12\x28\x13\xFFFF\x4\x28\x1\x62\x8\x28\x1\x6D\x1\x28\x1\x6F"+
-			"\x3\x28\x1\x74\xE\x28\x1\x86\x1\x28\x1\x88\x1\x89\x1\x8A\x1\xFFFF\x1"+
-			"\x8B\x5\x28\x1\x91\x3\x28\x1\xFFFF\x1\x28\x1\xFFFF\x3\x28\x1\x9A\x1\xFFFF"+
-			"\xB\x28\x1\xA7\x1\xA8\x4\x28\x1\xFFFF\x1\xAD\x4\xFFFF\x1\x28\x1\xAF\x1"+
-			"\x28\x1\xB1\x1\x28\x1\xFFFF\x1\xB5\x3\x28\x1\xB9\x1\xBA\x1\x28\x1\xBC"+
-			"\x1\xFFFF\x1\x28\x1\xBE\x1\xBF\x4\x28\x1\xC4\x1\xC5\x2\x28\x1\xC8\x2"+
-			"\xFFFF\x1\x28\x1\xCA\x2\x28\x1\xFFFF\x1\x28\x1\xFFFF\x1\x28\x1\xFFFF"+
-			"\x3\x28\x1\xFFFF\x1\xD2\x2\x28\x2\xFFFF\x1\xD5\x1\xFFFF\x1\xD6\x2\xFFFF"+
-			"\x1\xD7\x1\xD8\x1\x28\x1\xDA\x2\xFFFF\x2\x28\x1\xFFFF\x1\xDD\x1\xFFFF"+
-			"\x1\x28\x1\xDF\x5\x28\x1\xFFFF\x1\xE5\x1\x28\x4\xFFFF\x1\x28\x1\xFFFF"+
-			"\x1\xE8\x1\xE9\x1\xFFFF\x1\xEA\x1\xFFFF\x1\x28\x1\xEC\x1\xED\x2\x28\x1"+
-			"\xFFFF\x1\xF0\x1\xF1\x3\xFFFF\x1\xF2\x2\xFFFF\x1\xF3\x1\xF4\x5\xFFFF";
-		private const string DFA10_eofS =
-			"\xF5\xFFFF";
-		private const string DFA10_minS =
-			"\x1\x9\x1\x3C\x7\xFFFF\x1\x2D\x1\xFFFF\x1\x2A\x1\xFFFF\x1\x3D\x1\xFFFF"+
+		private const string DFA8_eotS =
+			"\x1\xFFFF\x1\x3\x2\xFFFF";
+		private const string DFA8_eofS =
+			"\x4\xFFFF";
+		private const string DFA8_minS =
+			"\x2\x2E\x2\xFFFF";
+		private const string DFA8_maxS =
+			"\x2\x39\x2\xFFFF";
+		private const string DFA8_acceptS =
+			"\x2\xFFFF\x1\x1\x1\x2";
+		private const string DFA8_specialS =
+			"\x4\xFFFF}>";
+		private static readonly string[] DFA8_transitionS =
+			{
+				"\x1\x2\x1\xFFFF\xA\x1",
+				"\x1\x2\x1\xFFFF\xA\x1",
+				"",
+				""
+			};
+
+		private static readonly short[] DFA8_eot = DFA.UnpackEncodedString(DFA8_eotS);
+		private static readonly short[] DFA8_eof = DFA.UnpackEncodedString(DFA8_eofS);
+		private static readonly char[] DFA8_min = DFA.UnpackEncodedStringToUnsignedChars(DFA8_minS);
+		private static readonly char[] DFA8_max = DFA.UnpackEncodedStringToUnsignedChars(DFA8_maxS);
+		private static readonly short[] DFA8_accept = DFA.UnpackEncodedString(DFA8_acceptS);
+		private static readonly short[] DFA8_special = DFA.UnpackEncodedString(DFA8_specialS);
+		private static readonly short[][] DFA8_transition;
+
+		static DFA8()
+		{
+			int numStates = DFA8_transitionS.Length;
+			DFA8_transition = new short[numStates][];
+			for ( int i=0; i < numStates; i++ )
+			{
+				DFA8_transition[i] = DFA.UnpackEncodedString(DFA8_transitionS[i]);
+			}
+		}
+
+		public DFA8( BaseRecognizer recognizer )
+		{
+			this.recognizer = recognizer;
+			this.decisionNumber = 8;
+			this.eot = DFA8_eot;
+			this.eof = DFA8_eof;
+			this.min = DFA8_min;
+			this.max = DFA8_max;
+			this.accept = DFA8_accept;
+			this.special = DFA8_special;
+			this.transition = DFA8_transition;
+		}
+
+		public override string Description { get { return "564:4: ( ( DIGIT )* '.' )?"; } }
+
+		public override void Error(NoViableAltException nvae)
+		{
+			DebugRecognitionException(nvae);
+		}
+	}
+
+	private class DFA12 : DFA
+	{
+		private const string DFA12_eotS =
+			"\x9\xFFFF\x1\x31\x1\x32\x1\x34\x1\xFFFF\x1\x37\x1\xFFFF\x1\x39\x1\x3A"+
+			"\x5\xFFFF\x12\x28\x14\xFFFF\x4\x28\x1\x63\x8\x28\x1\x6E\x1\x28\x1\x70"+
+			"\x3\x28\x1\x75\xE\x28\x1\x87\x1\x28\x1\x89\x1\x8A\x1\x8B\x1\xFFFF\x1"+
+			"\x8C\x5\x28\x1\x92\x3\x28\x1\xFFFF\x1\x28\x1\xFFFF\x3\x28\x1\x9B\x1\xFFFF"+
+			"\xB\x28\x1\xA8\x1\xA9\x4\x28\x1\xFFFF\x1\xAE\x4\xFFFF\x1\x28\x1\xB0\x1"+
+			"\x28\x1\xB2\x1\x28\x1\xFFFF\x1\xB6\x3\x28\x1\xBA\x1\xBB\x1\x28\x1\xBD"+
+			"\x1\xFFFF\x1\x28\x1\xBF\x1\xC0\x4\x28\x1\xC5\x1\xC6\x2\x28\x1\xC9\x2"+
+			"\xFFFF\x1\x28\x1\xCB\x2\x28\x1\xFFFF\x1\x28\x1\xFFFF\x1\x28\x1\xFFFF"+
+			"\x3\x28\x1\xFFFF\x1\xD3\x2\x28\x2\xFFFF\x1\xD6\x1\xFFFF\x1\xD7\x2\xFFFF"+
+			"\x1\xD8\x1\xD9\x1\x28\x1\xDB\x2\xFFFF\x2\x28\x1\xFFFF\x1\xDE\x1\xFFFF"+
+			"\x1\x28\x1\xE0\x5\x28\x1\xFFFF\x1\xE6\x1\x28\x4\xFFFF\x1\x28\x1\xFFFF"+
+			"\x1\xE9\x1\xEA\x1\xFFFF\x1\xEB\x1\xFFFF\x1\x28\x1\xED\x1\xEE\x2\x28\x1"+
+			"\xFFFF\x1\xF1\x1\xF2\x3\xFFFF\x1\xF3\x2\xFFFF\x1\xF4\x1\xF5\x5\xFFFF";
+		private const string DFA12_eofS =
+			"\xF6\xFFFF";
+		private const string DFA12_minS =
+			"\x1\x9\x1\x3C\x7\xFFFF\x1\x2D\x1\x30\x1\x2A\x1\xFFFF\x1\x3D\x1\xFFFF"+
 			"\x1\x3D\x1\x0\x5\xFFFF\x1\x45\x1\x4C\x2\x41\x1\x45\x1\x4E\x1\x52\x1\x48"+
 			"\x1\x4F\x1\x52\x1\x49\x1\x41\x1\x52\x1\x41\x1\x4C\x1\x4E\x1\x49\x1\x41"+
-			"\x13\xFFFF\x1\x4C\x1\x4D\x1\x4C\x1\x44\x1\x30\x1\x53\x1\x43\x1\x4F\x1"+
+			"\x14\xFFFF\x1\x4C\x1\x4D\x1\x4C\x1\x44\x1\x30\x1\x53\x1\x43\x1\x4F\x1"+
 			"\x54\x1\x50\x1\x45\x1\x42\x1\x54\x1\x30\x1\x54\x1\x30\x1\x4F\x1\x45\x1"+
 			"\x54\x1\x30\x1\x4B\x1\x54\x1\x4F\x1\x4E\x1\x53\x1\x45\x1\x49\x1\x53\x1"+
 			"\x44\x1\x45\x1\x49\x1\x45\x1\x56\x1\x45\x1\x30\x1\x45\x3\x30\x1\xFFFF"+
@@ -5945,11 +6077,11 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 			"\x1\x45\x1\x44\x1\x46\x1\x52\x1\xFFFF\x1\x30\x1\x4E\x4\xFFFF\x1\x54\x1"+
 			"\xFFFF\x2\x30\x1\xFFFF\x1\x30\x1\xFFFF\x1\x54\x2\x30\x1\x46\x1\x54\x1"+
 			"\xFFFF\x2\x30\x3\xFFFF\x1\x30\x2\xFFFF\x2\x30\x5\xFFFF";
-		private const string DFA10_maxS =
-			"\x1\x7E\x1\x3E\x7\xFFFF\x1\x2D\x1\xFFFF\x1\x2A\x1\xFFFF\x1\x3E\x1\xFFFF"+
+		private const string DFA12_maxS =
+			"\x1\x7E\x1\x3E\x7\xFFFF\x1\x2D\x1\x39\x1\x2A\x1\xFFFF\x1\x3E\x1\xFFFF"+
 			"\x1\x3D\x1\xFFFF\x5\xFFFF\x1\x6F\x1\x73\x1\x72\x1\x6F\x1\x79\x1\x6E\x1"+
 			"\x72\x1\x68\x1\x6F\x1\x72\x1\x69\x1\x61\x2\x72\x1\x78\x1\x73\x1\x69\x1"+
-			"\x61\x13\xFFFF\x1\x74\x1\x6D\x1\x6C\x1\x79\x1\x7A\x2\x73\x1\x6F\x1\x74"+
+			"\x61\x14\xFFFF\x1\x74\x1\x6D\x1\x6C\x1\x79\x1\x7A\x2\x73\x1\x6F\x1\x74"+
 			"\x1\x70\x1\x65\x1\x62\x1\x74\x1\x7A\x1\x74\x1\x7A\x1\x6F\x1\x65\x1\x74"+
 			"\x1\x7A\x1\x6B\x1\x74\x1\x6F\x1\x75\x1\x73\x1\x65\x1\x69\x1\x73\x1\x64"+
 			"\x1\x65\x1\x69\x1\x65\x1\x76\x1\x65\x1\x7A\x1\x65\x3\x7A\x1\xFFFF\x1"+
@@ -5966,23 +6098,23 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 			"\x65\x1\x64\x1\x66\x1\x72\x1\xFFFF\x1\x7A\x1\x6E\x4\xFFFF\x1\x74\x1\xFFFF"+
 			"\x2\x7A\x1\xFFFF\x1\x7A\x1\xFFFF\x1\x74\x2\x7A\x1\x66\x1\x74\x1\xFFFF"+
 			"\x2\x7A\x3\xFFFF\x1\x7A\x2\xFFFF\x2\x7A\x5\xFFFF";
-		private const string DFA10_acceptS =
-			"\x2\xFFFF\x1\x4\x1\x5\x1\x6\x1\x7\x1\x8\x1\x9\x1\xA\x1\xFFFF\x1\xC\x1"+
-			"\xFFFF\x1\xE\x1\xFFFF\x1\x12\x2\xFFFF\x1\x16\x1\x17\x1\x18\x1\x19\x1"+
-			"\x1C\x12\xFFFF\x1\x4B\x1\x4C\x1\x4D\x1\x4E\x1\x4F\x1\x1\x1\x2\x1\x3\x1"+
-			"\x1A\x1\xB\x1\x1B\x1\xD\x1\x10\x1\x11\x1\xF\x1\x14\x1\x13\x1\x15\x1\x1D"+
-			"\x27\xFFFF\x1\x33\xA\xFFFF\x1\x2D\x1\xFFFF\x1\x35\x4\xFFFF\x1\x28\x11"+
-			"\xFFFF\x1\x40\x1\xFFFF\x1\x1F\x1\x27\x1\x36\x1\x2E\x5\xFFFF\x1\x21\x8"+
-			"\xFFFF\x1\x26\xC\xFFFF\x1\x3D\x1\x3E\x4\xFFFF\x1\x37\x1\xFFFF\x1\x2F"+
-			"\x1\xFFFF\x1\x44\x3\xFFFF\x1\x3B\x3\xFFFF\x1\x23\x1\x24\x1\xFFFF\x1\x3A"+
-			"\x1\xFFFF\x1\x30\x1\x29\x4\xFFFF\x1\x32\x1\x39\x2\xFFFF\x1\x3C\x1\xFFFF"+
-			"\x1\x42\x7\xFFFF\x1\x43\x2\xFFFF\x1\x25\x1\x2C\x1\x2A\x1\x2B\x1\xFFFF"+
-			"\x1\x46\x2\xFFFF\x1\x4A\x1\xFFFF\x1\x1E\x5\xFFFF\x1\x22\x2\xFFFF\x1\x41"+
-			"\x1\x38\x1\x45\x1\xFFFF\x1\x3F\x1\x47\x2\xFFFF\x1\x34\x1\x31\x1\x20\x1"+
-			"\x48\x1\x49";
-		private const string DFA10_specialS =
-			"\x10\xFFFF\x1\x0\xE4\xFFFF}>";
-		private static readonly string[] DFA10_transitionS =
+		private const string DFA12_acceptS =
+			"\x2\xFFFF\x1\x4\x1\x5\x1\x6\x1\x7\x1\x8\x1\x9\x1\xA\x3\xFFFF\x1\xE\x1"+
+			"\xFFFF\x1\x12\x2\xFFFF\x1\x16\x1\x17\x1\x18\x1\x19\x1\x1C\x12\xFFFF\x1"+
+			"\x4B\x1\x4C\x1\x4D\x1\x4E\x1\x4F\x1\x1\x1\x2\x1\x3\x1\x1A\x1\xB\x1\xC"+
+			"\x1\x1B\x1\xD\x1\x10\x1\x11\x1\xF\x1\x14\x1\x13\x1\x15\x1\x1D\x27\xFFFF"+
+			"\x1\x33\xA\xFFFF\x1\x2D\x1\xFFFF\x1\x35\x4\xFFFF\x1\x28\x11\xFFFF\x1"+
+			"\x40\x1\xFFFF\x1\x1F\x1\x27\x1\x36\x1\x2E\x5\xFFFF\x1\x21\x8\xFFFF\x1"+
+			"\x26\xC\xFFFF\x1\x3D\x1\x3E\x4\xFFFF\x1\x37\x1\xFFFF\x1\x2F\x1\xFFFF"+
+			"\x1\x44\x3\xFFFF\x1\x3B\x3\xFFFF\x1\x23\x1\x24\x1\xFFFF\x1\x3A\x1\xFFFF"+
+			"\x1\x30\x1\x29\x4\xFFFF\x1\x32\x1\x39\x2\xFFFF\x1\x3C\x1\xFFFF\x1\x42"+
+			"\x7\xFFFF\x1\x43\x2\xFFFF\x1\x25\x1\x2C\x1\x2A\x1\x2B\x1\xFFFF\x1\x46"+
+			"\x2\xFFFF\x1\x4A\x1\xFFFF\x1\x1E\x5\xFFFF\x1\x22\x2\xFFFF\x1\x41\x1\x38"+
+			"\x1\x45\x1\xFFFF\x1\x3F\x1\x47\x2\xFFFF\x1\x34\x1\x31\x1\x20\x1\x48\x1"+
+			"\x49";
+		private const string DFA12_specialS =
+			"\x10\xFFFF\x1\x0\xE5\xFFFF}>";
+		private static readonly string[] DFA12_transitionS =
 			{
 				"\x2\x2C\x1\xFFFF\x2\x2C\x12\xFFFF\x1\x2C\x1\x1\x2\xFFFF\x1\x29\x1\x2"+
 				"\x1\x3\x1\x15\x1\x4\x1\x5\x1\x6\x1\x7\x1\x8\x1\x9\x1\xA\x1\xB\xA\x2B"+
@@ -6002,28 +6134,27 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 				"",
 				"",
 				"\x1\x30",
+				"\xA\x2B",
+				"\x1\x33",
 				"",
-				"\x1\x32",
+				"\x1\x35\x1\x36",
 				"",
-				"\x1\x34\x1\x35",
-				"",
-				"\x1\x37",
-				"\x27\x3A\x3\xFFFF\x16\x3A\x1\xFFFF\x1A\x3A\x1\xFFFF\xFFA4\x3A",
-				"",
-				"",
+				"\x1\x38",
+				"\x27\x3B\x3\xFFFF\x16\x3B\x1\xFFFF\x1A\x3B\x1\xFFFF\xFFA4\x3B",
 				"",
 				"",
 				"",
-				"\x1\x3B\x9\xFFFF\x1\x3C\x15\xFFFF\x1\x3B\x9\xFFFF\x1\x3C",
-				"\x1\x3D\x1\xFFFF\x1\x3E\x4\xFFFF\x1\x3F\x18\xFFFF\x1\x3D\x1\xFFFF\x1"+
-				"\x3E\x4\xFFFF\x1\x3F",
-				"\x1\x43\x3\xFFFF\x1\x41\x3\xFFFF\x1\x40\x8\xFFFF\x1\x42\xE\xFFFF\x1"+
-				"\x43\x3\xFFFF\x1\x41\x3\xFFFF\x1\x40\x8\xFFFF\x1\x42",
-				"\x1\x46\x6\xFFFF\x1\x45\x6\xFFFF\x1\x44\x11\xFFFF\x1\x46\x6\xFFFF\x1"+
-				"\x45\x6\xFFFF\x1\x44",
-				"\x1\x49\x9\xFFFF\x1\x47\x9\xFFFF\x1\x48\xB\xFFFF\x1\x49\x9\xFFFF\x1"+
-				"\x47\x9\xFFFF\x1\x48",
-				"\x1\x4A\x1F\xFFFF\x1\x4A",
+				"",
+				"",
+				"\x1\x3C\x9\xFFFF\x1\x3D\x15\xFFFF\x1\x3C\x9\xFFFF\x1\x3D",
+				"\x1\x3E\x1\xFFFF\x1\x3F\x4\xFFFF\x1\x40\x18\xFFFF\x1\x3E\x1\xFFFF\x1"+
+				"\x3F\x4\xFFFF\x1\x40",
+				"\x1\x44\x3\xFFFF\x1\x42\x3\xFFFF\x1\x41\x8\xFFFF\x1\x43\xE\xFFFF\x1"+
+				"\x44\x3\xFFFF\x1\x42\x3\xFFFF\x1\x41\x8\xFFFF\x1\x43",
+				"\x1\x47\x6\xFFFF\x1\x46\x6\xFFFF\x1\x45\x11\xFFFF\x1\x47\x6\xFFFF\x1"+
+				"\x46\x6\xFFFF\x1\x45",
+				"\x1\x4A\x9\xFFFF\x1\x48\x9\xFFFF\x1\x49\xB\xFFFF\x1\x4A\x9\xFFFF\x1"+
+				"\x48\x9\xFFFF\x1\x49",
 				"\x1\x4B\x1F\xFFFF\x1\x4B",
 				"\x1\x4C\x1F\xFFFF\x1\x4C",
 				"\x1\x4D\x1F\xFFFF\x1\x4D",
@@ -6031,13 +6162,14 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 				"\x1\x4F\x1F\xFFFF\x1\x4F",
 				"\x1\x50\x1F\xFFFF\x1\x50",
 				"\x1\x51\x1F\xFFFF\x1\x51",
-				"\x1\x53\xD\xFFFF\x1\x52\x2\xFFFF\x1\x54\xE\xFFFF\x1\x53\xD\xFFFF\x1"+
-				"\x52\x2\xFFFF\x1\x54",
-				"\x1\x56\x1\xFFFF\x1\x57\x9\xFFFF\x1\x55\x13\xFFFF\x1\x56\x1\xFFFF\x1"+
-				"\x57\x9\xFFFF\x1\x55",
-				"\x1\x59\x4\xFFFF\x1\x58\x1A\xFFFF\x1\x59\x4\xFFFF\x1\x58",
-				"\x1\x5A\x1F\xFFFF\x1\x5A",
+				"\x1\x52\x1F\xFFFF\x1\x52",
+				"\x1\x54\xD\xFFFF\x1\x53\x2\xFFFF\x1\x55\xE\xFFFF\x1\x54\xD\xFFFF\x1"+
+				"\x53\x2\xFFFF\x1\x55",
+				"\x1\x57\x1\xFFFF\x1\x58\x9\xFFFF\x1\x56\x13\xFFFF\x1\x57\x1\xFFFF\x1"+
+				"\x58\x9\xFFFF\x1\x56",
+				"\x1\x5A\x4\xFFFF\x1\x59\x1A\xFFFF\x1\x5A\x4\xFFFF\x1\x59",
 				"\x1\x5B\x1F\xFFFF\x1\x5B",
+				"\x1\x5C\x1F\xFFFF\x1\x5C",
 				"",
 				"",
 				"",
@@ -6057,34 +6189,34 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 				"",
 				"",
 				"",
-				"\x1\x5C\x7\xFFFF\x1\x5D\x17\xFFFF\x1\x5C\x7\xFFFF\x1\x5D",
-				"\x1\x5E\x1F\xFFFF\x1\x5E",
+				"",
+				"\x1\x5D\x7\xFFFF\x1\x5E\x17\xFFFF\x1\x5D\x7\xFFFF\x1\x5E",
 				"\x1\x5F\x1F\xFFFF\x1\x5F",
-				"\x1\x60\x14\xFFFF\x1\x61\xA\xFFFF\x1\x60\x14\xFFFF\x1\x61",
-				"\xA\x28\x7\xFFFF\x2\x28\x1\x63\x17\x28\x4\xFFFF\x1\x28\x1\xFFFF\x2"+
-				"\x28\x1\x63\x17\x28",
-				"\x1\x64\x1F\xFFFF\x1\x64",
-				"\x1\x66\xF\xFFFF\x1\x65\xF\xFFFF\x1\x66\xF\xFFFF\x1\x65",
-				"\x1\x67\x1F\xFFFF\x1\x67",
+				"\x1\x60\x1F\xFFFF\x1\x60",
+				"\x1\x61\x14\xFFFF\x1\x62\xA\xFFFF\x1\x61\x14\xFFFF\x1\x62",
+				"\xA\x28\x7\xFFFF\x2\x28\x1\x64\x17\x28\x4\xFFFF\x1\x28\x1\xFFFF\x2"+
+				"\x28\x1\x64\x17\x28",
+				"\x1\x65\x1F\xFFFF\x1\x65",
+				"\x1\x67\xF\xFFFF\x1\x66\xF\xFFFF\x1\x67\xF\xFFFF\x1\x66",
 				"\x1\x68\x1F\xFFFF\x1\x68",
 				"\x1\x69\x1F\xFFFF\x1\x69",
 				"\x1\x6A\x1F\xFFFF\x1\x6A",
 				"\x1\x6B\x1F\xFFFF\x1\x6B",
 				"\x1\x6C\x1F\xFFFF\x1\x6C",
+				"\x1\x6D\x1F\xFFFF\x1\x6D",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\x6E\x1F\xFFFF\x1\x6E",
-				"\xA\x28\x7\xFFFF\x13\x28\x1\x70\x6\x28\x4\xFFFF\x1\x28\x1\xFFFF\x13"+
-				"\x28\x1\x70\x6\x28",
-				"\x1\x71\x1F\xFFFF\x1\x71",
+				"\x1\x6F\x1F\xFFFF\x1\x6F",
+				"\xA\x28\x7\xFFFF\x13\x28\x1\x71\x6\x28\x4\xFFFF\x1\x28\x1\xFFFF\x13"+
+				"\x28\x1\x71\x6\x28",
 				"\x1\x72\x1F\xFFFF\x1\x72",
 				"\x1\x73\x1F\xFFFF\x1\x73",
-				"\xA\x28\x7\xFFFF\x3\x28\x1\x75\x4\x28\x1\x76\x11\x28\x4\xFFFF\x1\x28"+
-				"\x1\xFFFF\x3\x28\x1\x75\x4\x28\x1\x76\x11\x28",
-				"\x1\x77\x1F\xFFFF\x1\x77",
+				"\x1\x74\x1F\xFFFF\x1\x74",
+				"\xA\x28\x7\xFFFF\x3\x28\x1\x76\x4\x28\x1\x77\x11\x28\x4\xFFFF\x1\x28"+
+				"\x1\xFFFF\x3\x28\x1\x76\x4\x28\x1\x77\x11\x28",
 				"\x1\x78\x1F\xFFFF\x1\x78",
 				"\x1\x79\x1F\xFFFF\x1\x79",
-				"\x1\x7A\x6\xFFFF\x1\x7B\x18\xFFFF\x1\x7A\x6\xFFFF\x1\x7B",
-				"\x1\x7C\x1F\xFFFF\x1\x7C",
+				"\x1\x7A\x1F\xFFFF\x1\x7A",
+				"\x1\x7B\x6\xFFFF\x1\x7C\x18\xFFFF\x1\x7B\x6\xFFFF\x1\x7C",
 				"\x1\x7D\x1F\xFFFF\x1\x7D",
 				"\x1\x7E\x1F\xFFFF\x1\x7E",
 				"\x1\x7F\x1F\xFFFF\x1\x7F",
@@ -6094,99 +6226,100 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 				"\x1\x83\x1F\xFFFF\x1\x83",
 				"\x1\x84\x1F\xFFFF\x1\x84",
 				"\x1\x85\x1F\xFFFF\x1\x85",
+				"\x1\x86\x1F\xFFFF\x1\x86",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\x87\x1F\xFFFF\x1\x87",
+				"\x1\x88\x1F\xFFFF\x1\x88",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\x8C\x1F\xFFFF\x1\x8C",
 				"\x1\x8D\x1F\xFFFF\x1\x8D",
 				"\x1\x8E\x1F\xFFFF\x1\x8E",
 				"\x1\x8F\x1F\xFFFF\x1\x8F",
 				"\x1\x90\x1F\xFFFF\x1\x90",
+				"\x1\x91\x1F\xFFFF\x1\x91",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\x92\x1F\xFFFF\x1\x92",
 				"\x1\x93\x1F\xFFFF\x1\x93",
 				"\x1\x94\x1F\xFFFF\x1\x94",
-				"",
 				"\x1\x95\x1F\xFFFF\x1\x95",
 				"",
 				"\x1\x96\x1F\xFFFF\x1\x96",
+				"",
 				"\x1\x97\x1F\xFFFF\x1\x97",
-				"\x1\x99\x3\xFFFF\x1\x98\x1B\xFFFF\x1\x99\x3\xFFFF\x1\x98",
+				"\x1\x98\x1F\xFFFF\x1\x98",
+				"\x1\x9A\x3\xFFFF\x1\x99\x1B\xFFFF\x1\x9A\x3\xFFFF\x1\x99",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"",
-				"\x1\x9B\x1F\xFFFF\x1\x9B",
 				"\x1\x9C\x1F\xFFFF\x1\x9C",
 				"\x1\x9D\x1F\xFFFF\x1\x9D",
 				"\x1\x9E\x1F\xFFFF\x1\x9E",
 				"\x1\x9F\x1F\xFFFF\x1\x9F",
 				"\x1\xA0\x1F\xFFFF\x1\xA0",
 				"\x1\xA1\x1F\xFFFF\x1\xA1",
-				"\x1\xA3\xE\xFFFF\x1\xA2\x10\xFFFF\x1\xA3\xE\xFFFF\x1\xA2",
-				"\x1\xA4\x1F\xFFFF\x1\xA4",
+				"\x1\xA2\x1F\xFFFF\x1\xA2",
+				"\x1\xA4\xE\xFFFF\x1\xA3\x10\xFFFF\x1\xA4\xE\xFFFF\x1\xA3",
 				"\x1\xA5\x1F\xFFFF\x1\xA5",
 				"\x1\xA6\x1F\xFFFF\x1\xA6",
+				"\x1\xA7\x1F\xFFFF\x1\xA7",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\xA9\x1F\xFFFF\x1\xA9",
 				"\x1\xAA\x1F\xFFFF\x1\xAA",
 				"\x1\xAB\x1F\xFFFF\x1\xAB",
 				"\x1\xAC\x1F\xFFFF\x1\xAC",
+				"\x1\xAD\x1F\xFFFF\x1\xAD",
 				"",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"",
 				"",
 				"",
 				"",
-				"\x1\xAE\x1F\xFFFF\x1\xAE",
+				"\x1\xAF\x1F\xFFFF\x1\xAF",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\xB0\x1F\xFFFF\x1\xB0",
+				"\x1\xB1\x1F\xFFFF\x1\xB1",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\xB2\x2\xFFFF\x1\xB3\xB\xFFFF\x1\xB4\x10\xFFFF\x1\xB2\x2\xFFFF\x1"+
-				"\xB3\xB\xFFFF\x1\xB4",
+				"\x1\xB3\x2\xFFFF\x1\xB4\xB\xFFFF\x1\xB5\x10\xFFFF\x1\xB3\x2\xFFFF\x1"+
+				"\xB4\xB\xFFFF\x1\xB5",
 				"",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\xB6\x1F\xFFFF\x1\xB6",
 				"\x1\xB7\x1F\xFFFF\x1\xB7",
 				"\x1\xB8\x1F\xFFFF\x1\xB8",
+				"\x1\xB9\x1F\xFFFF\x1\xB9",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\xBB\x1F\xFFFF\x1\xBB",
+				"\x1\xBC\x1F\xFFFF\x1\xBC",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"",
-				"\x1\xBD\x1F\xFFFF\x1\xBD",
+				"\x1\xBE\x1F\xFFFF\x1\xBE",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\xC0\x1F\xFFFF\x1\xC0",
 				"\x1\xC1\x1F\xFFFF\x1\xC1",
 				"\x1\xC2\x1F\xFFFF\x1\xC2",
 				"\x1\xC3\x1F\xFFFF\x1\xC3",
+				"\x1\xC4\x1F\xFFFF\x1\xC4",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\xC6\x1F\xFFFF\x1\xC6",
 				"\x1\xC7\x1F\xFFFF\x1\xC7",
+				"\x1\xC8\x1F\xFFFF\x1\xC8",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"",
 				"",
-				"\x1\xC9\x1F\xFFFF\x1\xC9",
+				"\x1\xCA\x1F\xFFFF\x1\xCA",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\xCB\x1F\xFFFF\x1\xCB",
 				"\x1\xCC\x1F\xFFFF\x1\xCC",
-				"",
 				"\x1\xCD\x1F\xFFFF\x1\xCD",
 				"",
 				"\x1\xCE\x1F\xFFFF\x1\xCE",
 				"",
 				"\x1\xCF\x1F\xFFFF\x1\xCF",
+				"",
 				"\x1\xD0\x1F\xFFFF\x1\xD0",
 				"\x1\xD1\x1F\xFFFF\x1\xD1",
+				"\x1\xD2\x1F\xFFFF\x1\xD2",
 				"",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\xD3\x1F\xFFFF\x1\xD3",
 				"\x1\xD4\x1F\xFFFF\x1\xD4",
+				"\x1\xD5\x1F\xFFFF\x1\xD5",
 				"",
 				"",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
@@ -6196,41 +6329,41 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 				"",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\xD9\x1F\xFFFF\x1\xD9",
+				"\x1\xDA\x1F\xFFFF\x1\xDA",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"",
 				"",
-				"\x1\xDB\x1F\xFFFF\x1\xDB",
 				"\x1\xDC\x1F\xFFFF\x1\xDC",
+				"\x1\xDD\x1F\xFFFF\x1\xDD",
 				"",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"",
-				"\x1\xDE\x1F\xFFFF\x1\xDE",
+				"\x1\xDF\x1F\xFFFF\x1\xDF",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\xE0\x1F\xFFFF\x1\xE0",
 				"\x1\xE1\x1F\xFFFF\x1\xE1",
 				"\x1\xE2\x1F\xFFFF\x1\xE2",
 				"\x1\xE3\x1F\xFFFF\x1\xE3",
 				"\x1\xE4\x1F\xFFFF\x1\xE4",
+				"\x1\xE5\x1F\xFFFF\x1\xE5",
 				"",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\xE6\x1F\xFFFF\x1\xE6",
-				"",
-				"",
-				"",
-				"",
 				"\x1\xE7\x1F\xFFFF\x1\xE7",
 				"",
+				"",
+				"",
+				"",
+				"\x1\xE8\x1F\xFFFF\x1\xE8",
+				"",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"",
-				"\x1\xEB\x1F\xFFFF\x1\xEB",
+				"\x1\xEC\x1F\xFFFF\x1\xEC",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
-				"\x1\xEE\x1F\xFFFF\x1\xEE",
 				"\x1\xEF\x1F\xFFFF\x1\xEF",
+				"\x1\xF0\x1F\xFFFF\x1\xF0",
 				"",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
 				"\xA\x28\x7\xFFFF\x1A\x28\x4\xFFFF\x1\x28\x1\xFFFF\x1A\x28",
@@ -6249,36 +6382,36 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 				""
 			};
 
-		private static readonly short[] DFA10_eot = DFA.UnpackEncodedString(DFA10_eotS);
-		private static readonly short[] DFA10_eof = DFA.UnpackEncodedString(DFA10_eofS);
-		private static readonly char[] DFA10_min = DFA.UnpackEncodedStringToUnsignedChars(DFA10_minS);
-		private static readonly char[] DFA10_max = DFA.UnpackEncodedStringToUnsignedChars(DFA10_maxS);
-		private static readonly short[] DFA10_accept = DFA.UnpackEncodedString(DFA10_acceptS);
-		private static readonly short[] DFA10_special = DFA.UnpackEncodedString(DFA10_specialS);
-		private static readonly short[][] DFA10_transition;
+		private static readonly short[] DFA12_eot = DFA.UnpackEncodedString(DFA12_eotS);
+		private static readonly short[] DFA12_eof = DFA.UnpackEncodedString(DFA12_eofS);
+		private static readonly char[] DFA12_min = DFA.UnpackEncodedStringToUnsignedChars(DFA12_minS);
+		private static readonly char[] DFA12_max = DFA.UnpackEncodedStringToUnsignedChars(DFA12_maxS);
+		private static readonly short[] DFA12_accept = DFA.UnpackEncodedString(DFA12_acceptS);
+		private static readonly short[] DFA12_special = DFA.UnpackEncodedString(DFA12_specialS);
+		private static readonly short[][] DFA12_transition;
 
-		static DFA10()
+		static DFA12()
 		{
-			int numStates = DFA10_transitionS.Length;
-			DFA10_transition = new short[numStates][];
+			int numStates = DFA12_transitionS.Length;
+			DFA12_transition = new short[numStates][];
 			for ( int i=0; i < numStates; i++ )
 			{
-				DFA10_transition[i] = DFA.UnpackEncodedString(DFA10_transitionS[i]);
+				DFA12_transition[i] = DFA.UnpackEncodedString(DFA12_transitionS[i]);
 			}
 		}
 
-		public DFA10( BaseRecognizer recognizer, SpecialStateTransitionHandler specialStateTransition )
+		public DFA12( BaseRecognizer recognizer, SpecialStateTransitionHandler specialStateTransition )
 			: base(specialStateTransition)
 		{
 			this.recognizer = recognizer;
-			this.decisionNumber = 10;
-			this.eot = DFA10_eot;
-			this.eof = DFA10_eof;
-			this.min = DFA10_min;
-			this.max = DFA10_max;
-			this.accept = DFA10_accept;
-			this.special = DFA10_special;
-			this.transition = DFA10_transition;
+			this.decisionNumber = 12;
+			this.eot = DFA12_eot;
+			this.eof = DFA12_eof;
+			this.min = DFA12_min;
+			this.max = DFA12_max;
+			this.accept = DFA12_accept;
+			this.special = DFA12_special;
+			this.transition = DFA12_transition;
 		}
 
 		public override string Description { get { return "1:1: Tokens : ( T__164 | T__165 | T__166 | T__167 | T__168 | T__169 | T__170 | T__171 | T__172 | T__173 | T__174 | T__175 | T__176 | T__177 | T__178 | T__179 | T__180 | T__181 | T__182 | T__183 | T__184 | T__185 | T__186 | T__187 | T__188 | COMMENT_LINE | COMMENT_BLOCK | STRING | SIMPLE_FILE | SELECT | ALL | DISTINCT | TOP | BOTTOM | INTO | FROM | WHERE | NOT | AND | OR | LIKE | MATCH | GROUP | ORDER | BY | ASC | DESC | ORIG | CONVERT | CAST | AS | BETWEEN | IN | ANY | SOME | EXISTS | CASE | WHEN | THEN | ELSE | END | USE | DECLARE | SET | CREATE | VIEW | TABLE | DROP | HAVING | COUNT | DATEADD | DATEDIFF | DATEPART | UNION | TOKEN | SYSTEMVAR | VARIABLE | NUMBER | WS );"; } }
@@ -6289,24 +6422,24 @@ public partial class gqlLexer : Antlr.Runtime.Lexer
 		}
 	}
 
-	private int SpecialStateTransition10(DFA dfa, int s, IIntStream _input)
+	private int SpecialStateTransition12(DFA dfa, int s, IIntStream _input)
 	{
 		IIntStream input = _input;
 		int _s = s;
 		switch (s)
 		{
 			case 0:
-				int LA10_16 = input.LA(1);
+				int LA12_16 = input.LA(1);
 
 				s = -1;
-				if (((LA10_16>='\u0000' && LA10_16<='&')||(LA10_16>='*' && LA10_16<='?')||(LA10_16>='A' && LA10_16<='Z')||(LA10_16>='\\' && LA10_16<='\uFFFF'))) {s = 58;}
+				if (((LA12_16>='\u0000' && LA12_16<='&')||(LA12_16>='*' && LA12_16<='?')||(LA12_16>='A' && LA12_16<='Z')||(LA12_16>='\\' && LA12_16<='\uFFFF'))) {s = 59;}
 
-				else s = 57;
+				else s = 58;
 
 				if (s >= 0) return s;
 				break;
 		}
-		NoViableAltException nvae = new NoViableAltException(dfa.Description, 10, _s, input);
+		NoViableAltException nvae = new NoViableAltException(dfa.Description, 12, _s, input);
 		dfa.Error(nvae);
 		throw nvae;
 	}

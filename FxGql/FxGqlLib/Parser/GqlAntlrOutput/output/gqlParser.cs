@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// $ANTLR 3.4 C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g 2012-10-05 14:30:43
+// $ANTLR 3.4 C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g 2013-03-13 13:44:03
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -40,7 +40,7 @@ namespace  FxGqlLib
 public partial class gqlParser : Antlr.Runtime.Parser
 {
 	internal static readonly string[] tokenNames = new string[] {
-		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "A", "ALL", "AND", "ANY", "AS", "ASC", "B", "BETWEEN", "BOTTOM", "BY", "C", "CASE", "CAST", "COMMENT_BLOCK", "COMMENT_LINE", "CONVERT", "COUNT", "CREATE", "D", "DATEADD", "DATEDIFF", "DATEPART", "DECLARE", "DESC", "DIGIT", "DISTINCT", "DROP", "E", "ELSE", "END", "EXISTS", "F", "FROM", "G", "GROUP", "H", "HAVING", "I", "IN", "INTO", "J", "K", "L", "LIKE", "M", "MATCH", "N", "NOT", "NUMBER", "O", "OR", "ORDER", "ORIG", "P", "Q", "R", "S", "SELECT", "SET", "SIMPLE_FILE", "SOME", "STRING", "SYSTEMVAR", "T", "TABLE", "THEN", "TOKEN", "TOP", "T_ALL", "T_ALLCOLUMNS", "T_AND", "T_ANY", "T_BETWEEN", "T_BITWISE_AND", "T_BITWISE_NOT", "T_BITWISE_OR", "T_BITWISE_XOR", "T_BOTTOM", "T_CASE", "T_CASE_ELSE", "T_CASE_WHEN", "T_COLUMN", "T_COLUMNLIST", "T_CONVERT", "T_COUNT", "T_CREATE_VIEW", "T_DATEPART", "T_DECLARATION", "T_DECLARE", "T_DISTINCT", "T_DISTINCTCOUNT", "T_DIVIDE", "T_DROP_TABLE", "T_DROP_VIEW", "T_EQUAL", "T_EXISTS", "T_EXPRESSIONLIST", "T_FILE", "T_FILEOPTION", "T_FILESUBQUERY", "T_FROM", "T_FUNCTIONCALL", "T_GREATER", "T_GROUPBY", "T_GROUPBY_ORIG", "T_HAVING", "T_IN", "T_INTEGER", "T_INTO", "T_LESS", "T_LIKE", "T_MATCH", "T_MINUS", "T_MODULO", "T_NOT", "T_NOTBETWEEN", "T_NOTEQUAL", "T_NOTGREATER", "T_NOTIN", "T_NOTLESS", "T_NOTLIKE", "T_NOTMATCH", "T_OP_BINARY", "T_OP_UNARY", "T_OR", "T_ORDERBY", "T_ORDERBY_ASC", "T_ORDERBY_COLUMN", "T_ORDERBY_DESC", "T_ORDERBY_ORIG", "T_PLUS", "T_PRODUCT", "T_ROOT", "T_SELECT", "T_SELECT_SIMPLE", "T_SELECT_UNION", "T_SET_VARIABLE", "T_STRING", "T_SUBQUERY", "T_SYSTEMVAR", "T_TABLE_ALIAS", "T_TOP", "T_USE", "T_VARIABLE", "T_VIEW", "T_VIEW_NAME", "T_WHERE", "U", "UNION", "USE", "V", "VARIABLE", "VIEW", "W", "WHEN", "WHERE", "WS", "X", "Y", "Z", "'!<'", "'!='", "'!>'", "'%'", "'&'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'.'", "'/'", "';'", "'<'", "'<='", "'<>'", "'='", "'>'", "'>='", "'['", "']'", "'^'", "'|'", "'~'"
+		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "A", "ALL", "AND", "ANY", "AS", "ASC", "B", "BETWEEN", "BOTTOM", "BY", "C", "CASE", "CAST", "COMMENT_BLOCK", "COMMENT_LINE", "CONVERT", "COUNT", "CREATE", "D", "DATEADD", "DATEDIFF", "DATEPART", "DECLARE", "DESC", "DIGIT", "DISTINCT", "DROP", "E", "ELSE", "END", "EXISTS", "F", "FROM", "G", "GROUP", "H", "HAVING", "I", "IN", "INTO", "J", "K", "L", "LIKE", "M", "MATCH", "N", "NOT", "NUMBER", "O", "OR", "ORDER", "ORIG", "P", "Q", "R", "S", "SELECT", "SET", "SIMPLE_FILE", "SOME", "STRING", "SYSTEMVAR", "T", "TABLE", "THEN", "TOKEN", "TOP", "T_ALL", "T_ALLCOLUMNS", "T_AND", "T_ANY", "T_BETWEEN", "T_BITWISE_AND", "T_BITWISE_NOT", "T_BITWISE_OR", "T_BITWISE_XOR", "T_BOTTOM", "T_CASE", "T_CASE_ELSE", "T_CASE_WHEN", "T_COLUMN", "T_COLUMNLIST", "T_CONVERT", "T_COUNT", "T_CREATE_VIEW", "T_DATEPART", "T_DECLARATION", "T_DECLARE", "T_DISTINCT", "T_DISTINCTCOUNT", "T_DIVIDE", "T_DROP_TABLE", "T_DROP_VIEW", "T_EQUAL", "T_EXISTS", "T_EXPRESSIONLIST", "T_FILE", "T_FILEOPTION", "T_FILESUBQUERY", "T_FROM", "T_FUNCTIONCALL", "T_GREATER", "T_GROUPBY", "T_GROUPBY_ORIG", "T_HAVING", "T_IN", "T_INTO", "T_LESS", "T_LIKE", "T_MATCH", "T_MINUS", "T_MODULO", "T_NOT", "T_NOTBETWEEN", "T_NOTEQUAL", "T_NOTGREATER", "T_NOTIN", "T_NOTLESS", "T_NOTLIKE", "T_NOTMATCH", "T_NUMBER", "T_OP_BINARY", "T_OP_UNARY", "T_OR", "T_ORDERBY", "T_ORDERBY_ASC", "T_ORDERBY_COLUMN", "T_ORDERBY_DESC", "T_ORDERBY_ORIG", "T_PLUS", "T_PRODUCT", "T_ROOT", "T_SELECT", "T_SELECT_SIMPLE", "T_SELECT_UNION", "T_SET_VARIABLE", "T_STRING", "T_SUBQUERY", "T_SYSTEMVAR", "T_TABLE_ALIAS", "T_TOP", "T_USE", "T_VARIABLE", "T_VIEW", "T_VIEW_NAME", "T_WHERE", "U", "UNION", "USE", "V", "VARIABLE", "VIEW", "W", "WHEN", "WHERE", "WS", "X", "Y", "Z", "'!<'", "'!='", "'!>'", "'%'", "'&'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'.'", "'/'", "';'", "'<'", "'<='", "'<>'", "'='", "'>'", "'>='", "'['", "']'", "'^'", "'|'", "'~'"
 	};
 	public const int EOF=-1;
 	public const int T__164=164;
@@ -175,21 +175,21 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	public const int T_GROUPBY_ORIG=108;
 	public const int T_HAVING=109;
 	public const int T_IN=110;
-	public const int T_INTEGER=111;
-	public const int T_INTO=112;
-	public const int T_LESS=113;
-	public const int T_LIKE=114;
-	public const int T_MATCH=115;
-	public const int T_MINUS=116;
-	public const int T_MODULO=117;
-	public const int T_NOT=118;
-	public const int T_NOTBETWEEN=119;
-	public const int T_NOTEQUAL=120;
-	public const int T_NOTGREATER=121;
-	public const int T_NOTIN=122;
-	public const int T_NOTLESS=123;
-	public const int T_NOTLIKE=124;
-	public const int T_NOTMATCH=125;
+	public const int T_INTO=111;
+	public const int T_LESS=112;
+	public const int T_LIKE=113;
+	public const int T_MATCH=114;
+	public const int T_MINUS=115;
+	public const int T_MODULO=116;
+	public const int T_NOT=117;
+	public const int T_NOTBETWEEN=118;
+	public const int T_NOTEQUAL=119;
+	public const int T_NOTGREATER=120;
+	public const int T_NOTIN=121;
+	public const int T_NOTLESS=122;
+	public const int T_NOTLIKE=123;
+	public const int T_NOTMATCH=124;
+	public const int T_NUMBER=125;
 	public const int T_OP_BINARY=126;
 	public const int T_OP_UNARY=127;
 	public const int T_OR=128;
@@ -1152,7 +1152,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: orderby_clause, select_command_union
+			// elements: select_command_union, orderby_clause
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -1875,7 +1875,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: from_clause, top_clause, groupby_clause, column_list, bottom_clause, having_clause, distinct_clause, into_clause, where_clause
+				// elements: where_clause, bottom_clause, distinct_clause, from_clause, having_clause, groupby_clause, top_clause, into_clause, column_list
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -3889,7 +3889,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: expression_list, view_name
+				// elements: view_name, expression_list
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -6802,7 +6802,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: datatype, variable
+			// elements: variable, datatype
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -7046,7 +7046,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: select_command, view_name, declaration_list
+			// elements: view_name, declaration_list, select_command
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -7606,7 +7606,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: variable, expression
+			// elements: expression, variable
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -8979,7 +8979,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						{
 						// AST REWRITE
-						// elements: expression_7, b, op_7
+						// elements: b, op_7, expression_7
 						// token labels: 
 						// rule labels: retval, b
 						// token list labels: 
@@ -9131,7 +9131,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						{
 						// AST REWRITE
-						// elements: expression_list_or_select_command, expression_7
+						// elements: expression_7, expression_list_or_select_command
 						// token labels: 
 						// rule labels: retval
 						// token list labels: 
@@ -9298,7 +9298,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						{
 						// AST REWRITE
-						// elements: expression_7, expression_list_or_select_command
+						// elements: expression_list_or_select_command, expression_7
 						// token labels: 
 						// rule labels: retval
 						// token list labels: 
@@ -9473,7 +9473,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						{
 						// AST REWRITE
-						// elements: op_4, expression_list_or_select_command, expression_7
+						// elements: op_4, expression_7, expression_list_or_select_command
 						// token labels: 
 						// rule labels: retval
 						// token list labels: 
@@ -9603,7 +9603,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 						{
 						// AST REWRITE
-						// elements: expression_list_or_select_command, expression_7, op_4
+						// elements: expression_7, op_4, expression_list_or_select_command
 						// token labels: 
 						// rule labels: retval
 						// token list labels: 
@@ -10038,7 +10038,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 					{
 					// AST REWRITE
-					// elements: b, expression_6, op_6
+					// elements: b, op_6, expression_6
 					// token labels: 
 					// rule labels: retval, b
 					// token list labels: 
@@ -10288,7 +10288,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: op_5, expression_5
+				// elements: expression_5, op_5
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -11093,9 +11093,9 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	    RewriteRuleITokenStream stream_165=new RewriteRuleITokenStream(adaptor,"token 165");
 	    RewriteRuleITokenStream stream_180=new RewriteRuleITokenStream(adaptor,"token 180");
 	    RewriteRuleITokenStream stream_181=new RewriteRuleITokenStream(adaptor,"token 181");
+	    RewriteRuleITokenStream stream_MATCH=new RewriteRuleITokenStream(adaptor,"token MATCH");
 	    RewriteRuleITokenStream stream_164=new RewriteRuleITokenStream(adaptor,"token 164");
 	    RewriteRuleITokenStream stream_182=new RewriteRuleITokenStream(adaptor,"token 182");
-	    RewriteRuleITokenStream stream_MATCH=new RewriteRuleITokenStream(adaptor,"token MATCH");
 	    RewriteRuleITokenStream stream_183=new RewriteRuleITokenStream(adaptor,"token 183");
 	    RewriteRuleITokenStream stream_NOT=new RewriteRuleITokenStream(adaptor,"token NOT");
 	    RewriteRuleITokenStream stream_LIKE=new RewriteRuleITokenStream(adaptor,"token LIKE");
@@ -11907,7 +11907,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 					{
 					// AST REWRITE
-					// elements: expression_3, op_3, b
+					// elements: op_3, b, expression_3
 					// token labels: 
 					// rule labels: retval, b
 					// token list labels: 
@@ -12463,7 +12463,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 					{
 					// AST REWRITE
-					// elements: expression_2, op_2, b
+					// elements: b, op_2, expression_2
 					// token labels: 
 					// rule labels: retval, b
 					// token list labels: 
@@ -13140,7 +13140,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 	protected virtual void LeaveRule_expression_atom() {}
 
 	// $ANTLR start "expression_atom"
-	// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:408:1: expression_atom : ( number -> ^( T_INTEGER number ) | string | SYSTEMVAR -> ^( T_SYSTEMVAR SYSTEMVAR ) | variable | ( subquery )=> subquery | '(' expression ')' -> expression | functioncall_or_column | specialfunctioncall | case | EXISTS ( WS )? '(' ( WS )? select_command ( WS )? ')' -> ^( T_EXISTS select_command ) );
+	// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:408:1: expression_atom : ( number -> ^( T_NUMBER number ) | string | SYSTEMVAR -> ^( T_SYSTEMVAR SYSTEMVAR ) | variable | ( subquery )=> subquery | '(' expression ')' -> expression | functioncall_or_column | specialfunctioncall | case | EXISTS ( WS )? '(' ( WS )? select_command ( WS )? ')' -> ^( T_EXISTS select_command ) );
 	[GrammarRule("expression_atom")]
 	private AstParserRuleReturnScope<object, IToken> expression_atom()
 	{
@@ -13192,7 +13192,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 		DebugLocation(408, 1);
 		try
 		{
-			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:409:2: ( number -> ^( T_INTEGER number ) | string | SYSTEMVAR -> ^( T_SYSTEMVAR SYSTEMVAR ) | variable | ( subquery )=> subquery | '(' expression ')' -> expression | functioncall_or_column | specialfunctioncall | case | EXISTS ( WS )? '(' ( WS )? select_command ( WS )? ')' -> ^( T_EXISTS select_command ) )
+			// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:409:2: ( number -> ^( T_NUMBER number ) | string | SYSTEMVAR -> ^( T_SYSTEMVAR SYSTEMVAR ) | variable | ( subquery )=> subquery | '(' expression ')' -> expression | functioncall_or_column | specialfunctioncall | case | EXISTS ( WS )? '(' ( WS )? select_command ( WS )? ')' -> ^( T_EXISTS select_command ) )
 			int alt102=10;
 			try { DebugEnterDecision(102, decisionCanBacktrack[102]);
 			switch (input.LA(1))
@@ -13301,16 +13301,16 @@ public partial class gqlParser : Antlr.Runtime.Parser
 				RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.Tree:null);
 
 				root_0 = (object)adaptor.Nil();
-				// 409:11: -> ^( T_INTEGER number )
+				// 409:11: -> ^( T_NUMBER number )
 				{
 					DebugLocation(409, 14);
-					// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:409:14: ^( T_INTEGER number )
+					// C:\\Users\\wim devos.GENOFFICE\\Documents\\GitHub\\FxGqlC\\FxGql\\FxGqlLib\\Parser\\GqlAntlrOutput\\gql.g:409:14: ^( T_NUMBER number )
 					{
 					object root_1 = (object)adaptor.Nil();
 					DebugLocation(409, 16);
-					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_INTEGER, "T_INTEGER"), root_1);
+					root_1 = (object)adaptor.BecomeRoot((object)adaptor.Create(T_NUMBER, "T_NUMBER"), root_1);
 
-					DebugLocation(409, 26);
+					DebugLocation(409, 25);
 					adaptor.AddChild(root_1, stream_number.NextTree());
 
 					adaptor.AddChild(root_0, root_1);
@@ -15666,7 +15666,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: expression, TOKEN
+				// elements: TOKEN, expression
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -17158,7 +17158,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: TOKEN, expression, STRING
+				// elements: STRING, TOKEN, expression
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -17619,7 +17619,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: datepart, expression, DATEADD
+				// elements: DATEADD, datepart, expression
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -17916,7 +17916,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: DATEDIFF, datepart, expression
+				// elements: datepart, DATEDIFF, expression
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -18145,7 +18145,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 				{
 				// AST REWRITE
-				// elements: datepart, DATEPART, expression
+				// elements: expression, datepart, DATEPART
 				// token labels: 
 				// rule labels: retval
 				// token list labels: 
@@ -19000,7 +19000,7 @@ public partial class gqlParser : Antlr.Runtime.Parser
 
 			{
 			// AST REWRITE
-			// elements: b, a
+			// elements: a, b
 			// token labels: 
 			// rule labels: retval, b, a
 			// token list labels: 

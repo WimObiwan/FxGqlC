@@ -1705,7 +1705,21 @@ namespace FxGqlTest
 			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.Off;
 
 			// Data type float
+			TestGql ("select 19.5",
+			         "1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
+			TestGql ("select 10.1 + 9.4",
+			         "1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
 			TestGql ("select convert(float, '19.5')",
+			         "1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
+			TestGql ("select 19.5",
+			         "1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
+			TestGql ("select 10.1 + 9.4",
+			         "1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
+			TestGql ("select 18 + 1.5",
+			         "1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
+			TestGql ("select 0.1 * 195",
+			         "1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
+			TestGql ("select 195 / 10.0",
 			         "1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
 			engineHash.GqlEngineState.Heading = GqlEngineState.HeadingEnum.OnWithRule;
 			engineOutput.GqlEngineState.Heading = GqlEngineState.HeadingEnum.OnWithRule;
@@ -1733,6 +1747,7 @@ namespace FxGqlTest
          
 		public bool RunDevelop ()
 		{
+
 			// TODO: create "view" or "function"
 			// TODO: skip clause (select top 10 skip 2 from ...
 

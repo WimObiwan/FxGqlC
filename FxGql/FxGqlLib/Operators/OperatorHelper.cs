@@ -22,6 +22,15 @@ namespace FxGqlLib
 				return (a, b) => comparer (a.CompareTo (b));
 		}
 
+		public static Func<DataFloat, DataFloat, DataBoolean> GetFloatComparer (string operand, bool negate)
+		{
+			Func<int, bool> comparer = GetComparer (operand);
+			if (negate)
+				return (a, b) => !comparer (a.CompareTo (b));
+			else
+				return (a, b) => comparer (a.CompareTo (b));
+		}
+
 		public static Func<DataBoolean, DataBoolean, DataBoolean> GetBooleanComparer (string operand, bool negate)
 		{
 			Func<int, bool> comparer = GetComparer (operand);

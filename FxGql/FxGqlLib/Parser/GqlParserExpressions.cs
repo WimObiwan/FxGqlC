@@ -13,8 +13,8 @@ namespace FxGqlLib
 		{
 			IExpression expression;
 			switch (tree.Text.ToUpperInvariant ()) {
-			case "T_INTEGER":
-				expression = ParseExpressionInteger (tree);
+			case "T_NUMBER":
+				expression = ParseExpressionNumber (tree);
 				break;
 			case "T_STRING":
 				expression = ParseExpressionString (tree);
@@ -59,7 +59,7 @@ namespace FxGqlLib
 			return expression;
 		}
 		
-		IExpression ParseExpressionInteger (ITree expressionNumberTree)
+		IExpression ParseExpressionNumber (ITree expressionNumberTree)
 		{
 			string text;
 			if (expressionNumberTree.ChildCount == 1)
@@ -97,7 +97,10 @@ namespace FxGqlLib
 				}
 			}
 
-			return new ConstExpression<DataInteger> (long.Parse (text) * multiplier);
+			if (text.Contains ('.'))
+				return new ConstExpression<DataFloat> (double.Parse (text) * multiplier);
+			else
+				return new ConstExpression<DataInteger> (long.Parse (text) * multiplier);
 		}
 
 		class Token<T> : IExpression
@@ -762,6 +765,8 @@ namespace FxGqlLib
 			case "T_PLUS":
 				if (arg is Expression<DataInteger>)
 					result = UnaryExpression<DataInteger, DataInteger>.CreateAutoConvert ((a) => a, arg);
+				else if (arg is Expression<DataFloat>)
+					result = UnaryExpression<DataFloat, DataFloat>.CreateAutoConvert ((a) => a, arg);
 				else {
 					throw new ParserException (
 						string.Format ("Unary operator 'PLUS' cannot be used with datatype {0}",
@@ -772,6 +777,8 @@ namespace FxGqlLib
 			case "T_MINUS":
 				if (arg is Expression<DataInteger>)
 					result = UnaryExpression<DataInteger, DataInteger>.CreateAutoConvert ((a) => -a, arg);
+				else if (arg is Expression<DataFloat>)
+					result = UnaryExpression<DataFloat, DataFloat>.CreateAutoConvert ((a) => -a, arg);
 				else {
 					throw new ParserException (
 						string.Format ("Unary operator 'MINUS' cannot be used with datatype {0}",
@@ -871,81 +878,105 @@ namespace FxGqlLib
 				{
 					if (arg1 is Expression<DataString> || arg2 is Expression<DataString>)
 						result = BinaryExpression<DataString, DataString, DataString>.CreateAutoConvert (
-						(a, b) => a + b,
-						arg1,
-						arg2
+							(a, b) => a + b,
+							arg1,
+							arg2
+						);
+					else if (arg1 is Expression<DataFloat> || arg2 is Expression<DataFloat>)
+						result = BinaryExpression<DataFloat, DataFloat, DataFloat>.CreateAutoConvert (
+							(a, b) => a + b,
+							arg1,
+							arg2
 						);
 					else if (arg1 is Expression<DataInteger>)
 						result = BinaryExpression<DataInteger, DataInteger, DataInteger>.CreateAutoConvert (
-						(a, b) => a + b,
-						arg1,
-						arg2
+							(a, b) => a + b,
+							arg1,
+							arg2
 						);
 					else {
 						throw new ParserException (
-						string.Format (
-						"Binary operator 'PLUS' cannot be used with datatypes {0} and {1}",
-						arg1.GetResultType ().ToString (),
-						arg2.GetResultType ().ToString ()
+							string.Format (
+							"Binary operator 'PLUS' cannot be used with datatypes {0} and {1}",
+							arg1.GetResultType ().ToString (),
+							arg2.GetResultType ().ToString ()
 						),
-						operatorTree);
+							operatorTree);
 					}
 				}
 				break;
 			case "T_MINUS":
 				{
-					if (arg1 is Expression<DataInteger>)
+					if (arg1 is Expression<DataFloat> || arg2 is Expression<DataFloat>)
+						result = BinaryExpression<DataFloat, DataFloat, DataFloat>.CreateAutoConvert (
+							(a, b) => a - b,
+							arg1,
+							arg2
+						);
+					else if (arg1 is Expression<DataInteger>)
 						result = BinaryExpression<DataInteger, DataInteger, DataInteger>.CreateAutoConvert (
-						(a, b) => a - b,
-						arg1,
-						arg2
+							(a, b) => a - b,
+							arg1,
+							arg2
 						);
 					else {
 						throw new ParserException (
-						string.Format (
-						"Binary operator 'MINUS' cannot be used with datatypes {0} and {1}",
-						arg1.GetResultType ().ToString (),
-						arg2.GetResultType ().ToString ()
+							string.Format (
+							"Binary operator 'MINUS' cannot be used with datatypes {0} and {1}",
+							arg1.GetResultType ().ToString (),
+							arg2.GetResultType ().ToString ()
 						),
-						operatorTree);
+							operatorTree);
 					}
 				}
 				break;
 			case "T_DIVIDE":
 				{
-					if (arg1 is Expression<DataInteger>)
+					if (arg1 is Expression<DataFloat> || arg2 is Expression<DataFloat>)
+						result = BinaryExpression<DataFloat, DataFloat, DataFloat>.CreateAutoConvert (
+							(a, b) => a / b,
+							arg1,
+							arg2
+						);
+					else if (arg1 is Expression<DataInteger>)
 						result = BinaryExpression<DataInteger, DataInteger, DataInteger>.CreateAutoConvert (
-						(a, b) => a / b,
-						arg1,
-						arg2
+							(a, b) => a / b,
+							arg1,
+							arg2
 						);
 					else {
 						throw new ParserException (
-						string.Format (
-						"Binary operator 'DIVIDE' cannot be used with datatypes {0} and {1}",
-						arg1.GetResultType ().ToString (),
-						arg2.GetResultType ().ToString ()
+							string.Format (
+							"Binary operator 'DIVIDE' cannot be used with datatypes {0} and {1}",
+							arg1.GetResultType ().ToString (),
+							arg2.GetResultType ().ToString ()
 						),
-						operatorTree);
+							operatorTree);
 					}
 				}
 				break;
 			case "T_PRODUCT":
 				{
-					if (arg1 is Expression<DataInteger>)
+					if (arg1 is Expression<DataFloat> || arg2 is Expression<DataFloat>)
+						result = BinaryExpression<DataFloat, DataFloat, DataFloat>.CreateAutoConvert (
+							(a, b) => a * b,
+							arg1,
+							arg2
+						);
+					else if (arg1 is Expression<DataInteger>)
 						result = BinaryExpression<DataInteger, DataInteger, DataInteger>.CreateAutoConvert (
-						(a, b) => a * b,
-						arg1,
-						arg2
+							(a, b) => a * b,
+							arg1,
+							arg2
 						);
 					else {
 						throw new ParserException (
-						string.Format (
-						"Binary operator 'PRODUCT' cannot be used with datatypes {0} and {1}",
-						arg1.GetResultType ().ToString (),
-						arg2.GetResultType ().ToString ()
+							string.Format (
+							"Binary operator 'PRODUCT' cannot be used with datatypes {0} and {1}",
+							arg1.GetResultType ().ToString (),
+							arg2.GetResultType ().ToString ()
 						),
-						operatorTree);
+							operatorTree);
 					}
 				}
 				break;
@@ -1042,6 +1073,13 @@ namespace FxGqlLib
 							false
 					),
 						                                                                           arg1, arg2);
+				else if (arg1 is Expression<DataFloat> || arg2 is Expression<DataFloat>)
+					result = 
+						BinaryExpression<DataFloat, DataFloat, DataBoolean>.CreateAutoConvert (OperatorHelper.GetFloatComparer (
+							operatorText,
+							false
+					),
+						                                                                           arg1, arg2);
 				else if (arg1 is Expression<DataInteger>)
 					result = 
 						BinaryExpression<DataInteger, DataInteger, DataBoolean>.CreateAutoConvert (OperatorHelper.GetIntegerComparer (
@@ -1052,7 +1090,7 @@ namespace FxGqlLib
 				else {
 					throw new ParserException (
 						string.Format (
-						"Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
+						"Binary operator 'EQUAL/NOTEQUAL' cannot be used with datatypes {0} and {1}",
 						arg1.GetResultType ().ToString (),
 						arg2.GetResultType ().ToString ()
 					),
@@ -1069,19 +1107,23 @@ namespace FxGqlLib
 							operatorText,
 							false,
 							dataComparer.StringComparison
-					),
-						                                                                         arg1, arg2);
+					), arg1, arg2);
+				else if (arg1 is Expression<DataFloat> || arg2 is Expression<DataFloat>)
+					result = 
+						BinaryExpression<DataFloat, DataFloat, DataBoolean>.CreateAutoConvert (OperatorHelper.GetFloatComparer (
+							operatorText,
+							false
+					), arg1, arg2);
 				else if (arg1 is Expression<DataInteger>)
 					result = 
 						BinaryExpression<DataInteger, DataInteger, DataBoolean>.CreateAutoConvert (OperatorHelper.GetIntegerComparer (
 							operatorText,
 							false
-					),
-						                                                                           arg1, arg2);
+					), arg1, arg2);
 				else {
 					throw new ParserException (
 						string.Format (
-						"Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
+						"Binary operator 'LESS/GREATER/NOTLESS/NOTGREATER' cannot be used with datatypes {0} and {1}",
 						arg1.GetResultType ().ToString (),
 						arg2.GetResultType ().ToString ()
 					),
@@ -1135,6 +1177,13 @@ namespace FxGqlLib
 					c,
 					dataComparer.StringComparison
 				) <= 0,
+					arg1,
+					arg2,
+					arg3
+				);
+			else if (arg1 is Expression<DataFloat> || arg2 is Expression<DataFloat> || arg3 is Expression<DataFloat>)
+				result = TernaryExpression<DataFloat, DataFloat, DataFloat, DataBoolean>.CreateAutoConvert (
+					(a, b, c) => (a >= b) && (a <= c),
 					arg1,
 					arg2,
 					arg3
@@ -1208,6 +1257,12 @@ namespace FxGqlLib
 						expressionList,
 						OperatorHelper.GetIntegerComparer (op, all)
 					);
+				else if (arg2 is Expression<DataFloat>)
+					result = new AnyListOperator<DataFloat> (
+						(Expression<DataFloat>)arg2,
+						expressionList,
+						OperatorHelper.GetFloatComparer (op, all)
+					);
 				else
 					throw new ParserException (
 						string.Format (
@@ -1230,6 +1285,12 @@ namespace FxGqlLib
 						(Expression<DataInteger>)arg2,
 						subProvider,
 						OperatorHelper.GetIntegerComparer (op, all)
+					);
+				else if (arg2 is Expression<DataFloat>)
+					result = new AnySubqueryOperator<DataFloat> (
+						(Expression<DataFloat>)arg2,
+						subProvider,
+						OperatorHelper.GetFloatComparer (op, all)
 					);
 				else
 					throw new ParserException (
@@ -1350,6 +1411,8 @@ namespace FxGqlLib
 				return new ColumnExpression<DataBoolean> (provider, columnOrdinal);
 			} else if (type == typeof(DataInteger)) {
 				return new ColumnExpression<DataInteger> (provider, columnOrdinal);
+			} else if (type == typeof(DataFloat)) {
+				return new ColumnExpression<DataFloat> (provider, columnOrdinal);
 			} else if (type == typeof(DataDateTime)) {
 				return new ColumnExpression<DataDateTime> (provider, columnOrdinal);
 			} else {
@@ -1403,6 +1466,13 @@ namespace FxGqlLib
 								dataComparer.StringComparison
 						),
 							                                                                         source, destination);
+					else if (source is Expression<DataFloat> || destination is Expression<DataFloat>)
+						whenItem.Check = 
+							BinaryExpression<DataFloat, DataFloat, DataBoolean>.CreateAutoConvert (OperatorHelper.GetFloatComparer (
+								"T_EQUAL",
+								false
+						),
+							                                                                           source, destination);
 					else if (source is Expression<DataInteger>)
 						whenItem.Check = 
 							BinaryExpression<DataInteger, DataInteger, DataBoolean>.CreateAutoConvert (OperatorHelper.GetIntegerComparer (
@@ -1413,7 +1483,7 @@ namespace FxGqlLib
 					else {
 						throw new ParserException (
 							string.Format (
-							"Binary operator 'EQUAL' cannot be used with datatypes {0} and {1}",
+							"Binary operator 'CASE' cannot be used with datatypes {0} and {1}",
 							source.GetResultType ().ToString (),
 							destination.GetResultType ().ToString ()
 						),

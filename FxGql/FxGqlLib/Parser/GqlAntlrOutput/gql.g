@@ -28,7 +28,7 @@ tokens
 	T_FILESUBQUERY;
 	T_FILEOPTION;
 	T_SUBQUERY;
-	T_INTEGER;
+	T_NUMBER;
 	T_STRING;
 	T_SYSTEMVAR;
 	T_FUNCTIONCALL;
@@ -406,7 +406,7 @@ op_1	: '~' -> T_BITWISE_NOT
 	;
 
 expression_atom
-	: number -> ^(T_INTEGER number)
+	: number -> ^(T_NUMBER number)
 	| string
 	| SYSTEMVAR -> ^(T_SYSTEMVAR SYSTEMVAR)
 	| variable
@@ -561,7 +561,7 @@ VARIABLE
 	;
 
 NUMBER
-	: DIGIT+ ('k' | 'M' | 'G' | 'T' | 'P' | 'E')?
+	: (DIGIT* '.')? DIGIT+ ('k' | 'M' | 'G' | 'T' | 'P' | 'E')?
 	;
 
 WS
