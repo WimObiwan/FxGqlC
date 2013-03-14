@@ -323,7 +323,13 @@ namespace FxGqlLib
 			case "LEN":
 				result = UnaryExpression<DataString, DataInteger>.CreateAutoConvert ((a) => a.Value.Length, arg, cultureInfo);
 				break;
-			//case "COUNT":
+			case "ABS":
+				if (arg.GetResultType () == typeof(DataFloat))
+					result = UnaryExpression<DataFloat, DataFloat>.CreateAutoConvert ((a) => Math.Abs(a.Value), arg, cultureInfo);
+				else
+					result = UnaryExpression<DataInteger, DataInteger>.CreateAutoConvert ((a) => Math.Abs(a.Value), arg, cultureInfo);
+				break;
+				//case "COUNT":
 			case "T_COUNT":
 				result = new AggregationExpression<IData, DataInteger, DataInteger> ((a) => 1, 
 				                                                                     (s, a) => s + 1, 

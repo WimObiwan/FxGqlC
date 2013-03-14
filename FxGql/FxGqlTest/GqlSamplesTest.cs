@@ -1758,6 +1758,12 @@ namespace FxGqlTest
 			TestGql ("select convert(float, '19.5')",
 	 				 "1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
 
+			// Added function abs
+			TestGql ("select abs(-19.5)",
+			         "1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
+			TestGql ("select abs(-17)", 
+			         "54183F4323F377B737433A1E98229EAD0FDC686F93BAB057ECB612DAA94002B5");
+
 
 			if (!Performance) {
 				Console.WriteLine ();
