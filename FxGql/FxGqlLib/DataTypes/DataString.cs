@@ -19,49 +19,49 @@ namespace FxGqlLib
 			this.value = value;
 		}
 
-		public DataInteger ToDataInteger ()
+		public DataInteger ToDataInteger (CultureInfo cultureInfo)
 		{
-			return new DataInteger (long.Parse (this.value));
+			return new DataInteger (long.Parse (this.value, cultureInfo.NumberFormat));
 		}
 
-		public DataInteger ToDataInteger (string format)
+		public DataInteger ToDataInteger (CultureInfo cultureInfo, string format)
 		{
-			return new DataInteger (long.Parse (this.value));
+			return new DataInteger (long.Parse (this.value, cultureInfo.NumberFormat));
 		}
 
-		public DataFloat ToDataFloat ()
+		public DataFloat ToDataFloat (CultureInfo cultureInfo)
 		{
-			return new DataFloat (double.Parse (this.value));
+			return new DataFloat (double.Parse (this.value, cultureInfo.NumberFormat));
 		}
 		
-		public DataFloat ToDataFloat (string format)
+		public DataFloat ToDataFloat (CultureInfo cultureInfo, string format)
 		{
-			return new DataFloat (double.Parse (this.value));
+			return new DataFloat (double.Parse (this.value, cultureInfo.NumberFormat));
 		}
 		
-		public DataString ToDataString ()
+		public DataString ToDataString (CultureInfo cultureInfo)
 		{
 			return this;
 		}
 
-		public DataString ToDataString (string format)
+		public DataString ToDataString (CultureInfo cultureInfo, string format)
 		{
 			return this;
 		}
 
-		public DataBoolean ToDataBoolean ()
+		public DataBoolean ToDataBoolean (CultureInfo cultureInfo)
 		{
 			return new DataBoolean (bool.Parse (this.value));
 		}
 
-		public DataDateTime ToDataDateTime ()
+		public DataDateTime ToDataDateTime (CultureInfo cultureInfo)
 		{
-			return new DataDateTime (DateTime.Parse (this.value));
+			return new DataDateTime (DateTime.Parse (this.value, cultureInfo.DateTimeFormat));
 		}
 
-		public DataDateTime ToDataDateTime (string format)
+		public DataDateTime ToDataDateTime (CultureInfo cultureInfo, string format)
 		{
-			return new DataDateTime (DateTime.ParseExact (this.value, format, System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat));
+			return new DataDateTime (DateTime.ParseExact (this.value, format, cultureInfo.DateTimeFormat));
 		}
 
 		public int CompareTo (object other)

@@ -7,17 +7,17 @@ namespace FxGqlLib
 	public class MultiFileProvider : MultiFileProviderBase
 	{
 		readonly FileOptionsFromClause fileOptions;
-		readonly StringComparer stringComparer;
+		readonly DataComparer dataComparer;
 
-		public MultiFileProvider (FileOptionsFromClause fileOptions, StringComparer stringComparer)
+		public MultiFileProvider (FileOptionsFromClause fileOptions, DataComparer dataComparer)
 		{
 			this.fileOptions = fileOptions;
-			this.stringComparer = stringComparer;
+			this.dataComparer = dataComparer;
 		}
 
 		public override void OnInitialize (GqlQueryState gqlQueryState, out string[] files, out long skip)
 		{
-			string fileName = fileOptions.FileName.EvaluateAsData (gqlQueryState).ToDataString ();
+			string fileName = fileOptions.FileName.EvaluateAsData (gqlQueryState).ToDataString (dataComparer.CultureInfo);
 
 			string path = Path.GetDirectoryName (fileName);
 			string searchPattern = Path.GetFileName (fileName);
@@ -32,10 +32,10 @@ namespace FxGqlLib
 
 			if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Asc 
 				|| fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameAsc)
-				files = files.Select (p => new FileInfo (p)).OrderBy (p => p.Name, stringComparer).Select (p => p.FullName).ToArray ();
+				files = files.Select (p => new FileInfo (p)).OrderBy (p => p.Name, dataComparer.StringComparer).Select (p => p.FullName).ToArray ();
 			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Desc
 				|| fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameDesc)
-				files = files.Select (p => new FileInfo (p)).OrderByDescending (p => p.Name, stringComparer).Select (p => p.FullName).ToArray ();
+				files = files.Select (p => new FileInfo (p)).OrderByDescending (p => p.Name, dataComparer.StringComparer).Select (p => p.FullName).ToArray ();
 			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.ModificationTimeAsc)
 				files = files.Select (p => new FileInfo (p)).OrderBy (p => p.LastWriteTime).Select (p => p.FullName).ToArray ();
 			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.ModificationTimeDesc)

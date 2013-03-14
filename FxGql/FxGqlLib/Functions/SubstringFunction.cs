@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace FxGqlLib
 {
@@ -8,17 +9,17 @@ namespace FxGqlLib
 		readonly Expression<DataInteger> arg2;
 		readonly Expression<DataInteger> arg3;
 		
-		public SubstringFunction (IExpression arg1, IExpression arg2)
-			: this (arg1, arg2, null)
+		public SubstringFunction (IExpression arg1, IExpression arg2, CultureInfo cultureInfo)
+			: this (arg1, arg2, null, cultureInfo)
 		{
 		}
 		
-		public SubstringFunction (IExpression arg1, IExpression arg2, IExpression arg3)
+		public SubstringFunction (IExpression arg1, IExpression arg2, IExpression arg3, CultureInfo cultureInfo)
 		{
-			this.arg1 = ConvertExpression.CreateDataString (arg1);
-			this.arg2 = ConvertExpression.CreateDataInteger (arg2);
+			this.arg1 = ConvertExpression.CreateDataString (arg1, cultureInfo);
+			this.arg2 = ConvertExpression.CreateDataInteger (arg2, cultureInfo);
 			if (arg3 != null) 
-				this.arg3 = ConvertExpression.CreateDataInteger (arg3);
+				this.arg3 = ConvertExpression.CreateDataInteger (arg3, cultureInfo);
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]

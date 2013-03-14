@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace FxGqlLib
 {
@@ -18,47 +19,47 @@ namespace FxGqlLib
 			this.value = value;
 		}
 
-		public DataInteger ToDataInteger ()
+		public DataInteger ToDataInteger (CultureInfo cultureInfo)
 		{
 			throw new ConversionException (typeof(DataDateTime), typeof(DataInteger));
 		}
 
-		public DataInteger ToDataInteger (string format)
+		public DataInteger ToDataInteger (CultureInfo cultureInfo, string format)
 		{
 			throw new ConversionException (typeof(DataDateTime), typeof(DataInteger));
 		}
 
-		public DataFloat ToDataFloat ()
+		public DataFloat ToDataFloat (CultureInfo cultureInfo)
 		{
 			throw new ConversionException (typeof(DataDateTime), typeof(DataFloat));
 		}
 		
-		public DataFloat ToDataFloat (string format)
+		public DataFloat ToDataFloat (CultureInfo cultureInfo, string format)
 		{
 			throw new ConversionException (typeof(DataDateTime), typeof(DataFloat));
 		}
 		
-		public DataString ToDataString ()
+		public DataString ToDataString (CultureInfo cultureInfo)
 		{
 			return this.value.ToString ();
 		}
 
-		public DataString ToDataString (string format)
+		public DataString ToDataString (CultureInfo cultureInfo, string format)
 		{
 			return this.value.ToString (format);
 		}
 
-		public DataBoolean ToDataBoolean ()
+		public DataBoolean ToDataBoolean (CultureInfo cultureInfo)
 		{
 			throw new ConversionException (typeof(DataDateTime), typeof(DataBoolean));
 		}
 
-		public DataDateTime ToDataDateTime ()
+		public DataDateTime ToDataDateTime (CultureInfo cultureInfo)
 		{
 			return this;
 		}
 
-		public DataDateTime ToDataDateTime (string format)
+		public DataDateTime ToDataDateTime (CultureInfo cultureInfo, string format)
 		{
 			return this;
 		}

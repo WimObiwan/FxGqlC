@@ -40,6 +40,7 @@ namespace FxGqlLib
 		                        IList<Column> outputColumns, Expression<DataBoolean> havingExpression, DataComparer dataComparer)
 		{
 			this.provider = provider;
+			this.dataComparer = dataComparer;
 			if (origGroupbyColumns != null && origGroupbyColumns.Count > 0) 
 				this.origGroupbyColumns = ConvertColumnOrdinals (origGroupbyColumns, outputColumns);
 			else
@@ -51,7 +52,6 @@ namespace FxGqlLib
 				this.havingExpression = havingExpression;
 			else
 				this.havingExpression = new InvariantColumn (havingExpression, dataComparer);
-			this.dataComparer = dataComparer;
 
 			this.columnNameList = outputColumns.ToArray ();
 			this.outputColumns = new IExpression[outputColumns.Count];
@@ -265,7 +265,7 @@ namespace FxGqlLib
 			for (int i = 0; i < convertedGroupByColumns.Count; i++) {
 				IExpression expression = convertedGroupByColumns [i];
 				if (expression.IsConstant () && expression.GetResultType () == typeof(DataInteger)) {
-					int col = (int)expression.EvaluateAsData (null).ToDataInteger () - 1;
+					int col = (int)expression.EvaluateAsData (null).ToDataInteger (dataComparer.CultureInfo) - 1;
 					if (col < 0 || col >= outputColumns.Count) {
 						throw new Exception (string.Format ("Invalid group by column ordinal ({0})", col));
 					}
@@ -290,7 +290,7 @@ namespace FxGqlLib
 				types [i] = groupbyColumns [i].GetResultType ();
 				IExpression expression = groupbyColumns [i];
 				if (expression.IsConstant () && expression.GetResultType () == typeof(DataInteger)) {
-					fixedColumns [i] = (int)(expression.EvaluateAsData (null).ToDataInteger ()) - 1;
+					fixedColumns [i] = (int)(expression.EvaluateAsData (null).ToDataInteger (dataComparer.CultureInfo)) - 1;
 					if (fixedColumns [i] < 0)
 						throw new Exception (string.Format ("Negative order by column ordinal ({0}) is not allowed", fixedColumns [i] + 1));
 				} else {

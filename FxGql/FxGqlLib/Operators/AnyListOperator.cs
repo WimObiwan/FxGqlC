@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace FxGqlLib
 {
@@ -10,12 +11,13 @@ namespace FxGqlLib
 		
 		public AnyListOperator (Expression<T> arg, 
 		                       IExpression[] list, 
-		                       Func<T, T, DataBoolean> functor)
+		                       Func<T, T, DataBoolean> functor,
+		                       CultureInfo cultureInfo)
 		{
 			this.arg = arg;
 			this.list = new Expression<T>[list.Length];
 			for (int i = 0; i < list.Length; i++) {
-				this.list [i] = (Expression<T>)ConvertExpression.Create (typeof(T), list [i]);
+				this.list [i] = (Expression<T>)ConvertExpression.Create (typeof(T), list [i], cultureInfo);
 			}
 			this.functor = functor;
 		}

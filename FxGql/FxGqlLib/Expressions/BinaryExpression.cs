@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace FxGqlLib
 {
@@ -12,10 +13,10 @@ namespace FxGqlLib
 		readonly Expression<T1> arg1;
 		readonly Expression<T2> arg2;
 
-		public static BinaryExpression<T1, T2, R> CreateAutoConvert (Func<T1, T2, R> functor, IExpression arg1, IExpression arg2)
+		public static BinaryExpression<T1, T2, R> CreateAutoConvert (Func<T1, T2, R> functor, IExpression arg1, IExpression arg2, CultureInfo cultureInfo)
 		{
-			Expression<T1> typedArg1 = (Expression<T1>)ConvertExpression.Create (typeof(T1), arg1);
-			Expression<T2> typedArg2 = (Expression<T2>)ConvertExpression.Create (typeof(T2), arg2);
+			Expression<T1> typedArg1 = (Expression<T1>)ConvertExpression.Create (typeof(T1), arg1, cultureInfo);
+			Expression<T2> typedArg2 = (Expression<T2>)ConvertExpression.Create (typeof(T2), arg2, cultureInfo);
 			return new BinaryExpression<T1, T2, R> (functor, typedArg1, typedArg2);
 		}
 		

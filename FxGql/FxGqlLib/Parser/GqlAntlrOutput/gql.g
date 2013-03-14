@@ -74,6 +74,7 @@ tokens
 	T_DECLARE;
 	T_DECLARATION;
 	T_SET_VARIABLE;
+	T_SET_COMMAND;
 	T_VARIABLE;
 	T_CREATE_VIEW;
 	T_VIEW_NAME;
@@ -306,8 +307,8 @@ drop_table_command
 // DECLARE COMMAND
 
 set_command
-	: SET WS variable WS? '=' WS? expression
-	-> ^(T_SET_VARIABLE variable expression)
+	: SET WS variable WS? '=' WS? expression -> ^(T_SET_VARIABLE variable expression)
+	| SET WS TOKEN WS expression -> ^(T_SET_COMMAND TOKEN expression)
 	;
 
 ///////////////////////////////////////////////////////////////////////////////

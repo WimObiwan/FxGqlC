@@ -4,11 +4,11 @@ namespace FxGqlLib
 {
 	static class FileProviderFactory
 	{
-		public static IProvider Get (FileOptionsFromClause fileOptions, StringComparer stringComparer)
+		public static IProvider Get (FileOptionsFromClause fileOptions, DataComparer dataComparer)
 		{
 			string fileName;
 			if (fileOptions.FileName is ConstExpression<DataString>)
-				fileName = fileOptions.FileName.EvaluateAsData (null).ToDataString ();
+				fileName = fileOptions.FileName.EvaluateAsData (null).ToDataString (dataComparer.CultureInfo);
 			else
 				fileName = null;
 
@@ -16,7 +16,7 @@ namespace FxGqlLib
 			if (fileName == null || fileName.Contains ("*") || fileName.Contains ("?") || fileOptions.Recurse) {
 				provider = new MultiFileProvider (
 					fileOptions,
-					stringComparer);
+					dataComparer);
 			} else {
 				provider = Get (fileName, fileOptions.Skip);
 			}

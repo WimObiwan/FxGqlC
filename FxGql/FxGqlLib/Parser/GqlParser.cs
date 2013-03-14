@@ -27,15 +27,15 @@ namespace FxGqlLib
 	{
 		readonly GqlEngineState gqlEngineState;
 		readonly string command;
-		//readonly CultureInfo cultureInfo;
 		readonly DataComparer dataComparer;
+		readonly CultureInfo cultureInfo;
 
 		Dictionary<string, Type> variableTypes = new Dictionary<string, Type> (StringComparer.InvariantCultureIgnoreCase);
 		Dictionary<string, ViewDefinition> views = new Dictionary<string, ViewDefinition> (StringComparer.InvariantCultureIgnoreCase);
 		Stack<IProvider> subQueryProviderStack = new Stack<IProvider> ();
         
 		public GqlParser (GqlEngineState gqlEngineState, string command)
-            : this(gqlEngineState, command, CultureInfo.InvariantCulture, true)
+			: this(gqlEngineState, command, CultureInfo.InvariantCulture, true)
 		{
 		}
         
@@ -43,6 +43,7 @@ namespace FxGqlLib
 		{
 			this.gqlEngineState = gqlEngineState;
 			this.command = command;
+			this.cultureInfo = cultureInfo;
 			this.dataComparer = new DataComparer (cultureInfo, caseInsensitive);
 		}
 
@@ -126,11 +127,11 @@ namespace FxGqlLib
 		{
 			switch (tree.Text) {
 			case "T_SELECT":
-				return new GqlQueryCommand (ParseCommandSelect (tree));
+				return new GqlQueryCommand (ParseCommandSelect (tree), cultureInfo);
 			case "T_USE":
 				FileOptions fileOptions = ParseCommandUse (tree);
 				fileOptions.ValidateProviderOptions ();
-				return new UseCommand (fileOptions);
+				return new UseCommand (fileOptions, cultureInfo);
 			case "T_DECLARE":
 				{
 					var variableDeclaration = ParseCommandDeclare (tree);
@@ -141,6 +142,8 @@ namespace FxGqlLib
 				}
 			case "T_SET_VARIABLE":
 				return new SetVariableCommand (ParseCommandSetVariable (tree));
+			case "T_SET_COMMAND":
+				return ParseCommandSet (tree);
 			case "T_CREATE_VIEW":
 				{
 					var createView = ParseCommandCreateView (tree);
@@ -157,7 +160,7 @@ namespace FxGqlLib
 				}
 			case "T_DROP_TABLE":
 				{
-					return new DropTableCommand (ParseCommandDropTable (tree));
+					return new DropTableCommand (ParseCommandDropTable (tree), cultureInfo);
 				}
 			default:
 				throw new UnexpectedTokenAntlrException (tree);
@@ -225,7 +228,7 @@ namespace FxGqlLib
 				}
 
 				if (intoClause != null) {
-					provider = new IntoProvider (provider, intoClause);
+					provider = new IntoProvider (provider, intoClause, cultureInfo);
 				}
 			}
 
@@ -417,7 +420,7 @@ namespace FxGqlLib
 			}
             
 			if (intoFile != null)
-				provider = new IntoProvider (provider, intoFile);
+				provider = new IntoProvider (provider, intoFile, cultureInfo);
             
 			return provider;
 		}
@@ -425,7 +428,7 @@ namespace FxGqlLib
 		Expression<DataInteger> ParseTopOrBottomClause (ITree topClauseTree)
 		{
 			ITree tree = GetSingleChild (topClauseTree);
-			return ConvertExpression.CreateDataInteger (ParseExpression (null, tree));
+			return ConvertExpression.CreateDataInteger (ParseExpression (null, tree), cultureInfo);
 		}
 		
 		IList<Column> ParseColumnList (IProvider provider, ITree outputListTree)
@@ -829,7 +832,7 @@ namespace FxGqlLib
 			} else if (fileNameText == "T_STRING" || fileNameText == "T_VARIABLE") {
 				ITree fileTree = enumerator.Current;
 				if (fileNameText == "T_VARIABLE")
-					fileOptions.FileName = ConvertExpression.CreateDataString (ParseExpressionVariable (fileTree));
+					fileOptions.FileName = ConvertExpression.CreateDataString (ParseExpressionVariable (fileTree), cultureInfo);
 				else
 					fileOptions.FileName = ParseExpressionString (fileTree);
                 
@@ -868,7 +871,7 @@ namespace FxGqlLib
 			IProvider provider;
 			if (fileOptions.Provider == FileOptions.ProviderEnum.DontCare
 				|| fileOptions.Provider == FileOptions.ProviderEnum.File) {
-				provider = FileProviderFactory.Get (fileOptions, dataComparer.StringComparer);
+				provider = FileProviderFactory.Get (fileOptions, dataComparer);
             
 				if (fileOptions.Format == FileOptionsFromClause.FormatEnum.Csv) {
 					ColumnProviderDelimiterLineSplitter splitter = 
@@ -911,7 +914,7 @@ namespace FxGqlLib
 			AssertAntlrToken (fileSubqueryTree, "T_FILESUBQUERY", 1);
             
 			IProvider fileSubqueryProvider = ParseSubquery (null, fileSubqueryTree.GetChild (0));
-			return new FileSubqueryProvider (fileSubqueryProvider);
+			return new FileSubqueryProvider (fileSubqueryProvider, cultureInfo);
 		}
 
 		IProvider ParseSubquery (IProvider provider, ITree subqueryTree)
@@ -964,7 +967,7 @@ namespace FxGqlLib
 			if (definitionParameterCount == 0)
 				provider = viewDefinition.Provider;
 			else
-				provider = new ParameterizedProvider (viewDefinition, parameters);
+				provider = new ParameterizedProvider (viewDefinition, parameters, cultureInfo);
 
 			return provider;
 		}
@@ -1056,7 +1059,7 @@ namespace FxGqlLib
 		{
 			IProvider provider = ParseSubquery (parentProvider, subqueryTree);
 
-			return new SubqueryExpression (provider).GetTyped ();
+			return new SubqueryExpression (provider).GetTyped (cultureInfo);
 		}
 
 		Tuple<string, ViewDefinition> ParseCommandCreateView (ITree tree)
@@ -1105,7 +1108,6 @@ namespace FxGqlLib
 			enumerator.MoveNext ();
 
 			return ParseViewName (enumerator.Current);
-			;
 		}
 
 		FileOptions ParseCommandDropTable (ITree tree)
@@ -1115,6 +1117,16 @@ namespace FxGqlLib
 			return ParseFileSimple (tree.GetChild (0));
 		}
 
+		IGqlCommand ParseCommandSet (ITree tree)
+		{
+			AssertAntlrToken (tree, "T_SET_COMMAND", 2, 2);
+
+			string token = tree.GetChild (0).Text;
+			switch (token.ToUpperInvariant ()) {
+			default:
+				throw new ParserException(string.Format("Unknown SET command token '{0}'", token), tree);
+			}
+		}
 	}
 }
 

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace FxGqlLib
 {
@@ -38,8 +39,13 @@ namespace FxGqlLib
 			}
 		}
 
+		public CultureInfo CultureInfo { get; set; }
+		public bool CaseInsensitive { get; set; }
+
 		public GqlEngine ()
 		{
+			CultureInfo = CultureInfo.InvariantCulture;
+			CaseInsensitive = true;
 			GqlEngineState = new GqlEngineState (gqlEngineExecutionState);
 			GqlEngineState.CurrentDirectory = Environment.CurrentDirectory;
 			GqlEngineState.TempDirectory = Path.Combine (Path.GetTempPath (), "FxGql-" + Guid.NewGuid ().ToString ());
@@ -84,7 +90,7 @@ namespace FxGqlLib
 				logStream.WriteLine (commandsText);
 			}
 
-			GqlParser parser = new GqlParser (GqlEngineState, commandsText);
+			GqlParser parser = new GqlParser (GqlEngineState, commandsText, CultureInfo, CaseInsensitive);
 			ParsingStopWatch.Start ();
 			IList<IGqlCommand> commands = parser.Parse ();
 			ParsingStopWatch.Stop ();

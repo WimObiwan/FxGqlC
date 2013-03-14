@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace FxGqlLib
 {
@@ -9,21 +10,26 @@ namespace FxGqlLib
 		readonly IExpression arg2;
 		readonly IExpression arg3;
 		readonly RegexOptions regexOptions;
+		readonly CultureInfo cultureInfo;
 
-		public ReplaceFunction (IExpression arg1, IExpression arg2, IExpression arg3, bool caseInsensitive)
+		public ReplaceFunction (IExpression arg1, IExpression arg2, IExpression arg3, bool caseInsensitive, CultureInfo cultureInfo)
 		{
 			this.arg1 = arg1;
 			this.arg2 = arg2;
 			this.arg3 = arg3;
+			this.cultureInfo = cultureInfo;
+			this.regexOptions = RegexOptions.None;
+			if (cultureInfo.LCID == CultureInfo.InvariantCulture.LCID)
+				regexOptions |= RegexOptions.CultureInvariant;
 			if (caseInsensitive)
-				regexOptions = RegexOptions.IgnoreCase;
+				regexOptions |= RegexOptions.IgnoreCase;
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
-			return Regex.Replace (arg1.EvaluateAsData (gqlQueryState).ToDataString (), arg2.EvaluateAsData (gqlQueryState).ToDataString (), 
-			                      arg3.EvaluateAsData (gqlQueryState).ToDataString (), regexOptions);
+			return Regex.Replace (arg1.EvaluateAsData (gqlQueryState).ToDataString (cultureInfo), arg2.EvaluateAsData (gqlQueryState).ToDataString (cultureInfo), 
+			                      arg3.EvaluateAsData (gqlQueryState).ToDataString (cultureInfo), regexOptions);
 		}
 		#endregion
 

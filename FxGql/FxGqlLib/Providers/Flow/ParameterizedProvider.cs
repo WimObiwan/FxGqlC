@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace FxGqlLib
 {
@@ -13,7 +14,7 @@ namespace FxGqlLib
 
 		GqlQueryState gqlQueryState;
 
-		public ParameterizedProvider (ViewDefinition viewDefinition, IExpression[] parameters)
+		public ParameterizedProvider (ViewDefinition viewDefinition, IExpression[] parameters, CultureInfo cultureInfo)
 		{
 			this.provider = viewDefinition.Provider;
 			this.parameterNames = viewDefinition.Parameters.Select (p => p.Item1).ToArray ();
@@ -22,7 +23,7 @@ namespace FxGqlLib
 			if (parameters.Length != viewDefinition.Parameters.Count)
 				throw new InvalidProgramException ();
 			for (int i = 0; i < parameters.Length; i++) {
-				this.parameters [i] = ConvertExpression.Create (viewDefinition.Parameters [i].Item2, parameters [i]);
+				this.parameters [i] = ConvertExpression.Create (viewDefinition.Parameters [i].Item2, parameters [i], cultureInfo);
 			}
 		}
 

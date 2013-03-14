@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace FxGqlLib
 {
@@ -9,9 +10,9 @@ namespace FxGqlLib
 		readonly Func<T, R> functor;
 		readonly Expression<T> arg;
 
-		public static UnaryExpression<T, R> CreateAutoConvert (Func<T, R> functor, IExpression arg)
+		public static UnaryExpression<T, R> CreateAutoConvert (Func<T, R> functor, IExpression arg, CultureInfo cultureInfo)
 		{
-			Expression<T> typedArg = (Expression<T>)ConvertExpression.Create (typeof(T), arg);
+			Expression<T> typedArg = (Expression<T>)ConvertExpression.Create (typeof(T), arg, cultureInfo);
 			return new UnaryExpression<T, R> (functor, typedArg);
 		}
 		

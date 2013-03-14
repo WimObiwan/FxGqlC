@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace FxGqlLib
 {
@@ -13,10 +14,10 @@ namespace FxGqlLib
 			this.type = type;
 		}
 
-		public IExpression GetTyped ()
+		public IExpression GetTyped (CultureInfo cultureInfo)
 		{
 			Type type = GetResultType ();
-			return ConvertExpression.Create (type, this);
+			return ConvertExpression.Create (type, this, cultureInfo);
 		}
         
         #region IExpression implementation

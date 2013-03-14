@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace FxGqlC
 {
@@ -600,10 +601,29 @@ namespace FxGqlC
 						break;
 					}
 				case "COLUMNDELIMITER":
-					if (value.Length >= 3 && value.StartsWith ("\'") && value.EndsWith ("\'"))
+					if (value.Length >= 2 && value.StartsWith ("\'") && value.EndsWith ("\'"))
 						value = value.Substring (1, value.Length - 2);
 					gqlEngine.GqlEngineState.ColumnDelimiter = Regex.Unescape (value);
 					break;
+				case "CULTURE":
+					if (value.Length >= 2 && value.StartsWith ("\'") && value.EndsWith ("\'"))
+						value = value.Substring (1, value.Length - 2);
+					try {
+						CultureInfo cultureInfo = CultureInfo.GetCultureInfo (value);
+						gqlEngine.CultureInfo = cultureInfo;
+					} catch (Exception) {
+						Console.WriteLine ("Unknown SET CULTURE value '{0}'", value);
+					}
+					break;
+				case "CASEINSENSITIVE":
+				{
+					OnOffEnum onOff;
+					if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) 
+						gqlEngine.CaseInsensitive = (onOff == OnOffEnum.On);
+					else
+						Console.WriteLine ("Unknown SET CASEINSENSITIVE value '{0}'", value);
+					break;
+				}
 				default:
 					Console.WriteLine ("Unknown SET command '{0}'", key);
 					break;

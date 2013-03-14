@@ -10,9 +10,11 @@ namespace FxGqlLib
 		public bool CaseInsensitive { get; private set; }
 		public StringComparer StringComparer { get; private set; }
 		public StringComparison StringComparison { get; private set; }
+		public CultureInfo CultureInfo { get; private set; }
 
 		public DataComparer (CultureInfo cultureInfo, bool caseInsensitive)
 		{
+			this.CultureInfo = cultureInfo;
 			this.CaseInsensitive = caseInsensitive;
 			this.StringComparer = StringComparer.Create (cultureInfo, caseInsensitive);
 			if (cultureInfo == CultureInfo.InvariantCulture) {
@@ -32,7 +34,7 @@ namespace FxGqlLib
 		public int Compare (IData x, IData y)
 		{
 			if (x is DataString || y is DataString)
-				return StringComparer.Compare (x.ToDataString ().Value, y.ToDataString ().Value);
+				return StringComparer.Compare (x.ToDataString (CultureInfo).Value, y.ToDataString (CultureInfo).Value);
 			else
 				return x.CompareTo (y);
 		}

@@ -1,22 +1,23 @@
 using System;
+using System.Globalization;
 
 namespace FxGqlLib
 {
 	public static class ConvertExpression
 	{
-		public static IExpression Create (DataType type, IExpression expr)
+		public static IExpression Create (DataType type, IExpression expr, CultureInfo cultureInfo)
 		{
 			IExpression result;
 			if (type == DataType.Integer) {
-				result = CreateDataInteger (expr);
+				result = CreateDataInteger (expr, cultureInfo);
 			} else if (type == DataType.Float) {
-				result = CreateDataFloat (expr);
+				result = CreateDataFloat (expr, cultureInfo);
 			} else if (type == DataType.String) {
-				result = CreateDataString (expr);
+				result = CreateDataString (expr, cultureInfo);
 			} else if (type == DataType.Boolean) {
-				result = CreateDataBoolean (expr);
+				result = CreateDataBoolean (expr, cultureInfo);
 			} else if (type == DataType.DateTime) {
-				result = CreateDataDateTime (expr);
+				result = CreateDataDateTime (expr, cultureInfo);
 			} else {
 				throw new Exception (string.Format ("Invalid conversion.  Datatype {0} unknown.", type.ToString ()));
 			}
@@ -24,19 +25,19 @@ namespace FxGqlLib
 			return result;
 		}
 		
-		public static IExpression Create (Type type, IExpression expr)
+		public static IExpression Create (Type type, IExpression expr, CultureInfo cultureInfo)
 		{
 			IExpression result;
 			if (type == typeof(DataInteger)) {
-				result = CreateDataInteger (expr);
+				result = CreateDataInteger (expr, cultureInfo);
 			} else if (type == typeof(DataFloat)) {
-				result = CreateDataFloat (expr);
+				result = CreateDataFloat (expr, cultureInfo);
 			} else if (type == typeof(DataString)) {
-				result = CreateDataString (expr);
+				result = CreateDataString (expr, cultureInfo);
 			} else if (type == typeof(DataBoolean)) {
-				result = CreateDataBoolean (expr);
+				result = CreateDataBoolean (expr, cultureInfo);
 			} else if (type == typeof(DataDateTime)) {
-				result = CreateDataDateTime (expr);
+				result = CreateDataDateTime (expr, cultureInfo);
 			} else if (type == typeof(IData)) {
 				result = CreateData (expr);
 			} else {
@@ -46,22 +47,22 @@ namespace FxGqlLib
 			return result;
 		}
 
-		public static IExpression Create (Type type, IExpression expr, string format)
+		public static IExpression Create (Type type, IExpression expr, CultureInfo cultureInfo, string format)
 		{
 			if (format == null)
-				return Create (type, expr);
+				return Create (type, expr, cultureInfo);
 
 			IExpression result;
 			if (type == typeof(DataInteger)) {
-				result = CreateDataInteger (expr, format);
+				result = CreateDataInteger (expr, cultureInfo, format);
 			} else if (type == typeof(DataFloat)) {
-				result = CreateDataFloat (expr, format);
+				result = CreateDataFloat (expr, cultureInfo, format);
 			} else if (type == typeof(DataString)) {
-				result = CreateDataString (expr, format);
+				result = CreateDataString (expr, cultureInfo, format);
 			} else if (type == typeof(DataBoolean)) {
-				result = CreateDataBoolean (expr);
+				result = CreateDataBoolean (expr, cultureInfo);
 			} else if (type == typeof(DataDateTime)) {
-				result = CreateDataDateTime (expr, format);
+				result = CreateDataDateTime (expr, cultureInfo, format);
 			} else if (type == typeof(IData)) {
 				result = CreateData (expr);
 			} else {
@@ -71,83 +72,83 @@ namespace FxGqlLib
 			return result;
 		}
 
-		public static Expression<DataInteger> CreateDataInteger (IExpression expr)
+		public static Expression<DataInteger> CreateDataInteger (IExpression expr, CultureInfo ci)
 		{
 			Expression<DataInteger> result = expr as Expression<DataInteger>;
 			if (result == null)
-				result = new ConvertExpression<DataInteger> ((a) => a.ToDataInteger (), expr);
+				result = new ConvertExpression<DataInteger> ((a) => a.ToDataInteger (ci), expr);
 			
 			return result;
 		}
 		
-		public static Expression<DataInteger> CreateDataInteger (IExpression expr, string format)
+		public static Expression<DataInteger> CreateDataInteger (IExpression expr, CultureInfo ci, string format)
 		{
 			Expression<DataInteger> result = expr as Expression<DataInteger>;
 			if (result == null)
-				result = new ConvertExpression<DataInteger> ((a) => a.ToDataInteger (format), expr);
+				result = new ConvertExpression<DataInteger> ((a) => a.ToDataInteger (ci, format), expr);
 			
 			return result;
 		}
 		
-		public static Expression<DataFloat> CreateDataFloat (IExpression expr)
+		public static Expression<DataFloat> CreateDataFloat (IExpression expr, CultureInfo ci)
 		{
 			Expression<DataFloat> result = expr as Expression<DataFloat>;
 			if (result == null)
-				result = new ConvertExpression<DataFloat> ((a) => a.ToDataFloat (), expr);
+				result = new ConvertExpression<DataFloat> ((a) => a.ToDataFloat (ci), expr);
 			
 			return result;
 		}
 		
-		public static Expression<DataFloat> CreateDataFloat (IExpression expr, string format)
+		public static Expression<DataFloat> CreateDataFloat (IExpression expr, CultureInfo ci, string format)
 		{
 			Expression<DataFloat> result = expr as Expression<DataFloat>;
 			if (result == null)
-				result = new ConvertExpression<DataFloat> ((a) => a.ToDataFloat (format), expr);
+				result = new ConvertExpression<DataFloat> ((a) => a.ToDataFloat (ci, format), expr);
 			
 			return result;
 		}
 		
-		public static Expression<DataString> CreateDataString (IExpression expr)
+		public static Expression<DataString> CreateDataString (IExpression expr, CultureInfo ci)
 		{
 			Expression<DataString> result = expr as Expression<DataString>;
 			if (result == null)
-				result = new ConvertExpression<DataString> ((a) => a.ToDataString (), expr);
+				result = new ConvertExpression<DataString> ((a) => a.ToDataString (ci), expr);
 
 			return result;
 		}
 
-		public static Expression<DataString> CreateDataString (IExpression expr, string format)
+		public static Expression<DataString> CreateDataString (IExpression expr, CultureInfo ci, string format)
 		{
 			Expression<DataString> result = expr as Expression<DataString>;
 			if (result == null)
-				result = new ConvertExpression<DataString> ((a) => a.ToDataString (format), expr);
+				result = new ConvertExpression<DataString> ((a) => a.ToDataString (ci, format), expr);
 
 			return result;
 		}
 
-		public static Expression<DataBoolean> CreateDataBoolean (IExpression expr)
+		public static Expression<DataBoolean> CreateDataBoolean (IExpression expr, CultureInfo ci)
 		{
 			Expression<DataBoolean> result = expr as Expression<DataBoolean>;
 			if (result == null)
-				result = new ConvertExpression<DataBoolean> ((a) => a.ToDataBoolean (), expr);
+				result = new ConvertExpression<DataBoolean> ((a) => a.ToDataBoolean (ci), expr);
 
 			return result;
 		}
 
-		static IExpression CreateDataDateTime (IExpression expr)
+		static IExpression CreateDataDateTime (IExpression expr, CultureInfo ci)
 		{
 			Expression<DataDateTime> result = expr as Expression<DataDateTime>;
 			if (result == null)
-				result = new ConvertExpression<DataDateTime> ((a) => a.ToDataDateTime (), expr);
+				result = new ConvertExpression<DataDateTime> ((a) => a.ToDataDateTime (ci), expr);
 
 			return result;
 		}
 
-		static IExpression CreateDataDateTime (IExpression expr, string format)
+		static IExpression CreateDataDateTime (IExpression expr, CultureInfo ci, string format)
 		{
 			Expression<DataDateTime> result = expr as Expression<DataDateTime>;
 			if (result == null)
-				result = new ConvertExpression<DataDateTime> ((a) => a.ToDataDateTime (format), expr);
+				result = new ConvertExpression<DataDateTime> ((a) => a.ToDataDateTime (ci, format), expr);
 
 			return result;
 		}

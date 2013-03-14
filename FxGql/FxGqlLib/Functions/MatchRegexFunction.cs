@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace FxGqlLib
 {
@@ -10,45 +11,49 @@ namespace FxGqlLib
 		readonly IExpression extract;
 		readonly IExpression def;
 		readonly RegexOptions regexOptions;
+		readonly CultureInfo cultureInfo;
 
 		readonly Regex regex2;
 		
-		public MatchRegexFunction (IExpression origin, IExpression regex, bool caseInsensitive)
-			: this(origin, regex, caseInsensitive, null)
+		public MatchRegexFunction (IExpression origin, IExpression regex, bool caseInsensitive, CultureInfo cultureInfo)
+			: this(origin, regex, caseInsensitive, null, cultureInfo)
 		{
 		}
 		
-		public MatchRegexFunction (IExpression origin, IExpression regex, bool caseInsensitive, IExpression arg3)
-			: this(origin, regex, caseInsensitive, arg3, null)
+		public MatchRegexFunction (IExpression origin, IExpression regex, bool caseInsensitive, IExpression arg3, CultureInfo cultureInfo)
+			: this(origin, regex, caseInsensitive, arg3, null, cultureInfo)
 		{
 		}
 
-		public MatchRegexFunction (IExpression origin, IExpression regex, bool caseInsensitive, IExpression extract, IExpression def)
+		public MatchRegexFunction (IExpression origin, IExpression regex, bool caseInsensitive, IExpression extract, IExpression def, CultureInfo cultureInfo)
 		{
 			this.origin = origin;
 			this.regex = regex;
 			this.extract = extract;
 			this.def = def;
-			this.regexOptions = RegexOptions.CultureInvariant;
+			this.cultureInfo = cultureInfo;
+			this.regexOptions = RegexOptions.None;
+			if (cultureInfo.LCID == CultureInfo.InvariantCulture.LCID)
+				regexOptions |= RegexOptions.CultureInvariant;
 			if (caseInsensitive)
-				regexOptions = RegexOptions.IgnoreCase;
+				regexOptions |= RegexOptions.IgnoreCase;
 
 			if (regex.IsConstant ())
-				regex2 = new Regex (regex.EvaluateAsData (null).ToDataString (), regexOptions);
+				regex2 = new Regex (regex.EvaluateAsData (null).ToDataString (cultureInfo), regexOptions);
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
-			string input = origin.EvaluateAsData (gqlQueryState).ToDataString ();
+			string input = origin.EvaluateAsData (gqlQueryState).ToDataString (cultureInfo);
 			Match match;
 			if (regex2 != null)
 				match = regex2.Match (input);
 			else
-				match = Regex.Match (input, regex.EvaluateAsData (gqlQueryState).ToDataString (), regexOptions);
+				match = Regex.Match (input, regex.EvaluateAsData (gqlQueryState).ToDataString (cultureInfo), regexOptions);
 			if (match.Success) {
 				if (extract != null) {
-					return match.Result (extract.EvaluateAsData (gqlQueryState).ToDataString ());
+					return match.Result (extract.EvaluateAsData (gqlQueryState).ToDataString (cultureInfo));
 				} else if (match.Groups.Count > 1) {
 					return match.Groups [1].Value;
 				} else {
@@ -60,7 +65,7 @@ namespace FxGqlLib
 						gqlQueryState.SkipLine = true;
 					return "";
 				} else {
-					return def.EvaluateAsData (gqlQueryState).ToDataString ();
+					return def.EvaluateAsData (gqlQueryState).ToDataString (cultureInfo);
 				}
 			}
 		}

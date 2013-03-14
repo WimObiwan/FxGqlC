@@ -13,15 +13,17 @@ namespace FxGqlLib
 	class DropTableCommand : IGqlCommand
 	{
 		FileOptions fileOptions;
+		CultureInfo cultureInfo;
 
-		public DropTableCommand (FileOptions fileOptions)
+		public DropTableCommand (FileOptions fileOptions, CultureInfo cultureInfo)
 		{
 			this.fileOptions = fileOptions;
+			this.cultureInfo = cultureInfo;
 		}
 
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
-			string fileName = this.fileOptions.FileName.EvaluateAsData (null).ToDataString ();
+			string fileName = this.fileOptions.FileName.EvaluateAsData (null).ToDataString (cultureInfo);
 			if (fileName.StartsWith ("#")) {
 				fileName = Path.Combine (gqlEngineState.TempDirectory, fileName);
 			} else {

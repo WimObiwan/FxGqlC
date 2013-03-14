@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace FxGqlLib
 {
@@ -6,11 +7,13 @@ namespace FxGqlLib
 	{
 		readonly IExpression[] expression;
 		readonly string separator;
+		readonly CultureInfo cultureInfo;
 		
-		public FormatListFunction (IExpression[] expression, string separator)
+		public FormatListFunction (IExpression[] expression, string separator, CultureInfo cultureInfo)
 		{
 			this.expression = expression;
 			this.separator = separator;
+			this.cultureInfo = cultureInfo;
 		}
 				
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
@@ -20,7 +23,7 @@ namespace FxGqlLib
 			for (int i = 0; i < expression.Length; i++) {
 				if (i > 0)
 					texts [i * 2 - 1] = separator;
-				texts [i * 2] = expression [i].EvaluateAsData (gqlQueryState).ToDataString ();
+				texts [i * 2] = expression [i].EvaluateAsData (gqlQueryState).ToDataString (cultureInfo);
 			}
 			
 			return string.Concat (texts);

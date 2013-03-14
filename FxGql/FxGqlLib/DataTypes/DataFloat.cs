@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace FxGqlLib
 {
@@ -43,47 +44,47 @@ namespace FxGqlLib
 			return new DataFloat (this.value / other.value);
 		}
 
-		public DataInteger ToDataInteger ()
+		public DataInteger ToDataInteger (CultureInfo cultureInfo)
 		{
 			return (int)this.value;
 		}
 		
-		public DataInteger ToDataInteger (string format)
+		public DataInteger ToDataInteger (CultureInfo cultureInfo, string format)
 		{
 			return (int)this.value;
 		}
 		
-		public DataFloat ToDataFloat ()
+		public DataFloat ToDataFloat (CultureInfo cultureInfo)
 		{
 			return this;
 		}
 		
-		public DataFloat ToDataFloat (string format)
+		public DataFloat ToDataFloat (CultureInfo cultureInfo, string format)
 		{
 			return this;
 		}
 		
-		public DataString ToDataString ()
+		public DataString ToDataString (CultureInfo cultureInfo)
 		{
-			return new DataString (this.value.ToString ());
+			return new DataString (this.value.ToString (cultureInfo.NumberFormat));
 		}
 		
-		public DataString ToDataString (string format)
+		public DataString ToDataString (CultureInfo cultureInfo, string format)
 		{
-			return new DataString (this.value.ToString (format));
+			return new DataString (this.value.ToString (format, cultureInfo.NumberFormat));
 		}
 		
-		public DataBoolean ToDataBoolean ()
-		{
-			throw new ConversionException (typeof(DataFloat), typeof(DataDateTime));
-		}
-		
-		public DataDateTime ToDataDateTime ()
+		public DataBoolean ToDataBoolean (CultureInfo cultureInfo)
 		{
 			throw new ConversionException (typeof(DataFloat), typeof(DataDateTime));
 		}
 		
-		public DataDateTime ToDataDateTime (string format)
+		public DataDateTime ToDataDateTime (CultureInfo cultureInfo)
+		{
+			throw new ConversionException (typeof(DataFloat), typeof(DataDateTime));
+		}
+		
+		public DataDateTime ToDataDateTime (CultureInfo cultureInfo, string format)
 		{
 			throw new ConversionException (typeof(DataFloat), typeof(DataDateTime));
 		}

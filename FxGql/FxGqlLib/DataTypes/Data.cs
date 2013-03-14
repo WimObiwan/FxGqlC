@@ -1,18 +1,19 @@
 using System;
+using System.Globalization;
 
 namespace FxGqlLib
 {
 	public interface IData : IComparable
 	{
-		DataInteger ToDataInteger ();
-		DataInteger ToDataInteger (string format);
-		DataFloat ToDataFloat ();
-		DataFloat ToDataFloat (string format);
-		DataString ToDataString ();
-		DataString ToDataString (string format);
-		DataBoolean ToDataBoolean ();
-		DataDateTime ToDataDateTime ();
-		DataDateTime ToDataDateTime (string format);
+		DataInteger ToDataInteger (CultureInfo ci);
+		DataInteger ToDataInteger (CultureInfo ci, string format);
+		DataFloat ToDataFloat (CultureInfo ci);
+		DataFloat ToDataFloat (CultureInfo ci, string format);
+		DataString ToDataString (CultureInfo ci);
+		DataString ToDataString (CultureInfo ci, string format);
+		DataBoolean ToDataBoolean (CultureInfo ci);
+		DataDateTime ToDataDateTime (CultureInfo ci);
+		DataDateTime ToDataDateTime (CultureInfo ci, string format);
 
 	}
 }
