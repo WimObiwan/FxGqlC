@@ -162,12 +162,17 @@ namespace FxGqlLib
 				streamReader.Dispose ();
 				streamReader = null;
 			}
-			while (zipFileReader.MoveToNextEntry ()) {
-				if (!zipFileReader.Entry.IsDirectory) {
-					entryStream = zipFileReader.OpenEntryStream ();
-					streamReader = new StreamReader (new AsyncStreamReader (entryStream, 32 * 1024));
-					return;
+			try {
+				// MoveToNextEntry throws an exception on the last entry
+				//  ==> System.IO.EndOfStreamException
+				while (zipFileReader.MoveToNextEntry ()) {
+					if (!zipFileReader.Entry.IsDirectory) {
+						entryStream = zipFileReader.OpenEntryStream ();
+						streamReader = new StreamReader (new AsyncStreamReader (entryStream, 32 * 1024));
+						return;
+					}
 				}
+			} catch (System.IO.EndOfStreamException) {
 			}
 			streamReader = null;
 		}
