@@ -67,6 +67,8 @@ namespace FxGqlLib
 			record.Columns [0] = dataString;
 			// same record.OriginalColumns [0] = dataString;
 
+			OpenNextEntry ();
+
 			for (long i = 0; i < skip; i++) {
 				if (streamReader.ReadLine () == null) {
 					streamReader.Close ();
@@ -74,8 +76,6 @@ namespace FxGqlLib
 					return;
 				}
 			}
-
-			OpenNextEntry ();
 		}
 
 		public bool GetNextRecord ()
