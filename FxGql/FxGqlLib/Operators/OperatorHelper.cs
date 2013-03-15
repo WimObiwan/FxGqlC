@@ -1,16 +1,17 @@
 using System;
+using System.Globalization;
 
 namespace FxGqlLib
 {
 	static class OperatorHelper
 	{
-		public static Func<DataString, DataString, DataBoolean> GetStringComparer (string operand, bool negate, StringComparison stringComparison)
+		public static Func<DataString, DataString, DataBoolean> GetStringComparer (string operand, bool negate, DataComparer dataComparer)
 		{
 			Func<int, bool> comparer = GetComparer (operand);
 			if (negate)
-				return (a, b) => !comparer (string.Compare (a, b, stringComparison));
+				return (a, b) => !comparer (string.Compare (a, b, dataComparer.CaseInsensitive, dataComparer.CultureInfo));
 			else
-				return (a, b) => comparer (string.Compare (a, b, stringComparison));
+				return (a, b) => comparer (string.Compare (a, b, dataComparer.CaseInsensitive, dataComparer.CultureInfo));
 		}
 		
 		public static Func<DataInteger, DataInteger, DataBoolean> GetIntegerComparer (string operand, bool negate)

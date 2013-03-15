@@ -1096,7 +1096,7 @@ namespace FxGqlLib
 							OperatorHelper.GetStringComparer (
 							operatorText,
 							false,
-							dataComparer.StringComparison
+							dataComparer
 					),
 							arg1, arg2, cultureInfo);
 				else if (arg1 is Expression<DataBoolean> || arg2 is Expression<DataBoolean>)
@@ -1140,7 +1140,7 @@ namespace FxGqlLib
 				if (arg1 is Expression<DataString> || arg2 is Expression<DataString>)
 					result = 
 						BinaryExpression<DataString, DataString, DataBoolean>.CreateAutoConvert (
-							OperatorHelper.GetStringComparer (operatorText, false, dataComparer.StringComparison), 
+							OperatorHelper.GetStringComparer (operatorText, false, dataComparer), 
 							arg1, arg2, cultureInfo);
 				else if (arg1 is Expression<DataFloat> || arg2 is Expression<DataFloat>)
 					result = 
@@ -1272,7 +1272,7 @@ namespace FxGqlLib
 					result = new AnyListOperator<DataString> (
 						(Expression<DataString>)arg2,
 						expressionList,
-						OperatorHelper.GetStringComparer (op, all, dataComparer.StringComparison),
+						OperatorHelper.GetStringComparer (op, all, dataComparer),
 						cultureInfo);
 				else if (arg2 is Expression<DataInteger>)
 					result = new AnyListOperator<DataInteger> (
@@ -1300,7 +1300,7 @@ namespace FxGqlLib
 					result = new AnySubqueryOperator<DataString> (
 						(Expression<DataString>)arg2,
 						subProvider,
-						OperatorHelper.GetStringComparer (op, all, dataComparer.StringComparison)
+						OperatorHelper.GetStringComparer (op, all, dataComparer)
 					);
 				else if (arg2 is Expression<DataInteger>)
 					result = new AnySubqueryOperator<DataInteger> (
@@ -1483,7 +1483,7 @@ namespace FxGqlLib
 					if (source is Expression<DataString> || destination is Expression<DataString>)
 						whenItem.Check = 
 							BinaryExpression<DataString, DataString, DataBoolean>.CreateAutoConvert (
-								OperatorHelper.GetStringComparer ("T_EQUAL", false, dataComparer.StringComparison),
+								OperatorHelper.GetStringComparer ("T_EQUAL", false, dataComparer),
 							    source, destination, cultureInfo);
 					else if (source is Expression<DataFloat> || destination is Expression<DataFloat>)
 						whenItem.Check = 

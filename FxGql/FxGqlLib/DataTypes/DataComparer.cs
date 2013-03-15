@@ -23,6 +23,7 @@ namespace FxGqlLib
 				else
 					StringComparison = StringComparison.InvariantCulture;
 			} else {
+				// TODO: This is not correct...  Eliminate use of StringComparison!
 				if (caseInsensitive)
 					StringComparison = StringComparison.CurrentCultureIgnoreCase;
 				else
