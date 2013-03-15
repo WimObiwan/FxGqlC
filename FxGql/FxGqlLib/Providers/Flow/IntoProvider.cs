@@ -234,14 +234,16 @@ namespace FxGqlLib
 					try {
 						if (!provider.GetNextRecord ())
 							break;
-						outputWriter.WriteLine (formatColumnListFunction.Evaluate (provider.Record.Columns.Select (p => p.ToDataString (cultureInfo).Value)));
 					} catch (InvalidOperationException) {
+						throw;
+					} catch (FileNotFoundException) {
 						throw;
 					} catch (Exception x) {
 						gqlQueryState.Warnings.Add (
 						new Exception (string.Format ("Line ignored, {0}", x.Message), x)
 						);
 					}
+					outputWriter.WriteLine (formatColumnListFunction.Evaluate (provider.Record.Columns.Select (p => p.ToDataString (cultureInfo).Value)));
 				} while (true);
 			} finally {
 				provider.Uninitialize ();
