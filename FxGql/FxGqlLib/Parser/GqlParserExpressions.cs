@@ -325,11 +325,11 @@ namespace FxGqlLib
 				break;
 			case "ABS":
 				if (arg.GetResultType () == typeof(DataFloat))
-					result = UnaryExpression<DataFloat, DataFloat>.CreateAutoConvert ((a) => Math.Abs(a.Value), arg, cultureInfo);
+					result = UnaryExpression<DataFloat, DataFloat>.CreateAutoConvert ((a) => Math.Abs (a.Value), arg, cultureInfo);
 				else
-					result = UnaryExpression<DataInteger, DataInteger>.CreateAutoConvert ((a) => Math.Abs(a.Value), arg, cultureInfo);
+					result = UnaryExpression<DataInteger, DataInteger>.CreateAutoConvert ((a) => Math.Abs (a.Value), arg, cultureInfo);
 				break;
-				//case "COUNT":
+			//case "COUNT":
 			case "T_COUNT":
 				result = new AggregationExpression<IData, DataInteger, DataInteger> ((a) => 1, 
 				                                                                     (s, a) => s + 1, 
@@ -337,16 +337,17 @@ namespace FxGqlLib
 				                                                                     ConvertExpression.CreateData (arg));
 				break;
 			case "T_DISTINCTCOUNT":
-				result = new AggregationExpression<IData, SortedSet<ColumnsComparerKey>, DataInteger> 
-					((a) => new SortedSet<ColumnsComparerKey> (), 
-					 delegate(SortedSet<ColumnsComparerKey> s, IData a) {
+				result = new AggregationExpression<IData, SortedSet<ColumnsComparerKey>, DataInteger> (
+					(a) => new SortedSet<ColumnsComparerKey> (),
+					delegate(SortedSet<ColumnsComparerKey> s, IData a) {
 					ColumnsComparerKey columnsComparerKey = new ColumnsComparerKey (new IData[] { a });
 					if (!s.Contains (columnsComparerKey))
 						s.Add (columnsComparerKey);
 					return s;
 				},
 					(s) => s.Count, 
-					ConvertExpression.CreateData (arg));
+					ConvertExpression.CreateData (arg),
+					true);
 				break;
 			case "SUM":
 				if (arg is Expression<DataInteger>)
@@ -483,7 +484,8 @@ namespace FxGqlLib
 					return s;
 				},
 					(s) => s.Enlist ((i) => i.ToString ()), 
-					ConvertExpression.CreateData (arg));
+					ConvertExpression.CreateData (arg),
+					true);
 				break;
 			case "ENLISTDISTINCT":
 				result = new AggregationExpression<IData, SortedSet<ColumnsComparerKey>, DataString> 
@@ -495,7 +497,8 @@ namespace FxGqlLib
 					return s;
 				},
 					(s) => s.Enlist ((i) => i.Members [0].ToString ()), 
-					ConvertExpression.CreateData (arg));
+					ConvertExpression.CreateData (arg),
+					true);
 				break;
 			default:
 				throw new ParserException (string.Format (

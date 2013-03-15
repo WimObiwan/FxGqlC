@@ -10,10 +10,22 @@ namespace FxGqlLib
 		readonly Func<S, T, S> aggregator;
 		readonly Func<S, R> calculate;
 		readonly Expression<T> arg;
-		
+
 		public AggregationExpression (Func<T, S> init, Func<S, T, S> aggregator, Func<S, R> calculate, Expression<T> arg)
+			: this(init, aggregator, calculate, arg, false)
 		{
-			this.init = init;
+		}
+
+		public AggregationExpression (Func<T, S> init, Func<S, T, S> aggregator, Func<S, R> calculate, Expression<T> arg, 
+		                              bool runAggregatorForFirst)
+		{
+			if (runAggregatorForFirst) {
+				this.init = delegate(T a) {
+					return aggregator (init (a), a);
+				};
+			} else {
+				this.init = init;
+			}
 			this.aggregator = aggregator;
 			this.calculate = calculate;
 			this.arg = arg;

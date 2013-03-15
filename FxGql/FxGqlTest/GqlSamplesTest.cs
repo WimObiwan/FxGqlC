@@ -420,8 +420,8 @@ namespace FxGqlTest
 #if !DEBUG
 					try {
 #endif
-						engineHash.Execute (command);
-						testSummaryWriter.WriteLine (command);
+					engineHash.Execute (command);
+					testSummaryWriter.WriteLine (command);
 #if !DEBUG
 					} catch (ParserException parserException) {
 						Console.WriteLine ("Exception catched");
@@ -1684,7 +1684,7 @@ namespace FxGqlTest
 
 			// Support for aggregation functions ENLIST and ENLISTDISTINCT
 			TestGql ("select top 1 [Winner], count(*), enlist([Tournament]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Winner] order by 2 desc",
-			         "7BF291CCE5EE6EC97A4BF755ACC570EDFFF5B8232C214C8BC161F3BAA2F2960D");
+			         "318EE660C85A3B0913138C8A3362E96F1FBEB02D7ADD87DB0A288ACF65A1EE18");
 			TestGql ("select top 1 [Winner], count(*), enlistdistinct([Tournament]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] group by [Winner] order by 2 desc",
 			         "8273C269A1DF13684CEEFCFEAA706F88294A7F0C06B818D22CB04F1F0E241DE3");
 
@@ -1741,8 +1741,8 @@ namespace FxGqlTest
 			         "1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
 			TestGql ("select convert(float, '19,5')",
 			         "483F340355C1F2FFA32586735DE333809A7B336A3992E6AAC2F1049F78D1EA77");
-			engineHash.CultureInfo = System.Globalization.CultureInfo.GetCultureInfo("nl-BE");
-			engineOutput.CultureInfo = System.Globalization.CultureInfo.GetCultureInfo("nl-BE");
+			engineHash.CultureInfo = System.Globalization.CultureInfo.GetCultureInfo ("nl-BE");
+			engineOutput.CultureInfo = System.Globalization.CultureInfo.GetCultureInfo ("nl-BE");
 			TestGql ("select 19.5",
 			         "241442A311443C021120716286B22E57117C769995B99F52CCBECE41E5034E0B");
 			TestGql ("select convert(float, '19,5')",
