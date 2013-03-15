@@ -29,7 +29,6 @@ namespace FxGqlLib
 		readonly string command;
 		readonly DataComparer dataComparer;
 		readonly CultureInfo cultureInfo;
-
 		Dictionary<string, Type> variableTypes = new Dictionary<string, Type> (StringComparer.InvariantCultureIgnoreCase);
 		Dictionary<string, ViewDefinition> views = new Dictionary<string, ViewDefinition> (StringComparer.InvariantCultureIgnoreCase);
 		Stack<IProvider> subQueryProviderStack = new Stack<IProvider> ();
@@ -151,6 +150,16 @@ namespace FxGqlLib
 					ViewDefinition viewDefinition = createView.Item2;
 					views.Add (view, viewDefinition);
 					return new CreateViewCommand (view, viewDefinition);
+				}
+			case "T_ALTER_VIEW":
+				{
+					var alterView = ParseCommandAlterView (tree);
+					string view = alterView.Item1;
+					ViewDefinition viewDefinition = alterView.Item2;
+					if (views.ContainsKey (view))
+						throw new InvalidOperationException (string.Format ("View {0} doesn't exist.", view));
+					views [view] = viewDefinition;
+					return new AlterViewCommand (view, viewDefinition);
 				}
 			case "T_DROP_VIEW":
 				{
@@ -1065,7 +1074,17 @@ namespace FxGqlLib
 		Tuple<string, ViewDefinition> ParseCommandCreateView (ITree tree)
 		{
 			AssertAntlrToken (tree, "T_CREATE_VIEW", 2, 3);
+			return ParseCommandCreateOrAlterView (tree);
+		}
 
+		Tuple<string, ViewDefinition> ParseCommandAlterView (ITree tree)
+		{
+			AssertAntlrToken (tree, "T_ALTER_VIEW", 2, 3);
+			return ParseCommandCreateOrAlterView (tree);
+		}
+
+		Tuple<string, ViewDefinition> ParseCommandCreateOrAlterView (ITree tree)
+		{
 			var enumerator = new AntlrTreeChildEnumerable (tree).GetEnumerator ();
 			enumerator.MoveNext ();
 
@@ -1124,7 +1143,7 @@ namespace FxGqlLib
 			string token = tree.GetChild (0).Text;
 			switch (token.ToUpperInvariant ()) {
 			default:
-				throw new ParserException(string.Format("Unknown SET command token '{0}'", token), tree);
+				throw new ParserException (string.Format ("Unknown SET command token '{0}'", token), tree);
 			}
 		}
 	}

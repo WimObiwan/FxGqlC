@@ -77,6 +77,7 @@ tokens
 	T_SET_COMMAND;
 	T_VARIABLE;
 	T_CREATE_VIEW;
+	T_ALTER_VIEW;
 	T_VIEW_NAME;
 	T_VIEW;
 	T_ORDERBY_ORIG;
@@ -125,6 +126,7 @@ command
 	| declare_command
 	| set_command
 	| create_view_command
+	| alter_view_command
 	| drop_view_command
 	| drop_table_command
 	;
@@ -286,6 +288,11 @@ create_view_command
 	-> ^(T_CREATE_VIEW view_name declaration_list? select_command)
 	;
 	
+alter_view_command
+	: ALTER WS VIEW WS view_name (WS? '(' declaration_list ')')? WS AS WS select_command
+	-> ^(T_ALTER_VIEW view_name declaration_list? select_command)
+	;
+
 drop_view_command
 	: DROP WS VIEW WS view_name
 	-> ^(T_DROP_VIEW view_name)
@@ -548,6 +555,7 @@ DATEADD : D A T E A D D;
 DATEDIFF: D A T E D I F F;
 DATEPART: D A T E P A R T;
 UNION 	: U N I O N;
+ALTER   : A L T E R;
 
 TOKEN
 	: ('A'..'Z' | 'a'..'z' | '_') ('A'..'Z' | 'a'..'z' | '_' | '0'..'9')*

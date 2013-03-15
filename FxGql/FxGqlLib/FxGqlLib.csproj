@@ -142,6 +142,7 @@
     <Compile Include="Util\IEnumerableExtension.cs" />
     <Compile Include="Providers\Flow\ColumnProviderDelimiterLineSplitter.cs" />
     <Compile Include="DataTypes\DataFloat.cs" />
+    <Compile Include="Commands\AlterViewCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
