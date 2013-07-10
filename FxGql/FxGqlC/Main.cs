@@ -24,6 +24,10 @@ namespace FxGqlC
 		//static DateTime lastCheck = DateTime.MinValue;
 		static bool continuePromptMode = true;
 		static bool verbose = false;
+		#if DEBUG
+		static bool breakOnException = false;
+		
+		#endif
 		static bool autoSize = false;
 		static int autoSizeRows = -1;
 		static int uniqueVisitorId = GetUniqueId ();
@@ -37,15 +41,16 @@ namespace FxGqlC
 			ExecutionExceptions = 0x2,
 			ParsingExceptions = 0x4,
 			NoConfirm = 0x8000,
-			None = 0, 
+			None = 0,
 			All = 0x7fff,
 			Auto = ApplicationExceptions,
 		};
+
 		static ReportError reportError = ReportError.Auto;
 
 		enum OnOffEnum
 		{
-			Default =0,
+			Default = 0,
 			On = 1,
 			Off = 2,
 		}
@@ -248,7 +253,7 @@ namespace FxGqlC
 							ExecuteFile ("autoexec.gql");
 						else {
 							string path = Path.GetDirectoryName (new Uri (
-							Assembly.GetAssembly (typeof(MainClass)).CodeBase).LocalPath
+								Assembly.GetAssembly (typeof(MainClass)).CodeBase).LocalPath
 							);
 							if (File.Exists (Path.Combine (path, "autoexec.gql")))
 								ExecuteFile (Path.Combine (path, "autoexec.gql"));
@@ -451,7 +456,7 @@ namespace FxGqlC
 			command = command.Trim ();
 			if (command.StartsWith ("!")) {
 				command = command.Substring (1).TrimStart ();
-				string[] commandComponents = command.Split (new char[] {' '}, 2, StringSplitOptions.RemoveEmptyEntries);
+				string[] commandComponents = command.Split (new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
 
 				if (commandComponents.Length < 1) {
 					Console.WriteLine ("Invalid client command syntax");
@@ -477,22 +482,29 @@ namespace FxGqlC
 			}
 		}
 
+		private static void ExecuteServerCommandNative (string command)
+		{
+			gqlEngine.Execute (command);
+
+			foreach (Exception x in gqlEngine.GqlEngineState.Warnings) {
+				if (verbose)
+					Console.WriteLine ("WARNING: {0}", x);
+				else
+					Console.WriteLine ("WARNING: {0}", x.Message);
+				if (gqlEngine.LogStream != null) 
+					gqlEngine.LogStream.WriteLine (x.ToString ());
+			}
+		}
+
 		public static void ExecuteServerCommand (string command)
 		{
 #if DEBUG
-			gqlEngine.Execute (command);
-#else
+			if (breakOnException) {
+				ExecuteServerCommandNative (command);
+			} else {
+#endif
 			try {
-				gqlEngine.Execute (command);
-
-				foreach (Exception x in gqlEngine.GqlEngineState.Warnings) {
-					if (verbose)
-						Console.WriteLine ("WARNING: {0}", x);
-					else
-						Console.WriteLine ("WARNING: {0}", x.Message);
-					if (gqlEngine.LogStream != null) 
-						gqlEngine.LogStream.WriteLine (x.ToString ());
-				}
+				ExecuteServerCommandNative (command);
 			} catch (FxGqlLib.ParserException x) {
 				if (verbose)
 					Console.WriteLine (x);
@@ -507,7 +519,7 @@ namespace FxGqlC
 						Console.WriteLine ("{0,3}: {1}", no + 1, line);
 						if (gqlEngine.LogStream != null) 
 							gqlEngine.LogStream.WriteLine ("{0,3}: {1}", no + 1, line);
-						
+							
 						if (no + 1 == x.Line) {
 							Console.WriteLine ("     {0}^", new string (' ', Math.Max (0, x.Pos)));
 							if (gqlEngine.LogStream != null) 
@@ -525,6 +537,8 @@ namespace FxGqlC
 					gqlEngine.LogStream.WriteLine (x.ToString ());
 				ReportException ("executing server command, " + command, x);
 			}
+#if DEBUG
+			}
 #endif
 		}
 
@@ -538,7 +552,7 @@ namespace FxGqlC
 
 		static void ExecuteClientCommandSet (string command)
 		{
-			string[] commandComponents = command.Split (new char[] {' '}, 2, StringSplitOptions.RemoveEmptyEntries);
+			string[] commandComponents = command.Split (new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
 			if (commandComponents.Length < 2) {
 				Console.WriteLine ("Invalid number of components in client command 'SET'");
 			} else {
@@ -574,6 +588,17 @@ namespace FxGqlC
 							Console.WriteLine ("Unknown SET VERBOSE value '{0}'", value);
 						break;
 					}
+#if _DEBUG
+				case "BREAKONEXCEPTION":
+					{
+						OnOffEnum onOff;
+						if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) 
+							breakOnExeption = (onOff == OnOffEnum.On);
+						else
+							Console.WriteLine ("Unknown SET BREAKONEXCEPTION value '{0}'", value);
+						break;
+					}
+#endif
 				case "AUTOSIZE":
 					{
 						OnOffEnum onOff;
@@ -616,14 +641,14 @@ namespace FxGqlC
 					}
 					break;
 				case "CASEINSENSITIVE":
-				{
-					OnOffEnum onOff;
-					if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) 
-						gqlEngine.CaseInsensitive = (onOff == OnOffEnum.On);
-					else
-						Console.WriteLine ("Unknown SET CASEINSENSITIVE value '{0}'", value);
-					break;
-				}
+					{
+						OnOffEnum onOff;
+						if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) 
+							gqlEngine.CaseInsensitive = (onOff == OnOffEnum.On);
+						else
+							Console.WriteLine ("Unknown SET CASEINSENSITIVE value '{0}'", value);
+						break;
+					}
 				default:
 					Console.WriteLine ("Unknown SET command '{0}'", key);
 					break;
@@ -657,7 +682,7 @@ namespace FxGqlC
 
 		static void ExecuteClientCommandAlias (string command)
 		{
-			string[] commandComponents = command.Split (new char[] {' '}, 2, StringSplitOptions.RemoveEmptyEntries);
+			string[] commandComponents = command.Split (new char[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
 			if (commandComponents.Length < 2) {
 				Console.WriteLine ("Invalid number of components in client command 'ALIAS'");
 			} else {
@@ -741,8 +766,8 @@ namespace FxGqlC
 									string appDir = Path.GetDirectoryName (Assembly.GetExecutingAssembly ().Location);
 									string newVersionDir = 
 										Path.Combine (
-											appDir,
-											"NewVersion");
+										appDir,
+										"NewVersion");
 									if (Directory.Exists (newVersionDir))
 										Directory.Delete (newVersionDir, true);
 									Directory.CreateDirectory (newVersionDir);
@@ -750,8 +775,8 @@ namespace FxGqlC
 
 									string oldVersionDir = 
 										Path.Combine (
-											appDir,
-											"OldVersion");
+										appDir,
+										"OldVersion");
 									if (Directory.Exists (oldVersionDir))
 										Directory.Delete (oldVersionDir, true);
 									Directory.CreateDirectory (oldVersionDir);
@@ -885,8 +910,8 @@ namespace FxGqlC
 
 		static int CompareVersion (string lastRelease, string version)
 		{
-			string [] lastReleaseItems = lastRelease.Split ('.');
-			string [] versionItems = version.Split ('.');
+			string[] lastReleaseItems = lastRelease.Split ('.');
+			string[] versionItems = version.Split ('.');
 			
 			int a, b, comp;
 			if (int.TryParse (lastReleaseItems [0].Trim ('v'), out a)
