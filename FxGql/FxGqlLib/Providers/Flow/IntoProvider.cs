@@ -13,11 +13,11 @@ namespace FxGqlLib
 		readonly FileOptionsIntoClause fileOptions;
 		readonly string columnDelimiter;
 		readonly CultureInfo cultureInfo;
-
 		ProviderRecord record;
 		GqlQueryState gqlQueryState;
 
 		public IProvider InnerProvider { get { return provider; } }
+
 		public FileOptionsIntoClause FileOptions { get { return fileOptions; } }
 
 		public IntoProvider (IProvider provider, FileOptionsIntoClause fileOptions, CultureInfo cultureInfo)
@@ -33,7 +33,6 @@ namespace FxGqlLib
 					columnDelimiter = "\t";
 			}
 		}
-
 		#region IProvider implementation
 		public string[] GetAliases ()
 		{
@@ -42,14 +41,14 @@ namespace FxGqlLib
 
 		public ColumnName[] GetColumnNames ()
 		{
-			return new ColumnName[] {};
+			return new ColumnName[] { };
 		}
 
 		public int GetColumnOrdinal (ColumnName columnName)
 		{
 			return -1;
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			return new Type[] { };
@@ -234,6 +233,7 @@ namespace FxGqlLib
 					try {
 						if (!provider.GetNextRecord ())
 							break;
+						outputWriter.WriteLine (formatColumnListFunction.Evaluate (provider.Record.Columns.Select (p => p.ToDataString (cultureInfo).Value)));
 					} catch (InvalidOperationException) {
 						throw;
 					} catch (FileNotFoundException) {
@@ -243,7 +243,6 @@ namespace FxGqlLib
 						new Exception (string.Format ("Line ignored, {0}", x.Message), x)
 						);
 					}
-					outputWriter.WriteLine (formatColumnListFunction.Evaluate (provider.Record.Columns.Select (p => p.ToDataString (cultureInfo).Value)));
 				} while (true);
 			} finally {
 				provider.Uninitialize ();
