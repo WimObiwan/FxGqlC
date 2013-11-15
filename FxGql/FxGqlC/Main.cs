@@ -224,7 +224,10 @@ namespace FxGqlC
 				return;
 			}
 			
-			Console.TreatControlCAsInput = false;
+			if (string.IsNullOrEmpty(gqlFile)) {
+				Console.TreatControlCAsInput = false;
+			}
+			
 			Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs e) {
 				if (e.SpecialKey == ConsoleSpecialKey.ControlC) {
 					//Console.WriteLine ("===== Ctrl-C signal received =====");
