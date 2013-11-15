@@ -98,10 +98,14 @@ namespace FxGqlLib
 				}
 			}
 
+			Console.WriteLine (text);
+			/* Number Literals are 'invariant' (with '.' as decimal point indicator) */
+			/* Numbers converted from strings (string literals or string input from file) follow the current culture, 
+			as specified by SET CULTURE */
 			if (text.Contains ('.'))
-				return new ConstExpression<DataFloat> (double.Parse (text) * multiplier);
+				return new ConstExpression<DataFloat> (double.Parse (text, CultureInfo.InvariantCulture.NumberFormat) * multiplier);
 			else
-				return new ConstExpression<DataInteger> (long.Parse (text) * multiplier);
+				return new ConstExpression<DataInteger> (long.Parse (text, CultureInfo.InvariantCulture.NumberFormat) * multiplier);
 		}
 
 		class Token<T> : IExpression
