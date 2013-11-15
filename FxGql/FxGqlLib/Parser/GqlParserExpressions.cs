@@ -380,7 +380,7 @@ namespace FxGqlLib
 				if (arg.GetResultType () == typeof(DataString))
 					result = new AggregationExpression<DataString, DataString, DataString> (
 						(a) => a, 
-						(s, a) => string.Compare (a, s) < 0 ? a : s, 
+						(s, a) => string.Compare (a, s, dataComparer.StringComparison) < 0 ? a : s, 
 						(s) => s, 
 						ConvertExpression.CreateDataString (arg, cultureInfo));
 				else if (arg.GetResultType () == typeof(DataInteger))
@@ -406,7 +406,7 @@ namespace FxGqlLib
 				if (arg.GetResultType () == typeof(DataString))
 					result = new AggregationExpression<DataString, DataString, DataString> (
 						(a) => a, 
-						(s, a) => string.Compare (a, s) > 0 ? a : s, 
+						(s, a) => string.Compare (a, s, dataComparer.StringComparison) > 0 ? a : s, 
 						(s) => s, 
 						ConvertExpression.CreateDataString (arg, cultureInfo));
 				else if (arg.GetResultType () == typeof(DataInteger))
