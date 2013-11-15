@@ -63,7 +63,7 @@ namespace FxGqlLib
 							continue;
 						} else {
 							done = (nextQuote + 1 >= line.Length);
-							int separatorLen;
+							int separatorLen = 0;
 							if (done || splitter.IsSeparator (line, nextQuote + 1, out separatorLen)) {
 								// Valid field terminator
 								string str = line.Substring (pos, nextQuote - pos);
