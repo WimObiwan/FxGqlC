@@ -7,17 +7,17 @@ namespace FxGqlLib
 	public class ColumnProviderCsv : ColumnProviderDelimiter
 	{
 		public ColumnProviderCsv (IProvider provider)
-			: this(provider, null, -1)
+			: this (provider, null, -1)
 		{
 		}
 
 		public ColumnProviderCsv (IProvider provider, ColumnProviderDelimiterLineSplitter splitter)
-			: this(provider, splitter, -1)
+			: this (provider, splitter, -1)
 		{
 		}
 
 		public ColumnProviderCsv (IProvider provider, ColumnProviderDelimiterLineSplitter splitter, int columnCount)
-			: base(provider, splitter, columnCount)
+			: base (provider, splitter, columnCount)
 		{
 		}
 
