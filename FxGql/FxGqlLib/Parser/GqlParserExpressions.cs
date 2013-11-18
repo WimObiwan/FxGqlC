@@ -98,7 +98,6 @@ namespace FxGqlLib
 				}
 			}
 
-			Console.WriteLine (text);
 			/* Number Literals are 'invariant' (with '.' as decimal point indicator) */
 			/* Numbers converted from strings (string literals or string input from file) follow the current culture, 
 			as specified by SET CULTURE */
