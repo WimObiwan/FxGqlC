@@ -55,7 +55,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="FxGqlC License %28GNU GPLv3%29.txt">
+    <None Include="FxGqlC License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
