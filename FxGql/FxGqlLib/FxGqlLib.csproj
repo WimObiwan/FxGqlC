@@ -143,6 +143,7 @@
     <Compile Include="Providers\Flow\ColumnProviderDelimiterLineSplitter.cs" />
     <Compile Include="DataTypes\DataFloat.cs" />
     <Compile Include="Commands\AlterViewCommand.cs" />
+    <Compile Include="Exceptions\WarningException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
