@@ -11,7 +11,6 @@ namespace FxGqlLib
 		readonly IExpression replace;
 		readonly RegexOptions regexOptions;
 		readonly CultureInfo cultureInfo;
-
 		readonly Regex regex2;
 
 		public ReplaceRegexFunction (IExpression origin, IExpression regex, IExpression replace, bool caseInsensitive, CultureInfo cultureInfo)
@@ -31,6 +30,7 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
+
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
 			string input = origin.EvaluateAsData (gqlQueryState).ToDataString (cultureInfo);
@@ -40,6 +40,7 @@ namespace FxGqlLib
 				return Regex.Replace (input, regex.EvaluateAsData (gqlQueryState).ToDataString (cultureInfo), 
 					replace.EvaluateAsData (gqlQueryState).ToDataString (cultureInfo), regexOptions);
 		}
+
 		#endregion
 
 		public override bool IsConstant ()

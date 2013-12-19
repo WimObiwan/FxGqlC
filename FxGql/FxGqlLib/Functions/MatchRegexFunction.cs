@@ -12,16 +12,15 @@ namespace FxGqlLib
 		readonly IExpression def;
 		readonly RegexOptions regexOptions;
 		readonly CultureInfo cultureInfo;
-
 		readonly Regex regex2;
-		
+
 		public MatchRegexFunction (IExpression origin, IExpression regex, bool caseInsensitive, CultureInfo cultureInfo)
-			: this(origin, regex, caseInsensitive, null, cultureInfo)
+			: this (origin, regex, caseInsensitive, null, cultureInfo)
 		{
 		}
-		
+
 		public MatchRegexFunction (IExpression origin, IExpression regex, bool caseInsensitive, IExpression arg3, CultureInfo cultureInfo)
-			: this(origin, regex, caseInsensitive, arg3, null, cultureInfo)
+			: this (origin, regex, caseInsensitive, arg3, null, cultureInfo)
 		{
 		}
 
@@ -43,6 +42,7 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
+
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
 			string input = origin.EvaluateAsData (gqlQueryState).ToDataString (cultureInfo);
@@ -61,7 +61,7 @@ namespace FxGqlLib
 				}
 			} else {
 				if (def == null) {
-					if (gqlQueryState != null) 
+					if (gqlQueryState != null)
 						gqlQueryState.SkipLine = true;
 					return "";
 				} else {
@@ -69,18 +69,19 @@ namespace FxGqlLib
 				}
 			}
 		}
+
 		#endregion
 
 		public override bool IsConstant ()
 		{
-			if (!origin.IsConstant ()) 
+			if (!origin.IsConstant ())
 				return false;
-			if (!regex.IsConstant ()) 
+			if (!regex.IsConstant ())
 				return false;
 			// TODO: Optimization: Only one of the 2 below needs to be constant...
-			if (extract != null && !extract.IsConstant ()) 
+			if (extract != null && !extract.IsConstant ())
 				return false;
-			if (extract != null && !def.IsConstant ()) 
+			if (extract != null && !def.IsConstant ())
 				return false;
 			return true;
 		}

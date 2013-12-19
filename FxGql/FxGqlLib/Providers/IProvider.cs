@@ -26,7 +26,7 @@ namespace FxGqlLib
 			else
 				this.OriginalColumns = new IData[columnCount];
 		}
-		
+
 		public ProviderRecord Clone ()
 		{
 			ProviderRecord record = new ProviderRecord (provider);
@@ -39,7 +39,7 @@ namespace FxGqlLib
 				record.OriginalColumns = (IData[])this.OriginalColumns.Clone ();
 			return record;
 		}
-		
+
 		public ColumnName[] ColumnTitles { get { return provider.GetColumnNames (); } }
 
 		public string Source { get; set; }
@@ -62,22 +62,23 @@ namespace FxGqlLib
 		}
 
 		public ColumnName (string name)
-			: this(null, name)
+			: this (null, name)
 		{
 		}
 
 		public ColumnName (ColumnName columnName)
-			: this(columnName != null ? columnName.Alias : null, 
-			       columnName != null ? columnName.Name : null)
+			: this (columnName != null ? columnName.Alias : null, 
+		         columnName != null ? columnName.Name : null)
 		{
 		}
 
 		public ColumnName (int ordinal)
-			: this(null, string.Format("Column{0}", ordinal + 1))
+			: this (null, string.Format ("Column{0}", ordinal + 1))
 		{
 		}
 
 		public string Alias { get; private set; }
+
 		public string Name { get; private set; }
 
 		public override string ToString ()
@@ -97,6 +98,7 @@ namespace FxGqlLib
 		}
 
 		#region IComparable implementation
+
 		public int CompareTo (ColumnName other)
 		{
 			int result;
@@ -110,11 +112,11 @@ namespace FxGqlLib
 
 			return result;
 		}
+
 		#endregion
 
-
 	}
-	
+
 	public interface IProvider : IDisposable
 	{
 		string[] GetAliases ();

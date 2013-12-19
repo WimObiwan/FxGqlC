@@ -11,7 +11,7 @@ namespace FxGqlLib
 			int len = Math.Min (len1, len2);
 
 			int common = 0;
-			while (common < len && str1.Value[common] == str2.Value[common])
+			while (common < len && str1.Value [common] == str2.Value [common])
 				common++;
 
 			if (common == len1)

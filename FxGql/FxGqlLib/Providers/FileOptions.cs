@@ -8,7 +8,7 @@ namespace FxGqlLib
 		{
 			Provider = ProviderEnum.DontCare;
 		}
-		
+
 		public enum ProviderEnum
 		{
 			DontCare,
@@ -16,6 +16,7 @@ namespace FxGqlLib
 			Directory,
 			Data,
 		}
+
 		public ProviderEnum Provider { get; set; }
 
 		public Expression<DataString> FileName { get; set; }
@@ -73,9 +74,9 @@ namespace FxGqlLib
 		public bool Recurse { get; set; }
 
 		public string ColumnsRegex { get; set; }
-		
+
 		public GqlEngineState.HeadingEnum Heading { get; set; }
-		
+
 		public long Skip { get; set; }
 
 		public enum FileOrderEnum
@@ -88,6 +89,7 @@ namespace FxGqlLib
 			ModificationTimeAsc,
 			ModificationTimeDesc,
 		}
+
 		public FileOrderEnum FileOrder { get; set; }
 
 		public enum FormatEnum
@@ -96,9 +98,11 @@ namespace FxGqlLib
 			PlainText,
 			Csv,
 		}
+
 		public FormatEnum Format { get; set; }
 
 		public string ColumnDelimiter { get; set; }
+
 		public string ColumnDelimiterRegex { get; set; }
 
 		public override void ValidateFileProviderOptions ()
@@ -154,8 +158,7 @@ namespace FxGqlLib
 			Default,
 			Unix,
 			Dos,
-			Mac
-		}
+			Mac}
 		;
 
 		public NewLineEnum NewLine  { get; set; }
@@ -172,6 +175,7 @@ namespace FxGqlLib
 			PlainText,
 			Csv,
 		}
+
 		public FormatEnum Format { get; set; }
 
 		public string ColumnDelimiter { get; set; }
@@ -202,5 +206,5 @@ namespace FxGqlLib
 //			if (ColumnDelimiter != null)
 //				throw new NotSupportedException ("INTO-option 'ColumnDelimiter' is not supported when using the DataProvider");
 		}
-	}	
+	}
 }

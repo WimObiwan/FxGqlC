@@ -11,17 +11,17 @@ namespace FxGqlLib
 		readonly int[] fixedColumns;
 
 		public int[] FixedColumns { get { return fixedColumns; } }
-			
+
 		public ColumnsComparer (Type[] types, DataComparer dataComparer)
-			: this(types, new bool[types.Length], null, dataComparer)
+			: this (types, new bool[types.Length], null, dataComparer)
 		{
 		}
-		
+
 		public ColumnsComparer (Type[] types, int[] fixedColumns, DataComparer dataComparer)
-			: this(types, new bool[types.Length], fixedColumns, dataComparer)
+			: this (types, new bool[types.Length], fixedColumns, dataComparer)
 		{
 		}
-		
+
 		public ColumnsComparer (Type[] types, bool[] descending, int[] fixedColumns, DataComparer dataComparer)
 		{
 			comparers = new IComparer<IData>[types.Length];
@@ -42,8 +42,9 @@ namespace FxGqlLib
 				}*/
 			}
 		}
-			
+
 		#region IComparer[IComparable] implementation
+
 		public int Compare (K x, K y)
 		{
 			for (int i = 0; i < comparers.Length; i++) {
@@ -53,14 +54,16 @@ namespace FxGqlLib
 			}
 			return 0;
 		}
+
 		#endregion
 
 		#region IEqualityComparer[K] implementation
+
 		public bool Equals (K x, K y)
 		{
 			return Compare (x, y) == 0;
 		}
-		
+
 		public int GetHashCode (K x)
 		{
 			int hash = x.Members.Length;
@@ -70,13 +73,15 @@ namespace FxGqlLib
 			}
 			return hash;
 		}
+
 		#endregion
+
 	}
-			
+
 	class ColumnsComparerKey : IComparable<ColumnsComparerKey>
 	{
 		public IData[] Members { get; set; }
-			
+
 		public ColumnsComparerKey ()
 		{
 		}
@@ -87,6 +92,7 @@ namespace FxGqlLib
 		}
 
 		#region IComparable[Key] implementation
+
 		public int CompareTo (ColumnsComparerKey other)
 		{
 			for (int i = 0; i < Members.Length; i++) {
@@ -97,6 +103,8 @@ namespace FxGqlLib
 				
 			return 0;
 		}
+
 		#endregion
+
 	}
 }

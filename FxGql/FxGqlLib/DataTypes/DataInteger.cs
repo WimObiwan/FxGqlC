@@ -53,22 +53,22 @@ namespace FxGqlLib
 		{
 			return this;
 		}
-		
+
 		public DataInteger ToDataInteger (CultureInfo cultureInfo, string format)
 		{
 			return this;
 		}
-		
+
 		public DataFloat ToDataFloat (CultureInfo cultureInfo)
 		{
 			return new DataFloat ((double)this.value);
 		}
-		
+
 		public DataFloat ToDataFloat (CultureInfo cultureInfo, string format)
 		{
 			return new DataFloat ((double)this.value);
 		}
-		
+
 		public DataString ToDataString (CultureInfo cultureInfo)
 		{
 			return new DataString (this.value.ToString ());

@@ -11,7 +11,7 @@ namespace FxGqlLib
 		readonly IExpression arg2;
 		readonly RegexOptions regexOptions;
 		readonly CultureInfo cultureInfo;
-		
+
 		public MatchOperator (IExpression arg1, IExpression arg2, bool caseInsensitive, CultureInfo cultureInfo)
 		{
 			this.arg1 = arg1;
@@ -25,10 +25,12 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
+
 		public override DataBoolean Evaluate (GqlQueryState gqlQueryState)
 		{
 			return Regex.IsMatch (arg1.EvaluateAsData (gqlQueryState).ToDataString (cultureInfo), arg2.EvaluateAsData (gqlQueryState).ToDataString (cultureInfo), regexOptions);
 		}
+
 		#endregion
 
 		public override bool IsConstant ()

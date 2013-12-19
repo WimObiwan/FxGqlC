@@ -7,7 +7,6 @@ namespace FxGqlLib
 	{
 		readonly IProvider provider;
 		readonly Expression<DataInteger> bottomValueExpression;
-
 		GqlQueryState gqlQueryState;
 		Queue<ProviderRecord> recordsQueue;
 		ProviderRecord record;
@@ -19,6 +18,7 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return provider.GetAliases ();
@@ -33,12 +33,12 @@ namespace FxGqlLib
 		{
 			return provider.GetColumnOrdinal (columnName);
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			return provider.GetColumnTypes ();
 		}
-		
+
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			this.gqlQueryState = gqlQueryState;
@@ -82,14 +82,18 @@ namespace FxGqlLib
 				return record;
 			}
 		}
+
 		#endregion
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			provider.Dispose ();
 		}
+
 		#endregion
+
 	}
 }
 

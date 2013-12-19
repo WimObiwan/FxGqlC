@@ -7,7 +7,6 @@ namespace FxGqlLib
 	{
 		readonly IProvider provider;
 		readonly GqlEngineState.HeadingEnum heading;
-
 		ColumnName[] columnNameList;
 
 		public ColumnProviderTitleLine (IProvider provider, GqlEngineState.HeadingEnum heading)
@@ -17,6 +16,7 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return provider.GetAliases ();
@@ -31,7 +31,7 @@ namespace FxGqlLib
 		{
 			return Array.FindIndex (columnNameList, a => (columnName.Alias != null && a.Alias != null || columnName.Alias == null) && a.CompareTo (columnName) == 0);
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			Type[] types = new Type[columnNameList.Length];
@@ -82,11 +82,14 @@ namespace FxGqlLib
 		#endregion
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			provider.Dispose ();
 		}
+
 		#endregion
+
 	}
 }
 

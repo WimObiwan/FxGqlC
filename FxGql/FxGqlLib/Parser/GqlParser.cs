@@ -16,13 +16,13 @@ namespace FxGqlLib
 		{
 			return parse ();
 		}
-        
+
 		public override void ReportError (RecognitionException e)
 		{
 			throw new ParserException (e);
 		}
 	}
-    
+
 	partial class GqlParser
 	{
 		readonly GqlEngineState gqlEngineState;
@@ -32,12 +32,12 @@ namespace FxGqlLib
 		Dictionary<string, Type> variableTypes = new Dictionary<string, Type> (StringComparer.InvariantCultureIgnoreCase);
 		Dictionary<string, ViewDefinition> views = new Dictionary<string, ViewDefinition> (StringComparer.InvariantCultureIgnoreCase);
 		Stack<IProvider> subQueryProviderStack = new Stack<IProvider> ();
-        
+
 		public GqlParser (GqlEngineState gqlEngineState, string command)
-			: this(gqlEngineState, command, CultureInfo.InvariantCulture, true)
+			: this (gqlEngineState, command, CultureInfo.InvariantCulture, true)
 		{
 		}
-        
+
 		public GqlParser (GqlEngineState gqlEngineState, string command, CultureInfo cultureInfo, bool caseInsensitive)
 		{
 			this.gqlEngineState = gqlEngineState;
@@ -50,33 +50,33 @@ namespace FxGqlLib
 		{
 			AssertAntlrToken (tree, expectedToken, -1, -1);
 		}
-        
+
 		private void AssertAntlrToken (ITree tree, string expectedToken, int childCount)
 		{
 			AssertAntlrToken (tree, expectedToken, childCount, childCount);
 		}
-        
+
 		private void AssertAntlrToken (ITree tree, string expectedToken, int minChildCount, int maxChildCount)
 		{
 			if (expectedToken != null && tree.Text != expectedToken)
 				throw new UnexpectedTokenAntlrException (expectedToken, tree);
 			if (minChildCount >= 0 && minChildCount == maxChildCount && minChildCount != tree.ChildCount)
 				throw new ParserException (
-                    string.Format ("Expected exact {0} childnode(s).", minChildCount),
-                    tree
+					string.Format ("Expected exact {0} childnode(s).", minChildCount),
+					tree
 				);
 			if (minChildCount >= 0 && minChildCount > tree.ChildCount)
 				throw new ParserException (
-                    string.Format ("Expected at least {0} childnode(s).", minChildCount),
-                    tree
+					string.Format ("Expected at least {0} childnode(s).", minChildCount),
+					tree
 				);
 			if (maxChildCount >= 0 && maxChildCount < tree.ChildCount)
 				throw new ParserException (
-                    string.Format ("Expected maximum {0} childnode(s).", maxChildCount),
-                    tree
+					string.Format ("Expected maximum {0} childnode(s).", maxChildCount),
+					tree
 				);
 		}
-        
+
 		private void AssertAntlrSubTokenMinCount (ITree tree, string expectedToken)
 		{
 			if (tree.Text != expectedToken)
@@ -89,7 +89,7 @@ namespace FxGqlLib
 				throw new NotEnoughSubTokensAntlrException (tree);
 			return tree.GetChild (0);
 		}
-        
+
 		public IList<IGqlCommand> Parse ()
 		{
 			gqlLexer lex = new gqlLexer (new ANTLRStringStream (this.command));
@@ -109,7 +109,7 @@ namespace FxGqlLib
             
 			return commands;
 		}
-        
+
 		IList<IGqlCommand> ParseCommands (ITree tree)
 		{
 			AssertAntlrToken (tree, "T_ROOT");
@@ -121,7 +121,7 @@ namespace FxGqlLib
             
 			return commands;
 		}
-        
+
 		IGqlCommand ParseCommand (ITree tree)
 		{
 			switch (tree.Text) {
@@ -193,7 +193,7 @@ namespace FxGqlLib
 
 			IProvider provider;
 			if (selectSimpleOrUnionTree.Text == "T_SELECT_SIMPLE"
-				|| selectSimpleOrUnionTree.Text == "T_SUBQUERY") {
+			    || selectSimpleOrUnionTree.Text == "T_SUBQUERY") {
 				provider = ParseCommandSelectSimple (selectSimpleOrUnionTree, orderByClauseTree);
 			} else {
 				FileOptionsIntoClause intoClause = null;
@@ -229,9 +229,9 @@ namespace FxGqlLib
 				if (orderByClauseTree != null) {
 					AssertAntlrToken (orderByClauseTree, "T_ORDERBY");
 					IList<OrderbyProvider.Column> orderbyColumns = ParseOrderbyClause (
-                        provider,
-                        orderByClauseTree
-					);
+						                                               provider,
+						                                               orderByClauseTree
+					                                               );
                     
 					provider = new OrderbyProvider (provider, orderbyColumns, dataComparer);
 				}
@@ -252,9 +252,9 @@ namespace FxGqlLib
 				if (orderByClauseTree != null) {
 					AssertAntlrToken (orderByClauseTree, "T_ORDERBY");
 					IList<OrderbyProvider.Column> orderbyColumns = ParseOrderbyClause (
-                        providerSubQuery,
-                        orderByClauseTree
-					);
+						                                               providerSubQuery,
+						                                               orderByClauseTree
+					                                               );
                     
 					providerSubQuery = new OrderbyProvider (providerSubQuery, orderbyColumns, dataComparer);
 				}
@@ -270,8 +270,8 @@ namespace FxGqlLib
             
 			// DISTINCT / ALL
 			bool distinct = false;
-			if (enumerator.Current != null 
-				&& (enumerator.Current.Text == "T_DISTINCT" || enumerator.Current.Text == "T_ALL")) {
+			if (enumerator.Current != null
+			    && (enumerator.Current.Text == "T_DISTINCT" || enumerator.Current.Text == "T_ALL")) {
 				distinct = (enumerator.Current.Text == "T_DISTINCT");
 				enumerator.MoveNext ();
 			}
@@ -319,9 +319,9 @@ namespace FxGqlLib
                                 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE") {
 					Expression<DataBoolean> whereExpression = ParseWhereClause (
-                        fromProvider,
-                        enumerator.Current
-					);
+						                                          fromProvider,
+						                                          enumerator.Current
+					                                          );
 					enumerator.MoveNext ();
 
 					provider = new FilterProvider (provider, whereExpression);
@@ -333,16 +333,16 @@ namespace FxGqlLib
 				IProvider groupbyProvider = null;
 				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY") {
 					IList<OrderbyProvider.Column> groupbyColumns = ParseGroupbyClause (
-                        fromProvider,
-                        enumerator.Current
-					);
+						                                               fromProvider,
+						                                               enumerator.Current
+					                                               );
 					enumerator.MoveNext ();
                     
 					Expression<DataBoolean> havingExpression;
 					if (enumerator.Current != null && enumerator.Current.Text == "T_HAVING") {
 						havingExpression = ParseHavingClause (
-	                        fromProvider,
-	                        enumerator.Current
+							fromProvider,
+							enumerator.Current
 						);
 						enumerator.MoveNext ();
 					} else {
@@ -350,21 +350,21 @@ namespace FxGqlLib
 					}
 
 					provider = new GroupbyProvider (
-                        provider,
-                        groupbyColumns.Where (p => p.Order == OrderbyProvider.OrderEnum.ORIG).Select (p => p.Expression).ToList (),
-                        groupbyColumns.Where (p => p.Order != OrderbyProvider.OrderEnum.ORIG).Select (p => p.Expression).ToList (),
-                        outputColumns,
+						provider,
+						groupbyColumns.Where (p => p.Order == OrderbyProvider.OrderEnum.ORIG).Select (p => p.Expression).ToList (),
+						groupbyColumns.Where (p => p.Order != OrderbyProvider.OrderEnum.ORIG).Select (p => p.Expression).ToList (),
+						outputColumns,
 						havingExpression,
-                        dataComparer
+						dataComparer
 					);
 					groupbyProvider = provider;
 				} else {
 					// e.g. select count(1) from [myfile.txt]
 					if (outputColumns.Any (p => p is SingleColumn && ((SingleColumn)p).Expression.IsAggregated ())) {
 						provider = new GroupbyProvider (
-	                        provider,
-	                        outputColumns,
-	                        dataComparer
+							provider,
+							outputColumns,
+							dataComparer
 						);
 					} else {
 						provider = new ColumnProvider (outputColumns, provider);
@@ -377,9 +377,9 @@ namespace FxGqlLib
 				if (orderByClauseTree != null) {
 					AssertAntlrToken (orderByClauseTree, "T_ORDERBY");
 					IList<OrderbyProvider.Column> orderbyColumns = ParseOrderbyClause (
-                        groupbyProvider ?? fromProvider,
-                        orderByClauseTree
-					);
+						                                               groupbyProvider ?? fromProvider,
+						                                               orderByClauseTree
+					                                               );
                     
 					provider = new OrderbyProvider (provider, orderbyColumns, dataComparer);
 				}
@@ -394,17 +394,17 @@ namespace FxGqlLib
             
 				if (distinct)
 					throw new ParserException (
-                        "DISTINCT clause not allowed without a FROM clause.",
-                        selectSimpleTree
+						"DISTINCT clause not allowed without a FROM clause.",
+						selectSimpleTree
 					);
                 
-				if (topExpression != null) 
+				if (topExpression != null)
 					throw new ParserException (
 						"TOP clause not allowed without a FROM clause.",
 						selectSimpleTree
 					);
 				
-				if (bottomExpression != null) 
+				if (bottomExpression != null)
 					throw new ParserException (
 						"BOTTOM clause not allowed without a FROM clause.",
 						selectSimpleTree
@@ -412,14 +412,14 @@ namespace FxGqlLib
 				
 				if (enumerator.Current != null && enumerator.Current.Text == "T_WHERE")
 					throw new ParserException (
-                        "WHERE clause not allowed without a FROM clause.",
-                        selectSimpleTree
+						"WHERE clause not allowed without a FROM clause.",
+						selectSimpleTree
 					);
                 
 				if (enumerator.Current != null && enumerator.Current.Text == "T_GROUPBY")
 					throw new ParserException (
-                        "GROUP BY clause not allowed without a FROM clause.",
-                        selectSimpleTree
+						"GROUP BY clause not allowed without a FROM clause.",
+						selectSimpleTree
 					);
 
 				IList<Column > outputColumns;
@@ -433,13 +433,13 @@ namespace FxGqlLib
             
 			return provider;
 		}
-        
+
 		Expression<DataInteger> ParseTopOrBottomClause (ITree topClauseTree)
 		{
 			ITree tree = GetSingleChild (topClauseTree);
 			return ConvertExpression.CreateDataInteger (ParseExpression (null, tree), cultureInfo);
 		}
-		
+
 		IList<Column> ParseColumnList (IProvider provider, ITree outputListTree)
 		{
 			List<Column > outputColumnExpressions = new List<Column> ();
@@ -461,7 +461,7 @@ namespace FxGqlLib
 				string providerAlias;
 				if (outputColumnTree.ChildCount == 1)
 					providerAlias = ParseProviderAlias (outputColumnTree.GetChild (0));
-				else 
+				else
 					providerAlias = null;
 
 				column = new AllColums (providerAlias, provider);
@@ -469,9 +469,9 @@ namespace FxGqlLib
 				AssertAntlrToken (outputColumnTree, "T_COLUMN", 1, 2);
 
 				IExpression expression = ParseExpression (
-                    provider,
-                    outputColumnTree.GetChild (0)
-				);
+					                         provider,
+					                         outputColumnTree.GetChild (0)
+				                         );
 
 				ColumnName columnName;
 				if (outputColumnTree.ChildCount == 2) {
@@ -499,7 +499,7 @@ namespace FxGqlLib
 
 			return intoFile;
 		}
-        
+
 		IProvider ParseFromClause (ITree fromClauseTree)
 		{
 			AssertAntlrToken (fromClauseTree, "T_FROM", 1, -1);
@@ -552,13 +552,13 @@ namespace FxGqlLib
 			IExpression expression = ParseExpression (provider, expressionTree);
 			if (!(expression is Expression<DataBoolean>)) {
 				throw new ParserException (
-                    "Expected boolean expression in WHERE clause.",
-                    expressionTree
+					"Expected boolean expression in WHERE clause.",
+					expressionTree
 				);
 			}
 			return (Expression<DataBoolean>)expression;
 		}
-        
+
 		Expression<DataBoolean> ParseHavingClause (IProvider provider, ITree whereTree)
 		{
 			AssertAntlrToken (whereTree, "T_HAVING");
@@ -567,27 +567,27 @@ namespace FxGqlLib
 			IExpression expression = ParseExpression (provider, expressionTree);
 			if (!(expression is Expression<DataBoolean>)) {
 				throw new ParserException (
-                    "Expected boolean expression in HAVING clause.",
-                    expressionTree
+					"Expected boolean expression in HAVING clause.",
+					expressionTree
 				);
 			}
 			return (Expression<DataBoolean>)expression;
 		}
-        
+
 		IList<OrderbyProvider.Column> ParseGroupbyClause (IProvider provider, ITree groupbyTree)
 		{
 			AssertAntlrToken (groupbyTree, "T_GROUPBY", 1, -1);
         
 			return ParseOrderbyList (provider, groupbyTree);
 		}
-        
+
 		IList<OrderbyProvider.Column> ParseOrderbyClause (IProvider provider, ITree orderbyTree)
 		{
 			AssertAntlrToken (orderbyTree, "T_ORDERBY", 1, -1);
                         
 			return ParseOrderbyList (provider, orderbyTree);
 		}
-        
+
 		IList<OrderbyProvider.Column> ParseOrderbyList (IProvider provider, ITree orderbyTree)
 		{
 			List<OrderbyProvider.Column > orderbyColumns = new List<OrderbyProvider.Column> ();
@@ -615,8 +615,8 @@ namespace FxGqlLib
             
 			OrderbyProvider.Column orderbyColumn = new OrderbyProvider.Column ();
 			orderbyColumn.Expression = ParseExpression (
-                provider,
-                orderbyColumnTree.GetChild (0)
+				provider,
+				orderbyColumnTree.GetChild (0)
 			);
 			if (orderbyColumnTree.ChildCount > 1) {
 				string order = orderbyColumnTree.GetChild (1).Text;
@@ -632,7 +632,7 @@ namespace FxGqlLib
 					break;
 				default:
 					throw new ParserException ("Expected ASC, DESC or ORIG as ORDER BY column order",
-                                              orderbyColumnTree.GetChild (1));
+						orderbyColumnTree.GetChild (1));
 				}
 			} else {
 				orderbyColumn.Order = OrderbyProvider.OrderEnum.ASC;
@@ -646,9 +646,9 @@ namespace FxGqlLib
 			FileOptionsFromClause fileOptions = new FileOptionsFromClause ();
 
 			List<Tuple<string, string, ITree>> options = ParseFileCommon (
-                fileProvider,
-                fileOptions
-			);
+				                                             fileProvider,
+				                                             fileOptions
+			                                             );
 
 			foreach (Tuple<string, string, ITree> option in options) {
 				string key = option.Item1;
@@ -658,13 +658,13 @@ namespace FxGqlLib
 				case "FILEORDER":
 					FileOptionsFromClause.FileOrderEnum order;
 					if (!Enum.TryParse<FileOptionsFromClause.FileOrderEnum> (
-                        value,
-                        true,
-                        out order
-					))
+						    value,
+						    true,
+						    out order
+					    ))
 						throw new ParserException (
-                                    string.Format ("Unknown file option FileOrder={0}", value),
-                                    tree
+							string.Format ("Unknown file option FileOrder={0}", value),
+							tree
 						);
 					fileOptions.FileOrder = order;
 					break;
@@ -675,8 +675,8 @@ namespace FxGqlLib
 					GqlEngineState.HeadingEnum heading;
 					if (!Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading))
 						throw new ParserException (
-                                    string.Format ("Unknown file option Heading={0}", value),
-                                    tree
+							string.Format ("Unknown file option Heading={0}", value),
+							tree
 						);
 					fileOptions.Heading = heading;
 					break;
@@ -689,13 +689,13 @@ namespace FxGqlLib
 				case "FORMAT":
 					FileOptionsFromClause.FormatEnum format;
 					if (!Enum.TryParse<FileOptionsFromClause.FormatEnum> (
-                        value,
-                        true,
-                        out format
-					))
+						    value,
+						    true,
+						    out format
+					    ))
 						throw new ParserException (
-                                    string.Format ("Unknown file option Format={0}", format),
-                                    tree
+							string.Format ("Unknown file option Format={0}", format),
+							tree
 						);
 					fileOptions.Format = format;
 					break;
@@ -709,8 +709,8 @@ namespace FxGqlLib
 					FileOptions.ProviderEnum provider;
 					if (!Enum.TryParse<FileOptions.ProviderEnum> (value, true, out provider))
 						throw new ParserException (
-                                    string.Format ("Unknown file option Provider={0}", value),
-                                    tree
+							string.Format ("Unknown file option Provider={0}", value),
+							tree
 						);
 					fileOptions.Provider = provider;
 					break;
@@ -722,8 +722,8 @@ namespace FxGqlLib
 					break;
 				default:
 					throw new ParserException (
-                                string.Format ("Unknown file option '{0}'", option),
-                                tree
+						string.Format ("Unknown file option '{0}'", option),
+						tree
 					);  
 				}
 			}
@@ -736,9 +736,9 @@ namespace FxGqlLib
 			FileOptionsIntoClause fileOptions = new FileOptionsIntoClause ();
 
 			List<Tuple<string, string, ITree>> options = ParseFileCommon (
-                fileProvider,
-                fileOptions
-			);
+				                                             fileProvider,
+				                                             fileOptions
+			                                             );
 
 			foreach (Tuple<string, string, ITree> option in options) {
 				string key = option.Item1;
@@ -748,13 +748,13 @@ namespace FxGqlLib
 				case "LINEEND":
 					FileOptionsIntoClause.NewLineEnum lineEnd;
 					if (!Enum.TryParse<FileOptionsIntoClause.NewLineEnum> (
-                        value,
-                        true,
-                        out lineEnd
-					))
+						    value,
+						    true,
+						    out lineEnd
+					    ))
 						throw new ParserException (
-                                    string.Format ("Unknown file option LineEnd={0}", value),
-                                    tree
+							string.Format ("Unknown file option LineEnd={0}", value),
+							tree
 						);
 					fileOptions.NewLine = lineEnd;
 					break;
@@ -768,8 +768,8 @@ namespace FxGqlLib
 					GqlEngineState.HeadingEnum heading;
 					if (!Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading))
 						throw new ParserException (
-                                    string.Format ("Unknown file option Heading={0}", value),
-                                    tree
+							string.Format ("Unknown file option Heading={0}", value),
+							tree
 						);
 					fileOptions.Heading = heading;
 					break;
@@ -779,20 +779,20 @@ namespace FxGqlLib
 				case "FORMAT":
 					FileOptionsIntoClause.FormatEnum format;
 					if (!Enum.TryParse<FileOptionsIntoClause.FormatEnum> (
-                        value,
-                        true,
-                        out format
-					))
+						    value,
+						    true,
+						    out format
+					    ))
 						throw new ParserException (
-                                    string.Format ("Unknown file option Format={0}", format),
-                                    tree
+							string.Format ("Unknown file option Format={0}", format),
+							tree
 						);
 					fileOptions.Format = format;
 					break;
 				default:
 					throw new ParserException (
-                                string.Format ("Unknown file option '{0}'", option),
-                                tree
+						string.Format ("Unknown file option '{0}'", option),
+						tree
 					);  
 				}
 			}
@@ -805,9 +805,9 @@ namespace FxGqlLib
 			FileOptions fileOptions = new FileOptions ();
 
 			List<Tuple<string, string, ITree>> options = ParseFileCommon (
-                tree,
-                fileOptions
-			);
+				                                             tree,
+				                                             fileOptions
+			                                             );
 
 			foreach (Tuple<string, string, ITree> option in options) {
 				string key = option.Item1;
@@ -816,8 +816,8 @@ namespace FxGqlLib
 				switch (key.ToUpperInvariant ()) {
 				default:
 					throw new ParserException (
-                                string.Format ("Unknown file option '{0}'", option),
-                                optionTree
+						string.Format ("Unknown file option '{0}'", option),
+						optionTree
 					);  
 				}
 			}
@@ -879,7 +879,7 @@ namespace FxGqlLib
             
 			IProvider provider;
 			if (fileOptions.Provider == FileOptions.ProviderEnum.DontCare
-				|| fileOptions.Provider == FileOptions.ProviderEnum.File) {
+			    || fileOptions.Provider == FileOptions.ProviderEnum.File) {
 				provider = FileProviderFactory.Get (fileOptions, dataComparer);
             
 				if (fileOptions.Format == FileOptionsFromClause.FormatEnum.Csv) {
@@ -887,20 +887,20 @@ namespace FxGqlLib
 						ColumnProviderDelimiterLineSplitter.Create (
 							fileOptions.ColumnDelimiter, 
 							fileOptions.ColumnDelimiterRegex, 
-							new char[] { ','});
+							new char[] { ',' });
 					provider = new ColumnProviderCsv (provider, splitter);
 				} else if (fileOptions.ColumnsRegex != null) {
 					provider = new ColumnProviderRegex (provider, fileOptions.ColumnsRegex, dataComparer.CaseInsensitive);
 				} else if (fileOptions.ColumnDelimiter != null || fileOptions.ColumnDelimiterRegex != null) {
 					ColumnProviderDelimiterLineSplitter splitter = 
-							ColumnProviderDelimiterLineSplitter.Create (
-								fileOptions.ColumnDelimiter, 
-								fileOptions.ColumnDelimiterRegex, 
-								new char[] { '\t'});
+						ColumnProviderDelimiterLineSplitter.Create (
+							fileOptions.ColumnDelimiter, 
+							fileOptions.ColumnDelimiterRegex, 
+							new char[] { '\t' });
 					provider = new ColumnProviderDelimiter (provider, splitter);
 				} else if (fileOptions.Heading != GqlEngineState.HeadingEnum.Off) {
 					ColumnProviderDelimiterLineSplitter splitter = 
-						ColumnProviderDelimiterLineSplitter.Create (new char[] { '\t'});
+						ColumnProviderDelimiterLineSplitter.Create (new char[] { '\t' });
 					provider = new ColumnProviderDelimiter (provider, splitter);
 				}
 
@@ -946,7 +946,7 @@ namespace FxGqlLib
 				}
 			}
 		}
-        
+
 		IProvider ParseViewProvider (ITree tree)
 		{
 			AssertAntlrToken (tree, "T_VIEW", 1, 2);
@@ -1006,7 +1006,7 @@ namespace FxGqlLib
 			
 			return ParseFileSimple (GetSingleChild (tree));
 		}
-		
+
 		IList<Tuple<string, Type>> ParseCommandDeclare (ITree declareTree)
 		{
 			AssertAntlrToken (declareTree, "T_DECLARE", 1, -1);
@@ -1018,7 +1018,7 @@ namespace FxGqlLib
 			
 			return declarations;
 		}
-		
+
 		Tuple<string, Type> ParseDeclaration (ITree declarationTree)
 		{
 			AssertAntlrToken (declarationTree, "T_DECLARATION", 2, 2);
@@ -1031,7 +1031,7 @@ namespace FxGqlLib
 			
 			return Tuple.Create (variable, datatype);
 		}
-		
+
 		Type ParseDataType (ITree dataTypeTree)
 		{
 			string text = dataTypeTree.Text;

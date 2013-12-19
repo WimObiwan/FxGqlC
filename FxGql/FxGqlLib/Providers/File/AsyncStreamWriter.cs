@@ -14,6 +14,7 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of System.IO.Stream
+
 		public override void Flush ()
 		{
 			stream.Flush ();
@@ -147,6 +148,7 @@ namespace FxGqlLib
 		{
 			stream.Write (new byte[] { value }, 0, 1);
 		}
+
 		#endregion
 
 		protected override void Dispose (bool disposing)

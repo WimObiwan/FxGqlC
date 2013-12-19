@@ -12,7 +12,6 @@ namespace FxGqlLib
 	{
 		readonly string fileName;
 		readonly long skip;
-
 		FileStream zipStream;
 		IArchive zipFile;
 		IReader zipFileReader;
@@ -21,7 +20,7 @@ namespace FxGqlLib
 		ProviderRecord record;
 		DataString dataString;
 		GqlEngineExecutionState gqlEngineExecutionState;
-		
+
 		public ZipFileProvider (string fileName, long skip)
 		{
 			this.fileName = fileName;
@@ -29,6 +28,7 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return null;
@@ -46,12 +46,12 @@ namespace FxGqlLib
 			else
 				return -1;
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			return new Type[] { typeof(DataString) };
 		}
-		
+
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			gqlEngineExecutionState = gqlQueryState.CurrentExecutionState;
@@ -93,7 +93,7 @@ namespace FxGqlLib
 					return false;
 
 				for (long i = 0; i < skip; i++)
-					if (streamReader.ReadLine () == null) 
+					if (streamReader.ReadLine () == null)
 						continue;
 	
 				text = streamReader.ReadLine ();
@@ -133,20 +133,23 @@ namespace FxGqlLib
 			}
 			gqlEngineExecutionState = null;
 		}
-		
+
 		public ProviderRecord Record {
 			get {
 				return record;
 			}
 		}
+
 		#endregion
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			if (streamReader != null)
 				streamReader.Dispose ();
 		}
+
 		#endregion
 
 		void OpenNextEntry ()

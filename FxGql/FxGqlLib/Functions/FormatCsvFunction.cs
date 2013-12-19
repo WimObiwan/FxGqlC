@@ -15,11 +15,13 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
+
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
 			IEnumerable<string> columns = gqlQueryState.Record.Columns.Select (p => p.ToString ());
 			return Evaluate (columns);
 		}
+
 		#endregion
 
 		public DataString Evaluate (IEnumerable<string> columns)
@@ -30,7 +32,7 @@ namespace FxGqlLib
 		string EscapeCsv (string str)
 		{
 			if (str.IndexOfAny (new char[] { '"', '\r', '\n' }) == -1
-				&& !str.Contains (this.separator))
+			    && !str.Contains (this.separator))
 				return str;
 			StringBuilder sb = new StringBuilder ();
 			sb.Append ('"');
@@ -51,34 +53,39 @@ namespace FxGqlLib
 			}
 
 			#region IEnumerable implementation
+
 			public System.Collections.IEnumerator GetEnumerator ()
 			{
 				IEnumerator<T> enumerator = enumerable.GetEnumerator ();
 				bool first = true;
-				while (enumerator.MoveNext()) {
-					if (first) 
+				while (enumerator.MoveNext ()) {
+					if (first)
 						first = false;
 					else
 						yield return separator;
 					yield return enumerator.Current;
 				}
 			}
+
 			#endregion
 
 			#region IEnumerable implementation
+
 			IEnumerator<T> IEnumerable<T>.GetEnumerator ()
 			{
 				IEnumerator<T> enumerator = enumerable.GetEnumerator ();
 				bool first = true;
-				while (enumerator.MoveNext()) {
-					if (first) 
+				while (enumerator.MoveNext ()) {
+					if (first)
 						first = false;
 					else
 						yield return separator;
 					yield return enumerator.Current;
 				}
 			}
+
 			#endregion
+
 		}
 	}
 }

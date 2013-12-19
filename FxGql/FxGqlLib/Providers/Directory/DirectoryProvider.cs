@@ -7,29 +7,27 @@ namespace FxGqlLib
 	public class DirectoryProvider : IProvider
 	{
 		readonly static ColumnName[] columnNames = new ColumnName[] {
-				new ColumnName ("FullName"),
-				new ColumnName ("Name"),
-				new ColumnName ("Extension"),
-				new ColumnName ("Length"),
-				new ColumnName ("CreationTime"),
-				new ColumnName ("LastWriteTime"),
-				new ColumnName ("LastAccessTime"),
-				new ColumnName ("Attributes"),
-			};
+			new ColumnName ("FullName"),
+			new ColumnName ("Name"),
+			new ColumnName ("Extension"),
+			new ColumnName ("Length"),
+			new ColumnName ("CreationTime"),
+			new ColumnName ("LastWriteTime"),
+			new ColumnName ("LastAccessTime"),
+			new ColumnName ("Attributes"),
+		};
 		readonly static Type[] columnTypes = new Type[] {
-				typeof(DataString),
-				typeof(DataString),
-				typeof(DataString),
-				typeof(DataInteger),
-				typeof(DataDateTime),
-				typeof(DataDateTime),
-				typeof(DataDateTime),
-				typeof(DataString),
-			};
-
+			typeof(DataString),
+			typeof(DataString),
+			typeof(DataString),
+			typeof(DataInteger),
+			typeof(DataDateTime),
+			typeof(DataDateTime),
+			typeof(DataDateTime),
+			typeof(DataString),
+		};
 		readonly FileOptionsFromClause fileOptions;
 		readonly StringComparer stringComparer;
-
 		string[] files;
 		ProviderRecord record;
 
@@ -40,13 +38,16 @@ namespace FxGqlLib
 		}
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			files = null;
 		}
+
 		#endregion
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return null;
@@ -81,11 +82,11 @@ namespace FxGqlLib
 			path = Path.Combine (gqlQueryState.CurrentDirectory, path); 
 			files = Directory.GetFiles (path + Path.DirectorySeparatorChar, searchPattern, searchOption);
 
-			if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Asc 
-				|| fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameAsc)
+			if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Asc
+			    || fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameAsc)
 				files = files.Select (p => new FileInfo (p)).OrderBy (p => p.Name, stringComparer).Select (p => p.FullName).ToArray ();
 			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Desc
-				|| fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameDesc)
+			         || fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameDesc)
 				files = files.Select (p => new FileInfo (p)).OrderByDescending (p => p.Name, stringComparer).Select (p => p.FullName).ToArray ();
 			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.ModificationTimeAsc)
 				files = files.Select (p => new FileInfo (p)).OrderBy (p => p.LastWriteTime).Select (p => p.FullName).ToArray ();
@@ -129,6 +130,7 @@ namespace FxGqlLib
 				return record;
 			}
 		}
+
 		#endregion
 
 	}

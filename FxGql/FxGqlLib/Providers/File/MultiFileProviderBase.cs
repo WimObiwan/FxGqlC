@@ -8,13 +8,13 @@ namespace FxGqlLib
 	{
 		string[] files;
 		long skip;
-
 		IProvider provider;
 		long totalLineNo;
 		GqlQueryState gqlQueryState;
 		int currentFile;
-		
+
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return null;
@@ -32,13 +32,14 @@ namespace FxGqlLib
 			else
 				return -1;
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			return new Type[] { typeof(DataString) };
 		}
 
 		public abstract void OnInitialize (GqlQueryState gqlQueryState, out string[] files, out long skip);
+
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			OnInitialize (gqlQueryState, out files, out skip);
@@ -58,12 +59,12 @@ namespace FxGqlLib
 		public bool GetNextRecord ()
 		{
 			if (provider == null) {
-				if (!SetNextProvider ()) 
+				if (!SetNextProvider ())
 					return false;
 			}
 
-			while (!provider.GetNextRecord()) {
-				if (!SetNextProvider ()) 
+			while (!provider.GetNextRecord ()) {
+				if (!SetNextProvider ())
 					return false;
 			}
 
@@ -74,6 +75,7 @@ namespace FxGqlLib
 		}
 
 		public abstract void OnUninitialize ();
+
 		public void Uninitialize ()
 		{
 			if (provider != null) {
@@ -91,6 +93,7 @@ namespace FxGqlLib
 				return provider.Record;
 			}
 		}
+
 		#endregion
 
 		public bool SetNextProvider ()
@@ -111,12 +114,15 @@ namespace FxGqlLib
 		}
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			if (provider != null)
 				provider.Dispose ();
 		}
+
 		#endregion
+
 	}
 }
 

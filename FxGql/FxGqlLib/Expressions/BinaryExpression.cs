@@ -19,15 +19,16 @@ namespace FxGqlLib
 			Expression<T2> typedArg2 = (Expression<T2>)ConvertExpression.Create (typeof(T2), arg2, cultureInfo);
 			return new BinaryExpression<T1, T2, R> (functor, typedArg1, typedArg2);
 		}
-		
+
 		public BinaryExpression (Func<T1, T2, R> functor, Expression<T1> arg1, Expression<T2> arg2)
 		{
 			this.functor = functor;
 			this.arg1 = arg1;
 			this.arg2 = arg2;
 		}
-		
+
 		#region implemented abstract members of FxGqlLib.Expression[R]
+
 		public override R Evaluate (GqlQueryState gqlQueryState)
 		{
 //			Task<T1> task1 = Task.Factory.StartNew (() => arg1.Evaluate (gqlQueryState));
@@ -48,20 +49,22 @@ namespace FxGqlLib
 		{
 			return arg1.IsConstant () && arg2.IsConstant ();
 		}
-		
+
 		public override void Aggregate (StateBin state, GqlQueryState gqlQueryState)
 		{
 			arg1.Aggregate (state, gqlQueryState);
 			arg2.Aggregate (state, gqlQueryState);
 		}
-		
+
 		public override IData AggregateCalculate (StateBin state)
 		{
 			T1 t1 = (T1)arg1.AggregateCalculate (state);
 			T2 t2 = (T2)arg2.AggregateCalculate (state);
 			return functor (t1, t2);
 		}
+
 		#endregion
+
 	}
 }
 

@@ -12,7 +12,7 @@ namespace FxGqlLib
 		readonly Expression<T> arg;
 
 		public AggregationExpression (Func<T, S> init, Func<S, T, S> aggregator, Func<S, R> calculate, Expression<T> arg)
-			: this(init, aggregator, calculate, arg, false)
+			: this (init, aggregator, calculate, arg, false)
 		{
 		}
 
@@ -32,16 +32,17 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[T]
+
 		public override R Evaluate (GqlQueryState gqlQueryState)
 		{
 			throw new NotSupportedException ();
 		}
-		
+
 		public override bool IsAggregated ()
 		{
 			return true;
 		}
-		
+
 		public override void Aggregate (StateBin state, GqlQueryState gqlQueryState)
 		{
 			S stateValue;
@@ -52,7 +53,7 @@ namespace FxGqlLib
 				stateValue = aggregator (stateValue, t);
 			state.SetState (this, stateValue);
 		}
-		
+
 		public override IData AggregateCalculate (StateBin state)
 		{
 			S stateValue;
@@ -60,7 +61,9 @@ namespace FxGqlLib
 				throw new InvalidOperationException ("Aggregation state not found"); // TODO: Aggregation without values
 			return calculate (stateValue);
 		}
+
 		#endregion
+
 	}
 }
 

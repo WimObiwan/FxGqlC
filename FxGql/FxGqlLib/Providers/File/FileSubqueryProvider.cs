@@ -22,7 +22,7 @@ namespace FxGqlLib
 			fileSubqueryProvider.Initialize (gqlQueryState);
 			try {
 				List<string> fileList = new List<string> ();
-				while (fileSubqueryProvider.GetNextRecord()) {
+				while (fileSubqueryProvider.GetNextRecord ()) {
 					fileList.Add (fileSubqueryProvider.Record.Columns [0].ToDataString (cultureInfo));
 				}
 				files = fileList.ToArray ();

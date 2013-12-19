@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
-
 namespace FxGqlLib
 {
 	public class DeclareCommand : IGqlCommand
@@ -15,6 +14,7 @@ namespace FxGqlLib
 		}
 
 		#region IGqlCommand implementation
+
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
 			foreach (Tuple<string, Type> variableDeclaration in variables) {
@@ -27,7 +27,9 @@ namespace FxGqlLib
 			}
 
 		}
+
 		#endregion
+
 	}
 }
 

@@ -6,12 +6,13 @@ namespace FxGqlLib
 	{
 		bool endOfQuery;
 		ProviderRecord record;
-		
+
 		public NullProvider ()
 		{
 		}
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return null;
@@ -26,12 +27,12 @@ namespace FxGqlLib
 		{
 			return -1;
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			return new Type[] { };
 		}
-		
+
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			endOfQuery = false;
@@ -58,13 +59,17 @@ namespace FxGqlLib
 				return record;
 			}
 		}
+
 		#endregion
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 		}
+
 		#endregion
+
 	}
 }
 

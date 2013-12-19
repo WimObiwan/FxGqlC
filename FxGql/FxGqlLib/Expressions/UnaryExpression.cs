@@ -15,24 +15,25 @@ namespace FxGqlLib
 			Expression<T> typedArg = (Expression<T>)ConvertExpression.Create (typeof(T), arg, cultureInfo);
 			return new UnaryExpression<T, R> (functor, typedArg);
 		}
-		
+
 		public UnaryExpression (Func<T, R> functor, Expression<T> arg)
 		{
 			this.functor = functor;
 			this.arg = arg;
 		}
-		
+
 		#region implemented abstract members of FxGqlLib.Expression[R]
+
 		public override R Evaluate (GqlQueryState gqlQueryState)
 		{
 			return functor (arg.Evaluate (gqlQueryState));
 		}
-		
+
 		public override bool IsAggregated ()
 		{
 			return arg.IsAggregated ();
 		}
-		
+
 		public override bool IsConstant ()
 		{
 			return arg.IsConstant ();
@@ -42,12 +43,14 @@ namespace FxGqlLib
 		{
 			arg.Aggregate (state, gqlQueryState);
 		}
-		
+
 		public override IData AggregateCalculate (StateBin state)
 		{
 			return functor ((T)arg.AggregateCalculate (state));
 		}
+
 		#endregion
+
 	}
 }
 

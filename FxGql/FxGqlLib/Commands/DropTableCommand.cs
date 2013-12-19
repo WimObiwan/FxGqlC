@@ -32,8 +32,5 @@ namespace FxGqlLib
 			File.Delete (fileName);
 		}
 	}
-
-    
-	
 }
 

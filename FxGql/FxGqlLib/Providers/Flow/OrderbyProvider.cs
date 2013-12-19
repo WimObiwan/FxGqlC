@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 
@@ -12,14 +11,14 @@ namespace FxGqlLib
 			DESC,
 			ORIG
 		}
-		
+
 		public class Column
 		{
 			public OrderEnum Order { get; set; }
 
 			public IExpression Expression { get; set; }
 		}
-			
+
 		class Key : ColumnsComparerKey
 		{
 			public IData[] OriginalColumns { get; set; }
@@ -30,12 +29,11 @@ namespace FxGqlLib
 
 			public IData[] Columns { get; set; }
 		}
-		
+
 		readonly IProvider provider;
 		readonly IList<Column> origOrderByColumns;
 		readonly IList<Column> orderbyColumns;
 		readonly DataComparer dataComparer;
-
 		bool dataRetrieved;
 		List<Key> data;
 		int nextRecord;
@@ -45,7 +43,7 @@ namespace FxGqlLib
 		ColumnsComparer<Key > columnsComparer;
 		ColumnsComparer<ColumnsComparerKey > origColumnsComparer;
 		bool moreData;
-		
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FxGqlLib.OrderbyProvider"/> class.
 		/// </summary>
@@ -64,7 +62,7 @@ namespace FxGqlLib
 			this.orderbyColumns = new List<Column> ();
 			this.origOrderByColumns = null;
 			var colEnum = orderbyColumns.GetEnumerator ();
-			while (colEnum.MoveNext()) {
+			while (colEnum.MoveNext ()) {
 				if (colEnum.Current.Order == OrderEnum.ORIG) {
 					if (origOrderByColumns == null)
 						origOrderByColumns = new List<Column> ();
@@ -72,7 +70,7 @@ namespace FxGqlLib
 				} else {
 					do {
 						this.orderbyColumns.Add (colEnum.Current);
-					} while (colEnum.MoveNext());
+					} while (colEnum.MoveNext ());
 					break;
 				}
 			}
@@ -81,6 +79,7 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return provider.GetAliases ();
@@ -110,7 +109,7 @@ namespace FxGqlLib
 		{
 			return provider.GetColumnOrdinal (columnName);
 		}
-		
+
 		/// <summary>
 		/// Gets the column types.
 		/// </summary>
@@ -121,7 +120,7 @@ namespace FxGqlLib
 		{
 			return provider.GetColumnTypes ();
 		}
-		
+
 		/// <summary>
 		/// Initialize the specified gqlQueryState.
 		/// </summary>
@@ -212,6 +211,7 @@ namespace FxGqlLib
 		#endregion
 
 		#region IDisposable implementation
+
 		/// <summary>
 		/// Releases all resource used by the <see cref="FxGqlLib.OrderbyProvider"/> object.
 		/// </summary>

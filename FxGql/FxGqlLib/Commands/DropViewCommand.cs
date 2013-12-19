@@ -12,13 +12,16 @@ namespace FxGqlLib
 			this.name = name;
 		}
 
-        #region IGqlCommand implementation
+		#region IGqlCommand implementation
+
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
 			if (!gqlEngineState.Views.Remove (name))
 				throw new InvalidOperationException (string.Format ("View {0} doesn't exist.", name));
 		}
-        #endregion
+
+		#endregion
+
 	}
 }
 

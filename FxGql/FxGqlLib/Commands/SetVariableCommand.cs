@@ -14,7 +14,8 @@ namespace FxGqlLib
 			this.expression = setVariable.Item2;
 		}
 
-        #region IGqlCommand implementation
+		#region IGqlCommand implementation
+
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
 			Variable variable;
@@ -24,7 +25,9 @@ namespace FxGqlLib
 			GqlQueryState gqlQueryState = new GqlQueryState (gqlEngineState);
 			variable.Value = this.expression.EvaluateAsData (gqlQueryState);
 		}
-        #endregion
+
+		#endregion
+
 	}
 }
 

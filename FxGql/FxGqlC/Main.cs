@@ -513,40 +513,40 @@ namespace FxGqlC
 				ExecuteServerCommandNative (command);
 			} else {
 #endif
-			try {
-				ExecuteServerCommandNative (command);
-			} catch (FxGqlLib.ParserException x) {
-				if (verbose)
-					Console.WriteLine (x);
-				else
-					Console.WriteLine (x.Message);
-				if (gqlEngine.LogStream != null)
-					gqlEngine.LogStream.WriteLine (x.ToString ());
+				try {
+					ExecuteServerCommandNative (command);
+				} catch (FxGqlLib.ParserException x) {
+					if (verbose)
+						Console.WriteLine (x);
+					else
+						Console.WriteLine (x.Message);
+					if (gqlEngine.LogStream != null)
+						gqlEngine.LogStream.WriteLine (x.ToString ());
 
-				string line;
-				using (StringReader stringReader = new System.IO.StringReader (command)) {
-					for (int no = 0; (line = stringReader.ReadLine ()) != null; no++) {
-						Console.WriteLine ("{0,3}: {1}", no + 1, line);
-						if (gqlEngine.LogStream != null)
-							gqlEngine.LogStream.WriteLine ("{0,3}: {1}", no + 1, line);
-							
-						if (no + 1 == x.Line) {
-							Console.WriteLine ("     {0}^", new string (' ', Math.Max (0, x.Pos)));
+					string line;
+					using (StringReader stringReader = new System.IO.StringReader (command)) {
+						for (int no = 0; (line = stringReader.ReadLine ()) != null; no++) {
+							Console.WriteLine ("{0,3}: {1}", no + 1, line);
 							if (gqlEngine.LogStream != null)
-								gqlEngine.LogStream.WriteLine ("     {0}^", new string (' ', Math.Max (0, x.Pos)));
+								gqlEngine.LogStream.WriteLine ("{0,3}: {1}", no + 1, line);
+							
+							if (no + 1 == x.Line) {
+								Console.WriteLine ("     {0}^", new string (' ', Math.Max (0, x.Pos)));
+								if (gqlEngine.LogStream != null)
+									gqlEngine.LogStream.WriteLine ("     {0}^", new string (' ', Math.Max (0, x.Pos)));
+							}
 						}
 					}
+					ReportException ("executing server command, " + command, x);
+				} catch (Exception x) {
+					if (verbose)
+						Console.WriteLine (x);
+					else
+						Console.WriteLine (x.Message);
+					if (gqlEngine.LogStream != null)
+						gqlEngine.LogStream.WriteLine (x.ToString ());
+					ReportException ("executing server command, " + command, x);
 				}
-				ReportException ("executing server command, " + command, x);
-			} catch (Exception x) {
-				if (verbose)
-					Console.WriteLine (x);
-				else
-					Console.WriteLine (x.Message);
-				if (gqlEngine.LogStream != null)
-					gqlEngine.LogStream.WriteLine (x.ToString ());
-				ReportException ("executing server command, " + command, x);
-			}
 #if DEBUG
 			}
 #endif

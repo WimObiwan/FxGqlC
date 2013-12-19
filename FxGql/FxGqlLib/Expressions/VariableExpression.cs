@@ -19,8 +19,9 @@ namespace FxGqlLib
 			Type type = GetResultType ();
 			return ConvertExpression.Create (type, this, cultureInfo);
 		}
-        
-        #region IExpression implementation
+
+		#region IExpression implementation
+
 		public IData EvaluateAsData (GqlQueryState gqlQueryState)
 		{
 			Variable variable;
@@ -34,12 +35,12 @@ namespace FxGqlLib
 		{
 			return type;
 		}
-        
+
 		public bool IsAggregated ()
 		{
 			return false;
 		}
-        
+
 		public bool IsConstant ()
 		{
 			return false;
@@ -49,12 +50,14 @@ namespace FxGqlLib
 		{
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}
-        
+
 		public IData AggregateCalculate (StateBin state)
 		{
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}
-        #endregion
+
+		#endregion
+
 	}
 }
 

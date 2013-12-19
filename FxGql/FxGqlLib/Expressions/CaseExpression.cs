@@ -8,12 +8,13 @@ namespace FxGqlLib
 		public class WhenItem
 		{
 			public Expression<DataBoolean> Check { get; set; }
+
 			public IExpression Result { get; set; }
 		}
-		
+
 		readonly IList<WhenItem> whenItems;
 		readonly IExpression elseResult;
-			
+
 		public CaseExpression (IList<WhenItem> whenItems, IExpression elseResult)
 		{
 			this.whenItems = whenItems;
@@ -21,6 +22,7 @@ namespace FxGqlLib
 		}
 
 		#region IExpression implementation
+
 		private IExpression GetResultExpression (GqlQueryState gqlQueryState)
 		{
 			foreach (WhenItem whenItem in whenItems) {
@@ -31,7 +33,7 @@ namespace FxGqlLib
 			
 			return elseResult;
 		}
-		
+
 		public IData EvaluateAsData (GqlQueryState gqlQueryState)
 		{
 			return GetResultExpression (gqlQueryState).EvaluateAsData (gqlQueryState);
@@ -104,7 +106,9 @@ namespace FxGqlLib
 			return false;
 			*/
 		}
+
 		#endregion
+
 	}
 }
 

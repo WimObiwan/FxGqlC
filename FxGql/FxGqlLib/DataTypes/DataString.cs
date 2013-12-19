@@ -33,12 +33,12 @@ namespace FxGqlLib
 		{
 			return new DataFloat (double.Parse (this.value, cultureInfo.NumberFormat));
 		}
-		
+
 		public DataFloat ToDataFloat (CultureInfo cultureInfo, string format)
 		{
 			return new DataFloat (double.Parse (this.value, cultureInfo.NumberFormat));
 		}
-		
+
 		public DataString ToDataString (CultureInfo cultureInfo)
 		{
 			return this;

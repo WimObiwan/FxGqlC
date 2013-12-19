@@ -9,16 +9,14 @@ namespace FxGqlLib
 		IData EvaluateAsData (GqlQueryState gqlQueryState);
 
 		Type GetResultType ();
-		
 		// TODO: IsInputDependent(); for optimalisation
 		// TODO: IsTimeDependent(); for optimalisation
-		
 		bool IsAggregated ();
 
 		bool IsConstant ();
 
 		void Aggregate (StateBin state, GqlQueryState gqlQueryState);
-		
+
 		IData AggregateCalculate (StateBin state);
 	}
 
@@ -27,10 +25,11 @@ namespace FxGqlLib
 		public Expression ()
 		{
 		}
-		
+
 		public abstract T Evaluate (GqlQueryState gqlQueryState);
 
 		#region IExpression implementation
+
 		public virtual IData EvaluateAsData (GqlQueryState gqlQueryState)
 		{
 			T val = Evaluate (gqlQueryState);
@@ -56,14 +55,15 @@ namespace FxGqlLib
 		{
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}
-		
+
 		public virtual IData AggregateCalculate (StateBin state)
 		{
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}
-		#endregion
-	}
 
+		#endregion
+
+	}
 	/*
 	public class DataExpression : Expression<IData>
 	{

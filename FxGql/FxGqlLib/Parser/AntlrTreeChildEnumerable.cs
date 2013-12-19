@@ -15,18 +15,22 @@ namespace FxGqlLib
 		}
 
 		#region IEnumerable implementation
+
 		IEnumerator IEnumerable.GetEnumerator ()
 		{
 			return GetEnumerator ();
 		}
+
 		#endregion
 
 		#region IEnumerable implementation
+
 		public IEnumerator<ITree> GetEnumerator ()
 		{
 			for (int pos = 0; pos < parent.ChildCount; pos++)
 				yield return parent.GetChild (pos);
 		}
+
 		#endregion
 
 	}

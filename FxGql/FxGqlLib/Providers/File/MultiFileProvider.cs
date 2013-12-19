@@ -30,11 +30,11 @@ namespace FxGqlLib
 			path = Path.Combine (gqlQueryState.CurrentDirectory, path); 
 			files = Directory.GetFiles (path + Path.DirectorySeparatorChar, searchPattern, searchOption);
 
-			if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Asc 
-				|| fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameAsc)
+			if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Asc
+			    || fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameAsc)
 				files = files.Select (p => new FileInfo (p)).OrderBy (p => p.Name, dataComparer.StringComparer).Select (p => p.FullName).ToArray ();
 			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.Desc
-				|| fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameDesc)
+			         || fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.FileNameDesc)
 				files = files.Select (p => new FileInfo (p)).OrderByDescending (p => p.Name, dataComparer.StringComparer).Select (p => p.FullName).ToArray ();
 			else if (fileOptions.FileOrder == FileOptionsFromClause.FileOrderEnum.ModificationTimeAsc)
 				files = files.Select (p => new FileInfo (p)).OrderBy (p => p.LastWriteTime).Select (p => p.FullName).ToArray ();

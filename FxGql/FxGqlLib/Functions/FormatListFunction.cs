@@ -8,15 +8,16 @@ namespace FxGqlLib
 		readonly IExpression[] expression;
 		readonly string separator;
 		readonly CultureInfo cultureInfo;
-		
+
 		public FormatListFunction (IExpression[] expression, string separator, CultureInfo cultureInfo)
 		{
 			this.expression = expression;
 			this.separator = separator;
 			this.cultureInfo = cultureInfo;
 		}
-				
+
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
+
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
 			string[] texts = new string[expression.Length];
@@ -28,6 +29,7 @@ namespace FxGqlLib
 			
 			return string.Concat (texts);
 		}
+
 		#endregion
 
 		public override bool IsConstant ()

@@ -10,7 +10,7 @@ namespace FxGqlLib
 	{
 		readonly IProvider gqlQuery;
 		readonly CultureInfo cultureInfo;
-		
+
 		public GqlQueryCommand (IProvider gqlQuery, CultureInfo cultureInfo)
 		{
 			this.gqlQuery = gqlQuery;
@@ -18,14 +18,17 @@ namespace FxGqlLib
 		}
 
 		#region IGqlCommand implementation
+
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
 			GqlQueryState gqlQueryState = new GqlQueryState (gqlEngineState);
 
 			IntoProvider.DumpProviderToStream (gqlQuery, outputStream, gqlQueryState, gqlEngineState.ColumnDelimiter, gqlEngineState.Heading,
-			                                   gqlEngineState.AutoSize, FileOptionsIntoClause.FormatEnum.DontCare, cultureInfo);
+				gqlEngineState.AutoSize, FileOptionsIntoClause.FormatEnum.DontCare, cultureInfo);
 		}
+
 		#endregion
+
 	}
 }
 

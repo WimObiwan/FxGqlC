@@ -6,7 +6,6 @@ namespace FxGqlLib
 	{
 		readonly IProvider provider;
 		readonly Expression<DataInteger> topValueExpression;
-
 		long linesToGo;
 
 		public TopProvider (IProvider provider, Expression<DataInteger> topValueExpression)
@@ -16,6 +15,7 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return provider.GetAliases ();
@@ -30,12 +30,12 @@ namespace FxGqlLib
 		{
 			return provider.GetColumnOrdinal (columnName);
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			return provider.GetColumnTypes ();
 		}
-		
+
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			provider.Initialize (gqlQueryState);
@@ -60,14 +60,18 @@ namespace FxGqlLib
 				return provider.Record;
 			}
 		}
+
 		#endregion
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			provider.Dispose ();
 		}
+
 		#endregion
+
 	}
 }
 

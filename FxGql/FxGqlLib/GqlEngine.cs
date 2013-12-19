@@ -13,11 +13,13 @@ namespace FxGqlLib
 		TextWriter logFileStream;
 		GqlEngineExecutionState gqlEngineExecutionState = new GqlEngineExecutionState ();
 		int serial;
+
 		public Stopwatch ParsingStopWatch { get; private set; }
+
 		public Stopwatch ExecutionStopWatch { get; private set; }
 
 		public GqlEngineState GqlEngineState { get; private set; }
-		
+
 		public TextWriter OutputStream {
 			get { return outputStream; }
 			set { outputStream = value; }
@@ -29,6 +31,7 @@ namespace FxGqlLib
 		}
 
 		string logFile;
+
 		public string LogFile {
 			get { return logFile; }
 			set {
@@ -40,6 +43,7 @@ namespace FxGqlLib
 		}
 
 		public CultureInfo CultureInfo { get; set; }
+
 		public bool CaseInsensitive { get; set; }
 
 		public GqlEngine ()
@@ -73,12 +77,12 @@ namespace FxGqlLib
 		{
 			return GetDate (DateTime.Now);
 		}
-	
+
 		string GetDate (DateTime dateTime)
 		{
 			return dateTime.ToString ("yyyy-MM-dd HH:mm:ss");
 		}
-	
+
 		public void Execute (string commandsText)
 		{
 			gqlEngineExecutionState.InterruptState = GqlEngineExecutionState.InterruptStates.Continue;
@@ -160,7 +164,7 @@ namespace FxGqlLib
 		{
 			Uninitialize ();
 			Initialize ();
-		}		
+		}
 
 		public void Interrupt ()
 		{
@@ -168,10 +172,12 @@ namespace FxGqlLib
 		}
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			Uninitialize ();
 		}
+
 		#endregion
 
 	}

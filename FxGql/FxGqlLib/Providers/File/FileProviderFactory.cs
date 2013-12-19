@@ -23,7 +23,7 @@ namespace FxGqlLib
 			
 			return provider;
 		}
-		
+
 		public static IProvider Get (string fileName, long skip)
 		{
 			IProvider provider;

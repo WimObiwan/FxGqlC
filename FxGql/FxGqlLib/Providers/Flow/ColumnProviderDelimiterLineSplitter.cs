@@ -6,7 +6,9 @@ namespace FxGqlLib
 	public abstract class ColumnProviderDelimiterLineSplitter
 	{
 		public abstract string[] Split (string line);
+
 		public abstract bool IsSeparator (string line, int startAt, out int separatorLen);
+
 		public abstract int IndexOfNextSeparator (string line, int startAt, out int nextColumn);
 
 		public static ColumnProviderDelimiterLineSplitter Create (string columnDelimiter, string columnDelimiterRegex, char[] defaultDelimiter)
@@ -48,6 +50,7 @@ namespace FxGqlLib
 		}
 
 		#region IColumnProviderDelimiterLineSplitter implementation
+
 		public override string[] Split (string line)
 		{
 			return line.Split (separators, StringSplitOptions.None);
@@ -73,19 +76,22 @@ namespace FxGqlLib
 				nextColumn = nextSep + 1;
 			return nextSep;
 		}
+
 		#endregion
+
 	}
 
 	public class ColumnProviderDelimiterLineSplitterRegex : ColumnProviderDelimiterLineSplitter
 	{
 		readonly Regex regex;
-		
+
 		public ColumnProviderDelimiterLineSplitterRegex (string regex)
 		{
 			this.regex = new Regex (regex, RegexOptions.None);
 		}
-		
+
 		#region IColumnProviderDelimiterLineSplitter implementation
+
 		public override string[] Split (string line)
 		{
 			return regex.Split (line);
@@ -103,7 +109,7 @@ namespace FxGqlLib
 				return false;
 			}
 		}
-		
+
 		public override int IndexOfNextSeparator (string line, int startAt, out int nextColumn)
 		{
 			Match match = regex.Match (line, startAt);
@@ -115,7 +121,9 @@ namespace FxGqlLib
 				return -1;
 			}
 		}
+
 		#endregion
+
 	}
 }
 

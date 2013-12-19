@@ -17,13 +17,16 @@ namespace FxGqlLib
 		}
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			provider.Dispose ();
 		}
+
 		#endregion
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return new string[] { Alias };
@@ -76,6 +79,7 @@ namespace FxGqlLib
 				return provider.Record;
 			}
 		}
+
 		#endregion
 
 	}

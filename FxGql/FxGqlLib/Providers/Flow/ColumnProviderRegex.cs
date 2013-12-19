@@ -9,12 +9,11 @@ namespace FxGqlLib
 		readonly IProvider provider;
 		readonly string regexDefinition;
 		readonly bool caseInsensitive;
-
 		ProviderRecord record;
 		ColumnName[] columnNameList;
 		Regex regex;
 		DataString[] dataStrings;
-		
+
 		public ColumnProviderRegex (IProvider provider, string regexDefinition, bool caseInsensitive)
 		{
 			this.provider = provider;
@@ -23,6 +22,7 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return provider.GetAliases ();
@@ -37,7 +37,7 @@ namespace FxGqlLib
 		{
 			return Array.FindIndex (columnNameList, a => a.CompareTo (columnName) == 0);
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			Type[] types = new Type[columnNameList.Length];
@@ -102,11 +102,14 @@ namespace FxGqlLib
 		#endregion
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			provider.Dispose ();
 		}
+
 		#endregion
+
 	}
 }
 

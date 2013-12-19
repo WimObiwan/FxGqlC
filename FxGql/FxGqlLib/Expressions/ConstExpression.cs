@@ -5,12 +5,12 @@ namespace FxGqlLib
 	public class ConstExpression<T> : Expression<T> where T : IData
 	{
 		readonly T constValue;
-		
+
 		public ConstExpression (T constValue)
 		{
 			this.constValue = constValue;
 		}
-		
+
 		public T GetConstValue ()
 		{
 			return constValue;
@@ -20,13 +20,16 @@ namespace FxGqlLib
 		{
 			return true;
 		}
-		
+
 		#region implemented abstract members of FxGqlLib.Expression[T]
+
 		public override T Evaluate (GqlQueryState gqlQueryState)
 		{
 			return constValue;
 		}
+
 		#endregion
+
 	}
 }
 

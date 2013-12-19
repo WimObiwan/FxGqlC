@@ -1,4 +1,3 @@
-
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -11,7 +10,6 @@ namespace FxGqlLib
 		readonly IProvider provider;
 		readonly string[] parameterNames;
 		readonly IExpression[] parameters;
-
 		GqlQueryState gqlQueryState;
 
 		public ParameterizedProvider (ViewDefinition viewDefinition, IExpression[] parameters, CultureInfo cultureInfo)
@@ -28,13 +26,16 @@ namespace FxGqlLib
 		}
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			provider.Dispose ();
 		}
+
 		#endregion
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return provider.GetAliases ();
@@ -87,6 +88,7 @@ namespace FxGqlLib
 				return provider.Record;
 			}
 		}
+
 		#endregion
 
 	}

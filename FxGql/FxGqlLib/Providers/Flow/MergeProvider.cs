@@ -6,19 +6,19 @@ namespace FxGqlLib
 	public class MergeProvider : IProvider
 	{
 		readonly IList<IProvider> providers;
-
 		int currentProvider;
 		GqlQueryState gqlQueryState;
 		long totalLineNo;
-		
+
 		public MergeProvider (IList<IProvider> providers)
 		{
 			//TODO: Check if providers have compatible Column Types
 			//TODO: Check if at least 1 provider is present
 			this.providers = providers;
 		}
-		
+
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return providers [0].GetAliases ();
@@ -33,12 +33,12 @@ namespace FxGqlLib
 		{
 			return providers [0].GetColumnOrdinal (columnName);
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			return providers [0].GetColumnTypes ();
 		}
-		
+
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			this.gqlQueryState = gqlQueryState;
@@ -75,15 +75,19 @@ namespace FxGqlLib
 				return providers [currentProvider].Record;
 			}
 		}
+
 		#endregion
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			foreach (IProvider provider in providers)
 				provider.Dispose ();
 		}
+
 		#endregion
+
 	}
 }
 

@@ -6,7 +6,7 @@ namespace FxGqlC
 	public static class StringExtension
 	{
 		public static IEnumerable<string> Split (this string str, 
-                                            Func<char, bool> controller)
+		                                         Func<char, bool> controller)
 		{
 			int nextPiece = 0;
 
@@ -22,13 +22,12 @@ namespace FxGqlC
 
 		public static string TrimMatchingQuotes (this string input, char quote)
 		{
-			if ((input.Length >= 2) && 
-				(input [0] == quote) && (input [input.Length - 1] == quote))
+			if ((input.Length >= 2) &&
+			    (input [0] == quote) && (input [input.Length - 1] == quote))
 				return input.Substring (1, input.Length - 2);
 
 			return input;
 		}
-
 	}
 }
 

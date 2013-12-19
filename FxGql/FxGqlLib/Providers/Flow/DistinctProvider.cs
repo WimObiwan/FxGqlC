@@ -8,7 +8,6 @@ namespace FxGqlLib
 	{
 		readonly IProvider provider;
 		readonly DataComparer dataComparer;
-
 		SortedSet<ColumnsComparerKey> recordList;
 		ProviderRecord record;
 
@@ -19,6 +18,7 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return provider.GetAliases ();
@@ -33,12 +33,12 @@ namespace FxGqlLib
 		{
 			return provider.GetColumnOrdinal (columnName);
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			return provider.GetColumnTypes ();
 		}
-		
+
 		public void Initialize (GqlQueryState gqlQueryState)
 		{
 			provider.Initialize (gqlQueryState);
@@ -48,7 +48,7 @@ namespace FxGqlLib
 
 		public bool GetNextRecord ()
 		{
-			while (provider.GetNextRecord()) {
+			while (provider.GetNextRecord ()) {
 				ProviderRecord record = provider.Record;
 				ColumnsComparerKey key = new ColumnsComparerKey ();
 				key.Members = (IData[])provider.Record.Columns.Clone ();
@@ -76,11 +76,14 @@ namespace FxGqlLib
 		#endregion
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			provider.Dispose ();
 		}
+
 		#endregion
+
 	}
 }
 

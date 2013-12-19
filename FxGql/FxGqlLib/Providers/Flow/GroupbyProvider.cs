@@ -13,7 +13,6 @@ namespace FxGqlLib
 		readonly DataComparer dataComparer;
 		readonly ColumnName[] columnNameList;
 		readonly IExpression[] outputColumns;
-
 		Dictionary<ColumnsComparerKey, StateBin> data;
 		int currentRecord;
 		IEnumerator<KeyValuePair<ColumnsComparerKey, StateBin>> enumerator;
@@ -41,7 +40,7 @@ namespace FxGqlLib
 		{
 			this.provider = provider;
 			this.dataComparer = dataComparer;
-			if (origGroupbyColumns != null && origGroupbyColumns.Count > 0) 
+			if (origGroupbyColumns != null && origGroupbyColumns.Count > 0)
 				this.origGroupbyColumns = ConvertColumnOrdinals (origGroupbyColumns, outputColumns);
 			else
 				this.origGroupbyColumns = null;
@@ -69,6 +68,7 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return null;
@@ -86,7 +86,7 @@ namespace FxGqlLib
 			
 			return Array.FindIndex (columnNameList, a => a.CompareTo (columnName) == 0);
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			Type[] types = new Type[outputColumns.Length];
@@ -188,6 +188,7 @@ namespace FxGqlLib
 		#endregion
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			provider.Dispose ();
@@ -279,7 +280,7 @@ namespace FxGqlLib
 			}
 
 			return convertedGroupByColumns;
-		}		
+		}
 
 		ColumnsComparer<ColumnsComparerKey> CreateComparer (IList<IExpression> groupbyColumns, DataComparer dataComparer)
 		{
@@ -306,14 +307,15 @@ namespace FxGqlLib
 	{
 		IExpression expression;
 		DataComparer dataComparer;
-			
+
 		public InvariantColumn (IExpression expression, DataComparer dataComparer)
 		{
 			this.expression = expression;
 			this.dataComparer = dataComparer;
 		}
-			
-			#region IExpression implementation
+
+		#region IExpression implementation
+
 		public IData EvaluateAsData (GqlQueryState gqlQueryState)
 		{
 			return expression.EvaluateAsData (gqlQueryState);
@@ -357,8 +359,9 @@ namespace FxGqlLib
 			// TODO: If not found? Shouldn't happen?
 			return data;
 		}
-			#endregion
-	}
 
+		#endregion
+
+	}
 }
 

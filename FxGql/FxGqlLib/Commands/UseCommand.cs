@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Globalization;
 
-
 namespace FxGqlLib
 {
 	public class UseCommand : IGqlCommand
@@ -17,6 +16,7 @@ namespace FxGqlLib
 		}
 
 		#region IGqlCommand implementation
+
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
 			string fileName = fileOptions.FileName.EvaluateAsData (null).ToDataString (cultureInfo);
@@ -24,7 +24,9 @@ namespace FxGqlLib
 			if (logStream != null)
 				logStream.WriteLine ("Current directory changed to '{0}'", gqlEngineState.CurrentDirectory);
 		}
+
 		#endregion
+
 	}
 }
 

@@ -13,7 +13,7 @@ namespace FxGqlLib
 			else
 				return (a, b) => comparer (string.Compare (a, b, dataComparer.CaseInsensitive, dataComparer.CultureInfo));
 		}
-		
+
 		public static Func<DataInteger, DataInteger, DataBoolean> GetIntegerComparer (string operand, bool negate)
 		{
 			Func<int, bool> comparer = GetComparer (operand);

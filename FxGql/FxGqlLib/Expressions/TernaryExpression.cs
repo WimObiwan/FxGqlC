@@ -21,7 +21,7 @@ namespace FxGqlLib
 			Expression<T3> typedArg3 = (Expression<T3>)ConvertExpression.Create (typeof(T3), arg3, cultureInfo);
 			return new TernaryExpression<T1, T2, T3, R> (functor, typedArg1, typedArg2, typedArg3);
 		}
-		
+
 		public TernaryExpression (Func<T1, T2, T3, R> functor, Expression<T1> arg1, Expression<T2> arg2, Expression<T3> arg3)
 		{
 			this.functor = functor;
@@ -29,8 +29,9 @@ namespace FxGqlLib
 			this.arg2 = arg2;
 			this.arg3 = arg3;
 		}
-		
+
 		#region implemented abstract members of FxGqlLib.Expression[R]
+
 		public override R Evaluate (GqlQueryState gqlQueryState)
 		{
 			return functor (arg1.Evaluate (gqlQueryState), arg2.Evaluate (gqlQueryState), arg3.Evaluate (gqlQueryState));
@@ -40,19 +41,19 @@ namespace FxGqlLib
 		{
 			return arg1.IsAggregated ();
 		}
-		
+
 		public override bool IsConstant ()
 		{
 			return arg1.IsConstant () && arg2.IsConstant () && arg3.IsConstant ();
 		}
-		
+
 		public override void Aggregate (StateBin state, GqlQueryState gqlQueryState)
 		{
 			arg1.Aggregate (state, gqlQueryState);
 			arg2.Aggregate (state, gqlQueryState);
 			arg3.Aggregate (state, gqlQueryState);
 		}
-		
+
 		public override IData AggregateCalculate (StateBin state)
 		{
 			T1 t1 = (T1)arg1.AggregateCalculate (state);
@@ -60,7 +61,9 @@ namespace FxGqlLib
 			T3 t3 = (T3)arg3.AggregateCalculate (state);
 			return functor (t1, t2, t3);
 		}
+
 		#endregion
+
 	}
 }
 

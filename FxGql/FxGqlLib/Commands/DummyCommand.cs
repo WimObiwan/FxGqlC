@@ -9,11 +9,14 @@ namespace FxGqlLib
 		{
 		}
 
-        #region IGqlCommand implementation
+		#region IGqlCommand implementation
+
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
 		}
-        #endregion
+
+		#endregion
+
 	}
 }
 

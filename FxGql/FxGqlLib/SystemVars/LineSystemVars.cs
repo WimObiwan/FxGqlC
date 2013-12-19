@@ -9,6 +9,7 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression[System.String]
+
 		public override DataString Evaluate (GqlQueryState gqlQueryState)
 		{
 			IData[] columns;
@@ -27,7 +28,9 @@ namespace FxGqlLib
 			
 			return column;
 		}
+
 		#endregion
+
 	}
 }
 

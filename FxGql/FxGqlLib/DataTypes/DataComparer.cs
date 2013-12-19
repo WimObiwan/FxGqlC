@@ -8,8 +8,11 @@ namespace FxGqlLib
 	public class DataComparer : IComparer<IData>
 	{
 		public bool CaseInsensitive { get; private set; }
+
 		public StringComparer StringComparer { get; private set; }
+
 		public StringComparison StringComparison { get; private set; }
+
 		public CultureInfo CultureInfo { get; private set; }
 
 		public DataComparer (CultureInfo cultureInfo, bool caseInsensitive)
@@ -32,6 +35,7 @@ namespace FxGqlLib
 		}
 
 		#region IComparer implementation
+
 		public int Compare (IData x, IData y)
 		{
 			if (x is DataString || y is DataString)
@@ -39,7 +43,9 @@ namespace FxGqlLib
 			else
 				return x.CompareTo (y);
 		}
-		#endregion		
+
+		#endregion
+
 	}
 }
 

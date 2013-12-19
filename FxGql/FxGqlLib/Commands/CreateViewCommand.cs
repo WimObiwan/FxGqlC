@@ -14,12 +14,15 @@ namespace FxGqlLib
 			this.viewDefinition = viewDefinition;
 		}
 
-        #region IGqlCommand implementation
+		#region IGqlCommand implementation
+
 		public void Execute (TextWriter outputStream, TextWriter logStream, GqlEngineState gqlEngineState)
 		{
 			gqlEngineState.Views.Add (name, viewDefinition);
 		}
-        #endregion
+
+		#endregion
+
 	}
 }
 

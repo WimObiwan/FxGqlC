@@ -25,6 +25,7 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of System.IO.Stream
+
 		public override void Flush ()
 		{
 			throw new NotSupportedException ();
@@ -210,6 +211,7 @@ namespace FxGqlLib
 		{
 			throw new NotSupportedException ();
 		}
+
 		#endregion
 
 		protected override void Dispose (bool disposing)
@@ -218,7 +220,6 @@ namespace FxGqlLib
 			stream.Dispose ();
 			base.Dispose (disposing);
 		}
-
 	}
 }
 

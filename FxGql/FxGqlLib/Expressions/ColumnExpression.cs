@@ -12,7 +12,6 @@ namespace FxGqlLib
 		readonly IProvider[] providers;
 		readonly ColumnName columnName;
 		readonly int origColumnOrdinal;
-
 		int columnOrdinal;
 		int upstreamLevel;
 
@@ -36,12 +35,12 @@ namespace FxGqlLib
 			: this (providers, columnName, -1)
 		{
 		}
-		
+
 		public ColumnExpression (IProvider provider, ColumnName columnName)
 			: this (new IProvider[] { provider }, columnName, -1)
 		{
 		}
-		
+
 		public ColumnExpression (IProvider provider, int columnOrdinal)
 			: this (new IProvider[] { provider }, null, columnOrdinal)
 		{
@@ -55,14 +54,15 @@ namespace FxGqlLib
 					ColumnName[] columnNames = providers [upstreamLevel].GetColumnNames ();
 					if (origColumnOrdinal >= 0 && origColumnOrdinal < columnNames.Length)
 						return columnNames [origColumnOrdinal];
-					else 					if (columnOrdinal >= 0 && columnOrdinal < columnNames.Length)
+					else if (columnOrdinal >= 0 && columnOrdinal < columnNames.Length)
 						return columnNames [columnOrdinal];
 				}
 				return null;
 			}
-		}		
+		}
 
 		#region IExpression implementation
+
 		public override T Evaluate (GqlQueryState gqlQueryState)
 		{
 			//for (int i = 0; i < gqlQueryState.Record.ColumnTitles.Length; i++) {
@@ -101,7 +101,9 @@ namespace FxGqlLib
 			}
 			throw new InvalidOperationException (string.Format ("Column {0} not found", columnName));
 		}
+
 		#endregion
+
 	}
 }
 

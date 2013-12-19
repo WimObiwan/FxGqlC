@@ -8,11 +8,11 @@ namespace FxGqlLib
 		readonly Expression<T> arg;
 		readonly Expression<T>[] list;
 		readonly Func<T, T, DataBoolean> functor;
-		
+
 		public AnyListOperator (Expression<T> arg, 
-		                       IExpression[] list, 
-		                       Func<T, T, DataBoolean> functor,
-		                       CultureInfo cultureInfo)
+		                        IExpression[] list, 
+		                        Func<T, T, DataBoolean> functor,
+		                        CultureInfo cultureInfo)
 		{
 			this.arg = arg;
 			this.list = new Expression<T>[list.Length];
@@ -21,8 +21,9 @@ namespace FxGqlLib
 			}
 			this.functor = functor;
 		}
-		
+
 		#region implemented abstract members of FxGqlLib.Expression[System.Boolean]
+
 		public override DataBoolean Evaluate (GqlQueryState gqlQueryState)
 		{
 			T value1 = arg.Evaluate (gqlQueryState);
@@ -33,6 +34,7 @@ namespace FxGqlLib
 			}
 			return false;
 		}
+
 		#endregion
 
 		public override bool IsConstant ()

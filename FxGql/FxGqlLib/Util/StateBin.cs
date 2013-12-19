@@ -7,15 +7,15 @@ namespace FxGqlLib
 	public class StateBin
 	{
 		static ObjectIDGenerator objectIDGenerator = new ObjectIDGenerator ();
-		
+
 		private static long GetId (object obj)
 		{
 			bool notused;
 			return objectIDGenerator.GetId (obj, out notused);
 		}
-		
+
 		Dictionary<long, object> state = new Dictionary<long, object> ();
-		
+
 		public bool GetState<T> (object obj, out T val)
 		{
 			object objVal;
@@ -26,7 +26,7 @@ namespace FxGqlLib
 				val = default(T);
 			return result;
 		}
-		
+
 		public void SetState<T> (object obj, T val)
 		{
 			state [GetId (obj)] = val;

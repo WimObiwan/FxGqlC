@@ -10,14 +10,14 @@ namespace FxGqlTest
 		{
 			Console.WriteLine (DateTime.Now);
 			Console.WriteLine ("{0} - {1} on {2}, OS: {3}, CPUcount: {4}",
-			                   Environment.MachineName,
-			                   Environment.Is64BitProcess ? "64bit" : "32bit",
-			                   Environment.Is64BitOperatingSystem ? "64bit" : "32bit",
-			                   Environment.OSVersion,
-			                   Environment.ProcessorCount);
+				Environment.MachineName,
+				Environment.Is64BitProcess ? "64bit" : "32bit",
+				Environment.Is64BitOperatingSystem ? "64bit" : "32bit",
+				Environment.OSVersion,
+				Environment.ProcessorCount);
 			Console.WriteLine ("{0} - {1}",
-			                  Environment.GetEnvironmentVariable ("PROCESSOR_IDENTIFIER"),
-			                  Environment.GetEnvironmentVariable ("PROCESSOR_REVISION"));
+				Environment.GetEnvironmentVariable ("PROCESSOR_IDENTIFIER"),
+				Environment.GetEnvironmentVariable ("PROCESSOR_REVISION"));
 			using (GqlSamplesTest gqlSamplesTest = new GqlSamplesTest ()) {
 				bool result = true;
 				if (args.Length > 0 && args [0] == "develop") {
@@ -41,10 +41,10 @@ namespace FxGqlTest
 						stopwatch.Stop ();
 						processorTime = System.Diagnostics.Process.GetCurrentProcess ().TotalProcessorTime - processorTime;
 						Console.WriteLine ("Elapsed: {0}, CPU: {1} ({2:0.00}%), {3}, {4}", 
-						                   stopwatch.Elapsed, processorTime, 
-						                   processorTime.Ticks * 100.0 / stopwatch.Elapsed.Ticks,
-						                   gqlSamplesTest.engineHash.ParsingStopWatch.Elapsed,
-						                   gqlSamplesTest.engineHash.ExecutionStopWatch.Elapsed);
+							stopwatch.Elapsed, processorTime, 
+							processorTime.Ticks * 100.0 / stopwatch.Elapsed.Ticks,
+							gqlSamplesTest.engineHash.ParsingStopWatch.Elapsed,
+							gqlSamplesTest.engineHash.ExecutionStopWatch.Elapsed);
 						processorTimeList.Add (processorTime.Ticks);
 						stopwatchList.Add (stopwatch.Elapsed.Ticks);
 						stopwatchParsingList.Add (gqlSamplesTest.engineHash.ParsingStopWatch.Elapsed.Ticks);
@@ -71,8 +71,8 @@ namespace FxGqlTest
 						TimeSpan parsingTime = new TimeSpan ((long)stopwatchParsingList.Average ());
 						TimeSpan executingTime = new TimeSpan ((long)stopwatchExecutionList.Average ());
 						Console.WriteLine ("TOTAL  : {0}, CPU: {1} ({2:0.00}%), {3}, {4}", stopwatch, processorTime, 
-						                   processorTime.Ticks * 100.0 / stopwatch.Ticks,
-						                   parsingTime, executingTime);
+							processorTime.Ticks * 100.0 / stopwatch.Ticks,
+							parsingTime, executingTime);
 					}
 				} else {
 					if (args.Length > 0 && args [0] == "breakonfailed") {

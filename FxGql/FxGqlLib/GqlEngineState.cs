@@ -15,12 +15,15 @@ namespace FxGqlLib
 			ColumnDelimiter = "\t";
 			Warnings = new List<Exception> ();
 		}
-		
+
 		public GqlEngineExecutionState ExecutionState { get; private set; }
 
 		string currentDirectory;
+
 		public delegate void CurrentDirectoryChangedHandler ();
+
 		public event CurrentDirectoryChangedHandler CurrentDirectoryChanged;
+
 		public string CurrentDirectory { 
 			get { 
 				return currentDirectory;
@@ -42,12 +45,17 @@ namespace FxGqlLib
 			On,
 			OnWithRule
 		}
+
 		public HeadingEnum Heading { get; set; }
 
 		public Dictionary<string, Variable> Variables { get; private set; }
+
 		public Dictionary<string, ViewDefinition> Views { get; private set; }
+
 		public int AutoSize { get; set; }
+
 		public string ColumnDelimiter { get; set; }
+
 		public IList<Exception> Warnings { get; private set; }
 	}
 }

@@ -9,12 +9,12 @@ namespace FxGqlLib
 			Continue,
 			Interrupted,
 		}
-		
+
 		public GqlEngineExecutionState ()
 		{
 			InterruptState = InterruptStates.Continue;
 		}
-		
+
 		public InterruptStates InterruptState { get; set; }
 	}
 }

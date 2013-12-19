@@ -5,21 +5,20 @@ namespace FxGqlLib
 {
 	public class GqlQueryState
 	{
-//		public GqlQueryState (GqlEngineExecutionState currentExecutionState, Dictionary<string, Variable> variables)
-//		{
-//			this.CurrentExecutionState = currentExecutionState;
-//			this.Variables = variables;
-//			this.StateBin = new StateBin ();
-//		}
-//		
-
+		//		public GqlQueryState (GqlEngineExecutionState currentExecutionState, Dictionary<string, Variable> variables)
+		//		{
+		//			this.CurrentExecutionState = currentExecutionState;
+		//			this.Variables = variables;
+		//			this.StateBin = new StateBin ();
+		//		}
+		//
 		public GqlQueryState ()
 		{
 			this.StateBin = new StateBin ();
 		}
 
 		public GqlQueryState (GqlEngineState other)
-			: this()
+			: this ()
 		{
 			this.CurrentDirectory = other.CurrentDirectory;
 			this.TempDirectory = other.TempDirectory;
@@ -29,12 +28,12 @@ namespace FxGqlLib
 		}
 
 		public GqlQueryState (GqlQueryState other)
-			: this(other, false)
+			: this (other, false)
 		{
 		}
 
 		public GqlQueryState (GqlQueryState other, bool newVariableScope)
-			: this()
+			: this ()
 		{
 			this.CurrentDirectory = other.CurrentDirectory;
 			this.TempDirectory = other.TempDirectory;
@@ -51,7 +50,7 @@ namespace FxGqlLib
 		public long TotalLineNumber { get; set; }
 
 		public bool UseOriginalColumns { get; set; }
-		
+
 		public string CurrentDirectory { get; set; }
 
 		public string TempDirectory { get; set; }

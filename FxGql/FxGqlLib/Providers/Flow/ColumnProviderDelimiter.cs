@@ -10,14 +10,13 @@ namespace FxGqlLib
 		readonly protected IProvider provider;
 		readonly protected ColumnProviderDelimiterLineSplitter splitter;
 		readonly int columnCount;
-
 		ProviderRecord record;
 		protected ColumnName[] columnNameList;
 		protected string[] firstLine;
 		DataString[] dataString;
 
 		public ColumnProviderDelimiter (IProvider provider, ColumnProviderDelimiterLineSplitter splitter)
-			: this(provider, splitter, -1)
+			: this (provider, splitter, -1)
 		{
 		}
 
@@ -29,6 +28,7 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return provider.GetAliases ();
@@ -43,7 +43,7 @@ namespace FxGqlLib
 		{
 			return Array.FindIndex (columnNameList, a => a.CompareTo (columnName) == 0);
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			Type[] types = new Type[columnNameList.Length];
@@ -121,11 +121,14 @@ namespace FxGqlLib
 		#endregion
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			provider.Dispose ();
 		}
+
 		#endregion
+
 	}
 }
 

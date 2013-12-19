@@ -6,7 +6,6 @@ namespace FxGqlLib
 	public class DataProvider : IProvider
 	{
 		readonly FileOptionsFromClause fileOptions;
-
 		DbConnection connection;
 		DbCommand command;
 		DbDataReader dataReader;
@@ -20,13 +19,16 @@ namespace FxGqlLib
 		}
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			Uninitialize ();
 		}
+
 		#endregion
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return null;
@@ -142,6 +144,7 @@ namespace FxGqlLib
 				return record;
 			}
 		}
+
 		#endregion
 
 	}

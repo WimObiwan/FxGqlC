@@ -33,12 +33,12 @@ namespace FxGqlLib
 		{
 			throw new ParseTimeConversionException (typeof(DataBoolean), typeof(DataFloat));
 		}
-		
+
 		public DataFloat ToDataFloat (CultureInfo cultureInfo, string format)
 		{
 			throw new ParseTimeConversionException (typeof(DataBoolean), typeof(DataFloat));
 		}
-		
+
 		public DataString ToDataString (CultureInfo cultureInfo)
 		{
 			return this.value.ToString ();
@@ -89,7 +89,9 @@ namespace FxGqlLib
 
 		public static DataBoolean trueValue = new DataBoolean (true);
 		public static DataBoolean falseValue = new DataBoolean (false);
+
 		public static DataBoolean True { get { return trueValue; } }
+
 		public static DataBoolean False { get { return falseValue; } }
 	}
 }

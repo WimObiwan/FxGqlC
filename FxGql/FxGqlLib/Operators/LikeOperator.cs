@@ -8,12 +8,12 @@ namespace FxGqlLib
 	{
 		static readonly ConstExpression<DataString> PREFIX = new ConstExpression<DataString> ("^");
 		static readonly ConstExpression<DataString> SUFFIX = new ConstExpression<DataString> ("$");
-		
+
 		public LikeOperator (IExpression arg1, IExpression arg2, bool caseInsensitive, CultureInfo cultureInfo)
-			: base(arg1, ConstructLikeExpression(arg2), caseInsensitive, cultureInfo)
+			: base (arg1, ConstructLikeExpression (arg2), caseInsensitive, cultureInfo)
 		{
 		}
-		
+
 		static Expression<DataString> ConstructLikeExpression (IExpression expression)
 		{
 			expression = UnaryExpression<DataString, DataString>.CreateAutoConvert ((a) => Regex.Escape (a), expression, CultureInfo.InvariantCulture);
