@@ -110,15 +110,15 @@ namespace FxGqlC
 				if (string.Equals (args [i], "-nologo", StringComparison.InvariantCultureIgnoreCase))
 					nologo = true;
 				else if (string.Equals (args [i], "-help", StringComparison.InvariantCultureIgnoreCase)
-					|| string.Equals (args [i], "-h", StringComparison.InvariantCultureIgnoreCase))
+				         || string.Equals (args [i], "-h", StringComparison.InvariantCultureIgnoreCase))
 					help = true;
 				else if (string.Equals (args [i], "-license", StringComparison.InvariantCultureIgnoreCase))
 					license = true;
 				else if (string.Equals (args [i], "-prompt", StringComparison.InvariantCultureIgnoreCase)
-					|| string.Equals (args [i], "-p", StringComparison.InvariantCultureIgnoreCase))
+				         || string.Equals (args [i], "-p", StringComparison.InvariantCultureIgnoreCase))
 					prompt = true;
 				else if (string.Equals (args [i], "-command", StringComparison.InvariantCultureIgnoreCase)
-					|| string.Equals (args [i], "-c", StringComparison.InvariantCultureIgnoreCase)) {
+				         || string.Equals (args [i], "-c", StringComparison.InvariantCultureIgnoreCase)) {
 					i++;
 					if (i < args.Length)
 						command = args [i];
@@ -165,7 +165,7 @@ namespace FxGqlC
 				Type type = Type.GetType ("Mono.Runtime");
 				if (type != null) {                                          
 					MethodInfo displayName = type.GetMethod ("GetDisplayName", BindingFlags.NonPublic | BindingFlags.Static); 
-					if (displayName != null)                   
+					if (displayName != null)
 						runtime = "Mono " + displayName.Invoke (null, null) + ", " + clr;
 				} else {
 					runtime = "Microsoft.NET " + clr;
@@ -224,7 +224,7 @@ namespace FxGqlC
 				return;
 			}
 			
-			if (string.IsNullOrEmpty(gqlFile)) {
+			if (string.IsNullOrEmpty (gqlFile)) {
 				Console.TreatControlCAsInput = false;
 			}
 			
@@ -256,8 +256,8 @@ namespace FxGqlC
 							ExecuteFile ("autoexec.gql");
 						else {
 							string path = Path.GetDirectoryName (new Uri (
-								Assembly.GetAssembly (typeof(MainClass)).CodeBase).LocalPath
-							);
+								              Assembly.GetAssembly (typeof(MainClass)).CodeBase).LocalPath
+							              );
 							if (File.Exists (Path.Combine (path, "autoexec.gql")))
 								ExecuteFile (Path.Combine (path, "autoexec.gql"));
 						}
@@ -365,7 +365,7 @@ namespace FxGqlC
 				//Console.Write ("FxGqlC> ");
 				//string command = Console.ReadLine ();
 				if (command.Trim ().Equals ("exit", StringComparison.InvariantCultureIgnoreCase)
-					|| command.Trim ().Equals ("quit", StringComparison.InvariantCultureIgnoreCase))
+				    || command.Trim ().Equals ("quit", StringComparison.InvariantCultureIgnoreCase))
 					command = "!!exit"; 
 				if (!ExecutePromptCommand (command, lineEditor))
 				if (!ExecuteAliasCommand (command))
@@ -402,8 +402,7 @@ namespace FxGqlC
 		{
 			bool inQuotes = false;
 
-			return commandLine.Split (c =>
-			{
+			return commandLine.Split (c => {
 				if (c == '\"')
 					inQuotes = !inQuotes;
 
@@ -435,7 +434,7 @@ namespace FxGqlC
 				string definition;
 				if (aliases.TryGetValue (components [0], out definition)) {
 					definition = Regex.Replace (definition, @"(?:\$\((?<id>\d+)(?:,(?<def>[^\)]+))?\))|(?:\$(?<id>\d+))", 
-					                            m => GetValue (components, m.Groups ["id"].Value) ?? EmptyToNull (m.Groups ["def"].Value) ?? "");
+						m => GetValue (components, m.Groups ["id"].Value) ?? EmptyToNull (m.Groups ["def"].Value) ?? "");
 					ExecuteCommand (definition);
 				} else {
 					Console.WriteLine ("Unknown command alias '{0}'", command);
@@ -490,11 +489,19 @@ namespace FxGqlC
 			gqlEngine.Execute (command);
 
 			foreach (Exception x in gqlEngine.GqlEngineState.Warnings) {
-				if (verbose)
+				if (verbose) {
 					Console.WriteLine ("WARNING: {0}", x);
-				else
-					Console.WriteLine ("WARNING: {0}", x.Message);
-				if (gqlEngine.LogStream != null) 
+				} else {
+					StringBuilder sb = new StringBuilder (x.Message);
+					Exception inner = x.InnerException;
+					while (inner != null) {
+						sb.Append (", ");
+						sb.Append (inner.Message);
+						inner = inner.InnerException;
+					}
+					Console.WriteLine ("WARNING: {0}", sb);
+				}
+				if (gqlEngine.LogStream != null)
 					gqlEngine.LogStream.WriteLine (x.ToString ());
 			}
 		}
@@ -513,19 +520,19 @@ namespace FxGqlC
 					Console.WriteLine (x);
 				else
 					Console.WriteLine (x.Message);
-				if (gqlEngine.LogStream != null) 
+				if (gqlEngine.LogStream != null)
 					gqlEngine.LogStream.WriteLine (x.ToString ());
 
 				string line;
-				using (StringReader stringReader = new System.IO.StringReader(command)) {
-					for (int no = 0; (line = stringReader.ReadLine()) != null; no++) {
+				using (StringReader stringReader = new System.IO.StringReader (command)) {
+					for (int no = 0; (line = stringReader.ReadLine ()) != null; no++) {
 						Console.WriteLine ("{0,3}: {1}", no + 1, line);
-						if (gqlEngine.LogStream != null) 
+						if (gqlEngine.LogStream != null)
 							gqlEngine.LogStream.WriteLine ("{0,3}: {1}", no + 1, line);
 							
 						if (no + 1 == x.Line) {
 							Console.WriteLine ("     {0}^", new string (' ', Math.Max (0, x.Pos)));
-							if (gqlEngine.LogStream != null) 
+							if (gqlEngine.LogStream != null)
 								gqlEngine.LogStream.WriteLine ("     {0}^", new string (' ', Math.Max (0, x.Pos)));
 						}
 					}
@@ -536,7 +543,7 @@ namespace FxGqlC
 					Console.WriteLine (x);
 				else
 					Console.WriteLine (x.Message);
-				if (gqlEngine.LogStream != null) 
+				if (gqlEngine.LogStream != null)
 					gqlEngine.LogStream.WriteLine (x.ToString ());
 				ReportException ("executing server command, " + command, x);
 			}
@@ -547,7 +554,7 @@ namespace FxGqlC
 
 		public static void ExecuteFile (string file)
 		{
-			using (StreamReader reader = new StreamReader(file)) {
+			using (StreamReader reader = new StreamReader (file)) {
 				string command = reader.ReadToEnd ();
 				ExecuteCommand (command);
 			}
@@ -565,7 +572,7 @@ namespace FxGqlC
 				case "HEADING":
 					{
 						GqlEngineState.HeadingEnum heading;
-						if (Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading)) 
+						if (Enum.TryParse<GqlEngineState.HeadingEnum> (value, true, out heading))
 							gqlEngine.GqlEngineState.Heading = heading;
 						else
 							Console.WriteLine ("Unknown SET HEADING value '{0}'", value);
@@ -575,7 +582,7 @@ namespace FxGqlC
 				case "REPORTERROR":
 					{
 						ReportError reportError;
-						if (Enum.TryParse<ReportError> (value, true, out reportError)) 
+						if (Enum.TryParse<ReportError> (value, true, out reportError))
 							MainClass.reportError = reportError;
 						else
 							Console.WriteLine ("Unknown SET REPORTERROR value '{0}'", value);
@@ -585,7 +592,7 @@ namespace FxGqlC
 				case "VERBOSE":
 					{
 						OnOffEnum onOff;
-						if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) 
+						if (Enum.TryParse<OnOffEnum> (value, true, out onOff))
 							verbose = (onOff == OnOffEnum.On);
 						else
 							Console.WriteLine ("Unknown SET VERBOSE value '{0}'", value);
@@ -607,7 +614,7 @@ namespace FxGqlC
 						OnOffEnum onOff;
 						if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) {
 							autoSize = (onOff == OnOffEnum.On);
-							if (autoSize) 
+							if (autoSize)
 								gqlEngine.GqlEngineState.AutoSize = autoSizeRows;
 							else
 								gqlEngine.GqlEngineState.AutoSize = 0;
@@ -619,7 +626,7 @@ namespace FxGqlC
 				case "AUTOSIZEROWS":
 					{
 						if (int.TryParse (value, out autoSizeRows)) {
-							if (autoSize) 
+							if (autoSize)
 								gqlEngine.GqlEngineState.AutoSize = autoSizeRows;
 							else
 								gqlEngine.GqlEngineState.AutoSize = 0;
@@ -646,7 +653,7 @@ namespace FxGqlC
 				case "CASEINSENSITIVE":
 					{
 						OnOffEnum onOff;
-						if (Enum.TryParse<OnOffEnum> (value, true, out onOff)) 
+						if (Enum.TryParse<OnOffEnum> (value, true, out onOff))
 							gqlEngine.CaseInsensitive = (onOff == OnOffEnum.On);
 						else
 							Console.WriteLine ("Unknown SET CASEINSENSITIVE value '{0}'", value);
@@ -717,7 +724,7 @@ namespace FxGqlC
 			System.Threading.WaitCallback waitCallback = new System.Threading.WaitCallback (delegate(object state2) {
 				CheckForUpdatesAsync (state);
 			}
-			);
+			                                             );
 			System.Threading.ThreadPool.QueueUserWorkItem (waitCallback);
 		}
 
@@ -752,7 +759,7 @@ namespace FxGqlC
 							string urlRelease = string.Format ("https://sites.google.com/site/fxgqlc/home/downloads/release-{0}last.txt", type);
 							byte[] data = client.DownloadData (urlRelease);
 							string url;
-							using (StreamReader r = new StreamReader(new MemoryStream(data))) {
+							using (StreamReader r = new StreamReader (new MemoryStream (data))) {
 								lastRelease = r.ReadLine ();
 								url = r.ReadLine ();
 							}
@@ -769,8 +776,8 @@ namespace FxGqlC
 									string appDir = Path.GetDirectoryName (Assembly.GetExecutingAssembly ().Location);
 									string newVersionDir = 
 										Path.Combine (
-										appDir,
-										"NewVersion");
+											appDir,
+											"NewVersion");
 									if (Directory.Exists (newVersionDir))
 										Directory.Delete (newVersionDir, true);
 									Directory.CreateDirectory (newVersionDir);
@@ -778,8 +785,8 @@ namespace FxGqlC
 
 									string oldVersionDir = 
 										Path.Combine (
-										appDir,
-										"OldVersion");
+											appDir,
+											"OldVersion");
 									if (Directory.Exists (oldVersionDir))
 										Directory.Delete (oldVersionDir, true);
 									Directory.CreateDirectory (oldVersionDir);
@@ -876,23 +883,23 @@ namespace FxGqlC
 							string requestName = stateName + "%20" + version;
 
 							string statsRequest = "http://www.google-analytics.com/__utm.gif" +
-								"?utmwv=4.6.5" +
-								"&utmn=" + rnd.Next (100000000, 999999999) +
-								"&utmhn=" + Uri.EscapeDataString (Environment.UserName + '@' + GetFQDN ()) +
-								"&utmcs=" + Uri.EscapeDataString (Console.OutputEncoding.WebName) +
-								"&utmsr=" + screenRes +
-								"&utmsc=-" +
-								"&utmul=" + culture +
-								"&utmje=-" +
-								"&utmfl=-" +
-								"&utmdt=" + requestName +
-								"&utmhid=1943799692" +
-								"&utmr=0" +
-								"&utmp=" + requestPath +
-								"&utmac=UA-2703249-8" + // Account number
-								"&utmcc=" +
-								"__utma%3D" + domainHash + "." + uniqueVisitorId + "." + timestampFirstRun + "." + timestampLastRun + "." + timestampCurrentRun + "." + numberOfRuns +
-								"%3B%2B__utmz%3D" + domainHash + "." + timestampCurrentRun + "." + sessionNumber + "." + campaignNumber + ".utmcsr%3D" + source + "%7Cutmccn%3D(" + medium + ")%7Cutmcmd%3D" + medium + "%7Cutmcct%3D%2Fd31AaOM%3B";
+							                      "?utmwv=4.6.5" +
+							                      "&utmn=" + rnd.Next (100000000, 999999999) +
+							                      "&utmhn=" + Uri.EscapeDataString (Environment.UserName + '@' + GetFQDN ()) +
+							                      "&utmcs=" + Uri.EscapeDataString (Console.OutputEncoding.WebName) +
+							                      "&utmsr=" + screenRes +
+							                      "&utmsc=-" +
+							                      "&utmul=" + culture +
+							                      "&utmje=-" +
+							                      "&utmfl=-" +
+							                      "&utmdt=" + requestName +
+							                      "&utmhid=1943799692" +
+							                      "&utmr=0" +
+							                      "&utmp=" + requestPath +
+							                      "&utmac=UA-2703249-8" + // Account number
+							                      "&utmcc=" +
+							                      "__utma%3D" + domainHash + "." + uniqueVisitorId + "." + timestampFirstRun + "." + timestampLastRun + "." + timestampCurrentRun + "." + numberOfRuns +
+							                      "%3B%2B__utmz%3D" + domainHash + "." + timestampCurrentRun + "." + sessionNumber + "." + campaignNumber + ".utmcsr%3D" + source + "%7Cutmccn%3D(" + medium + ")%7Cutmcmd%3D" + medium + "%7Cutmcct%3D%2Fd31AaOM%3B";
 
 							//Console.WriteLine (statsRequest);
 							client.DownloadString (statsRequest);
@@ -918,14 +925,14 @@ namespace FxGqlC
 			
 			int a, b, comp;
 			if (int.TryParse (lastReleaseItems [0].Trim ('v'), out a)
-				&& int.TryParse (versionItems [0].Trim ('v'), out b)) {
+			    && int.TryParse (versionItems [0].Trim ('v'), out b)) {
 				comp = a.CompareTo (b);
 				if (comp != 0)
 					return comp;
 			}
 			
 			if (int.TryParse (lastReleaseItems [1], out a)
-				&& int.TryParse (versionItems [1], out b)) {
+			    && int.TryParse (versionItems [1], out b)) {
 				comp = a.CompareTo (b);
 				if (comp != 0)
 					return comp;
@@ -958,8 +965,8 @@ namespace FxGqlC
 			matchB = Regex.Match (versionItems [2], @"\d+");
 			
 			if (matchA.Success && matchB.Success
-				&& int.TryParse (matchA.Value, out a)
-				&& int.TryParse (matchB.Value, out b)) {
+			    && int.TryParse (matchA.Value, out a)
+			    && int.TryParse (matchB.Value, out b)) {
 				comp = a.CompareTo (b);
 				if (comp != 0)
 					return comp;
@@ -1110,7 +1117,7 @@ namespace FxGqlC
 					// Unzip file in buffered chunks. This is just as fast as unpacking to a buffer the full size
 					// of the file, but does not waste memory.
 					// The "using" will close the stream even if an exception occurs.
-					using (FileStream streamWriter = File.Create(fullZipToPath)) {
+					using (FileStream streamWriter = File.Create (fullZipToPath)) {
 						ICSharpCode.SharpZipLib.Core.StreamUtils.Copy (zipStream, streamWriter, buffer);
 					}
 				}

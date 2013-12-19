@@ -96,7 +96,6 @@
     <Compile Include="DataTypes\DataType.cs" />
     <Compile Include="DataTypes\Data.cs" />
     <Compile Include="DataTypes\DataInteger.cs" />
-    <Compile Include="Exceptions\ConversionException.cs" />
     <Compile Include="Commands\DropTableCommand.cs" />
     <Compile Include="DataTypes\IObsoleteDataType.cs" />
     <Compile Include="DataTypes\DataString.cs" />
@@ -144,6 +143,10 @@
     <Compile Include="DataTypes\DataFloat.cs" />
     <Compile Include="Commands\AlterViewCommand.cs" />
     <Compile Include="Exceptions\WarningException.cs" />
+    <Compile Include="Exceptions\ParseTimeConversionException.cs" />
+    <Compile Include="Exceptions\RunTimeConversionException.cs" />
+    <Compile Include="DataTypes\DataTypeUtil.cs" />
+    <Compile Include="Exceptions\LineIgnoredException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

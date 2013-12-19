@@ -86,12 +86,12 @@ namespace FxGqlLib
 
 		public DataDateTime ToDataDateTime (CultureInfo cultureInfo)
 		{
-			throw new ConversionException (typeof(DataInteger), typeof(DataDateTime));
+			throw new ParseTimeConversionException (typeof(DataInteger), typeof(DataDateTime));
 		}
 
 		public DataDateTime ToDataDateTime (CultureInfo cultureInfo, string format)
 		{
-			throw new ConversionException (typeof(DataInteger), typeof(DataDateTime));
+			throw new ParseTimeConversionException (typeof(DataInteger), typeof(DataDateTime));
 		}
 
 		public int CompareTo (object other)

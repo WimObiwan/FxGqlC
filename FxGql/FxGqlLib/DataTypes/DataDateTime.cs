@@ -21,24 +21,24 @@ namespace FxGqlLib
 
 		public DataInteger ToDataInteger (CultureInfo cultureInfo)
 		{
-			throw new ConversionException (typeof(DataDateTime), typeof(DataInteger));
+			throw new ParseTimeConversionException (typeof(DataDateTime), typeof(DataInteger));
 		}
 
 		public DataInteger ToDataInteger (CultureInfo cultureInfo, string format)
 		{
-			throw new ConversionException (typeof(DataDateTime), typeof(DataInteger));
+			throw new ParseTimeConversionException (typeof(DataDateTime), typeof(DataInteger));
 		}
 
 		public DataFloat ToDataFloat (CultureInfo cultureInfo)
 		{
-			throw new ConversionException (typeof(DataDateTime), typeof(DataFloat));
+			throw new ParseTimeConversionException (typeof(DataDateTime), typeof(DataFloat));
 		}
-		
+
 		public DataFloat ToDataFloat (CultureInfo cultureInfo, string format)
 		{
-			throw new ConversionException (typeof(DataDateTime), typeof(DataFloat));
+			throw new ParseTimeConversionException (typeof(DataDateTime), typeof(DataFloat));
 		}
-		
+
 		public DataString ToDataString (CultureInfo cultureInfo)
 		{
 			return this.value.ToString ();
@@ -51,7 +51,7 @@ namespace FxGqlLib
 
 		public DataBoolean ToDataBoolean (CultureInfo cultureInfo)
 		{
-			throw new ConversionException (typeof(DataDateTime), typeof(DataBoolean));
+			throw new ParseTimeConversionException (typeof(DataDateTime), typeof(DataBoolean));
 		}
 
 		public DataDateTime ToDataDateTime (CultureInfo cultureInfo)

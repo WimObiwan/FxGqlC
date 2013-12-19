@@ -76,17 +76,17 @@ namespace FxGqlLib
 		
 		public DataBoolean ToDataBoolean (CultureInfo cultureInfo)
 		{
-			throw new ConversionException (typeof(DataFloat), typeof(DataDateTime));
+			throw new ParseTimeConversionException (typeof(DataFloat), typeof(DataDateTime));
 		}
 		
 		public DataDateTime ToDataDateTime (CultureInfo cultureInfo)
 		{
-			throw new ConversionException (typeof(DataFloat), typeof(DataDateTime));
+			throw new ParseTimeConversionException (typeof(DataFloat), typeof(DataDateTime));
 		}
 		
 		public DataDateTime ToDataDateTime (CultureInfo cultureInfo, string format)
 		{
-			throw new ConversionException (typeof(DataFloat), typeof(DataDateTime));
+			throw new ParseTimeConversionException (typeof(DataFloat), typeof(DataDateTime));
 		}
 		
 		public int CompareTo (object other)

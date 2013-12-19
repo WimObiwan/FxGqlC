@@ -24,7 +24,7 @@ namespace FxGqlLib
 			
 			return result;
 		}
-		
+
 		public static IExpression Create (Type type, IExpression expr, CultureInfo cultureInfo)
 		{
 			IExpression result;
@@ -80,7 +80,7 @@ namespace FxGqlLib
 			
 			return result;
 		}
-		
+
 		public static Expression<DataInteger> CreateDataInteger (IExpression expr, CultureInfo ci, string format)
 		{
 			Expression<DataInteger> result = expr as Expression<DataInteger>;
@@ -89,7 +89,7 @@ namespace FxGqlLib
 			
 			return result;
 		}
-		
+
 		public static Expression<DataFloat> CreateDataFloat (IExpression expr, CultureInfo ci)
 		{
 			Expression<DataFloat> result = expr as Expression<DataFloat>;
@@ -98,7 +98,7 @@ namespace FxGqlLib
 			
 			return result;
 		}
-		
+
 		public static Expression<DataFloat> CreateDataFloat (IExpression expr, CultureInfo ci, string format)
 		{
 			Expression<DataFloat> result = expr as Expression<DataFloat>;
@@ -107,7 +107,7 @@ namespace FxGqlLib
 			
 			return result;
 		}
-		
+
 		public static Expression<DataString> CreateDataString (IExpression expr, CultureInfo ci)
 		{
 			Expression<DataString> result = expr as Expression<DataString>;
@@ -175,10 +175,17 @@ namespace FxGqlLib
 		}
 
 		#region implemented abstract members of FxGqlLib.Expression
+
 		public override T Evaluate (GqlQueryState gqlQueryState)
 		{
-			return functor (expr.EvaluateAsData (gqlQueryState));
+			IData data = expr.EvaluateAsData (gqlQueryState);
+			try {
+				return functor (data);
+			} catch (Exception x) {
+				throw new RunTimeConversionException (expr.GetResultType (), typeof(T), data, x);
+			}
 		}
+
 		#endregion
 
 		public override bool IsAggregated ()
@@ -195,7 +202,7 @@ namespace FxGqlLib
 		{
 			expr.Aggregate (state, gqlQueryState);
 		}
-		
+
 		public override IData AggregateCalculate (StateBin state)
 		{
 			return expr.AggregateCalculate (state);

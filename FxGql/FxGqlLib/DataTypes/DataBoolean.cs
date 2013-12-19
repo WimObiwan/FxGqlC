@@ -31,12 +31,12 @@ namespace FxGqlLib
 
 		public DataFloat ToDataFloat (CultureInfo cultureInfo)
 		{
-			throw new ConversionException (typeof(DataBoolean), typeof(DataFloat));
+			throw new ParseTimeConversionException (typeof(DataBoolean), typeof(DataFloat));
 		}
 		
 		public DataFloat ToDataFloat (CultureInfo cultureInfo, string format)
 		{
-			throw new ConversionException (typeof(DataBoolean), typeof(DataFloat));
+			throw new ParseTimeConversionException (typeof(DataBoolean), typeof(DataFloat));
 		}
 		
 		public DataString ToDataString (CultureInfo cultureInfo)
@@ -56,12 +56,12 @@ namespace FxGqlLib
 
 		public DataDateTime ToDataDateTime (CultureInfo cultureInfo)
 		{
-			throw new ConversionException (typeof(DataBoolean), typeof(DataDateTime));
+			throw new ParseTimeConversionException (typeof(DataBoolean), typeof(DataDateTime));
 		}
 
 		public DataDateTime ToDataDateTime (CultureInfo cultureInfo, string format)
 		{
-			throw new ConversionException (typeof(DataBoolean), typeof(DataDateTime));
+			throw new ParseTimeConversionException (typeof(DataBoolean), typeof(DataDateTime));
 		}
 
 		public int CompareTo (object other)

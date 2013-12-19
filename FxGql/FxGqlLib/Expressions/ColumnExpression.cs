@@ -96,7 +96,7 @@ namespace FxGqlLib
 					try {
 						return (T)columns [columnOrdinal];
 					} catch (InvalidCastException) {
-						throw new ConversionException (columns [columnOrdinal].GetType (), typeof(T));
+						throw new ParseTimeConversionException (columns [columnOrdinal].GetType (), typeof(T));
 					}
 			}
 			throw new InvalidOperationException (string.Format ("Column {0} not found", columnName));
