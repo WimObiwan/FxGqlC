@@ -9,42 +9,42 @@ namespace FxGqlLib
 	abstract public class Column : ColumnName
 	{
 		public Column (ColumnName columnName)
-			: base(columnName)
+			: base (columnName)
 		{
 		}
 
 		public Column (string name)
-			: base(name)
+			: base (name)
 		{
 		}
 
 		public Column (int ordinal)
-			: base(ordinal)
+			: base (ordinal)
 		{
 		}
 
 		public Column ()
-			: base(null, null)
+			: base (null, null)
 		{
 		}
 	}
 
 	public class SingleColumn : Column
-	{ 
+	{
 		public SingleColumn (ColumnName columnName, IExpression expr)
-			:base(columnName)
+			: base (columnName)
 		{
 			Expression = expr;
 		}
 
 		public SingleColumn (string name, IExpression expr)
-			:base(name)
+			: base (name)
 		{
 			Expression = expr;
 		}
 
 		public SingleColumn (int ordinal, IExpression expr)
-			:base(ordinal)
+			: base (ordinal)
 		{
 			Expression = expr;
 		}
@@ -61,16 +61,16 @@ namespace FxGqlLib
 		}
 
 		public string ProviderAlias { get; private set; }
+
 		public IProvider Provider { get; private set; }
 	}
-	
+
 	public class ColumnProvider : IProvider
 	{
 		readonly IProvider provider;
 		readonly IList<Column> outputColumns;
 		readonly IExpression[] staticOutputList;
 		readonly ColumnName[] staticColumnNameList;
-
 		IExpression[] outputList;
 		ColumnName[] columnNameList;
 		GqlQueryState gqlQueryState;
@@ -88,7 +88,7 @@ namespace FxGqlLib
 		}
 
 		public ColumnProvider (IList<IExpression> outputList, IProvider provider)
-			: this(ColumnListFromExpressionList (outputList), provider)
+			: this (ColumnListFromExpressionList (outputList), provider)
 		{
 		}
 
@@ -112,8 +112,8 @@ namespace FxGqlLib
 					AllColums allColums = (AllColums)column;
 					var columnNameList3 = allColums.Provider.GetColumnNames ();
 					for (int j = 0; j < columnNameList3.Length; j++) {
-						if (allColums.ProviderAlias == null 
-							|| StringComparer.InvariantCultureIgnoreCase.Compare (allColums.ProviderAlias, columnNameList3 [j].Alias) == 0) {
+						if (allColums.ProviderAlias == null
+						    || StringComparer.InvariantCultureIgnoreCase.Compare (allColums.ProviderAlias, columnNameList3 [j].Alias) == 0) {
 							outputList.Add (GqlParser.ConstructColumnExpression (allColums.Provider, j));
 							columnNameList.Add (columnNameList3 [j]);
 						}
@@ -136,6 +136,7 @@ namespace FxGqlLib
 		}
 
 		#region IProvider implementation
+
 		public string[] GetAliases ()
 		{
 			return provider.GetAliases ();
@@ -161,7 +162,7 @@ namespace FxGqlLib
 			
 			return Array.FindIndex (columnNameList, a => a.CompareTo (columnName) == 0);
 		}
-		
+
 		public Type[] GetColumnTypes ()
 		{
 			IExpression[] outputList;
@@ -203,12 +204,17 @@ namespace FxGqlLib
 			gqlQueryState.TotalLineNumber++;
 
 			do {
-				if (!provider.GetNextRecord ())
-					return false;
-				gqlQueryState.Record = provider.Record;
-				gqlQueryState.SkipLine = false;
-				for (int i = 0; i < outputList.Length; i++) {
-					record.Columns [i] = outputList [i].EvaluateAsData (gqlQueryState);
+				try {
+					if (!provider.GetNextRecord ())
+						return false;
+					gqlQueryState.Record = provider.Record;
+					gqlQueryState.SkipLine = false;
+					for (int i = 0; i < outputList.Length; i++) {
+						record.Columns [i] = outputList [i].EvaluateAsData (gqlQueryState);
+					}
+				} catch (Exception) {
+					if (!gqlQueryState.SkipLine)
+						throw;
 				}
 			} while (gqlQueryState.SkipLine);
 			
@@ -233,15 +239,19 @@ namespace FxGqlLib
 				return record;
 			}
 		}
+
 		#endregion
 
 		#region IDisposable implementation
+
 		public void Dispose ()
 		{
 			if (provider != null)
 				provider.Dispose ();
 		}
+
 		#endregion
+
 	}
 }
 
