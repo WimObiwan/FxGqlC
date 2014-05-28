@@ -22,7 +22,7 @@ using System.Runtime.CompilerServices;
 //    2 for release candidate
 //    3 for (final) release
 // Digit 4: increment from 0
-[assembly: AssemblyVersion ("2.5.3.1")]
+[assembly: AssemblyVersion ("2.5.3.2")]
 // The following attributes are used to specify the signing key for the assembly,
 // if desired. See the Mono documentation for more information about signing.
 //[assembly: AssemblyDelaySign(false)]
