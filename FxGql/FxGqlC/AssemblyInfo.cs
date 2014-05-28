@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("Fox Innovations")]
 [assembly: AssemblyProduct ("FxGqlC")]
-[assembly: AssemblyCopyright ("(c) Copyright 2006-2013 Fox Innovations / Wim Devos")]
+[assembly: AssemblyCopyright ("(c) Copyright 2006-2014 Fox Innovations / Wim Devos")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
