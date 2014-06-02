@@ -154,11 +154,19 @@ namespace FxGqlC
 			}
 						
 			if (!nologo) {
-				var info = System.Diagnostics.FileVersionInfo.GetVersionInfo (Assembly.GetExecutingAssembly ().Location);
+				string title = ((AssemblyTitleAttribute)Attribute.GetCustomAttribute (
+					               Assembly.GetExecutingAssembly (), typeof(AssemblyTitleAttribute), false))
+					.Title;
+				string description = ((AssemblyDescriptionAttribute)Attribute.GetCustomAttribute (
+					                     Assembly.GetExecutingAssembly (), typeof(AssemblyDescriptionAttribute), false))
+					.Description;
+				string copyright = ((AssemblyCopyrightAttribute)Attribute.GetCustomAttribute (
+					                   Assembly.GetExecutingAssembly (), typeof(AssemblyCopyrightAttribute), false))
+					.Copyright;
 
 				Console.WriteLine ();
-				Console.WriteLine ("{0} - {1} - {2}", info.FileDescription, version, info.Comments);				
-				Console.WriteLine (info.LegalCopyright);
+				Console.WriteLine ("{0} - {1} - {2}", title, version, description);
+				Console.WriteLine (copyright);
 
 				string clr = "CLR " + System.Environment.Version.ToString ();
 				string runtime = "?";
