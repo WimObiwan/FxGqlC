@@ -568,7 +568,8 @@ namespace FxGqlTest
 			TestGql ("select $line from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
 				"B7B20E3D1807D5638954EE155A94608D1492D0C9FAB4E5D346E50E8816AD63CC");
 			TestGql (@"SELECT $filename, $totallineno FROM ['SampleFiles/*' -recurse] WHERE $lineno = 1", 
-				"CF9373D37C3E1DA43CD7FB4132A5A25B5EFF6457544D8B2C6331D24D3E3F7A29");
+				"CF9373D37C3E1DA43CD7FB4132A5A25B5EFF6457544D8B2C6331D24D3E3F7A29",
+				"9FBA73C15187D2F516A598EF2C8AD35A7D5C1E9A48961398949ED9A2BA65A4AE");
 			TestGql (@"SELECT $totallineno, $lineno, $line FROM ['SampleFiles/AirportCodes.csv'], ['SampleFiles/AirportCodes.csv'] WHERE $line match 'belgium';
 				SELECT count(1) FROM ['SampleFiles/AirportCodes.csv']", 
 				"C5540814A5C695DFEC4D4A7791A6EACC2E3ED0562FCAB27DD3CD88A464E24AB4");
@@ -1104,7 +1105,8 @@ namespace FxGqlTest
 			TestGql (
 				@"
 				SELECT [f], [tl] FROM (SELECT $filename [f], $totallineno [tl], $lineno [l] FROM ['SampleFiles/*' -recurse]) WHERE [l] = 1
-				", "CF9373D37C3E1DA43CD7FB4132A5A25B5EFF6457544D8B2C6331D24D3E3F7A29");
+				", "CF9373D37C3E1DA43CD7FB4132A5A25B5EFF6457544D8B2C6331D24D3E3F7A29",
+				"9FBA73C15187D2F516A598EF2C8AD35A7D5C1E9A48961398949ED9A2BA65A4AE");
 			TestGql ("select * into ['test.txt' -lineend=dos] from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.{3}))|(?:(?<Column1>.*),(?<Column2>.{3}))']",
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt", 
@@ -1637,7 +1639,8 @@ namespace FxGqlTest
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
 				"E5548C251AF2BFBA3549D7C4F4F09769AA9E1ACAD087058E0624B60F92B8A08C", // dos
-				"5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");// unix
+				//"5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");// unix
+				"758074F1FEAE50EE490C55A9176B551D441E379D60044B73F01303813A7DA9E7"); // travis
 			TestGql ("select * into ['test.txt' -overwrite] from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' " +
 			"union " +
 			"select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Netherlands' " +
@@ -1645,7 +1648,8 @@ namespace FxGqlTest
 				"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestFile ("test.txt",
 				"E5548C251AF2BFBA3549D7C4F4F09769AA9E1ACAD087058E0624B60F92B8A08C", // dos
-				"5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");// unix
+				//"5295676CF814078E5271B8C513C3444123EFE4157F397C1DD14F791931B18292");// unix
+				"758074F1FEAE50EE490C55A9176B551D441E379D60044B73F01303813A7DA9E7"); // travis
 			TestGql ("select * from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Belgium' " +
 			"union " +
 			"select * into ['test.txt' -overwrite] from ['SampleFiles/AirportCodes.csv' -format=csv] where [Column1] match 'Netherlands' " +
