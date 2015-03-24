@@ -12,5 +12,5 @@ before_install:
 - mozroots --import --sync --quiet
 
 script:
- - xbuild /p:TargetFrameworkProfile="" ./FxGql/FxGql.sln
+ - xbuild /p:TargetFrameworkProfile="" /p:Configuration=Release ./FxGql/FxGql.sln
  
