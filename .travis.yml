@@ -13,4 +13,4 @@ before_install:
 
 script:
  - xbuild /p:TargetFrameworkProfile="" /p:Configuration=Release ./FxGql/FxGql.sln
- 
+ - ./FxGql/BuildScript/test.sh
