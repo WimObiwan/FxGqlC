@@ -9,3 +9,7 @@ before_install:
 - sudo apt-get update -qq
 - sudo apt-get install mono-complete -qq -y
 - sudo mono --version
+
+script:
+ - xbuild /p:TargetFrameworkProfile="" ./FxGql/FxGql.sln
+ 
