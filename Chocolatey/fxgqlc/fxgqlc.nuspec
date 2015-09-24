@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
+    <id>fxgqlc</id>
+    <title>fxgqlc (Install)</title>
+    <version>2.5.3</version>
+    <authors>Fox Innovations / Wim Devos</authors>
+    <owners>Fox Innovations / Wim Devos</owners>
+    <summary>Analyse your text files with the power of the "Grep Query Language"</summary>
+    <description>FxGqlC is an open source command line tool used to analyze text files with a language that is very similar to SQL (Structured Query Language). FxGqlC runs on any operating system that supports the .net Framework, such as Microsoft Windows (using Microsoft .net) or Linux/MacOS (using Mono).  It runs on 64-bit where available.
+The GQL language of FxGqlC is based on T-SQL, the SQL variant used in Microsoft SQL Server.
+FxGqlC was originally developed for extracting useful information from huge log files in a very fast way. 
+    </description>
+    <projectUrl>https://sites.google.com/site/fxgqlc/</projectUrl>
+    <tags>fxgqlc admin</tags>
+    <copyright></copyright>
+    <licenseUrl>https://github.com/WimObiwan/FxGqlC/blob/master/FxGql/FxGqlC/FxGqlC%20License.txt</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <!--<iconUrl>http://cdn.rawgit.com/__REPLACE_YOUR_REPO__/master/icons/fxgqlc.png</iconUrl>-->
+    <!--<dependencies>
+      <dependency id="" version="__VERSION__" />
+      <dependency id="" />
+    </dependencies>-->
+    <releaseNotes></releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
