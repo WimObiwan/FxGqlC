@@ -2,4 +2,4 @@ version: 1.0.{build}
 build:
   verbosity: minimal
 test_script:
-  -  ./FxGqlC/FxGql/BuildScript/test.ps1
+  -  .\FxGqlC\FxGql\BuildScript\test.ps1
