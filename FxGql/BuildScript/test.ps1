@@ -1,3 +1,3 @@
-cd "./FxFqlC/FxGql/FxGqlTest/bin/Release"
+cd ".\FxFqlC\FxGql\FxGqlTest\bin\Release"
 
-./FxGqlTest.exe
+.\FxGqlTest.exe
