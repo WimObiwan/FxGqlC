@@ -4,4 +4,4 @@ platform: Any CPU
 build:
   verbosity: minimal
 test_script:
-  -  .\FxGql\BuildScript\test.ps1
+  -  ps: .\FxGql\BuildScript\test.ps1
