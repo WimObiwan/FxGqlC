@@ -1,3 +1,5 @@
-cd ".\FxFqlC\FxGql\FxGqlTest\bin\Release"
+pwd
+
+cd ".\FxGql\FxGqlTest\bin\Release"
 
 .\FxGqlTest.exe
