@@ -1739,33 +1739,34 @@ namespace FxGqlTest
 				"A9AC0C3AC83C40E1B4C3416066D63D324EE9F8C144641DFEED72D140B6557245");
 			engineHash.CaseInsensitive = false;
 			engineOutput.CaseInsensitive = false;
-			TestGql ("select 'test' = 'TEST'",
+			TestGql ("select 'test' = 'TEST'  -- [case sensitive]",
 				"7FC755FADC1B31A6696B8ED57C69D2BFC37F5457735C8FCFAE31FCBD7BBA97D5");
 			engineHash.CaseInsensitive = true;
 			engineOutput.CaseInsensitive = true;
-			TestGql ("select 'test' = 'TEST'",
+			TestGql ("select 'test' = 'TEST'  -- [case insensitive]",
 				"A9AC0C3AC83C40E1B4C3416066D63D324EE9F8C144641DFEED72D140B6557245");
 
 			// SET CULTURE (By default invariant)
-			TestGql ("select convert(float, '19.5')",
-				"1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
-			TestGql ("select convert(float, '19,5')",
-				"483F340355C1F2FFA32586735DE333809A7B336A3992E6AAC2F1049F78D1EA77");
+			TestGql ("select convert(float, '19.5')  -- [culture default]",
+				"1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925"); // "19.5"
+			TestGql ("select convert(float, '19,5')  -- [culture default]",
+				"483F340355C1F2FFA32586735DE333809A7B336A3992E6AAC2F1049F78D1EA77"); // "195"
 			engineHash.CultureInfo = System.Globalization.CultureInfo.GetCultureInfo ("nl-BE");
 			engineOutput.CultureInfo = System.Globalization.CultureInfo.GetCultureInfo ("nl-BE");
-			TestGql ("select 19.5",
-				"241442A311443C021120716286B22E57117C769995B99F52CCBECE41E5034E0B");
-			TestGql ("select convert(float, '19,5')",
-				"241442A311443C021120716286B22E57117C769995B99F52CCBECE41E5034E0B");
-			TestGql ("select convert(float, '19.5')",
-				"483F340355C1F2FFA32586735DE333809A7B336A3992E6AAC2F1049F78D1EA77");
+			TestGql ("select 19.5  -- [culture nl-BE]",
+				"241442A311443C021120716286B22E57117C769995B99F52CCBECE41E5034E0B"); // "19,5"
+			TestGql ("select convert(float, '19,5')  -- [culture nl-BE]",
+				"241442A311443C021120716286B22E57117C769995B99F52CCBECE41E5034E0B"); // "19,5"
+			TestGql ("select convert(float, '19.5')  -- [culture nl-BE]",
+                "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"); // Empty string
 			engineHash.CultureInfo = System.Globalization.CultureInfo.InvariantCulture;
 			engineOutput.CultureInfo = System.Globalization.CultureInfo.InvariantCulture;
-			TestGql ("select 19.5",
-				"1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
-			TestGql ("select convert(float, '19,5')",
-				"483F340355C1F2FFA32586735DE333809A7B336A3992E6AAC2F1049F78D1EA77");
-			TestGql ("select convert(float, '19.5')",
+			TestGql ("select 19.5  -- [culture invariant]",
+				"1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925"); // "19.5"
+			TestGql ("select convert(float, '19,5')  -- [culture invariant]",
+				"483F340355C1F2FFA32586735DE333809A7B336A3992E6AAC2F1049F78D1EA77"); // "195"
+            TestGql("select convert(float, '19,5')  -- [culture invariant]");
+            TestGql("select convert(float, '19.5')  -- [culture invariant]",
 				"1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
 
 			// Added function abs
