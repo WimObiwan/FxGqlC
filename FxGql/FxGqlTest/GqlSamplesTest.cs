@@ -1758,7 +1758,8 @@ namespace FxGqlTest
 			TestGql ("select convert(float, '19,5')  -- [culture nl-BE]",
 				"241442A311443C021120716286B22E57117C769995B99F52CCBECE41E5034E0B"); // "19,5"
 			TestGql ("select convert(float, '19.5')  -- [culture nl-BE]",
-                "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"); // Empty string
+                "483F340355C1F2FFA32586735DE333809A7B336A3992E6AAC2F1049F78D1EA77", // "195" (Mono)
+                "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"); // Empty string (VisualStudio)
 			engineHash.CultureInfo = System.Globalization.CultureInfo.InvariantCulture;
 			engineOutput.CultureInfo = System.Globalization.CultureInfo.InvariantCulture;
 			TestGql ("select 19.5  -- [culture invariant]",
