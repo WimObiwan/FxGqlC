@@ -1,0 +1,7 @@
+version: 1.0.{build}
+configuration: Release
+platform: Any CPU
+build:
+  verbosity: minimal
+test_script:
+  -  ps: .\FxGql\BuildScript\test.ps1
