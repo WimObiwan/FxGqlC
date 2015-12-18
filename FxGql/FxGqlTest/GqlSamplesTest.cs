@@ -1765,7 +1765,8 @@ namespace FxGqlTest
 				"1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925"); // "19.5"
 			TestGql ("select convert(float, '19,5')  -- [culture invariant]",
 				"483F340355C1F2FFA32586735DE333809A7B336A3992E6AAC2F1049F78D1EA77"); // "195"
-            TestGql("select convert(float, '19,5')  -- [culture invariant]");
+            TestGql("select convert(float, '19,5')  -- [culture invariant]",
+                "TESTFAILED");
             TestGql("select convert(float, '19.5')  -- [culture invariant]",
 				"1C5926591FEBC2C633B373704A1EC076694F581CAF687A6798068AD78891A925");
 
