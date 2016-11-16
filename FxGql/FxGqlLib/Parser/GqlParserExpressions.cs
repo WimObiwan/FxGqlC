@@ -341,7 +341,7 @@ namespace FxGqlLib
 					result = UnaryExpression<DataInteger, DataInteger>.CreateAutoConvert ((a) => Math.Abs (a.Value), arg, cultureInfo);
 				break;
             case "LAG":
-                result = LagExpressionFactory.Create(arg, 1);
+                result = LagExpressionFactory.Create(arg);
                 break;
 			//case "COUNT":
 			case "T_COUNT":

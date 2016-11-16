@@ -7,6 +7,11 @@ namespace FxGqlLib
 {
     static class LagExpressionFactory
     {
+        public static StateExpression<IData, IData[], IData> Create(IExpression arg)
+        {
+            return Create(arg, 1);
+        }
+
         public static StateExpression<IData, IData[], IData> Create(IExpression arg, DataInteger lagOffset)
         {
             //return new StateExpression<IData, Tuple<IData, IData>, IData>(
