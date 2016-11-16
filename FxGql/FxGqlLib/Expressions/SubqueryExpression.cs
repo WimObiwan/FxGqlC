@@ -27,12 +27,7 @@ namespace FxGqlLib
 				provider.Initialize (gqlQueryState2);
 				if (!provider.GetNextRecord ()) {
 					Type type = GetResultType ();
-					if (type == typeof(string))
-						return new DataString (""); // TODO: Typed!
-					else if (type == typeof(DataInteger))
-						return new DataInteger (0);
-					else
-						throw new InvalidOperationException ("Expression subquery returned no records");
+                    return DataTypeUtil.GetDefaultFromDataType(GetResultType());
 				}
 				if (provider.Record.Columns.Length != 1)
 					throw new InvalidOperationException ("Expression subquery didn't return exactly 1 column");

@@ -1775,6 +1775,9 @@ namespace FxGqlTest
 			TestGql ("select abs(-17)", 
 				"54183F4323F377B737433A1E98229EAD0FDC686F93BAB057ECB612DAA94002B5");
 
+            // Fix for 'Expression subquery returned no records'
+            TestGql("select top 3 *, (select [Column1] from ['SampleFiles/AirportCodes.csv' -format=csv] where 0=1) from ['SampleFiles/AirportCodes.csv' -format=csv]",
+                "90DCFC4BCEA51EBCDD255F6036C4D3C410C3C81420EA9020135613B5400F92A4");
 
 			if (!Performance) {
 				Console.WriteLine ();

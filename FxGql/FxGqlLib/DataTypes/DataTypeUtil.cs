@@ -83,6 +83,30 @@ namespace FxGqlLib
 				throw new InvalidOperationException ("Unknown data type " + dataType);
 			}
 		}
-	}
+
+        public static IData GetDefaultFromDataType(Type type)
+        {
+            return GetDefaultFromDataType(GetDataType(type));
+        }
+
+        public static IData GetDefaultFromDataType(DataType dataType)
+        {
+            switch (dataType)
+            {
+                case DataType.String:
+                    return new DataString();
+                case DataType.Integer:
+                    return new DataInteger();
+                case DataType.Float:
+                    return new DataFloat();
+                case DataType.Boolean:
+                    return new DataBoolean();
+                case DataType.DateTime:
+                    return new DataDateTime();
+                default:
+                    throw new InvalidOperationException("Unknown data type " + dataType);
+            }
+        }
+    }
 }
 
