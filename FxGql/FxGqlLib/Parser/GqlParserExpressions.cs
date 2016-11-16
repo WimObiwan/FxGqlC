@@ -133,6 +133,11 @@ namespace FxGqlLib
 				return false;
 			}
 
+            public bool HasState()
+            {
+                return false;
+            }
+
             public bool IsConstant ()
 			{
 				return true;
@@ -335,6 +340,14 @@ namespace FxGqlLib
 				else
 					result = UnaryExpression<DataInteger, DataInteger>.CreateAutoConvert ((a) => Math.Abs (a.Value), arg, cultureInfo);
 				break;
+            case "LAG":
+                result = new StateExpression<IData, Tuple<IData, IData>, IData>(
+                    (a) => new Tuple<IData, IData>(DataTypeUtil.GetDefaultFromDataType(arg.GetResultType()), a),
+                    delegate (Tuple<IData, IData> s, IData a) { s = new Tuple<IData, IData>(s.Item2, a); return s; },
+                    (s) => s.Item1,
+                    ConvertExpression.CreateData(arg)
+                    );
+                break;
 			//case "COUNT":
 			case "T_COUNT":
 				result = new AggregationExpression<IData, DataInteger, DataInteger> ((a) => 1, 

@@ -331,6 +331,11 @@ namespace FxGqlLib
 			return true;
 		}
 
+        public bool HasState()
+        {
+            return false;
+        }
+
         public bool IsConstant ()
 		{
 			return false;

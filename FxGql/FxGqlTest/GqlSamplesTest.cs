@@ -1779,7 +1779,10 @@ namespace FxGqlTest
             TestGql("select top 3 *, (select [Column1] from ['SampleFiles/AirportCodes.csv' -format=csv] where 0=1) from ['SampleFiles/AirportCodes.csv' -format=csv]",
                 "90DCFC4BCEA51EBCDD255F6036C4D3C410C3C81420EA9020135613B5400F92A4");
 
-			if (!Performance) {
+            TestGql("select top 10 [Column2], LAG([Column2]) from ['SampleFiles/AirportCodes.csv' -format=csv]",
+                "CC59FCBA46968321EAEFDDF35508F66E9C44771ABABCC08FE6B987C7C8B599BC");
+
+            if (!Performance) {
 				Console.WriteLine ();
 				Console.WriteLine (
 					"{0} tests done, {1} succeeded, {2} failed, {3} unknown",
@@ -1799,11 +1802,11 @@ namespace FxGqlTest
 		public bool RunDevelop ()
 		{
 
-			// TODO: create "view" or "function"
-			// TODO: skip clause (select top 10 skip 2 from ...
+            // TODO: create "view" or "function"
+            // TODO: skip clause (select top 10 skip 2 from ...
 
-			// Template:
-			/*
+            // Template:
+            /*
 			TestGql (
 				@"
 				"
@@ -1811,32 +1814,32 @@ namespace FxGqlTest
 			*/
 
 
-			//TestGql ("select [Date], [Tournament], [Round], [Winner] into ['Test.txt' -Heading=On -Overwrite] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]");
-			//TestGql ("select [Date], [Tournament], [Round], [Winner], LAG([Tournament], 1, 0) OVER (PARTITION [Winner]) from ['Test.txt' -Heading=On] where [Tournament] = 'US Open'");
+            //TestGql ("select [Date], [Tournament], [Round], [Winner] into ['Test.txt' -Heading=On -Overwrite] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]");
+            //TestGql ("select [Date], [Tournament], [Round], [Winner], LAG([Tournament], 1, 0) OVER (PARTITION [Winner]) from ['Test.txt' -Heading=On] where [Tournament] = 'US Open'");
 
-			//TestGql ("select [Tournament], [Winner], Previous([Tournament]) OVER (PARTITION BY [Winner]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'");
+            //TestGql ("select [Tournament], [Winner], Previous([Tournament]) OVER (PARTITION BY [Winner]) from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'");
 
-			//TestGql ("select [Tournament], [Round], [Loser] [Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On], (select [Tournament], 'Winner' [Round], [Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final')");
+            //TestGql ("select [Tournament], [Round], [Loser] [Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On], (select [Tournament], 'Winner' [Round], [Winner] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final')");
 
-//			TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
-//			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-//			TestGql ("select [Tournament], 'Tournament', [Winner] [Player] into ['test.txt' -append] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
-//			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
-//			TestGql ("select * from ['Test.txt' -Heading=On] where [Player] match 'Federer' order by 1",
-//			         "AC29080353E4D44E11FB6A7B887CA29C62E4065CA1153FBCD0B726ECFE06EB88");
-//			TestGql ("select * from ['Test.txt' -Heading=On] where ([Player] match 'Federer') and ([Round] in ('Tournament', 'The final', 'Semifinals')) order by 1",
-//			         "AB1F81635A44CE26781CB50D9CB9D8D0E6D8B12BA4CB33F1B85799E80CEA44F6");
-//			TestGql ("select [Tournament], [Tournament], [The final], [Semifinals] from ['Test.txt' -Heading=On] pivot (first([Player]) for [Round] in ('Tournament', 'The final', 'Semifinals'))");
-//			         "33113552334D66A4079155E9DB9A4E1B32A80AE080F7D9EAC5EE023B5E1CB586");
-			//TestGql ("select [Tournament], [Round], [Player] from ['Test.txt' -Heading=On]");
+            //			TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
+            //			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+            //			TestGql ("select [Tournament], 'Tournament', [Winner] [Player] into ['test.txt' -append] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
+            //			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
+            //			TestGql ("select * from ['Test.txt' -Heading=On] where [Player] match 'Federer' order by 1",
+            //			         "AC29080353E4D44E11FB6A7B887CA29C62E4065CA1153FBCD0B726ECFE06EB88");
+            //			TestGql ("select * from ['Test.txt' -Heading=On] where ([Player] match 'Federer') and ([Round] in ('Tournament', 'The final', 'Semifinals')) order by 1",
+            //			         "AB1F81635A44CE26781CB50D9CB9D8D0E6D8B12BA4CB33F1B85799E80CEA44F6");
+            //			TestGql ("select [Tournament], [Tournament], [The final], [Semifinals] from ['Test.txt' -Heading=On] pivot (first([Player]) for [Round] in ('Tournament', 'The final', 'Semifinals'))");
+            //			         "33113552334D66A4079155E9DB9A4E1B32A80AE080F7D9EAC5EE023B5E1CB586");
+            //TestGql ("select [Tournament], [Round], [Player] from ['Test.txt' -Heading=On]");
 
-			/*TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
+            /*TestGql ("select [Tournament], [Round], [Loser] [Player] into ['test.txt' -overwrite -Heading=On] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On]",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
 			TestGql ("select [Tournament], 'Tournament', [Winner] [Player] into ['test.txt' -append] from ['SampleFiles/Tennis-ATP-2011.csv' -Heading=On] where [Round] = 'The final'",
 			         "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");*/
 
-			// inner select
-			/*
+            // inner select
+            /*
 			TestGql ("select [a].[Player], (select count(*) from ['test.txt' -Heading=On] [b] where [b].[Player] = [a].[Player]) from ['test.txt' -Heading=On] [a]"
 				+ " inner join ['test.txt' -Heading=On] [b] on [a].[Player] = [b].[Player]"
 				+ " where [a].[Tournament] = 'Masters Cup'"
@@ -1846,23 +1849,22 @@ namespace FxGqlTest
 				+ " group by [a].[Player]"
 			);
 			*/
-			// inner join
-			/*
+            // inner join
+            /*
 			TestGql ("select [a].[Player], previous([b].[Tournament]) from ['test.txt' -Heading=On] [a]"
 			         + " join ['test.txt' -Heading=On] [b] on [a].[Player] = [b].[Player]"
 			         + " where [a].[Tournament] = 'Masters Cup'"
 			         + " group by [a].[Player]");
             */
-				
-//SELECT from and/or into database
-//select * from ['select * from MyTable' -provider='System.Data.SqlClient' -connectionstring='Data Source=(local);Initial Catalog=cars;Integrated Security=SSPI']
-//-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateCommand, DbCommand.ExecuteReader,...
-//select * into ['insert into MyTable (col1, col2) values (?, ?)' -provider='System.Data.SqlClient' -connectionstring='Data Source=(local);Initial Catalog=cars;Integrated Security=SSPI'] from [*.log]
-//-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateDataAdapter, DbDataAdapter.InsertCommand,...
-//select * from ['*.log' -provider='files']  --default provider = filesystem
 
+            //SELECT from and/or into database
+            //select * from ['select * from MyTable' -provider='System.Data.SqlClient' -connectionstring='Data Source=(local);Initial Catalog=cars;Integrated Security=SSPI']
+            //-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateCommand, DbCommand.ExecuteReader,...
+            //select * into ['insert into MyTable (col1, col2) values (?, ?)' -provider='System.Data.SqlClient' -connectionstring='Data Source=(local);Initial Catalog=cars;Integrated Security=SSPI'] from [*.log]
+            //-- Implement using DbProviderFactories.GetFactory, DbProviderFactory.CreateConnection, DbProviderFactory.CreateDataAdapter, DbDataAdapter.InsertCommand,...
+            //select * from ['*.log' -provider='files']  --default provider = filesystem
 
-			return failed == 0;
+            return failed == 0;
 		}
 
 		#region IDisposable implementation

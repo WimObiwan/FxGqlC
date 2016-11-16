@@ -71,6 +71,11 @@ namespace FxGqlLib
 			//TODO: Consistency check on aggregation
 		}
 
+        public bool HasState()
+        {
+            return false;
+        }
+
         public bool IsConstant ()
 		{
 			foreach (WhenItem whenItem in whenItems) {

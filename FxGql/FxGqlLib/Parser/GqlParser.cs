@@ -359,16 +359,21 @@ namespace FxGqlLib
 					);
 					groupbyProvider = provider;
 				} else {
-					// e.g. select count(1) from [myfile.txt]
-					if (outputColumns.Any (p => p is SingleColumn && ((SingleColumn)p).Expression.IsAggregated ())) {
-						provider = new GroupbyProvider (
-							provider,
-							outputColumns,
-							dataComparer
-						);
-					} else {
-						provider = new ColumnProvider (outputColumns, provider);
-					}
+                    // e.g. select count(1) from [myfile.txt]
+                    if (outputColumns.Any(p => p is SingleColumn && ((SingleColumn)p).Expression.IsAggregated())) {
+                        provider = new GroupbyProvider(
+                            provider,
+                            outputColumns,
+                            dataComparer
+                        );
+                    } else if (outputColumns.Any(p => p is SingleColumn && ((SingleColumn)p).Expression.HasState())) {
+                        provider = new StateProvider(
+                            provider,
+                            outputColumns);
+                    }
+                    else {
+                        provider = new ColumnProvider(outputColumns, provider);
+                    }
 				}
                 
 				if (distinct)

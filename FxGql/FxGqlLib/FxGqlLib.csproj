@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Functions\StateExpression.cs" />
     <Compile Include="Parser\GqlParser.cs" />
     <Compile Include="Expressions\Expression.cs" />
     <Compile Include="Expressions\ConstExpression.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="GqlEngine.cs" />
     <Compile Include="Parser\GqlAntlrOutput\output\gqlLexer.cs" />
     <Compile Include="Parser\GqlAntlrOutput\output\gqlParser.cs" />
+    <Compile Include="Providers\Flow\StateProvider.cs" />
     <Compile Include="Providers\IProvider.cs" />
     <Compile Include="SystemVars\LineSystemVars.cs" />
     <Compile Include="SystemVars\FileNameSystemVar.cs" />
@@ -155,21 +157,5 @@
     <None Include="Parser\GqlAntlrOutput\gql.g" />
     <None Include="Parser\GqlAntlrOutput\output\gql.tokens" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Parser\" />
-    <Folder Include="Expressions\" />
-    <Folder Include="Providers\" />
-    <Folder Include="SystemVars\" />
-    <Folder Include="Functions\" />
-    <Folder Include="Operators\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Commands\" />
-    <Folder Include="..\" />
-    <Folder Include="Util\" />
-    <Folder Include="DataTypes\" />
-    <Folder Include="Providers\Flow\" />
-    <Folder Include="Providers\File\" />
-    <Folder Include="Providers\Directory\" />
-    <Folder Include="Providers\Data\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

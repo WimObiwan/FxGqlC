@@ -13,6 +13,8 @@ namespace FxGqlLib
 		// TODO: IsTimeDependent(); for optimalisation
 		bool IsAggregated ();
 
+        bool HasState();
+
         bool IsConstant ();
 
 		void Process (StateBin state, GqlQueryState gqlQueryState); // For Aggregation e.g. LAST() or State e.g. PREVIOUS()
@@ -42,6 +44,11 @@ namespace FxGqlLib
 		}
 
         public virtual bool IsAggregated()
+        {
+            return false;
+        }
+
+        public virtual bool HasState()
         {
             return false;
         }
