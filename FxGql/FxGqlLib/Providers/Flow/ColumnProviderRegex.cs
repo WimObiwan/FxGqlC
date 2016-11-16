@@ -77,8 +77,12 @@ namespace FxGqlLib
 						dataStrings [i].Set (match.Groups [i + 1].Value);
 						record.Columns [i] = dataStrings [i];
 					}
-					
-					return true;
+
+                    record.LineNo = provider.Record.LineNo;
+                    record.Source = provider.Record.Source;
+                    record.TotalLineNo = provider.Record.TotalLineNo;
+
+                    return true;
 				}
 			}
 			
