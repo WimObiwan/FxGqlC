@@ -198,14 +198,14 @@ namespace FxGqlLib
 			return expr.IsConstant ();
 		}
 
-		public override void Aggregate (StateBin state, GqlQueryState gqlQueryState)
+		public override void Process (StateBin state, GqlQueryState gqlQueryState)
 		{
-			expr.Aggregate (state, gqlQueryState);
+			expr.Process (state, gqlQueryState);
 		}
 
-		public override IData AggregateCalculate (StateBin state)
+		public override IData ProcessCalculate (StateBin state)
 		{
-			return expr.AggregateCalculate (state);
+			return expr.ProcessCalculate (state);
 		}
 	}
 }

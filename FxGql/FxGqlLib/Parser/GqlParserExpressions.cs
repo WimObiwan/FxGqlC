@@ -133,17 +133,17 @@ namespace FxGqlLib
 				return false;
 			}
 
-			public bool IsConstant ()
+            public bool IsConstant ()
 			{
 				return true;
 			}
 
-			public void Aggregate (StateBin state, GqlQueryState gqlQueryState)
+			public void Process (StateBin state, GqlQueryState gqlQueryState)
 			{
 				throw new InvalidOperationException ();
 			}
 
-			public IData AggregateCalculate (StateBin state)
+			public IData ProcessCalculate (StateBin state)
 			{
 				throw new InvalidOperationException ();
 			}

@@ -130,7 +130,7 @@ namespace FxGqlLib
 				while (!found && enumerator.MoveNext ()) {
 					if (havingExpression == null)
 						found = true;
-					else if (havingExpression.AggregateCalculate (enumerator.Current.Value).CompareTo (DataBoolean.True) == 0)
+					else if (havingExpression.ProcessCalculate (enumerator.Current.Value).CompareTo (DataBoolean.True) == 0)
 						found = true;
 				}
 
@@ -149,7 +149,7 @@ namespace FxGqlLib
 				while (!found && enumerator.MoveNext ()) {
 					if (havingExpression == null)
 						found = true;
-					else if (havingExpression.AggregateCalculate (enumerator.Current.Value).CompareTo (DataBoolean.True) == 0)
+					else if (havingExpression.ProcessCalculate (enumerator.Current.Value).CompareTo (DataBoolean.True) == 0)
 						found = true;
 				}
 
@@ -160,7 +160,7 @@ namespace FxGqlLib
 			currentRecord++;
 			record.LineNo = currentRecord;
 			for (int col = 0; col < outputColumns.Length; col++) {
-				record.Columns [col] = outputColumns [col].AggregateCalculate (enumerator.Current.Value);
+				record.Columns [col] = outputColumns [col].ProcessCalculate (enumerator.Current.Value);
 			}
 			
 			record.OriginalColumns = record.Columns;
@@ -251,10 +251,10 @@ namespace FxGqlLib
 				
 				// Aggregate
 				foreach (var column in outputColumns)
-					column.Aggregate (state, newGqlQueryState);
+					column.Process (state, newGqlQueryState);
 
 				if (havingExpression != null)
-					havingExpression.Aggregate (state, newGqlQueryState);
+					havingExpression.Process (state, newGqlQueryState);
 
 				moreData = provider.GetNextRecord ();
 			} while (moreData);
@@ -331,12 +331,12 @@ namespace FxGqlLib
 			return true;
 		}
 
-		public bool IsConstant ()
+        public bool IsConstant ()
 		{
 			return false;
 		}
 
-		public void Aggregate (StateBin state, GqlQueryState gqlQueryState)
+		public void Process (StateBin state, GqlQueryState gqlQueryState)
 		{
 			IData comparable1 = expression.EvaluateAsData (gqlQueryState);
 			IData comparable2;
@@ -352,7 +352,7 @@ namespace FxGqlLib
 			}
 		}
 
-		public IData AggregateCalculate (StateBin state)
+		public IData ProcessCalculate (StateBin state)
 		{
 			IData data;
 			state.GetState<IData> (this, out data);

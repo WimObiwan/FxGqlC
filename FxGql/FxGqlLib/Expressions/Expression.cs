@@ -13,11 +13,11 @@ namespace FxGqlLib
 		// TODO: IsTimeDependent(); for optimalisation
 		bool IsAggregated ();
 
-		bool IsConstant ();
+        bool IsConstant ();
 
-		void Aggregate (StateBin state, GqlQueryState gqlQueryState);
+		void Process (StateBin state, GqlQueryState gqlQueryState); // For Aggregation e.g. LAST() or State e.g. PREVIOUS()
 
-		IData AggregateCalculate (StateBin state);
+        IData ProcessCalculate (StateBin state);
 	}
 
 	public abstract class Expression<T> : IExpression where T : IData
@@ -41,22 +41,22 @@ namespace FxGqlLib
 			return typeof(T);
 		}
 
-		public virtual bool IsAggregated ()
+        public virtual bool IsAggregated()
+        {
+            return false;
+        }
+
+        public virtual bool IsConstant ()
 		{
 			return false;
 		}
 
-		public virtual bool IsConstant ()
-		{
-			return false;
-		}
-
-		public virtual void Aggregate (StateBin state, GqlQueryState gqlQueryState)
+		public virtual void Process (StateBin state, GqlQueryState gqlQueryState)
 		{
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}
 
-		public virtual IData AggregateCalculate (StateBin state)
+		public virtual IData ProcessCalculate (StateBin state)
 		{
 			throw new Exception (string.Format ("Aggregation not supported on expression {0}", this.GetType ().ToString ()));
 		}

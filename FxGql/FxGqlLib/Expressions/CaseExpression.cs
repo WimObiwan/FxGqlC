@@ -71,7 +71,7 @@ namespace FxGqlLib
 			//TODO: Consistency check on aggregation
 		}
 
-		public bool IsConstant ()
+        public bool IsConstant ()
 		{
 			foreach (WhenItem whenItem in whenItems) {
 				if (!whenItem.Check.IsConstant ()) {
@@ -82,14 +82,14 @@ namespace FxGqlLib
 			return true;
 		}
 
-		public void Aggregate (StateBin state, GqlQueryState gqlQueryState)
+		public void Process (StateBin state, GqlQueryState gqlQueryState)
 		{
 			throw new NotSupportedException ("Aggregation with case expression not supported");
 
 			//GetResultExpression(gqlQueryState).Aggregate(state, gqlQueryState);
 		}
 
-		public IData AggregateCalculate (StateBin state)
+		public IData ProcessCalculate (StateBin state)
 		{
 			throw new NotSupportedException ("Aggregation with case expression not supported");
 

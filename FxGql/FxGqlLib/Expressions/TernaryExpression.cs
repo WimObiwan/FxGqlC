@@ -39,26 +39,26 @@ namespace FxGqlLib
 
 		public override bool IsAggregated ()
 		{
-			return arg1.IsAggregated ();
-		}
+			return arg1.IsAggregated ();  // TODO: || arg2.IsAggregated() || arg3.IsAggregated() ? 
+        }
 
 		public override bool IsConstant ()
 		{
 			return arg1.IsConstant () && arg2.IsConstant () && arg3.IsConstant ();
 		}
 
-		public override void Aggregate (StateBin state, GqlQueryState gqlQueryState)
+		public override void Process (StateBin state, GqlQueryState gqlQueryState)
 		{
-			arg1.Aggregate (state, gqlQueryState);
-			arg2.Aggregate (state, gqlQueryState);
-			arg3.Aggregate (state, gqlQueryState);
+			arg1.Process (state, gqlQueryState);
+			arg2.Process (state, gqlQueryState);
+			arg3.Process (state, gqlQueryState);
 		}
 
-		public override IData AggregateCalculate (StateBin state)
+		public override IData ProcessCalculate (StateBin state)
 		{
-			T1 t1 = (T1)arg1.AggregateCalculate (state);
-			T2 t2 = (T2)arg2.AggregateCalculate (state);
-			T3 t3 = (T3)arg3.AggregateCalculate (state);
+			T1 t1 = (T1)arg1.ProcessCalculate (state);
+			T2 t2 = (T2)arg2.ProcessCalculate (state);
+			T3 t3 = (T3)arg3.ProcessCalculate (state);
 			return functor (t1, t2, t3);
 		}
 

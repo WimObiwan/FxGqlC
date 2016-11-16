@@ -43,7 +43,7 @@ namespace FxGqlLib
 			return true;
 		}
 
-		public override void Aggregate (StateBin state, GqlQueryState gqlQueryState)
+		public override void Process (StateBin state, GqlQueryState gqlQueryState)
 		{
 			S stateValue;
 			T t = arg.Evaluate (gqlQueryState);
@@ -54,7 +54,7 @@ namespace FxGqlLib
 			state.SetState (this, stateValue);
 		}
 
-		public override IData AggregateCalculate (StateBin state)
+		public override IData ProcessCalculate (StateBin state)
 		{
 			S stateValue;
 			if (!state.GetState<S> (this, out stateValue))
