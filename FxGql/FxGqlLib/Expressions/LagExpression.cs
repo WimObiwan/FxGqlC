@@ -14,6 +14,11 @@ namespace FxGqlLib
 
         public static StateExpression<IData, IData[], IData> Create(IExpression arg, DataInteger lagOffset)
         {
+            return Create(arg, lagOffset, DataTypeUtil.GetDefaultFromDataType(arg.GetResultType()));
+        }
+
+        public static StateExpression<IData, IData[], IData> Create(IExpression arg, DataInteger lagOffset, IData argDefault)
+        {
             //return new StateExpression<IData, Tuple<IData, IData>, IData>(
             //    (a) => new Tuple<IData, IData>(DataTypeUtil.GetDefaultFromDataType(arg.GetResultType()), a),
             //    delegate (Tuple<IData, IData> s, IData a) { s = new Tuple<IData, IData>(s.Item2, a); return s; },
@@ -26,7 +31,7 @@ namespace FxGqlLib
                 {
                     var s = new IData[lagOffset + 1];
                     for (int i = 0; i < lagOffset; i++)
-                        s[i] = DataTypeUtil.GetDefaultFromDataType(arg.GetResultType());
+                        s[i] = argDefault;
                     s[lagOffset] = a;
                     return s;
                 },

@@ -1791,6 +1791,21 @@ namespace FxGqlTest
             TestGql("select top 10 [Column2], LAG([Column2], 3) from ['SampleFiles/AirportCodes.csv' -format=csv]",
                 "1B642A9F11DB4A525A10FB5DDBE4D2FF9B73871AA329B82DB81B352B78244565");
 
+            TestGql("select top 10 [Column2], LAG([Column2], 1, '') from ['SampleFiles/AirportCodes.csv' -format=csv]",
+                "CC59FCBA46968321EAEFDDF35508F66E9C44771ABABCC08FE6B987C7C8B599BC");
+
+            TestGql("select top 10 [Column2], LAG([Column2], 3, '') from ['SampleFiles/AirportCodes.csv' -format=csv]",
+                "1B642A9F11DB4A525A10FB5DDBE4D2FF9B73871AA329B82DB81B352B78244565");
+
+            TestGql("select top 10 [Column2], LAG([Column2], 0, '') from ['SampleFiles/AirportCodes.csv' -format=csv]",
+                "52E4C44BBF3430A7DDC64A5B3AB8A0C0A9CBCF5D9A44FD91F49CF4A19C86A2D3");
+
+            TestGql("select top 10 [Column2], LAG([Column2], 1, '???') from ['SampleFiles/AirportCodes.csv' -format=csv]",
+                "B631B4C88AFB2D0E23AF6CBEB36522807236D76F6C8CA90DE110608540C999CC");
+
+            TestGql("select top 10 [Column2], LAG([Column2], 3, '???') from ['SampleFiles/AirportCodes.csv' -format=csv]",
+                "7A70200FD988391486783176D7F84A1DFC1367924CF40B00066E23420509EBD6");
+
             if (!Performance) {
 				Console.WriteLine ();
 				Console.WriteLine (

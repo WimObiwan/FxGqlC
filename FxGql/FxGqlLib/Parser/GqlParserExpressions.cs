@@ -691,7 +691,35 @@ namespace FxGqlLib
 					arg3,
 					cultureInfo);
 				break;
-			default:
+            case "LAG":
+                if (arg2 is ConstExpression<DataInteger>)
+                {
+                    DataInteger lagOffset = ((ConstExpression<DataInteger>)arg2).GetConstValue();
+                    if (lagOffset < 0) // Lag
+                        throw new ParserException(string.Format(
+                            "LAG function offset ({0}) must be positive",
+                            lagOffset
+                        ), functionCallTree.GetChild(2));
+                    else if (lagOffset == 0) // Lag 0 is a no-op
+                        result = arg1;
+                    else {
+                        var argDefault = ConvertExpression.Create(DataTypeUtil.GetDataType(arg1.GetResultType()), arg3, cultureInfo);
+                        if (!argDefault.IsConstant()) {
+                            throw new ParserException("LAG function default value must be constant", functionCallTree.GetChild(3));
+                        }
+                        var argDefaultConst = argDefault.EvaluateAsData(null);
+                        result = LagExpressionFactory.Create(arg1, lagOffset, argDefaultConst);
+                    }
+                }
+                else
+                {
+                    throw new ParserException(
+                        string.Format("Lag offset cannot be datatype {0}",
+                            arg2.GetResultType().ToString()),
+                        functionCallTree.GetChild(2));
+                }
+                break;
+            default:
 				throw new ParserException (string.Format (
 					"Function call to {0} with 2 parameters not supported.",
 					functionName
