@@ -84,7 +84,7 @@ namespace FxGqlC
 			else
 				version = string.Format ("v{0}.{1}", info.FileMajorPart, info.FileMinorPart);
 
-			version += "-" + RetrieveLinkerTimestamp ().ToString ("yyyyMMdd");
+			//version += "-" + RetrieveLinkerTimestamp ().ToString ("yyyyMMdd");
 
 			return version;
 		}
@@ -298,6 +298,7 @@ namespace FxGqlC
 			manualResetEvent.WaitOne (500);
 		}
 
+		/*
 		static private DateTime RetrieveLinkerTimestamp ()
 		{
 			string filePath = System.Reflection.Assembly.GetCallingAssembly ().Location;
@@ -322,6 +323,7 @@ namespace FxGqlC
 			dt = dt.AddHours (TimeZone.CurrentTimeZone.GetUtcOffset (dt).Hours);
 			return dt;
 		}
+		*/
 
 		public static void ShowHelp ()
 		{
