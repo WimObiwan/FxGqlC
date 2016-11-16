@@ -341,12 +341,7 @@ namespace FxGqlLib
 					result = UnaryExpression<DataInteger, DataInteger>.CreateAutoConvert ((a) => Math.Abs (a.Value), arg, cultureInfo);
 				break;
             case "LAG":
-                result = new StateExpression<IData, Tuple<IData, IData>, IData>(
-                    (a) => new Tuple<IData, IData>(DataTypeUtil.GetDefaultFromDataType(arg.GetResultType()), a),
-                    delegate (Tuple<IData, IData> s, IData a) { s = new Tuple<IData, IData>(s.Item2, a); return s; },
-                    (s) => s.Item1,
-                    ConvertExpression.CreateData(arg)
-                    );
+                result = LagExpressionFactory.Create(arg, 1);
                 break;
 			//case "COUNT":
 			case "T_COUNT":

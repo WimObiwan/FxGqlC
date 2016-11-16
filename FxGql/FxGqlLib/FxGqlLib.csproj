@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Expressions\LagExpression.cs" />
     <Compile Include="Functions\StateExpression.cs" />
     <Compile Include="Parser\GqlParser.cs" />
     <Compile Include="Expressions\Expression.cs" />
