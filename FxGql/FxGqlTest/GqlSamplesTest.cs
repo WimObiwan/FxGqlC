@@ -1809,6 +1809,9 @@ namespace FxGqlTest
             TestGql("select top 10 $lineno, $filename, * from ['SampleFiles/AirportCodes.csv' -columns='(?:\"(?<Column1>.*)\",(?<Column2>.{3}))|(?:(?<Column1>.*),(?<Column2>.{3}))'] where contains($line, 'us')",
                 "34F6D17658CE5E378949A544AC60335BF7E0D0F0145909091E506D3EBE3B6B59");
 
+            TestGql("select [Code], [PreviousCode] from (select top 10 [column1] [Code], lag([column1]) [PreviousCode] from ['SampleFiles/AirportCodes.csv' -format=csv])",
+                "532A3060A1A817E81FC8B4F35E7B8DFFC4589F2D2C0E05CE4053970D58145B0B");
+
             if (!Performance) {
 				Console.WriteLine ();
 				Console.WriteLine (

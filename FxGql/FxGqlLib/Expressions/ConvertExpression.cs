@@ -186,9 +186,17 @@ namespace FxGqlLib
 			}
 		}
 
-		#endregion
+        #endregion
 
-		public override bool IsAggregated ()
+        public override Type GetResultType()
+        {
+            if (typeof(T) == typeof(IData))
+                return expr.GetResultType();
+            else
+                return base.GetResultType();
+        }
+
+        public override bool IsAggregated ()
 		{
 			return expr.IsAggregated ();
 		}

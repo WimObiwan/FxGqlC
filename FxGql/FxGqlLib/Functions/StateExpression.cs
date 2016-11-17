@@ -41,6 +41,11 @@ namespace FxGqlLib
             throw new NotSupportedException();
         }
 
+        public override Type GetResultType()
+        {
+            return arg.GetResultType();
+        }
+
         public override bool IsAggregated()
         {
             return false;
