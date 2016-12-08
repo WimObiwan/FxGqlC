@@ -23,6 +23,10 @@ FxGqlC was originally developed for extracting useful information from huge log 
       <dependency id="" version="__VERSION__" />
       <dependency id="" />
     </dependencies>-->
+    <docsUrl>https://github.com/WimObiwan/FxGqlC/wiki</docsUrl>
+    <bugTrackerUrl>https://github.com/WimObiwan/FxGqlC/issues</bugTrackerUrl>
+    <packageSourceUrl>https://github.com/WimObiwan/FxGqlC/tree/master/Chocolatey/fxgqlc</packageSourceUrl>
+    <projectSourceUrl>https://github.com/WimObiwan/FxGqlC</projectSourceUrl>
     <releaseNotes>https://github.com/WimObiwan/FxGqlC/wiki/Release-notes</releaseNotes>
   </metadata>
   <files>
