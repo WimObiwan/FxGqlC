@@ -16,7 +16,7 @@ FxGqlC was originally developed for extracting useful information from huge log 
     <copyright></copyright>
     <licenseUrl>https://github.com/WimObiwan/FxGqlC/blob/master/FxGql/FxGqlC/FxGqlC%20License.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <iconUrl>https://raw.githubusercontent.com/WimObiwan/FxGqlC/master/Chocolatey/fxgqlc/fxgqlc.ico</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/WimObiwan/FxGqlC/master/Chocolatey/fxgqlc/fxgqlc.png</iconUrl>
     <docsUrl>https://github.com/WimObiwan/FxGqlC/wiki</docsUrl>
     <bugTrackerUrl>https://github.com/WimObiwan/FxGqlC/issues</bugTrackerUrl>
     <packageSourceUrl>https://github.com/WimObiwan/FxGqlC/tree/master/Chocolatey/fxgqlc</packageSourceUrl>
