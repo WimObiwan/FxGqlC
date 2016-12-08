@@ -4,7 +4,7 @@
   <metadata>
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
     <id>fxgqlc</id>
-    <title>FxGqlC (Install)</title>
+    <title>FxGqlC</title>
     <version>STUB</version>
     <authors>Fox Innovations / Wim Devos</authors>
     <owners>Fox Innovations / Wim Devos</owners>
