@@ -12,7 +12,7 @@ The GQL language of FxGqlC is based on T-SQL, the SQL variant used in Microsoft 
 FxGqlC was originally developed for extracting useful information from huge log files in a very fast way. 
     </description>
     <projectUrl>https://github.com/WimObiwan/FxGqlC/wiki</projectUrl>
-    <tags>fxgqlc admin</tags>
+    <tags>fxgqlc</tags>
     <copyright></copyright>
     <licenseUrl>https://github.com/WimObiwan/FxGqlC/blob/master/FxGql/FxGqlC/FxGqlC%20License.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
