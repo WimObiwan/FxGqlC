@@ -146,7 +146,7 @@ namespace FxGqlC
 				} else if (string.Equals (args [i], "-nochecknewversion", StringComparison.InvariantCultureIgnoreCase)) {
 					nochecknewversion = true;
 					notracking = true;
-				} else if (string.Equals (args [i], "-nochecknewversion", StringComparison.InvariantCultureIgnoreCase)) {
+				} else if (string.Equals (args [i], "-noautoupdate", StringComparison.InvariantCultureIgnoreCase)) {
 					noautoupdate = true;
 				} else {
 					errors.Add (string.Format ("Unknown parameter '{0}'", args [i]));
