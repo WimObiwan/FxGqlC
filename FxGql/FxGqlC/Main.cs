@@ -17,9 +17,9 @@ namespace FxGqlC
 		static GqlEngine gqlEngine;
 		static string version;
 		static int versionType;
-		static string lastRelease;
-		static bool nochecknewversion = false;
-		static bool noautoupdate = false;
+		//static string lastRelease;
+		//static bool nochecknewversion = false;
+		//static bool noautoupdate = false;
 		static bool notracking = false;
 		//static DateTime lastCheck = DateTime.MinValue;
 		static bool continuePromptMode = true;
@@ -143,11 +143,11 @@ namespace FxGqlC
 						autoexec = args [i];
 					else
 						errors.Add ("Please specify a GQL file after '-autoexec'");
-				} else if (string.Equals (args [i], "-nochecknewversion", StringComparison.InvariantCultureIgnoreCase)) {
-					nochecknewversion = true;
-					notracking = true;
-				} else if (string.Equals (args [i], "-noautoupdate", StringComparison.InvariantCultureIgnoreCase)) {
-					noautoupdate = true;
+				//} else if (string.Equals (args [i], "-nochecknewversion", StringComparison.InvariantCultureIgnoreCase)) {
+				//	nochecknewversion = true;
+				//	notracking = true;
+				//} else if (string.Equals (args [i], "-noautoupdate", StringComparison.InvariantCultureIgnoreCase)) {
+				//	noautoupdate = true;
 				} else {
 					errors.Add (string.Format ("Unknown parameter '{0}'", args [i]));
 				}				
@@ -460,7 +460,7 @@ namespace FxGqlC
 			if (!ExecuteClientCommand (command)) {
 				ExecuteServerCommand (command);
 			}
-			CheckToDisplayNewVersionMessage ();
+			//CheckToDisplayNewVersionMessage ();
 		}
 
 		static bool ExecuteClientCommand (string command)
@@ -722,7 +722,7 @@ namespace FxGqlC
 
 		static void CheckForUpdates (State state)
 		{
-			if (nochecknewversion && notracking)
+			if (/*nochecknewversion &&*/ notracking)
 				return;
 			//DateTime now = DateTime.Now;
 			//if (lastCheck == DateTime.MinValue || lastCheck + new TimeSpan (0, 15, 0) < now) {
@@ -740,7 +740,7 @@ namespace FxGqlC
 
 		static void CheckForUpdatesAsync (State state)
 		{
-			if (nochecknewversion && notracking)
+			if (/*nochecknewversion && */ notracking)
 				return;
 			for (int i = 0; i < 3; i++) {
 				try {
@@ -760,87 +760,87 @@ namespace FxGqlC
 
 						client.Headers.Add (System.Net.HttpRequestHeader.UserAgent, string.Format ("FxGqlC/{3} ({0}; {1}; {2})", Environment.OSVersion.Platform, Environment.OSVersion.Version, Environment.OSVersion.VersionString, version));
 
-						if (!nochecknewversion) {
-							string type;
-							if (versionType == 3)
-								type = "";
-							else
-								type = "beta-";
-							string urlRelease = string.Format ("https://sites.google.com/site/fxgqlc/home/downloads/release-{0}last.txt", type);
-							byte[] data = client.DownloadData (urlRelease);
-							string url;
-							using (StreamReader r = new StreamReader (new MemoryStream (data))) {
-								lastRelease = r.ReadLine ();
-								url = r.ReadLine ();
-							}
+						//if (!nochecknewversion) {
+						//	string type;
+						//	if (versionType == 3)
+						//		type = "";
+						//	else
+						//		type = "beta-";
+						//	string urlRelease = string.Format ("https://sites.google.com/site/fxgqlc/home/downloads/release-{0}last.txt", type);
+						//	byte[] data = client.DownloadData (urlRelease);
+						//	string url;
+						//	using (StreamReader r = new StreamReader (new MemoryStream (data))) {
+						//		lastRelease = r.ReadLine ();
+						//		url = r.ReadLine ();
+						//	}
 
-							//Console.WriteLine (lastRelease);
-							//Console.WriteLine (version);
-							//Console.WriteLine (url);
-							if (CompareVersion (lastRelease, version) > 0 && url != null) {
-								string fileName = null;
-								try {
-									fileName = System.IO.Path.GetTempFileName ();
-									client.DownloadFile (url, fileName);
+						//	//Console.WriteLine (lastRelease);
+						//	//Console.WriteLine (version);
+						//	//Console.WriteLine (url);
+						//	if (CompareVersion (lastRelease, version) > 0 && url != null) {
+						//		string fileName = null;
+						//		try {
+						//			fileName = System.IO.Path.GetTempFileName ();
+						//			client.DownloadFile (url, fileName);
 
-									string appDir = Path.GetDirectoryName (Assembly.GetExecutingAssembly ().Location);
-									string newVersionDir = 
-										Path.Combine (
-											appDir,
-											"NewVersion");
-									if (Directory.Exists (newVersionDir))
-										Directory.Delete (newVersionDir, true);
-									Directory.CreateDirectory (newVersionDir);
-									ExtractZipFile (fileName, null, newVersionDir);
+						//			string appDir = Path.GetDirectoryName (Assembly.GetExecutingAssembly ().Location);
+						//			string newVersionDir = 
+						//				Path.Combine (
+						//					appDir,
+						//					"NewVersion");
+						//			if (Directory.Exists (newVersionDir))
+						//				Directory.Delete (newVersionDir, true);
+						//			Directory.CreateDirectory (newVersionDir);
+						//			ExtractZipFile (fileName, null, newVersionDir);
 
-									string oldVersionDir = 
-										Path.Combine (
-											appDir,
-											"OldVersion");
-									if (Directory.Exists (oldVersionDir))
-										Directory.Delete (oldVersionDir, true);
-									Directory.CreateDirectory (oldVersionDir);
+						//			string oldVersionDir = 
+						//				Path.Combine (
+						//					appDir,
+						//					"OldVersion");
+						//			if (Directory.Exists (oldVersionDir))
+						//				Directory.Delete (oldVersionDir, true);
+						//			Directory.CreateDirectory (oldVersionDir);
 
-									string[] files = Directory.GetFiles (newVersionDir);
-									foreach (string file in files) {
-										//Console.WriteLine (file);
-										string fileName2 = Path.GetFileName (file);
-										string appDirFile = Path.Combine (appDir, fileName2);
-										//Console.WriteLine (appDirFile);
-										//Console.WriteLine (Path.Combine (oldVersionDir, fileName2));
-										//Console.WriteLine (appDirFile);
-										if (File.Exists (appDirFile))
-											File.Move (appDirFile, Path.Combine (oldVersionDir, fileName2));
-										File.Move (file, appDirFile);
+						//			string[] files = Directory.GetFiles (newVersionDir);
+						//			foreach (string file in files) {
+						//				//Console.WriteLine (file);
+						//				string fileName2 = Path.GetFileName (file);
+						//				string appDirFile = Path.Combine (appDir, fileName2);
+						//				//Console.WriteLine (appDirFile);
+						//				//Console.WriteLine (Path.Combine (oldVersionDir, fileName2));
+						//				//Console.WriteLine (appDirFile);
+						//				if (File.Exists (appDirFile))
+						//					File.Move (appDirFile, Path.Combine (oldVersionDir, fileName2));
+						//				File.Move (file, appDirFile);
 							
-										try {
-											if (Path.GetExtension (appDirFile).Equals (".exe", StringComparison.InvariantCultureIgnoreCase)) {
-												Process ExeScript = new Process ();
-												ExeScript.StartInfo.FileName = "chmod";
-												ExeScript.StartInfo.Arguments = "+x \"" + appDirFile + "\"";
-												ExeScript.Start ();
-											}
-										} catch {
-										}
-									}
+						//				try {
+						//					if (Path.GetExtension (appDirFile).Equals (".exe", StringComparison.InvariantCultureIgnoreCase)) {
+						//						Process ExeScript = new Process ();
+						//						ExeScript.StartInfo.FileName = "chmod";
+						//						ExeScript.StartInfo.Arguments = "+x \"" + appDirFile + "\"";
+						//						ExeScript.Start ();
+						//					}
+						//				} catch {
+						//				}
+						//			}
 																		
-									// Silent upgrade: No more display message to the user about the new version
-									nochecknewversion = true;
-								} catch (Exception) {
-									//Console.WriteLine (x);
-								} finally {
-									try {
-										if (fileName != null && File.Exists (fileName))
-											File.Delete (fileName);
-									} catch {
-									}
-								}
+						//			// Silent upgrade: No more display message to the user about the new version
+						//			nochecknewversion = true;
+						//		} catch (Exception) {
+						//			//Console.WriteLine (x);
+						//		} finally {
+						//			try {
+						//				if (fileName != null && File.Exists (fileName))
+						//					File.Delete (fileName);
+						//			} catch {
+						//			}
+						//		}
 
-							} else {
-								// only check version 1 time
-								nochecknewversion = true;
-							}
-						}
+						//	} else {
+						//		// only check version 1 time
+						//		nochecknewversion = true;
+						//	}
+						//}
 
 						if (!notracking) {
 							Random rnd = new Random ();
@@ -1000,21 +1000,21 @@ namespace FxGqlC
 			return fqdn;
 		}
 
-		static void CheckToDisplayNewVersionMessage ()
-		{
-			if (nochecknewversion && notracking)
-				return;
+		//static void CheckToDisplayNewVersionMessage ()
+		//{
+		//	if (nochecknewversion && notracking)
+		//		return;
 
-			if (!nochecknewversion && noautoupdate && lastRelease != null) {
-				if (lastRelease.CompareTo (version) > 0) {
-					Console.WriteLine ("A new version version of FxGqlC is available on https://sites.google.com/site/fxgqlc/home");
-					Console.WriteLine ("Your version is {0} and the new version is {1}", version, lastRelease);
-				}
+		//	if (!nochecknewversion && noautoupdate && lastRelease != null) {
+		//		if (lastRelease.CompareTo (version) > 0) {
+		//			Console.WriteLine ("A new version version of FxGqlC is available on https://sites.google.com/site/fxgqlc/home");
+		//			Console.WriteLine ("Your version is {0} and the new version is {1}", version, lastRelease);
+		//		}
 
-				nochecknewversion = true;
-			}
-			CheckForUpdates (State.Continue);
-		}
+		//		nochecknewversion = true;
+		//	}
+		//	CheckForUpdates (State.Continue);
+		//}
 
 		static int GetUniqueId ()
 		{
