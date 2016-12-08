@@ -26,6 +26,6 @@ FxGqlC was originally developed for extracting useful information from huge log 
     <releaseNotes>https://github.com/WimObiwan/FxGqlC/wiki/Release-notes</releaseNotes>
   </metadata>
   <files>
-    <file src="tools\**" target="tools" />
+    <file src="tools\**" target="" />
   </files>
 </package>
