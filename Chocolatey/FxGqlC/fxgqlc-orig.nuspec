@@ -5,7 +5,7 @@
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
     <id>fxgqlc</id>
     <title>fxgqlc (Install)</title>
-    <version>2.5.3</version>
+    <version>STUB</version>
     <authors>Fox Innovations / Wim Devos</authors>
     <owners>Fox Innovations / Wim Devos</owners>
     <summary>Analyse your text files with the power of the "Grep Query Language"</summary>
