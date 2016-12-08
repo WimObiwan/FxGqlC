@@ -45,11 +45,11 @@ $packageName = 'fxgqlc' # arbitrary name for the package, used in messages
 #$osBitness = Get-ProcessorBits
 
 # PORTABLE EXAMPLE
-$binRoot = Get-BinRoot
-$installDir = Join-Path $binRoot "$packageName"
-Write-Host "Adding `'$installDir`' to the path and the current shell path"
-Install-ChocolateyPath "$installDir"
-$env:Path = "$($env:Path);$installDir"
+#$binRoot = Get-BinRoot
+#$installDir = Join-Path $binRoot "$packageName"
+#Write-Host "Adding `'$installDir`' to the path and the current shell path"
+#Install-ChocolateyPath "$installDir"
+#$env:Path = "$($env:Path);$installDir"
 
 # if removing $url64, please remove from here
 # despite the name "Install-ChocolateyZipPackage" this also works with 7z archives
