@@ -1,3 +1,6 @@
 *.nupkg
 *.gql
 fxgqlc.nuspec
+Tools/*
+!Tools/chocolateyinstall.ps1
+!Tools/chocolateyuninstall.ps1
