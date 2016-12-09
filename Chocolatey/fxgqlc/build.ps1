@@ -4,21 +4,15 @@ $ErrorActionPreference = 'STOP'
 git clean -xfd .\Tools\
 cp ..\..\FxGql\FxGqlC\bin\Release\* .\Tools
 $fxgqlc = $(.\Tools\FxGqlC.exe)
-$title = $fxgqlc | ?{ $_ -match '^.*\s(v\d+\.\d+\.\w+)\s.*$' } | select -First 1
-$copyright = $fxgqlc | ?{ $_ -match 'copyright' } | select -First 1
-$version = $title -replace '^.*\s(v\d+\.\d+\.\w+)\s.*$', '$1'
 
-if ($version -match '^v\d+\.\d+\.\d+$') {
-    # release
-    Write-Error 'TO BE TESTED FIRST!'
-    $nuget_version = $version
-} elseif ($version -match '^v(\d+\.\d+)\.(\w+)$') {
-    # pre-release
-    $nuget_version = $Matches[1] + '.0-' + $Matches[2]
-} else {
-    # unknown format
-    Write-Error "Version information invalid ($version)"
-}
+$regex = '(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(?:-(?<prerelease>[A-Za-z0-9\-\.]+))?(?:\+(?<build>[A-Za-z0-9\-\.]+))?'
+$regex2 = "^.*\s(v$regex)\s.*$"
+
+$title = $fxgqlc | ?{ $_ -match $regex2 } | select -First 1
+$copyright = $fxgqlc | ?{ $_ -match 'copyright' } | select -First 1
+$version = $title -replace $regex2, '$1'
+
+$nuget_version = $version.TrimStart('v')
 
 Write-Warning "Using version for nuget: $nuget_version"
 

@@ -57,39 +57,52 @@ namespace FxGqlC
 
 		static string GetVersion ()
 		{
-			var info = System.Diagnostics.FileVersionInfo.GetVersionInfo (Assembly.GetExecutingAssembly ().Location);
-			string type;
-			versionType = info.FileBuildPart;
-			switch (versionType) {
-			case 0:
-				type = "alpha";
-				break;
-			case 1:
-				type = "beta";
-				break;
-			case 2:
-				type = "rc";
-				break;
-			case 3:
-				type = (info.FilePrivatePart == 0) ? null : "r";
-				break;
-			default:
-				type = "";
-				break;
-			}
+            //var info = System.Diagnostics.FileVersionInfo.GetVersionInfo (Assembly.GetExecutingAssembly ().Location);
+            //string type;
+            //versionType = info.FileBuildPart;
+            //switch (versionType) {
+            //case 0:
+            //	type = "alpha";
+            //	break;
+            //case 1:
+            //	type = "beta";
+            //	break;
+            //case 2:
+            //	type = "rc";
+            //	break;
+            //case 3:
+            //	type = (info.FilePrivatePart == 0) ? null : "r";
+            //	break;
+            //default:
+            //	type = "";
+            //	break;
+            //}
 
-			string version;
-			if (type != null)
-				version = string.Format ("v{0}.{1}.{2}{3}", info.FileMajorPart, info.FileMinorPart, type, info.FilePrivatePart);
-			else
-				version = string.Format ("v{0}.{1}", info.FileMajorPart, info.FileMinorPart);
+            //string version;
+            //if (type != null)
+            //	version = string.Format ("v{0}.{1}.{2}{3}", info.FileMajorPart, info.FileMinorPart, type, info.FilePrivatePart);
+            //else
+            //	version = string.Format ("v{0}.{1}", info.FileMajorPart, info.FileMinorPart);
 
-			//version += "-" + RetrieveLinkerTimestamp ().ToString ("yyyyMMdd");
+            ////version += "-" + RetrieveLinkerTimestamp ().ToString ("yyyyMMdd");
 
-			return version;
-		}
+            //return version;
 
-		[STAThread]
+            var attr = Attribute
+                .GetCustomAttributes(
+                     Assembly.GetEntryAssembly(),
+                     typeof(AssemblyInformationalVersionAttribute))
+                as AssemblyInformationalVersionAttribute[];
+
+            string version;
+            if (attr.Length > 0)
+                version = attr[0].InformationalVersion;
+            else
+                version = "";
+            return version;
+        }
+
+        [STAThread]
 		public static void Main (string[] args)
 		{
 			// Check for updates
