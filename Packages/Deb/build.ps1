@@ -4,7 +4,7 @@ $ErrorActionPreference = 'STOP'
 git clean -xfd ./fxgqlc
 copy -Recurse -Force ./fxgqlc-orig/ ./fxgqlc
 mkdir -p ./fxgqlc/opt/FxGqlC/
-copy ../FxGql/FxGqlC/bin/Release/* ./fxgqlc/opt/FxGqlC/
+copy ../../FxGql/FxGqlC/bin/Release/* ./fxgqlc/opt/FxGqlC/
 $fxgqlc = $(./fxgqlc/opt/FxGqlC/FxGqlC.exe)
 
 $regex = '(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(?:-(?<prerelease>[A-Za-z0-9\-\.]+))?(?:\+(?<build>[A-Za-z0-9\-\.]+))?'

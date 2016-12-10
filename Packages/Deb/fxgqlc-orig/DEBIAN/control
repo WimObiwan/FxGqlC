@@ -1,6 +1,6 @@
 Package:fxgqlc
 Version:STUB
-Maintainer:Mikael Chudinov <mikael@chudinov.net>
+Maintainer:Fox Innovations / Wim Devos <wim@obiwan.be>
 Architecture:amd64
 Section:net
 Description:Template for Debian packaged Mono application.
