@@ -1,0 +1,7 @@
+Package:fxgqlc
+Version:STUB
+Maintainer:Mikael Chudinov <mikael@chudinov.net>
+Architecture:amd64
+Section:net
+Description:Template for Debian packaged Mono application.
+Depends:mono-complete (>=3)
