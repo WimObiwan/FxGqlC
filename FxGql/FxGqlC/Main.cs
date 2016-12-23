@@ -366,20 +366,24 @@ namespace FxGqlC
 		{
 			Mono.Terminal.LineEditor lineEditor = new Mono.Terminal.LineEditor ("FxGqlC", 50);
 			lineEditor.CtrlOPressed += delegate(object sender, EventArgs args) {
-				//var copy = Console.Error;
-				//Console.SetError (TextWriter.Null);
-				string currentDirectory = gqlEngine.GqlEngineState.CurrentDirectory;
-				string[] files = FxGqlCWin.FileSelector.SelectMultipleFileRead ("Select file(s) for the FROM clause", currentDirectory);
-				//Console.SetError (copy);
-				if (files != null) {
-					StringBuilder sb = new StringBuilder ();
-					foreach (string file in files) {
-						string relativeFile = MakeRelative (currentDirectory, file);
-						if (sb.Length > 0)
-							sb.Append (", ");
-						sb.AppendFormat ("['{0}']", relativeFile);
+				try {
+					//var copy = Console.Error;
+					//Console.SetError (TextWriter.Null);
+					string currentDirectory = gqlEngine.GqlEngineState.CurrentDirectory;
+					string[] files = FxGqlCWin.FileSelector.SelectMultipleFileRead ("Select filename(s) to inject in query string", currentDirectory);
+					//Console.SetError (copy);
+					if (files != null) {
+						StringBuilder sb = new StringBuilder ();
+						foreach (string file in files) {
+							string relativeFile = MakeRelative (currentDirectory, file);
+							if (sb.Length > 0)
+								sb.Append (", ");
+							sb.AppendFormat ("['{0}']", relativeFile);
+						}
+						lineEditor.Type (sb.ToString ());
 					}
-					lineEditor.Type (sb.ToString ());
+				} catch (Exception) {
+					// Ignore exceptions to prevent crash when DLL cannot be found.
 				}
 			};
 
