@@ -28,9 +28,10 @@ using System.Runtime.CompilerServices;
 //   -suffix Optional indication of a pre-release.  alpha, beta, rc, ...
 // Always update both versions!
 
-[assembly: AssemblyVersion ("2.6.0.11")]            // e.g. 2.6.0.17
-[assembly: AssemblyInformationalVersion("v2.6.0")]  // e.g. 2.6.0-beta3
-
+[assembly: AssemblyVersion ("2.7.0.1")]
+// e.g. 2.6.0.17
+[assembly: AssemblyInformationalVersion ("v2.7.0-beta1")]
+// e.g. 2.6.0-beta3
 
 // The following attributes are used to specify the signing key for the assembly,
 // if desired. See the Mono documentation for more information about signing.
