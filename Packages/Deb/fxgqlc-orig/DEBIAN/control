@@ -3,5 +3,5 @@ Version:STUB
 Maintainer:Fox Innovations / Wim Devos <wim@obiwan.be>
 Architecture:amd64
 Section:net
-Description:Template for Debian packaged Mono application.
+Description:FxGqlC is an open source command line tool used to analyze text files with a language that is very similar to SQL.
 Depends:mono-complete (>=3)
